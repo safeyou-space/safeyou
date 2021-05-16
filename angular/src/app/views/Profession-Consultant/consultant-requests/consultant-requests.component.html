@@ -1,0 +1,237 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <span class="pt-1 pb-1">Consultant requests</span>
+      </div>
+      <div class="card-body">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+          <div class="row">
+            <div class="col-sm-12">
+
+              <no-result *ngIf="tableData && tableData['message']"></no-result>
+
+              <table *ngIf="tableData && !tableData['message']" class="table table-bordered table-striped table-sm indexTable" style="border-collapse: collapse !important">
+                <thead>
+                <tr role="row">
+                  <th>First name</th>
+                  <th>Last name</th>
+                  <th style="width: 170px">Phone</th>
+                  <th style="width: 200px">Email</th>
+                  <th>Category</th>
+                  <th>Suggested Category</th>
+                  <th style="width: 250px">Message</th>
+                  <th style="width: 145px;min-width: 145px;">Approve or Decline</th>
+                  <th style="width: 60px">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" class="odd" *ngFor="let data of tableData, let i = index">
+                  <td> {{data?.user?.first_name}}</td>
+                  <td> {{data?.user?.last_name}}</td>
+                  <td> {{data?.user?.phone}}</td>
+                  <td> {{data?.email}}</td>
+                  <td> {{data?.category?.profession}}</td>
+                  <td> {{data?.suggested_category}}</td>
+                  <td> {{data?.message}}</td>
+                  <td>
+                    <div class="switch-toggle switch-3 switch-candy" style="background: transparent" *ngIf="data.status == 0">
+
+                      <input id="on{{i}}" (change)="aproveOrReject(1, data)" name="state-d{{i}}" type="radio" checked="" />
+                      <label for="on{{i}}" class="bg-success" style="background-color: #0b9039!important; padding: 4px 4px;" onclick="">Approve</label>
+
+                      <input id="na{{i}}"  name="state-d{{i}}" type="radio" checked="checked" />
+                      <label for="na{{i}}" class="disabled bg-dark" style="height: 29px;padding: 2px 3px;"><span style="font-size: 23px; display: inline-block;margin-top: -7px;">|</span></label>
+
+                      <input id="off{{i}}" (change)="aproveOrReject(2, data)" name="state-d{{i}}" type="radio" />
+                      <label for="off{{i}}" class="bg-danger" style="background-color: red!important;padding: 4px 6px;" onclick="">Decline</label>
+
+                    </div>
+
+                    <div *ngIf="data.status != 0">
+                      <span *ngIf="data?.status == 1" class="badge badge-success" style="background-color: #0b9039!important; font-size: 14px">Approved</span>
+                      <span *ngIf="data?.status == 2" class="badge badge-danger" style="background-color: red!important; font-size: 14px">Declined</span>
+                    </div>
+
+                  </td>
+
+
+                  <td class="actions">
+                    <a (click)="showModal('view' , data.id)">
+                      <i class="fa fa-eye cursor-pointer"></i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <pagination
+                *ngIf="requestService.paginationConfig.totalItems > requestService.paginationConfig.perPage"
+                [totalItems]="requestService.paginationConfig.totalItems"
+                [maxSize]="requestService.paginationConfig.paginationMaxSize"
+                [itemsPerPage]="requestService.paginationConfig.perPage"
+                (pageChanged)="pageChanged($event)">
+              </pagination>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" [config]="{ ignoreBackdropClick: true }" (onHidden)="onHidden()" class="modal fade"
+     tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog" [ngClass]="requestType === 'delete' ? 'gray modal-sm' : requestType === 'view'  ? 'gray modal-lg' : 'gray modal-lg'">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="requestType != 'delete'">
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'add'">Create Consultant requests</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'view'">View Consultant requests</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'edit'">Edit Consultant requests</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'category'">Create Category and Approve</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="requestType == 'view'">
+        <div class="column-size" *ngIf="viewData">
+          <p><b>Message:</b> {{viewData?.message}}</p>
+          <p><b>Email:</b> {{viewData?.email}}</p>
+          <p><b>Category:</b> {{viewData?.category?.profession}}</p>
+          <p><b>First Name:</b> {{viewData?.user?.first_name}}</p>
+          <p><b>Last Name:</b> {{viewData?.user?.last_name}}</p>
+          <p><b>Nickname:</b> {{viewData?.user?.nickname}}</p>
+          <p><b>Location:</b> {{viewData?.user?.location}}</p>
+          <p><b>Phone:</b> {{viewData?.user?.phone}}</p>
+          <p><b>Marital status:</b> {{viewData?.user?.marital_status}}</p>
+          <p><b>User Status:</b> {{viewData?.user?.status == 1 ? 'Active': 'Inactive'}}</p>
+          <p><b>Status:</b> {{viewData?.status == 1 ? 'Approve' : viewData?.status == 2 ? 'Decline' : 'Pending'}}</p>
+        </div>
+        <button type="button" class="btn btn-secondary float-right mr-2" (click)="hideChildModal()">Close</button>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'add' || requestType == 'edit'">
+        <form [formGroup]="modalForm">
+
+          <div class="row" formGroupName="translations">
+            <div class="col-6" *ngFor="let item of translationsForm.controls, let i = index" [formGroupName]="i">
+              <div class="form-group mb-4">
+                <label for="phone">{{objectKeys(item.value)[0]}} <strong class="text-danger">*</strong></label>
+                <input [formControlName]="objectKeys(item.value)[0]" type="text" class="form-control" id="phone" placeholder="{{objectKeys(item.value)[0]}}">
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-12">
+              <div class="form-group mb-4">
+                <label for="Message">Message <strong class="text-danger">*</strong></label>
+
+                <textarea [formControlName]="'message'" id="Message" placeholder="Message"
+                          class="form-control">
+
+                </textarea>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('message').hasError('required') && (modalForm.get('message').dirty || modalForm.get('message').touched)">
+                  Please enter your message
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('message').hasError('minlength') && (modalForm.get('message').dirty || modalForm.get('message').touched)">
+                  The message minimum 1 symbol.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <p class="mb-2">Status</p>
+            <label class="switch switch-label switch-outline-primary-alt">
+              <input formControlName="status" class="switch-input" type="checkbox" checked="">
+              <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+            </label>
+          </div>
+
+          <button class="btn btn-success float-right" [disabled]="modalForm.invalid"
+                  (click)="formSubmit(modalForm.value)">Save
+          </button>
+          <button type="button" class="btn btn-secondary float-right mr-2" (click)="hideChildModal()">Close</button>
+
+        </form>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'category'">
+        <form [formGroup]="categoryForm">
+
+          <div class="row">
+
+
+
+            <div class="col-12">
+              <p><b>Suggested Category: </b>{{suggestedCategory}}</p>
+              <div class="form-group mb-4">
+                <label for="Profession">Profession(category) <strong class="text-danger">*</strong></label>
+
+                <input [formControlName]="'profession'" id="Profession" placeholder="Profession"
+                       class="form-control">
+                <div class="invalid-message"
+                     *ngIf="categoryForm.get('profession').hasError('required') && (categoryForm.get('profession').dirty || categoryForm.get('profession').touched)">
+                  Please enter your profession
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="categoryForm.get('profession').hasError('minlength') && (categoryForm.get('profession').dirty || categoryForm.get('profession').touched)">
+                  The profession minimum 3 symbol.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row" formGroupName="translations">
+            <div class="col-6" *ngFor="let item of translationsCategoryForm.controls, let i = index" [formGroupName]="i">
+              <div class="form-group mb-4">
+                <label for="phone">
+                  <img style="max-width: 35px;" src="{{languageTranslations[i].image.url}}" alt="">
+                  {{languageTranslations[i].code}} / {{languageTranslations[i].title}}
+                  <strong class="text-danger">*</strong>
+                </label>
+                <textarea [formControlName]="objectKeys(item.value)[0]"
+                          type="text" class="form-control" id="code"
+                          placeholder="{{languageTranslations[i].code}} / {{languageTranslations[i].title}}">
+                </textarea>
+                <div class="invalid-message"
+                     *ngIf="categoryForm.get('translations')['controls'][i].get(objectKeys(item.value)[0]).hasError('required') &&
+                  (categoryForm.get('translations')['controls'][i].get(objectKeys(item.value)[0]).dirty ||
+                  categoryForm.get('translations')['controls'][i].get(objectKeys(item.value)[0]).touched)">
+                  Please enter your {{languageTranslations[i].title}}.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-success float-right" [disabled]="categoryForm.invalid"
+                  (click)="createCategory(categoryForm.value)">Save
+          </button>
+          <button type="button" class="btn btn-secondary float-right mr-2" (click)="childModal.hide()">Close</button>
+
+        </form>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'delete'">
+        <p class="deletetext">Are you sure to delete this item?</p>
+        <div class="deletebutton">
+          <button class="btn btn-danger mr-1" (click)="delete()">Yes</button>
+          <button class="btn btn-primary ml-1" (click)="childModal.hide()">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

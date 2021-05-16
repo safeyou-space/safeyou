@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <span class="pt-1 pb-1">Contents</span>
+      </div>
+      <div class="card-body">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+          <div class="row">
+            <div class="col-sm-12">
+
+              <no-result *ngIf="tableData && tableData['message']"></no-result>
+
+              <div class="row" *ngIf="tableData && !tableData['message']">
+                <div class="col-12 mb-3" style="border-bottom: 1px solid #c8ced3">
+                  <tabset #staticTabs>
+                    <tab *ngFor="let item of tableData">
+                      <ng-template tabHeading>{{item?.title}}</ng-template>
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-6" *ngFor="let trans of item['translations']" >
+                            <h3><img src="{{trans?.language?.image?.url}}" style="max-width: 35px; margin-right: 10px" alt="{{trans?.language?.code}}">{{trans?.language?.code}} / {{trans?.language?.title}}</h3>
+                            <div [innerHTML]="trans.content"></div>
+                          </div>
+                        </div>
+                        <div class="actions mb-3">
+                          <a (click)="openModalWithClass('view', item.id)">
+                            <i class="fa fa-eye cursor-pointer"></i>
+                          </a>
+                          <a (click)="openModalWithClass('edit', item.id)">
+                            <i class="fa fa-pencil cursor-pointer"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </tab>
+                  </tabset>
+                </div>
+              </div>
+
+              <pagination
+                *ngIf="requestService.paginationConfig.totalItems > requestService.paginationConfig.perPage"
+                [totalItems]="requestService.paginationConfig.totalItems"
+                [maxSize]="requestService.paginationConfig.paginationMaxSize"
+                [itemsPerPage]="requestService.paginationConfig.perPage"
+                (pageChanged)="pageChanged($event)">
+              </pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isModalShown" [config]="{show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog" [ngClass]="requestType === 'delete' ? 'gray modal-sm' : requestType === 'view'  ? 'gray my-modal-lg' : 'gray my-modal-lg'">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="requestType != 'delete'">
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'add'">Create Contents</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'view'">View Contents</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'edit'">Edit Contents</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="autoShownModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="requestType == 'add' || requestType == 'edit'">
+        <form [formGroup]="modalForm">
+
+          <div class="form-group mb-4">
+            <label for="title">Title <strong class="text-danger">*</strong></label>
+            <input formControlName="title" class="form-control" id="title" type="text"
+                   placeholder="Enter your title">
+
+            <div class="invalid-message" *ngIf="modalForm.get('title').hasError('required') && (modalForm.get('title').dirty || modalForm.get('title').touched)">
+              Place enter your Title.
+            </div>
+
+            <div class="invalid-message" *ngIf="modalForm.get('title').hasError('minlength') && (modalForm.get('title').dirty || modalForm.get('title').touched)">
+              The Code Title 3 symbol.
+            </div>
+          </div>
+
+          <div class="form-group" formGroupName="content">
+            <tabset #staticTabs>
+              <tab *ngFor="let item of translationsForm.controls, let i = index" [formGroupName]="i">
+                <ng-template tabHeading><img style="max-width: 35px;" src="{{languageTranslations[i].image.url}}" alt=""> {{languageTranslations[i].code}} / {{languageTranslations[i].title}}</ng-template>
+                <div class="form-group">
+                  <ckeditor [config]="requestService.ckEditorConfig" [formControlName]="objectKeys(item.value)[0]"></ckeditor>
+                </div>
+              </tab>
+            </tabset>
+          </div>
+
+
+          <button class="btn btn-success float-right" [disabled]="modalForm.invalid" type="submit" (click)="formSubmit(modalForm.value)">Save</button>
+          <button type="button" class="btn btn-secondary float-right mr-2" (click)="autoShownModal.hide()">Close</button>
+        </form>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'view'">
+        <div *ngIf="viewUsersData">
+          <div>
+            <div class="col-12" *ngFor="let item of viewUsersData">
+              <h3>{{item.title}}</h3>
+              <div class="row">
+                <div class="col-6" *ngFor="let trans of item['translations']">
+                  <h3><img src="{{trans?.language?.image?.url}}" style="max-width: 35px; margin-right: 10px" alt="{{trans?.language?.code}}">{{trans?.language?.code}} / {{trans?.language?.title}}</h3>
+                  <div [innerHTML]="trans.content"></div>
+                </div>
+              </div>
+            </div>
+            <p><b>Status:</b> {{viewUsersData?.status ? 'Active': 'Inactive'}}</p>
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary float-right mr-2" (click)="autoShownModal.hide()">Close</button>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'delete'">
+        <p class="deletetext">Are you sure to delete this item?</p>
+        <div class="text-center">
+          <button class="btn btn-success mr-1" (click)="delete()">Yes</button>
+          <button class="btn btn-danger ml-1" (click)="autoShownModal.hide()">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

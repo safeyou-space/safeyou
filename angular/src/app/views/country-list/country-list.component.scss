@@ -1,0 +1,38 @@
+.bg-image {
+  background: url('../../../assets/pageImages/about_image.png')no-repeat;
+  background-position: top center;
+  background-size: cover;
+  min-height: calc(100vh - 243px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.my-button-style-active {
+  background-color: white;
+  color: #9834b7;
+  border: 1px solid #9834b7;
+  border-radius: 37px;
+  padding: 10px 150px;
+  min-width: 100px;
+  font-size: 28px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+.my-button-style {
+  background-color: #9834b7;
+  border: 1px solid #9834b7;
+  color: white;
+  border-radius: 37px;
+  padding: 10px 150px;
+  min-width: 100px;
+  font-size: 28px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+.my-button-style-active:hover, .my-button-style:hover {
+  background-color: #dea9ef;
+}
+.my-active-button {
+  background-color: #dea9ef;
+}

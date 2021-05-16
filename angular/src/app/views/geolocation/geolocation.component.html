@@ -1,0 +1,54 @@
+<div class="loading" *ngIf="this.loading">
+  <div>
+    <div class="c1"></div>
+    <div class="c2"></div>
+    <div class="c3"></div>
+    <div class="c4"></div>
+  </div>
+  <span>Loading . . .</span>
+</div>
+<div class="wrapper" *ngIf="showPage">
+
+
+  <h2 class="help-me-title" #helpMesssage
+      [ngClass]="this.defaultlanguage === 'hy' ? 'help-me-title-hy' :
+                this.defaultlanguage === 'ge'  ? 'help-me-title-ge' : ''">
+    {{translation.helpMessage.title}}
+  </h2>
+
+  <div class="contact-us-block"
+       [ngClass]="this.defaultlanguage === 'hy' ? 'contact-us-block-hy' :
+                this.defaultlanguage === 'ge'  ? 'contact-us-block-ge' : ''">
+    <div class="contact-us-container">
+      <div class="my-container">
+        <div class="user-info-content">
+          <div class="row">
+            <div class="col-lg-6">
+              <h3 class="user-info-content-h3">{{translation.helpMessage.userInfo}}</h3>
+              <div class="c-avatar custom_avatar">
+                <img class="c-avatar-img" src="{{response?.from_user?.image?.url}}" alt="user image">
+              </div>
+              <div style="justify-content: center;display: grid;">
+                <p>{{response?.from_user?.first_name}} {{response?.from_user?.last_name}}</p>
+                <p>{{translation.helpMessage.phoneNumber}} {{response?.phone}}</p>
+                <p>{{response?.created_at | date: 'MMM d, y h:mm:ss a'}}</p>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <h3>{{translation.helpMessage.message}}</h3>
+              <div class="description" [innerHtml]="response?.message"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="iframe-map-block">
+    <h3 class="help-me-title" style="margin-bottom: 30px; margin-top: 20px">Map</h3>
+    <div #map id="iframe-map"></div>
+  </div>
+
+</div>
+
+<ngx-alerts></ngx-alerts>

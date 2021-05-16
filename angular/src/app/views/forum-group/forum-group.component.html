@@ -1,0 +1,83 @@
+<a *ngIf="this.forumData" style="color: #ac00e2" class="cursor-pointer" (click)="backClicked()">
+  <i class="fa fa-long-arrow-left" aria-hidden="true"></i>&nbsp;Comments
+</a>
+<div class="" style="background-color: #FDFAFE;"  #scrollMe>
+  <div class="content">
+    <div *ngIf="this.forumData" class="container" style="width: 100%">
+      <div>
+        <div  *ngFor="let item of this.forumData.comments">
+          <div>
+            <div class="chat-block Id{{item.id}}" [ngClass]="item.my == true ? 'my_comment' : ''">
+              <i *ngIf="access.indexOf('delete') != -1"
+                 (click)="deleteComment(item.id, item.group_id)" class="fa fa-times float-right cursor-pointer c-red" aria-hidden="true"></i>
+              <div class="chat-response-info">
+                <div class="chat-image">
+                  <img src="{{item.image_path}}" alt="image">
+                </div>
+                <div class="chat-info-block">
+                  <h5 class="user-name">{{item.name}}
+                    <i *ngIf="item.consultant_id !== null" class="fa fa-check consultant_check" aria-hidden="true"></i>
+                  </h5>
+                  <span *ngIf="item.user_type !== 'VISITOR'" class="user-detail">{{item.user_type}}</span>
+                  <p class="user-block-text">{{item.message}}</p>
+                </div>
+              </div>
+            </div>
+            <a *ngIf="access.indexOf('reply') != -1" (click)="replyComment(item, 'target')"
+               class="cursor-pointer reply_button">Reply</a>
+            <div class="chat-setting">
+              <span class="chat-date">{{item.created_at | date: 'MMM d, y h:mm:ss a'}}</span>
+            </div>
+          </div>
+
+          <div *ngFor="let key of item.reply">
+            <div class="chat-response Id{{item.id}}" [ngClass]="key.my == true ? 'my_comment' : ''">
+              <i *ngIf="access.indexOf('delete') != -1"
+                 (click)="deleteComment(key.id, key.group_id)" class="fa fa-times float-right cursor-pointer c-red" aria-hidden="true"></i>
+              <p *ngIf="key.reply_name"><i>Replied to {{key.reply_name}}</i></p>
+              <div class="chat-response-info">
+                <div class="chat-image">
+                  <img src="{{key.image_path}}" alt="image">
+                </div>
+                <div class="chat-info-block">
+                  <h5 class="user-name">{{key.name}}
+                    <i *ngIf="key.consultant_id !== null" class="fa fa-check consultant_check" aria-hidden="true"></i>
+                  </h5>
+                  <span *ngIf="key.user_type !== 'VISITOR'" class="user-detail">{{key.user_type}}</span>
+                  <p class="user-block-text">{{key.message}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="more_data" *ngIf="access.indexOf('reply') != -1">
+              <a (click)="replyComment(key, 'target')"
+                 class="cursor-pointer reply_button">Reply</a>
+              <div class="chat-setting">
+                <span class="chat-date">{{key.created_at | date: 'MMM d, y h:mm:ss a'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <div class="reply_text"
+             *ngIf="this.reply">
+          <i (click)="deleteReply()"  class="fa fa-times float-right cursor-pointer c-red reply_delete" aria-hidden="true"></i>
+
+          <p style="margin-left: 10px;">Answer for: <b>{{this.reply.name}}</b></p>
+          <p class="reply_message">{{this.reply.message}}</p>
+        </div>
+        <div *ngIf="access.indexOf('create') != -1" class="send-message" id="target">
+
+          <form [formGroup]="messageForm">
+            <textarea formControlName="message" id="note" placeholder="Type a comment ..." class="input-message"></textarea>
+            <button [disabled]="messageForm.invalid" type="submit"
+                    (click)="sendMessage(messageForm.value)" class="send-button"  style="border: 0; background: transparent">
+              <img src="/upload/images/InputArrow.png" alt="send">
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
