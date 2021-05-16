@@ -1,0 +1,6 @@
+module Pods_SafeYou {
+  umbrella header "Pods-SafeYou-umbrella.h"
+
+  export *
+  module * { export * }
+}

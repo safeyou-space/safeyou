@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HayRoboto-Regular.ttf">
+            <string>HayRoboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RoundButtonView">
+            <connections>
+                <outlet property="iconImageView" destination="d2T-6Y-cKA" id="nsj-wz-HsG"/>
+                <outlet property="iconImageViewWithTitle" destination="2qB-gP-9GS" id="0PQ-1f-TSC"/>
+                <outlet property="titleLabel" destination="X0l-4f-xEl" id="gfZ-oC-6ZA"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="SYDesignableView">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="network_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2qB-gP-9GS">
+                    <rect key="frame" x="28.5" y="13" width="33" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="33" id="FBb-u4-ybY"/>
+                        <constraint firstAttribute="height" constant="33" id="gYz-Wz-Yil"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NGOs" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="X0l-4f-xEl">
+                    <rect key="frame" x="21.5" y="62" width="47" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="bp6-Hz-WHq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="18"/>
+                    <color key="textColor" red="0.59607843140000005" green="0.20392156859999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bK4-G3-YMU">
+                    <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                    <connections>
+                        <action selector="roundButtonAction:" destination="-1" eventType="touchUpInside" id="VVt-8v-Ia9"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="X0l-4f-xEl" secondAttribute="trailing" constant="10" id="0yh-Nx-TEk"/>
+                <constraint firstItem="bK4-G3-YMU" firstAttribute="leading" secondItem="PYa-aa-X3G" secondAttribute="leading" id="D9e-96-jiH"/>
+                <constraint firstItem="bK4-G3-YMU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GmB-q5-GmD"/>
+                <constraint firstItem="X0l-4f-xEl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2qB-gP-9GS" secondAttribute="bottom" constant="10" id="LuY-It-rAK"/>
+                <constraint firstItem="X0l-4f-xEl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Oy6-Cb-ucF"/>
+                <constraint firstAttribute="bottom" secondItem="X0l-4f-xEl" secondAttribute="bottom" constant="10" id="QY8-r1-cwe"/>
+                <constraint firstItem="2qB-gP-9GS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="RvU-A3-ZRo"/>
+                <constraint firstItem="X0l-4f-xEl" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="YDO-Vb-KWT"/>
+                <constraint firstItem="2qB-gP-9GS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aOb-nd-DN1"/>
+                <constraint firstAttribute="bottom" secondItem="bK4-G3-YMU" secondAttribute="bottom" id="tBs-w3-VFa"/>
+                <constraint firstItem="PYa-aa-X3G" firstAttribute="trailing" secondItem="bK4-G3-YMU" secondAttribute="trailing" id="zHI-aR-W0U"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="PYa-aa-X3G"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="45"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="-255" y="119"/>
+        </view>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="vg2-U2-ver" customClass="SYDesignableView">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="network_icon" translatesAutoresizingMaskIntoConstraints="NO" id="d2T-6Y-cKA" customClass="SYDesignableImageView">
+                    <rect key="frame" x="28.5" y="28.5" width="33" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="33" id="C7Q-rE-5k9"/>
+                        <constraint firstAttribute="width" constant="33" id="nCc-ZB-NMc"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoR-Mi-Awk">
+                    <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                    <connections>
+                        <action selector="roundButtonAction:" destination="-1" eventType="touchUpInside" id="VD3-ob-8vB"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="d2T-6Y-cKA" firstAttribute="centerX" secondItem="vg2-U2-ver" secondAttribute="centerX" id="8Ju-0f-y8z"/>
+                <constraint firstItem="HoR-Mi-Awk" firstAttribute="top" secondItem="vg2-U2-ver" secondAttribute="top" id="VbN-Kz-Pja"/>
+                <constraint firstItem="d2T-6Y-cKA" firstAttribute="centerY" secondItem="vg2-U2-ver" secondAttribute="centerY" id="YWK-K4-a4X"/>
+                <constraint firstItem="HoR-Mi-Awk" firstAttribute="leading" secondItem="x3n-hJ-OVr" secondAttribute="leading" id="bq6-OP-bcQ"/>
+                <constraint firstItem="x3n-hJ-OVr" firstAttribute="trailing" secondItem="HoR-Mi-Awk" secondAttribute="trailing" id="hd0-d8-4QH"/>
+                <constraint firstAttribute="bottom" secondItem="HoR-Mi-Awk" secondAttribute="bottom" id="thQ-la-Igi"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="x3n-hJ-OVr"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="45"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="115.94202898550725" y="118.52678571428571"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="network_icon" width="22" height="22"/>
+    </resources>
+</document>

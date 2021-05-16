@@ -1,0 +1,1 @@
+////  DataModels.h//  SafeYou////  Created by Garnik Simonyan on 9/8/19.//  Copyright © 2019 Garnik Simonyan. All rights reserved.//#import "UserDataModel.h"#import "ImageDataModel.h"#import "EmergencyContactDataModel.h"#import "PivotDataModel.h"#import "RecordDataModel.h"

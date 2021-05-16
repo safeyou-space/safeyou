@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MoreViewTableViewCell" rowHeight="70" id="KGk-i7-Jjw" customClass="MoreViewTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="Lnz-sJ-Qwj">
+                        <rect key="frame" x="293" y="28.5" width="7" height="13"/>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="8UC-gz-AZe">
+                        <rect key="frame" x="20" y="13.5" width="124" height="43.5"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe_icon" translatesAutoresizingMaskIntoConstraints="NO" id="1lC-Qu-ReB" customClass="SYDesignableImageView">
+                                <rect key="frame" x="0.0" y="10.5" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="6OZ-U0-Q6T"/>
+                                    <constraint firstAttribute="height" constant="22" id="neF-x4-awM"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VOg-C0-AwZ">
+                                <rect key="frame" x="36" y="0.0" width="88" height="43.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="App Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1i-gP-IBx" customClass="HyRobotoLabelLight">
+                                        <rect key="frame" x="0.0" y="0.0" width="88" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDR-jr-F7t" customClass="HyRobotoLabelRegular">
+                                        <rect key="frame" x="0.0" y="24" width="52.5" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Lnz-sJ-Qwj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="EhK-FN-na9"/>
+                    <constraint firstItem="8UC-gz-AZe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="d4V-nl-xzR"/>
+                    <constraint firstItem="8UC-gz-AZe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eT1-qg-kdB"/>
+                    <constraint firstAttribute="trailing" secondItem="Lnz-sJ-Qwj" secondAttribute="trailing" constant="20" id="pEr-ti-P2p"/>
+                    <constraint firstItem="Lnz-sJ-Qwj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8UC-gz-AZe" secondAttribute="trailing" constant="20" id="uYj-Bc-bxb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="arrowImageView" destination="Lnz-sJ-Qwj" id="vsc-kG-1lU"/>
+                <outlet property="iconImageView" destination="1lC-Qu-ReB" id="ZEh-vl-VFg"/>
+                <outlet property="mainLabel" destination="bDR-jr-F7t" id="JDZ-2e-NFI"/>
+                <outlet property="secondaryLabel" destination="e1i-gP-IBx" id="kch-3w-XdB"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="136.60714285714286"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="1lC-Qu-ReB">
+            <size key="intrinsicContentSize" width="22" height="22"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="arrow_right" width="7" height="13"/>
+        <image name="globe_icon" width="22" height="22"/>
+    </resources>
+</document>

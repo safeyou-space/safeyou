@@ -1,0 +1,19 @@
+platform :ios, '10.0'
+
+target 'SafeYou' do
+    
+  pod 'AFNetworking', '~> 3.0'
+  pod 'MBProgressHUD'
+  pod 'SDWebImage'    #, '~>3.8'
+  pod 'DZNEmptyDataSet'
+  pod 'GoogleMaps'
+  pod 'Socket.IO-Client-Swift', '~> 15.1.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
+  pod 'TTTAttributedLabel'
+  pod 'UITextView+Placeholder'
+  
+end

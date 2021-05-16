@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MoreViewTableViewSwitchCell" rowHeight="70" id="KGk-i7-Jjw" customClass="MoreViewTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hVL-Ro-Dkw">
+                        <rect key="frame" x="56" y="13.5" width="88" height="43.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="App Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="655-BY-0uC" customClass="HyRobotoLabelLight">
+                                <rect key="frame" x="0.0" y="0.0" width="88" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="b8t-hx-BqG" customClass="HyRobotoLabelRegular">
+                                <rect key="frame" x="0.0" y="24" width="52.5" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe_icon" translatesAutoresizingMaskIntoConstraints="NO" id="g9a-Zm-Evt" customClass="SYDesignableImageView">
+                        <rect key="frame" x="20" y="24" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="6xc-7q-sEz"/>
+                            <constraint firstAttribute="width" constant="22" id="Z31-iZ-yPm"/>
+                        </constraints>
+                    </imageView>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mlX-bY-0ZM" customClass="SYSwitchControl">
+                        <rect key="frame" x="253" y="19.5" width="51" height="31"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="tintColorType">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="onTintColorType">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="onThumbTintColorType">
+                                <integer key="value" value="9"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="offThumbTintColorType">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="tintColorAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="onTintColoAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="onThumbTintColorAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="offThumbTintColorAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="switchControlAction:" destination="KGk-i7-Jjw" eventType="valueChanged" id="uDV-ti-pZj"/>
+                        </connections>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="mlX-bY-0ZM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hVL-Ro-Dkw" secondAttribute="trailing" constant="10" id="Ffb-ck-mj2"/>
+                    <constraint firstItem="hVL-Ro-Dkw" firstAttribute="leading" secondItem="g9a-Zm-Evt" secondAttribute="trailing" constant="14" id="bN8-qM-mKe"/>
+                    <constraint firstAttribute="trailing" secondItem="mlX-bY-0ZM" secondAttribute="trailing" constant="18" id="brX-sm-Ecv"/>
+                    <constraint firstItem="g9a-Zm-Evt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="bxb-rc-Z06"/>
+                    <constraint firstItem="g9a-Zm-Evt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="feB-l7-lCG"/>
+                    <constraint firstItem="hVL-Ro-Dkw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fgy-jt-ggg"/>
+                    <constraint firstItem="mlX-bY-0ZM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="thO-7j-4rg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="iconImageView" destination="g9a-Zm-Evt" id="A22-fY-A3x"/>
+                <outlet property="mainLabel" destination="b8t-hx-BqG" id="huu-gk-fJU"/>
+                <outlet property="secondaryLabel" destination="655-BY-0uC" id="Egx-xr-Clu"/>
+                <outlet property="switchControll" destination="mlX-bY-0ZM" id="3YY-ja-w50"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="138"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="g9a-Zm-Evt">
+            <size key="intrinsicContentSize" width="22" height="22"/>
+        </designable>
+        <designable name="mlX-bY-0ZM">
+            <size key="intrinsicContentSize" width="49" height="31"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="globe_icon" width="22" height="22"/>
+    </resources>
+</document>

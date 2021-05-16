@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="X48-tw-GvH">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Notifications View Controller-->
+        <scene sceneID="L9L-2v-89g">
+            <objects>
+                <viewController id="X48-tw-GvH" customClass="NotificationsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5L1-Mh-sdY" customClass="SYDesignableView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="URC-dS-P57">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationTableViewCell" rowHeight="64" id="59n-1o-fEq" customClass="NotificationTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="59n-1o-fEq" id="5wU-9v-NGM">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vs3-F3-R46" customClass="SYDesignableView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_example" translatesAutoresizingMaskIntoConstraints="NO" id="rI8-qA-c2U" customClass="SYDesignableImageView">
+                                                            <rect key="frame" x="20" y="12" width="40" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="fRR-O4-hOI"/>
+                                                                <constraint firstAttribute="width" constant="40" id="gtu-L4-jJQ"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="20"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Janet Doe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9mz-9U-8dj" customClass="HyRobotoLabelBold">
+                                                            <rect key="frame" x="74" y="17" width="74" height="19.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                                    <integer key="value" value="6"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                                    <integer key="value" value="9"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                                    <real key="value" value="0.0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Replied to Your Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="PHc-Ql-Xfp" customClass="HyRobotoLabelRegular">
+                                                            <rect key="frame" x="158" y="18.5" width="164.5" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                                    <integer key="value" value="6"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                                    <integer key="value" value="9"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                                    <real key="value" value="0.0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23 Minutes Ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7n-aq-M0T" customClass="HyRobotoLabelLight">
+                                                            <rect key="frame" x="77" y="40.5" width="89" height="15"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                                    <integer key="value" value="2"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                                    <integer key="value" value="9"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                                    <real key="value" value="0.0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="s7n-aq-M0T" firstAttribute="leading" secondItem="rI8-qA-c2U" secondAttribute="trailing" constant="17" id="E8X-ME-GOR"/>
+                                                        <constraint firstItem="9mz-9U-8dj" firstAttribute="leading" secondItem="rI8-qA-c2U" secondAttribute="trailing" constant="14" id="MCV-6e-wXz"/>
+                                                        <constraint firstItem="9mz-9U-8dj" firstAttribute="top" secondItem="vs3-F3-R46" secondAttribute="top" constant="17" id="YW1-iY-iv9"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="s7n-aq-M0T" secondAttribute="trailing" constant="20" id="a2o-8Z-3jG"/>
+                                                        <constraint firstItem="PHc-Ql-Xfp" firstAttribute="leading" secondItem="9mz-9U-8dj" secondAttribute="trailing" constant="10" id="cBE-VR-166"/>
+                                                        <constraint firstItem="rI8-qA-c2U" firstAttribute="leading" secondItem="vs3-F3-R46" secondAttribute="leading" constant="20" id="lSU-hJ-qyA"/>
+                                                        <constraint firstItem="s7n-aq-M0T" firstAttribute="top" secondItem="9mz-9U-8dj" secondAttribute="bottom" constant="4" id="mwn-a5-dTu"/>
+                                                        <constraint firstItem="rI8-qA-c2U" firstAttribute="centerY" secondItem="vs3-F3-R46" secondAttribute="centerY" id="o9v-ib-O02"/>
+                                                        <constraint firstItem="PHc-Ql-Xfp" firstAttribute="centerY" secondItem="9mz-9U-8dj" secondAttribute="centerY" id="rDn-Ca-7D3"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PHc-Ql-Xfp" secondAttribute="trailing" constant="10" id="rZy-mw-toV"/>
+                                                        <constraint firstItem="rI8-qA-c2U" firstAttribute="leading" secondItem="vs3-F3-R46" secondAttribute="leading" constant="20" id="uh6-7b-gHt"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                            <integer key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="vs3-F3-R46" secondAttribute="trailing" id="eFV-24-gyS"/>
+                                                <constraint firstItem="vs3-F3-R46" firstAttribute="leading" secondItem="5wU-9v-NGM" secondAttribute="leading" id="hdf-u5-ymd"/>
+                                                <constraint firstAttribute="bottom" secondItem="vs3-F3-R46" secondAttribute="bottom" id="otm-lN-f2N"/>
+                                                <constraint firstItem="vs3-F3-R46" firstAttribute="top" secondItem="5wU-9v-NGM" secondAttribute="top" id="raZ-BN-oVl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="avatarImageView" destination="rI8-qA-c2U" id="Rsw-UO-3x3"/>
+                                            <outlet property="designableContentView" destination="vs3-F3-R46" id="dxI-KS-EB6"/>
+                                            <outlet property="userActionLabel" destination="PHc-Ql-Xfp" id="KGm-w2-H91"/>
+                                            <outlet property="userDateLabel" destination="s7n-aq-M0T" id="xNe-86-GCG"/>
+                                            <outlet property="userNameLabel" destination="9mz-9U-8dj" id="lzo-Zu-Z3h"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="X48-tw-GvH" id="p4Q-hD-P7i"/>
+                                    <outlet property="delegate" destination="X48-tw-GvH" id="WfG-Q4-4an"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="URC-dS-P57" firstAttribute="leading" secondItem="zON-Qk-CVJ" secondAttribute="leading" id="Ce1-qj-NFg"/>
+                            <constraint firstItem="zON-Qk-CVJ" firstAttribute="bottom" secondItem="URC-dS-P57" secondAttribute="bottom" id="f8B-oU-Zfc"/>
+                            <constraint firstItem="URC-dS-P57" firstAttribute="top" secondItem="zON-Qk-CVJ" secondAttribute="top" id="lcl-at-Sek"/>
+                            <constraint firstItem="zON-Qk-CVJ" firstAttribute="trailing" secondItem="URC-dS-P57" secondAttribute="trailing" id="qAn-fs-7sC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zON-Qk-CVJ"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="URC-dS-P57" id="iBM-eU-nys"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g4X-sZ-TJU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-120.28985507246378" y="79.6875"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="avatar_example" width="375" height="376"/>
+    </resources>
+</document>

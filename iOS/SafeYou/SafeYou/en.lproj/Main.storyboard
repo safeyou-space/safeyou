@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ya1-cs-g0S">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HayRoboto-Regular.ttf">
+            <string>HayRoboto-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="UUH-0S-yGh">
+            <objects>
+                <navigationController storyboardIdentifier="MainNavigationBar" id="ya1-cs-g0S" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="N1h-8B-wBq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="7lF-va-lMO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tyP-2F-efb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-152" y="-40"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Gwh-gJ-424">
+            <objects>
+                <navigationController storyboardIdentifier="WelcomeNavigationController" id="Qsc-bc-tIO" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9o6-XW-hjv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OM2-vo-eoW" kind="relationship" relationship="rootViewController" id="slo-MZ-Wdx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="41b-1k-HlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1222" y="-327"/>
+        </scene>
+        <!--Welcome View Controller-->
+        <scene sceneID="Jam-rX-1hR">
+            <objects>
+                <viewController storyboardIdentifier="WelcomeViewController" id="OM2-vo-eoW" customClass="WelcomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cw8-v3-A84">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" placeholderIntrinsicWidth="252" placeholderIntrinsicHeight="312" image="welcome_view_image" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-II-OXv">
+                                <rect key="frame" x="65" y="0.0" width="190" height="235"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="BdP-II-OXv" secondAttribute="height" multiplier="21:26" id="z6x-OV-9Dj"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5H-Br-yUb" customClass="SYDesignableButton">
+                                <rect key="frame" x="20" y="323" width="280" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3kZ-9f-QRA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="LOGIN"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginButtonAction:" destination="OM2-vo-eoW" eventType="touchUpInside" id="DNW-Uu-rif"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkb-EG-Ix8" customClass="SYDesignableLabel">
+                                <rect key="frame" x="74.5" y="483" width="171.5" height="28"/>
+                                <string key="text">By continuing, you agree to our 
+Terms &amp; Conditions</string>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2r-03-KE8" customClass="SYDesignableButton">
+                                <rect key="frame" x="20" y="429" width="280" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="WdO-qS-IxH"/>
+                                </constraints>
+                                <state key="normal" title="SIGN UP"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="signUpButtonAction:" destination="OM2-vo-eoW" eventType="touchUpInside" id="0hl-Qz-2bm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pRH-w7-LkM"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="M2r-03-KE8" firstAttribute="top" secondItem="w5H-Br-yUb" secondAttribute="bottom" constant="56" id="0Uy-Tf-37Z"/>
+                            <constraint firstItem="gkb-EG-Ix8" firstAttribute="centerX" secondItem="cw8-v3-A84" secondAttribute="centerX" id="9z5-Eo-dgh"/>
+                            <constraint firstItem="w5H-Br-yUb" firstAttribute="leading" secondItem="pRH-w7-LkM" secondAttribute="leading" constant="20" id="LPE-Km-gX5"/>
+                            <constraint firstItem="pRH-w7-LkM" firstAttribute="trailing" secondItem="w5H-Br-yUb" secondAttribute="trailing" constant="20" id="P4V-hQ-xhl"/>
+                            <constraint firstItem="pRH-w7-LkM" firstAttribute="trailing" secondItem="M2r-03-KE8" secondAttribute="trailing" constant="20" id="XYL-Ch-Bcz"/>
+                            <constraint firstItem="BdP-II-OXv" firstAttribute="centerX" secondItem="cw8-v3-A84" secondAttribute="centerX" id="Yy0-k1-RUO"/>
+                            <constraint firstItem="gkb-EG-Ix8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pRH-w7-LkM" secondAttribute="leading" constant="50" id="ac1-cl-YfK"/>
+                            <constraint firstItem="BdP-II-OXv" firstAttribute="top" secondItem="pRH-w7-LkM" secondAttribute="top" id="ist-TR-Beq"/>
+                            <constraint firstItem="w5H-Br-yUb" firstAttribute="top" secondItem="BdP-II-OXv" secondAttribute="bottom" constant="88" id="lh4-Wh-m5X"/>
+                            <constraint firstItem="gkb-EG-Ix8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="M2r-03-KE8" secondAttribute="bottom" constant="24" id="neA-kV-w3X"/>
+                            <constraint firstItem="pRH-w7-LkM" firstAttribute="bottom" secondItem="gkb-EG-Ix8" secondAttribute="bottom" constant="13" id="q2i-97-SJT"/>
+                            <constraint firstItem="pRH-w7-LkM" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gkb-EG-Ix8" secondAttribute="trailing" constant="50" id="vX1-Wd-yvD"/>
+                            <constraint firstItem="M2r-03-KE8" firstAttribute="leading" secondItem="pRH-w7-LkM" secondAttribute="leading" constant="20" id="xJ5-ff-qsY"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="y13-R2-2Ug"/>
+                    <connections>
+                        <outlet property="loginButton" destination="w5H-Br-yUb" id="39v-zj-ats"/>
+                        <outlet property="signUpButton" destination="M2r-03-KE8" id="rlv-y1-b2k"/>
+                        <outlet property="termsAndConditionsLabel" destination="gkb-EG-Ix8" id="mKf-9K-qjo"/>
+                        <segue destination="OUQ-ma-DPw" kind="show" identifier="showSigninViewFromWelcomeView" id="h7o-Un-AQx"/>
+                        <segue destination="Hro-Zc-7zp" kind="show" identifier="showRegiastrationViewFromWelcomeView" id="MG8-qO-3lk"/>
+                        <segue destination="iH2-pV-tu5" kind="presentation" identifier="showTermsAndConditionsView" id="tyf-51-FfV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P30-HU-8ne" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2924" y="24"/>
+        </scene>
+        <!--SignInViewController-->
+        <scene sceneID="sV9-18-nti">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Authentication" referencedIdentifier="SignInViewController" id="OUQ-ma-DPw" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Ley-7N-eFA"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4PX-va-Odf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4234" y="-263"/>
+        </scene>
+        <!--RegistrationViewController-->
+        <scene sceneID="oaS-8N-rJz">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Authentication" referencedIdentifier="RegistrationViewController" id="Hro-Zc-7zp" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="37C-Sn-vTF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vw5-b8-3t1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4234" y="50"/>
+        </scene>
+        <!-- -->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="ChooseLanguageVC" title=" " id="BYZ-38-t0r" customClass="ChooseLanguageVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="language_bg" translatesAutoresizingMaskIntoConstraints="NO" id="NeS-ma-BKP">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gl6-gW-6r6">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dy3-M2-Iis" customClass="SYCorneredButton">
+                                        <rect key="frame" x="97" y="249" width="126" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="hl2-Jb-5Xj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="16"/>
+                                        <inset key="contentEdgeInsets" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
+                                        <state key="normal" title="Հայերեն">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="armenianLanguageButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QwY-Wz-gT6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OmN-Ix-cly" customClass="SYCorneredButton">
+                                        <rect key="frame" x="97" y="314" width="126" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="e6M-RO-NNB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="16"/>
+                                        <inset key="contentEdgeInsets" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
+                                        <state key="normal" title="English">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="englishLanguageButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ian-Qw-fGT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OmN-Ix-cly" secondAttribute="trailing" constant="20" id="3s2-XP-lf4"/>
+                                    <constraint firstItem="OmN-Ix-cly" firstAttribute="centerX" secondItem="gl6-gW-6r6" secondAttribute="centerX" id="Ehu-WY-yiO"/>
+                                    <constraint firstItem="dy3-M2-Iis" firstAttribute="centerX" secondItem="gl6-gW-6r6" secondAttribute="centerX" id="S05-rK-YE3"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dy3-M2-Iis" secondAttribute="trailing" constant="20" id="VTj-nt-cjJ"/>
+                                    <constraint firstItem="OmN-Ix-cly" firstAttribute="top" secondItem="dy3-M2-Iis" secondAttribute="bottom" constant="15" id="XhW-Vh-9sO"/>
+                                    <constraint firstItem="OmN-Ix-cly" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gl6-gW-6r6" secondAttribute="leading" constant="20" id="c1T-6A-ssy"/>
+                                    <constraint firstItem="dy3-M2-Iis" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gl6-gW-6r6" secondAttribute="leading" constant="20" id="hPs-Ba-MHB"/>
+                                    <constraint firstItem="dy3-M2-Iis" firstAttribute="width" secondItem="OmN-Ix-cly" secondAttribute="width" id="tft-Sl-DpV"/>
+                                    <constraint firstAttribute="bottom" secondItem="OmN-Ix-cly" secondAttribute="bottom" constant="160" id="vwF-Ii-TKx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gl6-gW-6r6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8ig-o5-cw1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gl6-gW-6r6" secondAttribute="trailing" id="9hF-qG-XAp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gl6-gW-6r6" secondAttribute="bottom" id="MjU-Qd-Ap3"/>
+                            <constraint firstItem="gl6-gW-6r6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="a1t-Nj-FCa"/>
+                            <constraint firstItem="NeS-ma-BKP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dpe-Ic-b4m"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NeS-ma-BKP" secondAttribute="trailing" id="l60-of-orO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NeS-ma-BKP" secondAttribute="bottom" id="zXY-XH-MT9"/>
+                            <constraint firstItem="NeS-ma-BKP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zfE-YG-lpt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="cxV-Dy-izi"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="armenianLanguageButton" destination="dy3-M2-Iis" id="hjV-c5-8b4"/>
+                        <outlet property="englishLanguageButton" destination="OmN-Ix-cly" id="cqK-Dw-dzw"/>
+                        <segue destination="gHO-K6-cdb" kind="show" identifier="showIntroductionView" id="Lkx-Ef-ohm"/>
+                        <segue destination="p40-30-Vgg" kind="show" identifier="showSignInView" id="deq-rp-5Fr"/>
+                        <segue destination="OM2-vo-eoW" kind="show" identifier="showWelcomeView" id="ecg-JB-t1i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-152" y="719"/>
+        </scene>
+        <!--Introduction View Controller-->
+        <scene sceneID="y4u-92-30k">
+            <objects>
+                <viewController storyboardIdentifier="IntroductionViewController" id="gHO-K6-cdb" customClass="IntroductionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uaP-yL-ZbM" customClass="SYDesignableView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_background" translatesAutoresizingMaskIntoConstraints="NO" id="dZ5-xd-Pfi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLi-3J-JWE" customClass="SYDesignableView">
+                                <rect key="frame" x="20" y="40" width="280" height="464"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NOO-YG-nuH" customClass="SYDesignableButton">
+                                        <rect key="frame" x="30" y="404" width="220" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="IP0-uK-0tN"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <state key="normal" title="Next" image="button_forward"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                <integer key="value" value="9"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="nextButtonAction:" destination="gHO-K6-cdb" eventType="touchUpInside" id="Lic-gd-aXr"/>
+                                        </connections>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="14j-SX-A0N">
+                                        <rect key="frame" x="56" y="0.0" width="168" height="98"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ante odio." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="sJ7-kw-sCj" customClass="HyRobotoLabelRegular">
+                                        <rect key="frame" x="10" y="128" width="260" height="48.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="lEv-eb-MWZ">
+                                        <rect key="frame" x="0.0" y="196.5" width="280" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cuB-8C-9c6" customClass="SYDesignableButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="132.5" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="VDX-GJ-kmW"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <state key="normal" title="DUAL PIN" image="dual_pin_help_icon"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                        <integer key="value" value="9"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="introButtonPressed:" destination="gHO-K6-cdb" eventType="touchUpInside" id="Mbt-uu-Pkb"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bu-Kf-p07" customClass="SYDesignableButton">
+                                                <rect key="frame" x="147.5" y="0.0" width="132.5" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="Qcg-Jm-7pN"/>
+                                                </constraints>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <state key="normal" title="SUPPORT" image="support_icon_intro"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                        <integer key="value" value="9"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="introButtonPressed:" destination="gHO-K6-cdb" eventType="touchUpInside" id="0ez-4l-rpp"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="kog-fv-UMH">
+                                        <rect key="frame" x="0.0" y="324.5" width="280" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kgx-Iz-B9Y" customClass="SYDesignableButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="132.5" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="Brt-Ty-CbG"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <state key="normal" title="FORUMS" image="forum_icon_intro"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                        <integer key="value" value="9"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="introButtonPressed:" destination="gHO-K6-cdb" eventType="touchUpInside" id="AaM-aX-kpq"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QtM-8G-hVJ" customClass="SYDesignableButton">
+                                                <rect key="frame" x="147.5" y="0.0" width="132.5" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="xWP-VQ-hbU"/>
+                                                </constraints>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <state key="normal" title="NETWORK" image="network_icon_intro"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                        <integer key="value" value="9"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="introButtonPressed:" destination="gHO-K6-cdb" eventType="touchUpInside" id="SxH-5p-J0y"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T19-Fi-YC7" customClass="SYDesignableButton">
+                                        <rect key="frame" x="52" y="260.5" width="176" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="5po-yW-A9b"/>
+                                            <constraint firstAttribute="width" constant="176" id="sVI-c2-NuU"/>
+                                        </constraints>
+                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                                        <state key="normal" title="HELP" image="help_icon_intro_en"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                <integer key="value" value="9"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="helpButtonPressed:" destination="gHO-K6-cdb" eventType="touchUpInside" id="2y0-ly-ekZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="lEv-eb-MWZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="sJ7-kw-sCj" secondAttribute="bottom" constant="20" id="0H5-ik-sLR"/>
+                                    <constraint firstItem="NOO-YG-nuH" firstAttribute="top" secondItem="Kgx-Iz-B9Y" secondAttribute="bottom" constant="29.5" id="1HO-oo-0bC"/>
+                                    <constraint firstItem="kog-fv-UMH" firstAttribute="leading" secondItem="lLi-3J-JWE" secondAttribute="leading" id="1pf-Q0-cFw"/>
+                                    <constraint firstAttribute="bottom" secondItem="NOO-YG-nuH" secondAttribute="bottom" constant="30" id="2q8-M0-m4n"/>
+                                    <constraint firstItem="kog-fv-UMH" firstAttribute="top" secondItem="T19-Fi-YC7" secondAttribute="bottom" constant="14" id="2tN-nC-5sR"/>
+                                    <constraint firstItem="14j-SX-A0N" firstAttribute="centerX" secondItem="lLi-3J-JWE" secondAttribute="centerX" id="DtN-Wi-UIT"/>
+                                    <constraint firstAttribute="trailing" secondItem="sJ7-kw-sCj" secondAttribute="trailing" constant="10" id="GAi-s4-BTg"/>
+                                    <constraint firstAttribute="trailing" secondItem="lEv-eb-MWZ" secondAttribute="trailing" id="Lj5-Qp-mIl"/>
+                                    <constraint firstItem="NOO-YG-nuH" firstAttribute="leading" secondItem="lLi-3J-JWE" secondAttribute="leading" constant="30" id="R4G-5W-bWq"/>
+                                    <constraint firstItem="lEv-eb-MWZ" firstAttribute="leading" secondItem="lLi-3J-JWE" secondAttribute="leading" id="Xkv-c3-sKP"/>
+                                    <constraint firstItem="sJ7-kw-sCj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="14j-SX-A0N" secondAttribute="bottom" constant="30" id="bdc-Zd-ArK"/>
+                                    <constraint firstAttribute="trailing" secondItem="kog-fv-UMH" secondAttribute="trailing" id="bgz-4q-DFq"/>
+                                    <constraint firstItem="T19-Fi-YC7" firstAttribute="top" secondItem="lEv-eb-MWZ" secondAttribute="bottom" constant="14" id="dT0-nP-pLL"/>
+                                    <constraint firstItem="14j-SX-A0N" firstAttribute="top" secondItem="lLi-3J-JWE" secondAttribute="top" id="lJO-w1-N10"/>
+                                    <constraint firstItem="T19-Fi-YC7" firstAttribute="centerX" secondItem="lLi-3J-JWE" secondAttribute="centerX" id="oX2-1V-rbC"/>
+                                    <constraint firstAttribute="trailing" secondItem="NOO-YG-nuH" secondAttribute="trailing" constant="30" id="r3Y-cQ-ip0"/>
+                                    <constraint firstItem="sJ7-kw-sCj" firstAttribute="leading" secondItem="lLi-3J-JWE" secondAttribute="leading" constant="10" id="sbB-wW-Ar7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="88e-wO-KnL"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="88e-wO-KnL" firstAttribute="bottom" secondItem="lLi-3J-JWE" secondAttribute="bottom" constant="20" id="9YO-AQ-3Y5"/>
+                            <constraint firstItem="dZ5-xd-Pfi" firstAttribute="leading" secondItem="88e-wO-KnL" secondAttribute="leading" id="Hea-lc-PSn"/>
+                            <constraint firstItem="88e-wO-KnL" firstAttribute="trailing" secondItem="lLi-3J-JWE" secondAttribute="trailing" constant="20" id="K45-op-dg1"/>
+                            <constraint firstItem="lLi-3J-JWE" firstAttribute="top" secondItem="88e-wO-KnL" secondAttribute="top" constant="40" id="Tvy-UJ-Wea"/>
+                            <constraint firstItem="88e-wO-KnL" firstAttribute="bottom" secondItem="dZ5-xd-Pfi" secondAttribute="bottom" id="fCa-q2-3tE"/>
+                            <constraint firstItem="lLi-3J-JWE" firstAttribute="leading" secondItem="88e-wO-KnL" secondAttribute="leading" constant="20" id="p8Y-o2-yhh"/>
+                            <constraint firstItem="88e-wO-KnL" firstAttribute="trailing" secondItem="dZ5-xd-Pfi" secondAttribute="trailing" id="rSg-yu-tuU"/>
+                            <constraint firstItem="dZ5-xd-Pfi" firstAttribute="top" secondItem="88e-wO-KnL" secondAttribute="top" id="uoA-PU-4Jt"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <navigationItem key="navigationItem" id="obK-qL-Ep9">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="M0c-we-FCz">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="nextButtonPressed:" destination="gHO-K6-cdb" id="Wnc-B3-ngs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="contentView" destination="lLi-3J-JWE" id="BVE-dN-Tkb"/>
+                        <outlet property="descriptionLabel" destination="sJ7-kw-sCj" id="VUc-ON-nSO"/>
+                        <outlet property="dualPinButton" destination="cuB-8C-9c6" id="CpZ-kM-hMm"/>
+                        <outlet property="forumsButton" destination="Kgx-Iz-B9Y" id="JWY-gB-csF"/>
+                        <outlet property="helpButton" destination="T19-Fi-YC7" id="kdA-j2-UWs"/>
+                        <outlet property="nextBarButtonItem" destination="M0c-we-FCz" id="eDG-vT-XOW"/>
+                        <outlet property="nextButton" destination="NOO-YG-nuH" id="Mm6-hS-RUi"/>
+                        <outlet property="ngosButton" destination="QtM-8G-hVJ" id="qjb-68-IPj"/>
+                        <outlet property="supportButton" destination="8bu-Kf-p07" id="4nD-ua-6iG"/>
+                        <outletCollection property="introButtonsCollection" destination="cuB-8C-9c6" id="gp7-cY-Gc1"/>
+                        <outletCollection property="introButtonsCollection" destination="8bu-Kf-p07" id="jkt-rx-LPd"/>
+                        <outletCollection property="introButtonsCollection" destination="Kgx-Iz-B9Y" id="HBr-6w-7hz"/>
+                        <outletCollection property="introButtonsCollection" destination="QtM-8G-hVJ" id="MUV-93-Dik"/>
+                        <segue destination="OM2-vo-eoW" kind="show" identifier="showWelcomeView" id="fgj-9O-hSD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ktV-NU-iEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1381.5999999999999" y="845.1274362818591"/>
+        </scene>
+        <!--SignInViewController-->
+        <scene sceneID="C5T-a1-KGf">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Authentication" referencedIdentifier="SignInViewController" id="p40-30-Vgg" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="onj-Rk-xbG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1501" y="1555"/>
+        </scene>
+        <!--WebContentNavigationController-->
+        <scene sceneID="AoG-g1-CeT">
+            <objects>
+                <viewControllerPlaceholder storyboardName="WebContent" referencedIdentifier="WebContentNavigationController" id="iH2-pV-tu5" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="XXR-7o-S40"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hrZ-9O-rmj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4115" y="-459"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="8bu-Kf-p07">
+            <size key="intrinsicContentSize" width="134" height="22"/>
+        </designable>
+        <designable name="Kgx-Iz-B9Y">
+            <size key="intrinsicContentSize" width="126" height="22"/>
+        </designable>
+        <designable name="M2r-03-KE8">
+            <size key="intrinsicContentSize" width="60" height="30"/>
+        </designable>
+        <designable name="NOO-YG-nuH">
+            <size key="intrinsicContentSize" width="61" height="22"/>
+        </designable>
+        <designable name="OmN-Ix-cly">
+            <size key="intrinsicContentSize" width="112" height="19"/>
+        </designable>
+        <designable name="QtM-8G-hVJ">
+            <size key="intrinsicContentSize" width="139" height="22"/>
+        </designable>
+        <designable name="T19-Fi-YC7">
+            <size key="intrinsicContentSize" width="106" height="32"/>
+        </designable>
+        <designable name="cuB-8C-9c6">
+            <size key="intrinsicContentSize" width="145" height="35"/>
+        </designable>
+        <designable name="dy3-M2-Iis">
+            <size key="intrinsicContentSize" width="126" height="19"/>
+        </designable>
+        <designable name="w5H-Br-yUb">
+            <size key="intrinsicContentSize" width="52" height="32"/>
+        </designable>
+    </designables>
+    <inferredMetricsTieBreakers>
+        <segue reference="ecg-JB-t1i"/>
+    </inferredMetricsTieBreakers>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+    <resources>
+        <image name="button_forward" width="13" height="12.5"/>
+        <image name="dual_pin_help_icon" width="35" height="35"/>
+        <image name="forum_icon_intro" width="22" height="22"/>
+        <image name="help_icon_intro_en" width="32" height="32"/>
+        <image name="language_bg" width="375" height="667"/>
+        <image name="logo" width="168" height="98"/>
+        <image name="main_background" width="375" height="667"/>
+        <image name="network_icon_intro" width="22" height="22"/>
+        <image name="support_icon_intro" width="22" height="22"/>
+        <image name="welcome_view_image" width="252" height="312"/>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

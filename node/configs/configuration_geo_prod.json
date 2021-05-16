@@ -1,0 +1,237 @@
+{
+  "APP.NAME": "SafeYOU_V4",
+  "APP.HOST": "127.0.0.1",
+  "APP.PORT": 8081,
+  "APP.DEBUG": true,
+  "SOCKET_HOST_FOR_TEST": "https://127.0.0.1:8081",
+  "SQL_PARAMS.DEFAULT_FORUM_IMG_TYPE": 7,
+  "SQL_PARAMS.DATE_FORMAT": "ll",
+  "APP_LANGUAGES.LANG_ID": {
+    "en": 1,
+    "ka": 2
+  },
+  "APP_FIREBASE.DB_URL": "https://*************.firebaseio.com",
+  "SQL_PARAMS.SERVICES_TYPES": {
+    "0": {
+      "name": "Super Admin",
+      "default_avatar_type": 2
+    },
+    "1": {
+      "name": "Administrator",
+      "default_avatar_type": 2
+    },
+    "2": {
+      "name": "Moderator",
+      "default_avatar_type": 3
+    },
+    "3": {
+      "name": "Emergency",
+      "default_avatar_type": 3
+    },
+    "4": {
+      "name": "Consultant",
+      "default_avatar_type": 3
+    },
+    "5": {
+      "name": "VISITOR",
+      "default_avatar_type": 1
+    }
+  },
+  "ROLES.COMMENTS_DELETING": [
+    0,
+    1,
+    2
+  ],
+  "DB.HOST": "127.0.0.1",
+  "DB.PORT": 3306,
+  "DB.DATABASE": "*************",
+  "DB.USERNAME": "*************",
+  "DB.PASSWORD": "*************",
+  "REDIS.HOST": "127.0.0.1",
+  "REDIS.PORT": 6381,
+  "REDIS.EXPIRE": 864000,
+  "APP.API_KEY": "********************************",
+  "APP.ROUTES_AUTH": [
+    {
+      "username": "*************",
+      "password": "*************"
+    }
+  ],
+  "APP.ROUTES": [
+    {
+      "method": "get",
+      "uri": "/",
+      "controllerFileName": "web_readme",
+      "controllerMethodName": "test",
+      "auth": false
+    },
+    {
+      "method": "get",
+      "uri": "/forum/readme",
+      "controllerFileName": "web_readme",
+      "controllerMethodName": "index",
+      "auth": false
+    },
+    {
+      "method": "get",
+      "uri": "/api/forum/:forum_id/:secret_key",
+      "controllerFileName": "refresh_api",
+      "controllerMethodName": "send_forum_notification",
+      "auth": false
+    },
+    {
+      "method": "get",
+      "uri": "/api/forum/:forum_id/refresh/:is_create/:secret_key",
+      "controllerFileName": "refresh_api",
+      "controllerMethodName": "refresh_forums",
+      "auth": false
+    },
+    {
+      "method": "get",
+      "uri": "/api/profession/:profession_id/refresh/:secret_key",
+      "controllerFileName": "refresh_api",
+      "controllerMethodName": "refresh_profession",
+      "auth": false
+    },
+    {
+      "method": "get",
+      "uri": "/api/category/:category_id/refresh/:secret_key",
+      "controllerFileName": "refresh_api",
+      "controllerMethodName": "refresh_category",
+      "auth": false
+    },
+    {
+      "method": "get",
+      "uri": "/api/profile/:user_id/refresh/:secret_key",
+      "controllerFileName": "refresh_api",
+      "controllerMethodName": "refresh_profile",
+      "auth": false
+    }
+  ],
+  "APP.EVENTS": {
+    "profile_info": {
+      "type": "recvfrom",
+      "name": "#PROFILE_INFO",
+      "resultName": "#PROFILE_INFO#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "profile_info"
+    },
+    "get_all_forums": {
+      "type": "recvfrom",
+      "name": "#GET_ALL_FORUMS",
+      "resultName": "#GET_ALL_FORUMS#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "get_all_forums"
+    },
+    "more_info": {
+      "type": "recvfrom",
+      "name": "#FORUM_MORE_INFO",
+      "resultName": "#FORUM_MORE_INFO#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "more_info"
+    },
+    "add_new_comment": {
+      "type": "recvfrom",
+      "name": "#ADD_NEW_COMMENT",
+      "resultName": "#ADD_NEW_COMMENT#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "add_new_comment"
+    },
+    "new_profession": {
+      "type": "sendto",
+      "name": "#NEW_PROFESSION#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "new_profession"
+    },
+    "new_category": {
+      "type": "sendto",
+      "name": "#NEW_CATEGORY#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "new_category"
+    },
+    "get_new_comments_count": {
+      "type": "recvfrom",
+      "name": "#GET_NEW_COMMENTS_COUNT",
+      "resultName": "#GET_NEW_COMMENTS_COUNT#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "get_new_comments_count"
+    },
+    "notification": {
+      "type": "recvfrom",
+      "name": "#NOTIFICATION",
+      "resultName": "#NOTIFICATION#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "notification"
+    },
+    "read_notification": {
+      "type": "recvfrom",
+      "name": "#READ_NOTIFICATION",
+      "resultName": "#NOTIFICATION#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "read_notification"
+    },
+    "get_total_new_comments_count": {
+      "type": "recvfrom",
+      "name": "#GET_TOTAL_NEW_COMMENTS_COUNT",
+      "resultName": "#GET_TOTAL_NEW_COMMENTS_COUNT#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "get_total_new_comments_count"
+    },
+    "delete_comment": {
+      "type": "recvfrom",
+      "name": "#DELETE_COMMENT",
+      "resultName": "#DELETE_COMMENT#RESULT",
+      "eventFileName": "forum_events",
+      "eventMethodName": "delete_comment"
+    }
+  },
+  "APP.MESSAGES_LABELS": {
+    "server_error": "Server error.",
+    "database_query_error": "Query execution error.",
+    "forum_is_not_found": "Forum is not found!",
+    "field_is_not_found": "Field \"{FIELD_NAME}\" is not found.",
+    "you_are_not_logged_on_to_the_forum": "You are not logged on to the forum. Please open any forum.",
+    "field_is_not_valid": "Field \"{FIELD_NAME}\" is not valid.",
+    "profile_success_edited": "Your profile is successfully edited.",
+    "is_successfully_refreshed": "{NAME} is successfully refreshed.",
+    "you_dont_have_permissions": "You don't have permissions.",
+    "user_is_not_found": "This User is not found.",
+    "notify_successfully_updated": "Notify successfully updated.",
+    "message_notifications": {
+      "text_arm": "Ծանուցում",
+      "text_geo": "ახალი შეტყობინება",
+      "text_en": "New notification",
+      "title_arm": "Ծանուցում",
+      "title_geo": "ახალი შეტყობინება",
+      "title_en": "New notification"
+    },
+    "forum_notifications": {
+      "text_arm": "Ծանուցում",
+      "text_geo": "ახალი შეტყობინება",
+      "text_en": "New notification",
+      "title_arm": "Ծանուցում",
+      "title_geo": "ახალი შეტყობინება",
+      "title_en": "New notification"
+    },
+    "forum_push_notification": {
+      "body": {
+        "1": "New notification",
+        "2": "Ծանուցում"
+      },
+      "title": {
+        "1": "New notification",
+        "2": "Ծանուցում"
+      }
+    },
+    "reply_push_notification": {
+      "body": {
+        "1": "New notification",
+        "2": "Ծանուցում"
+      },
+      "title": {
+        "1": "New notification",
+        "2": "Ծանուցում"
+      }
+    }
+  }
+}

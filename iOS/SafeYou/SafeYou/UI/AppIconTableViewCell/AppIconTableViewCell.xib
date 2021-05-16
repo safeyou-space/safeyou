@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AppIconTableViewCell" rowHeight="70" id="KGk-i7-Jjw" customClass="AppIconTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1O-kh-aMs" customClass="SYDesignableView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="IdG-dx-48n">
+                                <rect key="frame" x="55" y="15" width="175" height="40"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconAlternate1.png" translatesAutoresizingMaskIntoConstraints="NO" id="tLL-Iy-wJl" customClass="SYDesignableImageView">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="8eL-a2-VUY"/>
+                                            <constraint firstAttribute="width" constant="40" id="K2a-4X-oVH"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="11"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altername Icon 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gD1-eR-PDU" customClass="HyRobotoLabelRegular">
+                                        <rect key="frame" x="54" y="0.0" width="121" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="tLL-Iy-wJl" firstAttribute="leading" secondItem="IdG-dx-48n" secondAttribute="leading" id="Hwp-Tu-P0j"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TxR-9D-CRM" customClass="SYRadioButton">
+                                <rect key="frame" x="276" y="23" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="C0f-D3-Uj1"/>
+                                    <constraint firstAttribute="width" constant="24" id="wir-uj-DHd"/>
+                                </constraints>
+                                <state key="normal" image="radion_button_purple_empty"/>
+                                <state key="selected" image="radio_button_selected"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fPY-jI-eqg"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="IdG-dx-48n" firstAttribute="leading" secondItem="W1O-kh-aMs" secondAttribute="leading" constant="55" id="K7q-vo-vdI"/>
+                            <constraint firstItem="IdG-dx-48n" firstAttribute="centerY" secondItem="W1O-kh-aMs" secondAttribute="centerY" id="jtd-3b-Lg2"/>
+                            <constraint firstItem="TxR-9D-CRM" firstAttribute="centerY" secondItem="W1O-kh-aMs" secondAttribute="centerY" id="kgf-P9-FsD"/>
+                            <constraint firstAttribute="trailing" secondItem="TxR-9D-CRM" secondAttribute="trailing" constant="20" id="sa7-nH-hNs"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="W1O-kh-aMs" secondAttribute="bottom" id="8hN-ba-lqm"/>
+                    <constraint firstItem="W1O-kh-aMs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="H9V-c4-bmf"/>
+                    <constraint firstAttribute="trailing" secondItem="W1O-kh-aMs" secondAttribute="trailing" id="hkT-OY-gdM"/>
+                    <constraint firstItem="W1O-kh-aMs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tiX-Af-731"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="iconImageView" destination="tLL-Iy-wJl" id="HE3-aT-hcQ"/>
+                <outlet property="radioButton" destination="TxR-9D-CRM" id="6fF-5g-I3t"/>
+                <outlet property="titleLabel" destination="gD1-eR-PDU" id="rML-3O-9h8"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="46"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="TxR-9D-CRM">
+            <size key="intrinsicContentSize" width="25" height="25"/>
+        </designable>
+        <designable name="tLL-Iy-wJl">
+            <size key="intrinsicContentSize" width="60" height="60"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="AppIconAlternate1.png" width="60" height="60"/>
+        <image name="radio_button_selected" width="25" height="25"/>
+        <image name="radion_button_purple_empty" width="25" height="25"/>
+    </resources>
+</document>

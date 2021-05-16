@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GVe-3x-V8G">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Terms View Controller-->
+        <scene sceneID="uc9-go-Gga">
+            <objects>
+                <viewController storyboardIdentifier="TermsViewController" id="Xfq-Ro-hen" customClass="TermsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Gm7-7t-YkO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="maU-KG-Tm7">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="maU-KG-Tm7" firstAttribute="leading" secondItem="PfA-cu-9IX" secondAttribute="leading" id="6DL-d7-8fa"/>
+                            <constraint firstItem="maU-KG-Tm7" firstAttribute="top" secondItem="PfA-cu-9IX" secondAttribute="top" id="DMK-22-yDv"/>
+                            <constraint firstItem="PfA-cu-9IX" firstAttribute="trailing" secondItem="maU-KG-Tm7" secondAttribute="trailing" id="OaW-c0-Hx5"/>
+                            <constraint firstItem="PfA-cu-9IX" firstAttribute="bottom" secondItem="maU-KG-Tm7" secondAttribute="bottom" id="lza-vV-7Ux"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PfA-cu-9IX"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rOB-yq-ocI">
+                        <barButtonItem key="rightBarButtonItem" title="Agree" id="7da-YJ-0Kx" customClass="SYDesignableBarButtonItem">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="tintColorType">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="agreeButtonPressed:" destination="Xfq-Ro-hen" id="1oe-wN-94z"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webKitView" destination="maU-KG-Tm7" id="SFM-Ww-5Qw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9BQ-2h-LMM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="336" y="137"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oWm-dE-oZ4">
+            <objects>
+                <navigationController storyboardIdentifier="WebContentNavigationController" id="GVe-3x-V8G" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AdS-dy-8n6">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Xfq-Ro-hen" kind="relationship" relationship="rootViewController" id="5qZ-X1-0Pm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BLN-dk-aRp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-723" y="137"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+</document>

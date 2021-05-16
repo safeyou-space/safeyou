@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Iv-B4-hs0">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="Ozg-va-2YX">
+            <objects>
+                <viewController id="E9a-Sz-wLr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Beo-T0-5WL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelRegular" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wcf-72-D6R" customClass="HyRobotoLabelRegular">
+                                <rect key="frame" x="119" y="126" width="176" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="O8D-kp-s2z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelNormal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VhE-4C-1Uw" customClass="HyRobotoLabelNormal">
+                                <rect key="frame" x="120" y="168" width="174" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Cbh-So-Zwg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelBold" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1kk-8P-ItT" customClass="HyRobotoLabelBold">
+                                <rect key="frame" x="130.5" y="211" width="153" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="IyZ-if-zXU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelBoldItalic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lc1-zl-uar" customClass="HyRobotoLabelBoldItalic">
+                                <rect key="frame" x="113" y="254" width="188" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="rxb-2n-hTq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelItalic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euz-Xe-UmG" customClass="HyRobotoLabelItalic">
+                                <rect key="frame" x="130" y="297" width="154" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="hNl-y6-KHa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelBlack" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36E-6b-yHP" customClass="HyRobotoLabelBlack">
+                                <rect key="frame" x="127" y="340" width="160" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Wab-Jf-b5c"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelBlackItalic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfp-ga-fGd" customClass="HyRobotoLabelBlackItalic">
+                                <rect key="frame" x="109" y="383" width="196" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="bA3-4q-Anr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelThin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wR2-Jb-w3B" customClass="HyRobotoLabelThin">
+                                <rect key="frame" x="131" y="431" width="152" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="b8d-qT-XU5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelThinItalic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwe-B7-JRo" customClass="HyRobotoLabelThinItalic">
+                                <rect key="frame" x="113.5" y="474" width="187" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="XVe-ar-2Mn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelLight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNn-gn-fVI" customClass="HyRobotoLabelLight">
+                                <rect key="frame" x="128.5" y="517" width="157" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="AAu-8r-YfG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelLightItalic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kab-NK-KG4" customClass="HyRobotoLabelLightItalic">
+                                <rect key="frame" x="111" y="557" width="192" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="M08-Lk-WFi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelMediumItalic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vX1-k0-tif" customClass="HyRobotoLabelMediumItalic">
+                                <rect key="frame" x="99" y="603" width="216" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="RbX-ab-s1q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HyRobotoLabelMedium" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1p-TV-EN1" customClass="HyRobotoLabelMedium">
+                                <rect key="frame" x="117" y="655" width="180" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="u3A-Pe-rbN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="X1p-TV-EN1" secondAttribute="trailing" constant="10" id="0uy-FN-gtt"/>
+                            <constraint firstItem="wR2-Jb-w3B" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="2In-o6-I9e"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wR2-Jb-w3B" secondAttribute="trailing" constant="10" id="33V-nB-eIZ"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="36E-6b-yHP" secondAttribute="trailing" constant="10" id="4GN-wi-TgL"/>
+                            <constraint firstItem="VhE-4C-1Uw" firstAttribute="top" secondItem="Wcf-72-D6R" secondAttribute="bottom" constant="7" id="7h3-uW-PKy"/>
+                            <constraint firstItem="Lc1-zl-uar" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="7mF-VF-FNL"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gfp-ga-fGd" secondAttribute="trailing" constant="10" id="7zP-zE-V9B"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1kk-8P-ItT" secondAttribute="trailing" constant="10" id="8qN-Br-5q1"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vX1-k0-tif" secondAttribute="trailing" constant="10" id="9U5-kO-bFU"/>
+                            <constraint firstItem="X1p-TV-EN1" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="A0q-bf-GXG"/>
+                            <constraint firstItem="X1p-TV-EN1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="BFd-kj-Ozj"/>
+                            <constraint firstItem="1kk-8P-ItT" firstAttribute="top" secondItem="VhE-4C-1Uw" secondAttribute="bottom" constant="8" id="BS2-U7-HSU"/>
+                            <constraint firstItem="vX1-k0-tif" firstAttribute="top" secondItem="kab-NK-KG4" secondAttribute="bottom" constant="11" id="Dij-yu-4JE"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fNn-gn-fVI" secondAttribute="trailing" constant="10" id="DnS-1x-Shv"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="euz-Xe-UmG" secondAttribute="trailing" constant="10" id="EEI-ql-YKm"/>
+                            <constraint firstItem="kab-NK-KG4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="FPb-xJ-l9U"/>
+                            <constraint firstItem="VhE-4C-1Uw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="GAm-ho-JZH"/>
+                            <constraint firstItem="fNn-gn-fVI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="Ga0-Vr-khT"/>
+                            <constraint firstItem="gfp-ga-fGd" firstAttribute="top" secondItem="36E-6b-yHP" secondAttribute="bottom" constant="8" id="GeQ-bM-LAL"/>
+                            <constraint firstItem="X1p-TV-EN1" firstAttribute="top" secondItem="vX1-k0-tif" secondAttribute="bottom" constant="17" id="H4C-5r-NcC"/>
+                            <constraint firstItem="euz-Xe-UmG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="I5c-JW-jbe"/>
+                            <constraint firstItem="vX1-k0-tif" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="KiQ-Kd-M70"/>
+                            <constraint firstItem="vX1-k0-tif" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="Ot2-xD-aWE"/>
+                            <constraint firstItem="wR2-Jb-w3B" firstAttribute="top" secondItem="gfp-ga-fGd" secondAttribute="bottom" constant="13" id="OvM-q8-z52"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Wcf-72-D6R" secondAttribute="trailing" constant="10" id="QLV-cA-MvM"/>
+                            <constraint firstItem="nwe-B7-JRo" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="R4k-mJ-pnO"/>
+                            <constraint firstItem="VhE-4C-1Uw" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="SWj-dr-q6u"/>
+                            <constraint firstItem="36E-6b-yHP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="SXa-Ky-Sh5"/>
+                            <constraint firstItem="euz-Xe-UmG" firstAttribute="top" secondItem="Lc1-zl-uar" secondAttribute="bottom" constant="8" id="Utq-ci-tLz"/>
+                            <constraint firstItem="kab-NK-KG4" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="XtA-TS-k9d"/>
+                            <constraint firstItem="kab-NK-KG4" firstAttribute="top" secondItem="fNn-gn-fVI" secondAttribute="bottom" constant="5" id="YI4-LH-PXg"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Lc1-zl-uar" secondAttribute="trailing" constant="10" id="YxF-dN-INj"/>
+                            <constraint firstItem="nwe-B7-JRo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="eFt-tE-Ib4"/>
+                            <constraint firstItem="euz-Xe-UmG" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="f2Q-7s-qDd"/>
+                            <constraint firstItem="Lc1-zl-uar" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="fi6-ef-fOf"/>
+                            <constraint firstItem="Wcf-72-D6R" firstAttribute="top" secondItem="WBu-EB-YKq" secondAttribute="top" constant="82" id="fw5-Ei-N37"/>
+                            <constraint firstItem="36E-6b-yHP" firstAttribute="top" secondItem="euz-Xe-UmG" secondAttribute="bottom" constant="8" id="fxR-Wo-bpq"/>
+                            <constraint firstItem="gfp-ga-fGd" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="hg3-kJ-9kO"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VhE-4C-1Uw" secondAttribute="trailing" constant="10" id="icT-q7-uYs"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kab-NK-KG4" secondAttribute="trailing" constant="10" id="jgN-bs-IUx"/>
+                            <constraint firstItem="Wcf-72-D6R" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="jv2-d9-rVY"/>
+                            <constraint firstItem="WBu-EB-YKq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nwe-B7-JRo" secondAttribute="trailing" constant="10" id="kzg-bo-3fv"/>
+                            <constraint firstItem="1kk-8P-ItT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="ohg-8a-o0X"/>
+                            <constraint firstItem="36E-6b-yHP" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="pdk-Y7-Fcl"/>
+                            <constraint firstItem="Lc1-zl-uar" firstAttribute="top" secondItem="1kk-8P-ItT" secondAttribute="bottom" constant="8" id="rKp-lQ-lQY"/>
+                            <constraint firstItem="Wcf-72-D6R" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="uNP-rd-zbU"/>
+                            <constraint firstItem="fNn-gn-fVI" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="uUM-Eg-sY6"/>
+                            <constraint firstItem="gfp-ga-fGd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WBu-EB-YKq" secondAttribute="leading" constant="10" id="ueN-9j-GyV"/>
+                            <constraint firstItem="1kk-8P-ItT" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="w17-Y9-ZX5"/>
+                            <constraint firstItem="nwe-B7-JRo" firstAttribute="top" secondItem="wR2-Jb-w3B" secondAttribute="bottom" constant="8" id="wJs-kZ-wxh"/>
+                            <constraint firstItem="wR2-Jb-w3B" firstAttribute="centerX" secondItem="Beo-T0-5WL" secondAttribute="centerX" id="xxN-Ua-QF3"/>
+                            <constraint firstItem="fNn-gn-fVI" firstAttribute="top" secondItem="nwe-B7-JRo" secondAttribute="bottom" constant="8" id="zd3-e7-9bj"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="WBu-EB-YKq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J22-IP-Hxq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="128.98550724637681" y="43.526785714285715"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="sJN-JI-RCM">
+            <objects>
+                <viewController id="8Iv-B4-hs0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hyh-yp-bpT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blh-6H-LVB">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ռեգուլյար" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTH-zZ-kXL" customClass="HyRobotoLabelRegular">
+                                        <rect key="frame" x="158.5" y="82" width="97" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="7a4-HJ-x83"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Նորմալ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yh8-CX-nkw" customClass="HyRobotoLabelNormal">
+                                        <rect key="frame" x="172" y="124" width="70.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="zwU-Pm-9Gq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Բոլդ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIl-ma-yLg" customClass="HyRobotoLabelBold">
+                                        <rect key="frame" x="185.5" y="167" width="43.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="aZc-61-9Ka"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Բոլդ իտալիկ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zjt-vj-nhd" customClass="HyRobotoLabelBoldItalic">
+                                        <rect key="frame" x="147" y="210" width="120" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="8k0-Rn-3jl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Իտալիկ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21Y-8d-epS" customClass="HyRobotoLabelItalic">
+                                        <rect key="frame" x="170" y="253" width="74" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="SHk-IY-PYR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Բլեք" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8E-cg-8bd" customClass="HyRobotoLabelBlack">
+                                        <rect key="frame" x="186.5" y="296" width="41.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="hMd-sj-r5U"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Բլեք Իտալիկ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hsd-T3-mQ1" customClass="HyRobotoLabelBlackItalic">
+                                        <rect key="frame" x="147.5" y="339" width="119.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="irv-8x-Nve"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Թին" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-4G-WcT" customClass="HyRobotoLabelThin">
+                                        <rect key="frame" x="188" y="387" width="38.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="FTY-Wo-Pdl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Թին Իտալիկ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ti-WC-TfH" customClass="HyRobotoLabelThinItalic">
+                                        <rect key="frame" x="148.5" y="430" width="117" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="uv8-C1-LDD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Լայթ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGy-iX-yL1" customClass="HyRobotoLabelLight">
+                                        <rect key="frame" x="185.5" y="473" width="43" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="CZD-Hv-iwH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Լայթ իտալիկ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RkH-Vb-WlT" customClass="HyRobotoLabelLightItalic">
+                                        <rect key="frame" x="147.5" y="513" width="119.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="BJJ-Ki-Tim"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Մեդիում իտալիկ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCS-PE-1Tq" customClass="HyRobotoLabelMediumItalic">
+                                        <rect key="frame" x="128.5" y="559" width="157" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="6tL-3X-D5G"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Մեդիում " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UsJ-mx-dES" customClass="HyRobotoLabelMedium">
+                                        <rect key="frame" x="165" y="611" width="84.5" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="Kfn-yu-ZRf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="w8E-cg-8bd" firstAttribute="top" secondItem="21Y-8d-epS" secondAttribute="bottom" constant="8" id="1G1-pc-2jS"/>
+                                    <constraint firstItem="Zjt-vj-nhd" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="2NL-pG-4Rp"/>
+                                    <constraint firstItem="RkH-Vb-WlT" firstAttribute="top" secondItem="aGy-iX-yL1" secondAttribute="bottom" constant="5" id="2eO-m0-JQo"/>
+                                    <constraint firstItem="hCS-PE-1Tq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="48X-15-MJ1"/>
+                                    <constraint firstItem="WIl-ma-yLg" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="4yE-jQ-FhY"/>
+                                    <constraint firstItem="UsJ-mx-dES" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="57e-qk-1hw"/>
+                                    <constraint firstItem="Hsd-T3-mQ1" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="5Z9-Dt-RzI"/>
+                                    <constraint firstItem="RkH-Vb-WlT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="5xg-wO-rhK"/>
+                                    <constraint firstItem="hCS-PE-1Tq" firstAttribute="top" secondItem="RkH-Vb-WlT" secondAttribute="bottom" constant="11" id="AEf-AL-lRE"/>
+                                    <constraint firstItem="4ti-WC-TfH" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="ATr-18-H4f"/>
+                                    <constraint firstItem="Zjt-vj-nhd" firstAttribute="top" secondItem="WIl-ma-yLg" secondAttribute="bottom" constant="8" id="BMV-NQ-wF6"/>
+                                    <constraint firstItem="UsJ-mx-dES" firstAttribute="top" secondItem="hCS-PE-1Tq" secondAttribute="bottom" constant="17" id="C1c-XT-Nbb"/>
+                                    <constraint firstItem="aGy-iX-yL1" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="Co1-cf-Rsz"/>
+                                    <constraint firstItem="yh8-CX-nkw" firstAttribute="top" secondItem="eTH-zZ-kXL" secondAttribute="bottom" constant="7" id="DCK-rb-CzS"/>
+                                    <constraint firstItem="eTH-zZ-kXL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="Dp0-tb-6UL"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WIl-ma-yLg" secondAttribute="trailing" constant="10" id="F4S-KW-TFD"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aGy-iX-yL1" secondAttribute="trailing" constant="10" id="G6f-FC-Qo7"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RkH-Vb-WlT" secondAttribute="trailing" constant="10" id="GxC-px-gMF"/>
+                                    <constraint firstItem="21Y-8d-epS" firstAttribute="top" secondItem="Zjt-vj-nhd" secondAttribute="bottom" constant="8" id="HWl-eB-SAV"/>
+                                    <constraint firstItem="eTH-zZ-kXL" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="Kio-Zq-iqw"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yh8-CX-nkw" secondAttribute="trailing" constant="10" id="PgF-9R-zma"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eTH-zZ-kXL" secondAttribute="trailing" constant="10" id="Qls-AP-H5Y"/>
+                                    <constraint firstItem="WIl-ma-yLg" firstAttribute="top" secondItem="yh8-CX-nkw" secondAttribute="bottom" constant="8" id="SvR-Ny-9Ft"/>
+                                    <constraint firstItem="4ti-WC-TfH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="UCt-7x-x7O"/>
+                                    <constraint firstItem="yh8-CX-nkw" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="WUV-rI-QIL"/>
+                                    <constraint firstItem="Hsd-T3-mQ1" firstAttribute="top" secondItem="w8E-cg-8bd" secondAttribute="bottom" constant="8" id="Xut-NU-bK4"/>
+                                    <constraint firstItem="Zjt-vj-nhd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="Y2N-ZR-iy5"/>
+                                    <constraint firstItem="21Y-8d-epS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="ZZT-d0-5sL"/>
+                                    <constraint firstItem="Maz-4G-WcT" firstAttribute="top" secondItem="Hsd-T3-mQ1" secondAttribute="bottom" constant="13" id="cqM-p8-0Gi"/>
+                                    <constraint firstItem="UsJ-mx-dES" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="dqm-ZA-ha5"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UsJ-mx-dES" secondAttribute="trailing" constant="10" id="goU-Ip-dJs"/>
+                                    <constraint firstItem="4ti-WC-TfH" firstAttribute="top" secondItem="Maz-4G-WcT" secondAttribute="bottom" constant="8" id="hI8-gx-ro9"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w8E-cg-8bd" secondAttribute="trailing" constant="10" id="hwi-NI-sak"/>
+                                    <constraint firstItem="WIl-ma-yLg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="i3z-3v-y3P"/>
+                                    <constraint firstItem="aGy-iX-yL1" firstAttribute="top" secondItem="4ti-WC-TfH" secondAttribute="bottom" constant="8" id="isL-EQ-xgS"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="21Y-8d-epS" secondAttribute="trailing" constant="10" id="jxg-dK-QKj"/>
+                                    <constraint firstItem="eTH-zZ-kXL" firstAttribute="top" secondItem="HN9-8k-Apo" secondAttribute="top" constant="82" id="kPc-Gx-Ziu"/>
+                                    <constraint firstItem="Maz-4G-WcT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="lu2-ye-NYI"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4ti-WC-TfH" secondAttribute="trailing" constant="10" id="mRl-gy-JjE"/>
+                                    <constraint firstItem="21Y-8d-epS" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="nyT-ZE-Yh8"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Maz-4G-WcT" secondAttribute="trailing" constant="10" id="o6f-50-oAL"/>
+                                    <constraint firstItem="RkH-Vb-WlT" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="pbj-pb-u5H"/>
+                                    <constraint firstItem="w8E-cg-8bd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="poO-qn-0Kr"/>
+                                    <constraint firstItem="hCS-PE-1Tq" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="q9N-tS-tXo"/>
+                                    <constraint firstItem="aGy-iX-yL1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="uvF-fM-0Nr"/>
+                                    <constraint firstItem="Maz-4G-WcT" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="uxF-FS-EXO"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Hsd-T3-mQ1" secondAttribute="trailing" constant="10" id="vw1-SV-7gd"/>
+                                    <constraint firstItem="yh8-CX-nkw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="w8O-ON-hui"/>
+                                    <constraint firstItem="Hsd-T3-mQ1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HN9-8k-Apo" secondAttribute="leading" constant="10" id="xWw-fD-gCe"/>
+                                    <constraint firstItem="w8E-cg-8bd" firstAttribute="centerX" secondItem="blh-6H-LVB" secondAttribute="centerX" id="xdS-cT-n83"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hCS-PE-1Tq" secondAttribute="trailing" constant="10" id="zB5-Yj-GkY"/>
+                                    <constraint firstItem="HN9-8k-Apo" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Zjt-vj-nhd" secondAttribute="trailing" constant="10" id="zeq-0A-nab"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="HN9-8k-Apo"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="blh-6H-LVB" firstAttribute="top" secondItem="UMv-Mp-VJU" secondAttribute="top" id="R1C-Q4-wos"/>
+                            <constraint firstAttribute="trailing" secondItem="blh-6H-LVB" secondAttribute="trailing" id="dJw-iD-jKE"/>
+                            <constraint firstItem="blh-6H-LVB" firstAttribute="leading" secondItem="UMv-Mp-VJU" secondAttribute="leading" id="gVP-gq-bPR"/>
+                            <constraint firstAttribute="bottom" secondItem="blh-6H-LVB" secondAttribute="bottom" id="qUV-vp-q38"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="UMv-Mp-VJU"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T0i-p7-j8c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="912" y="44"/>
+        </scene>
+    </scenes>
+</document>

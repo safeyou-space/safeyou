@@ -1,0 +1,500 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SafeYOU_V4</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <br>
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h6>SafeYOU_V4##PROFILE_INFO</h6>
+                <form>
+                    <button type="button" class="form-control btn btn-primary" id="PROFILE_INFO_BTN">GET PROFILE_INFO</button>
+                </form>
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="PROFILE_INFO_RESULT">SafeYOU_V4##PROFILE_INFO#RESULT <span
+                            id="PROFILE_INFO_RESULT_C">0</span></label>
+                    <textarea rows="10" id="PROFILE_INFO_RESULT" class="form-control"
+                        aria-describedby="PROFILE_INFO_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                http://host:3000/api/profession/:profession_id/refresh/:secret_key
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="NEW_PROFESSION_RESULT">SafeYOU_V4##NEW_PROFESSION#RESULT <span
+                            id="NEW_PROFESSION_RESULT_C">0</span></label>
+                    <textarea rows="10" id="NEW_PROFESSION_RESULT" class="form-control"
+                        aria-describedby="NEW_PROFESSION_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                http://host:3000/api/category/:category_id/refresh/:secret_key
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="NEW_CATEGORY_RESULT">SafeYOU_V4##NEW_CATEGORY#RESULT <span
+                            id="NEW_CATEGORY_RESULT_C">0</span></label>
+                    <textarea rows="10" id="NEW_CATEGORY_RESULT" class="form-control"
+                        aria-describedby="NEW_CATEGORY_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h6>SafeYOU_V4##READ_NOTIFICATION</h6>
+                <form>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">key</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="READ_NOTIFICATION_KEY" value="user_5_5_77">
+                        </div>
+                    </div>
+                    <button type="button" class="form-control btn btn-primary" id="READ_NOTIFICATION_BTN">READ NOTIFICATION</button>
+                </form>
+                <hr>
+                <h6>SafeYOU_V4##NOTIFICATION</h6>
+                <form>
+                    <button type="button" class="form-control btn btn-primary" id="NOTIFICATION_BTN">GET NOTIFICATION</button>
+                </form>
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="NOTIFICATION_RESULT">SafeYOU_V4##NOTIFICATION#RESULT <span
+                            id="NOTIFICATION_RESULT_C">0</span></label>
+                    <textarea rows="10" id="NOTIFICATION_RESULT" class="form-control"
+                        aria-describedby="NOTIFICATION_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h6>SafeYOU_V4##GET_ALL_FORUMS</h6>
+                <form>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">language_code
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="GET_ALL_FORUMS_LCODE"
+                                value="en">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">datetime </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="GET_ALL_FORUMS_DATE"
+                                value="1590060984">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">forums_rows
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="GET_ALL_FORUMS_CROWS"
+                                value="10">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">forums_page
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="GET_ALL_FORUMS_CPAGE" value="0">
+                        </div>
+                    </div>
+                    <button type="button" class="form-control btn btn-primary" id="GET_ALL_FORUMS_BTN">GET ALL
+                        FORUMS</button>
+                </form>
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="GET_ALL_FORUMS_RESULT">SafeYOU_V4##GET_ALL_FORUMS#RESULT <span
+                            id="GET_ALL_FORUMS_RESULT_C">0</span></label>
+                    <textarea rows="10" id="GET_ALL_FORUMS_RESULT" class="form-control"
+                        aria-describedby="GET_ALL_FORUMS_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h6>SafeYOU_V4##FORUM_MORE_INFO</h6>
+                <form>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">language_code
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="FORUM_MORE_INFO_LCODE"
+                                value="en">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">forum_id </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="FORUM_MORE_INFO_FORUM_ID"
+                                value="1">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">comments_rows
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="FORUM_MORE_INFO_CROWS"
+                                value="10">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">comments_page
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="FORUM_MORE_INFO_CPAGE"
+                                value="0">
+                        </div>
+                    </div>
+                    <button type="button" class="form-control btn btn-primary" id="FORUM_MORE_INFO_BTN">GET FORUM BY
+                        ID</button>
+                </form>
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="FORUM_MORE_INFO_RESULT">SafeYOU_V4##FORUM_MORE_INFO#RESULT <span
+                            id="FORUM_MORE_INFO_RESULT_C">0</span></label>
+                    <textarea rows="10" id="FORUM_MORE_INFO_RESULT" class="form-control"
+                        aria-describedby="FORUM_MORE_INFO_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h6>SafeYOU_V4##ADD_NEW_COMMENT</h6>
+                <form>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">language_code
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="ADD_NEW_COMMENT_LCODE"
+                                value="en">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">forum_id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="ADD_NEW_COMMENT_FORUM_ID"
+                                value="1">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">reply_id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="ADD_NEW_COMMENT_REPLY_ID"
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">reply_user_id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="ADD_NEW_COMMENT_REPLY_USER_ID"
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">level</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="ADD_NEW_COMMENT_LEVEL"
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">group_id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="ADD_NEW_COMMENT_GROUP_ID"
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">messages</label>
+                        <div class="col-sm-10">
+                            <textarea id="ADD_NEW_COMMENT_MESSAGES" cols="30" rows="10"
+                                class="form-control form-control-sm">Hello World!</textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="form-control btn btn-primary" id="ADD_NEW_COMMENT_BTN">ADD NEW
+                        COMMENT</button>
+                </form>
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="ADD_NEW_COMMENT_RESULT">SafeYOU_V4##ADD_NEW_COMMENT#RESULT <span
+                            id="ADD_NEW_COMMENT_RESULT_C">0</span></label>
+                    <textarea rows="10" id="ADD_NEW_COMMENT_RESULT" class="form-control"
+                        aria-describedby="ADD_NEW_COMMENT_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h6>SafeYOU_V4##GET_NEW_COMMENTS_COUNT</h6>
+                <form>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">forum_id
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="GET_NEW_COMMENTS_COUNT_FID"
+                                value="1">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">datetime
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="datetime" class="form-control form-control-sm" id="GET_NEW_COMMENTS_COUNT_DATE" value="1590060984">
+                        </div>
+                    </div>
+                    <button type="button" class="form-control btn btn-primary" id="GET_NEW_COMMENTS_COUNT_BTN">GET_NEW_COMMENTS_COUNT</button>
+                </form>
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="GET_NEW_COMMENTS_COUNT_RESULT">SafeYOU_V4##GET_NEW_COMMENTS_COUNT#RESULT <span
+                            id="GET_NEW_COMMENTS_COUNT_RESULT_C">0</span></label>
+                    <textarea rows="10" id="GET_NEW_COMMENTS_COUNT_RESULT" class="form-control"
+                        aria-describedby="GET_NEW_COMMENTS_COUNT_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h6>SafeYOU_V4##GET_TOTAL_NEW_COMMENTS_COUNT</h6>
+                <form>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">datetime
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="datetime" class="form-control form-control-sm" id="GET_TOTAL_NEW_COMMENTS_COUNT_DATE" value="1590060984">
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">forum_id
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="datetime" class="form-control form-control-sm" id="GET_TOTAL_NEW_COMMENTS_COUNT_FID" value="1">
+                        </div>
+                    </div> -->
+                    <button type="button" class="form-control btn btn-primary" id="GET_TOTAL_NEW_COMMENTS_COUNT_BTN">GET_TOTAL_NEW_COMMENTS_COUNT</button>
+                </form>
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="GET_TOTAL_NEW_COMMENTS_COUNT_RESULT">SafeYOU_V4##GET_TOTAL_NEW_COMMENTS_COUNT#RESULT <span
+                            id="GET_TOTAL_NEW_COMMENTS_COUNT_RESULT_C">0</span></label>
+                    <textarea rows="10" id="GET_TOTAL_NEW_COMMENTS_COUNT_RESULT" class="form-control"
+                        aria-describedby="GET_TOTAL_NEW_COMMENTS_COUNT_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <h6>SafeYOU_V4##DELETE_COMMENT</h6>
+                <form>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">group_id
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="datetime" class="form-control form-control-sm" id="DELETE_COMMENT_GID" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">id
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="datetime" class="form-control form-control-sm" id="DELETE_COMMENT_ID" value="3">
+                        </div>
+                    </div>
+                    <button type="button" class="form-control btn btn-primary" id="DELETE_COMMENT_BTN">DELETE_COMMENT</button>
+                </form>
+            </div>
+            <div class="col border">
+                <form>
+                    <label for="DELETE_COMMENT_RESULT">SafeYOU_V4##DELETE_COMMENT#RESULT <spanid="DELETE_COMMENT_RESULT_C">0</span></label>
+                    <textarea rows="10" id="DELETE_COMMENT_RESULT" class="form-control"
+                        aria-describedby="DELETE_COMMENT_RESULT"></textarea>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+    <script>
+        let key = prompt('Bearer token:', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjRhMTRkZTE0NDYzZjc0MDE3ZDhiYWE4ZTk1ZTAwNDhkMmM1MzMxZWUyMWVjZGIwNmUyM2VkM2Q1MmRlMzhkNzcyY2IxNjJmYWY0ZDVhZDRhIn0.eyJhdWQiOiIyIiwianRpIjoiNGExNGRlMTQ0NjNmNzQwMTdkOGJhYThlOTVlMDA0OGQyYzUzMzFlZTIxZWNkYjA2ZTIzZWQzZDUyZGUzOGQ3NzJjYjE2MmZhZjRkNWFkNGEiLCJpYXQiOjE1ODg3OTk5MTUsIm5iZiI6MTU4ODc5OTkxNSwiZXhwIjoxNTkwMDk1OTE1LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.ZaSSPmRKGCyyBYHv0v_axxVrFnQzZQfVysffkuMjrVb9kWIrQH7aakTAd0u-9k0Abfv4BvP_h6OavOJLaVxLl2snBwpkT7C90bu7n9WMR58ejVmtuSYm9UW1GMk4pHv0tp9OWQbpuPaWkbY5EX72rkGL-XW9ikf8qib5rx6WV6TEMlUcThzE0KDuIRhsyutRDznBYRg6Cyi_ZzkZWqbP06NAjKZ1fkq0LfZOF9Lgru2bwD1Vo2uyQim5fABYizD6zbFkMH5m3CnMvnzcjKhiHK7nz09mUF16_KUAyrhNJG0mMtHgCOM_BMW6AypT5mi5zSE3a7_WlrMhIeV8SsKAlql2cd5-QFcg8ty18GQUHfgkpwiqZ77sehFn9t3cMbk2VUDHSuZVRSzg3mv9oITNnI1YMgCW6JFf8tpw1DVLk_V5D4gTqwnDHFFSFpNcz_2-9FDFPbm2zJv8SMiGdGkaeP7cW9zZDwG0by9b8uLX5BgguQkJeIrWPSNB7nlRSXSar2q0AsNosMCakpJN7jX9G7bY3tYcTfIVwFjBAK1HH0xY7_vNmRaG-RhnnjA0OfiH2irPferihvQZxOJVYeTjPHhMoRv5D1PIwGPSeNyS5bJjGtEvVfK4x5PVvENWVqkpKERiuUSX1dFmbo3rcaERxQ-83-EJhW5agNwGMgJ4PcA');
+        const socket = io('{SOCKET_HOST}?key=' + key);
+        socket.on('connect', function () {
+            let PROFILE_INFO_C = 1;
+            socket.on('SafeYOU_V4##PROFILE_INFO#RESULT', (result) => {
+                $('#PROFILE_EDIT_description').val(result.data.description),
+                    $('#PROFILE_INFO_RESULT_C').text(PROFILE_INFO_C++);
+                $('#PROFILE_INFO_RESULT').val(JSON.stringify(result, null, 4));
+            });
+
+            let NEW_PROFESSION_C = 1;
+            socket.on('SafeYOU_V4##NEW_PROFESSION#RESULT', (result) => {
+                $('#PROFILE_EDIT_description').val(result.data.description),
+                    $('#NEW_PROFESSION_RESULT_C').text(NEW_PROFESSION_C++);
+                $('#NEW_PROFESSION_RESULT').val(JSON.stringify(result, null, 4));
+            });
+            
+            let NEW_CATEGORY_C = 1;
+            socket.on('SafeYOU_V4##NEW_CATEGORY#RESULT', (result) => {
+                $('#PROFILE_EDIT_description').val(result.data.description),
+                    $('#NEW_CATEGORY_RESULT_C').text(NEW_CATEGORY_C++);
+                $('#NEW_CATEGORY_RESULT').val(JSON.stringify(result, null, 4));
+            });
+
+            let NOTIFICATION_C = 1;
+            socket.on('SafeYOU_V4##NOTIFICATION#RESULT', (result) => {
+                $('#PROFILE_EDIT_description').val(result.data.description),
+                    $('#NOTIFICATION_RESULT_C').text(NOTIFICATION_C++);
+                $('#NOTIFICATION_RESULT').val(JSON.stringify(result, null, 4));
+            });
+
+            let GET_ALL_FORUMS_C = 1;
+            socket.on('SafeYOU_V4##GET_ALL_FORUMS#RESULT', (result) => {
+                $('#GET_ALL_FORUMS_RESULT_C').text(GET_ALL_FORUMS_C++);
+                $('#GET_ALL_FORUMS_RESULT').val(JSON.stringify(result, null, 4));
+            });
+
+            let FORUM_MORE_INFO_C = 1;
+            socket.on('SafeYOU_V4##FORUM_MORE_INFO#RESULT', (result) => {
+                $('#FORUM_MORE_INFO_RESULT_C').text(FORUM_MORE_INFO_C++);
+                $('#FORUM_MORE_INFO_RESULT').val(JSON.stringify(result, null, 4));
+            });
+
+            let ADD_NEW_COMMENT_C = 1;
+            socket.on('SafeYOU_V4##ADD_NEW_COMMENT#RESULT', (result) => {
+                $('#ADD_NEW_COMMENT_RESULT_C').text(ADD_NEW_COMMENT_C++);
+                $('#ADD_NEW_COMMENT_RESULT').val(JSON.stringify(result, null, 4));
+            });
+
+            let GET_NEW_COMMENTS_COUNT_C = 1;
+            socket.on('SafeYOU_V4##GET_NEW_COMMENTS_COUNT#RESULT', (result) => {
+                $('#GET_NEW_COMMENTS_COUNT_RESULT_C').text(GET_NEW_COMMENTS_COUNT_C++);
+                $('#GET_NEW_COMMENTS_COUNT_RESULT').val(JSON.stringify(result, null, 4));
+            });
+            
+            let GET_TOTAL_NEW_COMMENTS_COUNT_C = 1;
+            socket.on('SafeYOU_V4##GET_TOTAL_NEW_COMMENTS_COUNT#RESULT', (result) => {
+                $('#GET_TOTAL_NEW_COMMENTS_COUNT_RESULT_C').text(GET_TOTAL_NEW_COMMENTS_COUNT_C++);
+                $('#GET_TOTAL_NEW_COMMENTS_COUNT_RESULT').val(JSON.stringify(result, null, 4));
+            });
+            
+            let DELETE_COMMENT_C = 1;
+            socket.on('SafeYOU_V4##DELETE_COMMENT#RESULT', (result) => {
+                $('#DELETE_COMMENT_RESULT_C').text(DELETE_COMMENT_C++);
+                $('#DELETE_COMMENT_RESULT').val(JSON.stringify(result, null, 4));
+            });
+        });
+
+        socket.on('disconnect', function (data) {
+            alert(JSON.stringify(data, null, 4));
+        });
+
+        $('#GET_ALL_FORUMS_BTN').click(function () {
+            socket.emit('SafeYOU_V4##GET_ALL_FORUMS', {
+                language_code: $('#GET_ALL_FORUMS_LCODE').val(),
+                datetime: $('#GET_ALL_FORUMS_DATE').val(),
+                forums_rows: $('#GET_ALL_FORUMS_CROWS').val(),
+                forums_page: $('#GET_ALL_FORUMS_CPAGE').val(),
+            });
+        });
+
+        $('#GET_TOTAL_NEW_COMMENTS_COUNT_BTN').click(function () {
+            socket.emit('SafeYOU_V4##GET_TOTAL_NEW_COMMENTS_COUNT', {
+                datetime: $('#GET_TOTAL_NEW_COMMENTS_COUNT_DATE').val(),
+                //forum_id: $('#GET_TOTAL_NEW_COMMENTS_COUNT_FID').val(),
+            });
+        }); 
+        
+        $('#DELETE_COMMENT_BTN').click(function () {
+            socket.emit('SafeYOU_V4##DELETE_COMMENT', {
+                group_id: $('#DELETE_COMMENT_GID').val(),
+                id: $('#DELETE_COMMENT_ID').val(),
+            });
+        });
+        
+        $('#READ_NOTIFICATION_BTN').click(function () {
+            socket.emit('SafeYOU_V4##READ_NOTIFICATION', {
+                key: $('#READ_NOTIFICATION_KEY').val(),
+            });
+        });
+        
+        $('#NOTIFICATION_BTN').click(function () {
+            socket.emit('SafeYOU_V4##NOTIFICATION', {
+            });
+        });$('#PROFILE_INFO_BTN').click(function () {
+            socket.emit('SafeYOU_V4##PROFILE_INFO', {
+            });
+        });
+
+        $('#FORUM_MORE_INFO_BTN').click(function () {
+            socket.emit('SafeYOU_V4##FORUM_MORE_INFO', {
+                language_code: $('#FORUM_MORE_INFO_LCODE').val(),
+                forum_id: $('#FORUM_MORE_INFO_FORUM_ID').val(),
+                comments_rows: $('#FORUM_MORE_INFO_CROWS').val(),
+                comments_page: $('#FORUM_MORE_INFO_CPAGE').val(),
+            });
+        });
+        
+        $('#GET_NEW_COMMENTS_COUNT_BTN').click(function () {
+            socket.emit('SafeYOU_V4##GET_NEW_COMMENTS_COUNT', {
+                forum_id: $('#GET_NEW_COMMENTS_COUNT_FID').val(),
+                datetime: $('#GET_NEW_COMMENTS_COUNT_DATE').val(),
+            });
+        });
+
+        $('#ADD_NEW_COMMENT_BTN').click(function () {
+            socket.emit('SafeYOU_V4##ADD_NEW_COMMENT', {
+                language_code: $('#ADD_NEW_COMMENT_LCODE').val(),
+                forum_id: $('#ADD_NEW_COMMENT_FORUM_ID').val(),
+                reply_id: $('#ADD_NEW_COMMENT_REPLY_ID').val(),
+                reply_user_id: $('#ADD_NEW_COMMENT_REPLY_USER_ID').val(),
+                group_id: $('#ADD_NEW_COMMENT_GROUP_ID').val(),
+                level: $('#ADD_NEW_COMMENT_LEVEL').val(),
+                messages: $('#ADD_NEW_COMMENT_MESSAGES').val()
+            });
+        });
+    </script>
+</body>
+
+</html>

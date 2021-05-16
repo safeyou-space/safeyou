@@ -1,0 +1,427 @@
+/* 
+  Localizations.strings
+  SafeYou
+
+  Created by Garnik Simonyan on 8/25/19.
+  Copyright © 2019 Garnik Simonyan. All rights reserved.
+*/
+
+
+"about_us_title_key" = "ჩვენ შესახებ";
+
+"birth_date_title_key" = "დაბადების თარიღი";
+
+"cancel" = "გაუქმება";
+
+"choose_from_gallery_title_key" = "ფოტოს შერჩევა";
+
+"choose_photo_title" = "ფოტოს შეცვლა";
+
+"confirm_fake_pin_text_key" = "დაადასტურე ყალბი პინი";
+
+"confirm_password_text_key" = "პაროლის დადასტურება";
+
+"confirm_real_pin_text_key" = "დაადასტურე ნამდვილი პინი";
+
+"done_key" = "დასრულებულია";
+
+"emergency_contact_one_title_key" = "პირველი სანდო პირი";
+
+"emergency_contact_three_title_key" = "მესამე სანდო პირი";
+
+"emergency_contact_two_title_key" = "მეორე სანდო პირი";
+
+"emergency_message_title_key" = "განგაშის შეტყობინება";
+
+"enter_fake_pin_text_key" = "შეიყვანე 4 ციფრიანი ყალბი პინი";
+
+"enter_real_pin_text_key" = "შეიყვანე ნამდვილი 4 ციფრიანი პინი";
+
+"error_text_key" = "შეცდომა";
+
+"fill_required_fields_text_key" = "შეავსე სავალდებულო ველი";
+
+"first_name_title_key" = "სახელი";
+
+"last_name_text_key" = "გვარი";
+
+"log_out_title_key" = "გამოსვლა";
+
+"mobile_number_text_key" = "მობილურის ნომერი";
+
+"my_profile_title" = "ჩემი პროფილი";
+
+"next_key" = "შემდეგი";
+
+"ngo_one_title_key" = "პირველი ორგანიზაცია";
+
+"ngo_two_title_key" = "მეორე ორგანიზაცია";
+
+"ngo_three_title_key" = "მესამე ორგანიზაცია";
+
+"nick_name_title_key" = "ზედმეტსახელი";
+
+"ok" = "OK";
+
+"password_text_key" = "პაროლი";
+
+"passwords_not_match_text_key" = "პაროლი არასწორია";
+
+"pin_code_credentials_info_key" = "";
+
+"pin_code_only_digits_message_key" = "პინი მხოლოდ ციფრებით";
+
+"pins_do_not_match_text_key" = "პინი არ ემთხვევა";
+
+"please_enter_valid_email_message_key" = "შეიყვანე ნამდვილი ელ.ფოსტა";
+
+"please_enter_valid_number_message_key" = "შეიყვანე ნამდვილი ტელეფონის ნომერი";
+
+"please_enter_valid_password_message_key" = "შეიყვანე ნამდვილი პაროლი";
+
+"police_title_key" = "პოლიცია";
+
+"registration_title_key" = "რეგისტრაცია";
+
+"remove_photo_title_key" = "ფოტოს წაშლა";
+
+"resend_otp_text_key" = "ხელახლა გამოგზავნა";
+
+"resend_title_key" = "ხელახლა გაგზავნა";
+
+"return_key" = "დაბრუნება";
+
+"submit_title_key" = "გაგზავნა";
+
+"take_photo_title_key" = "ფოტოს გადაღება";
+
+"verifying_otp_text_key" = "დამადასტურებელი კოდი";
+
+"wrong_credentials_text_key" = "მონაცემები არასოწრია";
+
+"dual_pin_title_key" = "ორმაგი პინი";
+
+"dual_pin_descritpion_text_key" = "აპლიკაციაზე წვდომისათვის დააყენე ნამდვილი პინი. აპლიკაციის სხვებისაგან დასამალად კი დააყენე ყალბი პინი, რომელიც ფოტო-გალერეაზე გადაგიყვანს.";
+
+"ngos_title_key" = "ორგანიზაციები";
+
+"ngos_descritpion_text_key" = "მოძებნე და დაუკავშირდი არასამთავრობო ორგანიზაციებს, უფლებადამცველებს, ან ქალთა გაძლიერებაზე მომუშავე სხვა ორგანიზაციებს, რომლებიც შენს სიახლოვეს არიან.";
+
+"forums_title_key" = "ფორუმი";
+
+"forums_descritpion_text_key" = "სხვადასხვა საკითხებზე ანონიმურად სასაუბრო და პროფესიონალებისაგან რჩევის მისაღებად განკუთვნილი სივრცე";
+
+"info_title_key" = "ინფორმაცია";
+
+"common_informtaion_text_key" = "ეს აპლიკაცია შექმნილია შენთვის და სხვა ქალებისათვის! ეს არის უსაფრთხო სივრცე, რომელიც გთავაზობს \"დახმარების\"ღილაკს, რათა დაგიცვას ძალადობისგან; სივრცეს, სადაც შესაძლებელია გადაუდებელ საკითხებზე საუბარი; და \"ქსელს\",  რომელიც გეხმარება ყოველდღიურ ცხოვრებაში.";
+
+"help_intro_title_key" = "SOS ინსტრუქცია";
+
+"help_section_descritpion_text_key" = "დააჭიღე \"SOS\" ღილაკს, განგაშის უფასო შეტყობინება და შენი ადგილსამყოფელი გაუგზავნე შენს სანდო პირებს, რათა აცნობო მათ, რომ საფრთხეში ხარ. SOS ღილაკზე დაჭერით შესაძლებელია ხმის აუდიო ჩაწერა, რომელიც შემდგომ შეგიძლია გადაუგზავნო სხვას, შეინახო მომავლისთვის ან წაშალო ნებისმიერ დროს.";
+
+"otp_info_text_key" = "6 ციფრიანი კოდი გამოგზავნილია %@";
+
+"network_title" = "ქსელი";
+
+"help_title_key" = "SOS";
+
+"alert_message_sent_text_key" = "განგაშის შეტყობინებები წარმატებით გაიგზავნა!";
+
+"something_went_wrong_text_key" = "ტექნიკური ხარვეზი";
+
+"message_not_sent_key" = "შეტყობინება არ გაიგზავნა";
+
+"settings_title" = "პარამეტრები";
+
+"last_name_title_key" = "გვარი";
+
+"app_language_title_key" = "ენა";
+
+"other_title" = "სხვა";
+
+"no_records_yet_text_key" = "ჩანაწერი არ არის";
+
+"registration_error_key" = "რეგისტრაციაში ხარვეზია";
+
+"edit_key" = "დამატება";
+
+"save_key" = "შენახვა";
+
+"value_can_not_be_empty_key" = "შეუვსებელი ვერ დარჩება";
+
+"pin_text_key" = "პინი";
+
+"passwords_lentgh_error_text_key" = "პაროლის სიგრძე არასწორია";
+
+"fill_curren_password_field_text_key" = "შეიყვანე მოქმედი პაროლი";
+
+"more_info_text_key" = "დამატებითი ინფორმაცია";
+
+"{param}_people_commented_text_key" = "%@ პირმა უპასუხა";
+
+"reply_text_key" = "პასუხი";
+
+"web_address_text_key" = "ვებ-გვერდი";
+
+"email_text_key" = "ელ. ფოსტა";
+
+"mobile_text_key" = "მობილურის ნომერი";
+
+"remove_from_helpline_title_key" = "წაშალე";
+
+"add_to_helpline_title_key" = "დაამატე";
+
+"title_tutorial" = "ინსტრუქცია";
+
+"new_password_title_key" = "ახალი პაროლი";
+
+"add_dual_pin_title_key" = "ახალი ორმაგი პინის დამატება";
+
+"sign_up_title_key" = "რეგისტრაცია";
+
+"agree_terms_and_conditions_title" = "გაგრძელებით ეთანხმები გამოყენების წესებსა და პირობებს";
+
+"title_login" = "შესვლა";
+
+"title_signup" = "რეგისტრაცია";
+
+"title_forgot_password" = "პაროლის აღდგენა";
+
+"title_request_new_password" = "ახალი პაროლის მოთხოვნა";
+
+"mobile_number_text+key" = "მობილურის ნომერი";
+
+"forgot_pin_text_key" = "პინის აღდგენა";
+
+"current_password_text_key" = "მოქმედი პაროლი";
+
+"forgot_password_text_key" = "პაროლის აღდგენა";
+
+"title_all" = "ყველა";
+
+"title_volunteers" = "მოხალისეები";
+
+"title_legal_services" = "იურიდიული დახმარება";
+
+"push_hold_text_key" = "დააჭირე \n გეჭიროს";
+
+"stop_recording_text_key" = "შეწყვიტე ჩაწერა";
+
+"update_password_title" = "პაროლის განახლება";
+
+"alert_message_title" = "განგაშის შეტყობინება";
+
+"add_emergency_contacts_text_key" = "დაამატე სანდო პირების კონტაქტები, რომელთაც დაუკავშირდები საფრთხის შემთხვევაში.";
+
+"pin_length_text_key" = "პინის სიგრძე";
+
+"real_pin_fake_pin_different" = "ნამდვილი პინი ყალბი პინი";
+
+"check_internet_connection_text_key" = "შეამოწმე ინტერნეტ კავშირი";
+
+"marital_status_text_key" = "ოჯახური მდგომარეობა";
+
+"select_marital_status_text_key" = "აარჩიე ოჯახური მდგომარეობა";
+
+"photo_library" = "ფოტო გალერია";
+
+"you_replied_to_{param}" = "შენ უპასუხე %@-ს";
+
+"{person1}_replied_to_{person2}" = "%@ უპასუხა %@-ს";
+
+"replying_to_{param}" = "უპასუხა %@-ს";
+
+"record_was_successfully_saved_text_key" = "ჩანაწერი წარმატებით შენახულია";
+
+"record_was_successfully_sent_text_key" = "ჩანაწერი წარმატებით გაიგზავნა";
+
+"close_key" = "დახურე";
+
+"please_fill_phone_number_text_key" = "შეიყვანე ტელეფონის ნომერი";
+
+"password_update_success_text_key" = "პაროლი წარმატებით აღდგენილია";
+
+"success_text_key" = "წარმატება";
+
+"no_mail_account_registered" = "ელ. ფოსტა რეგისტრირებული არ არის";
+
+"time_text_key:" = "დრო";
+
+"enter_passcode_text_key" = "შეიყვანე პაროლი";
+
+"title_saved_key" = "შენახულია";
+
+"title_sent_key" = "გაგზავნილია";
+
+"delete_key" = "წაშლა";
+
+"recording_title_key" = "ჩანაწერი";
+
+"want_logout_text_key" = "გამოსვლა";
+
+"wrong_url_text_key" = "არასწორი";
+
+"clear_tex_key" = "წაშლა";
+
+"add_dual_pin_for_security" = "აპლიკაციაზე წვდომისათვის დააყენე ნამდვილი პინი. აპლიკაციის სხვებისაგან დასამალად კი დააყენე ყალბი პინი, რომელიც ფოტო-გალერეაზე გადაგიყვანს.";
+
+"continue_without_pin_title_key" = "ორმაგი პინკოდის გარეშე გაგრძელება";
+
+"enter_pint_to_deactivate" = "შეიყვანე შენი Safe You პინი პინის დეაქტივაციისათვის";
+
+"re_enter_pin_code" = "ხელახლა შეიყვანე პინკოდი";
+
+"choose_your_country" = "აირჩიე ქვეყანა";
+
+"which_country_to_browse_in" = "რომელი ქვეყნის დათვალიერება გსურს";
+
+"choose_your_language" = "აირჩიე ენა";
+
+"choose_the_language_to_continue" = "";
+
+"profile_title_key" = "პროფილი";
+
+"change_password_key" = "პაროლის შეცვლა";
+
+"country_title_key" = "ქვეყანა";
+
+"language_title_key" = "ენა";
+
+"notifications_title_key" = "შეტყობინებები";
+
+"support_title_key" = "კონტაქტი";
+
+"edit_dual_pin_title_key" = "დაამატე ორმაგი პინი";
+
+"settings_tab_title_key" = "პარამეტრები";
+
+"apply_regional_changes_text" = "ასახე რეგიონალური ცვლილებები";
+
+"apply_title_key" = "გამოიყენე";
+
+"profile_picture_title_key" = "პროფილის ფოტო";
+
+"emergency_contacts_title" = "სანდო პირები";
+
+"emergency_services_title" = "ჩემი მონიშნული ორგანიზაციები";
+
+"add_emergency_contact" = "სახელი გვარი";
+
+"add_emergency_service" = "ორგანიზაცია";
+
+"edit_pin_code_title" = "შეცვალე პინი";
+
+"enter_your_pin_code" = "შეიყვანე შენი პინი";
+
+"{param}_comments" = "%@ კომენტარები";
+
+"comment" = "კომენტარი";
+
+"nickname_placeholder" = "მხოლოდ ზედმეტსახელს დაინახავენ სხვები";
+
+"{param}_replies" = "%@ პასუხები";
+
+"view_more_replies" = "მეტი პასუხის ნახვა";
+
+"{param}_people_commented_on_this_post" = "%@ პირმა დააკომენტარა";
+
+"replied_to_your_comment" = "უპასუხა შენს კომენტარს";
+
+"addres" = "Address";
+
+"intro_view_description_text_key" = "აპის ფუნქციებზე შეიტყობ მეტს ამ ღილაკზე დაჭერით.";
+
+"intro_support_text_key" = "აქ შეგიძლია აირჩიო 3 სანდო პირი შენი მობილურის კონტაქტებიდან, 3 მხარდამჭერი ორგანიზაცია ქსელიდან, ასევე, მონიშნო პოლიცია.";
+
+"title_dual_pin_camouflage_icon_key" = "DUAL PIN/CAMOUFLAGE ICON";
+
+"security_introduction_text_key" = "აპის სხვებისაგან დასამალად შენ შეგიძლია: *გააქტიურო ორმაგი პინი: დაამატე ნამდვილი პინი აპლიკაციაში შესასვლელად, და დაამატე ყალბი პინი ფოტოგალერეაზე გადასასვლელად. *გააქტიურე შენიღბვის ფუნქცია: შეცვალე აპლიკაციის ლოგო და სახელი შენ ტელეფონში.";
+
+"title_menu" = "მენიუ";
+
+"title_security_and_login" = "უსაფრთხოება და შესვლა";
+
+"title_camouflage_icon" = "შენიღბვის იკონკა";
+
+"edit_deactivate_dual_pin" = "შეცვლა/ ორმაგი პინის გაუქმება";
+
+"continue" = "გაგრძელება";
+
+"security" = "უსაფრთხოება";
+
+"choose_your_camouflage_icon" = "აირჩიე შენი შესანიღბი ხატულა";
+
+"art_gallery" = "Art Gallery";
+
+"gallery_editor" = "Gallery Editor";
+
+"visual_editor" = "Visual Editor";
+
+"would_you_activate_dual_pin" =  "გსურს ორმაგი პინის გააქტიურება?";
+
+"we_recommend_to_activate_dual_pin" = "თუ გსურთ სხვებისაგან დამალოთ ეს აპლიკაცია თქვენს მობილურში, მაშინ გირჩევთ გააქტიუროთ ორმაგი პინი.";
+
+"would_you_activate_camouflage_icon" = "გსურთ შენიღბვის ფუნქციის გამოყენება?";
+
+"we_recommend_to_activate_camouflage_icon" =  "ჩვენ გირჩევთ გამოიყენოთ შენიღბვა: თქვენი აპლიკაციის სახელი და იკონკა შეიცვლება თქვენს ტელეფონში.";
+
+"name_lastname" = "სახელი გვარი";
+
+
+////////////////// NEW ///////////////////
+
+"become_consultant_title" = "გახდი კონსულტანტი";
+
+"why_become_consultant" = "რატომ გინდათ გახდეთ Safe You-ს  კონსულტანტი";
+
+"why_would_you_placeholder" = "რატომ გინდათ გახდეთ...";
+
+"consultant_agreement_text" = "ღილაკზე \"გაგრძელება\" დაჭერით, თქვენ ადასტურებთ რომ გაეცანით და   ეთანხმებით \"%@\"";
+
+"consultant_terms_and_conditions" = "კონსულტანტის წესები და  პირობები";
+
+"add_your_experience" = "აირჩიე  საქმიანობის სფერო";
+
+"field_of_expertise" = "თქვენი ცოდნის   სფერო";
+
+"email_address" = "ელ. ფოსტა";
+
+"request_status" = "მოთხოვნის  სტატუსი";
+
+"pending_approval" = "მიმდინარე";
+
+"title_legal" = "აპლიკაციის გამოყენების  პირობები";
+
+"terms_and_conditions" = "წესები  და  პირობები";
+
+"privacy_policy" = "კონფიდენციალურობა";
+
+"terms_for_consultance" = "კონსულტანტობის  წესები და პირობები.";
+
+"declined_on_date" = "უარყოფილია %@";
+
+"approved_on_date" = "დადასტურების თარიღი %@";
+
+"submission_date" = "მოთხოვნის თარიღი";
+
+"cancel_request" = "მოთხოვნის გაუქმება";
+
+"deactivate" = "გათიშვა";
+
+"new_request_inquiry" = "ახალი  მოთხოვნის გაგზავნა";
+
+"send_request" = "გაგრძელება";
+
+"deactivate_confirm_message" = "ღილაკზე \"გაგრძელება\" დაჭერით და დადასტურებით, რომ თქვენ არ გსურთ safe You-ს  კონსულტანტად ყოფნა, ნიშნავს რომ თქვენ გადაინაცვლებთ მარტივ  მომხმარებელთა კატეგორიაში.";
+
+"approved" =  "დადასტურებულია";
+
+"declined" = "უარყოფილია";
+
+"pending" = "მიმდინარე";
+
+"back" = "უკან";
+
+"cancel_request_message" = "ღილაკზე \"გაგრძელება\" დაჭერით, თქვენ ადასტურებთ რომ გსურთ გაგზავნილი  მოთხოვნის გაუქმება";
+
+"consultant_request_success_message" = "თქვენი მოთხოვნა წარმატებით გაიგზავნა";

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HayRoboto-Regular.ttf">
+            <string>HayRoboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EmergencyMessageFooterView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="141"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I4N-KE-eEK" customClass="SYDesignableView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="141"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Emergency message.." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKC-qa-btS" customClass="HyRobotoLabelRegular">
+                            <rect key="frame" x="30" y="8" width="133.5" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="3Hn-t6-CTX"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="jcV-oQ-Dkq">
+                            <rect key="frame" x="26" y="44" width="329" height="77"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <string key="text">Simplifying interfaces and experiences 
+since 2009. Feel free to contact me for 
+full-time or freelance work opportunities.</string>
+                            <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            <connections>
+                                <outlet property="delegate" destination="iN0-l3-epB" id="aOw-is-z9e"/>
+                                <outlet property="pasteDelegate" destination="iN0-l3-epB" id="i5t-Vy-NQa"/>
+                            </connections>
+                        </textView>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnn-zx-PnB" customClass="SYDesignableButton">
+                            <rect key="frame" x="330" y="8" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="c05-4a-gvD"/>
+                                <constraint firstAttribute="width" constant="25" id="kIi-AK-Zrk"/>
+                            </constraints>
+                            <state key="normal" image="edit_button"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="editButtonPressed:" destination="-1" eventType="touchUpInside" id="xQQ-Cj-YbC"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="rnn-zx-PnB" firstAttribute="top" secondItem="kLB-ZQ-ZJE" secondAttribute="top" constant="8" id="6Jn-R8-akh"/>
+                        <constraint firstItem="kLB-ZQ-ZJE" firstAttribute="trailing" secondItem="rnn-zx-PnB" secondAttribute="trailing" constant="20" id="713-f9-Hhc"/>
+                        <constraint firstItem="rnn-zx-PnB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LKC-qa-btS" secondAttribute="trailing" constant="15" id="7cA-7b-e4a"/>
+                        <constraint firstItem="LKC-qa-btS" firstAttribute="leading" secondItem="I4N-KE-eEK" secondAttribute="leading" constant="30" id="9b1-JQ-5RM"/>
+                        <constraint firstItem="kLB-ZQ-ZJE" firstAttribute="bottom" secondItem="jcV-oQ-Dkq" secondAttribute="bottom" constant="20" id="9jQ-ov-VV2"/>
+                        <constraint firstItem="jcV-oQ-Dkq" firstAttribute="top" secondItem="LKC-qa-btS" secondAttribute="bottom" constant="20" id="D9b-1Y-3wC"/>
+                        <constraint firstItem="jcV-oQ-Dkq" firstAttribute="leading" secondItem="kLB-ZQ-ZJE" secondAttribute="leading" constant="26" id="OKm-2q-fNc"/>
+                        <constraint firstItem="kLB-ZQ-ZJE" firstAttribute="trailing" secondItem="jcV-oQ-Dkq" secondAttribute="trailing" constant="20" id="VEk-OU-DeZ"/>
+                        <constraint firstItem="LKC-qa-btS" firstAttribute="top" secondItem="I4N-KE-eEK" secondAttribute="top" constant="8" id="oLj-3s-qIq"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="kLB-ZQ-ZJE"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="I4N-KE-eEK" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="7AG-I4-ciG"/>
+                <constraint firstItem="I4N-KE-eEK" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="WU6-g4-9Bb"/>
+                <constraint firstItem="I4N-KE-eEK" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="csK-24-IaA"/>
+                <constraint firstItem="I4N-KE-eEK" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="dYC-K2-P9J"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="emergencyTextView" destination="jcV-oQ-Dkq" id="Hao-cR-2we"/>
+                <outlet property="footerTitleLabel" destination="LKC-qa-btS" id="DR2-7x-pRl"/>
+            </connections>
+            <point key="canvasLocation" x="136.80000000000001" y="142.57871064467767"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="edit_button" width="19.5" height="19.5"/>
+    </resources>
+</document>
