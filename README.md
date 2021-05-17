@@ -32,7 +32,7 @@ After registration, a **tutorial** page is shown to the users explaining each fu
 
 **Consultancy Request:** The App also provides possibility to upgrade the ordinary user profile status to a verified consultant, by undergoing a procedure of submitting consultancy request in the Profile section of the App.
 
-**Notifications:** The App provides in App notifications for forum discussions, it also has a function of push notifications, which can be enabled or disabled from by the users from the menu of the App.
+**Notifications:** The App provides in App notifications for forum discussions, it also has a function of push notifications, which can be enabled or disabled by the users from the menu of the App.
 
 --------------------------------------------------------------------------------------------------------------------------------
 
