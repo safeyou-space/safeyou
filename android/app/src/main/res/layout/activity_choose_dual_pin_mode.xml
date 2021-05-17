@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_background"
+    tools:context=".view.ChooseDualPinModeActivity">
+
+    <TextView
+        android:id="@+id/txtAddDualPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:fontFamily="@font/hay_roboto_normal"
+        android:gravity="center"
+        android:text="@string/add_dual_pin"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_26ssp"
+        tools:ignore="MissingConstraints" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/txtExtraSecurity"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/txtAddDualPin"-->
+    <!--        android:layout_marginStart="@dimen/_30sdp"-->
+    <!--        android:layout_marginTop="@dimen/_50sdp"-->
+    <!--        android:layout_marginEnd="@dimen/_30sdp"-->
+
+    <!--        android:fontFamily="@font/hay_roboto_normal"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="@string/add_4_digit_pin_code_for_extra_security"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="@dimen/_14ssp"-->
+    <!--        tools:ignore="MissingConstraints" />-->
+
+
+    <TextView
+        android:id="@+id/txtExtraSecurityDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtAddDualPin"
+        android:layout_above="@id/btnAddDualPin"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:fadeScrollbars="true"
+        android:fontFamily="@font/hay_roboto_normal"
+        android:gravity="center"
+        android:padding="@dimen/_1sdp"
+        android:scrollbars="vertical"
+        android:text="@string/add_4_digit_pin_code_for_extra_security_description"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnAddDualPin"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_above="@id/btnWithoutDualPin"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:background="@drawable/button_border"
+        android:fontFamily="@font/hay_roboto_normal"
+        android:text="@string/add_dual_pin"
+        android:textAllCaps="true"
+        android:textColor="@color/textPurpleColor"
+        android:textSize="@dimen/_14ssp" />
+
+    <Button
+        android:id="@+id/btnWithoutDualPin"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/button_border"
+        android:fontFamily="@font/hay_roboto_normal"
+        android:minHeight="@dimen/_45sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="@string/continue_without_dual_pin"
+        android:textAllCaps="false"
+        android:textColor="@color/textPurpleColor"
+        android:textSize="@dimen/_14ssp" />
+</RelativeLayout>

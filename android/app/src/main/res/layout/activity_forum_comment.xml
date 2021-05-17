@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragmentsBackgroundColors"
+    tools:context=".view.ForumCommentActivity">
+
+    <RelativeLayout
+        android:id="@+id/containerForumComments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/statusBarColorPurpleDark" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recViewComments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/commentDivider"
+            android:background="@color/transparent"
+            android:visibility="visible" />
+
+        <FrameLayout
+            android:id="@+id/viewMoreContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/commentDivider"
+            android:background="@color/white"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/commentDivider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_above="@id/edtComment"
+            android:background="@color/gray" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_toStartOf="@id/btnCommentSender"
+            android:background="@drawable/border_edit_text"
+            android:fontFamily="@font/hay_roboto_normal"
+            android:hint="@string/type_a_comment"
+            android:imeOptions="actionSend"
+            android:inputType="textMultiLine"
+            android:lineSpacingExtra="@dimen/_7sdp"
+            android:maxLines="5"
+            android:padding="@dimen/_8sdp"
+            android:scrollbars="vertical"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/statusBarColorPurpleDark"
+            android:textColorHint="@color/statusBarColorPurple"
+            android:textSize="@dimen/_12ssp" />
+
+        <ImageView
+            android:id="@+id/clearText"
+            android:layout_width="@dimen/_21sdp"
+            android:layout_height="@dimen/_21sdp"
+            android:layout_alignStart="@id/btnCommentSender"
+            android:layout_alignTop="@id/edtComment"
+            android:layout_alignEnd="@id/btnCommentSender"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/cancel_icon" />
+
+        <ImageView
+            android:id="@+id/btnCommentSender"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_alignBottom="@id/edtComment"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/send"
+            android:src="@drawable/icon_comment_sender" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/forumDetailContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="visible" />
+
+    <include
+        android:id="@+id/progressForumComment"
+        layout="@layout/loading_view" />
+
+</RelativeLayout>

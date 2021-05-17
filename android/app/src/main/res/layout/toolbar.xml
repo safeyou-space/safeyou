@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appBarBase"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?actionBarSize"
+    android:background="@color/transparent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarBase"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="?actionBarSize"
+        android:background="@color/statusBarColorPurpleLight"
+        android:contentInsetStart="0dp"
+        android:contentInsetLeft="0dp"
+        android:contentInsetEnd="0dp"
+        android:contentInsetRight="0dp"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp">
+
+        <TextView
+            android:id="@+id/actionBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:gravity="center"
+            android:maxLines="1"
+            android:maxWidth="@dimen/_150sdp"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp" />
+
+        <ImageView
+            android:id="@+id/notificationView"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/_13sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/tollbar_notification_icon"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnNextToolbar"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/ripple_effect_transparent"
+            android:fontFamily="@font/hay_roboto_normal"
+            android:gravity="center"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerNetworkSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/networkSearch"
+                android:layout_width="@dimen/_210sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:background="@drawable/record_search_bg"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="@dimen/_5sdp"
+                android:focusable="auto"
+                android:gravity="center_vertical"
+                android:hint="@string/search"
+                android:padding="@dimen/_9sdp"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+</com.google.android.material.appbar.AppBarLayout>

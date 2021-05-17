@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/secondaryProgress">
+        <shape
+            android:innerRadiusRatio="3"
+            android:shape="ring"
+            android:thicknessRatio="40.0"
+            android:useLevel="true">
+
+            <solid android:color="@color/countDownProgressBackgroundColor"/>
+
+<!--            <gradient-->
+<!--                android:centerColor="@color/countDownProgressBackgroundColor"-->
+<!--                android:endColor="@color/countDownProgressBackgroundColor"-->
+<!--                android:startColor="@color/countDownProgressBackgroundColor"-->
+<!--                android:type="sweep" />-->
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <rotate
+            android:fromDegrees="270"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="270">
+            <shape
+                android:innerRadiusRatio="3"
+                android:shape="ring"
+                android:thicknessRatio="40.0"
+                android:useLevel="true">
+
+                <solid android:color="@color/countDownProgressColor"/>
+
+                <corners android:radius="@dimen/_3sdp"/>
+<!--                <rotate-->
+<!--                    android:fromDegrees="0"-->
+<!--                    android:pivotX="50%"-->
+<!--                    android:pivotY="50%"-->
+<!--                    android:toDegrees="360" />-->
+
+<!--                <gradient-->
+<!--                    android:centerColor="@color/countDownProgressColor"-->
+<!--                    android:endColor="@color/countDownProgressColor"-->
+<!--                    android:startColor="@color/countDownProgressColor"-->
+<!--                    android:type="sweep" />-->
+
+            </shape>
+        </rotate>
+    </item>
+
+</layer-list>

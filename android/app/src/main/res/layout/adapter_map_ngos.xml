@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="?android:attr/borderlessButtonStyle"
+    android:background="@drawable/ripple_effect_light_purple"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_16sdp">
+
+        <TextView
+            android:id="@+id/txtMapNgoName"
+            android:layout_width="@dimen/_190sdp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hay_roboto_bold"
+            android:gravity="start"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtMapNgoAddress"
+            android:layout_width="@dimen/_175sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/hay_roboto_light"
+            android:gravity="start"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toStartOf="@id/txtMapNgoName"
+            app:layout_constraintTop_toBottomOf="@id/txtMapNgoName" />
+
+        <ImageButton
+            android:id="@+id/imgBtnCall"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/ripple_effect_light_purple_services"
+            android:src="@drawable/icon_call"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imgBtnEmail"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/app_name" />
+
+        <ImageButton
+            android:id="@+id/imgBtnEmail"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@drawable/ripple_effect_light_purple_services"
+            android:src="@drawable/icon_email"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/app_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dividerColor" />
+
+</LinearLayout>

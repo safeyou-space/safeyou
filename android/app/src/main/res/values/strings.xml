@@ -1,0 +1,287 @@
+<resources>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyBnsnGWjOsx3gKP_e-p-wF0MzjeG7kY6uQ
+    </string>
+
+    <string name="facebook_app_id" translatable="false">840840443516158</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb840840443516158</string>
+
+    <string name="app_name">Safe You</string>
+    <string name="armenian">Հայերեն</string>
+    <string name="english">English</string>
+    <string name="login_help">Tutorial</string>
+    <string name="next">Next</string>
+    <string name="dual_pin">SECURITY</string>
+    <string name="dual_pin_pressed"><font fgcolor='#FF8E8E93'>SECURITY</font></string>
+    <string name="help">HELP</string>
+    <string name="help_lowercase">Help</string>
+    <string name="help_pressed"><font fgcolor='#FF8E8E93'>HELP</font></string>
+    <string name="forums">Forums</string>
+    <string name="forums_pressed"><font fgcolor='#FF8E8E93'>Forums</font></string>
+    <string name="ngos">Network</string>
+    <string name="ngos_pressed"><font fgcolor='#FF8E8E93'>Network</font></string>
+    <string name="ngos_pressed_tex"><font fgcolor='#FF8E8E93'>Find and contact NGOs women rights defenders and other women empowerment organizations that exist nearby.</font></string>
+
+    <string name="title_network">Support</string>
+    <string name="network_description">In this section you can choose upto 3 personal contacts from you phone`s contact list, upto 3 support contacts from our Network, as well as can enable the function of applying to the police.</string>
+
+    <string name="title_help">Help</string>
+    <string name="help_description">Press the help button and send free alert message with your geolocation to your emergency contacts to let them know you are in trouble. Pressing the Help Button enables audio recording, which you can either send to chosen service contacts, save for later use, or delete at any time.</string>
+
+    <string name="title_forums">Forums</string>
+    <string name="title_alert_message">The Alert Message</string>
+    <string name="alert_message_description">Dan, Mama, \n NGO 1, Legal 2, NGO 3 \n Police</string>
+    <string name="forums_description">A discussion board to anonymously talk about different urgent topics and get advice from professionals.</string>
+
+    <string name="title_dual_pin">Security</string>
+    <string name="dual_pin_description">
+        To hide the App from others you can:\n\n*Activate Dual PIN:\nAdd a real PIN to access the real App and add a fake PIN to access the pictures folder of
+        your phone.\n\n*Activate the Camouflage Icon:\nThis will change the app`s logo and name on your phone`s screen. </string>
+
+    <string name="title_ngo">Network</string>
+    <string name="ngo_description">Find and contact NGOs women rights defenders and other women empowerment organizations that exist nearby.</string>
+    <string name="back">Back</string>
+    <string name="login">LOGIN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="license_text">By continuing, you agree to our \n Terms \u0026 Conditions</string>
+    <string name="log_in">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="switch_account">Switch Account</string>
+    <string name="email_mobile_number">Email / Mobile number</string>
+    <string name="password">Password</string>
+    <string name="sign_up_lowercase">Sign Up</string>
+    <string name="full_name">Full Name</string>
+    <string name="nickname">Only nickname will be visible to others</string>
+    <string name="date_of_birth">Date Of Birth dd/mm/yyyy *</string>
+    <string name="create_password">Create Password *</string>
+    <string name="create_new_password">Create Password</string>
+    <string name="submit">SUBMIT</string>
+    <string name="email_registration">Marital status</string>
+    <string name="verifying_otp">VERIFICATION CODE</string>
+    <string name="verifying_text_description">A 6 digit code has been sent to %1$s</string>
+    <string name="enter_otp">ENTER CODE</string>
+    <string name="resend_6_digit_otp">Resend 6 digit CODE?</string>
+    <string name="resend">RESEND</string>
+    <string name="add_dual_pin">Add Dual Pin</string>
+    <string name="enter_real_pin_in_4_digits">Enter Real Pin in 4 digits</string>
+    <string name="confirm_real_pin">Confirm Real Pin</string>
+    <string name="enter_fake_pin_in_4_digits">Enter Fake Pin in 4 digits</string>
+    <string name="confirm_fake_pin">Confirm Fake Pin</string>
+    <string name="enter_your_passcode">Enter Your PIN</string>
+    <string name="forgot_password_title">Forgot Password</string>
+    <string name="request_new_password">REQUEST NEW PASSWORD</string>
+    <string name="title_home">Home</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="all_recordings">All Recordings</string>
+    <string name="search_by_date_time_place">Search by date/time/place</string>
+    <string name="search">Search</string>
+    <string name="all">All</string>
+    <string name="saved">Saved</string>
+    <string name="sent">Sent</string>
+
+    <string name="recordings">Recordings</string>
+    <string name="profile">Profile</string>
+    <string name="forum">Forum</string>
+    <string name="network">Network</string>
+    <string name="network1">Network</string>
+    <string name="other">Other</string>
+    <string name="mobile_number">Mobile Number *</string>
+    <string name="confirm_password">Confirm Password *</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="rec_current_position">00:00</string>
+    <string name="rec_time_time">Time %1$s</string>
+    <string name="my_profile">My Profile</string>
+    <string name="emergency_message">Alert Message</string>
+    <string name="police">Police</string>
+    <string name="about_us">About Us</string>
+    <string name="logout">Logout</string>
+    <string name="first_name">First Name</string>
+    <string name="first_name1">First Name *</string>
+    <string name="settings">Menu</string>
+    <string name="edit">Edit</string>
+    <string name="last_name">Last name</string>
+    <string name="last_name1">Last name *</string>
+    <string name="mobile_phone_number">Mobile Phone Number</string>
+    <string name="location">Location</string>
+    <string name="pin">Pin</string>
+    <string name="language">Language</string>
+    <string name="save">Save</string>
+    <string name="new_password">New Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="re_type_new_password">Re-type new password</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="cancel">Cancel</string>
+    <string name="push_hold">PUSH\nHOLD</string>
+    <string name="stop_record">STOP\nRECORD</string>
+    <string name="record_time_counter">%1$s:%1$s</string>
+    <string name="more_info">MORE INFO</string>
+    <string name="send">Send</string>
+    <string name="type_a_comment">Type a comment …</string>
+    <string name="change">Change</string>
+    <string name="edit_your_details">Edit your details</string>
+    <string name="change_photo_title">Change a photo</string>
+    <!--    <string name="change_photo_title_description">A message should be a short,complete sentence.</string>-->
+    <string name="take_new_photo">Take a new photo</string>
+    <string name="select_from_gallery">Choose from gallery</string>
+    <string name="remove_photo">Remove photo</string>
+    <string name="please_wait">Please wait</string>
+    <string name="the_connections_seems_to_be_slow">The connections seems to be slow</string>
+    <string name="close">Close</string>
+    <string name="verify_count_down">%1$ss</string>
+    <string name="internet_connection">Please check your internet connection</string>
+    <string name="empty_field">Field(s) empty</string>
+    <string name="phone_min_length">Phone number minimum length 12 digits (ex. +374******** or +995**********)</string>
+    <string name="email_field">Please write a valid email address</string>
+    <string name="confirm_pass_field">Passwords don`t match</string>
+    <string name="min_length_8">Password minimum length 8 digits</string>
+    <string name="min_length_2">Nickname minimum length 2 symbols</string>
+    <string name="forgot_pin">Forgot pin?</string>
+    <string name="invalid_pin">Incorrect PIN, try again</string>
+    <string name="legal_service">Legal Service</string>
+    <string name="volunteers">Volunteers</string>
+    <string name="phone_number_base_code">+374</string>
+    <string name="log_out">Log Out</string>
+    <string name="do_you_log_out">Do you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="add_to_helpline">Add to Service Contacts</string>
+    <string name="mobile">Mobile</string>
+    <string name="office">E-mail</string>
+    <string name="web_address">Web address</string>
+    <string name="map_not_ready">Map not ready</string>
+    <string name="detail_not_ready">Detail not ready</string>
+    <string name="map_detail_not_ready">map_detail not ready</string>
+    <string name="phone_is_empty">Phone number is empty</string>
+    <string name="sendet_email_is_emty">Email is empty</string>
+    <string name="your_map_not_ready">Your map is not ready</string>
+    <string name="clear">Clear</string>
+    <string name="emergency_contact">Emergency Contacts %1$d</string>
+    <string name="emergency_contacts">Emergency Contacts</string>
+    <string name="ngo">NGO %1$d</string>
+    <string name="remove_from_helpline">Remove</string>
+    <string name="recording_was_sent_successfully">The recording has been successfully saved!</string>
+    <string name="forum_comment_count">%1$d commented</string>
+    <string name="delete">Delete</string>
+    <string name="help_me">Help Me</string>
+    <string name="delete_record">Delete record!</string>
+    <string name="do_you_wont_delete_record">Do you wont to delete the record?</string>
+    <string name="record_was_send_success">Recording was sent successfully</string>
+    <string name="the_alert_message">Alert Message!</string>
+    <string name="allert_message_successfully_send">Alert messages have been successfully sent!</string>
+    <string name="record_was_successful_saved">Recording has been successfully saved!</string>
+    <string name="send_mail">Send mail…</string>
+    <!--    <string name="emergency_contact_1">Emergency Contact 1</string>-->
+    <!--    <string name="emergency_contact_2">Emergency Contact 2</string>-->
+    <!--    <string name="emergency_contact_3">Emergency Contact 3</string>-->
+    <!--    <string name="service_1">Service 1</string>-->
+    <!--    <string name="service_2">Service 2</string>-->
+    <!--    <string name="service_3">Service 3</string>-->
+    <string name="verify">Verify</string>
+    <string name="please_check_your_internet_connection">Please check your internet connection!</string>
+    <string name="emty_body">Empty body</string>
+    <string name="change_phone_number">Change phone number</string>
+    <string name="please_fill_in_all_fields">Please fill in all fields!</string>
+    <string name="real_and_fake_dublicated">REAL pin and FAKE pin are duplicated</string>
+    <string name="real_pin_and_conform_real_not_match">REAL pin and confirm REAL pin do non match</string>
+    <string name="pin_min_length">Pin min length 4 digits</string>
+    <string name="fake_and_fake_confirm_not_match">FAKE pin and confirm FAKE pin do non match</string>
+    <string name="comment_count">There are %1$d comments on the page</string>
+    <string name="rec_info_dialog_info">Add emergency contacts,
+        who will be contacted if you are in danger.</string>
+    <string name="reply">Reply</string>
+    <string name="copy">Copy</string>
+    <string name="select_marital">Select your marital status</string>
+    <string name="dont_selected">Not selected</string>
+    <string name="married">Married</string>
+    <string name="unmarried">Unmarried</string>
+    <string name="marital_status">Marital status</string>
+    <string name="select_marital_status">Choose Marital Status</string>
+    <string name="reply_to">replied to %1$s</string>
+    <string name="see_more">See more</string>
+    <string name="you_replaed_to_you">You replied to yourself</string>
+    <string name="you">You</string>
+    <string name="you_end">You</string>
+    <string name="replying">Replying to %1$s</string>
+    <string name="verify_phone_number">Please verify your phone number</string>
+    <string name="exit">Exit</string>
+    <string name="continue_without_dual_pin">CONTINUE WITHOUT DUAL PIN</string>
+    <string name="add_4_digit_pin_code_for_extra_security">Add 4 digit PIN code for extra security</string>
+    <string name="re_enter_pin_code">Enter PIN Code</string>
+    <string name="text_deactivate_pin_code">Enter your Safe YOU PIN code to deactivate PIN code</string>
+    <string name="support">Support</string>
+    <string name="support_pressed"><font fgcolor='#FF8E8E93'>Support</font></string>
+    <string name="title_emergency_message">Emergency Message</string>
+    <string name="address">Address</string>
+    <string name="instagram">Instagram</string>
+    <string name="facebook">Facebook</string>
+    <string name="choose_your_country">Choose Your Country</string>
+    <string name="which_country_do_you_like_to_browse_in">Which country do you like to browse in?</string>
+    <string name="choose_your_language">Choose Your App Language</string>
+    <string name="country">Country</string>
+    <string name="notifications">Notifications</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="write_your_nickname">Write your nickname</string>
+    <string name="write_your_location">Write your location</string>
+    <string name="georgian">Georgian</string>
+    <string name="edit_dual_pin">Edit Dual PIN</string>
+    <string name="my_support">My Support Contacts</string>
+    <string name="name_lastname">Name Lastname</string>
+    <string name="support_contact">Support Contact %1$d</string>
+    <string name="name_of_service">Name Of Service %1$d</string>
+    <string name="confirm_change_country">If you change the country you will be connected to services of the chosen country.</string>
+    <string name="not_attached_services">You don\'t have added any contacts!</string>
+    <string name="continue_change_country">OK</string>
+    <string name="comments">Comments</string>
+    <string name="comment">Comment</string>
+    <string name="count_comments">%1$d comments</string>
+    <string name="edit_pin_dialog_description">Enter your Safe YOU PIN code to edit PIN code</string>
+    <string name="which_language_do_you_like_to_browse_in">Please choose the language to continue</string>
+    <string name="add_4_digit_pin_code_for_extra_security_description">"Want to Hide the App from others?\nThen add a Dual Pin!\nThe Real PIN to access the app, and the Fake Pin to access Photo gallery.\nUsing the app without Dual Pin will make access quicker."</string>
+    <string name="update_new_password">UPDATE NEW PASSWORD</string>
+    <string name="view_more">%1$d Replies | View More Replies</string>
+    <string name="people_recently_commented_on_this_post">%1$d People Recently Commented on this Post</string>
+    <string name="error_massage">Invalid data</string>
+    <string name="replied_to_your_comment">\t replied to Your comment</string>
+    <string name="please_select_language">Please select language</string>
+    <string name="this_is_inform_the_police">Inform the police</string>
+    <string name="gallery">Gallery</string>
+    <string name="change_app_icon">Change app icon</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="dual_pin_camouflage_icon">Dual Pin / Camouflage Icon</string>
+    <string name="choose_your_camouflage_icon">Choose Your Camouflage Icon</string>
+    <string name="art_gallery">Art Gallery</string>
+    <string name="gallery_editor">Gallery Editor</string>
+    <string name="photo_editor">Visual Editor</string>
+    <string name="add_a_new_dual_pin">Add a New Dual PIN</string>
+    <string name="edit_deactivate_dual_pin">Edit/Deactivate Dual PIN</string>
+    <string name="continue_txt">Continue</string>
+    <string name="enter_your_safeyou_pin">Enter your SafeYou PIN Code to deactivate PIN Code</string>
+    <string name="edit_pin_code_or_the_camouflage">Edit PIN Code or the Camouflage Icon</string>
+    <string name="submit_small">Submit</string>
+    <string name="consultant_request">Consultancy Request</string>
+    <string name="field_of_expertise">Your field of expertise</string>
+    <string name="become_a_consultant_description">Why would you like to become a consultant at SafeYou?</string>
+    <string name="security_and_login"><![CDATA[Security & Login]]></string>
+    <string name="camouflage_icon">Camouflage Icon</string>
+    <string name="dual_pin_security">Dual PIN</string>
+    <string name="edit_deactivate_pin_code">Edit/Deactivate PIN Code</string>
+    <string name="edit_deactivate_camouflage_icon">Deactivate/Edit Camouflage Icon</string>
+    <string name="safe_you_description">Learn about the functions of the App by pressing on the buttons below.</string>
+    <string name="activate_dual_pin">Would you also like to activate Dual Pin?</string>
+    <string name="activate_dual_pin_body">We recommend you to activate the Dual Pin to hide the true functions of the App from others.</string>
+    <string name="activate_camouflage_icon">Would you also like to activate the Camouflage Icon Function?</string>
+    <string name="activate_camouflage_icon_body">We recommend you to activate the Camouflage Icon: this will change App`s real icon and name in your phone`s menu.</string>
+    <string name="become_a_consultant">Become a Consultant</string>
+    <string name="send_request">Send Request</string>
+    <string name="input">Input</string>
+    <string name="email_address">Email Address</string>
+    <string name="by_pressing_you_agree_to_our">By pressing "Send Request" you agree to our</string>
+    <string name="consultant_terms_and_conditions"><u>"Consultant terms and conditions"</u></string>
+    <string name="field_for_expertise">Field for Expertise</string>
+    <string name="other_profession">Other</string>
+    <string name="add_your_expertise">Add your expertise</string>
+
+
+</resources>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="?android:attr/borderlessButtonStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_1sdp"
+    android:background="@drawable/ripple_effect_light_purple"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/_40sdp"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingEnd="0dp"
+    android:paddingBottom="@dimen/_10sdp"
+    android:textColor="@color/buttonBorderColor">
+
+    <TextView
+        android:id="@+id/txtServiceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:ellipsize="end"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:gravity="center_vertical"
+        android:maxWidth="@dimen/_200sdp"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/_10ssp" />
+
+    <TextView
+        android:id="@+id/txtServiceName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtServiceTitle"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:gravity="center_vertical"
+        android:maxWidth="@dimen/_180sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13ssp" />
+
+    <TextView
+        android:id="@+id/txtServiceClear"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_toStartOf="@id/imgEditService"
+        android:background="@drawable/ripple_effect_light_purple_services"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:gravity="center"
+        android:text="@string/clear"
+        android:textAllCaps="false"
+        android:textColor="@color/textPurpleColor"
+        android:textSize="@dimen/_12ssp" />
+
+    <ImageView
+        android:id="@+id/imgEditService"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/_13sdp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/new_edit_icon_puple" />
+
+
+</RelativeLayout>

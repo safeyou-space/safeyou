@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/helpScreenBackground"
+    tools:context=".view.fragment.FragmentHelp">
+
+    <Button
+        android:id="@+id/pushButton"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_220sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/push_green_background"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:gravity="center"
+        android:text="@string/push_hold"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_27ssp"
+        app:layout_constraintBottom_toTopOf="@+id/containerCancelSend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/recordProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="@dimen/_176sdp"
+        android:layout_height="@dimen/_176sdp"
+        android:layout_marginBottom="@dimen/_7sdp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progressDrawable="@drawable/style_circular"
+        android:secondaryProgress="100"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/pushButton"
+        app:layout_constraintEnd_toEndOf="@id/pushButton"
+        app:layout_constraintStart_toStartOf="@id/pushButton"
+        app:layout_constraintTop_toTopOf="@id/pushButton" />
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_210sdp"
+        android:fontFamily="@font/oswald_regular"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_30ssp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/pushButton"
+        app:layout_constraintEnd_toEndOf="@id/pushButton"
+        app:layout_constraintStart_toStartOf="@id/pushButton"
+        app:layout_constraintTop_toTopOf="@id/pushButton" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerMoreInfoRecList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnMoreInfo"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:background="@drawable/icon_rec_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnRecList"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/icon_record_list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerCancelSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnCancel"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:background="@drawable/icon_cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnSend"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:background="@drawable/icon_send_rec"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

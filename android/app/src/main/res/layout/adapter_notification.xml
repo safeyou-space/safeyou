@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingTop="@dimen/_15sdp"
+    android:paddingBottom="@dimen/_15sdp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:background="@drawable/ripple_effect_light_purple">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/notificationUserImage"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/_13sdp" />
+
+    <TextView
+        android:id="@+id/notificationUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hay_roboto_light"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@id/notificationUserImage"
+        android:layout_alignTop="@id/notificationUserImage"
+        android:text="@string/replied_to_your_comment"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:textSize="@dimen/_15ssp" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/notificationRepliedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hay_roboto_light"
+        android:text="@string/replied_to_your_comment"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@id/notificationUserName"
+        android:layout_alignTop="@id/notificationUserImage"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:textSize="@dimen/_15ssp" />
+
+    <TextView
+        android:id="@+id/notificationRepliedTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hay_roboto_light"
+        android:textColor="@color/statusBarColorPurple"
+        android:layout_toEndOf="@id/notificationUserImage"
+        android:layout_below="@id/notificationUserName"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:textSize="@dimen/_10ssp" />
+
+</RelativeLayout>

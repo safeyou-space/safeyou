@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_250sdp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_shadow"
+    android:orientation="vertical">
+
+
+    <ImageButton
+        android:id="@+id/cancelIcon"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/icon_cancel_record_info_dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hay_roboto_bold"
+        android:gravity="center"
+        android:text="@string/change_photo_title"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cancelIcon" />
+
+    <TextView
+        android:id="@+id/txtTitleDescription"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:fontFamily="@font/hay_roboto_light"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/txtTitleDescription">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray" />
+
+        <Button
+            android:id="@+id/btnTakeNewPhoto"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/ripple_effect_transparent"
+            android:fontFamily="@font/hay_roboto_light"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:text="@string/take_new_photo"
+            android:textAllCaps="false"
+            android:textColor="@color/statusBarColorPurpleDark"
+            android:textSize="@dimen/_13ssp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray" />
+
+        <Button
+            android:id="@+id/btnSelectFromGallery"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/ripple_effect_transparent"
+            android:fontFamily="@font/hay_roboto_light"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:text="@string/select_from_gallery"
+            android:textAllCaps="false"
+            android:textColor="@color/statusBarColorPurpleDark"
+            android:textSize="@dimen/_13ssp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray" />
+
+        <Button
+            android:id="@+id/btnRemovePhoto"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/ripple_effect_transparent"
+            android:fontFamily="@font/hay_roboto_bold"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:text="@string/remove_photo"
+            android:textAllCaps="false"
+            android:textColor="@color/statusBarColorPurpleDark"
+            android:textSize="@dimen/_13ssp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

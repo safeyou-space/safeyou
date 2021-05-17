@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.FragmentForum">
+
+    <include layout="@layout/server_error_view" />
+
+    <include
+        android:id="@+id/forumLoading"
+        layout="@layout/loading_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recViewForum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

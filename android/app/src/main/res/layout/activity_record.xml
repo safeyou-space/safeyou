@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fragmentsBackgroundColors"
+    tools:context=".view.RecordActivity">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/statusBarColorPurpleDark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/pageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="@string/all_recordings"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_26ssp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/recordSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/record_search_bg"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="@dimen/_5sdp"
+                android:focusable="auto"
+                android:gravity="center_vertical"
+                android:hint="@string/search_by_date_time_place"
+                android:padding="@dimen/_8sdp"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pageTitle" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <pro.fambox.materialsearchview.MaterialSearchView
+        android:id="@+id/searchView"
+        style="@style/MaterialSearchViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/recordTableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabIndicatorColor="@color/statusBarColorPurpleDark"
+        app:tabIndicatorHeight="@dimen/_3sdp"
+        app:tabSelectedTextColor="@color/statusBarColorPurpleDark"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/dividerColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recordTableLayout" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/recordViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recordTableLayout" />
+
+</LinearLayout>

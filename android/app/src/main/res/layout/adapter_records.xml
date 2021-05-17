@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple_effect_light_purple"
+    android:padding="@dimen/_8sdp">
+
+    <TextView
+        android:id="@+id/recTitle"
+        android:layout_width="@dimen/_230sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/hay_roboto_bold"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_18ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/rec_time_time"
+        android:textColor="@color/statusBarColorPurpleDark"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="@id/recTitle"
+        app:layout_constraintTop_toBottomOf="@id/recTitle" />
+
+    <TextView
+        android:id="@+id/recData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/fewBlack"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toEndOf="@id/recTime"
+        app:layout_constraintTop_toBottomOf="@id/recTitle" />
+
+    <TextView
+        android:id="@+id/recDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_3sdp"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recTitle" />
+
+    <ImageView
+        android:id="@+id/recShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:contentDescription="@string/all"
+        android:padding="@dimen/_2sdp"
+        android:src="@drawable/rec_share_icon"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/recData"
+        app:layout_constraintStart_toEndOf="@id/recData"
+        app:layout_constraintTop_toTopOf="@id/recData" />
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/recLocation"-->
+    <!--        android:layout_width="@dimen/_30sdp"-->
+    <!--        android:layout_height="@dimen/_30sdp"-->
+    <!--        android:contentDescription="@string/all"-->
+    <!--        android:src="@drawable/rec_location_icon"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

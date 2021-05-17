@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#DCB1E9</color>
+    <color name="colorAccent">#9834B7</color>
+
+    <color name="statusBarColorPurple">#FFC783DC</color>
+    <color name="statusBarColorPurpleDark">#9834B7</color>
+    <color name="statusBarColorPurpleLight">#F6E8FB</color>
+    <color name="statusBarColorPurpleLanguage">#FDF9FE</color>
+    <color name="statusBarColorWhite">#FDFAFE</color>
+    <color name="statusBarColorBlack">#FDFAFE</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="fewBlack">#1D1D1D</color>
+    <color name="red">#FF0000</color>
+    <color name="gray">#818181</color>
+    <color name="shadow_gray">#05E4E3E3</color>
+    <color name="hint_gray">#80F8EFFB</color>
+    <color name="buttonBorderColor">#9834B7</color>
+    <color name="textPurpleColor">#9834B7</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="white_transparent">#D3FFFFFF</color>
+    <color name="forgetSwitchColor">#DEB6EA</color>
+    <color name="dividerColor">#9A979797</color>
+    <color name="chunkColor">#FE0000</color>
+    <color name="chunkBackgroundColor">#C6C6C6</color>
+    <color name="seekBarProgressBackground">#D8D8D8</color>
+    <color name="replyGray">#73D8D8D8</color>
+    <color name="fragmentsBackgroundColors">#FDFAFE</color>
+    <color name="settings_gray_color">#818181</color>
+    <color name="helpScreenBackground">#142A3B</color>
+    <color name="countDownProgressColor">#FE0000</color>
+    <color name="countDownProgressBackgroundColor">#1AFE0000</color>
+    <color name="colorMyComment">#F8EFFB</color>
+    <color name="screenDimmer">#A8000000</color>
+    <color name="colorSeparatorMaritalStatus">#CBA5D8</color>
+    <color name="colorChooseCountryText">#F8EFFB</color>
+    <color name="white_transparent_rec_items">#4DFFFFFF</color>
+    <color name="transparent_white">#B0FFFFFF</color>
+</resources>

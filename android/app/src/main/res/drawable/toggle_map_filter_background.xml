@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_checked="true" >
+        <shape
+            android:shape="rectangle"
+            android:visible="true"
+            android:dither="true"
+            android:useLevel="false">
+            <solid android:color="@color/statusBarColorPurpleDark"/>
+            <corners android:radius="@dimen/_20sdp"/>
+            <stroke android:color="@color/statusBarColorPurpleDark"
+                android:width="@dimen/_4sdp"/>
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:shape="rectangle"
+            android:visible="true"
+            android:dither="true"
+            android:useLevel="false">
+          <solid android:color="@color/transparent"/>
+            <corners android:radius="@dimen/_20sdp"/>
+            <stroke
+                android:width="@dimen/_1sdp"
+                android:color="@color/statusBarColorPurpleDark"/>
+        </shape>
+    </item>
+</selector>

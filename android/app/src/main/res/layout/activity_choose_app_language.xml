@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_background"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    tools:context=".view.ChooseAppLanguageActivity">
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtChooseYourLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_65sdp"
+                android:layout_marginEnd="@dimen/_18sdp"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:gravity="center"
+                android:text="@string/choose_your_language"
+                android:textColor="@color/colorChooseCountryText"
+                android:textSize="@dimen/_28ssp" />
+
+            <TextView
+                android:id="@+id/txtCountryDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_below="@id/txtChooseYourLanguage"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:gravity="center"
+                android:text="@string/which_language_do_you_like_to_browse_in"
+                android:textColor="@color/colorChooseCountryText"
+                android:textSize="@dimen/_13ssp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recViewLanguages"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_above="@id/containerNext"
+                android:layout_marginEnd="@dimen/_18sdp" />
+
+        <LinearLayout
+            android:id="@+id/containerNext"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_18sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/button_border"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txtNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/hay_roboto_normal"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/next"
+                android:textAllCaps="true"
+                android:textColor="@color/textPurpleColor"
+                android:textSize="@dimen/_14ssp" />
+
+            <ImageView
+                android:layout_width="@dimen/_11sdp"
+                android:layout_height="@dimen/_11sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/next_button_icon" />
+
+        </LinearLayout>
+
+        <include layout="@layout/loading_view" />
+
+    </RelativeLayout>
+
+</ScrollView>

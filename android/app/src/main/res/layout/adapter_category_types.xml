@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_marginBottom="@dimen/_8sdp"
+    android:gravity="center">
+
+    <ToggleButton
+        android:id="@+id/tglCategoryType"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:minWidth="@dimen/_40sdp"
+        android:background="@drawable/toggle_map_filter_background"
+        android:checked="false"
+        android:fontFamily="@font/hay_roboto_light"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/statusBarColorPurpleDark"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="@dimen/_14ssp" />
+
+
+</LinearLayout>
