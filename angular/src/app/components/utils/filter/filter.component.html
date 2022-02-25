@@ -1,0 +1,151 @@
+<div class="content">
+  <div class="content-head">
+    <div class="filter-block-header">
+      <div>
+        <h4 class="head-title">{{helperService?.translation?.filter}}</h4>
+      </div>
+      <div class="close-button-btn">
+        <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+  <div class="content-body">
+    <form [formGroup]="form">
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.categories}}</h4>
+        <div class="category-form">
+          <ul class="filter-list content-scroll">
+            <li *ngFor="let item of categoryList, let i = index">
+            <label class="checkbox-item" *ngIf="i < this.showAllCategoriesCount">
+              <input type="checkbox" formControlName="categories" (change)="changeInputValue($event, item.id)" [value]="item.id" id="category-button-{{i}}" name="category">
+              <label for="category-button-{{i}}"></label>
+              <span>{{item.value}}</span>
+            </label>
+            </li>
+          </ul>
+          <div *ngIf="categoryList.length > 8 && this.showAllCategoriesCount == 8" class="d-inline-block position-relative hover-state">
+            <span class="all-categories-button" (click)="showAllCategories()">{{helperService?.translation?.all_categories}}</span>
+            <span class="to-down">{{helperService?.translation?.all_categories}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.views_count}}</h4>
+        <div class="category-form">
+          <ul class="filter-list">
+            <li>
+              <label class="checkbox-item">
+                <input type="radio" formControlName="views_count" value='"0":"50-100"' id="category-10" name="views_count">
+                <label for="category-10"></label>
+                <span>50-100</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input type="radio" formControlName="views_count" value='"0":"100-250"' id="category-11" name="views_count">
+                <label for="category-11"></label>
+                <span>100-250</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input type="radio" formControlName="views_count" value='"0":"250-500"' id="category-12" name="views_count">
+                <label for="category-12"></label>
+                <span>250-500</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input type="radio" formControlName="views_count" value='"0":"500-1000"' id="category-13" name="views_count">
+                <label for="category-13"></label>
+                <span>500-1000</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input type="radio" formControlName="views_count" value='"0":"1000+"' id="category-14" name="views_count">
+                <label for="category-14"></label>
+                <span>1000+</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.comment_count}}</h4>
+        <div class="category-form">
+          <ul class="filter-list">
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="comments_count" value='"0":"25-50"' type="radio" id="category-27" name="comments_count">
+                <label for="category-27"></label>
+                <span>25-50</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="comments_count" value='"0":"50-100"' type="radio" id="category-20" name="comments_count">
+                <label for="category-20"></label>
+                <span>50-100</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="comments_count" value='"0":"100-250"' type="radio" id="category-21" name="comments_count">
+                <label for="category-21"></label>
+                <span>100-250</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="comments_count" value='"0":"250-500"' type="radio" id="category-22" name="comments_count">
+                <label for="category-22"></label>
+                <span>250-500</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="comments_count" value='"0":"500-1000"' type="radio" id="category-23" name="comments_count">
+                <label for="category-23"></label>
+                <span>500-1000</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="comments_count" value='"0":"1000"' type="radio" id="category-24" name="comments_count">
+                <label for="category-24"></label>
+                <span>1000+</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.age_restriction}}</h4>
+        <div class="age-block">
+          <div class="age-text">
+            18+
+          </div>
+          <div>
+            <label class="switch m-0">
+              <input type="checkbox" formControlName="age_restricted" [checked]='0'>
+              <div>
+                <span></span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="content-footer">
+    <div class="footer-action-block">
+      <div class="clear-all-text cursor-pointer" (click)="clearValues()">
+        <i class="fa fa-times cursor-pointer" aria-hidden="true"></i> {{helperService?.translation?.delete_all}}
+      </div>
+      <div>
+        <button (click)="save()" class="footer-button">{{helperService?.translation?.results}} {{allData && !allData['message'] ? allData.total : '0'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

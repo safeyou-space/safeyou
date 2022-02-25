@@ -1,0 +1,118 @@
+<div *ngIf="isModalShown" [config]="{ show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name" style="z-index: 5555;">
+  <div class="modal-dialog modal-dialog-centered report_modal">
+    <div class="modal-content modal-style">
+      <div class="modal-header report_modal_header align-items-center">
+        <div>
+          <h4>
+            <img src="assets/images/icons/icon-reports-tickets.png" alt="no image">
+            {{helperService.translation?.alarm}}
+          </h4>
+        </div>
+        <div>
+          <button type="button" (click)="hideModal()" class="btn send_button">{{helperService.translation?.close}}</button>
+        </div>
+      </div>
+      <div class="modal-body help_modal_body">
+        <div class="modal-block">
+          <div style="width: 50%; padding: 32px 40px;">
+            <p class="time-title" style="padding-bottom: 11px;">{{helperService.translation?.alarm_has_been_received}}</p>
+
+            <div class="time-block">
+                <div>
+                  <div class="time-numbers">{{hours}}</div>
+                  <p class="time-title">{{helperService.translation?.time}}</p>
+                </div>
+                <div class="time-numbers">:</div>
+                <div>
+                  <div class="time-numbers">{{minutes}}</div>
+                  <p class="time-title">{{helperService.translation?.minute}}</p>
+                </div>
+                <div class="time-numbers">:</div>
+                <div>
+                  <div class="time-numbers">{{seconds}}</div>
+                  <p class="time-title">{{helperService.translation?.second}}</p>
+                </div>
+              </div>
+            <div>
+              <p class="user-info-title">{{helperService.translation?.user_detail}}</p>
+              <div class="user-info-block">
+                <div style="margin-right: 37px; min-width: 270px">
+                  <div class="margin-bottom-16">
+                    <img src="assets/images/icons/icon-profile.png" alt="icon">
+                    <span class="info-block-description">{{signalData?.first_name + ' ' + signalData?.last_name}}</span>
+                  </div>
+                  <div class="margin-bottom-16">
+                    <img src="assets/images/icons/icon-cake.png" alt="icon">
+                    <span class="info-block-description">{{birthday}}</span>
+                  </div>
+                  <div class="margin-bottom-16">
+                    <img src="assets/images/icons/icon-pin.png" alt="icon">
+                    <span class="info-block-description">{{address}}</span>
+                  </div>
+                  <div class="margin-bottom-16">
+                    <img src="assets/images/icons/icon-phone.png" alt="icon">
+                    <span class="info-block-description">{{signalData?.phone}}</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="margin-bottom-16">
+                    <img src="assets/images/icons/icon-hashtag.png" alt="icon">
+                    <span class="info-block-description">{{signalData?.phone}}</span>
+                  </div>
+                  <div class="margin-bottom-16">
+                    <img src="assets/images/icons/icon-ring.png" alt="icon">
+                    <span class="info-block-description">{{signalData?.marital_status}}</span>
+                  </div>
+                </div>
+              </div>
+              <p class="user-info-title">{{helperService.translation?.alarm_details}}</p>
+              <div class="user-info-block">
+                <div style="margin-right: 37px; min-width: 270px">
+                  <div class="margin-bottom-16">
+                    <img src="assets/images/icons/icon-calendar.png" alt="icon">
+                    <span class="info-block-description">{{helpSmsDate}}</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="margin-bottom-16">
+                    <img src="assets/images/icons/icon-time.png" alt="icon">
+                    <span class="info-block-description">{{time}}</span>
+                  </div>
+                </div>
+              </div>
+              <p class="user-info-title">{{helperService.translation?.alarm_contact}}</p>
+              <div class="user-info-block">
+                <div style="margin-right: 37px; min-width: 270px">
+                  <div class="margin-bottom-16" *ngFor="let contact of signalData?.emergency_contacts" >
+                    <img src="assets/images/icons/icon-app-user.png" alt="icon">
+                    <span class="info-block-description"> {{contact?.phone}} </span>
+                  </div>
+                </div>
+                <div>
+                  <div class="margin-bottom-16" *ngFor="let serviceContact of signalData?.emergency_service_contacts">
+                    <img src="assets/images/icons/icon-ngo.png" alt="icon">
+                    <span class="info-block-description">
+
+                      {{serviceContact?.emergency_service?.title}}
+
+                    </span>
+                  </div>
+                  <div class="margin-bottom-16" *ngIf="signalData?.check_police == 1">
+                    <img src="assets/images/icons/icon-police.png" alt="icon">
+                    <span class="info-block-description">{{helperService.translation?.police}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="width:50%" class="position-relative">
+            <div class="map-block">
+              <app-map [type]="'single-view'" [data]="signalData ? signalData.help_sms[this.index] : this.data.help_sms[this.index]" *ngIf="showMap" [idItem]="'map2'"></app-map>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

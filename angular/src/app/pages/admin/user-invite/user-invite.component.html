@@ -1,0 +1,119 @@
+<div class="bg-image">
+  <div class="invite_block">
+    <form class="data-form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+      <div class="d-inline-flex">
+        <div>
+          <div class="drag-and-drop"
+               [style]="imageValue ? 'box-shadow: none; background: none; border: 2px solid transparent' : ''">
+
+            <div *ngIf="!imageValue" class="drag-and-drop-info"></div>
+
+            <div class="drag-and-drop-container"
+                 [style]="imageValue ? 'padding: 22px 8px 16px 8px; background-image: none' : ''"
+                 (fileDropped)="onChange($event)">
+              <div *ngIf="imageValue || editImagePath">
+                <div class="image-block">
+                  <img *ngIf="imageValue || editImagePath" src="{{imageValue ? imageValue : this.requestService.imgSite + editImagePath}}" alt="image"
+                       class="user-image">
+                  <img src="assets/images/icons/icon-edit.png" alt="image" class="user-edit-icon">
+                </div>
+              </div>
+              <input formControlName="file" type="file" id="fileDropRef" (change)="onChange($event)"/>
+              <div *ngIf="!imageValue">
+                <img class="btn-upload" src="../../../../../../assets/images/icons/btn-upload.png" alt="upload">
+                <h3>{{helperService.translation?.select_image}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="error-message">
+            <span *ngIf="form.controls.file?.hasError('size')">{{helperService.translation?.image_size_error}}</span>
+            <span *ngIf="form.controls.file?.hasError('type')">{{helperService.translation?.invalid_image}}</span>
+          </div>
+        </div>
+        <div style="padding-left: 28px;">
+          <div class="form-group">
+            <label for="first_name"
+                   [ngClass]="(form.controls.first_name?.invalid && (form.controls.first_name?.dirty || form.controls.first_name?.touched)) ? 'invalid-label-color' : ''">
+              {{helperService.translation?.first_name}}
+            </label>
+            <input type="text" id="first_name" formControlName="first_name" class="form-control">
+            <div
+              *ngIf="!form.controls.first_name?.valid && (form.controls.first_name?.dirty || form.controls.first_name?.touched)">
+              <span class="error-message">{{helperService.translation?.name_required}}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email"
+                   [ngClass]="(form.controls.email?.invalid && (form.controls.email?.dirty || form.controls.email?.touched)) ? 'invalid-label-color' : ''">
+              {{helperService.translation?.email}}
+            </label>
+            <input type="text" id="email" formControlName="email" class="form-control">
+            <div class="error-message">
+          <span
+            *ngIf="form.controls.email?.errors?.required && (form.controls.email?.dirty || form.controls.email?.touched)">{{helperService.translation?.email_required}} </span>
+              <span
+                *ngIf="form.controls.email?.errors?.pattern && (form.controls.email?.dirty || form.controls.email?.touched)">{{helperService.translation?.email_invalid}}</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding-left: 28px;">
+          <div class="form-group">
+            <label for="last_name"
+                   [ngClass]="(form.controls.last_name?.invalid && (form.controls.last_name?.dirty || form.controls.last_name?.touched)) ? 'invalid-label-color' : ''">
+              {{helperService.translation?.last_name}}
+            </label>
+            <input type="text" id="last_name" formControlName="last_name" class="form-control">
+            <div
+              *ngIf="!form.controls.last_name?.valid && (form.controls.last_name?.dirty || form.controls.last_name?.touched)">
+              <span class="error-message">{{helperService.translation?.lastname_required}}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password"
+                   [ngClass]="(form.controls.password?.invalid && (form.controls.password?.dirty || form.controls.password?.touched)) ? 'invalid-label-color' : ''">
+              {{helperService.translation?.password}}
+            </label>
+            <input type="password" id="password" formControlName="password" class="form-control">
+            <div class="error-message">
+              <span *ngIf="form.controls.password?.errors?.required && (form.controls.password?.dirty || form.controls.password?.touched)">{{helperService.translation?.password_required}}</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div style="padding-left: 28px;">
+          <div class="form-group">
+            <label for="phone"
+                   [ngClass]="(form.controls.phone?.invalid && (form.controls.phone?.dirty || form.controls.phone?.touched)) ? 'invalid-label-color' : ''"
+            >{{helperService.translation?.phone}}</label>
+            <input type="text" id="phone" formControlName="phone" class="form-control">
+            <div class="error-message">
+          <span
+            *ngIf="form.controls.phone?.errors?.required && (form.controls.phone?.dirty || form.controls.phone?.touched)">{{helperService.translation?.phone_required}}</span>
+              <span
+                *ngIf="form.controls.phone?.errors?.pattern && (form.controls.phone?.dirty || form.controls.phone?.touched)">{{helperService.translation?.invalid_phone}}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password_confirmation"
+                   [ngClass]="(form.controls.password_confirmation?.invalid && (form.controls.password_confirmation?.dirty || form.controls.password_confirmation?.touched)) ? 'invalid-label-color' : ''">
+              {{helperService.translation?.confirm_password}}</label>
+            <input type="password" id="password_confirmation" formControlName="password_confirmation" class="form-control">
+            <div class="error-message">
+          <span *ngIf="form.controls.password_confirmation?.errors?.required && (form.controls.password_confirmation?.dirty || form.controls.password_confirmation?.touched)">
+            {{helperService.translation?.confirm_password_required}}
+          </span>
+              <span *ngIf="form.controls.password_confirmation.hasError('mismatchedPasswords')&& (form.controls.password_confirmation?.dirty || form.controls.password_confirmation?.touched)">
+            {{helperService.translation?.password_missmatch}}
+          </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="button-block">
+        <button [disabled]="!form.valid" type="submit">{{helperService.translation?.send}}</button>
+      </div>
+    </form>
+  </div>
+
+</div>

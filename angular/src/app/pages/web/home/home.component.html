@@ -1,0 +1,382 @@
+<div class="wrapper">
+  <div class="header-block" #home>
+    <div class="my-container">
+      <div class="menu-block"
+           [ngClass]="this.defaultlanguage === 'hy' ? 'menu-block-hy' :
+                this.defaultlanguage === 'ge'  ? 'menu-block-ge' : ''">
+        <div class="logo-block"></div>
+        <ul class="menu-bar">
+          <li><a (click)="scroll(home)">{{translation.header.menu.home}}</a></li>
+          <li><a (click)="scroll(howitworks)">{{translation.header.menu.howItWork}}</a></li>
+          <li><a (click)="scroll(aboutus)">{{translation.header.menu.aboutUs}}</a></li>
+          <li><a (click)="scroll(contact)">{{translation.header.menu.contactUs}}</a></li>
+        </ul>
+        <ul class="social-icons-bar p-0">
+          <li style="margin-top: -9px;" class="btn-group" dropdown>
+            <a dropdownToggle id="button-basic" aria-controls="dropdown-basic" class="dropdown-toggle cursor-pointer text-white">
+              {{translation.header.menu.language}} <span class="sr-only"></span>
+            </a>
+            <ul style="min-width: 60px;" id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                role="menu" aria-labelledby="button-basic">
+              <li *ngIf="this.defaultlanguage != 'hy'" role="menuitem"
+                  class="d-block mr-0 cursor-pointer"><a (click)="changelanguage('hy')"
+                                                                             class="dropdown-item language-menu-color">Հայ</a></li>
+              <li *ngIf="this.defaultlanguage != 'en'" role="menuitem"
+                  class="d-block mr-0 cursor-pointer"><a (click)="changelanguage('en')"
+                                                                             class="dropdown-item language-menu-color">En</a></li>
+              <li *ngIf="this.defaultlanguage != 'ge'" role="menuitem"
+                  class="d-block mr-0 cursor-pointer"><a (click)="changelanguage('ge')"
+                                                                             class="dropdown-item language-menu-color">Ge</a></li>
+            </ul>
+          </li>
+          <li class="border-social-icons"><a href="https://www.facebook.com/SafeYOU.Space/" target="_blank"><img src="/assets/pageImages/fb.png" alt="fb"></a></li>
+          <li class="border-social-icons"><a href="https://www.instagram.com/safeyou_app/" target="_blank"><img src="/assets/pageImages/instagram.png" alt="instagram"></a></li>
+        </ul>
+
+        <div id="mySidenav" class="sidenav" #mySidenav>
+          <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+          <a (click)="scroll(home)">{{translation.header.menu.home}}</a>
+          <a (click)="scroll(howitworks)">{{translation.header.menu.howItWork}}</a>
+          <a (click)="scroll(aboutus)">{{translation.header.menu.aboutUs}}</a>
+          <a (click)="scroll(contact)">{{translation.header.menu.contactUs}}</a>
+        </div>
+
+        <ul class="mobile-menu">
+          <li class="border-social-icons"><a href="https://www.facebook.com/SafeYOU.Space/" target="_blank"><img
+            src="/assets/pageImages/fb.png" alt="fb"></a></li>
+          <li class="border-social-icons"><a href="https://www.instagram.com/safeyou_app/" target="_blank"><img
+            src="/assets/pageImages/instagram.png" alt="instagram"></a></li>
+          <li style="margin-top: -5px;" class="btn-group" dropdown><a dropdownToggle id="button-basic1"
+                                                                      aria-controls="dropdown-basic"
+                                                                      style="color: white;"
+                                                                      class="dropdown-toggle">{{translation.header.menu.language}}
+            <span class="sr-only"></span></a>
+            <ul style="width: 60px; min-width: 60px;" id="dropdown-basic1" *dropdownMenu class="dropdown-menu"
+                role="menu" aria-labelledby="button-basic">
+              <li *ngIf="this.defaultlanguage != 'hy'" style="margin-right: 0; margin-left: 0;" role="menuitem"
+                  class="language-menu-color d-block"><a (click)="changelanguage('hy')" class="dropdown-item">Հայ</a>
+              </li>
+              <li *ngIf="this.defaultlanguage != 'en'" style="margin-right: 0; margin-left: 0;" role="menuitem"
+                  class="language-menu-color d-block"><a (click)="changelanguage('en')" class="dropdown-item">En</a>
+              </li>
+              <li *ngIf="this.defaultlanguage != 'ge'" style="margin-right: 0; margin-left: 0;" role="menuitem"
+                  class="language-menu-color d-block"><a (click)="changelanguage('ge')" class="dropdown-item">Ge</a>
+              </li>
+            </ul>
+          </li>
+          <li><span style="font-size:30px;cursor:pointer; color: #ffffff" (click)="openNav()">&#x2630;</span></li>
+        </ul>
+
+      </div>
+      <div class="phone-and-logo-block"
+           [ngClass]="this.defaultlanguage === 'hy' ? 'phone-and-logo-block-hy' :
+                this.defaultlanguage === 'ge'  ? 'phone-and-logo-block-ge' : ''">
+        <div class="logo-info-block">
+          <div class="header-tile">
+            <img class="logo_site" src="/assets/pageImages/SafeYOU logo png.png" alt="">
+            <h2>{{translation.header.title}}</h2>
+          </div>
+          <div class="header-text-and-buttons" [innerHTML]="translation.header.description"></div>
+        </div>
+        <div class="phone-block"></div>
+      </div>
+      <img src="/assets/pageImages/Vector3.png" class="svg1" alt="Vector3">
+      <img src="/assets/pageImages/Vector2.png" class="svg2" alt="Vector2">
+      <img src="/assets/pageImages/Vector1.png" class="svg3" alt="Vector1">
+    </div>
+
+  </div>
+
+  <div class="how-it-works-block" #howitworks
+       [ngClass]="this.defaultlanguage === 'hy' ? 'how-it-works-block-hy' :
+                this.defaultlanguage === 'ge'  ? 'how-it-works-block-ge' : ''">
+    <h2>{{translation.howItWork.title}}</h2>
+    <div [innerHTML]="translation.howItWork.description"></div>
+    <div class="how-it-work-container how-it-works-border">
+      <div class="how-it-work-phone-and-info">
+        <div class="how-it-work-phone-block">
+          <img src="/assets/pageImages/Iphone2.png" alt="ipone">
+        </div>
+        <div class="line-block">
+
+          <div class="first-border flexible-element">
+            <div class="border-style"></div>
+            <span class="bauble"></span></div>
+          <div class="second-border flexible-element">
+            <div class="border-style"></div>
+            <span class="bauble"></span></div>
+          <div class="third-border flexible-element">
+            <div class="border-style"></div>
+            <span class="bauble"></span></div>
+        </div>
+        <div class="how-it-work-info">
+          <div class="how-it-works-image-text"
+               [ngClass]="this.defaultlanguage === 'hy' ? 'how-it-works-image-text-hy' :
+                this.defaultlanguage === 'ge'  ? 'how-it-works-image-text-ge' : ''">
+            <img src="/assets/pageImages/icon-contacts.png" alt="contacts">
+            <b>{{translation.howItWork.family.title}}</b>
+            <p>{{translation.howItWork.family.description}}
+            </p>
+          </div>
+          <div class="how-it-works-image-text"
+               [ngClass]="this.defaultlanguage === 'hy' ? 'how-it-works-image-text-hy' :
+                this.defaultlanguage === 'ge'  ? 'how-it-works-image-text-ge' : ''">
+            <img src="/assets/pageImages/icon-ngo.png" alt="contacts">
+            <b>{{translation.howItWork.service.title}}</b>
+            <p>{{translation.howItWork.service.description}}
+            </p>
+          </div>
+          <div class="how-it-works-image-text"
+               [ngClass]="this.defaultlanguage === 'hy' ? 'how-it-works-image-text-hy' :
+                this.defaultlanguage === 'ge'  ? 'how-it-works-image-text-ge' : ''">
+            <img src="/assets/pageImages/icon-police%20.png" alt="contacts">
+            <b>{{translation.howItWork.police.title}}</b>
+            <p>{{translation.howItWork.police.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="support-info-block"
+       [ngClass]="this.defaultlanguage === 'hy' ? 'support-info-block-hy' :
+                this.defaultlanguage === 'ge'  ? 'support-info-block-ge' : ''">
+    <div class="my-container main_container">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12 box box1">
+          <div class="icon_support"
+               [ngClass]="this.defaultlanguage === 'hy' ? 'icon_support-hy' :
+                this.defaultlanguage === 'ge'  ? 'icon_support-ge' : ''">
+            <img src="/assets/pageImages/Mask_Group.png" alt="">
+            <h4><a class="cursor-pointer">{{translation.forum.support.title}}</a></h4>
+          </div>
+          <div class="description">
+            {{translation.forum.support.description}}
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12 box box2">
+          <div class="icon_support"
+               [ngClass]="this.defaultlanguage === 'hy' ? 'icon_support-hy' :
+                this.defaultlanguage === 'ge'  ? 'icon_support-ge' : ''">
+            <img src="/assets/pageImages/Mask_Group_1.png" alt="">
+            <h4><a class="cursor-pointer">{{translation.forum.forums.title}}</a></h4>
+          </div>
+          <div class="description">
+            {{translation.forum.forums.description}}
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12 box box3">
+          <div class="icon_support"
+               [ngClass]="this.defaultlanguage === 'hy' ? 'icon_support-hy' :
+                this.defaultlanguage === 'ge'  ? 'icon_support-ge' : ''">
+            <img src="/assets/pageImages/Mask_Group.png" alt="">
+            <h4><a class="cursor-pointer">{{translation.forum.networks.title}}</a></h4>
+          </div>
+          <div class="description">
+            {{translation.forum.networks.description}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="carousel-block">
+    <owl-carousel-o [options]="customOptions">
+
+      <ng-container *ngFor="let slide of slidesStore">
+        <ng-template carouselSlide [id]="slide">
+          <img [src]="slide" class="carousel-images-size" alt="image">
+        </ng-template>
+      </ng-container>
+
+    </owl-carousel-o>
+  </div>
+
+  <div class="about-us-block" #aboutus
+       [ngClass]="this.defaultlanguage === 'hy' ? 'about-us-block-hy' :
+                this.defaultlanguage === 'ge'  ? 'about-us-block-ge' : ''">
+    <div class="auout-us-container">
+      <h2>{{translation.aboutUs.title}}</h2>
+      <p class="box1">
+        {{translation.aboutUs.description.box1}}
+      </p>
+      <div class="row">
+        <img class="img-fluid" src="/assets/pageImages/about_image.png" alt="">
+        <p class="box2">
+          {{translation.aboutUs.description.box2}}
+        </p>
+        <p class="box3" *ngIf="translation.aboutUs?.description.box3">
+          {{translation.aboutUs.description.box3}}
+        </p>
+        <p class="box3" *ngIf="translation.aboutUs?.description.box4">{{translation.aboutUs.description.box4}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-us-block" #contact
+       [ngClass]="this.defaultlanguage === 'hy' ? 'contact-us-block-hy' :
+                this.defaultlanguage === 'ge'  ? 'contact-us-block-ge' : ''">
+    <div class="contact-us-container">
+      <h2>{{translation.contact_us.title}}</h2>
+      <p>{{translation.contact_us.description}}</p>
+      <div class="contact-us-form-block">
+        <form [formGroup]="contactForm">
+          <div class="email-name-block">
+            <div class="form-group">
+              <input type="text" formControlName="name" placeholder="{{translation.contact_us.form.name}}"
+                     class="form-control" id="first_name" name="first_name">
+            </div>
+            <div class="form-group">
+              <input type="email" formControlName="email" placeholder="{{translation.contact_us.form.email}}"
+                     class="form-control" id="email" name="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea name="" formControlName="message" placeholder="{{translation.contact_us.form.message}}"
+                      class="form-control message-textarega" id=""></textarea>
+          </div>
+          <button [disabled]="contactForm.invalid || isSended" (click)="formSubmit(contactForm)"
+                  class="btn submit-button" type="submit">{{translation.contact_us.form.submit}}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="vision-of-the-future-block"
+       [ngClass]="this.defaultlanguage === 'hy' ? 'vision-of-the-future-block-hy' :
+                this.defaultlanguage === 'ge'  ? 'vision-of-the-future-block-ge' : ''">
+    <section id="support">
+      <div class="container">
+        <div class="row m112">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-12 box1">
+            <h1>
+              {{translation.vision.title}}
+            </h1>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-12 col-12 box2">
+            <div [innerHTML]="translation.vision.description"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section style="margin-top: 60px;" class="supported_by">
+      <div class="container">
+        <div class="row m112">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-12 box1">
+            <h1>
+              {{translation.vision.supported_by}}
+            </h1>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-12 col-12 box2">
+            <div class="row m50">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-12 box3">
+                <div class="d-flex">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 p-r-5">
+                      <div class="img_content ml_65">
+                        <a href="https://www.gov.am/en/" target="_blank">
+                          <img class="government" src="/assets/pageImages/Gov_Arm.png" alt="government_hy"/>
+                        </a>
+                      </div>
+                      <div class="img_content ml_72">
+                        <img class="co-funded" src="/assets/pageImages/Co-funded.png" alt="sexual violence"/>
+                      </div>
+                      <div class="img_content ml_65" style="height: 100px;">
+                        <a href="https://armenia.unfpa.org/en" target="_blank">
+                          <img class="unfpa" src="/assets/pageImages/UNFPA_logo.png" alt="unfpa"/>
+                        </a>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 p-r-5">
+                      <div class="img_content" style="width: 256px;">
+                        <img style="margin-top: 20px;" class="goverment" src="/assets/pageImages/nl_gov_logo.png" alt="goverment"/>
+                      </div>
+                      <div class="img_content ml_5" >
+                        <a
+                          href="https://www.worldbank.org/en/programs/development-marketplace-innovations-to-address-gender-based-violence#:~:text=The%20Development%20Marketplace%20awards%20teams,to%20GBV%20prevention%20and%20response"
+                          target="_blank">
+                          <img class="world_bank" src="/assets/pageImages/WorldBank_Logo.png" alt="world bank"/>
+                        </a>
+                      </div>
+                      <div class="img_content content_ml">
+                        <a href="http://www.eif.am/" target="_blank">
+                          <img class="eif" src="/assets/pageImages/EIF-logo.png" alt="eif"/>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section style="margin-top: 60px;" class="supported_by">
+      <div class="container">
+        <div class="row m112">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-12 box1">
+            <h1>
+              {{translation.vision.brought}}
+            </h1>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-12 col-12 box2">
+            <div class="row m50">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-12 box3">
+                <div class="d-flex">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 p-r-5">
+                      <div class="img_content ml_102" style="width: 200px;">
+                        <a href="https://www.facebook.com/IMINImpact/" target="_blank">
+                          <img class="imin" src="/assets/pageImages/IMIN_logo.png" alt="imin"/>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="footer-block"
+       [ngClass]="this.defaultlanguage === 'hy' ? 'footer-block-hy' :
+                this.defaultlanguage === 'ge'  ? 'footer-block-ge' : ''">
+    <div class="footer-container">
+      <div class="border-right-text"><p>© {{translation.footer.name}} {{ dateObj | date:'yyyy' }}</p></div>
+      <div><p (click)="showModal()" class="cursor-pointer">{{translation.footer.terms}}</p></div>
+      <div class="footer-icons">
+        <a href="https://www.facebook.com/SafeYOU.Space/" target="_blank"><img src="/assets/pageImages/fb.png"
+                                                                               alt="facebook"></a>
+        <a href="https://www.instagram.com/safeyou_app/" target="_blank"><img
+          src="/assets/pageImages/instagram.png" alt="instagram"></a>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isModalShown" [config]="{ show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-auto-name" class="modal-title pull-left">Terms & Conditions Privacy Policies</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <embed class="embed-style" src="/assets/pdffiles/Terms_ad_Conditions_Privacy_Policies_062020.pdf">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

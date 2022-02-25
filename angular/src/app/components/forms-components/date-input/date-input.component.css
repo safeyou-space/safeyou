@@ -1,0 +1,196 @@
+.calendar-dropdown-block {
+  display: inline-block;
+  position: relative;
+  /*background: #FBEFF2 0% 0% no-repeat padding-box;*/
+  border: 1px solid var(--unnamed-color-f8dee4);
+  min-width: 193px;
+  width: 100%;
+  border-radius: 50px;
+  padding: 4px 16px;
+  min-height: 32px;
+  cursor: pointer;
+  transition: border 0.4s;
+}
+.calendar-dropdown-block:hover {
+  /*background: #F8DEE4 0% 0% no-repeat padding-box;*/
+  border: 1px solid var(--unnamed-color-ea9dae);
+}
+.calendar-dropdown-block img {
+  width: 16px;
+  height: 16px;
+  margin-left: 20px;
+}
+.calendar-title-style {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+}
+.calendar-dropdown-item {
+  min-width: 160px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 4px 4px 10px #230D2C0D;
+  border-radius: 10px;
+  padding: 8px;
+  z-index: 1050;
+  position: absolute;
+  left: 0;
+  top: 35px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+.calendar-dropdown-item ul li:hover {
+  background: #FBEFF2 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+}
+.calendar-dropdown-block:hover .calendar-dropdown-item {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.filter-container {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.filter-dropdown-date {
+  display: inline-block;
+  position: relative;
+}
+.filter-dropdown-date-items {
+  background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+  z-index: 5;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  min-width: 144px;
+  padding: 8px;
+  overflow-y: auto;
+  max-height: 200px;
+;
+}
+.date-dropdown {
+  right: 0;
+  min-width: 100px;
+}
+.filter-dropdown-date-items ul {
+  list-style: none;
+  padding-left: 0;
+}
+.filter-dropdown-date-items ul li {
+  padding: 8px;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  color: #230D2C;
+  transition: background-color 0.3s;
+}
+.selected-item {
+  background-color: #FBEFF2;
+}
+.filter-dropdown-date:hover .filter-dropdown-date-items {
+  visibility: visible;
+  opacity: 1;
+  max-height: 175px;
+  overflow-y: auto;
+}
+.filter-dropdown-date:hover .filter-dropdown-date-items::-webkit-scrollbar {
+  width: 2px;
+}
+.filter-dropdown-date:hover .filter-dropdown-date-items::-webkit-scrollbar-track {
+  background-color: #F1BEC9;
+}
+*::-webkit-scrollbar-thumb {
+  background: #fff;
+  height: 10px;
+}
+
+
+
+
+.calendar-table {
+  border-collapse: collapse;
+}
+.calendar-table thead tr th {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+  padding: 5px 5px 15px 5px;
+  border-bottom: 1px solid #F8DEE4;
+}
+::ng-deep.calendar-table tbody tr th {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+  padding: 5px;
+}
+::ng-deep.calendar-table tbody tr:last-child th {
+  padding: 5px 5px 15px 5px;
+  border-bottom: 1px solid #F8DEE4;
+}
+::ng-deep.calendar-table tbody tr th span {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+  padding: 4px 5px;
+  border-radius: 50%;
+  width: 24px;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+::ng-deep.currentDay {
+  background: var(--unnamed-color-f1bec9) 0% 0% no-repeat padding-box;
+}
+::ng-deep.calendar-table tbody tr th span.old-days {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-19) var(--unnamed-font-family-hayroboto);
+  letter-spacing: var(--unnamed-character-spacing-0-78) !important;
+  text-align: center;
+  color: #A79EAA;
+  padding: 4px 5px;
+  width: 24px;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+::ng-deep.calendar-table tbody tr th span:hover {
+  background: var(--unnamed-color-f1bec9) 0% 0% no-repeat padding-box;
+  color: #230D2C;
+}
+.button-block {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.today-button {
+  background: var(--unnamed-color-fbeff2) 0% 0% no-repeat padding-box;
+  border-radius: 30px;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-14) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.26px;
+  color: #E37D93;
+  outline: none;
+  border: none;
+  padding: 5px 17px;
+  transition: background-color 0.4s;
+}
+.today-button:hover {
+  background: var(--unnamed-color-f8dee4) 0% 0% no-repeat padding-box;
+}
+.save-button {
+  background: var(--unnamed-color-e37d93) 0% 0% no-repeat padding-box;
+  background: #E37D93 0% 0% no-repeat padding-box;
+  border-radius: 30px;font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-14) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.26px;
+  color: #FEFBFC;
+  outline: none;
+  border: none;
+  padding: 5px 17px;
+  transition: background-color 0.4s;
+}
+.save-button:hover {
+  background: var(--unnamed-color-dc5d78) 0% 0% no-repeat padding-box;
+}

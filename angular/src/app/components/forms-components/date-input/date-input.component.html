@@ -1,0 +1,58 @@
+<div class="head-actions">
+  <div class="calendar-dropdown-block">
+    <div class="d-flex justify-content-between align-items-center">
+      <span style="font-size: 15px;display: inline-block;min-height: 22px;">{{showDate | date: 'dd/MM/yyyy'}} </span>
+      <img src="assets/images/icons/icon-arrow-down.png" alt="">
+    </div>
+    <div class="calendar-dropdown-item">
+      <div>
+        <div class="filter-container">
+          <div class="filter-dropdown-date">
+            <div>
+              <span class="calendar-title-style">{{months[currentMonth]}}</span>
+              <img src="assets/images/icons/icon-arrow-down.png" alt="">
+            </div>
+            <div class="filter-dropdown-date-items">
+              <ul>
+                <li *ngFor="let item of months, let i = index" [ngClass]="currentMonth == i ? 'selected-item' : ''" (click)="changeMonth(i)">{{item}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="filter-dropdown-date">
+            <div>
+              <span class="calendar-title-style">{{currentYear}}</span>
+              <img src="assets/images/icons/icon-arrow-down.png" alt="">
+            </div>
+            <div class="filter-dropdown-date-items  date-dropdown">
+              <ul>
+                <li *ngFor="let item of years; let i = index;" [ngClass]="currentYear == item ? 'selected-item' : ''" (click)="changeYear(item)">{{item}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <table class="calendar-table" id="calendar">
+          <thead>
+            <tr>
+              <th>{{this.helperService.translation?.Monday}}</th>
+              <th>{{this.helperService.translation?.Tuesday}}</th>
+              <th>{{this.helperService.translation?.Wednesday}}</th>
+              <th>{{this.helperService.translation?.Thursday}}</th>
+              <th>{{this.helperService.translation?.Friday}}</th>
+              <th>{{this.helperService.translation?.Saturday}}</th>
+              <th>{{this.helperService.translation?.Sunday}}</th>
+            </tr>
+            </thead>
+
+            <tbody id="calendar-body">
+
+            </tbody>
+        </table>
+        <div class="button-block">
+          <button class="today-button" type="button" (click)="setCurrentDay()">{{helperService.translation?.today}}</button>
+          <button class="save-button" type="button" (click)="save()">{{helperService.translation?.save}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

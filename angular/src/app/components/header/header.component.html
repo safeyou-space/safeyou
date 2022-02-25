@@ -1,0 +1,198 @@
+<div class="header">
+  <div class="profile-search-block">
+    <div class="search-block">
+      <h4 *ngIf="!isShowSearch" class="content-title">{{helperService.translation?.settings}}</h4>
+      <div *ngIf="isShowSearch">
+        <form action="">
+          <input type="search" placeholder="{{helperService.translation?.search}}" class="search-input input-font" id="search" name="search">
+        </form>
+
+        <div class="search-icon-block">
+          <img class="search-icon" src="assets/images/icons/icon-search.png" alt="icon">
+          <img class="search-icon-hover" src="assets/images/icons/icon-search(HoverState).png" alt="icon">
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-block">
+      <div class="notification-and-profile">
+        <div class="notification">
+          <div class="notify-dropdown">
+            <img class="notify-icon cursor-pointer" src="assets/images/icons/icon-notification.png" alt="image">
+            <span class="notoficationCount" *ngIf="socketConnect.newNotifications.length > 0">{{socketConnect.newNotifications.length}}</span>
+            <div class="drop-menu">
+              <div class="drop-menu-header">
+                <h4>{{helperService.translation?.notification}}</h4>
+                <a routerLink="/{{country}}/{{language}}/settings/notifications">{{helperService.translation?.view_all}}</a>
+              </div>
+              <div class="drop-menu-body">
+                <div class="new-messages-block" *ngIf="socketConnect.newNotifications.length > 0">
+                  <p class="new-message-title">{{helperService.translation?.new}}</p>
+                  <ul class="messages-list">
+                    <li style="position: relative;" *ngFor="let notification of socketConnect.newNotifications">
+                      <a *ngIf="notification.type == 2" (click)="getter(notification, 'new')" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="{{notification?.body?.message_send_by?.user_image}}" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{notification?.body?.message_send_by?.user_username + ' ' + helperService.translation?.write_forum_message}}</b>
+                            <span class="message-text d-inline-block"> {{notification?.body?.message_content | slice:0:30}} </span>
+                            <span class="time ml-1">{{getMinutes(notification?.body?.message_created_at)}} {{helperService.translation?.ago}}</span>
+                          </div>
+                        </div>
+                      </a>
+
+                      <a *ngIf="notification.type == 1" (click)="getter(notification, 'new')" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="{{imageUrl + notification?.body?.creator?.image?.url}}" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{notification?.body?.creator?.first_name + ' ' + helperService.translation?.create_new_forum}}</b>
+                            <span class="message-text d-inline-block"> {{notification?.body?.title | slice:0:30}} </span>
+                            <span class="time ml-1">{{getMinutes(notification?.body?.created_at)}} {{helperService.translation?.ago}}</span>
+                          </div>
+                        </div>
+                      </a>
+
+                      <a *ngIf="notification.type == 3" (click)="getter(notification, 'new')" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="{{imageUrl + notification?.body?.user?.image?.url}}" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{notification?.body?.resolved == 1 ? notification?.body?.user?.first_name + ' ' + helperService.translation?.confirm_report
+                              : notification?.body?.user?.first_name + ' ' + helperService.translation?.reject_report}}</b>
+                            <span class="message-text d-inline-block"> {{notification?.body?.message | slice:0:30}} </span>
+                            <span class="time ml-1">{{getMinutes(notification?.body?.updated_at)}} {{helperService.translation?.ago}}</span>
+                          </div>
+                        </div>
+                      </a>
+
+
+                    </li>
+                  </ul>
+                  <div class="line"></div>
+                </div>
+                <div class="old-messages-block">
+                  <p class="old-message-title">{{helperService.translation?.previous}}</p>
+                  <ul class="messages-list" *ngIf="notifications && notifications.length > 0">
+                    <li style="position: relative;" *ngFor = "let notification of notifications" [ngClass]="notification.notify_read == 0 ? 'no-read' : ''">
+                      <a *ngIf="notification.notify_type == 1" (click)="getter(notification)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center" >
+                          <div>
+                            <img class="messages-list-image" src="{{imageUrl + notification?.notify_body?.creator?.image?.url}}" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>  {{notification?.notify_body?.creator?.first_name + ' ' + helperService.translation?.create_new_forum}}</b>
+                            <span class="message-text d-inline-block"> {{notification?.notify_body?.title | slice:0:30}} </span>
+                            <span class="time ml-1">{{getMinutes(notification?.notify_created_at)}} {{helperService.translation?.ago}}</span>
+                          </div>
+                        </div>
+                      </a>
+                      <a *ngIf="notification?.notify_type == 2" (click)="getter(notification)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center" >
+                          <div>
+                            <img class="messages-list-image" src="{{notification?.notify_body?.message_send_by?.user_image}}" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>  {{notification?.notify_body?.message_send_by?.user_username + ' ' + helperService.translation?.wrote_message}}</b>
+                            <span class="message-text d-inline-block"> {{notification?.notify_body?.message_content | slice:0:30}} </span>
+                            <span class="time ml-1">{{getMinutes(notification?.notify_created_at)}} {{helperService.translation?.ago}}</span>
+                          </div>
+                        </div>
+                      </a>
+
+                      <a *ngIf="notification?.notify_type == 3" (click)="getter(notification)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="{{imageUrl + notification?.notify_body?.user?.image?.url}}" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{notification?.notify_body?.resolved == 1 ? notification?.notify_body?.user?.first_name + ' ' + helperService.translation?.confirm_report : notification?.notify_body?.user?.first_name + ' ' + helperService.translation?.reject_report}}</b>
+                            <span class="message-text d-inline-block"> {{notification?.notify_body?.message | slice:0:30}} </span>
+                            <span class="time ml-1">{{getMinutes(notification?.notify_body?.updated_at)}} {{helperService.translation?.ago}}</span>
+                          </div>
+                        </div>
+                      </a>
+
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="profile">
+          <div class="profile-menu d-inline-block">
+            <span class="user-name">{{helperService.userName}} {{helperService.userLastName != 'null' ? helperService.userLastName : ''}}</span>
+            <div class="profile-dropdown">
+              <div class="profile-dropdown-header">
+                <img onError="this.src='assets/images/img/user-male.png'"
+                     src="{{this.requestService.imgSite + helperService.userImage}}" alt="image">
+                <span>{{helperService.userEmail}}</span>
+              </div>
+              <ul class="profile-dropdown-body">
+                <li class="profile-menu-line">
+                  <a class="d-inline-block w-100" (click)="helperService.changeMenuItem(true)" routerLink="/{{country}}/{{language}}/settings/user-settings">
+                    <img src="assets/images/icons/icon-profile.png" alt="icon">
+                    {{helperService.translation?.account}}
+                  </a>
+                </li>
+                <li *ngIf="access?.admin || is_admin == true">
+                  <a class="d-inline-block w-100" (click)="helperService.changeMenuItem(true)" routerLink="/{{country}}/{{language}}/settings/roles">
+                    <img src="assets/images/icons/icon-profile.png" alt="icon">
+                    {{helperService.translation?.roles_competencies}}
+                  </a>
+                </li>
+                <li>
+                  <a class="d-inline-block w-100" (click)="helperService.changeMenuItem(true)" routerLink="/{{country}}/{{language}}/settings/languages">
+                    <img src="assets/images/icons/icon-language.png" alt="icon">
+                    {{helperService.translation?.languages}}
+                  </a>
+                </li>
+                <li class="profile-menu-line">
+                  <a class="d-inline-block w-100" (click)="helperService.changeMenuItem(true)" routerLink="/{{country}}/{{language}}/settings/notifications">
+                    <img src="assets/images/icons/icon-notification-settings.png" alt="icon">
+                    {{helperService.translation?.notifications}}
+                  </a>
+                </li>
+                <li class="profile-menu-line" *ngIf="this.country == 'arm'">
+                  <a *ngIf="this.helperService.activeLanguage" class="d-inline-block w-100 position-relative language-menu">
+                    <img src="{{this.requestService.imgSite + this.helperService.activeLanguage.image.url}}" alt="icon">
+                    {{this.helperService.activeLanguage.title}}
+                    <div class="languages-block">
+                      <ul>
+                        <li [ngClass]="this.helperService.activeLanguage?.title == item.title ? 'active_language' : ''" *ngFor="let item of helperService.languageList"
+                            (click)="this.helperService.changeLanguage(item.code); this.helperService.activeLanguageChange(item)">
+                          <span [ngClass]="this.helperService.activeLanguage?.title == item.title ? 'active_language' : ''">{{item.title}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="d-inline-block w-100" (click)="logOut()">
+                    <img src="assets/images/icons/icon-logout.png" alt="icon">
+                    {{helperService.translation?.logout}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <img class="profile-image" onError="this.src='assets/images/img/user-male.png'"
+               src="{{this.requestService.imgSite + helperService.userImage}}" alt="image">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

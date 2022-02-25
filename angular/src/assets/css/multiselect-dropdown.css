@@ -1,0 +1,239 @@
+::ng-deep .selected-list {
+  height: 32px;
+}
+::ng-deep .dropdown-list {
+  padding-top: 0 !important;
+}
+::ng-deep .mat-toolbar {
+  background: #ffffff;
+}
+::ng-deep .selected-list .c-angle-down, .selected-list .c-angle-up {
+  top: 45% !important;
+}
+::ng-deep .c-btn {
+  border: 1px solid #F8DEE4;
+  color: #333;
+  border-radius: 30px !important;
+  min-height: 32px !important;
+  transition: 0.4s;
+}
+::ng-deep .c-btn:hover {
+  border: 1px solid #EA9DAE;
+}
+::ng-deep .list-filter input::placeholder {
+  color: transparent;
+}
+::ng-deep .selected-list .c-list .c-token {
+  /*background: #0079FE;*/
+}
+
+::ng-deep .selected-list .c-list .c-token .c-label {
+  color: #230D2C;
+}
+
+::ng-deep .selected-list .c-list .c-token .c-remove svg {
+  fill: #230D2C !important;
+}
+
+::ng-deep .selected-list .c-angle-down svg, .selected-list .c-angle-up svg {
+  fill: #E5889C !important;
+}
+
+::ng-deep .dropdown-list ul li:hover {
+  background: #FBEFF2 0% 0% no-repeat padding-box;
+}
+
+::ng-deep .arrow-up, .arrow-down {
+  display: none;
+}
+
+::ng-deep .list-area div:nth-child(3)::-webkit-scrollbar {
+  width: 2px;
+  top: 2px;
+}
+
+::ng-deep .list-area div:nth-child(3)::-webkit-scrollbar-thumb {
+  background-color: #e37d93;
+  border-radius: 20px;
+}
+::ng-deep .arrow-2 {
+  border-bottom: 15px solid #ccc;
+}
+::ng-deep .list-filter input {
+  width: 95% !important;
+}
+::ng-deep .dropdown-list.tagToBody {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+::ng-deep .pure-checkbox:last-child {
+  padding-bottom: 10px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+::ng-deep .list-area {
+  border: 1px solid #F4CCD5 !important;
+  border-radius: 12px !important;
+}
+
+::ng-deep .select-all {
+  border-bottom: 1px solid #ccc;
+}
+
+::ng-deep .list-filter {
+  border-bottom: 1px solid #F2C6D0 !important;
+}
+
+::ng-deep .list-filter .c-search svg {
+  fill: #F4CCD5 !important;
+}
+
+::ng-deep .list-filter .c-clear svg {
+  fill: #888;
+}
+::ng-deep .selected-list .c-list .c-token .c-remove {
+  display: none;
+}
+::ng-deep .clear-all {
+  display: none;
+}
+::ng-deep .selected-list .c-list .c-token {
+  padding: 0 22px 0 8px !important;
+  margin-top: 0 !important;
+}
+::ng-deep .pure-checkbox {
+  border-top: 1px solid #F2C6D0;
+  padding: 6px 10px !important;
+}
+::ng-deep .pure-checkbox:first-child {
+  border-top: none;
+}
+::ng-deep .lazyContainer label {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-19) var(--unnamed-font-family-hayroboto) !important;
+  letter-spacing: 0.29px !important;
+  color: #230D2C !important;
+  font-size: 13px !important;
+}
+::ng-deep .pure-checkbox input[type="checkbox"]:focus + label:before, .pure-checkbox input[type="checkbox"]:hover + label:before {
+  border-color: #0079FE;
+  background-color: #f2f2f2;
+}
+::ng-deep .pure-checkbox input[type="checkbox"] + label {
+  color: #000;
+}
+::ng-deep .lazyContainer .pure-checkbox input[type="checkbox"] + label {
+  display: none;
+}
+::ng-deep .pure-checkbox input[type="checkbox"] + label:before {
+  color: #0079FE;
+  border: 1px solid #0079FE;
+}
+
+::ng-deep .lazyContainer .pure-checkbox input[type="checkbox"] + label:before {
+  display: none;
+}
+
+::ng-deep .pure-checkbox input[type="checkbox"] + label:after {
+  background-color: #0079FE;
+}
+
+::ng-deep .pure-checkbox input[type="checkbox"]:disabled + label:before {
+  border-color: #cccccc;
+}
+
+::ng-deep .pure-checkbox input[type="checkbox"]:disabled:checked + label:before {
+  background-color: #cccccc;
+}
+
+::ng-deep .pure-checkbox input[type="checkbox"] + label:after {
+  border-color: #ffffff;
+}
+
+::ng-deep .lazyContainer .pure-checkbox input[type="checkbox"] + label:after {
+  display: none;
+}
+
+::ng-deep .pure-checkbox input[type="radio"]:checked + label:before {
+  background-color: white;
+}
+
+::ng-deep .pure-checkbox input[type="checkbox"]:checked + label:before {
+  background: #0079FE;
+}
+
+::ng-deep .lazyContainer .pure-checkbox input[type="checkbox"]:checked + label:before {
+  display: none;
+}
+
+::ng-deep .single-select-mode .pure-checkbox input[type="checkbox"]:focus + label:before, .single-select-mode .pure-checkbox input[type="checkbox"]:hover + label:before {
+  border-color: #0079FE;
+  background-color: #f2f2f2;
+}
+
+::ng-deep .single-select-mode .pure-checkbox input[type="checkbox"] + label {
+  color: #000;
+}
+
+::ng-deep .single-select-mode .pure-checkbox input[type="checkbox"] + label:before {
+  color: transparent !important;
+  border: 0px solid #0079FE;
+}
+
+::ng-deep .single-select-mode .pure-checkbox input[type="checkbox"] + label:after {
+  background-color: transparent !important;
+}
+
+::ng-deep .single-select-mode .pure-checkbox input[type="checkbox"]:disabled + label:before {
+  border-color: #cccccc;
+}
+
+::ng-deep .single-select-mode .pure-checkbox input[type="checkbox"]:disabled:checked + label:before {
+  background-color: #cccccc;
+}
+
+::ng-deep .single-select-mode .pure-checkbox input[type="checkbox"] + label:after {
+  border-color: #0079FE;
+}
+
+::ng-deep .single-select-mode .pure-checkbox input[type="radio"]:checked + label:before {
+  background-color: white;
+}
+::ng-deep .single-select-mode .pure-checkbox input[type="checkbox"]:checked + label:before {
+  background: none !important;
+}
+::ng-deep .pure-checkbox.selected-item  input[type="checkbox"]:checked ~ label:not(:empty) {
+  display: inline-block;
+  width: 100%;
+  padding-right: 8px;
+}
+::ng-deep .pure-checkbox.selected-item  input[type="checkbox"]:checked ~ label:not(:empty):after {
+  background-image: url('../../assets/images/icons/check-select.png');
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  display: inline-block;
+  width: 24px;
+  height: 19px;
+  content: "";
+  float: right;
+}
+::ng-deep .selected-item {
+  background: #FBEFF2 0% 0% no-repeat padding-box;
+}
+
+::ng-deep .btn-iceblue {
+  background: #0079FE;
+  border: 1px solid #ccc;
+  color: #fff;
+}
+::ng-deep .arrow-down {
+  display: none;
+}
+::ng-deep .cuppa-dropdown .selected-list .c-btn span {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-18) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  /*font-size: 12px;*/
+  letter-spacing: 0.26px;
+  color: #A79EAA;
+}

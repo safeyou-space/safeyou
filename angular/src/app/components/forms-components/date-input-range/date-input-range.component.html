@@ -1,0 +1,71 @@
+<div class="head-actions">
+  <div class="calendar-dropdown-block">
+    <div class="">
+      <span>{{helperService.translation?.date}}</span>
+      <img src="assets/images/icons/icon-arrow-down.png" alt="">
+    </div>
+    <div class="calendar-dropdown-item">
+      <div>
+      <div class="d-flex justify-content-between">
+        <div>
+          <div class="filter-dropdown-date">
+            <div class="text-center">
+              <img src="assets/images/icons/icon-arrow-left.png" (click)="previous()" class="float-left mt-1" alt="icon">
+              <span class="calendar-title-style">{{months[this.currentMonth]}} {{this.currentYear}}</span>
+            </div>
+          </div>
+          <div class="calendar-table">
+            <div class="calendar-header">
+              <div>{{this.helperService.translation?.Monday}}</div>
+              <div>{{this.helperService.translation?.Tuesday}}</div>
+              <div>{{this.helperService.translation?.Wednesday}}</div>
+              <div>{{this.helperService.translation?.Thursday}}</div>
+              <div>{{this.helperService.translation?.Friday}}</div>
+              <div>{{this.helperService.translation?.Saturday}}</div>
+              <div>{{this.helperService.translation?.Sunday}}</div>
+            </div>
+            <div id="calendar-table-body">
+
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="filter-dropdown-date">
+            <div class="text-center">
+              <span class="calendar-title-style">{{months[this.nextMonth]}} {{this.nextYear}}</span>
+              <img src="assets/images/icons/icon-arrow-right.png" (click)="next()" class="float-right mt-1" alt="icon">
+            </div>
+          </div>
+          <div class="calendar-table">
+            <div class="calendar-header">
+              <div>{{this.helperService.translation?.Monday}}</div>
+              <div>{{this.helperService.translation?.Tuesday}}</div>
+              <div>{{this.helperService.translation?.Wednesday}}</div>
+              <div>{{this.helperService.translation?.Thursday}}</div>
+              <div>{{this.helperService.translation?.Friday}}</div>
+              <div>{{this.helperService.translation?.Saturday}}</div>
+              <div>{{this.helperService.translation?.Sunday}}</div>
+            </div>
+            <div id="calendar-table-body-2">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+        <div class="button-block">
+          <div>
+            <button class="today-button" type="button" (click)="setCurrentDay()">{{helperService.translation?.today}}</button>
+            <button class="today-button ml-1" (click)="clear()" type="button">{{helperService.translation?.clear}}</button>
+          </div>
+          <div>
+            <button class="save-button" type="button" (click)="save()">{{helperService.translation?.save}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

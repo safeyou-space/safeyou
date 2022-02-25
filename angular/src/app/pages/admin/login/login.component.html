@@ -1,0 +1,110 @@
+<div class="bg-image">
+  <img class="logo-icon" src="assets/images/img/safeyou-logo.png" alt="logo">
+  <div class="login-block position-relative">
+    <div [@page]="showPage ? 'open' : 'closed'" class="form-block">
+      <h3 class="text-center">{{helperService?.loginTranslations?.login_title}}</h3>
+      <p>{{helperService?.loginTranslations?.login_description}}</p>
+      <form [formGroup]="countryForm" (ngSubmit)="next()">
+        <div class="language-and-country-block">
+          <div>
+            <label [ngClass]="(countryForm.controls.country?.invalid && (countryForm.controls.country?.dirty || countryForm.controls.country?.touched)) ? 'invalid-label-color' : ''">{{helperService?.loginTranslations?.country}} *</label>
+            <angular2-multiselect [data]="itemListCountry"
+                                  id="country"
+                                  formControlName="country"
+                                  [settings]="settingsCountry"
+                                  (onSelect)="onItemSelect($event)"
+                                  (onDeSelect)="closeDropdown(dropdownRef2); deSelectCountry()"
+                                  #dropdownRef2>
+              <c-badge>
+                <ng-template let-item="item">
+                  <label style="margin: 0px;">{{item.itemName}}</label>
+                </ng-template>
+              </c-badge>
+              <c-item>
+                <ng-template let-item="item">
+                  <label>{{item.itemName}}</label>
+                </ng-template>
+              </c-item>
+            </angular2-multiselect>
+
+          </div>
+          <div>
+            <label [ngClass]="(countryForm.controls.language?.invalid && (countryForm.controls.language?.dirty || countryForm.controls.language?.touched)) ? 'invalid-label-color' : ''">{{helperService?.loginTranslations?.language}} *</label>
+            <angular2-multiselect [data]="itemList"
+                                  id="language"
+                                  formControlName="language"
+                                  [settings]="settings"
+                                  (onDeSelect)="closeDropdown(dropdownRef)"
+                                  #dropdownRef>
+              <c-badge>
+                <ng-template let-item="item">
+                  <label style="margin: 0px;">{{item.itemName}}</label>
+                </ng-template>
+              </c-badge>
+              <c-item>
+                <ng-template let-item="item">
+                  <label>{{item.itemName}}</label>
+                </ng-template>
+              </c-item>
+            </angular2-multiselect>
+          </div>
+        </div>
+        <div class="error-message">
+          <span *ngIf="!countryForm.controls.country?.valid && (countryForm.controls.country?.dirty ||countryForm.controls.country?.touched)">{{helperService?.loginTranslations?.country_required}}</span>
+          <span *ngIf="!countryForm.controls.language?.valid && (countryForm.controls.language?.dirty ||countryForm.controls.language?.touched)">{{helperService?.loginTranslations?.language_required}} </span>
+        </div>
+        <div class="button-block">
+          <button [disabled]="countryForm.invalid" type="submit">{{helperService?.loginTranslations?.next}}</button>
+        </div>
+      </form>
+
+    </div>
+
+    <div [@page]="!showPage ? 'open' : 'closed'" class="form-block">
+      <h3 class="text-center">{{helperService?.loginTranslations?.login_title}}</h3>
+      <p>{{helperService?.loginTranslations?.login_description}}</p>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="email" [ngClass]="(form.controls.email?.invalid && (form.controls.email?.dirty || form.controls.email?.touched)) ? 'invalid-label-color' : ''">{{helperService?.loginTranslations?.email}} *</label>
+          <input type="text" id="email" formControlName="email">
+        </div>
+
+        <div class="position-relative">
+          <label for="password" [ngClass]="(form.controls.password?.invalid && (form.controls.password?.dirty || form.controls.password?.touched)) ? 'invalid-label-color' : ''">{{helperService?.loginTranslations?.password}} *</label>
+          <input type="password" #changeType id="password" formControlName="password">
+          <img (click)="changeInputType(icon)" class="icon" #icon src="assets/images/icons/icon-eye.png" alt="icon">
+
+        </div>
+
+        <div class="error-message">
+          <div>
+            <span *ngIf="form.controls.email?.errors?.required && (form.controls.email?.dirty || form.controls.email?.touched)">{{helperService?.loginTranslations?.email_required}} </span>
+            <span *ngIf="form.controls.password?.errors?.required && (form.controls.password?.dirty ||form.controls.password?.touched)">{{helperService?.loginTranslations?.password_required}} </span>
+            <span *ngIf="form.controls.password?.errors?.minlength && (form.controls.password?.dirty ||form.controls.password?.touched)">{{helperService?.loginTranslations?.password_length}} </span>
+          </div>
+          <div>
+            <span  *ngIf="form.controls.email?.errors?.pattern && (form.controls.email?.dirty || form.controls.email?.touched)">{{helperService?.loginTranslations?.invalid_phone_email}} <br></span>
+          </div>
+        </div>
+        <div class="button-block">
+          <button type="submit">{{helperService?.loginTranslations?.login}}</button>
+        </div>
+      </form>
+
+      <div class="navigation-block">
+        <div class="d-inline-block position-relative hover-state">
+          <a routerLink="/forgot-password">{{helperService?.loginTranslations?.forgot_password}}</a>
+          <span>{{helperService?.loginTranslations?.forgot_password}}</span>
+        </div>
+      </div>
+
+      <div class="navigation-block" style="margin-top: 20px;">
+        <div class="d-inline-block position-relative hover-state">
+          <a class="cursor-pointer" (click)="changeCountryOrLanguage()">{{helperService?.loginTranslations?.change_country_language}}</a>
+          <span>{{helperService?.loginTranslations?.change_country_language}}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

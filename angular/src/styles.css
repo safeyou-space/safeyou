@@ -1,0 +1,236 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-Bold.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-Black.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-BlackItalic.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-Italic.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-Light.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-BoldItalic.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-LightItalic.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-Medium.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-MediumItalic.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-Regular.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-Normal.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-Normal.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-ThinItalic.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-ThinItalic.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HayRoboto';
+  src: url('assets/fonts/HayRoboto/HayRoboto-Thin.woff2') format('woff2'),
+  url('assets/fonts/HayRoboto/HayRoboto-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+
+  /* Colors: */
+  --unnamed-color-00000000: #000000;
+  --unnamed-color-230d2c: #230D2C;
+  --unnamed-color-a79eaa: #A79EAA;
+  --unnamed-color-9a3f7f: #9A3F7F;
+  --unnamed-color-ae6598: #AE6598;
+  --unnamed-color-cc9fbf: #CC9FBF;
+  --unnamed-color-ead8e5: #EAD8E5;
+  --unnamed-color-f4ebf2: #F4EBF2;
+  --unnamed-color-dc5d78: #DC5D78;
+  --unnamed-color-df6d85: #DF6D85;
+  --unnamed-color-e37d93: #E37D93;
+  --unnamed-color-ea9dae: #EA9DAE;
+  --unnamed-color-f1bec9: #F1BEC9;
+  --unnamed-color-f8dee4: #F8DEE4;
+  --unnamed-color-fbeff2: #FBEFF2;
+  --unnamed-color-fefbfc: #FEFBFC;
+  --unnamed-color-ffffff: #FFFFFF;
+  --unnamed-color-fdf77d: #FDF77D;
+  --unnamed-color-61caca: #61CACA;
+  --unnamed-color-53aad0: #53AAD0;
+  --unnamed-color-4b5d71: #4B5D71;
+  --unnamed-color-61758a: #61758A;
+  --unnamed-color-95a3b1: #95A3B1;
+  --unnamed-color-a7b2be: #A7B2BE;
+  --unnamed-color-cad1d8: #CAD1D8;
+  --unnamed-color-000000: #000000;
+
+  /* Font/text values */
+  --unnamed-font-family-hayroboto: HayRoboto;
+  --unnamed-font-style-normal: normal;
+  --unnamed-font-style-italic: italic;
+  --unnamed-font-weight-300: 300px;
+  --unnamed-font-weight-medium: 500;
+  --unnamed-font-weight-normal: normal;
+  --unnamed-font-weight-bold: bold;
+  --unnamed-font-size-11: 11px;
+  --unnamed-font-size-12: 12px;
+  --unnamed-font-size-13: 13px;
+  --unnamed-font-size-14: 14px;
+  --unnamed-font-size-15: 15px;
+  --unnamed-font-size-16: 16px;
+  --unnamed-font-size-18: 18px;
+  --unnamed-font-size-24: 24px;
+  --unnamed-font-size-70: 70px;
+  --unnamed-character-spacing-0: 0px;
+  --unnamed-character-spacing-0-26: 0.26px;
+  --unnamed-character-spacing-0-78: 0.78px;
+  --unnamed-character-spacing-0-64: 0.64px;
+  --unnamed-character-spacing-0-72: 0.72px;
+  --unnamed-character-spacing-0-24: 0.24px;
+  --unnamed-character-spacing-2-1: 2.1px;
+  --unnamed-character-spacing-0-29: 0.29px;
+  --unnamed-character-spacing-0-36: 0.36px;
+  --unnamed-character-spacing-0-45: 0.45px;
+  --unnamed-line-spacing-14: 14px;
+  --unnamed-line-spacing-15: 15px;
+  --unnamed-line-spacing-16: 16px;
+  --unnamed-line-spacing-18: 18px;
+  --unnamed-line-spacing-19: 19px;
+  --unnamed-line-spacing-20: 20px;
+  --unnamed-line-spacing-22: 22px;
+  --unnamed-line-spacing-23: 23px;
+  --unnamed-line-spacing-24: 24px;
+  --unnamed-line-spacing-25: 25px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.error-message {
+  font-size: 12px;
+  color: red;
+  position: absolute;
+}
+
+.btn.focus, .btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+.d-flex-center {
+  display: flex;
+  align-items: center;
+}
+.data-form .myclass.ng-touched.ng-invalid.ng-touched.ng-invalid .c-btn {
+  border: 1px solid red !important;
+}
+.tooltip .tooltip-inner {
+  max-width: 200px;
+  background: #9A3F7F;
+}
+.bs-tooltip-top .arrow::before {
+  border-top-color: #9A3F7F;
+}
+input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid {
+  border: 1px solid red !important;
+  color: red;
+}
+.invalid-label-color {
+  color: red!important;
+}
+.toast-container {
+  white-space: pre-line;
+}
+.toast-container .ngx-toastr {
+  max-width: 470px;
+  min-width: 300px;
+  width: auto;
+}
+input:disabled {
+  background: #ccc !important;
+}

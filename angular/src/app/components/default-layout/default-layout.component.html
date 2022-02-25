@@ -1,0 +1,24 @@
+<div class="main_loader" *ngIf="this.loading">
+  <div class="loader">
+    <span class="loader-block"></span>
+    <span class="loader-block"></span>
+    <span class="loader-block"></span>
+    <span class="loader-block"></span>
+    <span class="loader-block"></span>
+    <span class="loader-block"></span>
+    <span class="loader-block"></span>
+    <span class="loader-block"></span>
+    <span class="loader-block"></span>
+  </div>
+</div>
+
+<div class="bg-board">
+  <div class="app-body">
+    <app-sidebar (sidebarMin)="toggleMenu(main)"></app-sidebar>
+
+    <div class="main" #main>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<app-info-modal [signalData]="data" #infoModal></app-info-modal>

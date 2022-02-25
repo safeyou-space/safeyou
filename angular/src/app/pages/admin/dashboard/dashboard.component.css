@@ -1,0 +1,223 @@
+.content {
+  padding-left: 22px;
+  padding-right: 22px;
+}
+.head {
+  margin-bottom: 28px;
+}
+.head span {
+  font: var(--unnamed-font-style-italic) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-14) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.26px;
+  color: #EA9DAE;
+}
+.head h4 {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-16)/var(--unnamed-line-spacing-25) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.64px;
+  color: #230D2C;
+  margin-top: 16px;
+}
+.content-body {
+  flex-direction: row;
+  align-items: flex-start;
+}
+.new-forum-block {
+  width: 58%;
+  padding-right: 2%;
+  border-right: 1px solid #F8DEE4;
+  position: relative;
+  align-self: stretch;
+}
+.icons-effect {
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.icons-effect:hover {
+  opacity: 1;
+}
+.statistics-block {
+  width: 38%;
+  margin-left: 2%;
+  align-self: stretch;
+}
+.top-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-block-title {
+
+}
+.top-block-title p {
+  white-space: nowrap;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+}
+.line {
+  width: 100%;
+  border-top: 1px solid #F8DEE4;
+  margin: 0 40px;
+}
+.top-block-button button {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-14) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.26px;
+  color: #E37D93;
+  background: #FBEFF2 0% 0% no-repeat padding-box;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  padding: 5px 20px;
+  transition: background 0.8s;
+}
+.top-block-button button:hover {
+  background: #F8DEE4 0% 0% no-repeat padding-box;
+}
+.statistics-body {
+  margin-top: 25px;
+}
+.square {
+  display: inline-block;
+  background: #FBEFF2 0% 0% no-repeat padding-box;
+  box-shadow: 4px 4px 10px #230D2C0D;
+  border-radius: 12px;
+  padding: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+.square p {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-24)/var(--unnamed-line-spacing-24) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.72px;
+  color: #230D2C;
+  margin-bottom: 0;
+}
+.square span {
+  font: var(--unnamed-font-style-italic) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-14) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.26px;
+  color: #EA9DAE;
+}
+.new-forum-body {
+  margin-top: 25px;
+}
+.forum {
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.forum-image-block img{
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  box-shadow: 4px 4px 10px #230D2C0D;
+  border-radius: 12px;
+}
+.forum-text-block {
+  margin: 0 16px;
+  width: 100%;
+  max-width: 470px;
+}
+.forum-text-block p{
+  margin-bottom: 0;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-19) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+}
+.forum-info-block span{
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.78px;
+  color: #A79EAA;
+  padding: 0 8px;
+  border-right: 1px solid #A79EAA;
+}
+.forum-info-block span img {
+  margin: 0 8px;
+}
+.forum-info-block span:last-child {
+  border-right: none;
+}
+.forum-action-block {
+  flex: 1;
+}
+.forum-action-block img {
+  margin: 0 8px;
+}
+.new-forum-list {
+  padding-bottom: 22px;
+  border-bottom: 1px solid #F8DEE4;
+}
+.new-forum-body .top-block {
+  margin-top: 42px;
+}
+.new-messages-block {
+  margin-top: 20px;
+}
+.messages {
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.profile-image img {
+  box-shadow: 4px 4px 10px #230D2C0D;
+  border-radius: 44px;
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+.profile-message {
+  margin: 0 16px;
+  width: 100%;
+  max-width: 390px;
+}
+.profile-message p {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-19) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+  margin-bottom: 0;
+}
+.profile-message-block span {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-18) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.26px;
+  color: #000000;
+  word-break: break-all;
+}
+.profile-action {
+  flex: 1;
+}
+.graphic-image-block {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 134px;
+}
+.graphic-image-block img{
+  max-width: 140px;
+}
+.forum_desc {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-19) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: .29px;
+  color: #230d2c;
+}
+.category-button {
+  padding: 9px 16px;
+  background: var(--unnamed-color-fbeff2) 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  letter-spacing: var(--unnamed-character-spacing-0-78);
+  color: #E37D93;
+  text-align: center;
+  font-size: 13px;
+  margin-right: 4px;
+}
+.category-button:hover, .create-post:hover, .head-forum-view button:hover {
+  background-color: #F8DEE4;
+}

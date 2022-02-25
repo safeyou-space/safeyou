@@ -1,0 +1,8 @@
+<ng-template #delete_template>
+  <div class="modal-body text-center">
+    <p>{{helperService?.translation?.delete_message}}</p>
+    <button type="button" class="btn-yes" (click)="confirm()">{{helperService?.translation?.yes}}</button>
+    <button type="button" class="btn-no ml-2" (click)="decline()">{{helperService?.translation?.no}}</button>
+  </div>
+</ng-template>
+

@@ -1,0 +1,40 @@
+.bg-not-found {
+  height: 100vh;
+  background-image: url("../../../../assets/images/background-images/bg-splash.png");
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #FEFBFC;
+}
+.block {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.h1 {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-14) var(--unnamed-font-family-hayroboto);
+  letter-spacing: var(--unnamed-character-spacing-0-26);
+  color: var(--unnamed-color-e37d93);
+  font-size: 150px;
+  /*vertical-align: middle;*/
+  white-space: nowrap;
+  line-height: 100%;
+}
+.h2 {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-14) var(--unnamed-font-family-hayroboto);
+  letter-spacing: var(--unnamed-character-spacing-0-26);
+  color: var(--unnamed-color-e37d93);
+  font-size: 100px;
+  /*vertical-align: middle;*/
+  white-space: nowrap;
+  line-height: 100%;
+}
+.back-to-home {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-19) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #A79EAA;
+  font-size: 25px;
+}

@@ -1,0 +1,73 @@
+<div *ngIf="isModalShown" [config]="{ show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-dialog-centered report_modal">
+    <div class="modal-content">
+      <div class="modal-header report_modal_header">
+        <h4 id="dialog-auto-name" class="modal-title pull-left">{{helperService.translation?.report_my}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body report_modal_body">
+        <p class="modal_title">{{helperService.translation?.report_detail}}</p>
+        <div class="report_message" *ngIf="commentInfo">
+          <div style="padding-bottom: 8px;">
+            <img class="float-left" src="{{commentInfo.message_send_by.user_image}}" alt="">
+            <p class="m-0">{{commentInfo.message_send_by.user_username}}</p>
+            <p class="font-italic" *ngIf="commentInfo.message_send_by.user_profession">{{commentInfo.message_send_by.user_profession[language]}}</p>
+            <p class="font-italic" *ngIf="commentInfo.message_send_by.user_ngo_name">{{commentInfo.message_send_by.user_ngo_name[language]}}</p>
+            <p  class="font-italic" *ngIf="!commentInfo.message_send_by.user_ngo_name && !commentInfo.message_send_by.user_profession"></p>
+          </div>
+          <div class="comInfo">
+            <img *ngIf="commentInfo.message_files.length > 0" src="{{imageUrl + commentInfo.message_files[0].file_path}}" alt="">
+            <p class="report_message_text" style="overflow-wrap: break-word;" *ngIf="commentInfo.message_content">
+              {{commentInfo.message_content}}
+            </p>
+          </div>
+        </div>
+        <div class="report_form">
+          <form [formGroup]="formReport">
+            <div class="form-group">
+              <label for="category_id">{{helperService.translation?.report_category}}</label>
+              <angular2-multiselect [data]="itemList"
+                                    [(ngModel)]="selectedItems"
+                                    id="category_id"
+                                    formControlName="category_id"
+                                    [settings]="settings"
+                                    (onDeSelect)="closeDropdown(dropdownRef)"
+                                    #dropdownRef>
+                <c-badge>
+                  <ng-template let-item="item">
+                    <label style="margin: 0px;">{{item.itemName}}</label>
+                  </ng-template>
+                </c-badge>
+                <c-item>
+                  <ng-template let-item="item">
+                    <label>{{item.itemName}}</label>
+                  </ng-template>
+                </c-item>
+              </angular2-multiselect>
+
+              <div
+                *ngIf="!formReport.controls.category_id?.valid && (formReport.controls.category_id?.dirty || formReport.controls.category_id?.touched)">
+                <span class="error-message">{{helperService.translation?.report_category_required}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">{{helperService.translation?.details}}</label>
+              <textarea class="form-control" id="message" formControlName="message"></textarea>
+              <div
+                *ngIf="!formReport.controls.message?.valid && (formReport.controls.message?.dirty || formReport.controls.message?.touched)">
+                <span class="error-message">{{helperService.translation?.details_required}}</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer report_modal_footer">
+        <button type="button" (click)="hideModal()" class="btn cancel_button">{{helperService.translation?.cancel}}</button>
+        <button type="submit" [disabled]="formReport.invalid" (click)="onSubmitReport(formReport.value)" class="btn send_button">{{helperService.translation?.send}}</button>
+      </div>
+    </div>
+  </div>
+</div>

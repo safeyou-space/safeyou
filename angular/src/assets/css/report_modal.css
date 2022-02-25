@@ -1,0 +1,147 @@
+.report_modal .modal-content {
+  border-radius: 12px;
+  border: transparent;
+  width: 408px;
+}
+.report_modal_header{
+  background: var(--unnamed-color-dc5d78) 0% 0% no-repeat padding-box;
+  border-radius: 12px 12px 0px 0px;
+}
+.report_modal_header h4 {
+  font-family: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-16)/var(--unnamed-line-spacing-25) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.64px;
+  font-size: 16px;
+  color: #FEFBFC;
+}
+.report_modal .close {
+  color: #FEFBFC;
+  opacity: 1;
+}
+.report_modal .close:hover {
+  color: #F8DEE4;
+}
+.modal_title {
+  font-family: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-20) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.36px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #230D2C;
+}
+.report_message {
+  height: auto;
+  background: var(--unnamed-color-fbeff2) 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+}
+.report_message div {
+  margin: 8px;
+}
+.report_message div:first-child {
+  border-bottom: 1px solid #F1BEC9;
+}
+.report_message img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+  margin-top: 8px;
+}
+.report_message div > p:nth-child(2) {
+  font-weight: 600;
+  font-size: 13px;
+  padding-top: 5px;
+}
+.report_message div > p:nth-child(3) {
+  font-size: 11px;
+}
+.report_message_text {
+  font-family:  var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-20) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.36px;
+  color: #230D2C;
+  font-size: 14px;
+  padding-bottom: 7px;
+}
+.report_form {
+  width: 360px;
+}
+.report_form form label {
+  font-family: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-18) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.26px;
+  color: #A79EAA;
+  font-size: 12px;
+  margin-left: 8px;
+  margin-bottom: 0;
+}
+.report_form form select {
+  height: 32px;
+  border: 1px solid var(--unnamed-color-f8dee4);
+  border-radius: 30px;
+  padding: 0px .75rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("../images/icons/icon-arrow-down.png");
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: 7px;
+  background-size: 18px 17px;
+  transition: border 0.4s;
+}
+.report_form form select:hover, .report_form form textarea:hover, .report_form form input[type="text"], .report_form form input[type="text"]:focus {
+  border: 1px solid #EA9DAE;
+  outline: none;
+}
+.report_form form .form-control {
+  box-shadow: none;
+}
+.report_form form textarea, .report_form form input[type="text"] {
+  border: 1px solid #F8DEE4;
+  border-radius: 12px;
+  transition: border 0.4s;
+}
+.report_modal_footer .send_button {
+  padding: .460rem 1.75rem;
+  font-family: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.78px;
+  color: #FEFBFC;
+  font-size: 13px;
+  margin-right: 4px;
+  background: #E37D93 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  border: transparent;
+  transition: background-color 0.3s;
+}
+.report_modal_footer .cancel_button {
+  padding: .460rem 1.75rem;
+  font-family: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-24)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.78px;
+  color: #E37D93;
+  font-size: 13px;
+  margin-right: 4px;
+  background: #FBEFF2 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  border: transparent;
+  transition: background-color 0.3s;
+}
+.report_modal_footer .cancel_button:hover {
+  background: #F8DEE4 0% 0% no-repeat padding-box;
+}
+.report_modal_footer .send_button:hover {
+  background: #DC5D78 0% 0% no-repeat padding-box;
+}
+::ng-deep .report_form .myclass.ng-touched.ng-invalid .c-btn {
+  border: 1px solid red;
+}
+.report_form textarea.ng-touched.ng-invalid {
+  border: 1px solid red !important;
+}
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 408px;
+  }
+}

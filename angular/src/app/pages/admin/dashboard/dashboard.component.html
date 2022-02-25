@@ -1,0 +1,125 @@
+<div class="app-header">
+  <app-header></app-header>
+</div>
+
+
+
+<div class="content" *ngIf="dashboard">
+  <div class="head">
+    <span>{{helperService.translation?.good_day}} {{helperService.userName}}</span>
+    <h4>{{helperService.translation?.dashboard}}</h4>
+  </div>
+  <div class="content-body d-flex">
+
+    <div class="new-forum-block">
+      <div class="top-block">
+        <div class="top-block-title">
+          <p class="m-0">{{helperService.translation?.new_forum}}</p>
+        </div>
+        <div class="line"></div>
+        <div class="top-block-button">
+          <a routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/forum"><button>{{helperService.translation?.all}}</button></a>
+        </div>
+      </div>
+      <div class="new-forum-body">
+
+        <div class="new-forum-list">
+          <div class="forum d-flex" *ngFor="let item of dashboard['forums']">
+            <div class="forum-image-block">
+              <img src="{{this.requestService.imgSite + item?.image?.url}}" alt="image">
+            </div>
+            <div class="forum-text-block">
+              <div class="forum_desc" [innerHTML]="item?.title | slice:0:92"></div>
+              <div class="forum-info-block">
+                <span class="pl-0">{{item?.creator?.emergency_service?.title}}</span>
+                <span><img class="icons-effect" src="assets/images/icons/icon-comment-hover.png">
+                  {{item?.comments_count}}
+                </span>
+                <span><img  src="assets/images/icons/icon-eye-hover.png" alt="img"> {{item?.views_count}}</span>
+                <span><img class="icons-effect" src="assets/images/icons/icon-calendar(HoverState).png" alt="img">
+                  {{item?.created_at | date:'d MMMM, y'}}
+                </span>
+              </div>
+            </div>
+            <div class="forum-action-block text-right">
+              <img  class="cursor-pointer" (click)="viewForum(item)" src="assets/images/icons/icon-eye-hover.png" alt="img">
+            </div>
+          </div>
+        </div>
+        <div class="top-block">
+          <div class="top-block-title">
+            <p class="m-0">{{helperService.translation?.new_messages}}</p>
+          </div>
+          <div class="line"></div>
+          <div class="top-block-button">
+            <a routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/communication">
+              <button>{{helperService.translation?.all}}</button>
+            </a>
+          </div>
+        </div>
+
+        <div class="new-messages-block" *ngIf="this.myMessages">
+          <div class="messages d-flex" *ngFor="let item of this.myMessages">
+            <div class="profile-image">
+              <img onError="this.src='assets/images/img/no-image.png'"
+                   src="{{(item.room_image.includes('://') ? '' : imgUrl) + item.room_image}}" alt="image">
+            </div>
+            <div class="profile-message">
+              <p>{{item.room_name}}</p>
+              <div class="profile-message-block">
+               <span *ngIf="!item.typing" class="message">
+              {{item.room_last_message != null && item.room_last_message.message_content != undefined &&
+              item.room_last_message.message_content != null ? item.room_last_message.message_content :
+              item.room_last_message && item.room_last_message.message_files.length > 0 ?
+              helperService.translation?.sent_a_file : helperService.translation?.not_new_message}}
+            </span>
+                <span style="position: absolute;right: 61px;">{{item.room_last_message && item.room_last_message.time ?
+              item.room_last_message.time : item.time}}</span>
+              </div>
+            </div>
+            <div class="profile-action text-right" style="margin-top: 7px;">
+              <a class="cursor-pointer" (click)="navigateCommunication(item.room_key)">
+                <img src="assets/images/icons/icon-eye-hover.png" alt="img">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="statistics-block">
+      <div class="top-block">
+        <div class="top-block-title">
+          <p class="m-0">{{helperService.translation?.statistics}}</p>
+        </div>
+        <div class="line"></div>
+        <div class="top-block-button">
+        </div>
+      </div>
+      <div class="statistics-body">
+
+        <div>
+          <div class="square" *ngIf="this.dashboard.user_counts || this.dashboard.user_counts == 0">
+            <p>{{this.dashboard.user_counts}}</p>
+            <span>{{helperService.translation?.users}}</span>
+          </div>
+          <div class="square" *ngIf="this.dashboard.beneficiaries_counts || this.dashboard.beneficiaries_counts == 0">
+            <p>{{this.dashboard.beneficiaries_counts}}</p>
+            <span>{{helperService.translation?.beneficiary}}</span>
+          </div>
+          <div class="square" *ngIf="this.dashboard?.new_user_counts || this.dashboard.new_user_counts == 0">
+            <p>{{this.dashboard.new_user_counts}}</p>
+            <span>{{helperService.translation?.new_users}}</span>
+          </div>
+        </div>
+        <div *ngIf="is_super_admin == true">
+          <a href="https://analytics.safeyou.space/" target="_blank">
+            <button type="button" class="btn category-button">
+              {{helperService.translation?.statistics}}
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
