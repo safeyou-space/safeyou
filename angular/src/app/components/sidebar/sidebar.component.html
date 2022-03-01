@@ -15,6 +15,15 @@
               <span class="menu-text">{{helperService.translation?.dashboard}}</span>
             </a>
           </li>
+          <li *ngIf="access?.forum || is_admin == true" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
+            <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/forum">
+            <span class="images">
+                <img src="assets/images/icons/icon-forum.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-forum(HoverState).png" class="hover-image" alt="image">
+            </span>
+              <span class="menu-text">{{helperService.translation?.forums}}</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

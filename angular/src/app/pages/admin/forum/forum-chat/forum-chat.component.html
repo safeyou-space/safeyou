@@ -1,0 +1,261 @@
+<div #relativeOne  class="content chat" >
+  <div  class="divHeight"  style="position: relative;">
+
+    <div *ngIf="socketConnect.scrollBottom && socketConnect.openReplies == false;" appRecivedForum="pagechange" class="scrollTopDiv"></div>
+    <div *ngFor="let forum of socketConnect.messages, let index = index"  [id]="'divViewId' + index">
+
+
+      <div
+        [attr.class]="forum.message_replies.length != 0 && (socketConnect.openReplies == forum.message_id || !socketConnect.openReplies) ? 'vertical' : ''"
+        [attr.style]="forum.message_replies.length == 0 && (socketConnect.openReplies == forum.message_id || !socketConnect.openReplies) ? 'padding-bottom: 16px' : '' ">
+        <div
+          [@openClose]="!socketConnect.openReplies || socketConnect.openReplies == forum.message_id ? 'open' : 'closed'">
+          <div class="info d-flex">
+            <div class="userImg">
+              <img src="{{forum.message_send_by.user_image}}" alt="">
+            </div>
+            <div class="text">
+              <div class="texthead">
+                <div class="onerow d-flex">
+                  <div>
+                    <span class="name" title="{{forum.message_send_by.user_username}}">
+                      {{forum.message_send_by.user_username.length > 30 ? (forum.message_send_by.user_username | slice:0:30) + '...' : forum.message_send_by.user_username}}
+                    </span>
+                    <img
+                      *ngIf="forum.message_send_by.user_ngo_name != null || forum.message_send_by.user_profession != null"
+                      src="assets/images/icons/default@2x.png" alt="">
+                  </div>
+                  <div>
+                    <span class="date">{{forum.time}}</span>
+                  </div>
+                </div>
+                <p class="companyname" *ngIf="forum.message_send_by.user_ngo_name != null">
+                  {{forum.message_send_by.user_ngo_name[helperService.defaultLanguage]}}
+                </p>
+                <p class="companyname" *ngIf="forum.message_send_by.user_profession != null">
+                  {{forum.message_send_by.user_profession[helperService.defaultLanguage]}}
+                </p>
+
+              </div>
+              <div class="textContent">
+                <div class="file" *ngIf="forum.message_files.length > 0">
+                  <div *ngIf="forum.message_files[0].file_mime_type.includes('image')">
+                    <img src="{{fileUrl + forum.message_files[0].file_path}}" alt="">
+                  </div>
+                  <div style="height: 25px;" *ngIf="forum.message_files[0].file_mime_type.includes('audio')">
+                    <audio controls style="width: 300px; height: 100%;">
+                      <source src="{{fileUrl + forum.message_files[0].file_path}}" type="audio/mp3">
+                    </audio>
+                  </div>
+                  <div class="cursor-pointer" (click)="download(forum.message_files[0])"
+                    *ngIf="!forum.message_files[0].file_mime_type.includes('image') && !forum.message_files[0].file_mime_type.includes('audio')">
+                    <img id="myImg" class="message_image" style="object-fit: scale-down; width: 100px; height: 60px"
+                      src="../../../../../../assets/images/icons/btn-upload.png">
+                    <p style="word-break: break-all;">{{forum.message_files[0].file_name}}</p>
+                  </div>
+                </div>
+                <div class="desc">
+                  <p>
+                    {{forum.message_content}}
+                  </p>
+                </div>
+              </div>
+              <div class="textFooter actions">
+                <span class="likesCount">{{likeCount(forum.message_likes)}}</span>
+                <img [src]="drowLike(forum.message_likes)" width="16px" (click)="like(forum)" alt="">
+
+                <span *ngIf="forum.message_send_by.user_id != socketConnect.myUserId" style="vertical-align: text-bottom;padding: 0 10px;color:#e37d93;">.</span>
+                <img class="cursor-pointer" src="assets/images/icons/icon-messages.png" alt="" *ngIf="forum.message_send_by.user_id != socketConnect.myUserId" (click)="forumIdInCummunication(forum.message_send_by)">
+                <span style="vertical-align: text-bottom;padding: 0 10px;color:#e37d93;">.</span>
+                <span class="reply cursor-pointer" (click)="mRepli(forum)">Reply</span>
+                <span style="vertical-align: text-bottom;padding: 0 10px;color:#e37d93;">.</span>
+                <div class="actions-dropdown-block">
+                  <div class="action-more cursor-pointer"></div>
+                  <div class="actions-dropdown-item">
+                    <ul>
+                      <li (click)="editMessage(forum)" *ngIf="forum.message_is_owner">
+                        <a><img src="assets/images/icons/icon-edit.png" alt="icon">
+                          {{helperService.translation?.edit}}</a>
+                      </li>
+                      <li (click)="popup.deleteModal(forum)" *ngIf="forum.message_is_owner"><a><img src="assets/images/icons/icon-delete.png"
+                            alt="icon">
+                          {{helperService.translation?.delete}}</a></li>
+                          <li (click)="reportModal.showModal(forum)"><a>
+                            <img src="assets/images/icons/icon-exclamation.png" alt="icon">
+                            {{helperService.translation?.report}}
+                          </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="repliestext"
+            *ngIf="forum.message_replies.length !== 0 && socketConnect.openReplies != forum.message_id"
+            style="padding: 16px 60px 0;">
+            <p (click)="hideShow(forum.message_id, index)"> {{forum.message_replies.length}} Replies |
+              {{helperService.translation?.view_all_reply}}</p>
+          </div>
+        </div>
+
+
+        <div class="replies"
+          [@openClose]="forum.message_replies.length != 0 && forum.message_id == socketConnect.openReplies ? 'open' : 'closed'"
+          [style]="forum.message_replies.length != 0 && forum.message_id == socketConnect.openReplies ? 'padding: 8px 0 0 50px;' : ''">
+          <div *ngFor="let repli of forum.message_replies, let index = index" class="info d-flex"
+            style="padding-bottom: 8px;">
+            <div class="userImg">
+              <img src="{{repli.message_send_by?.user_image}}" alt="">
+            </div>
+            <div class="text" [style]="index % 2 == 0 ? 'background: #FBEFF2' : ''">
+              <div class="texthead">
+                <div class="onerow d-flex">
+                  <div>
+                    <span class="name" title="{{repli.message_send_by?.user_username}}">
+                      {{repli.message_send_by?.user_username.length > 30 ? (repli.message_send_by?.user_username | slice:0:30) + '...' : repli.message_send_by?.user_username}}
+                    </span>
+                    <img
+                      *ngIf="repli.message_send_by?.user_ngo_name != null || repli.message_send_by?.user_profession != null"
+                      src="assets/images/icons/default@2x.png" alt="">
+                  </div>
+                  <div>
+                    <span class="date">
+
+                      {{
+                        dateFormatForReplies(repli.message_updated_at)
+                      }}
+                    </span>
+                  </div>
+                </div>
+
+                <p class="companyname" *ngIf="repli.message_send_by?.user_ngo_name != null">
+                  {{repli.message_send_by?.user_ngo_name[helperService.activeLanguage]}}
+                </p>
+                <p class="companyname" *ngIf="repli.message_send_by?.user_profession != null">
+                  {{repli.message_send_by?.user_profession[helperService.activeLanguage]}}
+                </p>
+
+
+              </div>
+              <div class="textContent">
+                <div class="file" *ngIf="repli.message_files.length > 0">
+                  <div *ngIf="repli.message_files[0].file_mime_type.includes('image')">
+                    <img src="{{fileUrl + repli.message_files[0].file_path}}" alt="">
+                  </div>
+                  <div style="height: 25px;" *ngIf="repli.message_files[0].file_mime_type.includes('audio')">
+                    <audio controls style="width: 300px; height: 100%;">
+                      <source src="{{fileUrl + repli.message_files[0].file_path}}" type="audio/mp3">
+                    </audio>
+                  </div>
+                  <div class="cursor-pointer" (click)="download(repli.message_files[0])"
+                    *ngIf="!repli.message_files[0].file_mime_type.includes('image') && !repli.message_files[0].file_mime_type.includes('audio')">
+                    <img id="myImg" class="message_image" style="object-fit: scale-down; width: 100px; height: 60px"
+                      src="../../../../../../assets/images/icons/btn-upload.png">
+                    <p style="word-break: break-all;">{{repli.message_files[0].file_name}}</p>
+                  </div>
+                </div>
+                <div class="desc">
+                  <p>
+                    {{repli.message_content}}
+                  </p>
+                </div>
+              </div>
+              <div class="textFooter actions">
+                <span class="likesCount">{{likeCount(repli.message_likes)}}</span>
+                <img [src]="drowLike(repli.message_likes)" width="16px" (click)="like(repli)" alt="">
+
+                <span *ngIf="repli.message_send_by?.user_id != socketConnect.myUserId" style="vertical-align: text-bottom;padding: 0 10px;color:#e37d93;">.</span>
+                <img class="cursor-pointer" src="assets/images/icons/icon-messages.png" *ngIf="repli.message_send_by?.user_id != socketConnect.myUserId" alt="" (click)="forumIdInCummunication(repli.message_send_by)">
+                <span style="vertical-align: text-bottom;padding: 0 10px;color:#e37d93;">.</span>
+                <span class="reply cursor-pointer" (click)="mRepli(repli)">Reply</span>
+                <span style="vertical-align: text-bottom;padding: 0 10px;color:#e37d93;">.</span>
+                <div class="actions-dropdown-block" >
+                  <div class="action-more cursor-pointer"></div>
+                  <div class="actions-dropdown-item">
+                    <ul>
+
+                      <li (click)="editMessage(repli)" *ngIf="repli.message_is_owner">
+                        <a><img src="assets/images/icons/icon-edit.png" alt="icon">
+                          {{helperService.translation?.edit}}</a>
+                      </li>
+                      <li (click)="popup.deleteModal(repli)" *ngIf="repli.message_is_owner"><a><img src="assets/images/icons/icon-delete.png"
+                            alt="icon">
+                          {{helperService.translation?.delete}}</a></li>
+                    <li (click)="reportModal.showModal(repli)"><a>
+                      <img src="assets/images/icons/icon-exclamation.png" alt="icon">
+                      {{helperService.translation?.report}}
+                    </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="repliestext"
+          *ngIf="socketConnect.openReplies == forum.message_id || socketConnect.forBackAllComment"
+          style="padding: 0 100px;">
+          <p (click)="hideShow(forum.message_id, index);mRepliID = undefined; socketConnect.forBackAllComment = false">{{forum.message_replies.length == 0 ? helperService.translation?.cancel : helperService.translation?.hide_reply}}
+          </p>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="fileFooterView" *ngIf="filebase">
+    <div style="position: relative;height: 100%; background: #fff;">
+      <div style="position: relative; width:100%; height:100%">
+        <img style="object-fit: scale-down;" width="100%" height="100%" src="{{filebase}}" alt="">
+        <img (click)="filebase = undefined; file = undefined" style="cursor:pointer; position: absolute; top:1px; right: 0; width: 16px;" src="../../../../../assets/images/icons/icon-remove-x@2x.png" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="form">
+    <form [formGroup]="formMessage" (ngSubmit)="onSubmitMessage()" (keydown)="forEnter($event)">
+      <div class="form">
+        <div class="textInput">
+          <div class="position-relative hov" #parent>
+            <textarea [style]="editMessageContent ? 'padding-right: 85px;' : mRepliID ? 'padding-right: 100px' : ''" class="message_filed" id="formInput"
+              autofocus placeholder="{{helperService.translation?.enter_text}}" type="text"
+              formControlName="message_content"> </textarea>
+            <div (click)="uploader.click()" class="fileUpload">
+              <img class="search-attach" src="assets/images/icons/icon-attach.png" alt="icon">
+              <img class="search-attach-hover" src="assets/images/icons/icon-attach (Hover State).png" alt="icon">
+            </div>
+
+            <button type="button" class="btn create-post"
+              style="position: absolute; top: 1px; right: 13px; padding: 6px;"
+              [style]="mRepliID ? 'right: 35px;' : ''"
+              (click)="formMessage.patchValue({ message_content: '' }); editMessageContent = undefined; mRepliID = undefined"
+              *ngIf="editMessageContent || mRepliID">
+              {{helperService.translation?.cancel}}
+            </button>
+            <button type="button" class="btn create-post"
+              style="position: absolute;top: 0;right: 0;padding: 8px;left: 0;width: 100%;"
+              (click)="startRecord = !startRecord; startStop()" *ngIf="startRecord && !error">
+              <span> {{helperService.translation?.stop_submit}} </span>
+            </button>
+            <div
+              *ngIf="!formMessage.controls.search?.valid && (formMessage.controls.search?.dirty || formMessage.controls.search?.touched)">
+              <span class="error-message">{{helperService.translation?.filed_required}}</span>
+            </div>
+          </div>
+          <div *ngIf="!startRecord || error" class="submitButton">
+            <button type="submit">
+              <img class="button-enter" src="assets/images/icons/button-enter.png" alt="">
+              <img class="button-enter-hover" src="assets/images/icons/button-enter-hover.png" alt="">
+            </button>
+          </div>
+        </div>
+      </div>
+      <input hidden type="file" #uploader accept="image/png, image/gif, image/jpeg" (change)="uploadFile($event)" />
+    </form>
+  </div>
+</div>
+<app-report-modal #reportModal ></app-report-modal>
+
+<app-delete-modal #popup (confirmDelete)="deleteMessage($event)"></app-delete-modal>

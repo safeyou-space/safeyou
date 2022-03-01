@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import "../../../../../assets/css/actions-dropdown.css";
+.content {
+  padding: 24px;
+  height: calc(100vh - 120px);
+  overflow-Y: scroll;
+  width: 100%;
+}
+
+.content::-webkit-scrollbar {
+    width: 2px;               /* width of the entire scrollbar */
+    top: 2px;
+  }
+  .content::-webkit-scrollbar-thumb {
+    background-color: #e37d93;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+     /* creates padding around scroll thumb */
+  }
+
+  .userImg {
+    max-width: 40px;
+    flex: 1;
+    position: relative;
+  }
+  .userImg img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .text {
+    margin-left: 8px;
+    background: #f8dee4;
+    border-radius: 12px;
+    padding: 10px 10px 4px 10px;
+    color: #230D2C;
+    width: 100%;
+  }
+  .date {
+      font-size: 13px;
+      letter-spacing: 0.26px;
+      color: #000000;
+      font-family: HayRoboto, Regular;
+  }
+  .desc p {
+    margin-bottom: 8px;
+    font-size: 14px;
+    letter-spacing: 0.36px;
+    font-family: HayRoboto, Regular;
+    word-break: break-all;
+  }
+  .texthead .name {
+    font-size: 15px;
+    letter-spacing: 0.45px;
+    font-family: HayRoboto, Bold;
+    font-weight: bold;
+  }
+  .texthead img {
+    width: 12px;
+    margin-left: 10px;
+  }
+  .companyname {
+    font-size: 11px;
+    font-family: HayRoboto, Italic;
+  }
+  .textContent {
+    border-bottom: 1px solid #f1bec9;
+  }
+  .reply {
+    color: #E37D93;
+    font-family: HayRoboto, Medium;
+    letter-spacing: 0.26px;
+    font-size: 12px;
+  }
+  .footer {
+    padding: 24px;
+  }
+  .textFooter {
+    float: right;
+  }
+  .vertical {
+    position: relative;
+    background-image: linear-gradient(#EA9DAE 50%, rgba(255,255,255,0) 0%);
+    background-position: left;
+    background-size: 1px 17px;
+    background-repeat: repeat-y;
+    background-position-x: 20px;
+    padding-bottom: 16px;
+    background-clip: content-box;
+    background-position-y: -3px;
+}
+
+.onerow {
+  align-items: center;
+    justify-content: space-between;
+}
+.repliestext{
+  padding: 0 50px;
+}
+.repliestext p {
+    margin: 0;
+    color: #A79EAA;
+    font-size: 13px;
+    letter-spacing: 0.26px;
+    font-family: 'HayRoboto, Regular';
+    cursor: pointer;
+}
+
+form {
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+}
+.textInput {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.textInput .message_filed{
+  width: 100%;
+  border-radius: 50px;
+  outline: 0;
+  border: 1px solid #f8dee4;
+  padding-left: 10px;
+  padding-right: 50px;
+  padding-bottom: 4px;
+  height: 100%;
+  transition: width 0.4s, border 0.4s, max-width 0.4s;
+  max-width: 486px;
+  background: transparent;
+}
+
+.hov, .hov input:focus {
+  width: 100%;
+  transition: width 0.4s;
+  /*flex: 1;*/
+}
+/*.hov:hover {*/
+  /*width: 50%;*/
+/*}*/
+.hov:hover input::placeholder{
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+}
+.hov input:focus ~ .hov{
+  width: 100%;
+}
+.textInput:hover .submitButton {
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*right: 168px;*/
+}
+.textInput input::placeholder {
+  color: #A79EAA;
+  letter-spacing: 0.29px;
+  font-size: 13px;
+  font: normal normal normal 13px/19px 'HayRoboto';
+}
+.submitButton {
+  height: 32px;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*right: 14px;*/
+  transition-duration: 0.4s;
+}
+.submitButton button {
+  height: 32px;
+  border: transparent;
+  background: transparent;
+  cursor: pointer;
+}
+.submitButton button:disabled {
+  cursor: no-drop;
+}
+.fileUpload {
+  position: absolute;
+  top: -10px;
+  right: 11px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  padding-top: 12px;
+  text-align: right;
+  padding-right: 10px;
+}
+.fileRecord {
+  position: absolute;
+  top: -10px;
+  right: 36px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  padding-top: 12px;
+  text-align: right;
+  padding-right: 10px;
+}
+.search-attach-hover {
+  display: none;
+}
+.fileUpload:hover .search-attach-hover{
+  display: inline;
+}
+.fileUpload:hover .search-attach {
+  display: none;
+}
+.search-attach, .search-attach-hover {
+  width: 16px;
+  height: 16px;
+}
+
+.button-enter-hover {
+  display: none;
+}
+.submitButton button:hover .button-enter-hover {
+  display: inline;
+}
+.submitButton button:hover .button-enter {
+  display: none;
+}
+.button-enter, .button-enter-hover {
+  width: 31px;
+  height: 31px;
+}
+.create-post {
+  padding: 9px 16px;
+  background: var(--unnamed-color-fbeff2) 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  float: right;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  color: #E37D93;
+  text-align: center;
+  font-size: 13px;
+  margin-right: 4px;
+}
+.create-post:hover {
+  background-color: #F8DEE4;
+}
+
+.fileView {
+  z-index: 5555555555;
+  height: calc(100% - 120px);
+  box-shadow: 0px 9px 15px 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 48px;
+  right: 10px;
+  left: 10px;
+  background: white;
+}
+
+.file {
+  width: 100%;
+  text-align: center;
+}
+.file img {
+  width: 100%;
+  object-fit: scale-down;
+  height: 200px;
+}
+#formInput {
+  resize: none;
+  height: 32px;
+}
+#formInput::-webkit-scrollbar {
+  display: none;
+}
+
+.fileFooterView {
+  position: absolute;
+  width: 100px;
+  height: 70px;
+  bottom: 55px;
+  box-shadow: 0px 0px 6px -2px;
+}
+.likesCount {
+  color: #E37D93;
+  font-family: HayRoboto, Medium;
+  letter-spacing: 0.26px;
+  font-size: 13px;
+  padding-right: 8px;
+}

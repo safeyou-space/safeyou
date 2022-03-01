@@ -1,0 +1,36 @@
+<div class="content" #content>
+    <img class="view_img"
+         src="{{this.requestService.imgSite + viewData?.image?.url}}" alt=""
+         onError="this.src='assets/images/img/no-image.png'"
+    >
+
+    <div class="info">
+        <h2 class="title">{{viewData?.title}}</h2>
+        <div class="afterInfo">
+            <div class="profileandCalendar">
+                <img src="assets/images/icons/icon-profile.png" class="icon" alt="image">
+                <span>{{viewData?.creator?.first_name}}</span>
+                <span style="padding-left: 0;" *ngIf="viewData?.creator?.emergency_service">/ {{viewData?.creator?.emergency_service?.title}}</span>
+                <img style="margin-right: 8px;" width="16px" src="assets/images/icons/icon-language.png" alt="">
+                <img  style="margin-right: 8px;" width="16px" src="assets/images/icons/icon-flag-armenia.png" alt="">
+                <img  style="margin-right: 8px;" width="16px" src="assets/images/icons/icon-flag-uk@2x.png" alt="">
+            </div>
+            <div class="calendar">
+                <i style="color: #e37d93" class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                <span>{{viewData?.created_at | date:'d MMMM, y'}}</span>
+            </div>
+            <div class="viewandcom">
+                <img src="assets/images/icons/icon-eye.png" alt="">
+                <span>{{viewData?.views_count}} | </span>
+                <i style="color: #e37d93" class="fa fa-commenting" aria-hidden="true"></i>
+                <span>{{viewData?.comments_count}}</span>
+            </div>
+
+        </div>
+        <span class="categories" *ngFor="let item of viewData.categories, let last = last">{{item.translation}}<span *ngIf="!last">, &nbsp;</span></span>
+        <span class="categories">:</span>
+        <span class="categories18">&nbsp;{{viewData?.age_restricted == '1' ? '| 18+' : ''}}</span>
+        <div class="description ck-content" [innerHTML]="viewData?.description"></div>
+    </div>
+
+</div>

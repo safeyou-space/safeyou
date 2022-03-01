@@ -1,144 +1,109 @@
-export const endpoint = '/api/';
+export const apiUrl = '';
+export const apiUrlChat = '';
+
+export const prefix = '/api';
 
 export const environment = {
-  production: false,
-  endpoint: '/api/',
-  login: '/admin/login',
-  logout: '/admin/logout',
-  refresh: '/admin/refresh',
-  resetPassword: {
-    get: '/admin/user/profile'
+  production: true,
+  url: apiUrlChat + '',
+  imagePrefix: apiUrl + '',
+  baseUrl: apiUrl + prefix,
+  SIGNAL_PROFILE: 0 ,
+  SIGNAL_CONNECTED: 1 ,
+  SIGNAL_DISCONNECTED: 2 ,
+  SIGNAL_R_JOINED: 3 ,
+  SIGNAL_R_LEAVED: 4 ,
+  SIGNAL_R_INSERT: 5 ,
+  SIGNAL_R_UPDATE: 6 ,
+  SIGNAL_R_DELETE: 7 ,
+  SIGNAL_M_INSERT: 8 ,
+  SIGNAL_M_UPDATE: 9 ,
+  SIGNAL_M_DELETE: 10 ,
+  SIGNAL_M_TYPING: 11 ,
+  SIGNAL_M_RECEIVED: 12 ,
+  SIGNAL_NOTIFICATION: 13 ,
+  SIGNAL_M_LIKED: 16,
+  SIGNAL_HELP: 15,
+  SIGNAL_NOTIFICATIONMAIN: 17,
+  admin: {
+    refresh: 'admin/refresh',
+    login: 'admin/login',
+    getLanguageList: 'languages',
+    getCountryList: 'countries',
+    logout: 'admin/logout',
+    communication: apiUrlChat + prefix + '/rooms/',
+    friendsList: apiUrlChat + prefix + '/friends/list',
+    marital_statuses: 'marital_statuses',
+    forgotPassword: 'admin/forgot_password',
+    createPassword: 'admin/create_password',
+    registration: 'admin/registration',
+    dashboard: 'admin/dashboard',
+    content: {
+      get: 'admin/content'
+    },
+    appUsers: {
+      get: 'admin/user',
+      changeStatus: 'admin/user/change_status',
+      changeToConsultant: 'admin/user/change_to_consultant'
+    },
+    appAdmin: {
+      get: 'admin/admin'
+    },
+    consultants: {
+      get: 'admin/consultant',
+      getProfessionList: 'admin/consultant_service_category',
+      changeStatus: 'admin/consultant/change_status',
+      consultantRequest: 'admin/request_consultant',
+      getMaritalStatusList: 'marital_statuses',
+      changeToAppUser: 'admin/consultant/reject'
+    },
+    organization: {
+      get: 'admin/emergency_service',
+      getCategoryList: 'admin/emergency_service_category',
+      changeStatus: 'admin/emergency_service/change_status',
+      getAllCategoryList: 'admin/emergency_service_category/list',
+      profileNgo: 'admin/user/emergency/profile'
+    },
+    forum: {
+      get: 'admin/forum',
+      getCategory: 'admin/forum/category',
+      getAllCategoryList: 'admin/forum_category/list'
+    },
+    sms: {
+      get: 'admin/sms'
+    },
+    rate: {
+      get: 'admin/rate'
+    },
+    report: {
+      get: 'admin/report',
+      getCategoryList: 'admin/report/categories',
+      getAllCategories: 'admin/report/category/list'
+    },
+    profile: {
+      get: 'admin/user/profile',
+      changePassword: 'admin/user/profile/change_password'
+    },
+    settings: {
+      get: 'admin/setting',
+    },
+    helpMessages: {
+      get: 'admin/help_message'
+    },
+    translations: {
+      get: 'admin/translation'
+    },
+    beneficiary: {
+      get: 'admin/beneficiaries'
+    },
+    languages: {
+      get: 'admin/language',
+      getApplication: 'admin/language'
+    }
   },
-  dashboard: {
-    get: '/admin/dashboard'
-  },
-  contactUs: {
-    createContactUs: 'arm/en/contact_us',
-    getContactUsActiveList: '/admin/email/unchecked_list',
-    getContactList: '/admin/contact_us',
-    isRead: '/admin/email/change_status/',
-    answerContactUs: '/admin/email/response_letter'
-  },
-  geolocation: {
-    sendPhone: '/help/message/view'
-  },
-  users: {
-    get: '/admin/user',
-    getNgo: '/admin/user/ngos',
-    getVolunteer: '/admin/user/volunteers',
-    getLegalService: '/admin/user/legal_services',
-    getEmergencyContacts: '/admin/user/emergency_contacts',
-    ngo: '/admin/user/ngo',
-    volunteer: '/admin/user/volunteer',
-    legalService: '/admin/user/legal_service',
-    emergencyContacts: '/admin/user/emergency_contact',
-    deleteEmergencyContacts: '/admin/user/emergency_contact',
-    listNgo: '/admin/ngos_list',
-    listVolunteer: '/admin/volunteers_list',
-    listLegalService: '/admin/legal_services_list',
-    getRecords: '/admin/user/records',
-    records: '/admin/user/record',
-    addDetail: '/admin/user/emergency_service_contact',
-    deleteDetail: '/admin/user/emergency_service_contact',
-    getImageProfile: '/admin/default_image/user_profile',
-    maritalStatusList: '/admin/marital_status/list',
-
-    emergencyServiceList: '/admin/user/emergency_services_list',
-    emergencyServiceSelectedList: '/admin/user/emergency_services',
-    getConsultantList: '/admin/consultant_service_category/list',
-    changeConsultant: '/admin/user/change_to_consultant'
-  },
-  administration: {
-    get: '/admin/admin',
-    getImageProfile: '/admin/default_image/admin_profile',
-  },
-  lawyers: {
-    get:  '/admin/lawyer'
-  },
-  legalService: {
-    get:  '/admin/legal_service',
-    getImageProfile: '/admin/default_image/legal_service_profile',
-  },
-  forum: {
-    get:  '/admin/forum',
-    deleteComment:  '/admin/forum/delete/comment',
-    getImageProfile: '/admin/default_image/forum',
-  },
-  clientPage: {
-    get:  '/admin/client',
-    lawyerList: '/admin/lawyer_list',
-    organizationList: '/admin/organization_list',
-    configList: '/admin/config_list'
-  },
-  volunteer: {
-    get: '/admin/volunteer',
-    getImageProfile: '/admin/default_image/volunteer_profile',
-  },
-  ngo: {
-    get: '/admin/ngo',
-    getImageProfile: '/admin/default_image/ngo_profile',
-  },
-  hotlines: {
-    get: '/admin/hotlines',
-  },
-  groups: {
-    get: '/admin/chat_rooms',
-    getAllMessages: '/admin/get_all_messages',
-    deleteChatMessages: '/admin/chat_messages'
-  },
-  languages: {
-    get: '/admin/language',
-    getImageProfile: '/admin/default_image/language_flag',
-  },
-  content: {
-    get: '/admin/content'
-  },
-
-  countryList: {
-    get: 'arm/admin/country_list',
-  },
-  emergencyServiceCategory: {
-    get: '/admin/emergency_service_category',
-    getLanguageList: '/admin/language_list'
-  },
-  emergencyService: {
-    get: '/admin/emergency_service',
-    getIconsList: '/admin/image_social_icons',
-    getImageProfile: '/admin/default_image/emergency_service_profile',
-    emergencyServiceCategoryList: '/admin/emergency_service_category/list',
-    isSendSms: '/admin/emergency_service/change_is_send_sms_status'
-  },
-  helpMessages: {
-    get: '/admin/help_message',
-    getLanguageList: '/admin/language_list'
-  },
-  consultants: {
-    get: '/admin/consultant',
-    getLanguageList: '/admin/language_list',
-    getImageProfile: '/admin/default_image/consultant_service_profile',
-    maritalStatusList: '/admin/marital_status/list',
-    getConsultantCategoryList: '/admin/consultant_service_category/list'
-  },
-  categoryConsultants: {
-    get: '/admin/consultant_service_category',
-    getLanguageList: '/admin/language_list'
-  },
-  consultantsRequest: {
-    get: '/admin/request_consultant',
-  },
-  sms: {
-    get: '/admin/sms'
-  },
-  settings: {
-    get: '/admin/setting',
-    getLanguageList: '/admin/language_list'
+  web: {
+    geolocation: {
+      sendPhone: 'help/message/view'
+    }
   }
 };
-
-
-const endpointSocket = '';
-
-export const environmentSocket = {
-  socket_url_arm: endpointSocket + ':444/',
-  socket_url_geo: endpointSocket + ':8081/',
- };

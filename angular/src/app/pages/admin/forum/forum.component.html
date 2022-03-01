@@ -1,0 +1,407 @@
+<div class="d-flex" [style]="bool || categoryList || showFilter || openAddOrCreate ? 'overflow: hidden;' : ''">
+  <div class="app-header" style="flex: 1">
+    <app-header></app-header>
+
+    <div style="position: relative; padding: 0 22px;">
+      <div class="content">
+        <div class="title-block" style="position: relative;">
+          <div
+            style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div class="d-flex" [style]="!openAddOrCreate ? 'z-index: 5555' : ''">
+              <span style="vertical-align: sub;"
+                    [@openClose]="!openAddOrCreate ? 'openButton' : 'closedButton'">
+                <img src="assets/images/icons/icon-arrow-back.png" (click)="close('chat')"
+                     [style]="!chatOpen && !openAddOrCreate ? 'display: none;' : ''"
+                     [@openClose]="chatOpen || openAddOrCreate ? 'openButton' : 'closedButton'" alt=""
+                     style="margin-right: 12px; cursor: pointer">
+              </span>
+              <span [style]="!chatOpen && openAddOrCreate ? 'display: none;' : ''" class="page-title">
+                {{helperService.translation?.forums}}
+              </span>
+            </div>
+
+            <div [@openClose]="!bool && !categoryList && !showFilter && !openAddOrCreate ? 'openButton' : 'closedButton'">
+              <div class="head-actions float-right">
+                <div class="d-inline-block mr-2">
+                  <app-date-input-range (saveDateRange)="saveDateRange($event)"></app-date-input-range>
+                </div>
+                <div class="filter-dropdown-block" *ngIf="!showFilter" (click)="showFilter = !showFilter; bool = false; this.categoryList = false;">
+                  <span>{{helperService.translation?.filter}}</span>
+                </div>
+              </div>
+              <button type="button" class="btn create-post" *ngIf="access.indexOf('create') != -1"
+                      (click)="callSubmit('create_post')">
+                {{helperService.translation?.create_post}}
+              </button>
+              <button *ngIf="access.indexOf('create') != -1" type="button" class="btn category-button"
+                      (click)="categoryList = true; showFilter = false">
+                {{helperService.translation?.categories}}
+              </button>
+            </div>
+          </div>
+
+
+          <div style="position: absolute; width: 100%; height: 100%;"
+               [@openClose]="!chatOpen && !openAddOrCreate && bool || categoryList || showFilter ? 'openButton' : 'closedButton'">
+            <button *ngIf="access.indexOf('create') != -1" type="button" class="btn create-post"
+                    (click)="callSubmit('create_post')">
+              {{helperService.translation?.create_post}}
+            </button>
+          </div>
+
+          <div style="position: absolute; width: 100%; height: 100%;"
+               [@openClose]="chatOpen || openAddOrCreate ? 'openButton' : 'closedButton'">
+
+            <div class="filter-dropdown-block float-right">
+              <span>{{this.activeLanguage?.title}}</span>
+              <img src="assets/images/icons/icon-arrow-down.png" alt="">
+              <div class="filter-dropdown-item">
+                <ul>
+                  <li *ngFor="let item of helperService.languageList" (click)="changeLanguage(item.code, viewItem.id)"
+                      [ngClass]="this.activeLanguage?.title == item.title ? 'active_language' : ''">{{item.title}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div style="position: absolute; width: 100%; height: 100%;"
+               [@openClose]="openAddOrCreate ? 'openButton' : 'closedButton'">
+            <span style="vertical-align: sub;" class="page-title">
+              <img src="assets/images/icons/icon-arrow-back.png" (click)="close('openAddOrCreate'); callSubmit('close')"
+                   alt=""
+                   style="margin-right: 12px; cursor: pointer">
+              {{pageType == 'create' ? helperService.translation?.new_forum : helperService.translation?.edit}}
+            </span>
+            <button type="button" class="btn category-button saveandpublish" (click)="callSubmit('create')">
+              {{helperService.translation?.save_publish}}
+            </button>
+            <button type="button" class="btn category-button" (click)="callSubmit('save')">
+              {{helperService.translation?.save}}
+            </button>
+            <button type="button" class="btn category-button" (click)="close('openAddOrCreate'); callSubmit('close')">
+              {{helperService.translation?.cancel}}
+            </button>
+          </div>
+
+
+        </div>
+        <div class="page-block" [style]="bool ? 'overflow-x: hidden; overflow-y: scroll;height: calc(100vh - 128px);' : ''" [@openClose]="!chatOpen && !openAddOrCreate? 'openAnimations' : 'closedAnimations'">
+          <tabset class="my-tab">
+            <tab (selectTab)="changeTab(1)" heading="{{helperService.translation?.all}}">
+              <div *ngIf="this.socketConnect.forums && this.socketConnect.forums['message']" style="padding-top: 30px;">
+                <span class="data_empty">{{helperService.translation?.no_result}}</span>
+              </div>
+              <div class="wrapper">
+                <table *ngIf="this.socketConnect.forums && !this.socketConnect.forums['message']" class="table admin-table"
+                       [style]="bool || categoryList || showFilter ? 'table-layout: fixed' : ''">
+                  <thead>
+                    <tr>
+                      <th [style]="bool && categoryList && showFilter ? 'width: 38px' : ''"></th>
+                      <th>{{helperService.translation?.title}}
+                        <span *ngIf="this.helperService.role != 'Emergency' && this.helperService.role != 'Consultant'"
+                              [ngClass]="sortingValue['title'] && sortingValue['title'] == 'ASC' ? 'rotate' : ''"
+                              (click)="sorting('title', 'ASC')" class="admin-table-th"></span></th>
+                      <th>{{helperService.translation?.author}}
+                        <span *ngIf="this.helperService.role != 'Emergency' && this.helperService.role != 'Consultant'"
+                              [ngClass]="sortingValue['creator'] && sortingValue['creator'] == 'ASC' ? 'rotate' : ''"
+                              (click)="sorting('creator', 'ASC')" class="admin-table-th"></span></th>
+                      <th [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                        {{helperService.translation?.organization}}
+                        <span *ngIf="this.helperService.role != 'Emergency' && this.helperService.role != 'Consultant'"
+                              [ngClass]="sortingValue['ngo_title'] && sortingValue['ngo_title'] == 'ASC' ? 'rotate' : ''"
+                              (click)="sorting('ngo_title', 'ASC')" class="admin-table-th"></span>
+                      </th>
+                      <th [@openClose]="!bool && !categoryList ? 'openIf' : 'closedIf'">
+                        {{helperService.translation?.comments}}
+                        <span *ngIf="this.helperService.role != 'Emergency' && this.helperService.role != 'Consultant'"
+                              [ngClass]="sortingValue['comments_count'] && sortingValue['comments_count'] == 'ASC' ? 'rotate' : ''"
+                              (click)="sorting('comments_count', 'ASC')" class="admin-table-th"></span>
+                      </th>
+                      <th [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                        {{helperService.translation?.views}}
+                        <span *ngIf="this.helperService.role != 'Emergency' && this.helperService.role != 'Consultant'"
+                              [ngClass]="sortingValue['views_count'] && sortingValue['views_count'] == 'ASC' ? 'rotate' : ''"
+                              (click)="sorting('views_count', 'ASC')" class="admin-table-th"></span>
+                      </th>
+                      <th [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                        {{helperService.translation?.date}}
+                        <span *ngIf="this.helperService.role != 'Emergency' && this.helperService.role != 'Consultant'"
+                              [ngClass]="sortingValue['created_at'] && sortingValue['created_at'] == 'ASC' ? 'rotate' : ''"
+                              (click)="sorting('created_at', 'ASC')" class="admin-table-th"></span>
+                      </th>
+                      <th [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                        {{helperService.translation?.status}}
+                        <span *ngIf="this.helperService.role != 'Emergency' && this.helperService.role != 'Consultant'"
+                              [ngClass]="sortingValue['status'] && sortingValue['status'] == 'ASC' ? 'rotate' : ''"
+                              (click)="sorting('status', 'ASC')" class="admin-table-th"></span>
+                      </th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of socketConnect.forums">
+                    <td class="image-block">
+                      <img src="{{this.requestService.imgSite + item.image?.url}}" alt=""
+                           onError="this.src='assets/images/img/no-image.png'">
+                    </td>
+                    <td (click)="viewData(item, 'view')" class="cursor-pointer position-relative">
+                        <span tooltip="{{item?.title}}">
+                          {{item?.title}}
+                        </span>
+                    </td>
+                    <td class="position-relative">
+                      <span tooltip="{{item.creator?.first_name}}">{{item.creator?.first_name}}</span>
+                    </td>
+                    <td [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                      <span [ngClass]="item?.creator?.emergency_service?.title ? '' : 'empty'" tooltip="{{item?.creator?.emergency_service?.title}}">
+                        {{item?.creator?.emergency_service?.title ? item?.creator?.emergency_service?.title : helperService.translation?.no_result}}
+                      </span>
+                    </td>
+                    <td [@openClose]="!bool && !categoryList ? 'openIf' : 'closedIf'">{{item?.comments_count}}</td>
+                    <td [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">{{item?.views_count}}</td>
+                    <td [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">{{item.created_at | date:'d/MM/yyyy'}}</td>
+                    <td [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                      <label  class="switch m-0">
+                        <input [disabled]="item.accesses && !item.accesses?.update" type="checkbox" (change)="changeStatus(item.id, item.status, 'all')"
+                               [checked]='item.status'>
+                        <div>
+                          <span></span>
+                        </div>
+                      </label>
+                    </td>
+                    <td class="actions">
+                      <div *ngIf="access.indexOf('view') != -1" class="action-eye cursor-pointer" (click)="viewData(item, 'view')"></div>
+                      <div *ngIf="!item.accesses || item.accesses?.update" [style]="bool || categoryList || showFilter ? 'width: 0; margin: 0;' : ''"
+                           class="action-edit cursor-pointer" (click)="callSubmit('edit', item.id)"
+                           [@openClose]="!bool && !categoryList && !showFilter ? 'openButton' : 'closedButton'"></div>
+                      <div [style]="bool || categoryList || showFilter ? 'width: 0; margin: 0;' : ''"
+                           [@openClose]="!bool && !categoryList && !showFilter ? 'openButton' : 'closedButton'"
+                           (click)="viewData(item, 'comment'); socketConnect.forBackAllComment = false"
+                           class="action-comment cursor-pointer"></div>
+                      <div class="actions-dropdown-block">
+                        <div class="action-more cursor-pointer"></div>
+                        <div class="actions-dropdown-item">
+                          <ul>
+                            <li *ngIf="access.indexOf('view') != -1" (click)="viewData(item)"><a><img
+                              src="assets/images/icons/icon-eye-hover.png"
+                              alt="icon">
+                              {{helperService.translation?.view}}</a></li>
+                            <li *ngIf="!item.accesses || item.accesses?.update" (click)="callSubmit('edit', item.id)">
+                              <a><img src="assets/images/icons/icon-edit.png" alt="icon">
+                                {{helperService.translation?.edit}}</a>
+                            </li>
+                            <li (click)="callSubmit('copy', item.id)"><a><img src="assets/images/icons/icon-copy.png" alt="icon">
+                              {{helperService.translation?.copy}}</a></li>
+                            <li *ngIf="!item.accesses || item.accesses?.destroy" (click)="popup.deleteModal(item.id)"><a><img src="assets/images/icons/icon-delete.png"
+                                                                             alt="icon">
+                              {{helperService.translation?.delete}}</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-center">
+                  <pagination *ngIf="allPageData && allPageData.total > 10"
+                              [boundaryLinks]="true"
+                              [totalItems]="allPageData.total"
+                              [itemsPerPage]="allPageData.per_page"
+                              [ngModel]="allPageData.current_page"
+                              [maxSize]="10"
+                              (pageChanged)="pageChanged($event, 'all')"
+                              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+                  </pagination>
+                </div>
+              </div>
+            </tab>
+            <tab (selectTab)="changeTab(2)" heading="{{helperService.translation?.my_forum}}">
+              <div *ngIf="this.my_forums && this.my_forums['message']" style="padding-top: 30px;">
+                <span class="data_empty">{{helperService.translation?.no_result}}</span>
+              </div>
+              <div class="wrapper">
+                <table *ngIf="this.my_forums && !this.my_forums['message']" class="table admin-table"
+                       [style]="bool || categoryList || showFilter ? 'table-layout: fixed' : ''">
+                  <thead>
+                  <tr>
+                    <th [style]="bool && categoryList && showFilter ? 'width: 38px' : ''"></th>
+                    <th>{{helperService.translation?.title}} <span [ngClass]="sortingValue['title'] && sortingValue['title'] == 'ASC' ? 'rotate' : ''" (click)="sorting('title', 'ASC')" class="admin-table-th"></span></th>
+                    <th>{{helperService.translation?.author}} <span [ngClass]="sortingValue['creator'] && sortingValue['creator'] == 'ASC' ? 'rotate' : ''" (click)="sorting('creator', 'ASC')" class="admin-table-th"></span></th>
+                    <th [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                      {{helperService.translation?.organization}} <span [ngClass]="sortingValue['ngo_title'] && sortingValue['ngo_title'] == 'ASC' ? 'rotate' : ''" (click)="sorting('ngo_title', 'ASC')" class="admin-table-th"></span>
+                    </th>
+                    <th [@openClose]="!bool && !categoryList ? 'openIf' : 'closedIf'">
+                      {{helperService.translation?.comments}} <span [ngClass]="sortingValue['comments_count'] && sortingValue['comments_count'] == 'ASC' ? 'rotate' : ''" (click)="sorting('comments_count', 'ASC')" class="admin-table-th"></span>
+                    </th>
+                    <th [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                      {{helperService.translation?.views}} <span [ngClass]="sortingValue['views_count'] && sortingValue['views_count'] == 'ASC' ? 'rotate' : ''" (click)="sorting('views_count', 'ASC')" class="admin-table-th"></span>
+                    </th>
+                    <th [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                      {{helperService.translation?.date}} <span [ngClass]="sortingValue['created_at'] && sortingValue['created_at'] == 'ASC' ? 'rotate' : ''" (click)="sorting('created_at', 'ASC')" class="admin-table-th"></span>
+                    </th>
+                    <th [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                      {{helperService.translation?.status}} <span [ngClass]="sortingValue['status'] && sortingValue['status'] == 'ASC' ? 'rotate' : ''" (click)="sorting('status', 'ASC')" class="admin-table-th"></span>
+                    </th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of my_forums">
+                    <td class="image-block">
+                      <img src="{{this.requestService.imgSite + item.image?.url}}" alt=""
+                           onError="this.src='assets/images/img/no-image.png'">
+                    </td>
+                    <td (click)="viewData(item)" class="cursor-pointer">
+                          <span tooltip="{{item?.title}}">
+                            {{item?.title}}
+                          </span>
+                    </td>
+                    <td>
+                      <span tooltip="{{item.creator?.first_name}}">{{item.creator?.first_name}}</span>
+                    </td>
+                    <td [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                       <span [ngClass]="item?.creator?.emergency_service?.title ? '' : 'empty'" tooltip="{{item?.creator?.emergency_service?.title}}">
+                        {{item?.creator?.emergency_service?.title ? item?.creator?.emergency_service?.title : helperService.translation?.no_result}}
+                      </span>
+                    </td>
+                    <td [@openClose]="!bool && !categoryList ? 'openIf' : 'closedIf'">{{item?.comments_count}}</td>
+                    <td [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">{{item?.views_count}}</td>
+                    <td [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">{{item.created_at | date:'d/MM/yyyy'}}</td>
+                    <td [@openClose]="!bool && !categoryList && !showFilter ? 'openIf' : 'closedIf'">
+                      <label class="switch m-0">
+                        <input type="checkbox" (change)="changeStatus(item.id, item.status, 'my')"
+                               [checked]='item.status'>
+                        <div>
+                          <span></span>
+                        </div>
+                      </label>
+                    </td>
+                    <td class="actions">
+                      <div class="action-eye cursor-pointer" (click)="viewData(item)"></div>
+                      <div [style]="bool || categoryList || showFilter ? 'width: 0; margin: 0;' : ''" class="action-edit cursor-pointer"
+                           (click)="callSubmit('edit', item.id)"
+                           [@openClose]="!bool && !categoryList && !showFilter ? 'openButton' : 'closedButton'"></div>
+                      <div [style]="bool || categoryList || showFilter ? 'width: 0; margin: 0;' : ''"
+                           [@openClose]="!bool && !categoryList && !showFilter ? 'openButton' : 'closedButton'"
+                           (click)="bool = true; this.helperService.callMethodOfSecondComponent(bool)"
+                           class="action-comment cursor-pointer"></div>
+                      <div class="actions-dropdown-block">
+                        <div class="action-more cursor-pointer"></div>
+                        <div class="actions-dropdown-item">
+                          <ul>
+                            <li (click)="viewData(item)"><a><img src="assets/images/icons/icon-eye-hover.png"
+                                                                              alt="icon">
+                              {{helperService.translation?.view}}</a></li>
+                            <li (click)="callSubmit('edit', item.id)">
+                              <a><img src="assets/images/icons/icon-edit.png" alt="icon">
+                                {{helperService.translation?.edit}}</a>
+                            </li>
+                            <li (click)="callSubmit('copy', item.id)"><a><img src="assets/images/icons/icon-copy.png" alt="icon">
+                              {{helperService.translation?.copy}}</a></li>
+                            <li (click)="popup.deleteModal(item.id)"><a><img src="assets/images/icons/icon-delete.png"
+                                                                             alt="icon">
+                              {{helperService.translation?.delete}}</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-center">
+                  <pagination *ngIf="allPageDataMyForum && allPageDataMyForum.total > 10"
+                              [boundaryLinks]="true"
+                              [totalItems]="allPageDataMyForum.total"
+                              [itemsPerPage]="allPageDataMyForum.per_page"
+                              [ngModel]="allPageDataMyForum.current_page"
+                              [maxSize]="10"
+                              (pageChanged)="pageChanged($event, 'my')"
+                              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+                  </pagination>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+        <div [@openClose]="chatOpen ? 'chatOpen' : 'chatClose'" class="contentone w-100" style="position: absolute;" #content>
+          <app-forum-view class="middleview"></app-forum-view>
+        </div>
+
+        <div class="addoredit" [@openClose]="openAddOrCreate ? 'openAnimations' : 'closedAnimations'"
+             style="position: absolute;width: 100%;">
+          <app-forum-edit-create
+            (getEvent)="getData(this.url); getMyForums(this.url + '?forums=my'); openAddOrCreate = false;"></app-forum-edit-create>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+  <div style="position: relative;" [@openClose]="bool ? 'open' : 'closed'" [ngClass]="bool ? 'laptop-size' : ''">
+    <div class="forumView">
+      <div [@openClose]="!chatOpen ? 'chatOpen' : 'chatClose'" class="forumViewHeadAndContent"
+           [style]="chatOpen ? 'display: none' : ''">
+        <div class="head-forum-view">
+          <div style="padding: 8px 24px;">
+            <button *ngIf="!viewItem?.accesses || viewItem?.accesses?.update" class="btn" (click)="callSubmit('edit', viewItem.id)">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+              {{helperService.translation?.edit}}
+            </button>
+            <button class="btn" (click)="this.helperService.callMethodOfSecondComponent(bool); socketConnect.callForumChat(viewItem.id);">
+              <i class="fa fa-commenting" aria-hidden="true"></i>
+              {{helperService.translation?.interpret}}</button>
+            <div class="filter-dropdown-block">
+              <span>{{this.activeLanguage?.title}}</span>
+              <img src="assets/images/icons/icon-arrow-down.png" alt="">
+              <div class="filter-dropdown-item">
+                <ul>
+                  <li *ngFor="let item of helperService.languageList" (click)="changeLanguage(item.code, viewItem.id)"
+                      [ngClass]="this.activeLanguage?.title == item.title ? 'active_language' : ''">{{item.title}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 10px;">
+            <i class="fa fa-times cursor-pointer" (click)="close('forumview')" aria-hidden="true"></i>
+          </div>
+        </div>
+        <app-forum-view></app-forum-view>
+      </div>
+
+      <div class="forumChat" [@openClose]="chatOpen ? 'chatOpen' : 'chatClose'">
+        <div class="head-forum-view">
+          <div style="padding: 8px 24px;">
+            <p class="comtitle">{{helperService.translation?.comments}}</p>
+          </div>
+          <div style="padding: 10px;">
+            <div class="fullscreen">
+              <img (click)="openFullScreen()" class="iconfull cursor-pointer"
+                   src="assets/images/icons/icon-fullscreen.png" alt="FullScreen">
+            </div>
+            <i class="fa fa-times cursor-pointer" (click)="close('chat')" aria-hidden="true"></i>
+          </div>
+        </div>
+        <app-forum-chat></app-forum-chat>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: relative;" [@openClose]="categoryList ? 'open' : 'closed'">
+    <div class="forumView" *ngIf="categoryList">
+      <div [@openClose]="!chatOpen ? 'chatOpen' : 'chatClose'"
+           class="forumViewHeadAndContent"
+           [style]="chatOpen ? 'display: none' : ''">
+        <app-forum-category (myEvent)="close()"></app-forum-category>
+      </div>
+    </div>
+  </div>
+
+  <div [@showFilter]="!showFilter ? 'closed' : 'open'">
+    <app-filter [allData]="this.forumsType == 1 ? allPageData : allPageDataMyForum" (filter)="filter($event)" (closeFilter)="closeFilter()"></app-filter>
+  </div>
+</div>
+
+
+<app-report-modal #reportModal></app-report-modal>
+<app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>

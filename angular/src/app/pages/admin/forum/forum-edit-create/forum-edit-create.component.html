@@ -1,0 +1,131 @@
+<form class="data-form" [formGroup]="form">
+  <div class="d-inline-flex" style="margin-bottom: 33px;">
+    <div class="drag-and-drop"
+         [style]="imageValue || type ? 'box-shadow: none; background: none; border: 2px solid transparent' : ''">
+      <div *ngIf="!type" class="drag-and-drop-info"></div>
+      <div class="drag-and-drop-container"
+           [style]="imageValue || type ? 'padding: 22px 8px 16px 8px; background-image: none; border: 1px transparent' : ''"
+           (fileDropped)="onChange($event)">
+        <div *ngIf="imageValue || editImagePath">
+          <div class="image-block">
+            <img *ngIf="imageValue || editImagePath"
+                 src="{{imageValue ? imageValue : this.requestService.imgSite + editImagePath}}" alt="image"
+                 class="user-image">
+            <img src="assets/images/icons/icon-edit.png" alt="image" class="user-edit-icon">
+          </div>
+        </div>
+        <input accept="image/png, image/jpeg, image/jpg, image/bmp"  formControlName="image" type="file" id="fileDropRef" (change)="onChange($event)"/>
+        <div class="imgandtext" *ngIf="!type">
+          <img class="btn-upload" src="../../../../../../assets/images/icons/btn-upload.png" alt="upload">
+          <h3>{{helperService.translation?.select_image}}</h3>
+        </div>
+      </div>
+    </div>
+    <div style="padding-left: 40px;" class="inputgroup">
+      <div class="d-flex">
+        <div class="form-group categories_list">
+          <label for="categories"
+                 [ngClass]="(form.controls.categories?.invalid && (form.controls.categories?.dirty || form.controls.categories?.touched)) ? 'invalid-label-color' : ''">
+            {{helperService.translation?.category}} *</label>
+          <angular2-multiselect [data]="itemList"
+                                id="categories"
+                                formControlName="categories"
+                                [settings]="settings"
+                                (onDeSelect)="closeDropdown(dropdownRef2)"
+                                #dropdownRef2>
+            <c-badge>
+              <ng-template let-item="item">
+                <label style="margin: 0px;">{{item.itemName}}</label>
+              </ng-template>
+            </c-badge>
+            <c-item>
+              <ng-template let-item="item">
+                <label>{{item.itemName}}</label>
+              </ng-template>
+            </c-item>
+          </angular2-multiselect>
+          <div
+            *ngIf="!form.controls.categories?.valid && (form.controls.categories?.dirty || form.controls.categories?.touched)">
+            <span class="error-message">{{helperService.translation?.category_required}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="error-message" style="position: relative;top: -28px;">
+    <span *ngIf="form.controls.image?.hasError('size')">{{helperService.translation?.image_size_error}}</span>
+    <span *ngIf="form.controls.image?.hasError('type')">{{helperService.translation?.invalid_image}}</span>
+  </div>
+  <label class="checkbox-item">
+    <input type="checkbox" id="category-1" formControlName="age_restricted">
+    <label for="category-1"></label>
+    <span>{{helperService.translation?.content_18}}</span>
+  </label>
+
+
+  <div [formGroupName]="'translations'">
+    <div class="form-group">
+      <accordion class="accordion forum_editor" style="width: 888px;" [isAnimated]="true">
+        <accordion-group (isOpenChange)="log($event, i)"
+                         *ngFor="let trans of objectKeys(form.controls['translations']['controls']), let i = index">
+          <span accordion-heading class="accordionhead">
+            <img style="margin-right: 8px; width: 16px;"
+                 src="{{this.requestService.imgSite + languageTranslations[i].image.url}}" alt="">
+                {{languageTranslations[i].title}} {{languageTranslations[i].title != 'Baddini' ? '*' : ''}}
+            <img width="20px" style="transition: 0.5s;"
+                 [attr.class]="languageCollapse[0] == true ? 'float-right reverse' : 'float-right'"
+                 src="assets/images/icons/icon-arrow-down.png" alt="">
+          </span>
+          <div [formGroupName]="trans">
+
+            <div class="form-group">
+              <label for="name"
+                     [ngClass]="(form.get('translations').get(trans).get('title')?.invalid &&
+                     (form.get('translations').get(trans).get('title')?.dirty || form.get('translations').get(trans).get('title')?.touched))
+                     ? 'invalid-label-color' : ''">{{helperService.translation?.title}} {{trans !== 'ps' ? '*' : ''}}</label>
+              <input type="text" [formControlName]="'title'" id="name" style="height: 48px;" class="form-control">
+              <div *ngIf="!form.get('translations').get(trans).get('title').valid &&
+                   (form.get('translations').get(trans).get('title')?.dirty || form.get('translations').get(trans).get('title')?.touched)">
+                <span class="error-message">{{helperService.translation?.title_required}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description"
+                     [ngClass]="(form.get('translations').get(trans).get('description')?.invalid &&
+                     (form.get('translations').get(trans).get('description')?.dirty || form.get('translations').get(trans).get('description')?.touched))
+                     ? 'invalid-label-color' : ''">{{helperService.translation?.content}} {{trans !== 'ps' ? '*' : ''}}</label>
+              <ckeditor (change)="onChangeEditor($event, trans, 'description')" id="description" [editor]="Editor"  [config]='config'
+                        [formControlName]="'description'"></ckeditor>
+              <div *ngIf="!form.get('translations').get(trans).get('description').valid &&
+                   (form.get('translations').get(trans).get('description')?.dirty || form.get('translations').get(trans).get('description')?.touched)">
+                <span class="error-message">{{helperService.translation?.description_required}}</span>
+              </div>
+
+              <div *ngIf="this.letterCount[trans + 'description']">
+                <span style="padding-right: 1em;">{{helperService.translation?.words}}: {{this.wordCount[trans + 'description']}}</span>
+                <span>{{helperService.translation?.characters}}: {{this.letterCount[trans + 'description']}}</span>
+              </div>
+
+            </div>
+            <div class="form-group">
+              <label for="short_description"
+                     [ngClass]="(form.get('translations').get(trans).get('short_description')?.invalid &&
+                     (form.get('translations').get(trans).get('short_description')?.dirty || form.get('translations').get(trans).get('short_description')?.touched))
+                     ? 'invalid-label-color' : ''">{{helperService.translation?.short_description}} {{trans !== 'ps' ? '*' : ''}}</label>
+              <ckeditor (change)="onChangeEditor($event, trans, 'short_description')" id="short_description" [editor]="Editor"  [config]='config'
+                        [formControlName]="'short_description'"></ckeditor>
+              <div *ngIf="!form.get('translations').get(trans).get('short_description').valid &&
+                   (form.get('translations').get(trans).get('short_description')?.dirty || form.get('translations').get(trans).get('short_description')?.touched)">
+                <span class="error-message">{{helperService.translation?.short_description_required}}</span>
+              </div>
+            </div>
+            <div *ngIf="this.letterCount[trans + 'short_description']">
+              <span style="padding-right: 1em;">{{helperService.translation?.words}}: {{this.wordCount[trans + 'short_description']}}</span>
+              <span>{{helperService.translation?.characters}}: {{this.letterCount[trans + 'short_description']}}</span>
+            </div>
+          </div>
+        </accordion-group>
+      </accordion>
+    </div>
+  </div>
+</form>
