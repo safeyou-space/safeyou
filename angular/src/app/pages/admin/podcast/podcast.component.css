@@ -1,0 +1,23 @@
+@import "../../../../assets/css/admin-table.css";
+.content {
+  /*padding: 0 22px;*/
+}
+.content-size {
+  flex: 1;
+}
+.head {
+  padding: 30px 22px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.title h4{
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-16)/var(--unnamed-line-spacing-25) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.64px;
+  color: #230D2C;
+}
+.content-body {
+  margin-top: 16px;
+  padding: 0 22px;
+}

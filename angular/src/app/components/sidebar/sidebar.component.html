@@ -24,6 +24,13 @@
               <span class="menu-text">{{helperService.translation?.forums}}</span>
             </a>
           </li>
+          <li *ngIf="access?.podcasts || is_admin == true" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
+            <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/podcast">
+              <img src="assets/images/icons/icon-microphone.png" class="icon" alt="image">
+              <img src="assets/images/icons/icon-microphone(HoverState).png" class="hover-image" alt="image">
+              <span class="menu-text">{{helperService.translation?.podcasts}}</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

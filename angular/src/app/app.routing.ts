@@ -49,6 +49,10 @@ export const routes: Routes = [
         path: ':country/:language/forum',
         loadChildren: () => import('./pages/admin/forum/forum.module').then(m => m.ForumModule),
       },
+      {
+        path: ':country/:language/podcast',
+        loadChildren: () => import('./pages/admin/podcast/podcast.module').then(m => m.PodcastModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}
