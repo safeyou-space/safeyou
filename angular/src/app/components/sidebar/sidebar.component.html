@@ -31,6 +31,15 @@
               <span class="menu-text">{{helperService.translation?.podcasts}}</span>
             </a>
           </li>
+          <li [@openClose]="isOpen != 0  ? 'closed' : 'open'"
+              [ngClass]="is_admin == true && this.role != 'Emergency' ? 'border-bottom-item' : ''"
+          >
+            <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/communication">
+              <img src="assets/images/icons/icon-messages.png" class="icon" alt="image">
+              <img src="assets/images/icons/icon-messages(HoverState).png" class="hover-image" alt="image">
+              <span class="menu-text">{{helperService.translation?.communication}}</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

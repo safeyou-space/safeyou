@@ -53,6 +53,10 @@ export const routes: Routes = [
         path: ':country/:language/podcast',
         loadChildren: () => import('./pages/admin/podcast/podcast.module').then(m => m.PodcastModule)
       },
+      {
+        path: ':country/:language/communication',
+        loadChildren: () => import('./pages/admin/communication/communication.module').then(m => m.CommunicationModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}

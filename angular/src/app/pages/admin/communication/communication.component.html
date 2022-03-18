@@ -1,0 +1,271 @@
+<div class="d-flex">
+  <div class="app-header" style="flex: 1">
+    <app-header></app-header>
+    <div class="content">
+      <div class="title-block">
+        <span style="vertical-align: sub;" class="page-title">
+          {{helperService.translation?.communication}}
+        </span>
+        <button type="button" class="btn create-post"
+          (click)="socketConnect.newRoom(true); file = undefined; filebase = undefined; this.startRecord = undefined; this.stopRecording(true);">
+          {{helperService.translation?.new_messages}}
+        </button>
+      </div>
+      <div style="padding-top: 24px;">
+        <div class="position-relative">
+          <input (input)="searchEvent($event)" type="search" placeholder="{{helperService.translation?.search}}"
+            class="search-input input-font" id="search">
+          <div class="search-icon-block">
+            <img class="search-icon" src="assets/images/icons/icon-search.png" alt="icon">
+            <img class="search-icon-hover" src="assets/images/icons/icon-search(HoverState).png" alt="icon">
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="users_list position-relative" *ngFor="let item of socketConnect.userLists"
+          [ngClass]="this.socketConnect.active == item.room_key ? 'active' : ''">
+          <div class="w-100 position-relative"
+            [ngClass]="item.room_key != socketConnect.active && item.notificaton ? 'no-read' : ''"
+            (click)="item.notificaton = false;this.startRecord = undefined; this.stopRecording(true);socketConnect.leaveAndJoinRoom(item.room_key);">
+            <img class="float-left" onError="this.src='assets/images/img/no-image.png'"
+              src="{{(item.room_image.includes('://') ? '' : imgUrl) + item.room_image}}" alt="Img">
+            <img *ngIf="item?.room_joined_users && item.room_joined_users.length > 0" class="online"
+              src="assets/images/icons/online.png" alt="">
+            <img *ngIf="socketConnect.usersJoinedOrLeave.indexOf(item.room_key) > 0" class="online"
+              src="assets/images/icons/online.png" alt="">
+
+            <p class="m-0">{{item.room_name}}</p>
+            <img class="typing" *ngIf="item.typing" src="assets/images/icons/typing.gif" alt="">
+            <span *ngIf="!item.typing" class="message">
+              {{item.room_last_message != null && item.room_last_message.message_content != undefined &&
+              item.room_last_message.message_content != null ? item.room_last_message.message_content :
+              item.room_last_message && item.room_last_message.message_files.length > 0 ?
+              helperService.translation?.sent_a_file : helperService.translation?.not_new_message}}
+            </span>
+            <span style="position: absolute;right: 52px;">{{item.room_last_message && item.room_last_message.time ?
+              item.room_last_message.time : item.time}}</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="viewBlock">
+    <div>
+      <div class="head-block">
+        <div style="padding: 8px 24px;">
+          <div class="users_head position-relative">
+            <div [@page]="socketConnect.showPage && socketConnect.userLists.length != 0? 'open' : 'closed'"
+              style="display: flex;">
+              <div *ngIf="socketConnect.rootInfo" style="width: 60%;">
+                <img class="float-left thumbnail" onError="this.src='assets/images/img/no-image.png'"
+                  src="{{(socketConnect.rootInfo.room_image.includes('://') ? '' : imgUrl) + socketConnect.rootInfo.room_image}}"
+                  alt="Img">
+                <p class="m-0" tooltip="{{socketConnect.rootInfo.room_name}}" container="body">
+                  {{socketConnect.rootInfo.room_name}}</p>
+              </div>
+              <div  style="width: 40%;text-align: end;">
+                <span class="countonline">{{socketConnect.onlineUsersCount.length}}
+                  {{helperService.translation?.active_users}}</span>
+              </div>
+            </div>
+            <div [@page]="!socketConnect.showPage || socketConnect.userLists.length == 0 ? 'open' : 'closed'">
+              <p class="m-0">{{helperService.translation?.new_message}}</p>
+              <div class="info_icon position-relative">
+                <i class="fa fa-times cursor-pointer" (click)="socketConnect.showPage = true;" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content_chat">
+        <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="chat position-relative"
+          [style]="!socketConnect.showPage ? 'overflow: unset' : ''">
+          <div [@page]="socketConnect.showPage && socketConnect.userLists.length != 0 ? 'open' : 'closed'"
+            style="padding: 16px;">
+            <span class="not_new_message" *ngIf="socketConnect.messages.length == 0">{{helperService.translation?.not_new_message}}</span>
+            <div *ngIf="socketConnect.showPage" [enterTheViewportNotifier]="'pagechange'" class="scrollTopDiv"></div>
+            <div class="message-box-holder"
+              *ngFor="let item of socketConnect.messages,let index = index, let last = last" [id]="'divViewId' + index">
+
+              <div [ngClass]="item.message_send_by.user_id == socketConnect.myUserId ? 'message_me' : 'message_you'">
+
+                <div *ngIf="item.message_files.length > 0" style="padding: 20px 10px 0px 10px;">
+                  <div style="margin-bottom: 7px; position: relative;"
+                    *ngIf="item.message_files[0].file_mime_type.includes('image')">
+                    <img id="myImg" class="message_image" style="object-fit: scale-down;"
+                      src="{{imgUrl + item.message_files[0].file_path}}" alt="{{item.message_files[0].file_name}}"
+                      (click)="showImage(item.message_files[0].file_path, 'myImg', item.message_files[0].file_name)">
+                  </div>
+                  <div style="margin-bottom: 7px; cursor: pointer;" class="fileViewOne" (click)="download(item.message_files[0])"
+                    *ngIf="!item.message_files[0].file_mime_type.includes('image') && !item.message_files[0].file_mime_type.includes('audio') && item.message_files[0].file_mime_type != ''">
+                    <img id="myImg" class="message_image" style="object-fit: scale-down; width: 100px; height: 60px"
+                      src="../../../../../../assets/images/icons/btn-upload.png"
+                      alt="{{item.message_files[0].file_name}}">
+                    <p style="word-break: break-all;">{{item.message_files[0].file_name}}</p>
+                  </div>
+
+                  <div style="height: 25px;" *ngIf="item.message_files[0].file_mime_type.includes('audio')">
+                    <audio controls style="width: 300px; height: 100%;" (stop)="stopPlay($event)" (play)="stopPlay($event)">
+                      <source src="{{imgUrl + item.message_files[0].file_path}}" type="audio/mp3">
+                    </audio>
+                  </div>
+
+                </div>
+
+                <p [enterTheViewportNotifier]="item">{{item.message_content}}
+                  <span style="padding-left: 15px; padding-top: 2px;">{{item.time }}
+                    <span *ngIf="item.message_send_by.user_id == socketConnect.myUserId">
+                      <div class="actions-dropdown-block">
+                        <div class="action-more cursor-pointer"></div>
+                        <div class="actions-dropdown-item">
+                          <ul>
+                            <li *ngIf="!item.message_files[0] || (item.message_files[0] && !item.message_files[0].file_mime_type.includes('audio') && item.message_content)" (click)="editMessage(item)">
+                              <a><img src="assets/images/icons/icon-edit.png" alt="icon">
+                                {{helperService.translation?.edit}}</a>
+                            </li>
+                            <li (click)="popup.deleteModal(item)"><a><img src="assets/images/icons/icon-delete.png"
+                                  alt="icon">
+                                {{helperService.translation?.delete}}</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </span>
+                    <span (click)="reportModal.showModal(item, 'private')" style="margin-top: -1px;padding-left: 5px;" *ngIf="item.message_send_by.user_id != socketConnect.myUserId">
+                      <img  src="assets/images/icons/icon-exclamation.png" alt="icon" class="info_icon-attach">
+                    </span>
+                    <span *ngIf="item.message_send_by.user_id == socketConnect.myUserId">
+                      <span style="padding: 0 5px;" *ngFor="let recived of item.message_receivers"
+                        [style]="recived.user_id == socketConnect.myUserId ? 'display: none' : ''">
+                        <img *ngIf="recived.user_id !== socketConnect.myUserId && recived.received_type !== 2"
+                          height="20px" src="assets/images/icons/check.png" alt="">
+                        <img *ngIf="recived.user_id !== socketConnect.myUserId && recived.received_type == 2"
+                          height="20px" src="assets/images/icons/checkIn.png" alt="">
+                      </span>
+                    </span>
+
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="class1"
+            [@page]="!socketConnect.showPage || socketConnect.userLists.length == 0 ? 'open' : 'closed'"
+            style="padding: 16px;">
+            <div>
+              <form [formGroup]="formSearchUser" (ngSubmit)="onSubmitSearchUser()" style="padding-top: 8px;">
+                <div class="position-relative">
+                  <angular2-multiselect [data]="socketConnect.itemList" [(ngModel)]="selectedItems"
+                    formControlName="search" [settings]="settings" (onSelect)="onItemSelect($event)"
+                    (onDeSelect)="OnItemDeSelect($event)" #dropdownRef>
+                    <c-badge>
+                      <ng-template let-item="item">
+                        <label style="margin: 0px;">{{item.itemName}}</label>
+                      </ng-template>
+                    </c-badge>
+                    <c-item>
+                      <ng-template let-item="item">
+                        <img [src]="item.image" onError="this.src='assets/images/img/no-image.png'"
+                          style="width: 32px; height: 32px; margin-right: 20px; float: left;" />
+                        <label style="width:88%;">{{item.itemName}}</label>
+                      </ng-template>
+                    </c-item>
+                  </angular2-multiselect>
+                  <div
+                    *ngIf="!formSearchUser.controls.search?.valid && (formSearchUser.controls.search?.dirty || formSearchUser.controls.search?.touched)">
+                    <span class="error-message">{{helperService.translation?.filed_required}}</span>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="position-relative"
+          [@page]="socketConnect.showPage && socketConnect.userLists.length != 0 ? 'open' : 'closed'">
+
+          <div class="fileFooterView" *ngIf="filebase">
+
+            <div style="position: relative;height: 100%; background: #fff;">
+
+              <div style="position: relative; width:100%; height:100%">
+                <img style="object-fit: scale-down;" width="100%" height="100%" src="{{filebase}}" alt="">
+                <img (click)="filebase = undefined; file = undefined"
+                  style="cursor:pointer; position: absolute; top:1px; right: 0; width: 16px;"
+                  src="../../../../../assets/images/icons/icon-remove-x@2x.png" alt="">
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+          <div style="height: 30px;">
+            <img height="100%"
+              *ngIf="socketConnect.typing['typing'] && socketConnect.typing['room_key'] == socketConnect.active"
+              style="padding-left: 16px; padding-bottom: 10px;" src="assets/images/icons/typing.gif" alt="">
+          </div>
+          <form [formGroup]="formMessage" (ngSubmit)="onSubmitMessage()" (keydown)="forEnter($event)">
+            <div class="form">
+              <div class="textInput">
+                <div class="position-relative hov" #parent>
+                  <textarea id="formInput" [style]="editMessageContent ? 'padding-right: 105px;' : ''"
+                    (input)="onChange($event)" class="message_filed"
+                    placeholder="{{helperService.translation?.enter_text}}" type="text"
+                    formControlName="message_content"></textarea>
+                  <div class="fileRecord" (click)="startRecord = !startRecord; startStop()">
+                    <img style="width: 15px;height: 20px;" src="assets/images/icons/record.png" alt="icon">
+                  </div>
+                  <div (click)="uploader.click()" class="fileUpload">
+                    <img class="search-attach" src="assets/images/icons/icon-attach.png" alt="icon">
+                    <img class="search-attach-hover" src="assets/images/icons/icon-attach (Hover State).png" alt="icon">
+                  </div>
+
+                  <button type="button" class="btn create-post"
+                    style="position: absolute; top: 1px; right: 2px; padding: 6px;"
+                    (click)="formMessage.patchValue({ message_content: '' }); editMessageContent = undefined"
+                    *ngIf="editMessageContent">
+                    {{helperService.translation?.cancel}}
+                  </button>
+                  <button type="button" class="btn create-post stopRec"
+                    (click)="stopRecording(true); startRecord = !startRecord;" *ngIf="startRecord && !error">
+                    <span>{{helperService.translation?.cancel_recording}}</span>
+                  </button>
+
+                  <button type="button" class="btn create-post submitRec"
+
+                  (click)="startRecord = !startRecord; startStop()" *ngIf="startRecord && !error">
+                  <span>{{helperService.translation?.submit_recording}}</span>
+                </button>
+
+                  <div
+                    *ngIf="!formMessage.controls.search?.valid && (formMessage.controls.search?.dirty || formMessage.controls.search?.touched)">
+                    <span class="error-message">{{helperService.translation?.filed_required}}</span>
+                  </div>
+                </div>
+                <div *ngIf="!startRecord || error" class="submitButton">
+                  <button type="submit">
+                    <img class="button-enter" src="assets/images/icons/button-enter.png" alt="">
+                    <img class="button-enter-hover" src="assets/images/icons/button-enter-hover.png" alt="">
+                  </button>
+                </div>
+              </div>
+            </div>
+            <input hidden type="file" accept="image/png, image/gif, image/jpeg" #uploader (change)="uploadFile($event)" />
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="myModalImage" class="modal_img">
+  <span (click)="closeImage()" class="close-img">&times;</span>
+  <img class="modal-content-img" id="img01">
+  <div id="caption"></div>
+</div>
+<app-report-modal #reportModal></app-report-modal>
+
+<app-delete-modal #popup (confirmDelete)="deleteMessage($event)"></app-delete-modal>
