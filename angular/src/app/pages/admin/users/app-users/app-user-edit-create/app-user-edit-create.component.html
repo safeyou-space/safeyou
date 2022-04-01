@@ -1,0 +1,164 @@
+<form class="data-form" [formGroup]="form" (ngSubmit)="form.valid ? onSubmit() : ''">
+  <div class="d-inline-flex">
+    <div>
+      <div class="drag-and-drop"
+           [style]="imageValue || type ? 'box-shadow: none; background: none; border: 2px solid transparent' : ''">
+
+        <div *ngIf="!type" class="drag-and-drop-info"></div>
+
+        <div class="drag-and-drop-container"
+             [style]="imageValue || type ? 'padding: 22px 8px 16px 8px; background-image: none' : ''"
+             (fileDropped)="onChange($event)">
+          <div *ngIf="imageValue || editImagePath">
+            <div class="image-block">
+              <img *ngIf="imageValue || editImagePath"
+                   src="{{imageValue ? imageValue : this.requestService.imgSite + editImagePath}}" alt="image"
+                   class="user-image">
+              <img src="assets/images/icons/icon-edit.png" alt="image" class="user-edit-icon">
+            </div>
+          </div>
+          <input accept="image/png, image/jpeg, image/jpg, image/bmp" formControlName="file" type="file" id="fileDropRef" (change)="onChange($event)"/>
+          <div *ngIf="!type">
+            <img class="btn-upload" src="../../../../../../assets/images/icons/btn-upload.png" alt="upload">
+            <h3>{{helperService.translation?.select_image}}</h3>
+          </div>
+        </div>
+      </div>
+      <div style="width: 144px;" class="error-message">
+        <span *ngIf="form.controls.file?.hasError('size')">{{helperService.translation?.image_size_error}}</span>
+        <span *ngIf="form.controls.file?.hasError('type')">{{helperService.translation?.invalid_image}}</span>
+      </div>
+    </div>
+    <div style="padding-left: 28px;">
+      <div class="form-group">
+        <label for="first_name"
+               [ngClass]="(form.controls.first_name?.invalid && (form.controls.first_name?.dirty || form.controls.first_name?.touched)) ? 'invalid-label-color' : ''">
+          {{helperService.translation?.first_name}} *
+        </label>
+        <input type="text" id="first_name" formControlName="first_name" class="form-control">
+        <div
+          *ngIf="!form.controls.first_name?.valid && (form.controls.first_name?.dirty || form.controls.first_name?.touched)">
+          <span class="error-message">{{helperService.translation?.name_required}}</span>
+        </div>
+      </div>
+      <div class="form-group" style="width: 224px;">
+        <label class="m-0">{{helperService.translation?.creation_date}} *</label>
+        <app-date-input [formControlName]="'birthday'"></app-date-input>
+      </div>
+      <div class="form-group">
+        <label for="password"
+               [ngClass]="(form.controls.password?.invalid && (form.controls.password?.dirty || form.controls.password?.touched)) ? 'invalid-label-color' : ''">
+          {{helperService.translation?.password}} <strong *ngIf="!id">*</strong>
+        </label>
+        <input type="password" id="password" formControlName="password" class="form-control">
+        <div class="error-message">
+          <span
+            *ngIf="form.controls.password?.errors?.required && (form.controls.password?.dirty || form.controls.password?.touched)">{{helperService.translation?.password_required}}</span>
+        </div>
+
+      </div>
+      <div class="form-group" style="display: grid">
+        <label for="is_verifying_otp">{{helperService.translation?.is_verifying_otp}}</label>
+        <label class="switch m-0">
+          <input type="checkbox" formControlName="is_verifying_otp" id="is_verifying_otp">
+          <div>
+            <span></span>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div style="padding-left: 28px;">
+      <div class="form-group">
+        <label for="last_name"
+               [ngClass]="(form.controls.last_name?.invalid && (form.controls.last_name?.dirty || form.controls.last_name?.touched)) ? 'invalid-label-color' : ''">
+          {{helperService.translation?.last_name}} *
+        </label>
+        <input type="text" id="last_name" formControlName="last_name" class="form-control">
+        <div
+          *ngIf="!form.controls.last_name?.valid && (form.controls.last_name?.dirty || form.controls.last_name?.touched)">
+          <span class="error-message">{{helperService.translation?.lastname_required}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone"
+               [ngClass]="(form.controls.phone?.invalid && (form.controls.phone?.dirty || form.controls.phone?.touched)) ? 'invalid-label-color' : ''"
+        >{{helperService.translation?.phone}} *</label>
+        <input type="text" id="phone" formControlName="phone" class="form-control">
+        <div class="error-message">
+          <span
+            *ngIf="form.controls.phone?.errors?.required && (form.controls.phone?.dirty || form.controls.phone?.touched)">{{helperService.translation?.phone_required}}</span>
+          <span
+            *ngIf="form.controls.phone?.errors?.pattern && (form.controls.phone?.dirty || form.controls.phone?.touched)">{{helperService.translation?.invalid_phone}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password_confirmation"
+               [ngClass]="(form.controls.password_confirmation?.invalid && (form.controls.password_confirmation?.dirty || form.controls.password_confirmation?.touched)) ? 'invalid-label-color' : ''">
+          {{helperService.translation?.confirm_password}} <strong *ngIf="!id">*</strong></label>
+        <input type="password" id="password_confirmation" formControlName="password_confirmation" class="form-control">
+        <div class="error-message">
+          <span
+            *ngIf="form.controls.password_confirmation?.errors?.required && (form.controls.password_confirmation?.dirty || form.controls.password_confirmation?.touched)">
+            {{helperService.translation?.password_confirmation_required}}
+          </span>
+          <span
+            *ngIf="form.controls.password_confirmation.hasError('mismatchedPasswords')&& (form.controls.password_confirmation?.dirty || form.controls.password_confirmation?.touched)">
+            {{helperService.translation?.password_missmatch}}
+          </span>
+        </div>
+      </div>
+      <div class="form-group" style="display: grid">
+        <label for="check_police">{{helperService.translation?.check_police}}</label>
+        <label class="switch m-0">
+          <input type="checkbox" formControlName="check_police" id="check_police">
+          <div>
+            <span></span>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div style="padding-left: 28px;">
+      <div class="form-group">
+        <label for="nickname"
+               [ngClass]="(form.controls.nickname?.invalid && (form.controls.nickname?.dirty || form.controls.nickname?.touched)) ? 'invalid-label-color' : ''">
+          {{helperService.translation?.username}} <strong *ngIf="!id">*</strong>
+        </label>
+        <input type="text" id="nickname" formControlName="nickname" class="form-control">
+        <div
+          *ngIf="!form.controls.nickname?.valid && (form.controls.nickname?.dirty || form.controls.nickname?.touched)">
+          <span class="error-message">{{helperService.translation?.username_required}} *</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="location"
+               [ngClass]="(form.controls.location?.invalid && (form.controls.location?.dirty || form.controls.location?.touched)) ? 'invalid-label-color' : ''">
+          {{helperService.translation?.address}}</label>
+        <input type="text" id="location" formControlName="location" class="form-control">
+      </div>
+      <div>
+        <label for="language"
+               [ngClass]="(form.controls.role?.invalid && (form.controls.role?.dirty || form.controls.role?.touched)) ? 'invalid-label-color' : ''">
+          {{helperService.translation?.marital_status}}
+        </label>
+        <angular2-multiselect [data]="itemList"
+                              id="language"
+                              formControlName="marital_status"
+                              [settings]="settings"
+                              (onDeSelect)="closeDropdown(dropdownRef)"
+                              #dropdownRef>
+          <c-badge>
+            <ng-template let-item="item">
+              <label style="margin: 0px;">{{item.itemName}}</label>
+            </ng-template>
+          </c-badge>
+          <c-item>
+            <ng-template let-item="item">
+              <label>{{item.itemName}}</label>
+            </ng-template>
+          </c-item>
+        </angular2-multiselect>
+      </div>
+    </div>
+  </div>
+</form>
+

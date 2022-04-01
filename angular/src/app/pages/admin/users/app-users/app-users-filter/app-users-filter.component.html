@@ -1,0 +1,86 @@
+<div class="content">
+  <div class="content-head">
+    <div class="filter-block-header">
+      <div>
+        <h4 class="head-title">{{helperService?.translation?.filter}}</h4>
+      </div>
+      <div class="close-button-btn">
+        <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+  <div class="content-body">
+    <form [formGroup]="form">
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService.translation?.marital_status}}</h4>
+        <div class="category-form">
+          <ul class="filter-list">
+            <li *ngFor="let item of categoryList, let i = index">
+              <label class="checkbox-item">
+                <input type="radio" formControlName="marital_status" (change)="changeInputValue($event, item.id)" [value]="item.id" id="category-{{i}}" name="marital_status">
+                <label for="category-{{i}}"></label>
+                <span>{{item.value}}</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.age_restriction}}</h4>
+        <div class="age-block">
+          <div class="age-text">
+            18+
+          </div>
+          <div>
+            <label class="switch m-0">
+              <input type="checkbox" formControlName="age_restricted" [checked]='0'>
+              <div>
+                <span></span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.check_police}}</h4>
+        <div class="age-block">
+          <div class="age-text">
+          </div>
+          <div>
+            <label class="switch m-0">
+              <input type="checkbox" formControlName="check_police" [checked]='0'>
+              <div>
+                <span></span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.is_has_emergency_contacts}}</h4>
+        <div class="age-block">
+          <div class="age-text">
+          </div>
+          <div>
+            <label class="switch m-0">
+              <input type="checkbox" formControlName="is_has_emergency_contacts" [checked]='0'>
+              <div>
+                <span></span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="content-footer">
+    <div class="footer-action-block">
+      <div class="clear-all-text cursor-pointer" (click)="clearValues()">
+        <i class="fa fa-times cursor-pointer" aria-hidden="true"></i> {{helperService?.translation?.delete_all}}
+      </div>
+      <div>
+        <button (click)="save()" class="footer-button">{{helperService?.translation?.results}} {{allData && !allData['message'] ? allData.total : '0'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

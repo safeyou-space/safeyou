@@ -3,10 +3,20 @@
     <div class="search-block">
       <h4 *ngIf="!isShowSearch" class="content-title">{{helperService.translation?.settings}}</h4>
       <div *ngIf="isShowSearch">
-        <form action="">
-          <input type="search" placeholder="{{helperService.translation?.search}}" class="search-input input-font" id="search" name="search">
+        <form [formGroup]="searchForm">
+          <div class="position-relative d-inline-block w-100" style="max-width: 408px">
+            <input type="search" placeholder="{{helperService.translation?.search}}"
+                   class="search-input input-font"
+                   appTrim
+                   autocomplete="off"
+                   formControlName="search"
+                   (input)="handleInput()"
+                   id="search" name="search">
+            <div *ngIf="searchForm.value.search.trim().length > 0" class="search-clear-block">
+              <i (click)="clearSearchValue()" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+          </div>
         </form>
-
         <div class="search-icon-block">
           <img class="search-icon" src="assets/images/icons/icon-search.png" alt="icon">
           <img class="search-icon-hover" src="assets/images/icons/icon-search(HoverState).png" alt="icon">
@@ -29,7 +39,7 @@
                 <div class="new-messages-block" *ngIf="socketConnect.newNotifications.length > 0">
                   <p class="new-message-title">{{helperService.translation?.new}}</p>
                   <ul class="messages-list">
-                    <li style="position: relative;" *ngFor="let notification of socketConnect.newNotifications">
+                    <li style="position: relative;" *ngFor="let notification of socketConnect.newNotifications, let i = index">
                       <a *ngIf="notification.type == 2" (click)="getter(notification, 'new')" class="text-decoration-none d-inline-block w-100 link-state">
                         <div class="d-flex align-items-center">
                           <div>
@@ -72,7 +82,58 @@
                           </div>
                         </div>
                       </a>
+                      <a *ngIf="notification.type == 5" (click)="getterReport(notification)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="assets/images/icons/icon-notification.png" alt="image">
+                          </div>
 
+                          <div class="messages-list-text">
+                            <b>{{notification?.title}}</b>
+                            <span class="message-text d-inline-block"> {{notification?.body | slice:0:30}} </span>
+                            <span class="time ml-1">{{helperService.translation?.now}}</span>
+                          </div>
+                        </div>
+                      </a>
+                      <a *ngIf="notification.type == 6" (click)="getterReport(notification)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="assets/images/icons/icon-notification.png" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{helperService.translation?.new_push_notification}}</b>
+                            <span class="message-text d-inline-block"> {{helperService.translation?.add_emergency_contact}} </span>
+                            <span class="time ml-1">{{helperService.translation?.now}}</span>
+                          </div>
+                        </div>
+                      </a>
+                      <a *ngIf="notification.type == 7" (click)="getterReport(notification)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="assets/images/icons/icon-notification.png" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{helperService.translation?.new_push_notification}}</b>
+                            <span class="message-text d-inline-block"> {{helperService.translation?.remove_emergency_contact}} </span>
+                            <span class="time ml-1">{{helperService.translation?.now}}</span>
+                          </div>
+                        </div>
+                      </a>
+                      <a *ngIf="notification.type == 8" (click)="goCommunication(i)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="assets/images/icons/icon-notification.png" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{notification.message_send_by.user_username  + ' ' + helperService.translation?.wrote_new_message}}</b>
+                            <span class="message-text d-inline-block"> {{notification.message_content ? notification.message_content : ''}} </span>
+                            <span class="time ml-1">{{helperService.translation?.now}}</span>
+                          </div>
+                        </div>
+                      </a>
 
                     </li>
                   </ul>
@@ -119,6 +180,46 @@
                             <b>{{notification?.notify_body?.resolved == 1 ? notification?.notify_body?.user?.first_name + ' ' + helperService.translation?.confirm_report : notification?.notify_body?.user?.first_name + ' ' + helperService.translation?.reject_report}}</b>
                             <span class="message-text d-inline-block"> {{notification?.notify_body?.message | slice:0:30}} </span>
                             <span class="time ml-1">{{getMinutes(notification?.notify_body?.updated_at)}} {{helperService.translation?.ago}}</span>
+                          </div>
+                        </div>
+                      </a>
+
+                      <a *ngIf="notification?.notify_type == 5" (click)="getterReport(notification)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="assets/images/icons/icon-notification.png" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{notification?.notify_title}}</b>
+                            <span class="message-text d-inline-block"> {{notification?.notify_body}} </span>
+                            <span class="time ml-1">{{getMinutes(notification?.notify_created_at)}} {{helperService.translation?.ago}}</span>
+                          </div>
+                        </div>
+                      </a>
+                      <a *ngIf="notification?.notify_type == 6" (click)="getterReport(notification)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="assets/images/icons/icon-notification.png" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{helperService.translation?.new_push_notification}}</b>
+                            <span class="message-text d-inline-block"> {{helperService.translation?.add_emergency_contact}} </span>
+                            <span class="time ml-1">{{getMinutes(notification?.notify_created_at)}} {{helperService.translation?.ago}}</span>
+                          </div>
+                        </div>
+                      </a>
+                      <a *ngIf="notification?.notify_type == 7" (click)="getterReport(notification)" class="text-decoration-none d-inline-block w-100 link-state">
+                        <div class="d-flex align-items-center">
+                          <div>
+                            <img class="messages-list-image" src="assets/images/icons/icon-notification.png" alt="image">
+                          </div>
+
+                          <div class="messages-list-text">
+                            <b>{{helperService.translation?.new_push_notification}}</b>
+                            <span class="message-text d-inline-block"> {{helperService.translation?.remove_emergency_contact}} </span>
+                            <span class="time ml-1">{{getMinutes(notification?.notify_created_at)}} {{helperService.translation?.ago}}</span>
                           </div>
                         </div>
                       </a>

@@ -1,0 +1,237 @@
+@import "../../../../../../assets/css/admin-table.css";
+@import "../../../../../../assets/css/actions-dropdown.css";
+@import "../../../../../../assets/css/report_modal.css";
+
+.content {
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+  padding: 0;
+}
+.info {
+  padding: 24px 22px;
+}
+.content::-webkit-scrollbar {
+  width: 2px;
+  top: 2px;
+}
+.content::-webkit-scrollbar-thumb {
+  background-color: #e37d93;
+  border-radius: 20px;
+}
+.p-25 {
+  padding: 0 25.5px;
+}
+.image_block {
+  width: 144px;
+  height: 144px;
+  position: relative;
+}
+.image_block img {
+  width: 144px;
+  height: 144px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.action-edit {
+  background-image: url("../../../../../../assets/images/icons/icon-edit.png");
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.info span {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.78px;
+  color: #A79EAA;
+}
+.info_content {
+  padding-left: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pass_hash {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-15)/var(--unnamed-line-spacing-23) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.45px;
+  color: #230D2C;
+  padding-top: 11px;
+}
+.pl_8 {
+  padding-left: 8px;
+}
+.pt_18 {
+  padding-top: 8px;
+}
+.info_icon {
+  padding-bottom: 3px;
+}
+.action-attach-hover{
+  display: none;
+}
+.info_icon:hover .action-attach-hover{
+  display: inline;
+}
+.info_icon:hover .action-attach{
+  display: none;
+}
+.action-attach, .action-attach-hover{
+  width: 16px;
+  height: 16px;
+}
+.admin-table {
+  margin-top: 0;
+}
+.action-pin {
+  background-image: url("../../../../../../assets/images/icons/icon-pin.png");
+  width: 16px;
+  height: 16px;
+}
+.action-pin:hover {
+  background-image: url("../../../../../../assets/images/icons/icon-pin-hover.png");
+}
+.action-phone {
+  background-image: url("../../../../../../assets/images/icons/icon-phone.png");
+  width: 16px;
+  height: 16px;
+}
+.action-phone:hover {
+  background-image: url("../../../../../../assets/images/icons/icon-phone-hover.png");
+}
+.action-email {
+  background-image: url("../../../../../../assets/images/icons/icon-email.png");
+  width: 16px;
+  height: 16px;
+}
+.action-email:hover {
+  background-image: url("../../../../../../assets/images/icons/icon-email-hover.png");
+}
+.action-cake {
+  background-image: url("../../../../../../assets/images/icons/icon-cake.png");
+  width: 16px;
+  height: 16px;
+}
+.action-cake:hover {
+  background-image: url("../../../../../../assets/images/icons/icon-cake-hover.png");
+}
+.action-ring {
+  background-image: url("../../../../../../assets/images/icons/icon-ring.png");
+  width: 16px;
+  height: 16px;
+}
+.action-ring:hover {
+  background-image: url("../../../../../../assets/images/icons/icon-ring (Hover State).png");
+}
+.action-calendar {
+  background-image: url("../../../../../../assets/images/icons/icon-calendar.png");
+  width: 16px;
+  height: 16px;
+}
+.action-calendar:hover {
+  background-image: url("../../../../../../assets/images/icons/icon-calendar(HoverState).png");
+}
+.action-lock {
+  background-image: url("../../../../../../assets/images/icons/icon-lock.png");
+  width: 16px;
+  height: 16px;
+}
+.action-lock:hover {
+  background-image: url("../../../../../../assets/images/icons/icon-lock (Hover State).png");
+}
+.organization_list {
+  margin-top: 40px;
+}
+.organization_list p {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-20) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.36px;
+  color: #230D2C;
+  margin-bottom: 9px;
+  font-weight: 500;
+}
+.form-check label {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+  position: relative;
+  top: -2px;
+}
+.regular-checkbox {
+  display: none;
+}
+.regular-checkbox + label {
+  background-color: #E37D93;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+  padding: 7px;
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+  margin-bottom: 0;
+}
+
+.regular-checkbox + label:active, .regular-checkbox:checked + label:active {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.regular-checkbox:checked + label {
+  background-color: #E37D93;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+  color: #99a1a7;
+}
+
+.regular-checkbox:checked + label:after {
+  content: '\2713';
+  font-size: 12px;
+  position: absolute;
+  top: -2px;
+  left: 3px;
+  color: #fff;
+}
+.label_text span {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+  position: relative;
+  top: -2px;
+  left: 10px;
+}
+.label_text {
+  position: relative;
+  top: 40px;
+  margin: 0 0 0 28px;
+  padding-bottom: 40px;
+}
+.placeholder-glow span {
+  display: inline-block;
+  min-height: 1em;
+  vertical-align: middle;
+  cursor: wait;
+  background-color: currentColor;
+  opacity: 0.5;
+  -webkit-animation: placeholder-glow 2s ease-in-out infinite;
+  animation: placeholder-glow 2s ease-in-out infinite;
+}
+
+@-webkit-keyframes placeholder-glow {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes placeholder-glow {
+  50% {
+    opacity: 0.2;
+  }
+}
+.modal-text {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.78px;
+  color: #A79EAA;
+}

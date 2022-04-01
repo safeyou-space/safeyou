@@ -40,6 +40,23 @@
               <span class="menu-text">{{helperService.translation?.communication}}</span>
             </a>
           </li>
+          <li *ngIf="this.role != 'Emergency' && this.role != 'Consultant'"
+              class="border-bottom-item parent-menu position-relative" #it [@openClose]="isOpen == 2 ? 'parents-closed' : 'parents-open'">
+            <a class="link link-arrow" (click)="subMenu(sidebar, 1, it)">
+              <img src="assets/images/icons/icon-profile.png" class="icon" alt="image">
+              <img src="assets/images/icons/icon-profile(HoverState).png" class="hover-image" alt="image">
+              <span class="menu-text">{{helperService.translation?.users}}</span>
+            </a>
+            <ul [@openClose]="isOpen == 1 ? 'open' : 'closed'" class="sub-menu" #submenu>
+              <li *ngIf="access?.user || is_admin == true" [@openClose]="isOpen == 1 ? 'open' : 'closed'">
+                <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/users">
+                  <img src="assets/images/icons/icon-app-user.png" class="icon" alt="image">
+                  <img src="assets/images/icons/icon-app-user(HoverState).png" class="hover-image" alt="image">
+                  <span class="menu-text">{{helperService.translation?.app_users}}</span>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>

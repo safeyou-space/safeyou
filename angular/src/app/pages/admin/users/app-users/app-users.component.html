@@ -1,0 +1,230 @@
+<div class="d-flex" [style]="bool ? 'overflow: hidden;' : ''">
+  <div class="app-header all-page" style="flex: 1; height: 100vh;overflow-y: auto;">
+    <app-header (searchEvent)="search($event)"></app-header>
+
+    <div style="position: relative; padding: 0 22px;">
+      <div class="content">
+        <div class="title-block" style="position: relative;">
+          <div
+            style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <span style="vertical-align: sub;"  class="page-title" [style]="!openAddOrCreate ? 'z-index: 5555' : ''"
+                  [@openClose]="!openAddOrCreate ? 'openButton' : 'closedButton'">
+              {{helperService.translation?.app_users}}
+            </span>
+            <div [@openClose]="!bool && !showFilter && !openAddOrCreate ? 'openButton' : 'closedButton'">
+              <div class="filter-dropdown-block float-right" *ngIf="!showFilter" (click)="showFilter = !showFilter; bool = false">
+                <span>{{helperService.translation?.filter}}</span>
+              </div>
+              <div class="d-inline-block mr-2">
+                <app-date-input-range (saveDateRange)="saveDateRange($event)"></app-date-input-range>
+              </div>
+            </div>
+          </div>
+          <div style="position: absolute; width: 100%; height: 100%;"
+               [@openClose]="openAddOrCreate ? 'openButton' : 'closedButton'">
+            <span style="vertical-align: sub;" class="page-title">
+              <img src="assets/images/icons/icon-arrow-back.png" (click)="callSubmit('close')" alt=""
+                   style="margin-right: 12px; cursor: pointer">
+              {{pageType == 'create' ? helperService.translation?.add_user : helperService.translation?.edit}}
+            </span>
+            <button type="button" class="btn category-button saveandpublish" (click)="callSubmit('create')">
+              {{helperService.translation?.remember_publish}}
+            </button>
+            <button type="button" class="btn category-button" (click)="callSubmit('save')">
+              {{helperService.translation?.remember}}
+            </button>
+            <button (click)="callSubmit('close')" type="button" class="btn category-button">
+              {{helperService.translation?.cancel}}
+            </button>
+          </div>
+
+
+        </div>
+        <div class="page-block" [@openClose]="!chatOpen && !openAddOrCreate? 'openAnimations' : 'closedAnimations'">
+          <div *ngIf="this.users && this.users['message']" style="padding-top: 30px;">
+            <span class="data_empty">{{helperService.translation?.no_result}}</span>
+          </div>
+          <table *ngIf="this.users && !this.users['message']" class="table admin-table"
+                 [style]="bool || showFilter ? 'table-layout: fixed' : ''">
+            <thead>
+            <tr>
+              <th>{{helperService.translation?.user_id}}
+              </th>
+              <th [style]="bool || showFilter ? 'width: 38px' : ''"></th>
+              <th>{{helperService.translation?.username}} <span [ngClass]="sortingValue['nickname'] && sortingValue['nickname'] == 'ASC' ? 'rotate' : ''" (click)="sorting('nickname', 'ASC')" class="admin-table-th"></span></th>
+              <th>{{helperService.translation?.registration_date}} <span [ngClass]="sortingValue['created_at'] && sortingValue['created_at'] == 'ASC' ? 'rotate' : ''" (click)="sorting('created_at', 'ASC')" class="admin-table-th"></span></th>
+              <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.comments}} <span [ngClass]="sortingValue['comments_count'] && sortingValue['comments_count'] == 'ASC' ? 'rotate' : ''" (click)="sorting('comments_count', 'ASC')" class="admin-table-th"></span></th>
+              <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.status}} <span [ngClass]="sortingValue['status'] && sortingValue['status'] == 'ASC' ? 'rotate' : ''" (click)="sorting('status', 'ASC')" class="admin-table-th"></span></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of users">
+              <td class="cursor-pointer" (click)="showFilter = false; viewData(item)">
+                {{item.uid}}
+              </td>
+              <td class="image-block">
+                <img src="{{this.requestService.imgSite + item?.image?.url}}" alt="no image"
+                     onError="this.src='assets/images/img/no-image.png'">
+              </td>
+              <td [ngClass]="item?.nickname ? '' : 'empty'">
+                {{item.nickname ? item.nickname : helperService.translation?.no_result}}
+              </td>
+              <td>
+                {{item.created_at | date:'d/MM/yyyy'}}
+              </td>
+              <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{item.comments_count}}</td>
+              <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">
+                <label class="switch m-0">
+                  <input type="checkbox" [disabled]="item.is_verifying_otp == 0" (change)="changeStatus(item, item.status)" [checked]='item.status'>
+                  <div>
+                    <span></span>
+                  </div>
+                </label>
+              </td>
+              <td class="actions">
+                <ul class="action_list">
+                  <li (click)="showFilter = false; viewData(item)">
+                    <a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"></a>
+                  </li>
+                  <li [style]="bool && showFilter ? 'width: 0; margin: 0;' : ''"
+                      [@openClose]="!bool ? 'openButton' : 'closedButton'"
+                      (click)="callSubmit('Edit', item.id)">
+                    <a><img src="assets/images/icons/icon-edit.png" alt="icon"></a>
+                  </li>
+                </ul>
+                <div class="actions-dropdown-block">
+                  <div class="action-more cursor-pointer"></div>
+                  <div class="actions-dropdown-item">
+                    <ul>
+                      <li (click)="showFilter = false; viewData(item)">
+                        <a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a>
+                      </li>
+                      <li (click)="callSubmit('Edit', item.id)">
+                        <a><img src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}</a>
+                      </li>
+                      <li *ngIf="item.role != 'Consultant'" (click)="showConsultantModal(item.id)"><a><img src="assets/images/icons/icon-consultant.png" alt="icon"> Խորհրդատու</a></li>
+                      <li (click)="popup.deleteModal(item.id); itemObject = item"><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div *ngIf="this.searchParams.trim().length > 0 && allPageData && allPageData.total > 0">
+            <p class="data-count">{{helperService.translation?.quantity_data}}: {{allPageData.total}}</p>
+          </div>
+          <div class="d-flex justify-content-center">
+            <pagination *ngIf="allPageData && allPageData.total > 10"
+                        [boundaryLinks]="true"
+                        [totalItems]="allPageData.total"
+                        [itemsPerPage]="allPageData.per_page"
+                        [ngModel]="allPageData.current_page"
+                        [maxSize]="10"
+                        (pageChanged)="pageChanged($event)"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+            </pagination>
+          </div>
+        </div>
+
+        <div [@openClose]="openAddOrCreate ? 'openAnimations' : 'closedAnimations'"
+             style="position: absolute;width: 100%;" class="addoredit">
+          <app-app-user-edit-create></app-app-user-edit-create>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <div style="position: relative;" [@openClose]="bool ? 'open' : 'closed'">
+    <div class="viewBlock">
+      <div [@openClose]="!chatOpen ? 'chatOpen' : 'chatClose'"
+           class="forumViewHeadAndContent"
+           [style]="chatOpen ? 'display: none' : ''">
+        <div class="head-block">
+          <div style="padding: 8px 24px;">
+            <button type="button" class="btn create-post float-left" (click)="bool = false; openAddOrCreate = true; callSubmit('Edit', this.viewId.id)">
+            <span class="d-flex-center">
+              <span style="margin-right: 5px;" class="action-edit cursor-pointer"></span> {{helperService.translation?.edit}}
+            </span>
+            </button>
+          </div>
+          <div class="cursor-pointer" (click)="bool = !bool" style="padding-right: 10px; color: #E37D93;">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+        </div>
+        <app-app-user-view [data]="viewId"></app-app-user-view>
+      </div>
+    </div>
+  </div>
+
+  <div [@showFilter]="!showFilter ? 'closed' : 'open'">
+    <app-app-users-filter [allData]="allPageData" (filter)="filter($event)" (closeFilter)="closeFilter()"></app-app-users-filter>
+  </div>
+
+
+</div>
+<app-report-modal #reportModal></app-report-modal>
+
+
+<div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static', ignoreBackdropClick: true }"
+     tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+  <div class="modal-dialog modal-sm report_modal">
+    <div class="modal-content">
+      <div class="modal-header report_modal_header">
+        <h4 id="dialog-static-name" class="modal-title pull-left">Դառնալ Խորհրդատու</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="staticModal.hide()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body report_modal_body">
+        <div class="report_form">
+          <form [formGroup]="toConsultantForm">
+            <div class="form-group">
+              <label>
+                {{helperService.translation?.profession}} *
+              </label>
+              <angular2-multiselect [data]="consultantList"
+                                    id="category"
+                                    formControlName="consultant_category_id"
+                                    [settings]="settings"
+                                    (onDeSelect)="closeDropdown(dropdownRef)"
+                                    #dropdownRef>
+                <c-badge>
+                  <ng-template let-item="item">
+                    <label style="margin: 0px;">{{item.itemName}}</label>
+                  </ng-template>
+                </c-badge>
+                <c-item>
+                  <ng-template let-item="item">
+                    <label>{{item.itemName}}</label>
+                  </ng-template>
+                </c-item>
+              </angular2-multiselect>
+                     <div *ngIf="!toConsultantForm.controls.consultant_category_id?.valid && (toConsultantForm.controls.consultant_category_id?.dirty || toConsultantForm.controls.consultant_category_id?.touched)">
+                          <span class="error-message">{{helperService.translation?.report_category_required}}</span>
+                     </div>
+            </div>
+            <div class="form-group">
+              <label for="email">{{helperService.translation?.email}} *</label>
+              <input type="email" class="form-control" id="email" formControlName="email">
+                    <div *ngIf="!toConsultantForm.controls.email?.valid && (toConsultantForm.controls.email?.dirty || toConsultantForm.controls.email?.touched)">
+                         <span class="error-message">{{helperService.translation?.details_required}}</span>
+                    </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer report_modal_footer">
+        <button type="button" (click)="staticModal.hide()" class="btn cancel_button">{{helperService.translation?.cancel}}</button>
+        <button class="btn send_button" [disabled]="toConsultantForm.invalid" (click)="changeToConsultant()">{{helperService.translation?.send}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>

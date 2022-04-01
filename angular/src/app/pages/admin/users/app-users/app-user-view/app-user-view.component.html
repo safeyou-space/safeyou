@@ -1,0 +1,190 @@
+
+<div class="content" #content>
+  <div [ngClass]="!data? 'placeholder-glow' : ''" class="info">
+    <div class="title_block d-flex">
+      <div class="image_block">
+        <img src="{{this.requestService.imgSite + data?.image?.url}}" alt=""
+             onError="this.src='assets/images/img/no-image.png'">
+        <div class="action-edit cursor-pointer" (click)="callEdit(data?.id)"></div>
+      </div>
+      <div class="info_content">
+        <div class="">
+          <div class="d-flex-center">
+            <span>{{data?.first_name}} {{data?.last_name}}</span>
+          </div>
+          <div class="d-flex-center">
+            <p class="pass_hash">***** ********</p>
+          </div>
+          <div class="d-flex">
+            <div class="d-flex-center">
+              <span style="border-right: 1px solid #A79EAA;padding-right: 10px;">{{data?.nickname ? data?.nickname : 'Չկա կեղծանուն'}}</span>
+            </div>
+            <div class="d-flex-center" style="padding-left: 10px">
+              <div class="info_icon">
+                <img class="action-attach" src="assets/images/icons/icon-comment.png" alt="icon">
+                <img class="action-attach-hover" src="assets/images/icons/icon-comment-hover.png" alt="icon">
+              </div>
+              <span class="pl_8">{{data?.comments_count}}</span>
+            </div>
+          </div>
+          <div class="d-flex" style="margin-top: 18px;">
+            <div class="d-flex-center">
+              <div class="info_icon">
+                <img class="action-attach" src="assets/images/icons/icon-hashtag.png" alt="icon">
+                <img class="action-attach-hover" src="assets/images/icons/icon-hashtag(HoverState).png" alt="icon">
+              </div>
+              <span class="pl_8" style="border-right: 1px solid #A79EAA;padding-right: 10px;">{{data?.uid}}</span>
+            </div>
+            <div class="d-flex-center" style="padding-left: 10px">
+              <div class="info_icon">
+                <img class="action-attach" src="assets/images/icons/icon-key.png" alt="icon">
+                <img class="action-attach-hover" src="assets/images/icons/icon-key-hover.png" alt="icon">
+              </div>
+              <span class="pl_8">{{data?.last_active}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-25" style="margin-top: 24px;">
+      <div class="d-flex-center" *ngIf="data?.location">
+        <div class="info_icon">
+          <img class="action-attach" src="assets/images/icons/icon-pin.png" alt="icon">
+          <img class="action-attach-hover" src="assets/images/icons/icon-pin-hover.png" alt="icon">
+        </div>
+        <span class="pl_8">{{data?.location}}</span>
+      </div>
+      <div class="d-flex-center pt_18">
+        <div class="info_icon">
+          <img class="action-attach" src="assets/images/icons/icon-phone.png" alt="icon">
+          <img class="action-attach-hover" src="assets/images/icons/icon-phone-hover.png" alt="icon">
+        </div>
+        <span class="pl_8" *ngIf="data?.phone">{{data?.phone}}</span>
+      </div>
+      <div class="d-flex-center pt_18" *ngIf="data?.email">
+        <div class="info_icon">
+          <img class="action-attach" src="assets/images/icons/icon-email.png" alt="icon">
+          <img class="action-attach-hover" src="assets/images/icons/icon-email-hover.png" alt="icon">
+        </div>
+        <span class="pl_8">{{data?.email}}</span>
+      </div>
+      <div class="d-flex-center pt_18">
+        <div class="info_icon">
+          <img class="action-attach" src="assets/images/icons/icon-cake.png" alt="icon">
+          <img class="action-attach-hover" src="assets/images/icons/icon-cake-hover.png" alt="icon">
+        </div>
+        <span class="pl_8">{{data?.birthday | date:'d/MM/yyyy'}}</span>
+      </div>
+      <div class="d-flex-center pt_18">
+        <div class="info_icon">
+          <img class="action-attach" src="assets/images/icons/icon-ring.png" alt="icon">
+          <img class="action-attach-hover" src="assets/images/icons/icon-ring (Hover State).png" alt="icon">
+        </div>
+        <span class="pl_8">{{data?.marital_status}}</span>
+      </div>
+      <div class="d-flex-center pt_18">
+        <div class="info_icon">
+          <img class="action-attach" src="assets/images/icons/icon-calendar.png" alt="icon">
+          <img class="action-attach-hover" src="assets/images/icons/icon-calendar(HoverState).png" alt="icon">
+        </div>
+        <span class="pl_8">{{data?.created_at | date:'d MMMM, y'}}</span>
+      </div>
+    </div>
+    <div *ngIf="data?.emergency_services && data?.emergency_services.length" class="organization_list p-25">
+      <span style="padding-bottom: 11px;" class="d-inline-block">{{helperService.translation?.select_organization}}</span>
+      <p *ngFor="let item of data?.emergency_services">{{item?.short_title}}</p>
+    </div>
+    <div *ngIf="data?.emergency_contacts && data?.emergency_contacts.length" class="organization_list p-25">
+      <span style="padding-bottom: 11px;" class="d-inline-block">{{helperService.translation?.emergency_contact_numbers}}</span>
+      <p *ngFor="let item of data?.emergency_contacts">{{item.phone}}</p>
+    </div>
+    <label *ngIf="data" for="checkbox-1-1" class="label_text">
+      <input disabled [checked]="data.check_police" type="checkbox" id="checkbox-1-1"
+             class="regular-checkbox" /><label for="checkbox-1-1"></label>
+      <span>{{helperService.translation?.police}}</span>
+    </label>
+    <div class="organization_list p-25" *ngIf="data?.records && data?.records.length">
+      <span style="padding-bottom: 11px;">{{helperService.translation?.recordings}}</span>
+      <table class="table admin-table">
+        <thead>
+        <tr>
+          <th class="admin-table-th">{{helperService.translation?.id}}</th>
+          <th class="admin-table-th">{{helperService.translation?.duration}}</th>
+          <th class="admin-table-th">{{helperService.translation?.date}}</th>
+          <th class="admin-table-th">{{helperService.translation?.time}}</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data?.records">
+            <td>{{item?.uid}}</td>
+            <td>{{item.duration | duration}}</td>
+            <td>{{item.date | date:'dd/MM/YYYY'}}</td>
+            <td>{{item.time}}</td>
+            <td class="actions">
+              <div class="info_icon" style="position: relative;top: -4px;">
+                <img class="action-attach" src="assets/images/icons/icon-lock.png" alt="icon">
+                <img class="action-attach-hover" src="assets/images/icons/icon-lock (Hover State).png" alt="icon">
+              </div>
+              <div class="actions-dropdown-block">
+                <div class="action-more cursor-pointer"></div>
+                <div class="actions-dropdown-item">
+                  <ul>
+                    <li (click)="showModal(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="organization_list p-25" *ngIf="data?.help_sms && data?.help_sms.length" style="padding-bottom: 97px;">
+      <span style="padding-bottom: 11px;">{{helperService.translation?.alarm}}</span>
+      <table class="table admin-table">
+        <thead>
+        <tr>
+          <th class="admin-table-th">{{helperService.translation?.id}}</th>
+          <th class="admin-table-th">{{helperService.translation?.date}}</th>
+          <th class="admin-table-th">{{helperService.translation?.time}}</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of data?.help_sms">
+            <td>{{item?.uid}}</td>
+            <td>{{item?.created_at | date:'dd/MM/YYYY'}}</td>
+            <td>{{item?.created_at | date:'hh:mm'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="isModalShown" [config]="{ show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-dialog-centered report_modal">
+    <div class="modal-content">
+      <div class="modal-header report_modal_header">
+        <h4 id="dialog-auto-name" class="modal-title pull-left">{{helperService.translation?.recording}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body report_modal_body">
+        <audio controls class="w-100">
+          <source src="{{this.requestService.imgSite +  record?.url}}" type="audio/ogg">
+          <source src="{{this.requestService.imgSite + record?.url}}" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <p class="modal-text">{{record.location}}</p>
+        <p class="modal-text">{{record.latitude}}, {{record.longitude}}</p>
+      </div>
+      <div class="modal-footer report_modal_footer">
+        <button type="button" (click)="hideModal()" class="btn cancel_button">{{helperService.translation?.close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
