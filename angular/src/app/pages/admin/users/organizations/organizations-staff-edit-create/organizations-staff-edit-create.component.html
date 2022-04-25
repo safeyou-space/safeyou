@@ -1,0 +1,131 @@
+<form class="data-form" [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()">
+  <div class="d-inline-flex">
+    <div class="drag-and-drop" style="margin-top: 10px;">
+      <div class="drag-and-drop-info"></div>
+      <div class="drag-and-drop-container" (fileDropped)="onChange($event)">
+        <input formControlName="file" type="file" id="fileDropRef" multiple (change)="onChange($event)" />
+        <img class="btn-upload" src="../../../../../../assets/images/icons/btn-upload.png" alt="upload">
+        <h3>{{helperService.translation?.select_image}}</h3>
+      </div>
+    </div>
+    <div style="padding-left: 28px;">
+      <div class="form-group">
+        <label for="name">{{helperService.translation?.first_name}}</label>
+        <input type="text" id="name" formControlName="name" class="form-control">
+        <div *ngIf="!form.controls.name?.valid && (form.controls.name?.dirty || form.controls.name?.touched)">
+          <span class="error-message">{{helperService.translation?.name_required}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="country">{{helperService.translation?.country}}</label>
+        <angular2-multiselect [data]="itemListCountry"
+                              [(ngModel)]="selectedItemsCountry"
+                              id="country"
+                              formControlName="country"
+                              [settings]="settingsCountry"
+                              (onSelect)="onItemSelectCountry($event)"
+                              (onDeSelect)="OnItemDeSelectCountry($event)"
+                              #dropdownRefCountry>
+          <c-badge>
+            <ng-template let-item="item">
+              <label style="margin: 0px;">{{item.itemName}}</label>
+            </ng-template>
+          </c-badge>
+          <c-item>
+            <ng-template let-item="item">
+              <label>{{item.itemName}}</label>
+            </ng-template>
+          </c-item>
+        </angular2-multiselect>
+        <div *ngIf="!form.controls.country?.valid && (form.controls.country?.dirty || form.controls.country?.touched)">
+          <span class="error-message">{{helperService.translation?.country_required}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">{{helperService.translation?.email}}</label>
+        <input type="text" id="email" formControlName="email" class="form-control">
+        <div *ngIf="!form.controls.email?.valid && (form.controls.email?.dirty || form.controls.email?.touched)">
+          <span class="error-message">{{helperService.translation?.email_required}}</span>
+        </div>
+      </div>
+    </div>
+    <div style="padding-left: 15px;">
+      <div class="form-group">
+        <label for="lastname">{{helperService.translation?.last_name}}</label>
+        <input type="text" id="lastname" formControlName="lastname" class="form-control">
+        <div *ngIf="!form.controls.lastname?.valid && (form.controls.lastname?.dirty || form.controls.lastname?.touched)">
+          <span class="error-message">{{helperService.translation?.lastname_required}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="city">{{helperService.translation?.city}}</label>
+        <input type="text" id="city" formControlName="city" class="form-control">
+        <div *ngIf="!form.controls.city?.valid && (form.controls.city?.dirty || form.controls.city?.touched)">
+          <span class="error-message">{{helperService.translation?.city_required}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="instagram">{{helperService.translation?.instagram_link}}</label>
+        <div class="position-relative">
+          <input style="padding-left: 32px; padding-bottom: 7px;" type="text" id="instagram"
+                 formControlName="instagram" class="form-control">
+          <img style="top: 4px;left: 4px;" class="position-absolute"
+               src="assets/images/icons/icon-instagram.png" alt="">
+          <div *ngIf="!form.controls.instagram?.valid && (form.controls.instagram?.dirty || form.controls.instagram?.touched)">
+            <span class="error-message">{{helperService.translation?.instagram_link_required}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="padding-left: 15px;">
+      <div class="form-group">
+        <label for="profession">{{helperService.translation?.profession}}</label>
+        <angular2-multiselect [data]="itemList"
+                              [(ngModel)]="selectedItems"
+                              id="profession"
+                              formControlName="profession"
+                              [settings]="settings"
+                              (onSelect)="onItemSelect($event)"
+                              (onDeSelect)="OnItemDeSelect($event)"
+                              #dropdownRef>
+          <c-badge>
+            <ng-template let-item="item">
+              <label style="margin: 0px;">{{item.itemName}}</label>
+            </ng-template>
+          </c-badge>
+          <c-item>
+            <ng-template let-item="item">
+              <label>{{item.itemName}}</label>
+            </ng-template>
+          </c-item>
+        </angular2-multiselect>
+        <div *ngIf="!form.controls.profession?.valid && (form.controls.profession?.dirty || form.controls.profession?.touched)">
+          <span class="error-message">{{helperService.translation?.profession_required}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">{{helperService.translation?.address}}</label>
+        <input type="text" id="address" formControlName="address" class="form-control">
+        <div *ngIf="!form.controls.address?.valid && (form.controls.address?.dirty || form.controls.address?.touched)">
+          <span class="error-message">{{helperService.translation?.address_required}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="facebook">{{helperService.translation?.facebook_link}}</label>
+        <div class="position-relative">
+          <input style="padding-left: 32px; padding-bottom: 7px;" type="text" id="facebook"
+                 formControlName="facebook" class="form-control">
+          <img style="top: 4px;left: 4px;" class="position-absolute"
+               src="assets/images/icons/icon-facebook.png" alt="">
+          <div *ngIf="!form.controls.facebook?.valid && (form.controls.facebook?.dirty || form.controls.facebook?.touched)">
+            <span class="error-message">{{helperService.translation?.facebook_link_required}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group staff_editor">
+    <label for="description">{{helperService.translation?.user_about}}</label>
+    <ckeditor [config]='config' id="description" [editor]="Editor" formControlName="description"></ckeditor>
+  </div>
+</form>

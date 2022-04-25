@@ -1,0 +1,150 @@
+<div class="head-forum-view">
+  <div style="padding: 8px 24px;">
+    <button (click)="callEdit(viewData.id)" class="button-style">
+      <img class="icon-style" src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}
+    </button>
+    <div class="head-actions float-right">
+      <div class="filter-dropdown-block">
+        <span>{{this.activeLanguage?.title}}</span>
+        <img src="assets/images/icons/icon-arrow-down.png" alt="">
+        <div class="filter-dropdown-item">
+          <ul>
+            <li *ngFor="let item of helperService.languageList" (click)="changeLanguage(item.code, viewData.id)"
+            [ngClass]="this.activeLanguage?.title == item.title ? 'active_language' : ''">{{item.title}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding: 10px;">
+    <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+  </div>
+</div>
+<div class="content"  style="height: calc(100vh - 49px);overflow-y: auto;">
+  <div class="info">
+    <div class="title_block d-flex">
+      <div class="image_block">
+        <img src="{{this.requestService.imgSite + viewData?.image?.url}}" alt="no image"
+             onError="this.src='assets/images/img/no-image.png'">
+        <div class="action-edit cursor-pointer" (click)="callEdit(viewData?.id)"></div>
+      </div>
+      <div class="info_content">
+        <h3>{{viewData?.title}}</h3>
+        <div class="d-flex">
+          <div class="d-flex-center">
+            <div  class="action_icon">
+              <img class="action-attach" src="assets/images/icons/icon-forum.png" alt="icon">
+              <img class="action-attach-hover" src="assets/images/icons/icon-forum(HoverState).png" alt="icon">
+            </div>
+            <span class="pl_8" style="border-right: 1px solid #A79EAA;padding-right: 10px;">{{viewData?.user_detail?.forums_count}}</span>
+          </div>
+          <div class="d-flex-center" style="padding-left: 10px">
+            <div  class="action_icon">
+              <img class="action-attach" src="assets/images/icons/icon-comment.png" alt="icon">
+              <img class="action-attach-hover" src="assets/images/icons/icon-comment-hover.png" alt="icon">
+            </div>
+            <span class="pl_8">{{viewData?.user_detail?.comments_count}}</span>
+          </div>
+        </div>
+        <div class="d-flex-center" style="margin-top: 10px;">
+          <span>{{viewData?.uid}}</span>
+        </div>
+        <div class="rating-star mt-1-9">
+          <app-rate-stars [rating]="viewData?.rate"></app-rate-stars>
+          <span>({{viewData?.rates_count}})</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-1-9">
+      <div class="d-flex-center">
+        <div class="action_icon">
+          <img class="action-attach" src="assets/images/icons/icon-pin.png" alt="icon">
+          <img class="action-attach-hover" src="assets/images/icons/icon-pin-hover.png" alt="icon">
+        </div>
+        <span class="pl_8">{{viewData?.address}}</span>
+      </div>
+    </div>
+    <div class="d-inline-flex w-100" style="padding-top: 4px;">
+      <div class="w-50">
+        <div class="d-flex-center">
+          <div class="action_icon">
+            <img class="action-attach" src="assets/images/icons/icon-calendar.png" alt="icon">
+            <img class="action-attach-hover" src="assets/images/icons/icon-calendar(HoverState).png" alt="icon">
+          </div>
+          <span class="pl_8">{{viewData?.user_detail?.birthday | date : 'dd MMMM YYYY'}}</span>
+        </div>
+        <div class="d-flex-center">
+          <div class="action_icon">
+            <img class="action-attach" src="assets/images/icons/icon-email.png" alt="icon">
+            <img class="action-attach-hover" src="assets/images/icons/icon-email(HoverState).png" alt="icon">
+          </div>
+          <span class="pl_8">
+            <a tooltip="{{viewData?.email}}" href="mailto:{{viewData?.email}}" class="inherit link">
+              {{viewData?.email}}
+            </a>
+          </span>
+        </div>
+        <div class="d-flex-center">
+          <div class="action_icon">
+            <img class="action-attach" src="assets/images/icons/icon-instagram.png" alt="icon">
+            <img class="action-attach-hover" src="assets/images/icons/icon-instagram.png" alt="icon">
+          </div>
+          <span class="pl_8" *ngIf="viewData?.social_links">
+            <a tooltip="{{viewData?.social_links[1].url}}"
+               *ngIf="viewData?.social_links[1]" href="{{viewData?.social_links[1].url}}" target="_blank" class="inherit link">
+              {{viewData?.social_links[1].url | slice:0:30}}
+            </a>
+          </span>
+        </div>
+      </div>
+      <div>
+        <div class="d-flex-center">
+          <div class="action_icon">
+            <img class="action-attach" src="assets/images/icons/icon-phone.png" alt="icon">
+            <img class="action-attach-hover" src="assets/images/icons/icon-phone-hover.png" alt="icon">
+          </div>
+          <span class="pl_8">{{viewData?.phone}}</span>
+        </div>
+        <div class="d-flex-center">
+          <div class="action_icon">
+            <img class="action-attach" src="assets/images/icons/icon-website.png" alt="icon">
+            <img class="action-attach-hover" src="assets/images/icons/icon-website (Hover State).png" alt="icon">
+          </div>
+          <span class="pl_8">
+            <a tooltip="{{viewData?.web_address}}" href="{{viewData?.web_address}}" target="_blank" class="inherit link">
+              {{viewData?.web_address}}
+            </a>
+          </span>
+        </div>
+        <div class="d-flex-center">
+          <div class="action_icon">
+            <img class="action-attach" src="assets/images/icons/icon-facebook.png" alt="icon">
+            <img class="action-attach-hover" src="assets/images/icons/icon-facebook.png" alt="icon">
+          </div>
+          <span class="pl_8" *ngIf="viewData?.social_links">
+            <a tooltip="{{viewData?.social_links[0].url}}"
+               *ngIf="viewData?.social_links[0]" href="{{viewData?.social_links[0].url}}" target="_blank" class="inherit link">
+              {{viewData?.social_links[0].url | slice:0:30}}
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div style="padding-top: 28px;">
+      <span>{{helperService.translation?.staff}}</span>
+      <div class="users_list">
+        <div class="w-100">
+          <img class="float-left" onError="this.src='assets/images/img/no-image.png'" src="{{this.requestService.imgSite + viewData?.user_detail?.image?.url}}" alt="">
+          <p class="m-0">{{viewData?.user_detail?.first_name}} {{viewData?.user_detail?.last_name}}</p>
+          <p class="font-italic">{{viewData?.user_detail?.role_name}}</p>
+        </div>
+      </div>
+    </div>
+    <div style="padding-top: 28px;">
+      <span>{{helperService.translation?.organization_description}}</span>
+      <div class="short_desc">
+        <div class="ck-content" [innerHTML]="viewData?.description"></div>
+      </div>
+    </div>
+  </div>
+</div>

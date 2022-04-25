@@ -1,0 +1,616 @@
+<div class="d-flex" [style]="bool || showFilter || openAddOrCreate ? 'overflow: hidden;height: 100vh' : ''">
+  <div class="app-header" style="flex: 1">
+    <app-header></app-header>
+
+    <div style="position: relative; padding: 0 22px;">
+      <div class="content">
+        <div class="title-block" style="position: relative;">
+          <div
+            style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <span style="vertical-align: sub;" class="page-title" [style]="!openAddOrCreate ? 'z-index: 5555' : ''"
+                  [@openClose]="!openAddOrCreate ? 'openButton' : 'closedButton'">
+              <img src="assets/images/icons/icon-arrow-back.png" (click)="close()"
+                   [style]="!chatOpen && !openAddOrCreate ? 'display: none;' : ''"
+                   [@openClose]="chatOpen || openAddOrCreate ? 'openButton' : 'closedButton'" alt=""
+                   style="margin-right: 12px; cursor: pointer">
+              {{helperService.translation?.organizations}}
+            </span>
+            <div [@openClose]="!bool && !showFilter && !openAddOrCreate ? 'openButton' : 'closedButton'">
+              <div class="head-actions float-right">
+                <div class="d-inline-block mr-2">
+                  <app-date-input-range (saveDateRange)="saveDateRange($event)"></app-date-input-range>
+                </div>
+              </div>
+              <button (click)="createOrganization()" type="button"
+                      class="btn create-post">
+                {{helperService.translation?.add_organization}}
+              </button>
+              <button (click)="bool = !bool; professionsList = true;" type="button" class="btn category-button">
+                {{helperService.translation?.professions}}
+              </button>
+            </div>
+          </div>
+
+
+          <div style="position: absolute; width: 100%; height: 100%;"
+               [@openClose]="!openAddOrCreate && bool || showFilter ? 'openButton' : 'closedButton'">
+            <button type="button" class="btn create-post"
+                    (click)="createOrganization()">
+              {{helperService.translation?.add_organization}}
+            </button>
+          </div>
+
+            <div style="position: absolute; width: 100%; height: 100%;"
+                 [@openClose]="openAddOrCreate ? 'openButton' : 'closedButton'">
+            <span style="vertical-align: sub;" class="page-title">
+              <img src="assets/images/icons/icon-arrow-back.png" (click)="close()" alt=""
+                   style="margin-right: 12px; cursor: pointer">
+              {{pageType == 'create' ? helperService.translation?.new_organization : helperService.translation?.edit}}
+            </span>
+              <span *ngIf="!this.staffView">
+                  <button type="button" class="btn category-button saveandpublish" (click)="onSubmit(form.value, 1)">
+                    {{helperService.translation?.remember_publish}}
+                  </button>
+                  <button type="button" class="btn category-button" (click)="onSubmit(form.value, 0)">
+                    {{helperService.translation?.remember}}
+                  </button>
+                  <button (click)="close()" type="button" class="btn category-button">
+                    {{helperService.translation?.cancel}}
+                  </button>
+              </span>
+            </div>
+
+
+        </div>
+        <div class="page-block" [@openClose]="!chatOpen && !openAddOrCreate? 'openAnimations' : 'closedAnimations'">
+          <div *ngIf="this.data && this.data['message']" style="padding-top: 30px;">
+            <span class="data_empty">{{helperService.translation?.no_result}}</span>
+          </div>
+          <table class="table admin-table admin-table2" *ngIf="this.data && !this.data['message']"
+                 [style]="bool  || showFilter ? 'table-layout: fixed' : ''">
+            <thead>
+            <tr>
+              <th [style]="bool || showFilter ? 'width: 38px' : ''"></th>
+              <th>{{helperService.translation?.short_title}} <span [ngClass]="sortingValue['short_title'] && sortingValue['short_title'] == 'ASC' ? 'rotate' : ''" (click)="sorting('short_title', 'ASC')" class="admin-table-th"></span></th>
+              <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.address}} <span [ngClass]="sortingValue['address'] && sortingValue['address'] == 'ASC' ? 'rotate' : ''" (click)="sorting('address', 'ASC')" class="admin-table-th"></span></th>
+              <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.rating}} <span [ngClass]="sortingValue['rate'] && sortingValue['rate'] == 'ASC' ? 'rotate' : ''" (click)="sorting('rate', 'ASC')" class="admin-table-th"></span></th>
+              <th>{{helperService.translation?.forums}} <span [ngClass]="sortingValue['forum_count'] && sortingValue['forum_count'] == 'ASC' ? 'rotate' : ''" (click)="sorting('forum_count', 'ASC')" class="admin-table-th"></span></th>
+              <th [@openClose]="!bool ? 'openIf' : 'closedIf'">{{helperService.translation?.registration_date}} <span [ngClass]="sortingValue['created_at'] && sortingValue['created_at'] == 'ASC' ? 'rotate' : ''" (click)="sorting('created_at', 'ASC')" class="admin-table-th"></span></th>
+              <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.status}} <span [ngClass]="sortingValue['status'] && sortingValue['status'] == 'ASC' ? 'rotate' : ''" (click)="sorting('status', 'ASC')" class="admin-table-th"></span></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of data">
+              <td class="image-block">
+                <img src="{{this.requestService.imgSite + item.image?.url}}" alt=""
+                     onError="this.src='assets/images/img/no-image.png'">
+              </td>
+              <td (click)="bool = true; professionsList = false; showViewPage(item)" class="cursor-pointer">
+                <span [ngClass]="item?.translation[0]?.short_title ? '' : 'empty'" tooltip="{{item?.translation[0]?.short_title}}">
+                  {{item?.translation[0]?.short_title ? item?.translation[0]?.short_title : helperService.translation?.no_result}}
+                </span>
+              </td>
+              <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">
+                <span [ngClass]="item?.translation[0]?.address ? '' : 'empty'" tooltip="{{item?.translation[0]?.address}}">
+                  {{item?.translation[0]?.address ? item?.translation[0]?.address : helperService.translation?.no_result}}
+                </span>
+              </td>
+              <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">
+                <div [ngClass]="!bool && !showFilter ? 'd-inline' : 'd-inline-flex'" class="pt_7">
+                  <app-rate-stars [rating]="item.rate"></app-rate-stars>
+                  <span class="rating">({{item?.rates_count}})</span>
+                </div>
+              </td>
+              <td>{{item?.user_detail?.forums_count}}</td>
+              <td [ngClass]="item?.creation_date ? '' : 'empty'" [@openClose]="!bool ? 'openIf' : 'closedIf'">
+                {{item?.creation_date ? item?.creation_date : helperService.translation?.no_result}}
+              </td>
+              <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">
+                <label class="switch m-0">
+                  <input type="checkbox" (change)="changeStatus(item.id, item?.status)" [checked]='item?.status'>
+                  <div>
+                    <span></span>
+                  </div>
+                </label>
+              </td>
+
+              <td class="actions">
+                <ul class="action_list">
+                  <li (click)="bool = true; professionsList = false;  showViewPage(item)"><a><img
+                    src="assets/images/icons/icon-eye-hover.png" alt="icon"></a></li>
+                  <li [style]="bool || showFilter ? 'width: 0; margin: 0;' : ''"
+                      [@openClose]="!bool && !showFilter ? 'openButton' : 'closedButton'"
+                      (click)="getById(item.id)">
+                    <a><img src="assets/images/icons/icon-edit.png" alt="icon"></a>
+                  </li>
+                </ul>
+                <div class="actions-dropdown-block">
+                  <div class="action-more cursor-pointer"></div>
+                  <div class="actions-dropdown-item">
+                    <ul>
+                      <li (click)="bool = true; professionsList = false;  showViewPage(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+                      <li (click)="getById(item.id)"><a><img src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}</a></li>
+<!--                      <li (click)="popup.deleteModal(item.id)"><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>-->
+                    </ul>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination *ngIf="allPageData && allPageData.total > 10"
+                        [boundaryLinks]="true"
+                        [totalItems]="allPageData.total"
+                        [itemsPerPage]="allPageData.per_page"
+                        [ngModel]="allPageData.current_page"
+                        [maxSize]="10"
+                        (pageChanged)="pageChanged($event)"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+            </pagination>
+          </div>
+        </div>
+
+        <div [@openClose]="openAddOrCreate ? 'openAnimations' : 'closedAnimations'"
+             style="position: absolute;width: 100%;" class="addoredit">
+        <div *ngIf="languageTranslations">
+          <form class="data-form" [formGroup]="form">
+            <div class="d-inline-flex">
+              <div>
+                <div class="drag-and-drop"
+                     [style]="imageValue || type ? 'box-shadow: none; background: none; border: 2px solid transparent' : ''">
+
+                  <div *ngIf="!type" class="drag-and-drop-info"></div>
+
+                  <div class="drag-and-drop-container"
+                       [style]="imageValue || type ? 'padding: 22px 8px 16px 8px; background-image: none' : ''"
+                       (fileDropped)="onChange($event)">
+                    <div *ngIf="imageValue || editImagePath">
+                      <div class="upload-image-block">
+                        <img *ngIf="imageValue || editImagePath"
+                             src="{{imageValue ? imageValue : this.requestService.imgSite + editImagePath}}" alt="image"
+                             class="user-image">
+                        <img src="assets/images/icons/icon-edit.png" alt="image" class="user-edit-icon">
+                      </div>
+                    </div>
+                    <input accept="image/png, image/jpeg, image/jpg, image/bmp" formControlName="image" type="file" id="fileDropRef_form" (change)="onChange($event)"/>
+                    <div *ngIf="!type">
+                      <img class="btn-upload" src="../../../../../../assets/images/icons/btn-upload.png" alt="upload">
+                      <h3>{{helperService.translation?.select_image}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div style="width: 144px;" class="error-message">
+                  <span *ngIf="form.controls?.image && form.controls?.image?.hasError('size')">{{helperService.translation?.image_size_error}}</span>
+                  <span *ngIf="form.controls?.image && form.controls?.image?.hasError('type')">{{helperService.translation?.invalid_image}}</span>
+                </div>
+              </div>
+              <div style="padding-left: 40px;">
+                <div class="form-group">
+                  <label for="email_form"
+                         [ngClass]="(form.controls.email?.invalid && (form.controls.email?.dirty || form.controls.email?.touched)) ? 'invalid-label-color' : ''">
+                    {{helperService.translation?.email}} *
+                  </label>
+                  <input type="text" id="email_form" formControlName="email" class="form-control">
+                  <div class="error-message">
+                    <span *ngIf="form.controls.email?.errors?.required && (form.controls.email?.dirty || form.controls.email?.touched)">{{helperService.translation?.email_required}} </span>
+                    <span *ngIf="form.controls.email?.errors?.pattern && (form.controls.email?.dirty || form.controls.email?.touched)">{{helperService.translation?.email_invalid}}</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="latitudeAndLongitude"
+                         [ngClass]="(form.controls.latitudeAndLongitude?.invalid && (form.controls.latitudeAndLongitude?.dirty || form.controls.latitudeAndLongitude?.touched)) ? 'invalid-label-color' : ''">
+                    {{helperService.translation?.latitude}} / {{helperService.translation?.longitude}} *</label>
+                  <input type="text" id="latitudeAndLongitude" placeholder="{{helperService.translation?.latitude}}, {{helperService.translation?.longitude}}" formControlName="latitudeAndLongitude" class="form-control">
+                  <div class="error-message">
+                    <span
+                      *ngIf="form.controls.latitudeAndLongitude?.errors?.required && (form.controls.latitudeAndLongitude?.dirty || form.controls.latitudeAndLongitude?.touched)">
+                      {{helperService.translation?.latitude}} / {{helperService.translation?.longitude}} {{helperService.translation?.is_required}}
+                    </span>
+                    <span
+                      *ngIf="form.controls.latitudeAndLongitude?.errors?.pattern && (form.controls.latitudeAndLongitude?.dirty || form.controls.latitudeAndLongitude?.touched)">
+                        {{helperService.translation?.longitude_latitude_invalid}}
+                     </span>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="password"
+                         [ngClass]="(form.controls.password?.invalid && (form.controls.password?.dirty || form.controls.password?.touched)) ? 'invalid-label-color' : ''">
+                    {{helperService.translation?.password}} <strong *ngIf="pageType === 'create'">*</strong></label>
+                  <input type="password" id="password" formControlName="password" class="form-control">
+                  <div *ngIf="!form.controls.password?.valid && (form.controls.password?.dirty || form.controls.password?.touched)">
+                    <span class="error-message">{{helperService.translation?.password_required}}</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="instagram_link">{{helperService.translation?.instagram_link}}</label>
+                  <div class="position-relative">
+                    <input style="padding-left: 32px; padding-bottom: 7px;" type="text" id="instagram_link"
+                           formControlName="instagram" class="form-control">
+                    <img style="top: 4px;left: 4px;" class="position-absolute"
+                         src="assets/images/icons/icon-instagram.png" alt="">
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div style="padding-left: 15px;">
+                <div class="form-group">
+                  <label for="phone"
+                         [ngClass]="(form.controls.phone?.invalid && (form.controls.phone?.dirty || form.controls.phone?.touched)) ? 'invalid-label-color' : ''">
+                    {{helperService.translation?.phone}}</label>
+                  <input type="text" id="phone" formControlName="phone" class="form-control">
+                  <div class="error-message">
+                    <span *ngIf="form.controls.phone?.errors?.required && (form.controls.phone?.dirty || form.controls.phone?.touched)">{{helperService.translation?.phone_required}}</span>
+                    <span *ngIf="form.controls.phone?.errors?.pattern && (form.controls.phone?.dirty || form.controls.phone?.touched)">{{helperService.translation?.invalid_phone}}</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="web_address">{{helperService.translation?.web_link}}</label>
+                  <input type="text" id="web_address" formControlName="web_address" class="form-control">
+                </div>
+
+
+
+                <div class="form-group">
+                  <label for="confirm_password"
+                         [ngClass]="(form.controls.confirm_password?.invalid && (form.controls.confirm_password?.dirty || form.controls.confirm_password?.touched)) ? 'invalid-label-color' : ''">
+                    {{helperService.translation?.confirm_password}} <strong *ngIf="pageType === 'create'">*</strong></label>
+                  <input type="password" id="confirm_password" formControlName="confirm_password" class="form-control">
+                  <div class="error-message">
+                          <span
+                            *ngIf="form.controls.confirm_password?.errors?.required && (form.controls.confirm_password?.dirty || form.controls.confirm_password?.touched)">
+                            {{helperService.translation?.confirm_password_required}}
+                          </span>
+                    <span
+                      *ngIf="form.controls.confirm_password.hasError('mismatchedPasswords')&& (form.controls.confirm_password?.dirty || form.controls.confirm_password?.touched)">
+                            {{helperService.translation?.password_missmatch}}
+                          </span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div style="padding-left: 15px;">
+                <div class="form-group" style="width: 224px;">
+                  <label class="m-0">
+                    {{helperService.translation?.creation_date}}
+                  </label>
+                  <app-date-input [formControlName]="'creation_date'"></app-date-input>
+                </div>
+
+                <div>
+                  <label for="emergency_service_category"
+                         [ngClass]="(form.controls.emergency_service_category?.invalid && (form.controls.emergency_service_category?.dirty || form.controls.emergency_service_category?.touched)) ? 'invalid-label-color' : ''">
+                    {{helperService.translation?.emergency_service_category}} *
+                  </label>
+                  <angular2-multiselect [data]="itemListCategory"
+                                        id="emergency_service_category"
+                                        formControlName="emergency_service_category"
+                                        [settings]="settingsCategory"
+                                        (onDeSelect)="closeDropdown(dropdownRef3)"
+                                        #dropdownRef3>
+                    <c-badge>
+                      <ng-template let-item="item">
+                        <label style="margin: 0px;">{{item.itemName}}</label>
+                      </ng-template>
+                    </c-badge>
+                    <c-item>
+                      <ng-template let-item="item">
+                        <label>{{item.itemName}}</label>
+                      </ng-template>
+                    </c-item>
+                  </angular2-multiselect>
+                  <div *ngIf="!form.controls.emergency_service_category?.valid && (form.controls.emergency_service_category?.dirty || form.controls.emergency_service_category?.touched)">
+                    <span class="error-message">{{helperService.translation?.emergency_service_category_required}}</span>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                  <label for="facebook_link">{{helperService.translation?.facebook_link}}</label>
+                  <div class="position-relative">
+                    <input style="padding-left: 32px; padding-bottom: 7px;" type="text" id="facebook_link"
+                           formControlName="facebook" class="form-control">
+                    <img style="top: 4px;left: 4px;" class="position-absolute"
+                         src="assets/images/icons/icon-facebook.png" alt="">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-group form-check">
+              <label class="checkbox-item">
+                <input type="checkbox" id="is_send_sms" (change)="changePhoneValidators()" formControlName="is_send_sms">
+                <label for="is_send_sms"></label>
+                <span style="position: relative;top: -2px;">{{helperService.translation?.emergency_organization}}</span>
+              </label>
+            </div>
+
+            <div [formGroupName]="'translations'">
+              <div class="form-group">
+                <accordion class="accordion forum_editor" style="width: 888px;" [isAnimated]="true"
+                           *ngFor="let trans of objectKeys(form.controls['translations']['controls']), let i = index">
+                  <accordion-group (isOpenChange)="log($event, 0)">
+                        <span accordion-heading class="accordionhead">
+                          <img style="margin-right: 8px; width: 16px;" src="{{this.requestService.imgSite + languageTranslations[i].image.url}}" alt="">
+                              {{languageTranslations[i].title}}*
+                          <img width="20px" style="transition: 0.5s;"
+                               [attr.class]="languageCollapse[0] == true ? 'float-right reverse' : 'float-right'"
+                               src="assets/images/icons/icon-arrow-down.png" alt="">
+                        </span>
+                    <div [formGroupName]="trans">
+                      <div class="d-flex">
+                        <div class="form-group">
+                          <label for="title_{{languageTranslations[i].title}}"
+                                 [ngClass]="(form.get('translations').get(trans).get('title')?.invalid &&
+                                     (form.get('translations').get(trans).get('title')?.dirty || form.get('translations').get(trans).get('title')?.touched))
+                                     ? 'invalid-label-color' : ''">{{helperService.translation?.organization_name}} *</label>
+                          <input style="width: 456px;" type="text" id="title_{{languageTranslations[i].title}}" formControlName="title" class="form-control">
+                          <div class="error-message">
+                            <span *ngIf="form.get('translations').get(trans).get('title').errors?.required &&
+                              (form.get('translations').get(trans).get('title')?.dirty || form.get('translations').get(trans).get('title')?.touched)">
+                              {{helperService.translation?.organization_name_required}}
+                            </span>
+                            <span *ngIf="form.get('translations').get(trans).get('title').errors?.minlength &&
+                              (form.get('translations').get(trans).get('title')?.dirty || form.get('translations').get(trans).get('title')?.touched)">
+                              {{helperService.translation?.organization_name_required_length}}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group" style="padding-left: 10px;">
+                          <label for="short_title_{{languageTranslations[i].title}}">{{helperService.translation?.short_title}}</label>
+                          <input type="text" id="short_title_{{languageTranslations[i].title}}" formControlName="short_title" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="d-flex">
+                        <div class="form-group">
+                          <label for="city_{{languageTranslations[i].title}}"
+                                 [ngClass]="(form.get('translations').get(trans).get('city')?.invalid &&
+                                     (form.get('translations').get(trans).get('city')?.dirty || form.get('translations').get(trans).get('city')?.touched))
+                                     ? 'invalid-label-color' : ''">{{helperService.translation?.city}}</label>
+                          <input type="text" id="city_{{languageTranslations[i].title}}" formControlName="city" class="form-control">
+                        </div>
+                        <div class="form-group" style="padding-left: 10px;">
+                          <label for="address_{{languageTranslations[i].title}}"
+                                 [ngClass]="(form.get('translations').get(trans).get('address')?.invalid &&
+                                     (form.get('translations').get(trans).get('address')?.dirty || form.get('translations').get(trans).get('address')?.touched))
+                                     ? 'invalid-label-color' : ''">{{helperService.translation?.address}}</label>
+                          <input style="width: 456px;" type="text" id="address_{{languageTranslations[i].title}}" formControlName="address"
+                                 class="form-control">
+                          <div *ngIf="!form.get('translations').get(trans).get('address').valid &&
+                              (form.get('translations').get(trans).get('address')?.dirty || form.get('translations').get(trans).get('address')?.touched)">
+                            <span class="error-message">{{helperService.translation?.address_required}}</span>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label for="description_{{languageTranslations[i].title}}"
+                               [ngClass]="(form.get('translations').get(trans).get('description')?.invalid &&
+                                 (form.get('translations').get(trans).get('description')?.dirty || form.get('translations').get(trans).get('description')?.touched))
+                                  ? 'invalid-label-color' : ''">{{helperService.translation?.description}} *</label>
+                        <ckeditor (change)="onChangeEditor($event, trans)" [config]='config' id="description_{{languageTranslations[i].title}}" [editor]="Editor" formControlName="description"></ckeditor>
+                        <div class="error-message">
+                            <span *ngIf="form.get('translations').get(trans).get('description').errors?.required &&
+                              (form.get('translations').get(trans).get('description')?.dirty || form.get('translations').get(trans).get('description')?.touched)">
+                              {{helperService.translation?.description_required}}
+                            </span>
+                        </div>
+                        <div *ngIf="this.letterCount[trans]">
+                          <span style="padding-right: 1em;">{{helperService.translation?.words}}: {{this.wordCount[trans]}}</span>
+                          <span>{{helperService.translation?.characters}}: {{this.letterCount[trans]}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </accordion-group>
+                </accordion>
+              </div>
+            </div>
+          </form>
+        </div>
+
+
+          <!--<tabset class="my-tab">-->
+            <!--<tab heading="{{helperService.translation?.data}}">-->
+              <!--<div class="title-block position-relative">-->
+                <!--<div-->
+                  <!--style="position: absolute;width: 100%;height: 100%;display: flex;justify-content: space-between;align-items: center; padding-top: 26px;">-->
+                  <!--<h3 class="form_header">{{helperService.translation?.organization_information}}</h3>-->
+                  <!--<div>-->
+                    <!--<button type="button" class="btn create-postStaff">-->
+                      <!--{{helperService.translation?.save}}-->
+                    <!--</button>-->
+                    <!--<button type="button" class="btn cancel_button">-->
+                      <!--{{helperService.translation?.cancel}}-->
+                    <!--</button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</tab>-->
+            <!--<tab heading="{{helperService.translation?.staff}}">-->
+              <!--<div class="title-block position-relative" [@openClose]="!boolStaff && !openAddOrCreateStaff ? 'openButton' : 'closedButton'">-->
+                <!--<div class="title_section">-->
+                  <!--<span class="form_header" style="padding-top: 16px;">{{helperService.translation?.staff}}</span>-->
+                  <!--<div style="padding-top: 16px;">-->
+                    <!--<form action="" style="float: left; padding-right: 9px; margin-top: 1px;">-->
+                      <!--<div class="position-relative">-->
+                        <!--<input type="search" placeholder="{{helperService.translation?.search}}" class="search-input input-font" id="search_form"-->
+                               <!--name="search">-->
+                        <!--<div class="search-icon-block">-->
+                          <!--<img class="search-icon" src="assets/images/icons/icon-search.png" alt="icon">-->
+                          <!--<img class="search-icon-hover" src="assets/images/icons/icon-search(HoverState).png"-->
+                               <!--alt="icon">-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</form>-->
+                    <!--<button (click)=" boolStaff = false; openAddOrCreateStaff = true;" type="button" class="btn cancel_button">-->
+                      <!--{{helperService.translation?.add_staff}}-->
+                    <!--</button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div style="position: absolute; width: 100%; margin-top: -15px"-->
+                   <!--[@openClose]="openAddOrCreateStaff ? 'openButton' : 'closedButton'">-->
+            <!--<span style="vertical-align: sub;" class="page-title">-->
+              <!--<img src="assets/images/icons/icon-arrow-back.png" (click)="closeStaff()" alt=""-->
+                   <!--style="margin-right: 12px; cursor: pointer">-->
+              <!--{{helperService.translation?.edit}}-->
+            <!--</span>-->
+                <!--<button type="button" class="btn category-button saveandpublish">-->
+                  <!--{{helperService.translation?.save}}-->
+                <!--</button>-->
+                <!--<button (click)="closeStaff()" type="button" class="btn category-button">-->
+                  <!--{{helperService.translation?.cancel}}-->
+                <!--</button>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<div style="padding-top: 30px;">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="data_empty">{{helperService.translation?.staff_no_result}}</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--<div class="d-flex" style="overflow: hidden;margin-top: 40px">-->
+                <!--<div class="app-header" style="flex: 1">-->
+
+                  <!--<div style="position: relative;">-->
+                    <!--<div class="content">-->
+                      <!--<div class="page-block"-->
+                           <!--[@openClose]="!chatOpenStaff && !openAddOrCreateStaff? 'openAnimations' : 'closedAnimations'">-->
+                        <!--<table style="margin:0" class="table admin-table admin-table2"-->
+                               <!--[style]="boolStaff ? 'table-layout: fixed' : ''">-->
+                          <!--<thead>-->
+                          <!--<tr>-->
+                            <!--<th [style]="boolStaff ? 'width: 38px' : ''"></th>-->
+                            <!--<th class="admin-table-th">{{helperService.translation?.first_name}}</th>-->
+                            <!--<th class="admin-table-th">{{helperService.translation?.professions}}</th>-->
+                            <!--<th [@openClose]="!boolStaff ? 'openIf' : 'closedIf'" class="admin-table-th">-->
+                              <!--{{helperService.translation?.registration_date}}-->
+                            <!--</th>-->
+                            <!--<th [@openClose]="!boolStaff ? 'openIf' : 'closedIf'" class="admin-table-th">-->
+                              <!--{{helperService.translation?.comment_count}}-->
+                            <!--</th>-->
+                            <!--<th [@openClose]="!boolStaff ? 'openIf' : 'closedIf'" class="admin-table-th">{{helperService.translation?.role}}</th>-->
+                            <!--<th></th>-->
+                          <!--</tr>-->
+                          <!--</thead>-->
+                          <!--<tbody>-->
+                          <!--<tr>-->
+                            <!--<td class="image-block">-->
+                              <!--<img src="../../../../assets/images/img/thumbnail.png" alt="">-->
+                            <!--</td>-->
+                            <!--<td (click)="viewStaff()" class="cursor-pointer">-->
+                              <!--<span tooltip="Սիրանուշ Տեր-Հովաննիսյան">Սիրանուշ Տեր-Հովաննիսյան</span>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                              <!--<span tooltip="Հոգեբան">Հոգեբան</span>-->
+                            <!--</td>-->
+                            <!--<td [@openClose]="!boolStaff ? 'openIf' : 'closedIf'">-->
+                              <!--12/06/2019-->
+                            <!--</td>-->
+                            <!--<td [@openClose]="!boolStaff ? 'openIf' : 'closedIf'">16</td>-->
+                            <!--<td [@openClose]="!boolStaff ? 'openIf' : 'closedIf'">Ադմին</td>-->
+
+                            <!--<td class="actions">-->
+                              <!--<ul class="action_list">-->
+                                <!--<li (click)="viewStaff()"><a><img-->
+                                  <!--src="assets/images/icons/icon-eye-hover.png" alt="icon"></a>-->
+                                <!--</li>-->
+                                <!--<li [style]="boolStaff ? 'width: 0; margin: 0;' : ''"-->
+                                    <!--[@openClose]="!boolStaff ? 'openButton' : 'closedButton'"-->
+                                    <!--(click)=" boolStaff = false; openAddOrCreateStaff = true;">-->
+                                  <!--<a><img src="assets/images/icons/icon-edit.png" alt="icon"></a>-->
+                                <!--</li>-->
+                              <!--</ul>-->
+                              <!--<div class="actions-dropdown-block">-->
+                                <!--<div class="action-more cursor-pointer"></div>-->
+                                <!--<div class="actions-dropdown-item">-->
+                                  <!--<ul>-->
+                                    <!--<li (click)="viewStaff()"><a><img-->
+                                      <!--src="assets/images/icons/icon-eye-hover.png" alt="icon">-->
+                                      <!--{{helperService.translation?.view}}</a></li>-->
+                                    <!--<li (click)="boolStaff = false; openAddOrCreateStaff = true;">-->
+                                      <!--<a><img src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}</a>-->
+                                    <!--</li>-->
+                                    <!--<li (click)="reportModal.showModal()"><a><img src="assets/images/icons/icon-exclamation.png" alt="icon">-->
+                                      <!--{{helperService.translation?.report}}</a></li>-->
+                                    <!--<li><a><img src="assets/images/icons/icon-copy.png" alt="icon"> {{helperService.translation?.copy}}</a>-->
+                                    <!--</li>-->
+                                    <!--<li><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>-->
+                                  <!--</ul>-->
+                                <!--</div>-->
+                              <!--</div>-->
+                            <!--</td>-->
+                          <!--</tr>-->
+                          <!--</tbody>-->
+                        <!--</table>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+
+
+              <!--</div>-->
+            <!--</tab>-->
+          <!--</tabset>-->
+
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+  <div style="position: relative;" [@openClose]="boolStaff? 'open' : 'closed'">
+    <div class="forumView">
+      <div [@openClose]="!chatOpenStaff ? 'chatOpen' : 'chatClose'" class="forumViewHeadAndContent"
+           [style]="chatOpenStaff ? 'display: none' : ''">
+        <div class="head-forum-view">
+          <div style="padding: 8px 24px;">
+            <button (click)=" boolStaff = false; openAddOrCreateStaff = true;this.staffView = false" class="button-style">
+              <img class="icon-style" src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}
+            </button>
+
+          </div>
+
+
+          <div style="padding: 10px;">
+            <i class="fa fa-times cursor-pointer" (click)="closeStaff()" aria-hidden="true"></i>
+          </div>
+        </div>
+        <app-organizations-staff-view></app-organizations-staff-view>
+      </div>
+    </div>
+  </div>
+
+  <div [@showFilter]="!showFilter ? 'closed' : 'open'">
+  </div>
+
+  <div style="position: relative;" [@openClose]="bool && professionsList == false ? 'open' : 'closed'">
+    <div class="forumView" *ngIf="professionsList == false">
+      <div [@openClose]="!chatOpen ? 'chatOpen' : 'chatClose'" class="forumViewHeadAndContent"
+           [style]="chatOpen ? 'display: none' : ''">
+        <app-organizations-view (myEvent)="close()"></app-organizations-view>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: relative;" [@openClose]="bool && professionsList ? 'open' : 'closed'">
+    <div class="forumView" *ngIf="professionsList">
+      <div [@openClose]="!chatOpen ? 'chatOpen' : 'chatClose'" class="forumViewHeadAndContent"
+           [style]="chatOpen ? 'display: none' : ''">
+        <app-organizations-profession (myEvent)="close()"></app-organizations-profession>
+      </div>
+    </div>
+  </div>
+
+</div>
+<app-report-modal #reportModal></app-report-modal>
+
+<app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>
