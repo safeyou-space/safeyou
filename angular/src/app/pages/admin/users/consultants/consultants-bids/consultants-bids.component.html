@@ -1,0 +1,64 @@
+<div class="head-forum-view">
+  <div style="padding: 8px 16px;">
+    <button (click)="changeStatus(1)"  class="button-save" *ngIf="data?.status == 0">
+      {{helperService.translation?.accept}}
+    </button>
+    <div class="float-right" *ngIf="data?.status == 0">
+      <button (click)="changeStatus(2)" class="button-style" style="padding: 10px 20px">
+        {{helperService.translation?.reject}}
+      </button>
+    </div>
+  </div>
+  <div style="padding: 10px;">
+    <i class="fa fa-times cursor-pointer" (click)="close('list')" aria-hidden="true"></i>
+  </div>
+</div>
+<div class="content" #content>
+  <div class="d-flex">
+    <div class="image-block position-relative">
+      <img onError="this.src='assets/images/img/no-image.png'" src="{{this.requestService.imgSite + data?.user?.image?.url}}" alt="image" class="user-image">
+    </div>
+    <div class="info_content">
+      <h2 class="name">{{data?.user?.first_name}} {{data?.user?.last_name}}</h2>
+      <div class="d-flex-center" style="padding-top: 6px;">
+        <div class="action_icon">
+          <img class="action-attach" src="assets/images/icons/icon-hashtag.png" alt="icon">
+          <img class="action-attach-hover" src="assets/images/icons/icon-hashtag (Hover State).png" alt="icon">
+        </div>
+        <span class="pl_8 hashing">{{data?.user?.uid}}</span>
+      </div>
+      <div class="d-flex pt_7">
+        <div class="d-flex-center">
+          <div class="action_icon">
+            <img class="action-attach" src="assets/images/icons/icon-email.png" alt="icon">
+            <img class="action-attach-hover" src="assets/images/icons/icon-email(HoverState).png" alt="icon">
+          </div>
+          <span style="border-right: 1px solid #A79EAA; padding-right: 10px" class="pl_8">{{data?.email}}</span>
+        </div>
+        <div class="d-flex-center" style="padding-left: 10px">
+          <div class="action_icon">
+            <img class="action-attach" src="assets/images/icons/icon-comment.png" alt="icon">
+            <img class="action-attach-hover" src="assets/images/icons/icon-comment-hover.png" alt="icon">
+          </div>
+          <span class="pl_8">{{data?.user?.comments_count}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="info_desc">
+    <div class="d-flex">
+      <div>
+        <span>{{helperService.translation?.applications_date}}</span>
+        <p>{{data?.created_at | date: 'dd/MM/YYYY'}}</p>
+      </div>
+      <div style="margin-left: 54px;">
+        <span>{{helperService.translation?.profession}}</span>
+        <p>{{data?.category?.translation}}</p>
+      </div>
+    </div>
+    <div class="motivation">
+      <span>{{helperService.translation?.motivation}}</span>
+      <div class="motivation-text" [innerHTML]="data?.motivation"></div>
+    </div>
+  </div>
+</div>

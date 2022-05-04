@@ -1,0 +1,362 @@
+<div class="d-flex" [style]="bool || professionsList || showFilter ? 'overflow: hidden;' : ''">
+  <div class="app-header" style="flex: 1">
+    <app-header></app-header>
+
+    <div style="position: relative; padding: 0 22px;">
+      <div class="content">
+        <div class="title-block" style="position: relative;">
+          <div
+            style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <span style="vertical-align: sub;"  class="page-title" [style]="!openAddOrCreate ? 'z-index: 5555' : ''"
+                  [@openClose]="!openAddOrCreate ? 'openButton' : 'closedButton'">
+              <img src="assets/images/icons/icon-arrow-back.png" (click)="close('chat')" [style]="!chatOpen && !openAddOrCreate ? 'display: none;' : ''"
+                   [@openClose]="chatOpen || openAddOrCreate ? 'openButton' : 'closedButton'" alt=""
+                   style="margin-right: 12px; cursor: pointer">
+              {{helperService.translation?.consultants}}
+            </span>
+            <div [@openClose]="!bool && !showFilter && !openAddOrCreate ? 'openButton' : 'closedButton'">
+              <div class="head-actions float-right">
+                <div class="d-inline-block mr-2">
+                  <app-date-input-range (saveDateRange)="saveDateRange($event)"></app-date-input-range>
+                </div>
+                <div class="filter-dropdown-block float-right" *ngIf="!showFilter" (click)="showFilter = !showFilter; bool = false">
+                  <span>{{helperService.translation?.filter}}</span>
+                </div>
+              </div>
+              <button (click)="addConsultant()" type="button" class="btn create-post">
+                {{helperService.translation?.add_consultant}}
+              </button>
+              <button (click)="bool = !bool; professionsList = true; bids = false" type="button" class="btn category-button">
+                {{helperService.translation?.professions}}
+              </button>
+            </div>
+          </div>
+
+
+          <div style="position: absolute; width: 100%; height: 100%;" [@openClose]="!openAddOrCreate && bool || showFilter ? 'openButton' : 'closedButton'">
+            <button type="button"
+                    class="btn create-post" (click)="addConsultant()">
+              {{helperService.translation?.add_consultant}}
+            </button>
+          </div>
+
+          <div style="position: absolute; width: 100%; height: 100%;"
+               [@openClose]="openAddOrCreate ? 'openButton' : 'closedButton'">
+            <span style="vertical-align: sub;" class="page-title">
+              <img src="assets/images/icons/icon-arrow-back.png" (click)="close('openAddOrCreate');  callSubmit('close')" alt=""
+                   style="margin-right: 12px; cursor: pointer">
+              {{pageType == 'create' ? helperService.translation?.add_consultant : helperService.translation?.edit}}
+            </span>
+            <button (click)="callSubmit('create')" type="button" class="btn category-button saveandpublish">
+              {{helperService.translation?.remember_publish}}
+            </button>
+            <button (click)="callSubmit('save')" type="button" class="btn category-button">
+              {{helperService.translation?.remember}}
+            </button>
+            <button (click)="close('openAddOrCreate'); callSubmit('close')" type="button" class="btn category-button">
+              {{helperService.translation?.cancel}}
+            </button>
+          </div>
+
+
+        </div>
+        <div class="page-block" [@openClose]="!chatOpen && !openAddOrCreate? 'openAnimations' : 'closedAnimations'">
+          <tabset class="my-tab">
+            <tab (selectTab)="changeTab(false)" heading="{{helperService.translation?.consultants}}">
+              <div *ngIf="this.data && this.data['message']" style="padding-top: 30px;">
+                <span class="data_empty">{{helperService.translation?.no_result}}</span>
+              </div>
+              <div class="wrapper">
+                <table class="table admin-table" *ngIf="this.data && !this.data['message']"
+                       [style]="bool || showFilter ? 'table-layout: fixed' : ''">
+                  <thead>
+                  <tr>
+                    <th [style]="bool || showFilter ? 'width: 38px' : ''"></th>
+                    <th>{{helperService.translation?.first_name}} {{helperService.translation?.last_name}} <span [ngClass]="sortingValue['full_name'] && sortingValue['full_name'] == 'ASC' ? 'rotate' : ''" (click)="sorting('full_name', 'ASC')" class="admin-table-th"></span></th>
+                    <th>{{helperService.translation?.profession}} <span [ngClass]="sortingValue['profession'] && sortingValue['profession'] == 'ASC' ? 'rotate' : ''" (click)="sorting('profession', 'ASC')" class="admin-table-th"></span></th>
+<!--                    <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.rating}} <span [ngClass]="sortingValue['rate'] && sortingValue['rate'] == 'ASC' ? 'rotate' : ''" (click)="sorting('rate', 'ASC')" class="admin-table-th"></span></th>-->
+                    <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.comments}} <span [ngClass]="sortingValue['comments_count'] && sortingValue['comments_count'] == 'ASC' ? 'rotate' : ''" (click)="sorting('comments_count', 'ASC')" class="admin-table-th"></span></th>
+                    <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.status}} <span [ngClass]="sortingValue['status'] && sortingValue['status'] == 'ASC' ? 'rotate' : ''" (click)="sorting('status', 'ASC')" class="admin-table-th"></span></th>
+                    <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.user_block}} <span [ngClass]="sortingValue['user_block'] && sortingValue['user_block'] == 'ASC' ? 'rotate' : ''" (click)="sorting('user_block', 'ASC')" class="admin-table-th"></span></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of data">
+                    <td class="image-block">
+                      <img src="{{this.requestService.imgSite + item.image.url}}" alt=""
+                           onError="this.src='assets/images/img/no-image.png'">
+                    </td>
+                    <td (click)="bool = true; professionsList = false; bids = false; showViewPage(item)" class="cursor-pointer">
+                      <span tooltip="{{item?.first_name}} {{item?.last_name}}">{{item?.first_name}} {{item?.last_name}}</span>
+                    </td>
+                    <td>
+                      <span tooltip="{{item?.consultant_category?.translation}}">{{item?.consultant_category?.translation}}</span>
+                    </td>
+<!--                    <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">-->
+<!--                      <div [ngClass]="!bool && !showFilter ? 'd-inline' : 'd-inline-flex'">-->
+<!--                        <app-rate-stars *ngIf="item?.rate?.rate" [rating]="item.rate"></app-rate-stars>-->
+<!--                        <span [ngClass]="item?.rate?.rate ? 'rating' : ''">{{item?.rate?.rate ? '(' + item?.rate?.rate + ')' : ''}}</span>-->
+<!--                        <span >{{!(item?.rate?.rate) ? helperService.translation?.no_rating : ''}}</span>-->
+<!--                      </div>-->
+<!--                    </td>-->
+                    <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{item?.comments_count}}</td>
+                    <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">
+                      <label class="switch m-0">
+                        <input type="checkbox" [disabled]="item.is_verifying_otp == 0" (change)="changeStatus(item.id, item.status)" [checked]='item.status'>
+                        <div>
+                          <span></span>
+                        </div>
+                      </label>
+                    </td>
+                    <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">
+                      <label class="switch m-0">
+                        <input type="checkbox" [disabled]="item.is_verifying_otp == 0" (change)="blockedUser(item.id, item.user_block == 0 ? 1 : 0)" [checked]='item.user_block'>
+                        <div>
+                          <span></span>
+                        </div>
+                      </label>
+                    </td>
+                    <td class="actions">
+                      <ul class="action_list">
+                        <li (click)="bool = true; professionsList = false; bids = false; showViewPage(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"></a></li>
+                        <li [style]="bool || showFilter ? 'width: 0; margin: 0;' : ''"
+                            [@openClose]="!bool && !showFilter ? 'openButton' : 'closedButton'"
+                            (click)="callSubmit('Edit', item.id)">
+                          <a><img src="assets/images/icons/icon-edit.png" alt="icon"></a>
+                        </li>
+                      </ul>
+                      <div class="actions-dropdown-block">
+                        <div class="action-more cursor-pointer"></div>
+                        <div class="actions-dropdown-item">
+                          <ul>
+                            <li (click)="bool = true; professionsList = false; bids =false; showViewPage(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+                            <li (click)="callSubmit('Edit', item.id)"><a><img src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}</a></li>
+                            <li (click)="smModal.show(); changeToUserId = item.id"><a><img src="assets/images/icons/icon-app-user.png" alt="icon"> {{helperService.translation?.reject}}</a></li>
+<!--                            <li (click)="popup.deleteModal(item.id)"><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>-->
+<!--                            <li (click)="blockedUser(item.id, item.user_block == 0 ? 1 : 0)">-->
+<!--                              <a *ngIf="item.user_block == 0"><i class="fa blocked-icon fa-ban" aria-hidden="true"></i> {{helperService.translation?.user_block}}</a>-->
+<!--                              <a *ngIf="item.user_block == 1"><i class="fa blocked-icon fa-unlock" aria-hidden="true"></i> {{helperService.translation?.user_un_block}}</a>-->
+<!--                            </li>-->
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-center">
+                  <pagination *ngIf="allPageData && allPageData.total > 10"
+                              [boundaryLinks]="true"
+                              [totalItems]="allPageData.total"
+                              [itemsPerPage]="allPageData.per_page"
+                              [ngModel]="allPageData.current_page"
+                              [maxSize]="10"
+                              (pageChanged)="pageChanged($event)"
+                              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+                  </pagination>
+                </div>
+              </div>
+            </tab>
+            <tab (selectTab)="changeTab(0)" heading="{{helperService.translation?.applications}}">
+              <div *ngIf="this.consultantRequest && this.consultantRequest['message']" style="padding-top: 30px;">
+                <span class="data_empty">{{helperService.translation?.no_result}}</span>
+              </div>
+              <table class="table admin-table admin-table2" *ngIf="this.consultantRequest && !this.consultantRequest['message']"
+                     [style]="bool || showFilter ? 'table-layout: fixed' : ''">
+                <thead>
+                <tr>
+                  <th [style]="bool || showFilter ? 'width: 38px' : ''"></th>
+                  <th class="admin-table-th">{{helperService.translation?.first_name}} {{helperService.translation?.last_name}}</th>
+                  <th class="admin-table-th">{{helperService.translation?.profession}}</th>
+                  <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'" class="admin-table-th">{{helperService.translation?.motivation}}</th>
+                  <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'" class="admin-table-th">{{helperService.translation?.email}}</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of this.consultantRequest">
+                  <td class="image-block">
+                    <img onError="this.src='assets/images/img/no-image.png'" src="{{this.requestService.imgSite + item?.user?.image?.url}}"  alt="no image">
+                  </td>
+                  <td (click)="bool = true; bids = true; professionsList = false; showConsultantBids(item)" class="cursor-pointer">
+                    <span tooltip="{{item?.user?.first_name}} {{item?.user?.last_name}}">{{item?.user?.first_name}} {{item?.user?.last_name}}</span>
+                  </td>
+                  <td>
+                    <span tooltip="{{item?.category?.translation}}">{{item?.category?.translation}}</span>
+                  </td>
+                  <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">
+                    <span tooltip="{{item?.motivation}}" [ngClass]="item?.motivation ? '' : 'empty'">
+                      {{item?.motivation ? item?.motivation : helperService.translation?.no_result}}
+                    </span>
+                  </td>
+                  <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{item?.email}}</td>
+
+                  <td class="actions">
+                    <ul class="action_list">
+                      <li (click)="bool = true; bids = true; professionsList = false; showConsultantBids(item)">
+                        <a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"></a>
+                      </li>
+                    </ul>
+                    <div class="actions-dropdown-block">
+                      <div class="action-more cursor-pointer"></div>
+                      <div class="actions-dropdown-item">
+                        <ul>
+                          <li (click)="bool = true; bids = true; professionsList = false; showConsultantBids(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+<!--                          <li (click)="popup.deleteModal(item.id)"><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>-->
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-center">
+                <pagination *ngIf="allConsultantRequest && allConsultantRequest.total > 10"
+                            [boundaryLinks]="true"
+                            [totalItems]="allConsultantRequest.total"
+                            [itemsPerPage]="allConsultantRequest.per_page"
+                            [maxSize]="10"
+                            (pageChanged)="pageChangedRequest($event, 0)"
+                            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+                </pagination>
+              </div>
+            </tab>
+            <tab (selectTab)="changeTab(2)" heading="{{helperService.translation?.reject_applications}}">
+              <div *ngIf="this.consultantRequest && this.consultantRequest['message']" style="padding-top: 30px;">
+                <span class="data_empty">{{helperService.translation?.no_result}}</span>
+              </div>
+              <table class="table admin-table admin-table2" *ngIf="this.consultantRequest && !this.consultantRequest['message']"
+                     [style]="bool || showFilter ? 'table-layout: fixed' : ''">
+                <thead>
+                <tr>
+                  <th [style]="bool || showFilter ? 'width: 38px' : ''"></th>
+                  <th class="admin-table-th">{{helperService.translation?.first_name}} {{helperService.translation?.last_name}}</th>
+                  <th class="admin-table-th">{{helperService.translation?.profession}}</th>
+                  <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'" class="admin-table-th">{{helperService.translation?.motivation}}</th>
+                  <th [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'" class="admin-table-th">{{helperService.translation?.email}}</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of this.consultantRequest">
+                  <td class="image-block">
+                    <img onError="this.src='assets/images/img/no-image.png'" src="{{this.requestService.imgSite + item?.user?.image?.url}}" alt="no image">
+                  </td>
+                  <td (click)="bool = true; bids = true; professionsList = false; showConsultantBids(item)" class="cursor-pointer">
+                    <span tooltip="{{item?.user?.first_name}} {{item?.user?.last_name}}">{{item?.user?.first_name}} {{item?.user?.last_name}}</span>
+                  </td>
+                  <td>
+                    <span tooltip="{{item?.category?.translation}}">{{item?.category?.translation}}</span>
+                  </td>
+                  <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">
+                                 <span tooltip="{{item?.motivation}}" [ngClass]="item?.motivation ? '' : 'empty'">
+                      {{item?.motivation ? item?.motivation : helperService.translation?.no_result}}
+                    </span>
+                  </td>
+                  <td [@openClose]="!bool && !showFilter ? 'openIf' : 'closedIf'">{{item?.email}}</td>
+
+                  <td class="actions">
+                    <ul class="action_list">
+                      <li (click)="bool = true; bids = true; professionsList = false; showConsultantBids(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"></a></li>
+                    </ul>
+                    <div class="actions-dropdown-block">
+                      <div class="action-more cursor-pointer"></div>
+                      <div class="actions-dropdown-item">
+                        <ul>
+                          <li (click)="bool = true; bids = true; professionsList = false; showConsultantBids(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+<!--                          <li (click)="popup.deleteModal(item.id)"><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>-->
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-center">
+                <pagination *ngIf="allConsultantRequest && allConsultantRequest.total > 10"
+                            [boundaryLinks]="true"
+                            [totalItems]="allConsultantRequest.total"
+                            [itemsPerPage]="allConsultantRequest.per_page"
+                            [maxSize]="10"
+                            (pageChanged)="pageChangedRequest($event, 2)"
+                            previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+                </pagination>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+        <div [@openClose]="openAddOrCreate ? 'openAnimations' : 'closedAnimations'"
+             style="position: absolute;width: 100%;" class="addoredit">
+          <app-consultants-edit-create></app-consultants-edit-create>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <div style="position: relative;" [@openClose]="bool && professionsList == false && bids == false ? 'open' : 'closed'">
+    <div class="forumView" *ngIf="professionsList == false && bids == false ">
+      <div [@openClose]="!chatOpen ? 'chatOpen' : 'chatClose'"
+           class="forumViewHeadAndContent"
+           [style]="chatOpen ? 'display: none' : ''">
+        <div class="head-forum-view">
+          <div style="padding: 8px 24px;">
+            <button (click)="callSubmit('Edit', viewData.id)" class="button-style">
+              <img class="icon-style" src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}
+            </button>
+          </div>
+          <div style="padding: 10px;">
+            <i class="fa fa-times cursor-pointer" (click)="close('forumview')" aria-hidden="true"></i>
+          </div>
+        </div>
+        <app-consultants-view [data]="viewData"></app-consultants-view>
+      </div>
+    </div>
+  </div>
+
+  <div [@showFilter]="!showFilter ? 'closed' : 'open'">
+    <app-consultants-filter [allData]="allPageData" (filter)="filter($event)" (closeFilter)="closeFilter()"></app-consultants-filter>
+  </div>
+
+  <div style="position: relative;" [@openClose]="bool && professionsList ? 'open' : 'closed'">
+    <div class="forumView" *ngIf="professionsList">
+      <div [@openClose]="!chatOpen ? 'chatOpen' : 'chatClose'"
+           class="forumViewHeadAndContent"
+           [style]="chatOpen ? 'display: none' : ''">
+        <app-consultants-profession (myEvent)="close()"></app-consultants-profession>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: relative;" [@openClose]="bool && bids ? 'open' : 'closed'">
+    <div class="forumView" *ngIf="bids">
+      <div [@openClose]="!chatOpen ? 'chatOpen' : 'chatClose'"
+           class="forumViewHeadAndContent"
+           [style]="chatOpen ? 'display: none' : ''">
+        <app-consultants-bids [data]="consultantBidsItem" (getRequest)="isGetRequest($event)" (myEvent)="close('list')"></app-consultants-bids>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<app-report-modal #reportModal></app-report-modal>
+
+<app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>
+
+
+<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name2">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <p class="modal-text">{{helperService.translation?.consultant_user}}</p>
+        <button type="button" class="btn-yes" (click)="changeToAppUser(changeToUserId, smModal)">{{helperService.translation?.yes}}</button>
+        <button type="button" class="btn-no ml-2" (click)="smModal.hide()">{{helperService.translation?.no}}</button>
+      </div>
+    </div>
+  </div>
+</div>

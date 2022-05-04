@@ -1,0 +1,113 @@
+.content {
+  height: 100vh;
+  overflow-y: auto;
+}
+.content::-webkit-scrollbar {
+  width: 2px;
+  top: 2px;
+}
+.content::-webkit-scrollbar-thumb {
+  background-color: #e37d93;
+  border-radius: 20px;
+}
+.info {
+  padding: 24px;
+}
+.image_block {
+  width: 144px;
+  height: 144px;
+  background: #F8DEE4 0% 0% no-repeat padding-box;
+  box-shadow: 0px 4px 4px #4B5D710D;
+  border-radius: 12px;
+  position: relative;
+}
+.action-edit {
+  background-image: url("../../../../../../assets/images/icons/icon-edit.png");
+  width: 16px;
+  height: 16px;
+  /*float: right;*/
+  /*margin-top: 6px;*/
+  /*margin-right: 8px;*/
+  position: absolute;
+  top: 6px;
+  right: 8px;
+}
+.action-edit:hover {
+  background-image: url("../../../../../../assets/images/icons/icon-edit-hover.png");
+}
+.info_content {
+  padding-left: 40px;
+}
+.info_content h3 {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-15)/var(--unnamed-line-spacing-23) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.45px;
+  color: #230D2C;
+  padding-top: 28px;
+  margin: 0;
+}
+.info span {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.78px;
+  color: #A79EAA;
+}
+.mt-1-9 {
+  margin-top: 1.9rem;
+}
+.short_desc p {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-20) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.36px;
+  color: #230D2C;
+}
+/*.action_icon {*/
+/*  padding-bottom: 4px;*/
+/*}*/
+.action-attach-hover {
+  display: none;
+}
+.action_icon:hover .action-attach-hover {
+  display: inline;
+}
+.action_icon:hover .action-attach {
+  display: none;
+}
+.action-attach, .action-attach-hover {
+  width: 16px;
+  height: 16px;
+}
+.pl_8 {
+  padding-left: 8px;
+}
+::ng-deep.rating-star i {
+  padding-right: 6px;
+}
+::ng-deep.rating-star i:before {
+  font-size: 12px;
+}
+.pt_7 {
+  padding-top: 7px;
+}
+.pt_16 {
+  padding-top: 16px;
+}
+.inherit {
+  color: inherit;
+}
+.d-inline-flex div {
+  padding-bottom: 3px;
+}
+.link {
+  display: inline-block;
+  max-width: 200px;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+.blocked-icon {
+  color: #e37d93;
+  margin-right: 8px;
+  font-size: 16px;
+}

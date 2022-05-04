@@ -94,10 +94,10 @@ export class SidebarComponent implements OnInit {
   }
 
   toggleMenu (sidebar, menu) {
-      sidebar.classList.toggle("sidebar-min");
-      menu.classList.toggle("ps");
-      this.sidebarMin.emit('close');
-      this.isOpen = 0;
+    sidebar.classList.toggle("sidebar-min");
+    menu.classList.toggle("ps");
+    this.sidebarMin.emit('close');
+    this.isOpen = 0;
   }
   subMenu(sidebar, value, it) {
     if (!sidebar.classList.contains('sidebar-min')) {

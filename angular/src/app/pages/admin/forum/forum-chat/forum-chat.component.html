@@ -48,9 +48,9 @@
                     </audio>
                   </div>
                   <div class="cursor-pointer" (click)="download(forum.message_files[0])"
-                    *ngIf="!forum.message_files[0].file_mime_type.includes('image') && !forum.message_files[0].file_mime_type.includes('audio')">
+                       *ngIf="!forum.message_files[0].file_mime_type.includes('image') && !forum.message_files[0].file_mime_type.includes('audio')">
                     <img id="myImg" class="message_image" style="object-fit: scale-down; width: 100px; height: 60px"
-                      src="../../../../../../assets/images/icons/btn-upload.png">
+                         src="../../../../../../assets/images/icons/btn-upload.png">
                     <p style="word-break: break-all;">{{forum.message_files[0].file_name}}</p>
                   </div>
                 </div>
@@ -78,12 +78,12 @@
                           {{helperService.translation?.edit}}</a>
                       </li>
                       <li (click)="popup.deleteModal(forum)" *ngIf="forum.message_is_owner"><a><img src="assets/images/icons/icon-delete.png"
-                            alt="icon">
-                          {{helperService.translation?.delete}}</a></li>
-                          <li (click)="reportModal.showModal(forum)"><a>
-                            <img src="assets/images/icons/icon-exclamation.png" alt="icon">
-                            {{helperService.translation?.report}}
-                          </a></li>
+                                                                                                    alt="icon">
+                        {{helperService.translation?.delete}}</a></li>
+                      <li (click)="reportModal.showModal(forum)"><a>
+                        <img src="assets/images/icons/icon-exclamation.png" alt="icon">
+                        {{helperService.translation?.report}}
+                      </a></li>
                     </ul>
                   </div>
                 </div>
@@ -91,8 +91,8 @@
             </div>
           </div>
           <div class="repliestext"
-            *ngIf="forum.message_replies.length !== 0 && socketConnect.openReplies != forum.message_id"
-            style="padding: 16px 60px 0;">
+               *ngIf="forum.message_replies.length !== 0 && socketConnect.openReplies != forum.message_id"
+               style="padding: 16px 60px 0;">
             <p (click)="hideShow(forum.message_id, index)"> {{forum.message_replies.length}} Replies |
               {{helperService.translation?.view_all_reply}}</p>
           </div>
@@ -100,10 +100,10 @@
 
 
         <div class="replies"
-          [@openClose]="forum.message_replies.length != 0 && forum.message_id == socketConnect.openReplies ? 'open' : 'closed'"
-          [style]="forum.message_replies.length != 0 && forum.message_id == socketConnect.openReplies ? 'padding: 8px 0 0 50px;' : ''">
+             [@openClose]="forum.message_replies.length != 0 && forum.message_id == socketConnect.openReplies ? 'open' : 'closed'"
+             [style]="forum.message_replies.length != 0 && forum.message_id == socketConnect.openReplies ? 'padding: 8px 0 0 50px;' : ''">
           <div *ngFor="let repli of forum.message_replies, let index = index" class="info d-flex"
-            style="padding-bottom: 8px;">
+               style="padding-bottom: 8px;">
             <div class="userImg">
               <img src="{{repli.message_send_by?.user_image}}" alt="">
             </div>
@@ -122,7 +122,7 @@
                     <span class="date">
 
                       {{
-                        dateFormatForReplies(repli.message_updated_at)
+                      dateFormatForReplies(repli.message_updated_at)
                       }}
                     </span>
                   </div>
@@ -148,9 +148,9 @@
                     </audio>
                   </div>
                   <div class="cursor-pointer" (click)="download(repli.message_files[0])"
-                    *ngIf="!repli.message_files[0].file_mime_type.includes('image') && !repli.message_files[0].file_mime_type.includes('audio')">
+                       *ngIf="!repli.message_files[0].file_mime_type.includes('image') && !repli.message_files[0].file_mime_type.includes('audio')">
                     <img id="myImg" class="message_image" style="object-fit: scale-down; width: 100px; height: 60px"
-                      src="../../../../../../assets/images/icons/btn-upload.png">
+                         src="../../../../../../assets/images/icons/btn-upload.png">
                     <p style="word-break: break-all;">{{repli.message_files[0].file_name}}</p>
                   </div>
                 </div>
@@ -179,12 +179,12 @@
                           {{helperService.translation?.edit}}</a>
                       </li>
                       <li (click)="popup.deleteModal(repli)" *ngIf="repli.message_is_owner"><a><img src="assets/images/icons/icon-delete.png"
-                            alt="icon">
-                          {{helperService.translation?.delete}}</a></li>
-                    <li (click)="reportModal.showModal(repli)"><a>
-                      <img src="assets/images/icons/icon-exclamation.png" alt="icon">
-                      {{helperService.translation?.report}}
-                    </a></li>
+                                                                                                    alt="icon">
+                        {{helperService.translation?.delete}}</a></li>
+                      <li (click)="reportModal.showModal(repli)"><a>
+                        <img src="assets/images/icons/icon-exclamation.png" alt="icon">
+                        {{helperService.translation?.report}}
+                      </a></li>
                     </ul>
                   </div>
                 </div>
@@ -194,8 +194,8 @@
         </div>
 
         <div class="repliestext"
-          *ngIf="socketConnect.openReplies == forum.message_id || socketConnect.forBackAllComment"
-          style="padding: 0 100px;">
+             *ngIf="socketConnect.openReplies == forum.message_id || socketConnect.forBackAllComment"
+             style="padding: 0 100px;">
           <p (click)="hideShow(forum.message_id, index);mRepliID = undefined; socketConnect.forBackAllComment = false">{{forum.message_replies.length == 0 ? helperService.translation?.cancel : helperService.translation?.hide_reply}}
           </p>
 
@@ -220,23 +220,23 @@
         <div class="textInput">
           <div class="position-relative hov" #parent>
             <textarea [style]="editMessageContent ? 'padding-right: 85px;' : mRepliID ? 'padding-right: 100px' : ''" class="message_filed" id="formInput"
-              autofocus placeholder="{{helperService.translation?.enter_text}}" type="text"
-              formControlName="message_content"> </textarea>
+                      autofocus placeholder="{{helperService.translation?.enter_text}}" type="text"
+                      formControlName="message_content"> </textarea>
             <div (click)="uploader.click()" class="fileUpload">
               <img class="search-attach" src="assets/images/icons/icon-attach.png" alt="icon">
               <img class="search-attach-hover" src="assets/images/icons/icon-attach (Hover State).png" alt="icon">
             </div>
 
             <button type="button" class="btn create-post"
-              style="position: absolute; top: 1px; right: 13px; padding: 6px;"
-              [style]="mRepliID ? 'right: 35px;' : ''"
-              (click)="formMessage.patchValue({ message_content: '' }); editMessageContent = undefined; mRepliID = undefined"
-              *ngIf="editMessageContent || mRepliID">
+                    style="position: absolute; top: 1px; right: 13px; padding: 6px;"
+                    [style]="mRepliID ? 'right: 35px;' : ''"
+                    (click)="formMessage.patchValue({ message_content: '' }); editMessageContent = undefined; mRepliID = undefined"
+                    *ngIf="editMessageContent || mRepliID">
               {{helperService.translation?.cancel}}
             </button>
             <button type="button" class="btn create-post"
-              style="position: absolute;top: 0;right: 0;padding: 8px;left: 0;width: 100%;"
-              (click)="startRecord = !startRecord; startStop()" *ngIf="startRecord && !error">
+                    style="position: absolute;top: 0;right: 0;padding: 8px;left: 0;width: 100%;"
+                    (click)="startRecord = !startRecord; startStop()" *ngIf="startRecord && !error">
               <span> {{helperService.translation?.stop_submit}} </span>
             </button>
             <div

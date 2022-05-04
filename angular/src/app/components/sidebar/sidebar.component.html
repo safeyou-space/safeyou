@@ -2,71 +2,85 @@
   <div class="logo-block">
     <img class="cursor-pointer" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/dashboard" src="assets/images/img/safeyou-logo.png" alt="logo">
   </div>
-    <div class="sidebar-menu-block">
-      <div #sidebarNav class="sidebar-nav ps">
-        <ul class="my-nav" #menu>
-          <li *ngIf="access?.dashboard || is_admin == true"
-              class="border-bottom-item" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
-            <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/dashboard">
+  <div class="sidebar-menu-block">
+    <div #sidebarNav class="sidebar-nav ps">
+      <ul class="my-nav" #menu>
+        <li *ngIf="access?.dashboard || is_admin == true"
+            class="border-bottom-item" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
+          <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/dashboard">
             <span class="images">
               <img src="assets/images/icons/icon-dashboard.png" class="icon" alt="image">
               <img src="assets/images/icons/icon-dashboard(HoverState).png" class="hover-image" alt="image">
             </span>
-              <span class="menu-text">{{helperService.translation?.dashboard}}</span>
-            </a>
-          </li>
-          <li *ngIf="access?.forum || is_admin == true" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
-            <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/forum">
+            <span class="menu-text">{{helperService.translation?.dashboard}}</span>
+          </a>
+        </li>
+        <li *ngIf="access?.forum || is_admin == true" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
+          <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/forum">
             <span class="images">
                 <img src="assets/images/icons/icon-forum.png" class="icon" alt="image">
                 <img src="assets/images/icons/icon-forum(HoverState).png" class="hover-image" alt="image">
             </span>
-              <span class="menu-text">{{helperService.translation?.forums}}</span>
-            </a>
-          </li>
-          <li *ngIf="access?.podcasts || is_admin == true" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
-            <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/podcast">
-              <img src="assets/images/icons/icon-microphone.png" class="icon" alt="image">
-              <img src="assets/images/icons/icon-microphone(HoverState).png" class="hover-image" alt="image">
-              <span class="menu-text">{{helperService.translation?.podcasts}}</span>
-            </a>
-          </li>
-          <li [@openClose]="isOpen != 0  ? 'closed' : 'open'"
-              [ngClass]="is_admin == true && this.role != 'Emergency' ? 'border-bottom-item' : ''"
-          >
-            <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/communication">
-              <img src="assets/images/icons/icon-messages.png" class="icon" alt="image">
-              <img src="assets/images/icons/icon-messages(HoverState).png" class="hover-image" alt="image">
-              <span class="menu-text">{{helperService.translation?.communication}}</span>
-            </a>
-          </li>
-          <li *ngIf="this.role != 'Emergency' && this.role != 'Consultant'"
-              class="border-bottom-item parent-menu position-relative" #it [@openClose]="isOpen == 2 ? 'parents-closed' : 'parents-open'">
-            <a class="link link-arrow" (click)="subMenu(sidebar, 1, it)">
-              <img src="assets/images/icons/icon-profile.png" class="icon" alt="image">
-              <img src="assets/images/icons/icon-profile(HoverState).png" class="hover-image" alt="image">
-              <span class="menu-text">{{helperService.translation?.users}}</span>
-            </a>
-            <ul [@openClose]="isOpen == 1 ? 'open' : 'closed'" class="sub-menu" #submenu>
-              <li *ngIf="access?.user || is_admin == true" [@openClose]="isOpen == 1 ? 'open' : 'closed'">
-                <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/users">
-                  <img src="assets/images/icons/icon-app-user.png" class="icon" alt="image">
-                  <img src="assets/images/icons/icon-app-user(HoverState).png" class="hover-image" alt="image">
-                  <span class="menu-text">{{helperService.translation?.app_users}}</span>
-                </a>
-              </li>
-              <li *ngIf="access?.emergency_service || is_admin == true" [@openClose]="isOpen == 1 ? 'open' : 'closed'">
-                <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/organizations">
-                  <img src="assets/images/icons/icon-ngo.png" class="icon" alt="image">
-                  <img src="assets/images/icons/icon-ngo(HoverState).png" class="hover-image" alt="image">
-                  <span class="menu-text">{{helperService.translation?.organizations}}</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+            <span class="menu-text">{{helperService.translation?.forums}}</span>
+          </a>
+        </li>
+        <li *ngIf="access?.podcasts || is_admin == true" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
+          <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/podcast">
+            <img src="assets/images/icons/icon-microphone.png" class="icon" alt="image">
+            <img src="assets/images/icons/icon-microphone(HoverState).png" class="hover-image" alt="image">
+            <span class="menu-text">{{helperService.translation?.podcasts}}</span>
+          </a>
+        </li>
+        <li [@openClose]="isOpen != 0  ? 'closed' : 'open'"
+            [ngClass]="is_admin == true && this.role != 'Emergency' ? 'border-bottom-item' : ''"
+        >
+          <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/communication">
+            <img src="assets/images/icons/icon-messages.png" class="icon" alt="image">
+            <img src="assets/images/icons/icon-messages(HoverState).png" class="hover-image" alt="image">
+            <span class="menu-text">{{helperService.translation?.communication}}</span>
+          </a>
+        </li>
+        <li *ngIf="access?.beneficiaries || is_admin == true && this.role == 'Emergency'" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
+          <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/beneficiary">
+            <img src="assets/images/icons/icon-pin.png" class="icon" alt="image">
+            <img src="assets/images/icons/icon-pin(HoverState).png" class="hover-image" alt="image">
+            <span class="menu-text">{{helperService.translation?.beneficiary}}</span>
+          </a>
+        </li>
+        <li *ngIf="this.role != 'Emergency' && this.role != 'Consultant'"
+            class="border-bottom-item parent-menu position-relative" #it [@openClose]="isOpen == 2 ? 'parents-closed' : 'parents-open'">
+          <a class="link link-arrow" (click)="subMenu(sidebar, 1, it)">
+            <img src="assets/images/icons/icon-profile.png" class="icon" alt="image">
+            <img src="assets/images/icons/icon-profile(HoverState).png" class="hover-image" alt="image">
+            <span class="menu-text">{{helperService.translation?.users}}</span>
+          </a>
+          <ul [@openClose]="isOpen == 1 ? 'open' : 'closed'" class="sub-menu" #submenu>
+            <li *ngIf="access?.user || is_admin == true" [@openClose]="isOpen == 1 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/users">
+                <img src="assets/images/icons/icon-app-user.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-app-user(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.app_users}}</span>
+              </a>
+            </li>
+            <li *ngIf="access?.emergency_service || is_admin == true" [@openClose]="isOpen == 1 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/organizations">
+                <img src="assets/images/icons/icon-ngo.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-ngo(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.organizations}}</span>
+              </a>
+            </li>
+            <li *ngIf="access?.consultant || is_admin == true" [@openClose]="isOpen == 1 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/consultants">
+                <img src="assets/images/icons/icon-consultant.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-consultant(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.consultants}}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
+  </div>
   <div class="sidebar-toggle-block">
     <div class="sidebar-toggle-image-block" (click)="toggleMenu(sidebar, sidebarNav)">
       <img class="arrow-back-image" src="assets/images/icons/icon-arrow-back.png" alt="image">

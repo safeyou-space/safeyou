@@ -16,6 +16,9 @@ import { RateStarsComponent } from './utils/rate-stars/rate-stars.component';
 import {InfoModalComponent} from "./utils/info-modal/info-modal.component";
 import {MapComponent} from "./utils/map/map.component";
 import {DurationPipe} from "../shared/durationPipe/duration.pipe";
+import {TrimDirective} from "../shared/Directives/trim.directive";
+import { RatingModalComponent } from './utils/rating-modal/rating-modal.component';
+import { RatingViewComponent } from './utils/rating-view/rating-view.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import {DurationPipe} from "../shared/durationPipe/duration.pipe";
     RateStarsComponent,
     InfoModalComponent,
     MapComponent,
-    DurationPipe
+    DurationPipe,
+    TrimDirective,
+    RatingModalComponent,
+    RatingViewComponent
   ],
   exports: [
     HeaderComponent,
@@ -43,7 +49,10 @@ import {DurationPipe} from "../shared/durationPipe/duration.pipe";
     RateStarsComponent,
     InfoModalComponent,
     MapComponent,
-    DurationPipe
+    DurationPipe,
+    TrimDirective,
+    RatingModalComponent,
+    RatingViewComponent
   ],
   imports: [
     CommonModule,

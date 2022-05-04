@@ -1,10 +1,10 @@
 <div class="head-forum-view">
   <div style="padding: 8px 24px;">
-    <button *ngIf="access.indexOf('create') != -1" (click)="showForm(); this.addTechnology();" [@page]="!addProfession ? 'open' : 'closed'"
+    <button (click)="showForm(); this.addTechnology();" [@page]="!addProfession ? 'open' : 'closed'"
             class="button-style position-absolute">
-      {{helperService.translation?.add_category}}
+      {{helperService.translation?.add_profession}}
     </button>
-    <div *ngIf="access.indexOf('edit') != -1">
+    <div >
       <button  type="button" (click)="cancelProfession()" [@page]="addProfession ? 'open' : 'closed'"
                class="button-style" >
         {{helperService.translation?.cancel}}
@@ -32,9 +32,9 @@
     <table  class="table m-0 admin-table" *ngIf="this.data && !this.data['message']">
       <thead>
       <tr>
-        <th>{{helperService.translation?.categories}}
-          <span [ngClass]="sortingValue['title'] && sortingValue['title'] == 'ASC' ? 'rotate' : ''"
-                (click)="sorting('title', 'ASC')" class="admin-table-th">
+        <th>{{helperService.translation?.profession}}
+          <span [ngClass]="sortingValue['profession'] && sortingValue['profession'] == 'ASC' ? 'rotate' : ''"
+                (click)="sorting('profession', 'ASC')" class="admin-table-th">
           </span>
         </th>
         <th>{{helperService.translation?.status}}
@@ -51,10 +51,10 @@
         <td>{{item?.status == 1 ? helperService.translation?.active : helperService.translation?.in_active}}</td>
         <td class="actions">
           <ul class="action_list">
-            <li *ngIf="access.indexOf('edit') != -1">
+            <li>
               <a><img (click)="showForm(item)" src="assets/images/icons/icon-edit.png" alt="icon"></a>
             </li>
-            <li *ngIf="access.indexOf('delete') != -1">
+            <li>
               <a><img (click)="popup.deleteModal(item.id)" src="assets/images/icons/icon-delete.png" alt="icon"></a>
             </li>
           </ul>
@@ -77,13 +77,13 @@
 
   <div [@page]="addProfession ? 'open' : 'closed'">
     <form class="data-form" [formGroup]="formProfession">
-      <h4 class="title_profession">{{helperService.translation?.category_name}}</h4>
+      <h4 class="title_profession">{{helperService.translation?.profession_name}}</h4>
       <div class="form-group">
-        <label [ngClass]="(formProfession.controls.title?.invalid &&
-        (formProfession.controls.title?.dirty || formProfession.controls.title?.touched)) ? 'invalid-label-color' : ''">{{helperService.translation?.category_name}} *</label>
-        <input type="text" class="form-control" formControlName="title">
-        <div *ngIf="!formProfession.controls.title?.valid && (formProfession.controls.title?.dirty || formProfession.controls.title?.touched)">
-          <span class="error-message">{{helperService.translation?.category_name_required}}</span>
+        <label [ngClass]="(formProfession.controls.profession?.invalid &&
+        (formProfession.controls.profession?.dirty || formProfession.controls.profession?.touched)) ? 'invalid-label-color' : ''">{{helperService.translation?.profession_name}} *</label>
+        <input type="text" class="form-control" formControlName="profession">
+        <div *ngIf="!formProfession.controls.profession?.valid && (formProfession.controls.profession?.dirty || formProfession.controls.profession?.touched)">
+          <span class="error-message">{{helperService.translation?.profession_name_required}}</span>
         </div>
       </div>
       <div formArrayName="translations">
@@ -100,6 +100,7 @@
         </div>
       </div>
     </form>
+
   </div>
 </div>
 

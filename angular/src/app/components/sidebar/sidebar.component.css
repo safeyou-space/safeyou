@@ -246,7 +246,7 @@ ul li{
   overflow: visible;
 }
 .sidebar-min .sidebar-menu-block ul li:hover .link-arrow::after {
- transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
 }
 .sidebar-min .sidebar-menu-block ul li.parent-menu {
   position: relative;

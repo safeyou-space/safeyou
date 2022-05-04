@@ -99,6 +99,34 @@ import {BehaviorSubject, Subscription} from "rxjs";
         animate('0.6s ease-in-out')
       ]),
     ]),
+    trigger('showRates', [
+      state('open', style({
+        opacity: '1',
+        visibility: 'visible',
+      })),
+      state('closed', style({
+        opacity: 0,
+        visibility: 'hidden',
+        overflow: 'hidden'
+      })),
+      transition('open <=> closed', [
+        animate('0.8s ease-in-out')
+      ]),
+
+      state('show', style({
+        width: 590,
+        opacity: 1,
+        visibility: 'visible'
+      })),
+      state('hide', style({
+        width: 0,
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+      transition('show <=> hide', [
+        animate('0.8s ease-in-out')
+      ]),
+    ])
   ],
 })
 export class ForumComponent implements OnInit, OnDestroy {
@@ -129,6 +157,9 @@ export class ForumComponent implements OnInit, OnDestroy {
   subscribe!: Subscription;
   access: any = ['list', 'view', 'edit', 'create', 'delete'];
   filterUrl: any = '';
+  rates: any;
+  showRateList = false;
+  itemValue: any;
 
   constructor(public requestService: RequestService,
               public activateRoute: ActivatedRoute,
@@ -152,13 +183,13 @@ export class ForumComponent implements OnInit, OnDestroy {
     this.helperService.invokeEvent.subscribe(value => {
       if (value == true)
         this.chatOpen = true;
-        document.getElementsByClassName('middleview')[0].children[0]['style']['height'] = 'calc(100vh - 115px';
-        document.getElementsByClassName('middleview')[0].children[0]['style']['padding'] = 0;
+      document.getElementsByClassName('middleview')[0].children[0]['style']['height'] = 'calc(100vh - 115px';
+      document.getElementsByClassName('middleview')[0].children[0]['style']['padding'] = 0;
     });
 
     this.helperService.forumGet.subscribe((item) => {
       if (item)
-         this.viewData(item)
+        this.viewData(item)
     });
 
     this.socketConnect.navigateForum.subscribe( res => {
@@ -175,7 +206,7 @@ export class ForumComponent implements OnInit, OnDestroy {
         }, err => {
 
           if (err.trim() == 'Not Found') {
-              this.helperService.show404.next(false);
+            this.helperService.show404.next(false);
           }
         })
       }
@@ -184,9 +215,9 @@ export class ForumComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.socketConnect.forBackAllComment = false;
-      this.socketConnect.messageFromNotificationUrl2 = false;
-      this.socketConnect.navigateForum = new BehaviorSubject(false);
+    this.socketConnect.forBackAllComment = false;
+    this.socketConnect.messageFromNotificationUrl2 = false;
+    this.socketConnect.navigateForum = new BehaviorSubject(false);
   }
 
   getData(url) {
@@ -227,6 +258,7 @@ export class ForumComponent implements OnInit, OnDestroy {
 
 
   viewData(item, type?, res?) {
+    this.showRateList = false;
     this.viewItem = item;
     this.bool = true;
     this.categoryList = false;
@@ -246,30 +278,29 @@ export class ForumComponent implements OnInit, OnDestroy {
 
 
     if (type == 'comment') {
-        this.bool = true;
-        this.helperService.callMethodOfSecondComponent(this.bool);
+      this.bool = true;
+      this.helperService.callMethodOfSecondComponent(this.bool);
 
-        if (res) {
-          this.socketConnect.forBackAllComment = true;
-          let messageId;
-          if (res.notify_body) {
-              messageId = res.notify_body.message_parent_id ? res.notify_body.message_parent_id : res.notify_body.message_id || res.notify_body.comment_id;
-          } else {
-              messageId = res.body.message_parent_id ? res.body.message_parent_id : res.body.message_id || res.body.comment_id;
-          }
-          let roomKey;
-
-          if (res.notify_body) {
-            roomKey = res.notify_body.message_room_key || res.notify_body.room_key;
-          } else {
-            roomKey = res.body.message_room_key || res.body.room_key;
-          }
-
-          this.socketConnect.messageFromNotificationUrl = environment.admin.communication + roomKey + '/messages/' + messageId + '/list';
+      if (res) {
+        this.socketConnect.forBackAllComment = true;
+        let messageId;
+        if (res.notify_body) {
+          messageId = res.notify_body.message_parent_id ? res.notify_body.message_parent_id : res.notify_body.message_id || res.notify_body.comment_id;
+        } else {
+          messageId = res.body.message_parent_id ? res.body.message_parent_id : res.body.message_id || res.body.comment_id;
         }
-        this.socketConnect.callForumChat(item.id);
-    }
+        let roomKey;
 
+        if (res.notify_body) {
+          roomKey = res.notify_body.message_room_key || res.notify_body.room_key;
+        } else {
+          roomKey = res.body.message_room_key || res.body.room_key;
+        }
+
+        this.socketConnect.messageFromNotificationUrl = environment.admin.communication + roomKey + '/messages/' + messageId + '/list';
+      }
+      this.socketConnect.callForumChat(item.id);
+    }
   }
 
   changeLanguage(code, id) {
@@ -317,6 +348,7 @@ export class ForumComponent implements OnInit, OnDestroy {
       ForumEditCreateComponent.instance.formGet();
       ForumEditCreateComponent.instance.getCategoryList();
       ForumEditCreateComponent.instance.getDataById(id, 'edit');
+      this.showRateList = false;
     } else if (type == 'create_post') {
       this.chatOpen = false;
       this.bool = false;
@@ -430,6 +462,18 @@ export class ForumComponent implements OnInit, OnDestroy {
       this.allPageDataMyForum['current_page'] = 1;
     }
     this.forumsType == 1 ? this.getData(this.urlConstructor('all')) : this.getMyForums(this.urlConstructor());
+  }
+
+  showRates(value: any) {
+    this.rates = value.rates
+    this.showRateList = true;
+    this.itemValue = value;
+    // this.id = value.id;
+    this.requestService.getViewId(value);
+  }
+
+  closeRatingView () {
+    this.showRateList = false;
   }
 
 }

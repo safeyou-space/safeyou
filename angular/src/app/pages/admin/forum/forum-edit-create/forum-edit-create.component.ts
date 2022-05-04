@@ -66,7 +66,8 @@ export class ForumEditCreateComponent implements OnInit {
         'ImageResize',
         '|',
         'imageTextAlternative'
-      ]
+      ],
+      previewsInData: true
     },
     language: 'en',
   };
@@ -92,10 +93,10 @@ export class ForumEditCreateComponent implements OnInit {
 
 
   constructor(public requestService: RequestService,
-    public activateRoute: ActivatedRoute,
-    public helperService: HelperService,
-    public fb: FormBuilder,
-    private toastr: ToastrService) {
+              public activateRoute: ActivatedRoute,
+              public helperService: HelperService,
+              public fb: FormBuilder,
+              private toastr: ToastrService) {
     ForumEditCreateComponent.instance = this;
     this.language = this.activateRoute.snapshot.params['language'];
     this.country = this.activateRoute.snapshot.params['country'];
@@ -233,7 +234,7 @@ export class ForumEditCreateComponent implements OnInit {
           for (let item in this.form.value['translations']) {
             for (let res in this.form.value['translations'][item]) {
               if (this.form.value['translations'][item][res]) {
-                data.append(`translations[${item}][${res}]`, this.form.value['translations'][item][res]);
+                data.append(`translations[${item}][${res}]`, this.form.value['translations'][item][res].replaceAll('&nbsp;', ' '));
               }
             }
           }

@@ -17,12 +17,12 @@
   position: relative;
 }
 .drag-and-drop-container {
-    max-width: 100%;
-    height: 100%;
-    padding: 25px 8px 16px 8px;
-    text-align: center;
-    border: 1px dashed #EA9DAE;
-    line-height: 242px;
+  max-width: 100%;
+  height: 100%;
+  padding: 25px 8px 16px 8px;
+  text-align: center;
+  border: 1px dashed #EA9DAE;
+  line-height: 242px;
 }
 .drag-and-drop-container input {
   cursor: pointer;
@@ -147,10 +147,10 @@
   margin-bottom: 21px;
 }
 .imgandtext h3 span {
-    color: #A79EAA;
-    letter-spacing: 0.26px;
-    font-size: 12px;
-    font-family: 'HayRoboto, Regular';
+  color: #A79EAA;
+  letter-spacing: 0.26px;
+  font-size: 12px;
+  font-family: 'HayRoboto, Regular';
 }
 
 .inputgroup {
@@ -160,11 +160,11 @@
   width: 100%;
 }
 ::ng-deep .card-header {
-    height: 40px;
-    padding: 0;
-    background: #fff;
-    border-bottom: 1px solid #fbedf0;
-    border-radius: 16px!important;
+  height: 40px;
+  padding: 0;
+  background: #fff;
+  border-bottom: 1px solid #fbedf0;
+  border-radius: 16px!important;
 }
 ::ng-deep .panel-body {
   padding: 24px;

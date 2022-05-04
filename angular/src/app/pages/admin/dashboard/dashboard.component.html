@@ -67,14 +67,17 @@
             <div class="profile-message">
               <p>{{item.room_name}}</p>
               <div class="profile-message-block">
-               <span *ngIf="!item.typing" class="message">
+               <span *ngIf="!item.typing" [ngClass]="item.new_message ? 'font-weight-bold' : ''" class="message">
               {{item.room_last_message != null && item.room_last_message.message_content != undefined &&
-              item.room_last_message.message_content != null ? item.room_last_message.message_content :
-              item.room_last_message && item.room_last_message.message_files.length > 0 ?
-              helperService.translation?.sent_a_file : helperService.translation?.not_new_message}}
+               item.room_last_message.message_content != null ? item.room_last_message.message_content :
+                 item.room_last_message && item.room_last_message.message_files.length > 0 ?
+                   helperService.translation?.sent_a_file : helperService.translation?.not_new_message}}
             </span>
-                <span style="position: absolute;right: 61px;">{{item.room_last_message && item.room_last_message.time ?
-              item.room_last_message.time : item.time}}</span>
+                <span style="position: absolute;right: 61px;">
+                  <i *ngIf="item.new_message" class="fa fa-commenting-o new-message-icon" aria-hidden="true"></i>
+                  {{item.room_last_message && item.room_last_message.time ?
+                  item.room_last_message.time : item.time}}
+                </span>
               </div>
             </div>
             <div class="profile-action text-right" style="margin-top: 7px;">

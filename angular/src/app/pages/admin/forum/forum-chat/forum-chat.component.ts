@@ -72,10 +72,10 @@ export class ForumChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   });
 
   constructor(public helperService: HelperService,
-    public socketConnect: SocketConnectionService,
-    private requestService: RequestService,
-    private router: Router,
-    private changeDetector: ChangeDetectorRef) { }
+              public socketConnect: SocketConnectionService,
+              private requestService: RequestService,
+              private router: Router,
+              private changeDetector: ChangeDetectorRef) { }
 
 
   forumIdInCummunication(user) {
@@ -145,19 +145,19 @@ export class ForumChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   getFullMessages() {
     this.socketConnect.messages = [];
-      this.socketConnect.openReplies = false;
-      this.socketConnect.messageFromNotificationUrl2 = false;
-      this.requestService.getData(environment.admin.communication + this.socketConnect.active + '/messages/list?skip=0&limit=30', true).subscribe((item) => {
-        for (let i = 0; i < item['data'].length; i++) {
-          this.socketConnect.messagesPush(item['data'][i]);
-        }
-        this.socketConnect.messageFromNotificationUrlPagination = true;
-        setTimeout(() => {
-          this.socketConnect.scrollBottom = true;
-          this.socketConnect.forForumScroll = true;
-          this.submit();
-        }, 0);
-      });
+    this.socketConnect.openReplies = false;
+    this.socketConnect.messageFromNotificationUrl2 = false;
+    this.requestService.getData(environment.admin.communication + this.socketConnect.active + '/messages/list?skip=0&limit=30', true).subscribe((item) => {
+      for (let i = 0; i < item['data'].length; i++) {
+        this.socketConnect.messagesPush(item['data'][i]);
+      }
+      this.socketConnect.messageFromNotificationUrlPagination = true;
+      setTimeout(() => {
+        this.socketConnect.scrollBottom = true;
+        this.socketConnect.forForumScroll = true;
+        this.submit();
+      }, 0);
+    });
   }
 
   ngOnInit(): void {
@@ -313,7 +313,7 @@ export class ForumChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.socketConnect.forBackAllComment = false;
 
     if (!this.mRepliID && this.socketConnect.messageFromNotificationUrl2 && !this.editMessageContent) {
-        this.getFullMessages();
+      this.getFullMessages();
     } else {
       this.submit();
     }

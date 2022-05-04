@@ -1,0 +1,129 @@
+<div class="content">
+  <div class="content-head">
+    <div class="filter-block-header">
+      <div>
+        <h4 class="head-title">{{helperService?.translation?.filter}}</h4>
+      </div>
+      <div class="close-button-btn">
+        <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+  <div class="content-body">
+    <form [formGroup]="form">
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.categories}}</h4>
+        <div class="category-form">
+          <ul class="filter-list">
+            <li *ngFor="let item of categoryList, let i = index">
+              <label class="checkbox-item" *ngIf="i < this.showAllCategoriesCount">
+                <input type="checkbox" formControlName="positions" (change)="changeInputValue($event, item.id)" [value]="item.id" id="category-{{i}}" name="category">
+                <label for="category-{{i}}"></label>
+                <span>{{item.value}}</span>
+              </label>
+            </li>
+          </ul>
+          <div *ngIf="categoryList.length > 8 && this.showAllCategoriesCount == 8" class="d-inline-block position-relative hover-state">
+            <span class="all-categories-button" (click)="showAllCategories()">{{helperService?.translation?.all_categories}}</span>
+            <span class="to-down">{{helperService?.translation?.all_categories}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.forum_count}}</h4>
+        <div class="category-form">
+          <ul class="filter-list">
+            <li>
+              <label class="checkbox-item">
+                <input type="radio" formControlName="forums_count" value='5-' id="category-9" name="forums_count">
+                <label for="category-9"></label>
+                <span>5-</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input type="radio" formControlName="forums_count" value='5+' id="category-10" name="forums_count">
+                <label for="category-10"></label>
+                <span>5+</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input type="radio" formControlName="forums_count" value='10+' id="category-11" name="forums_count">
+                <label for="category-11"></label>
+                <span>10+</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input type="radio" formControlName="forums_count" value='20+' id="category-12" name="forums_count">
+                <label for="category-12"></label>
+                <span>20+</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService?.translation?.comment_count}}</h4>
+        <div class="category-form">
+          <ul class="filter-list">
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="forums_comment_count" value='5-' type="radio" id="category-26" name="forums_comment_count">
+                <label for="category-26"></label>
+                <span>5-</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="forums_comment_count" value='5+' type="radio" id="category-27" name="forums_comment_count">
+                <label for="category-27"></label>
+                <span>5+</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="forums_comment_count" value='10+' type="radio" id="category-20" name="forums_comment_count">
+                <label for="category-20"></label>
+                <span>10+</span>
+              </label>
+            </li>
+            <li>
+              <label class="checkbox-item">
+                <input formControlName="forums_comment_count" value='20+' type="radio" id="category-21" name="forums_comment_count">
+                <label for="category-21"></label>
+                <span>20+</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="categories-block">
+        <h4 class="category-title">{{helperService.translation?.status}}</h4>
+        <div class="age-block">
+          <div class="age-text">
+          </div>
+          <div>
+            <label class="switch m-0">
+              <input type="checkbox" formControlName="status" [checked]='0'>
+              <div>
+                <span></span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="content-footer">
+    <div class="footer-action-block">
+      <div class="clear-all-text cursor-pointer" (click)="clearValues()">
+        <i class="fa fa-times cursor-pointer" aria-hidden="true"></i> {{helperService?.translation?.delete_all}}
+      </div>
+      <div>
+        <button (click)="save()" class="footer-button">{{helperService?.translation?.results}} {{allData && !allData['message'] ? allData.total : '0'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

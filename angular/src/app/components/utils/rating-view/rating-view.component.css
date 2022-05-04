@@ -1,0 +1,41 @@
+@import "../../../../assets/css/admin-table.css";
+.all-content {
+  /*padding: 0 22px;*/
+  width: 590px;
+  box-shadow: 23px 0px 50px 1px #aaaaaa;
+  height: 100vh;
+  overflow-y: auto;
+}
+.scrolling::-webkit-scrollbar {
+  width: 3px;
+  position: absolute;
+}
+.scrolling::-webkit-scrollbar-track {
+  background-color: #E37D93;
+
+}
+.scrolling::-webkit-scrollbar-thumb {
+  background: #fff;
+  height: 10px;
+}
+.content-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 22px;
+  border-bottom: 1px solid #F8DEE4;
+  background: #FEFBFC 0% 0% no-repeat padding-box;
+}
+.content-body {
+  padding: 24px 22px 0;
+}
+.content-head-title {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-16)/var(--unnamed-line-spacing-25) var(--unnamed-font-family-hayroboto);
+  letter-spacing: var(--unnamed-character-spacing-0-64);
+  color: var(--unnamed-color-230d2c);
+  text-align: left;
+}
+.close-button-btn {
+  color: #E37D93;
+}

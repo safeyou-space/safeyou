@@ -1,0 +1,80 @@
+<div *ngIf="isModalShown" [config]="{ show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-dialog-centered rating-modal">
+    <div class="modal-content">
+      <div class="modal-header rating-modal-header">
+        <h4 id="dialog-auto-name" class="modal-title pull-left">{{helperService.translation?.report_my}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body rating-modal-body">
+        <div>
+          <div class="user-info-block">
+            <div class="user-image-block">
+              <img src="{{this.requestService.imgSite + (data?.emergency_service ? data?.emergency_service?.image?.url : data?.forum?.image?.url)}}" onError="this.src='assets/images/img/no-image.png'" alt="User image">
+            </div>
+            <div class="user-info-block-text">
+              <div class="d-flex flex-column justify-content-center h-100">
+<!--                <p class="user-block-title">Կանանց իրավունքների վերաբերյալ տեղեկություն:</p>-->
+                <p class="user-block-title">{{data?.emergency_service ? data?.emergency_service?.title : data?.forum?.title}}</p>
+<!--                <p class="user-block-name">Անի Հակոբյան / ԿՌԿ</p>-->
+                <p class="user-block-name">
+                  {{data?.emergency_service ?
+                  data?.emergency_service?.user_detail?.first_name + ' ' + data?.emergency_service?.user_detail?.last_name + ' / ' + data?.emergency_service?.category?.translation
+                  : data?.forum?.creator?.first_name + ' ' + data?.forum?.creator?.last_name}}</p>
+<!--                <p class="user-block-date">12 դեկտեմբեր, 2020</p>-->
+                <p class="user-block-date">{{data?.emergency_service ? data?.emergency_service?.creation_date : data?.forum?.created_at | date:'dd MMMM, YYYY'}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="date-time-block">
+            <div class="d-flex" style="margin-top: 24px;">
+              <div>
+                <p class="description-style">
+                  <img src="assets/images/icons/icon-profile.png" alt="icon">
+                  {{data?.rater?.username}}
+                </p>
+              </div>
+            </div>
+            <div class="d-flex" style="margin-top: 17px;">
+              <div class="flex-grow-1">
+                <p class="description-style">
+                  <img src="assets/images/icons/icon-calendar.png" alt="icon">
+                  {{data?.updated_at | date:'dd MMMM, YYYY'}}
+                </p>
+              </div>
+              <div class="flex-grow-1">
+                <p class="description-style">
+                  <img src="assets/images/icons/icon-time.png" alt="icon">
+                  {{data?.updated_at | date:'hh:mm'}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="description-rate-block">
+            <div class="rate-block">
+              <p class="rate-title">Գնահատական</p>
+              <div>
+                <app-rate-stars [rating]="data" style="font-size: 28px; display: inline-flex;"></app-rate-stars>
+              </div>
+            </div>
+            <div class="rate-block">
+              <p class="rate-title">Մեկնաբանություն</p>
+              <div>
+                <p class="description-style">
+<!--                  Լոռեմ իպսում դոլոռ սիթ ամեթ, եթ վիմ ռեծթեքուե դիսսենթիեթ.-->
+<!--                  ան նամ լիբեռ նիհիլ, պռի թիմեամ ապեռիամ ին, սիթ ծու նոմինավի մենանդռի.-->
+<!--                  եսթ վիդե դեծոռե-->
+<!--                  ադոլեսծենս թե, սինթ ծիբո ածծումսան պռի աթ. աուգուե դեֆինիթիոնեմ նամ եու,-->
+<!--                  մեա պռոպռիաե ինիմիծուս ծու. եամ նե ծիբո ծոնծլուդաթուռքուե, պեռ եիռմոդ ոծուռռեռեթ եի.-->
+                  {{data?.comment}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

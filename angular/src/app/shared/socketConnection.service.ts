@@ -26,6 +26,7 @@ export class SocketConnectionService {
   scrollBottom = false;
   invokeEvent: Subject<boolean> = new BehaviorSubject<boolean>(false);
   forDashboard: Subject<boolean> = new BehaviorSubject<boolean>(false);
+  forDashboardNewMessageList: Subject<boolean> = new BehaviorSubject<any>(false);
   callForum = false;
   userKey = {};
   forForumScroll = false;
@@ -250,6 +251,14 @@ export class SocketConnectionService {
             }
           }, 500);
         }
+
+        if (!localStorage.getItem('active_room_key') || localStorage.getItem('active_room_key') != signal_data['data']['message_room_key']) {
+          this.newNotifications.unshift({...signal_data['data'], type: 8});
+          const audio = new Audio("assets/audios/notification.wav");
+          audio.play();
+          // this.forDashboard.next(true);
+          this.forDashboardNewMessageList.next(signal_data['data'])
+        }
       } else if (signal_type == environment.SIGNAL_R_JOINED) {
         for (let room of this.userLists) {
           if (room.room_id == signal_data['data'].user_joined_room_id) {
@@ -329,9 +338,9 @@ export class SocketConnectionService {
 
       } else if (signal_type == environment.SIGNAL_NOTIFICATION) {
 
-          this.newNotifications.unshift(signal_data['data']);
-          const audio = new Audio("assets/audios/notification.wav");
-          audio.play();
+        this.newNotifications.unshift(signal_data['data']);
+        const audio = new Audio("assets/audios/notification.wav");
+        audio.play();
       }
     });
 
@@ -351,6 +360,7 @@ export class SocketConnectionService {
             localStorage.setItem('join_room_id', res['data'][0]?.room_key);
           }
           this.active = localStorage.getItem('join_room_id');
+          localStorage.setItem('active_room_key', this.active);
           if (this.active != 'undefined' && this.active != undefined) {
             this.joinRoom();
           }
@@ -429,6 +439,7 @@ export class SocketConnectionService {
       this.activeForumIdAndRoomKey['roomKey'] = k['data']['room_key'];
 
       localStorage.setItem('join_room_id', k['data']['room_key']);
+      localStorage.setItem('active_room_key', k['data']['room_key']);
       this.onlineUsersCount = [];
       for (let o = 0; o < this.rootInfo.room_joined_users.length; o++) {
         this.onlineUsersCount.push(this.rootInfo.room_joined_users[o].user_id);
@@ -445,10 +456,10 @@ export class SocketConnectionService {
         for (let i = 0; i < item['data'].length; i++) {
           this.messagesPush(item['data'][i]);
           if (this.messageFromNotificationUrl) {
-              this.messageFromNotificationUrl2 = true;
-              if (item['data'][i].message_replies.length > 0) {
-                this.openReplies = item['data'][i].message_id;
-              }
+            this.messageFromNotificationUrl2 = true;
+            if (item['data'][i].message_replies.length > 0) {
+              this.openReplies = item['data'][i].message_id;
+            }
           }
         }
 

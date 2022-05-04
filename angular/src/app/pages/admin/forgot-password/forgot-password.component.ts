@@ -27,7 +27,7 @@ import {HelperService} from "../../../shared/helper.service";
         animate('0.5s linear')
       ]),
     ])
-    ]
+  ]
 })
 export class ForgotPasswordComponent implements OnInit {
 
@@ -49,8 +49,10 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   forgotForm() {
-    if (this.forgotEmail.valid) {
-      this.requestService.createData(`${environment.baseUrl}/arm/hy/${environment.admin.forgotPassword}`, this.forgotEmail.value).subscribe((data) => {
+    let countryCode = localStorage.getItem('countryCode');
+    let shortCode = localStorage.getItem('shortCode');
+    if (this.forgotEmail.valid && countryCode && shortCode) {
+      this.requestService.createData(`${environment.baseUrl}/${countryCode}/${shortCode}/${environment.admin.forgotPassword}`, this.forgotEmail.value).subscribe((data) => {
         if (data) {
           this.router.navigateByUrl(`login`);
         }
@@ -62,8 +64,10 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   forgotPhoneForm() {
-    if (this.forgotPhone.valid) {
-      this.requestService.createData(`${environment.baseUrl}/arm/hy/${environment.admin.forgotPassword}`, this.forgotPhone.value).subscribe((data) => {
+    let countryCode = localStorage.getItem('countryCode');
+    let shortCode = localStorage.getItem('shortCode');
+    if (this.forgotPhone.valid && countryCode && shortCode) {
+      this.requestService.createData(`${environment.baseUrl}/${countryCode}/${shortCode}/${environment.admin.forgotPassword}`, this.forgotPhone.value).subscribe((data) => {
         if (data) {
           this.router.navigateByUrl(`login`);
         }

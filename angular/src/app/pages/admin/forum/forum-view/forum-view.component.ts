@@ -5,6 +5,7 @@ import {Subscription} from "rxjs";
 import {environment} from "../../../../../environments/environment.prod";
 import {ActivatedRoute} from "@angular/router";
 import {ForumComponent} from "../forum.component";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-forum-view',
@@ -23,6 +24,7 @@ export class ForumViewComponent implements OnInit, OnDestroy {
 
   constructor(public helperService: HelperService,
               public requestService: RequestService,
+              public sanitizer: DomSanitizer,
               public activateRoute: ActivatedRoute) {
     this.language = this.activateRoute.snapshot.params['language'];
     this.country = this.activateRoute.snapshot.params['country'];
@@ -31,16 +33,17 @@ export class ForumViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscribe = this.requestService.dataId.subscribe((item: any) => {
       this.viewData = item;
+      this.desc = this.sanitizer.bypassSecurityTrustHtml(this.viewData.description);
       if (this.viewData.translations)
-      for (let i = 0; i < this.viewData.translations.length; i++) {
-        this.languageList = [];
-        this.languageList.push(this.viewData.translations[i].language);
-        for (let i = 0; i < this.languageList.length; i++) {
-          if (this.viewData.translation[0].language_id == this.languageList[i].id) {
-            this.activeLanguage = this.languageList[i];
+        for (let i = 0; i < this.viewData.translations.length; i++) {
+          this.languageList = [];
+          this.languageList.push(this.viewData.translations[i].language);
+          for (let i = 0; i < this.languageList.length; i++) {
+            if (this.viewData.translation[0].language_id == this.languageList[i].id) {
+              this.activeLanguage = this.languageList[i];
+            }
           }
         }
-      }
     })
   }
 
@@ -48,6 +51,7 @@ export class ForumViewComponent implements OnInit, OnDestroy {
     this.url = `${environment.baseUrl}/${this.country}/${code}/${environment.admin.forum.get}/${id}`;
     this.requestService.getData(this.url).subscribe((res) => {
       this.viewData = res[0];
+      this.desc = this.sanitizer.bypassSecurityTrustHtml(this.viewData.description);
       for (let i = 0; i < this.viewData.translations.length; i++) {
         this.languageList = [];
         this.languageList.push(this.viewData.translations[i].language);

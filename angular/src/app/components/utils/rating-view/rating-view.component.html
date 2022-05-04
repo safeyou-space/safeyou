@@ -1,0 +1,43 @@
+<div class="all-content">
+  <div class="content-head">
+    <div>
+      <span class="content-head-title">{{helperService.translation?.rating}}</span>
+    </div>
+    <div class="close-button-btn">
+      <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="content-body">
+    <table class="table admin-table admin-table2">
+      <thead>
+      <tr>
+        <th>{{helperService.translation?.username}}</th>
+        <th>{{helperService.translation?.rating}}</th>
+        <th>{{helperService.translation?.date}}</th>
+        <th>{{helperService.translation?.time}}</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of data">
+        <td>
+          {{item?.rater?.nickname ? item?.rater?.nickname : item?.rater?.uid}}
+        </td>
+        <td>
+          <app-rate-stars [rating]="item"></app-rate-stars>
+        </td>
+        <td>{{item?.updated_at | date:'dd/MM/YYYY'}}</td>
+        <td>{{item?.updated_at | date:'hh:mm'}}</td>
+
+        <td class="actions">
+          <a class="cursor-pointer" (click)="openModal(item)">
+            <img src="assets/images/icons/icon-eye-hover.png" alt="icon">
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-rating-modal #ratingModal [data]="singleValue"></app-rating-modal>
