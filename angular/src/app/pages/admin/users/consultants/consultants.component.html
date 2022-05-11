@@ -84,7 +84,7 @@
                   <tbody>
                   <tr *ngFor="let item of data">
                     <td class="image-block">
-                      <img src="{{this.requestService.imgSite + item.image.url}}" alt=""
+                      <img src="{{this.requestService.imgSite + item.image?.url}}" alt=""
                            onError="this.src='assets/images/img/no-image.png'">
                     </td>
                     <td (click)="bool = true; professionsList = false; bids = false; showViewPage(item)" class="cursor-pointer">

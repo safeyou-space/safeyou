@@ -1,0 +1,126 @@
+<div class="d-flex">
+  <div class="content-size">
+    <div class="app-header">
+      <app-header></app-header>
+    </div>
+    <div class="head">
+      <div class="title">
+        <h4>{{helperService.translation?.beneficiary}}</h4>
+      </div>
+      <div class="head-actions float-right">
+        <div class="d-inline-block mr-2">
+          <app-date-input-range (saveDateRange)="saveDateRange($event)"></app-date-input-range>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <div class="table-and-map-block">
+        <div class="table-block">
+          <tabset class="my-tab">
+            <tab (selectTab)="changeTab(2)"  heading="{{helperService.translation?.active_cases}}">
+              <div *ngIf="this.data && this.data?.length == 0" style="padding-top: 30px;">
+                <span class="data_empty">{{helperService.translation?.no_result}}</span>
+              </div>
+              <div class="wrapper position-relative">
+                <table *ngIf="this.data && this.data?.length > 0" class="table admin-table admin-table1">
+                  <thead>
+                  <tr>
+                    <th class="admin-table-th">{{helperService.translation?.id}}</th>
+                    <th class="admin-table-th">{{helperService.translation?.location}}</th>
+                    <th [@openClose]="!isOpen ? 'showColumn' : 'hideColumn'" class="admin-table-th">{{helperService.translation?.help_message_count}}</th>
+                    <th class="admin-table-th">{{helperService.translation?.last_help_message}}</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of data">
+                    <td class="cursor-pointer" (click)="showViewPage(item)">{{item?.uid}}</td>
+                    <td>{{item?.help_sms[0] | location}}</td>
+                    <td [@openClose]="!isOpen ? 'showColumn' : 'hideColumn'">{{item.help_sms[0] ? (item.help_sms_count) : '-'}}</td>
+                    <td>{{item.help_sms[0] ? (item?.help_sms[0]?.created_at | date: 'dd/MM/YYYY')  : ''}}</td>
+                    <td class="actions">
+                      <div (click)="showViewPage(item)" class="action-eye cursor-pointer"></div>
+                      <div class="actions-dropdown-block">
+                        <div class="action-more cursor-pointer"></div>
+                        <div class="actions-dropdown-item">
+                          <ul>
+                            <li (click)="showViewPage(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-center">
+                  <pagination *ngIf="allPageData && !allPageData['message'] && allPageData.total > 10"
+                              [boundaryLinks]="true"
+                              [totalItems]="allPageData.total"
+                              [itemsPerPage]="allPageData.per_page"
+                              [maxSize]="10"
+                              (pageChanged)="pageChanged($event)"
+                              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+                  </pagination>
+                </div>
+              </div>
+            </tab>
+            <tab (selectTab)="changeTab(1)"  heading="{{helperService.translation?.potential_cases}}">
+              <div *ngIf="this.potencialData && this.potencialData?.length == 0" style="padding-top: 30px;">
+                <span class="data_empty">{{helperService.translation?.no_result}}</span>
+              </div>
+              <div class="wrapper position-relative">
+                <table *ngIf="this.potencialData && this.potencialData?.length > 0" class="table admin-table admin-table1">
+                  <thead>
+                  <tr>
+                    <th class="admin-table-th">{{helperService.translation?.id}}</th>
+                    <th class="admin-table-th">{{helperService.translation?.friends_count}}</th>
+                    <th class="admin-table-th">{{helperService.translation?.police}}</th>
+                    <th [@openClose]="!isOpen ? 'showColumn' : 'hideColumn'" class="admin-table-th">{{helperService.translation?.organization_count}}</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of potencialData">
+                    <td>{{item.uid}}</td>
+                    <td>{{item.emergency_contacts_count}}</td>
+                    <td>{{item.check_police == 0 ? helperService.translation?.off : helperService.translation?.on}}</td>
+                    <td [@openClose]="!isOpen ? 'showColumn' : 'hideColumn'">{{item?.emergency_service_contacts_count}}</td>
+                    <td class="actions">
+                      <div (click)="showViewPage(item)" class="action-eye cursor-pointer"></div>
+                      <div class="actions-dropdown-block">
+                        <div class="action-more cursor-pointer"></div>
+                        <div class="actions-dropdown-item">
+                          <ul>
+                            <li (click)="showViewPage(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-center">
+                  <pagination *ngIf="allPotencialData && allPotencialData.total > 10"
+                              [boundaryLinks]="true"
+                              [totalItems]="allPotencialData.total"
+                              [itemsPerPage]="allPotencialData.per_page"
+                              [maxSize]="10"
+                              (pageChanged)="pageChanged($event)"
+                              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+                  </pagination>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+        <div *ngIf="type == 2 && !isOpen" class="map-block">
+          <app-map [data]="userListLocation" [type]="'all'" *ngIf="isMapShown" [idItem]="'map1'"></app-map>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div [@openClose]="!isOpen ? 'closed' : 'open'">
+       <app-beneficiary-view [type]="[type, isOpen]" [data]="viewData" (myEvent)="close()"></app-beneficiary-view>
+    </div>
+</div>
+<app-info-modal #infoModal></app-info-modal>
