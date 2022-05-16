@@ -85,6 +85,13 @@
             </li>
           </ul>
         </li>
+        <li *ngIf="access?.report.indexOf('view') != -1 || access?.report.indexOf('index') != -1 || is_admin == true" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
+          <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/reports">
+            <img src="assets/images/icons/icon-exclamation.png" class="icon" alt="image">
+            <img src="assets/images/icons/icon-exclamation(HoverState).png" class="hover-image" alt="image">
+            <span class="menu-text">{{helperService.translation?.reports}}</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>

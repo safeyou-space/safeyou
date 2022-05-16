@@ -1,0 +1,132 @@
+<div class=" d-flex " [style]="!isOpen || !showFilter ? 'overflow: hidden;' : ''">
+  <div class="content-size content-scroll position-relative">
+    <div class="app-header">
+      <app-header></app-header>
+    </div>
+    <div class="head">
+      <div class="title">
+        <h4>{{helperService.translation?.reports}}</h4>
+      </div>
+      <div class="head-actions">
+        <button *ngIf="showCategory" (click)="showCategory = false; isOpen = true; showFilter = false" type="button" class="category-button">
+          {{helperService.translation?.categories}}
+        </button>
+        <div class="d-inline-block mr-2">
+          <app-date-input-range (saveDateRange)="saveDateRange($event)"></app-date-input-range>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <tabset class="my-tab">
+        <tab (selectTab)="changeTab(1)"  heading="{{helperService.translation?.current}}">
+          <div *ngIf="this.data && this.data['message']" style="padding-top: 30px;">
+            <span class="data_empty">{{helperService.translation?.no_result}}</span>
+          </div>
+          <div class="wrapper">
+            <table *ngIf="this.data && !this.data['message']" class="table admin-table admin-table1">
+              <thead>
+              <tr>
+                <th class="admin-table-th">{{helperService.translation?.category}}</th>
+                <th class="admin-table-th" [@openClose]="isOpen && showCategory && !showFilter ? 'showColumn' : 'hideColumn'"><span>{{helperService.translation?.problem}}</span></th>
+                <th class="admin-table-th" [@openClose]="isOpen && showCategory && !showFilter ? 'showColumn' : 'hideColumn'"><span>Report ID</span></th>
+                <th class="admin-table-th"><span>{{helperService.translation?.reported_ID}}</span></th>
+                <th class="admin-table-th">{{helperService.translation?.reporter_ID}}</th>
+                <th class="admin-table-th">{{helperService.translation?.date}}</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of data">
+                <td (click)="showViewPage(item)" class="cursor-pointer">
+                  <span tooltip="{{item?.category?.translation}}">{{item?.category?.translation}}</span>
+                </td>
+                <td [@openClose]="isOpen && showCategory && !showFilter ? 'showColumn' : 'hideColumn'">
+                  <span tooltip="{{item?.message}}">{{item?.message}}</span>
+                </td>
+                <td [@openClose]="isOpen && showCategory && !showFilter ? 'showColumn' : 'hideColumn'">{{item?.uid}}</td>
+                <td>{{item?.user?.uid}}</td>
+                <td>{{item?.reporter.uid}}</td>
+                <td>{{item.created_at  | date : 'dd MMMM YYYY'}}</td>
+                <td class="actions">
+                  <div (click)="showViewPage(item)" class="action-eye cursor-pointer"></div>
+                  <div class="actions-dropdown-block">
+                    <div class="action-more cursor-pointer"></div>
+                    <div class="actions-dropdown-item">
+                      <ul>
+                        <li (click)="showViewPage(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+                        <li (click)="changeStatus(item, 2)"><a><i class="icons-yes fa fa-times" aria-hidden="true"></i> {{helperService.translation?.reject}}</a></li>
+                        <li (click)="changeStatus(item, 1)"><a><i class="icons-yes fa fa-check " aria-hidden="true"></i> {{helperService.translation?.approve}}</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+                  <div class="d-flex justify-content-center">
+                    <pagination *ngIf="allPageData && allPageData.total > 10"
+                                [boundaryLinks]="true"
+                                [totalItems]="allPageData.total"
+                                [itemsPerPage]="allPageData.per_page"
+                                [maxSize]="10"
+                                (pageChanged)="pageChanged($event)"
+                                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+                    </pagination>
+                  </div>
+          </div>
+        </tab>
+        <tab (selectTab)="changeTab(2)" heading="{{helperService.translation?.knotted}}">
+          <div *ngIf="this.knottedList && this.knottedList['message']" style="padding-top: 30px;">
+            <span class="data_empty">{{helperService.translation?.no_result}}</span>
+          </div>
+          <div class="wrapper">
+            <table *ngIf="this.knottedList && !this.knottedList['message']" class="table admin-table admin-table1">
+              <thead>
+              <tr>
+                <th class="admin-table-th">{{helperService.translation?.category}}</th>
+                <th class="admin-table-th" [@openClose]="isOpen && showCategory && !showFilter ? 'showColumn' : 'hideColumn'">{{helperService.translation?.problem}}</th>
+                <th class="admin-table-th" [@openClose]="isOpen && showCategory && !showFilter ? 'showColumn' : 'hideColumn'">Report ID</th>
+                <th class="admin-table-th">{{helperService.translation?.reported_ID}}</th>
+                <th class="admin-table-th">{{helperService.translation?.reporter_ID}}</th>
+                <th class="admin-table-th">{{helperService.translation?.date}}</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of knottedList">
+                <td (click)="isOpen = !isOpen" class="cursor-pointer">
+                  <span tooltip="{{item?.category?.translation}}">{{item?.category?.translation}}</span>
+                </td>
+                <td [@openClose]="isOpen && showCategory && !showFilter ? 'showColumn' : 'hideColumn'">
+                  <span tooltip="{{item?.message}}">{{item?.message}}</span>
+                </td>
+                <td [@openClose]="isOpen && showCategory && !showFilter ? 'showColumn' : 'hideColumn'">{{item?.uid}}</td>
+                <td>{{item?.user?.uid}}</td>
+                <td>{{item?.reporter.uid}}</td>
+                <td>{{item?.created_at  | date : 'dd MMMM YYYY'}}</td>
+                <td class="actions">
+                  <div (click)="showViewPage(item)" class="action-eye cursor-pointer"></div>
+                  <div class="actions-dropdown-block">
+                    <div class="action-more cursor-pointer"></div>
+                    <div class="actions-dropdown-item">
+                      <ul>
+                        <li (click)="showViewPage(item)"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+  <div [@openClose]="isOpen ? 'closed' : 'open'">
+    <app-report-view [data]="viewData" (myEvent)="close()"></app-report-view>
+  </div>
+  <div [@showCategory]="showCategory ? 'closed' : 'open'">
+    <app-report-category *ngIf="!showCategory" (closeCategory)="close()"></app-report-category>
+  </div>
+</div>

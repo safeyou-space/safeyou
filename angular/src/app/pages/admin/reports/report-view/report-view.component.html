@@ -1,0 +1,49 @@
+<div class="content scrolling">
+  <div class="content-head">
+    <div>
+    </div>
+    <div class="close-button-btn">
+      <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="profile-block">
+      <div class="profile">
+        <div class="profile-title">
+          <div class="profile-image">
+            <img src="{{this.requestService.imgSite + data?.user?.image?.url}}" alt=""
+                 onError="this.src='assets/images/img/no-image.png'" alt="image">
+          </div>
+          <div class="profile-info">
+            <p>{{data?.user?.first_name}} {{data?.user?.last_name}}</p>
+            <p class="profession-text">{{data?.user?.consultant_category?.translation}}</p>
+          </div>
+          <div class="profile-action">
+          </div>
+        </div>
+        <div class="profile-description">
+          <div class="profile-description-text">
+            <p>{{data?.message}}</p>
+          </div>
+          <div class="profile-description-action">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">
+        <p class="info-title">{{helperService.translation?.user_report_id}}</p>
+        <p class="info-sub-title"><span class="bg-hashtag"></span> {{data?.reporter.uid}}</p>
+        <p class="info-title">{{helperService.translation?.user_reported_id}}</p>
+        <p class="info-sub-title"><span class="bg-hashtag"></span> {{data?.uid}}</p>
+        <p class="info-sub-title"><span class="bg-calendar"></span>{{data?.created_at | date : 'dd/MMMM/YYYY'}}</p>
+      </div>
+      <div class="info-block-description">
+        <p class="info-title margin-t-40">{{helperService.translation?.problem_category}}</p>
+        <p class="info-description">{{data?.category?.translation}}</p>
+        <p class="info-title margin-t-40">{{helperService.translation?.report_message}}</p>
+        <p class="info-description">{{data?.message}}</p>
+      </div>
+    </div>
+  </div>
+</div>

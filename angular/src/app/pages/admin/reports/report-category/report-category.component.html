@@ -1,0 +1,108 @@
+<div class="category-block">
+  <div class="head-forum-view">
+    <div style="padding: 8px 24px;">
+      <button (click)="showForm(); this.addTechnology();" [@page]="!addProfession ? 'open' : 'closed'"
+              class="button-style position-absolute">
+        {{helperService.translation?.add_category}}
+      </button>
+      <div >
+        <button  type="button" (click)="cancelProfession()" [@page]="addProfession ? 'open' : 'closed'"
+                 class="button-style" >
+          {{helperService.translation?.cancel}}
+        </button>
+        <button type="button" (click)=" onSubmitProfession(formProfession.value, 0)" [@page]="addProfession ? 'open' : 'closed'"
+                class="btn saveProfession" >
+          {{helperService.translation?.remember}}
+        </button>
+        <button type="button" (click)="onSubmitProfession(formProfession.value, 1)" [@page]="addProfession ? 'open' : 'closed'"
+                class="btn saveProfession" >
+          {{helperService.translation?.save_publish}}
+        </button>
+      </div>
+    </div>
+    <div style="padding: 10px;">
+      <i class="fa fa-times cursor-pointer" (click)="cancelProfession(); close()" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="content position-relative" style="height: calc(100vh - 49px);overflow-y: auto;padding-right: 22px;padding-left: 22px;">
+    <div style="width: 95%;" class="position-absolute" [@page]="!addProfession ? 'open' : 'closed'">
+      <div *ngIf="this.data && this.data['message']" style="padding-top: 30px;">
+        <span class="data_empty">{{helperService.translation?.no_result}}</span>
+      </div>
+      <table  class="table m-0 admin-table" *ngIf="this.data && !this.data['message']">
+        <thead>
+        <tr>
+          <th>{{helperService.translation?.category}}
+            <span [ngClass]="sortingValue['title'] && sortingValue['title'] == 'ASC' ? 'rotate' : ''"
+                  (click)="sorting('title', 'ASC')" class="admin-table-th">
+          </span>
+          </th>
+          <th>{{helperService.translation?.status}}
+            <span [ngClass]="sortingValue['status'] && sortingValue['status'] == 'ASC' ? 'rotate' : ''"
+                  (click)="sorting('status', 'ASC')" class="admin-table-th">
+            </span>
+          </th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of data">
+          <td>{{item.translation}}</td>
+          <td>{{item?.status == 1 ? helperService.translation?.active : helperService.translation?.in_active}}</td>
+          <td class="actions">
+            <ul class="action_list">
+              <li>
+                <a><img (click)="showForm(item)" src="assets/images/icons/icon-edit.png" alt="icon"></a>
+              </li>
+              <li>
+                <a><img (click)="popup.deleteModal(item.id)" src="assets/images/icons/icon-delete.png" alt="icon"></a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center">
+        <pagination *ngIf="allPageData && allPageData.total > 10"
+                    [boundaryLinks]="true"
+                    [totalItems]="allPageData.total"
+                    [itemsPerPage]="allPageData.per_page"
+                    [ngModel]="allPageData.current_page"
+                    [maxSize]="5"
+                    (pageChanged)="pageChanged($event)"
+                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        </pagination>
+      </div>
+    </div>
+
+    <div [@page]="addProfession ? 'open' : 'closed'">
+      <form class="data-form" [formGroup]="formProfession">
+        <h4 class="title_profession">{{helperService.translation?.category_name}} *</h4>
+        <div class="form-group">
+          <label [ngClass]="(formProfession.controls.title?.invalid &&
+        (formProfession.controls.title?.dirty || formProfession.controls.title?.touched)) ? 'invalid-label-color' : ''">{{helperService.translation?.category_name}}</label>
+          <input type="text" class="form-control" formControlName="title">
+          <div *ngIf="!formProfession.controls.title?.valid && (formProfession.controls.title?.dirty || formProfession.controls.title?.touched)">
+            <span class="error-message">{{helperService.translation?.category_name_required}}</span>
+          </div>
+        </div>
+        <div formArrayName="translations">
+          <div *ngFor="let unit of formProfession['controls'].translations['controls']; let i = index ">
+            <div [formGroupName]="i">
+              <div class="form-group">
+                <label [ngClass]="(!unit?.valid && (unit?.dirty || unit?.touched)) ? 'invalid-label-color' : ''">{{languageList[i].title}} *</label>
+                <input type="text" class="form-control" [formControlName]="languageList[i].code">
+                <div *ngIf="!unit?.valid && (unit?.dirty || unit?.touched)">
+                  <span class="error-message">{{languageList[i].title}} {{helperService.translation?.is_required}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>
