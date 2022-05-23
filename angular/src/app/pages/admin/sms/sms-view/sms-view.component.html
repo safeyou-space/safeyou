@@ -1,0 +1,36 @@
+<div class="content scrolling">
+  <div class="content-head">
+    <div>
+    </div>
+    <div class="close-button-btn">
+      <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="content-body">
+    <div *ngIf="!isShowData">
+      <form [formGroup]="form" (ngSubmit)="form.valid ? onSubmit() : ''">
+        <label for="pass">{{helperService.translation?.password}}</label>
+        <div>
+          <input form formControlName="password" type="password" id="pass">
+        </div>
+        <div class="mt-2 text-right">
+          <button [disabled]="form.invalid" type="submit" class="button-style">{{helperService.translation?.send}}</button>
+        </div>
+      </form>
+    </div>
+    <div class="info-block" *ngIf="isShowData">
+      <div class="info-block-description">
+        <p class="info-title margin-t-40">{{helperService.translation?.user_id}}</p>
+        <p class="info-description">{{data?.from_user ? data?.from_user?.uid : data?.user?.uid}}</p>
+        <p class="info-title margin-t-40">{{helperService.translation?.username}}</p>
+        <p class="info-description">{{data?.user?.nickname}}</p>
+        <p class="info-title margin-t-40">{{helperService.translation?.message_content}}</p>
+        <p class="info-description" [innerHTML]="data?.message"></p>
+        <p class="info-title margin-t-40">{{helperService.translation?.date}}</p>
+        <p class="info-description">{{data?.created_at | date : 'dd/MM/YYYY'}}</p>
+        <p class="info-title margin-t-40">{{helperService.translation?.time}}</p>
+        <p class="info-description">{{data?.created_at | date : 'hh:mm'}}</p>
+      </div>
+    </div>
+  </div>
+</div>

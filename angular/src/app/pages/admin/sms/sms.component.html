@@ -1,0 +1,78 @@
+<div class=" d-flex" [style]="isOpen || showFilter ? 'overflow: hidden;height: 100vh' : ''">
+  <div class="content-size">
+    <div class="app-header">
+      <app-header></app-header>
+    </div>
+    <div class="head">
+      <div class="title">
+        <h4>{{helperService.translation?.sms}}</h4>
+      </div>
+      <div class="head-actions">
+        <div class="d-inline-block mr-2">
+          <app-date-input-range (saveDateRange)="saveDateRange($event)"></app-date-input-range>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <div *ngIf="this.data && this.data['message']" style="padding-top: 30px;">
+        <span class="data_empty">{{helperService.translation?.no_result}}</span>
+      </div>
+      <table *ngIf="this.data && !this.data['message']" class="table admin-table" [style]="isOpen || showFilter ? 'table-layout: fixed' : ''">
+        <thead>
+        <tr>
+          <th class="admin-table-th">{{helperService.translation?.user_id}}</th>
+          <th class="admin-table-th" [@openClose]="!isOpen && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.username}}</th>
+          <th class="admin-table-th" >{{helperService.translation?.message_content}}</th>
+          <th class="admin-table-th" [@openClose]="!isOpen && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.date}}</th>
+          <th class="admin-table-th" [@openClose]="!isOpen && !showFilter ? 'openIf' : 'closedIf'">{{helperService.translation?.time}}</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of data">
+          <td (click)="isOpen = true; showViewPage(item)" class="cursor-pointer">{{item?.from_user ? item?.from_user?.uid : item?.user?.uid}}</td>
+          <td [@openClose]="!isOpen && !showFilter ? 'openIf' : 'closedIf'">
+            <span tooltip="{{item?.user?.nickname}}" [ngClass]="item?.user?.nickname ? '' : 'empty'">
+              {{item?.user?.nickname ? item?.user?.nickname : helperService.translation?.no_result}}
+            </span>
+          </td>
+          <td>
+            <span [innerHTML]="item?.message"></span>
+          </td>
+          <td [@openClose]="!isOpen && !showFilter ? 'openIf' : 'closedIf'">{{item?.created_at | date : 'dd/MM/YYYY'}}</td>
+          <td [@openClose]="!isOpen && !showFilter ? 'openIf' : 'closedIf'">{{item?.created_at | date : 'hh:mm'}}</td>
+          <td class="actions">
+            <div (click)="isOpen = true; showFilter = false; showViewPage(item)" class="action-eye cursor-pointer"></div>
+            <div class="actions-dropdown-block">
+              <div class="action-more cursor-pointer"></div>
+              <div class="actions-dropdown-item">
+                <ul>
+                  <li (click)="isOpen = true; showFilter = false; showViewPage(item)">
+                    <a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center">
+        <pagination *ngIf="allPageData && allPageData.total > 10"
+                    [boundaryLinks]="true"
+                    [totalItems]="allPageData.total"
+                    [itemsPerPage]="allPageData.per_page"
+                    [ngModel]="allPageData.current_page"
+                    [maxSize]="10"
+                    (pageChanged)="pageChanged($event)"
+                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        </pagination>
+      </div>
+    </div>
+  </div>
+  <div [@openClose]="!isOpen ? 'closed' : 'open'">
+    <app-sms-view [data]="viewData" (myEvent)="close()"></app-sms-view>
+  </div>
+  <div [@showFilter]="!showFilter ? 'closed' : 'open'">
+  </div>
+</div>

@@ -77,6 +77,10 @@ export const routes: Routes = [
         path: ':country/:language/reports',
         loadChildren: () => import('./pages/admin/reports/reports.module').then(m => m.ReportsModule)
       },
+      {
+        path: ':country/:language/sms',
+        loadChildren: () => import('./pages/admin/sms/sms.module').then(m => m.SmsModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}

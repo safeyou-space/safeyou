@@ -1,0 +1,116 @@
+.content {
+  /*padding: 0 22px;*/
+  width: 462px;
+  box-shadow: 23px 0px 50px 1px #aaaaaa;
+  height: 100vh;
+  overflow-y: auto;
+}
+.scrolling::-webkit-scrollbar {
+  width: 3px;
+  position: absolute;
+}
+.scrolling::-webkit-scrollbar-track {
+  background-color: #E37D93;
+
+}
+.scrolling::-webkit-scrollbar-thumb {
+  background: #fff;
+  height: 10px;
+}
+.content-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 22px;
+  border-bottom: 1px solid #F8DEE4;
+  background: #FEFBFC 0% 0% no-repeat padding-box;
+}
+.content-body {
+  padding: 24px 22px 0;
+}
+.close-button-btn {
+  color: #E37D93;
+}
+.info-block {
+  padding: 24px 24px;
+}
+.info-title {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-19) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #A79EAA;
+  /*margin-bottom: 40px;*/
+}
+.info-sub-title {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.78px;
+  color: #A79EAA;
+}
+.info-description {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-20) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.36px;
+  color: #230D2C;
+  margin-bottom: 15px;
+}
+.button-style {
+  padding: 8px 16px;
+  background: var(--unnamed-color-fbeff2) 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  letter-spacing: var(--unnamed-character-spacing-0-78);
+  color: #E37D93;
+  font-size: 13px;
+  text-align: center;
+  margin-right: 8px;
+  outline: none;
+  transition: all 0.8s;
+  border: none;
+}
+.button-style:hover {
+  background: #F8DEE4 0% 0% no-repeat padding-box;
+}
+input[type='password'] {
+  width: 100%;
+  height: 32px;
+  border: 1px solid #F8DEE4;
+  border-radius: 30px;
+  background-color: transparent;
+}
+input[type='password'] {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  letter-spacing: var(--unnamed-character-spacing-0-29);
+  color: var(--unnamed-color-230d2c);
+}
+input[type='password']:focus {
+  box-shadow: none;
+  outline: none;
+}
+label {
+  font-family: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-18) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.26px;
+  color: #A79EAA;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.button-style {
+  padding: 6.5px 16px;
+  font-family: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.78px;
+  color: #FEFBFC;
+  font-size: 13px;
+  margin-right: 4px;
+  background: #E37D93 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s;
+}
+.button-style:hover {
+  background: #DC5D78 0% 0% no-repeat padding-box;
+}

@@ -92,6 +92,13 @@
             <span class="menu-text">{{helperService.translation?.reports}}</span>
           </a>
         </li>
+        <li *ngIf="access?.sms || is_admin == true" class="border-bottom-item" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
+          <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/sms">
+            <img src="assets/images/icons/icon-sms.png" class="icon" alt="image">
+            <img src="assets/images/icons/icon-sms(HoverState).png" class="hover-image" alt="image">
+            <span class="menu-text">{{helperService.translation?.sms_menu}}</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
