@@ -99,6 +99,13 @@
             <span class="menu-text">{{helperService.translation?.sms_menu}}</span>
           </a>
         </li>
+        <li *ngIf="access?.surveys || is_admin == true" [@openClose]="isOpen != 0  ? 'closed' : 'open'">
+          <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/open_surveys">
+            <img src="assets/images/icons/icon-survay.png" class="icon" alt="image">
+            <img src="assets/images/icons/icon-survay(HoverState).png" class="hover-image" alt="image">
+            <span class="menu-text">{{helperService.translation?.open_surveys}}</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>

@@ -81,6 +81,10 @@ export const routes: Routes = [
         path: ':country/:language/sms',
         loadChildren: () => import('./pages/admin/sms/sms.module').then(m => m.SmsModule)
       },
+      {
+        path: ':country/:language/open_surveys',
+        loadChildren: () => import('./pages/admin/open-surveys/open-surveys.module').then(m => m.OpenSurveysModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}
