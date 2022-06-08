@@ -1,0 +1,113 @@
+<div class="app-header">
+  <app-header [isShowSearch]="false"></app-header>
+</div>
+
+<div class="content">
+  <div class="head">
+    <div class="title">
+      <h4>
+<!--        <img class="cursor-pointer" src="assets/images/icons/icon-arrow-back.png" (click)="togglePage()" alt="image"> -->
+        {{helperService.translation?.new_push_notification}}</h4>
+    </div>
+    <div class="head-actions">
+<!--      <button  class="btn head-cancel" (click)="togglePage()">{{helperService.translation?.cancel}}</button>-->
+<!--      <button class="btn head-cancel">{{helperService.translation?.remember}}</button>-->
+<!--      <button class="btn head-save-button">{{helperService.translation?.remember_publish}}</button>-->
+      <button (click)="onSubmit()" class="btn head-save-button">{{helperService.translation?.send}}</button>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="form-block">
+      <form class="push-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="d-flex">
+          <div class="form-group" style="width: 50%">
+            <label for="date">{{helperService.translation?.date}}</label>
+            <app-date-input [setMinDate]="false" formControlName="date" id="date"></app-date-input>
+          </div>
+          <div class="form-group" style="padding-left: 15px; width: 50%;">
+            <label for="time">{{helperService.translation?.time}}</label>
+            <input type="time" class="form-control" id="time" formControlName="time">
+            <div *ngIf="form.controls.time?.hasError('required') && (form.controls.time?.dirty || form.controls.time?.touched)">
+              <span class="error-message">{{helperService?.translation?.time_required}}</span>
+            </div>
+            <div *ngIf="form.get('time')?.hasError('time')">
+              <span  class="error-message">{{helperService?.translation?.time_message}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="title">{{helperService.translation?.title}}</label>
+          <textarea class="form-control" formControlName="notification_title" id="title"></textarea>
+          <div *ngIf="!form.controls.notification_title?.valid && (form.controls.notification_title?.dirty || form.controls.notification_title?.touched)">
+            <span class="error-message">{{helperService.translation?.title_required}}</span>
+          </div>
+        </div>
+        <div class="form-group push_notification_editor">
+          <label for="report">{{helperService.translation?.content}}</label>
+<!--          <ckeditor (change)="onChangeEditor($event)" [config]='config' id="content" [editor]="Editor" formControlName="report"></ckeditor>-->
+          <textarea class="form-control" formControlName="report" id="report"></textarea>
+          <div *ngIf="!form.controls.report?.valid && (form.controls.report?.dirty || form.controls.report?.touched)">
+            <span class="error-message">{{helperService.translation?.content_required}}</span>
+          </div>
+          <div *ngIf="this.letterCount">
+            <span style="padding-right: 1em;">{{helperService.translation?.words}}: {{this.wordCount}}</span>
+            <span>{{helperService.translation?.characters}}: {{this.letterCount}}</span>
+          </div>
+        </div>
+        <div class="d-flex">
+<!--          <div class="form-group" style="width: 50%;">-->
+<!--            <label for="action1">{{helperService.translation?.action_button1}}</label>-->
+<!--            <angular2-multiselect [data]="itemList"-->
+<!--                                  [(ngModel)]="selectedItems"-->
+<!--                                  id="action1"-->
+<!--                                  formControlName="notification_type"-->
+<!--                                  [settings]="settings"-->
+<!--                                  (onDeSelect)="closeDropdown(dropdownRef)"-->
+<!--                                  #dropdownRef>-->
+<!--              <c-badge>-->
+<!--                <ng-template let-item="item">-->
+<!--                  <label style="margin: 0px;">{{item.itemName}}</label>-->
+<!--                </ng-template>-->
+<!--              </c-badge>-->
+<!--              <c-item>-->
+<!--                <ng-template let-item="item">-->
+<!--                  <label>{{item.itemName}}</label>-->
+<!--                </ng-template>-->
+<!--              </c-item>-->
+<!--            </angular2-multiselect>-->
+<!--            <div *ngIf="!form.controls.notification_type?.valid && (form.controls.notification_type?.dirty || form.controls.notification_type?.touched)">-->
+<!--              <span class="error-message">{{helperService.translation?.action1_required}}</span>-->
+<!--            </div>-->
+<!--          </div>-->
+          <div class="form-group" style="padding-left: 7px; width: 100%;">
+            <label for="action2">{{helperService.translation?.users}}</label>
+            <angular2-multiselect [data]="itemList2"
+                                  [(ngModel)]="selectedItems2"
+                                  id="action2"
+                                  formControlName="user_id"
+                                  [settings]="settings2"
+                                  (onDeSelect)="closeDropdown(dropdownRef2)"
+                                  #dropdownRef2>
+              <c-badge>
+                <ng-template let-item="item">
+                  <label style="margin: 0px;">{{item.itemName}}</label>
+                </ng-template>
+              </c-badge>
+              <c-item>
+                <ng-template let-item="item">
+                  <label>{{item.itemName}}</label>
+                </ng-template>
+              </c-item>
+            </angular2-multiselect>
+            <div *ngIf="!form.controls.user_id?.valid && (form.controls.user_id?.dirty || form.controls.user_id?.touched)">
+              <span class="error-message">{{helperService.translation?.action2_required}}</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+

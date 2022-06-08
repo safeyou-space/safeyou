@@ -1,0 +1,115 @@
+<div class="position-relative">
+  <div [@page]="showPage ? 'open' : 'closed'" class=" d-flex" [style]="isOpen ? 'overflow: hidden;' : ''">
+    <div class="content-size">
+      <div class="app-header">
+        <app-header></app-header>
+      </div>
+      <div class="head">
+        <div class="title">
+          <h4>{{helperService.translation?.push_notifications}}</h4>
+        </div>
+        <div class="head-actions">
+          <div class="d-flex justify-content-end">
+            <div *ngIf="this.helperService.role != 'Admin'"><button (click)="showPage = false;" class="button-style btn">{{helperService.translation?.send_push_notification}}</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="content-body">
+
+        <tabset [ngClass]="[!this.show ? 'create_notification' : '', !this.backPage ? 'title-back-animation2' : '']" class="my-tab">
+          <tab heading="{{helperService.translation?.scheduled}}">
+            <div class="wrapper">
+              <table class="table admin-table admin-table1" [style]="isOpen ? 'table-layout: fixed' : ''">
+                <thead>
+                <tr>
+                  <th class="admin-table-th">{{helperService.translation?.title}}</th>
+                  <th [@openClose]="!isOpen ? 'openIf' : 'closedIf'">{{helperService.translation?.content}}</th>
+                  <th class="admin-table-th">{{helperService.translation?.date}}</th>
+                  <th [@openClose]="!isOpen ? 'openIf' : 'closedIf'">{{helperService.translation?.time}}</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td (click)="isOpen = !isOpen;" class="cursor-pointer">
+                    <span tooltip="Դրույթների փոփոխություն">Դրույթների փոփոխություն</span>
+                  </td>
+                  <td [@openClose]="!isOpen ? 'openIf' : 'closedIf'">
+                    <span tooltip="Լոռեմ իպսում դոլոռ սիթ ամեթ, եթ վիմ ռեծթ">Լոռեմ իպսում դոլոռ սիթ ամեթ, եթ վիմ ռեծթ</span>
+                  </td>
+                  <td><span>07/07/2021</span></td>
+                  <td [@openClose]="!isOpen ? 'openIf' : 'closedIf'">15:20</td>
+                  <td class="actions">
+                    <div (click)="isOpen = !isOpen;"  class="action-eye cursor-pointer"></div>
+                    <div *ngIf="this.helperService.role != 'Admin'" class="action-edit cursor-pointer"></div>
+                    <div *ngIf="this.helperService.role != 'Admin'" class="actions-dropdown-block">
+                      <div class="action-more cursor-pointer"></div>
+                      <div class="actions-dropdown-item">
+                        <ul>
+                          <li (click)="isOpen = !isOpen;"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+                          <li><a><img src="assets/images/icons/icon-copy.png" alt="icon"> {{helperService.translation?.copy}}</a></li>
+                          <li><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </tab>
+          <tab heading="{{helperService.translation?.sent}}">
+            <table class="table admin-table admin-table1" [style]="isOpen ? 'table-layout: fixed' : ''">
+              <thead>
+              <tr>
+                <th class="admin-table-th">{{helperService.translation?.title}}</th>
+                <th [@openClose]="!isOpen ? 'openIf' : 'closedIf'">{{helperService.translation?.content}}</th>
+                <th class="admin-table-th">{{helperService.translation?.date}}</th>
+                <th [@openClose]="!isOpen ? 'openIf' : 'closedIf'">{{helperService.translation?.time}}</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td (click)="isOpen = !isOpen;" class="cursor-pointer">
+                  <span tooltip="Դրույթների փոփոխություն">Դրույթների փոփոխություն</span>
+                </td>
+                <td [@openClose]="!isOpen ? 'openIf' : 'closedIf'">
+                  <span tooltip="Լոռեմ իպսում դոլոռ սիթ ամեթ, եթ վիմ ռեծթ">Լոռեմ իպսում դոլոռ սիթ ամեթ, եթ վիմ ռեծթ</span>
+                </td>
+                <td><span>07/07/2021</span></td>
+                <td [@openClose]="!isOpen ? 'openIf' : 'closedIf'">15:20</td>
+                <td class="actions">
+                  <div (click)="isOpen = !isOpen;"  class="action-eye cursor-pointer"></div>
+                  <div *ngIf="this.helperService.role != 'Admin'" class="action-edit cursor-pointer"></div>
+                  <div *ngIf="this.helperService.role != 'Admin'" class="actions-dropdown-block">
+                    <div class="action-more cursor-pointer"></div>
+                    <div class="actions-dropdown-item">
+                      <ul>
+                        <li (click)="isOpen = !isOpen;"><a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> Դիտել</a></li>
+                        <li><a><img src="assets/images/icons/icon-copy.png" alt="icon"> Պատճենել</a></li>
+                        <li><a><img src="assets/images/icons/icon-delete.png" alt="icon"> Ջնջել</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+    <div style="width: 590px;" [@openCloseView]="!isOpen ? 'closed' : 'open'">
+      <app-push-notification-view (myEvent)="close()"></app-push-notification-view>
+    </div>
+  </div>
+
+  <div style="width: 100%;
+    height: 100vh;
+    overflow-y: auto;" [@page]="!showPage ? 'open' : 'closed'">
+    <app-push-notification-edit-create (closePage)="showPage = true;"></app-push-notification-edit-create>
+  </div>
+</div>

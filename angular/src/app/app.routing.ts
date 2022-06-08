@@ -85,6 +85,10 @@ export const routes: Routes = [
         path: ':country/:language/open_surveys',
         loadChildren: () => import('./pages/admin/open-surveys/open-surveys.module').then(m => m.OpenSurveysModule)
       },
+      {
+        path: ':country/:language/push-notification',
+        loadChildren: () => import('./pages/admin/app-settings/push-notification/push-notification.module').then(m => m.PushNotificationModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}

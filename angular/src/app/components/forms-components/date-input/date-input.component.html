@@ -33,20 +33,20 @@
         </div>
         <table class="calendar-table" id="calendar">
           <thead>
-            <tr>
-              <th>{{this.helperService.translation?.Monday}}</th>
-              <th>{{this.helperService.translation?.Tuesday}}</th>
-              <th>{{this.helperService.translation?.Wednesday}}</th>
-              <th>{{this.helperService.translation?.Thursday}}</th>
-              <th>{{this.helperService.translation?.Friday}}</th>
-              <th>{{this.helperService.translation?.Saturday}}</th>
-              <th>{{this.helperService.translation?.Sunday}}</th>
-            </tr>
-            </thead>
+          <tr>
+            <th>{{this.helperService.translation?.Monday}}</th>
+            <th>{{this.helperService.translation?.Tuesday}}</th>
+            <th>{{this.helperService.translation?.Wednesday}}</th>
+            <th>{{this.helperService.translation?.Thursday}}</th>
+            <th>{{this.helperService.translation?.Friday}}</th>
+            <th>{{this.helperService.translation?.Saturday}}</th>
+            <th>{{this.helperService.translation?.Sunday}}</th>
+          </tr>
+          </thead>
 
-            <tbody id="calendar-body">
+          <tbody id="calendar-body">
 
-            </tbody>
+          </tbody>
         </table>
         <div class="button-block">
           <button class="today-button" type="button" (click)="setCurrentDay()">{{helperService.translation?.today}}</button>

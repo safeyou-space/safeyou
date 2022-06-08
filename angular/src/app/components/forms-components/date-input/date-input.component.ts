@@ -1,4 +1,4 @@
-import {Component, forwardRef, OnInit} from '@angular/core';
+import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {FormBuilder, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
 import {HelperService} from "../../../shared/helper.service";
 
@@ -15,6 +15,7 @@ import {HelperService} from "../../../shared/helper.service";
   ]
 })
 export class DateInputComponent implements OnInit {
+  @Input() setMinDate = true
 
   today = new Date();
   currentMonth = this.today.getMonth();
@@ -158,16 +159,17 @@ export class DateInputComponent implements OnInit {
       }
 
     }
-  this.addCurrentDay();
+    this.addCurrentDay();
   }
 
   addCurrentDay() {
-      document.querySelectorAll('.change-Day').forEach((item) => {
-        item.addEventListener('click',() => {
-          let day = new Date().getDate() as any;
-          let month = new Date().getMonth() as any;
-          let year = new Date().getFullYear() as any;
-          let count = Number(new Date(year, month, day))  - Number(new Date(this.currentYear, this.currentMonth, +item.innerHTML));
+    document.querySelectorAll('.change-Day').forEach((item) => {
+      item.addEventListener('click',() => {
+        let day = new Date().getDate() as any;
+        let month = new Date().getMonth() as any;
+        let year = new Date().getFullYear() as any;
+        let count = Number(new Date(year, month, day))  - Number(new Date(this.currentYear, this.currentMonth, +item.innerHTML));
+        if (this.setMinDate) {
           if (count >= 0) {
             if (document.querySelectorAll('.currentDay')[0]) {
               document.querySelectorAll('.currentDay')[0].classList.remove('currentDay')
@@ -176,8 +178,19 @@ export class DateInputComponent implements OnInit {
             this.today = new Date(this.currentYear, this.currentMonth, +item.innerHTML);
             this.selectedDay = new Date(this.currentYear, this.currentMonth, +item.innerHTML);
           }
-        })
+        }
+        if (!this.setMinDate) {
+          if (count <= 0) {
+            if (document.querySelectorAll('.currentDay')[0]) {
+              document.querySelectorAll('.currentDay')[0].classList.remove('currentDay')
+            }
+            item.classList.add('currentDay');
+            this.today = new Date(this.currentYear, this.currentMonth, +item.innerHTML);
+            this.selectedDay = new Date(this.currentYear, this.currentMonth, +item.innerHTML);
+          }
+        }
       })
+    })
   }
   setCurrentDay() {
     this.today = new Date();
