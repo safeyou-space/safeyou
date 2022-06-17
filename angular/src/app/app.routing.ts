@@ -89,6 +89,10 @@ export const routes: Routes = [
         path: ':country/:language/push-notification',
         loadChildren: () => import('./pages/admin/app-settings/push-notification/push-notification.module').then(m => m.PushNotificationModule)
       },
+      {
+        path: ':country/:language/about-us',
+        loadChildren: () => import('./pages/admin/app-settings/about-us/about-us.module').then(m => m.AboutUsModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}
