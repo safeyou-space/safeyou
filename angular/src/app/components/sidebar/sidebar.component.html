@@ -130,6 +130,20 @@
                 <span class="menu-text">{{helperService.translation?.about_us}}</span>
               </a>
             </li>
+            <li *ngIf="access?.languages  || is_admin == true" [@openClose]="isOpen == 2 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/language">
+                <img src="assets/images/icons/icon-language.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-language(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.languages}}</span>
+              </a>
+            </li>
+            <li *ngIf="access?.police_data  || is_admin == true" [@openClose]="isOpen == 2 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/police-data">
+                <img src="assets/images/icons/icon-police.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-police(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.police_data}}</span>
+              </a>
+            </li>
           </ul>
         </li>
       </ul>

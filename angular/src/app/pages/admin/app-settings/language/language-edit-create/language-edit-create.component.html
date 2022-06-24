@@ -1,0 +1,151 @@
+<div class="content">
+  <div class="head">
+    <div class="title">
+      <h4><img (click)="close()" src="assets/images/icons/icon-arrow-back.png" alt="image"> {{helperService.translation?.add_language}}</h4>
+    </div>
+    <div class="head-actions">
+      <button (click)="close()" class="head-cancel">{{helperService.translation?.cancel}}</button>
+      <button class="head-cancel">{{helperService.translation?.save}}</button>
+      <button class="head-save-button">{{helperService.translation?.save_publish}}</button>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <tabset class="my-tab">
+      <tab  heading="Բովանդակություն">
+        <div class="wrapper">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="d-flex margin-t-24">
+              <div class="form-group margin-r-8" style="min-width: 200px;">
+                <label class="label-style" for="language">{{helperService.translation?.language}}</label>
+                <div>
+                  <angular2-multiselect [data]="itemList"
+                                        [(ngModel)]="selectedItems"
+                                        id="language"
+                                        formControlName="language"
+                                        [settings]="settings"
+                                        (onSelect)="onItemSelect($event)"
+                                        (onDeSelect)="OnItemDeSelect($event)"
+                                        #dropdownRef>
+                    <c-badge>
+                      <ng-template let-item="item">
+                        <label style="margin: 0px;">{{item.itemName}}</label>
+                      </ng-template>
+                    </c-badge>
+                    <c-item>
+                      <ng-template let-item="item">
+                        <label>{{item.itemName}}</label>
+                      </ng-template>
+                    </c-item>
+                  </angular2-multiselect>
+                  <div *ngIf="!form.controls.language?.valid && (form.controls.language?.dirty || form.controls.language?.touched)">
+                    <span class="error-message">{{helperService.translation?.content_required}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group margin-r-8" style="min-width: 200px;">
+                <label class="label-style" for="country">{{helperService.translation?.country}}</label>
+                <div>
+                  <angular2-multiselect [data]="itemListCountry"
+                                        [(ngModel)]="selectedItemsCountry"
+                                        id="country"
+                                        formControlName="country"
+                                        [settings]="settingsCountry"
+                                        (onSelect)="onItemSelectCountry($event)"
+                                        (onDeSelect)="OnItemDeSelectCountry($event)"
+                                        #dropdownRef2>
+                    <c-badge>
+                      <ng-template let-item="item">
+                        <label style="margin: 0px;">{{item.itemName}}</label>
+                      </ng-template>
+                    </c-badge>
+                    <c-item>
+                      <ng-template let-item="item">
+                        <label>{{item.itemName}}</label>
+                      </ng-template>
+                    </c-item>
+                  </angular2-multiselect>
+                  <div *ngIf="!form.controls.country?.valid && (form.controls.country?.dirty || form.controls.country?.touched)">
+                    <span class="error-message">{{helperService.translation?.country_required}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="margin-t-24">
+              <div class="d-inline-block margin-r-8">
+                <label class="label-style" for="sms">{{helperService.translation?.sms_message}}</label>
+                <div>
+                  <input type="text" style="min-width: 400px" formControlName="sms" id="sms" class="input-style">
+                  <div *ngIf="!form.controls.sms?.valid && (form.controls.sms?.dirty || form.controls.sms?.touched)">
+                    <span class="error-message">{{helperService.translation?.sms_message_required}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-inline-block margin-r-8">
+                <label class="label-style" for="police">{{helperService.translation?.police_data}}</label>
+                <div>
+                  <input type="text" style="min-width: 224px" formControlName="police" id="police" class="input-style">
+                  <div *ngIf="!form.controls.police?.valid && (form.controls.police?.dirty || form.controls.police?.touched)">
+                    <span class="error-message">{{helperService.translation?.police_data_required}}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="margin-t-24 language_editor">
+              <label class="label-style">{{helperService.translation?.about_us}}</label>
+              <div style="max-width: 888px">
+                <ckeditor [config]='config' id="about" formControlName="about" [editor]="Editor"></ckeditor>
+                <div *ngIf="!form.controls.about?.valid && (form.controls.about?.dirty || form.controls.about?.touched)">
+                  <span class="error-message">{{helperService.translation?.about_us_required}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-t-24 language_editor">
+              <label class="label-style">{{helperService.translation?.privacy_policy}}</label>
+              <div style="max-width: 888px">
+                <ckeditor [config]='config' id="secret" formControlName="secret" [editor]="Editor"></ckeditor>
+                <div *ngIf="!form.controls.secret?.valid && (form.controls.secret?.dirty || form.controls.secret?.touched)">
+                  <span class="error-message">{{helperService.translation?.privacy_policy_required}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-t-24 language_editor">
+              <label class="label-style">{{helperService.translation?.consultation_of}}</label>
+              <div style="max-width: 888px">
+                <ckeditor [config]='config' id="suggestion" formControlName="suggestion" [editor]="Editor"></ckeditor>
+                <div *ngIf="!form.controls.suggestion?.valid && (form.controls.suggestion?.dirty || form.controls.suggestion?.touched)">
+                  <span class="error-message">{{helperService.translation?.consultation_of_required}}</span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </tab>
+      <tab  heading="{{helperService.translation?.shelves}}">
+        <div class="wrapper">
+
+        </div>
+      </tab>
+      <tab  heading="{{helperService.translation?.warnings}}">
+        <div class="wrapper">
+
+        </div>
+      </tab>
+      <tab  heading="{{helperService.translation?.buttons}}">
+        <div class="wrapper">
+
+        </div>
+      </tab>
+      <tab  heading="{{helperService.translation?.titles}}">
+        <div class="wrapper">
+
+        </div>
+      </tab>
+    </tabset>
+  </div>
+
+</div>

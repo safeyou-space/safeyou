@@ -1,0 +1,149 @@
+<div class="app-header">
+  <app-header></app-header>
+</div>
+
+<div class="position-relative">
+  <div [@openClose]="!isOpen ? 'closed' : 'open'" class="content">
+    <div class="head">
+      <div class="title">
+        <h4>{{helperService.translation?.languages}}</h4>
+      </div>
+      <div class="head-actions">
+      </div>
+    </div>
+
+    <div class="content-body">
+      <div class="wrapper">
+        <table class="table admin-table admin-table1">
+          <thead>
+          <tr>
+            <th class="admin-table-th">{{helperService.translation?.language}}</th>
+            <th class="admin-table-th">{{helperService.translation?.users_count}}</th>
+            <th class="admin-table-th">{{helperService.translation?.status}}</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of data">
+            <td><span>{{item.title}}</span></td>
+            <td>{{item?.user_count}}</td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" [disabled]="true" [checked]='item.status'>
+                <div>
+                  <span></span>
+                </div>
+              </label>
+            </td>
+            <td class="actions">
+              <img (click)="showModal(item)" class="action-edit cursor-pointer" src="../../../../../assets/images/icons/icon-edit.png" alt="edit">
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+          <pagination *ngIf="allPageData && allPageData.total > 10"
+                      [boundaryLinks]="true"
+                      [totalItems]="allPageData.total"
+                      [itemsPerPage]="allPageData.per_page"
+                      [ngModel]="allPageData.current_page"
+                      [maxSize]="10"
+                      (pageChanged)="pageChanged($event)"
+                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+          </pagination>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div [@openClose]="isOpen ? 'closed' : 'open'">
+  </div>
+</div>
+
+<div *ngIf="isModalShown" [config]="{ show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-dialog-centered report_modal">
+    <div class="modal-content">
+      <div class="modal-header report_modal_header">
+        <h4 id="dialog-auto-name" class="modal-title pull-left">{{helperService.translation?.edit}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body report_modal_body">
+        <div class="report_form">
+          <form [formGroup]="form">
+            <div class="form-group">
+              <label for="title"
+                     [ngClass]="(form.controls.title?.invalid && (form.controls.title?.dirty || form.controls.title?.touched)) ? 'invalid-label-color' : ''">
+                {{helperService.translation?.title}} *</label>
+              <input class="w-100" style="padding: 3px 12px; border-radius: 30px;" formControlName="title" type="text" id="title">
+              <div *ngIf="!form.controls.title?.valid && (form.controls.title?.dirty || form.controls.title?.touched)">
+                <span class="error-message">{{helperService.translation?.title_required}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="code"
+                     [ngClass]="(form.controls.code?.invalid && (form.controls.code?.dirty || form.controls.code?.touched)) ? 'invalid-label-color' : ''">
+                {{helperService.translation?.short_code}} *</label>
+              <input readonly type="text" class="form-control" formControlName="code" id="code">
+              <div *ngIf="!form.controls.code?.valid && (form.controls.code?.dirty || form.controls.code?.touched)">
+                <span class="error-message">{{helperService.translation?.short_code_required}}</span>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="form-group">
+                <div>
+                  <div class="drag-and-drop"
+                       [style]="imageValue || type ? 'box-shadow: none; background: none; border: 2px solid transparent' : ''">
+
+                    <div *ngIf="!type" class="drag-and-drop-info"></div>
+
+                    <div class="drag-and-drop-container"
+                         [style]="imageValue || type ? 'padding: 22px 8px 16px 8px; background-image: none' : ''"
+                         (fileDropped)="onChange($event)">
+                      <div *ngIf="imageValue || editImagePath">
+                        <div class="image-block">
+                          <img *ngIf="imageValue || editImagePath"
+                               src="{{imageValue ? imageValue : this.requestService.imgSite + editImagePath}}" alt="image"
+                               class="user-image">
+                        </div>
+                      </div>
+                      <input formControlName="image" type="file" id="fileDropRef" (change)="onChange($event)"/>
+                      <div *ngIf="!type">
+                        <img class="btn-upload" src="../../../../../../assets/images/icons/btn-upload.png" alt="upload">
+                        <h3>{{helperService.translation?.select_image}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="error-message">
+                    <span *ngIf="form.controls.image?.hasError('size')">{{helperService.translation?.image_size_error}}</span>
+                    <span *ngIf="form.controls.image?.hasError('type')">{{helperService.translation?.invalid_image}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone">{{helperService.translation?.status}}</label>
+              <div>
+                <label class="switch m-0">
+                  <input type="checkbox" readonly formControlName="status" id="status">
+                  <div>
+                    <span></span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer report_modal_footer">
+        <button type="button" (click)="hideModal()" class="btn cancel_button">{{helperService.translation?.cancel}}</button>
+        <button type="submit" (click)="save()" class="btn send_button">{{helperService.translation?.send}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

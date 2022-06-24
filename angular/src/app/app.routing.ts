@@ -93,6 +93,14 @@ export const routes: Routes = [
         path: ':country/:language/about-us',
         loadChildren: () => import('./pages/admin/app-settings/about-us/about-us.module').then(m => m.AboutUsModule)
       },
+      {
+        path: ':country/:language/police-data',
+        loadChildren: () => import('./pages/admin/app-settings/police-data/police-data.module').then(m => m.PoliceDataModule)
+      },
+      {
+        path: ':country/:language/language',
+        loadChildren: () => import('./pages/admin/app-settings/language/language.module').then(m => m.LanguageModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}
