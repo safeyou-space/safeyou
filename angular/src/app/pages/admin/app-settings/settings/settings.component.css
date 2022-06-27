@@ -1,0 +1,60 @@
+@import "../../../../../assets/css/admin-table.css";
+@import "../../../../../assets/css/actions-dropdown.css";
+/*@import "../../../../../assets/css/filter-dropdown.css";*/
+@import "../../../../../assets/css/report_modal.css";
+@import "../../../../../assets/css/multiselect-dropdown.css";
+.content {
+  /*padding: 0 22px;*/
+}
+.content-size {
+  flex: 1;
+}
+.head {
+  padding: 30px 22px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.title h4{
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-16)/var(--unnamed-line-spacing-25) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.64px;
+  color: #230D2C;
+}
+.content-body {
+  margin-top: 16px;
+  padding: 0 22px;
+}
+::ng-deep .my-tab  a.nav-link.active{
+  color: var(--unnamed-color-e37d93);
+  font-weight: 600;
+}
+::ng-deep .my-tab  a.nav-link{
+  color: var(--unnamed-color-e37d93);
+  border: transparent;
+}
+::ng-deep .my-tab a.nav-link.active {
+  background-color: transparent;
+  border-bottom: 2px solid #E37D93;
+  border-top: transparent;
+  border-right: transparent;
+  border-left: transparent;
+}
+.admin-table td:nth-child(2) > span {
+  display:inline-block;
+  max-width:130px;
+  width: auto;
+  white-space: nowrap;
+  overflow:hidden !important;
+  text-overflow: ellipsis;
+  top: 4px;
+}
+.admin-table td:nth-child(3) > span {
+  display:inline-block;
+  max-width:130px;
+  width: auto;
+  white-space: nowrap;
+  overflow:hidden !important;
+  text-overflow: ellipsis;
+  top: 4px;
+}

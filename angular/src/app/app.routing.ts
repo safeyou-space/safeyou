@@ -101,6 +101,14 @@ export const routes: Routes = [
         path: ':country/:language/language',
         loadChildren: () => import('./pages/admin/app-settings/language/language.module').then(m => m.LanguageModule)
       },
+      {
+        path: ':country/:language/settings',
+        loadChildren: () => import('./pages/admin/app-settings/settings/settings.module').then(m => m.SettingsModule)
+      },
+      {
+        path: ':country/:language/help-messages',
+        loadChildren: () => import('./pages/admin/app-settings/help-messages/help-messages.module').then(m => m.HelpMessagesModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}

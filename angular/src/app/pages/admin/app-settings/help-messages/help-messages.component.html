@@ -1,0 +1,82 @@
+<div class="position-relative">
+
+  <div [@page]="showPage ? 'open' : 'closed'">
+    <div class=" d-flex" [style]="isOpen ? 'overflow: hidden;height: 100vh' : ''">
+      <div class="content-size">
+        <div class="app-header">
+          <app-header></app-header>
+        </div>
+        <div class="head">
+          <div class="title">
+            <h4>{{helperService.translation?.help_message}}</h4>
+          </div>
+          <button (click)="showCreatePage('add');" class="button-style btn">{{helperService.translation?.add_sms}}</button>
+        </div>
+        <div class="content-body">
+          <table class="table admin-table" [style]="isOpen ? 'table-layout: fixed' : ''">
+            <thead>
+            <tr>
+              <th>{{helperService.translation?.message}}</th>
+              <th>{{helperService.translation?.status}}</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of data">
+              <td (click)="showViewPage(item)" class="cursor-pointer"><span tooltip="{{item?.message}}">{{item?.message}}</span></td>
+              <td class="cursor-pointer">
+                <label class="switch m-0">
+                  <input type="checkbox" [disabled]="true" [checked]='item.status'>
+                  <div>
+                    <span></span>
+                  </div>
+                </label>
+              </td>
+              <td class="actions">
+                <div (click)="showViewPage(item)" class="action-eye cursor-pointer"></div>
+                <div class="actions-dropdown-block">
+                  <div class="action-more cursor-pointer"></div>
+                  <div class="actions-dropdown-item">
+                    <ul>
+                      <li (click)="showViewPage(item)">
+                        <a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a>
+                      </li>
+                      <li (click)="showCreatePage('edit', item);">
+                        <a><img src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}</a>
+                      </li>
+                      <li (click)="popup.deleteModal(item.id)"><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination *ngIf="allPageData && allPageData.total > 10"
+                        [boundaryLinks]="true"
+                        [totalItems]="allPageData.total"
+                        [itemsPerPage]="allPageData.per_page"
+                        [ngModel]="allPageData.current_page"
+                        [maxSize]="5"
+                        (pageChanged)="pageChanged($event)"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+            </pagination>
+          </div>
+        </div>
+      </div>
+        <div [@openClose]="!isOpen ? 'closed' : 'open'">
+          <app-help-messages-view [data]="viewData" (myEvent)="closeView()"></app-help-messages-view>
+        </div>
+    </div>
+  </div>
+
+  <div [@page]="!showPage ? 'open' : 'closed'">
+    <app-help-messages-create-edit (closePage)="close($event)"></app-help-messages-create-edit>
+  </div>
+</div>
+
+
+<app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>
+
+

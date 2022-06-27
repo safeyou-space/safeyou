@@ -144,6 +144,20 @@
                 <span class="menu-text">{{helperService.translation?.police_data}}</span>
               </a>
             </li>
+            <li *ngIf="access?.help_message  || is_admin == true" [@openClose]="isOpen == 2 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/help-messages">
+                <img src="assets/images/icons/icon-sms.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-sms(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.help_message}}</span>
+              </a>
+            </li>
+            <li *ngIf="access?.setting  || is_admin == true" [@openClose]="isOpen == 2 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/settings">
+                <img src="assets/images/icons/icon-settings.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-settings(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.settings}}</span>
+              </a>
+            </li>
           </ul>
         </li>
       </ul>

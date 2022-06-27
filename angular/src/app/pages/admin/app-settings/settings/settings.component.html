@@ -1,0 +1,144 @@
+<div class=" d-flex" [style]="isOpen ? 'overflow: hidden;height: 100vh' : ''">
+  <div class="content-size">
+    <div class="app-header">
+      <app-header></app-header>
+    </div>
+    <div class="head">
+      <div class="title">
+        <h4>{{helperService.translation?.settings}}</h4>
+      </div>
+    </div>
+    <div class="content-body">
+      <table class="table admin-table" [style]="isOpen ? 'table-layout: fixed' : ''">
+        <thead>
+        <tr>
+          <th>{{helperService.translation?.first_name}}</th>
+          <th>{{helperService.translation?.composition}}</th>
+          <th>{{helperService.translation?.description}}</th>
+          <th>{{helperService.translation?.status}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of data">
+          <td class="cursor-pointer" (click)="showViewPage(item)">{{item?.title_key}}</td>
+          <td><span tooltip="{{item?.title_value}}">{{item?.title_value}}</span></td>
+          <td><span tooltip="{{item?.description}}">{{item?.description}}</span></td>
+          <td>
+            <label class="switch m-0">
+              <input type="checkbox" [disabled]="true" [checked]='item.status'>
+              <div>
+                <span></span>
+              </div>
+            </label>
+          </td>
+          <td class="actions">
+            <div (click)="showViewPage(item)" class="action-eye cursor-pointer"></div>
+            <div class="actions-dropdown-block">
+              <div class="action-more cursor-pointer"></div>
+              <div class="actions-dropdown-item">
+                <ul>
+                  <li (click)="showViewPage(item)">
+                    <a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a>
+                  </li>
+                  <li (click)="showModal(item)">
+                    <a><img src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div [@openClose]="!isOpen ? 'closed' : 'open'">
+    <app-settings-view [data]="viewData" (myEvent)="close()"></app-settings-view>
+  </div>
+</div>
+
+<div *ngIf="isModalShown" [config]="{ show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-dialog-centered report_modal">
+    <div class="modal-content">
+      <div class="modal-header report_modal_header">
+        <h4 id="dialog-auto-name" class="modal-title pull-left">{{helperService.translation?.edit}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="requestType == 'police'" class="modal-body report_modal_body">
+        <div class="report_form">
+          <form [formGroup]="policeForm">
+            <div class="form-group">
+              <label for="phone" [ngClass]="(policeForm.controls.value?.invalid && (policeForm.controls.value?.dirty || policeForm.controls.value?.touched)) ? 'invalid-label-color' : ''">{{helperService.translation?.police_number}} *</label>
+              <input class="w-100" style="padding: 3px 12px; border-radius: 30px;" formControlName="value" type="text" id="phone">
+              <div>
+                <span *ngIf="policeForm.controls.value?.hasError('required') && (policeForm.controls.value?.dirty || policeForm.controls.value?.touched)" class="error-message">{{helperService.translation?.police_number_required}}</span>
+                <span *ngIf="policeForm.controls.value?.errors?.pattern && (policeForm.controls.value?.dirty || policeForm.controls.value?.touched)" class="error-message">{{helperService.translation?.invalid_phone}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" [ngClass]="(policeForm.controls.description?.invalid && (policeForm.controls.description?.dirty || policeForm.controls.description?.touched)) ? 'invalid-label-color' : ''">{{helperService.translation?.description}} </label>
+              <textarea class="form-control" formControlName="description" id="description"></textarea>
+            </div>
+            <div class="form-group">
+              <div>
+                <label class="switch m-0">
+                  <input type="checkbox" formControlName="status" id="status">
+                  <div>
+                    <span></span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div *ngIf="requestType == 'edit'" class="modal-body report_modal_body">
+        <div class="report_form">
+          <form [formGroup]="form">
+            <div class="form-group">
+              <label>{{this.id == 'default_support_language' ? helperService.translation?.languages : helperService.translation?.help_message}} *</label>
+              <angular2-multiselect [data]="itemList"
+                                    id="value"
+                                    formControlName="value"
+                                    [settings]="settings"
+                                    (onDeSelect)="closeDropdown(dropdownRef)"
+                                    #dropdownRef>
+                <c-badge>
+                  <ng-template let-item="item">
+                    <label style="margin: 0px;">{{item.itemName}}</label>
+                  </ng-template>
+                </c-badge>
+                <c-item>
+                  <ng-template let-item="item">
+                    <label>{{item.itemName}}</label>
+                  </ng-template>
+                </c-item>
+              </angular2-multiselect>
+              <div *ngIf="!form.controls.value?.valid && (form.controls.value?.dirty || form.controls.value?.touched)">
+                <span class="error-message">
+                  {{this.id == 'default_support_language' ? helperService.translation?.languages : helperService.translation?.help_message}} {{helperService.translation?.is_required}}
+                </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description-2">{{helperService.translation?.description}} *</label>
+              <textarea class="form-control" formControlName="description" id="description-2"></textarea>
+              <div *ngIf="!form.controls.description?.valid && (form.controls.description?.dirty || form.controls.description?.touched)">
+                <span class="error-message">{{helperService.translation?.description_required}}</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer report_modal_footer">
+        <button type="button" (click)="hideModal()" class="btn cancel_button">{{helperService.translation?.cancel}}</button>
+        <button type="submit" (click)="save()" class="btn send_button">{{helperService.translation?.send}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

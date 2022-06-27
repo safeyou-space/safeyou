@@ -1,0 +1,25 @@
+<div class="content scrolling">
+  <div class="content-head">
+    <div>
+    </div>
+    <div class="close-button-btn">
+      <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="">
+      <div class="info-block-description">
+        <p class="info-title">{{helperService.translation?.message}}</p>
+        <p class="info-description">{{data?.message}}</p>
+        <div *ngIf="data">
+          <div *ngFor="let item of data.translations">
+            <p class="info-title">{{item.language?.title}}</p>
+            <p class="info-description">{{item?.translation}}</p>
+          </div>
+        </div>
+        <p class="info-title margin-t-40">{{helperService.translation?.status}}</p>
+        <p class="info-description">{{data?.status == 1 ? helperService.translation?.active : helperService.translation?.in_active}}</p>
+      </div>
+    </div>
+  </div>
+</div>
