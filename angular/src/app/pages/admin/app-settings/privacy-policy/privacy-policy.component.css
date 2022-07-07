@@ -1,0 +1,295 @@
+@import "../../../../../assets/css/admin-table.css";
+.create-post {
+  padding: 9px 16px;
+  background: var(--unnamed-color-fbeff2) 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  float: right;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  color: #E37D93;
+  text-align: center;
+  font-size: 13px;
+  margin-right: 4px;
+}
+.create-post:hover {
+  background-color: #F8DEE4;
+}
+.create-save-post {
+  padding: 9px 16px;
+  background: #E37D93 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  color: #FEFBFC;
+  text-align: center;
+  font-size: 13px;
+  margin-right: 4px;
+}
+.create-save-post:hover {
+  background-color: #DC5D78;
+}
+::ng-deep .my-tab  a.nav-link.active{
+  color: var(--unnamed-color-e37d93);
+  font-weight: 600;
+}
+::ng-deep .my-tab  a.nav-link{
+  color: var(--unnamed-color-e37d93);
+  border: transparent;
+}
+::ng-deep .my-tab a.nav-link.active {
+  background-color: transparent;
+  border-bottom: 2px solid #E37D93;
+  border-top: transparent;
+  border-right: transparent;
+  border-left: transparent;
+}
+.about_text {
+  max-width: 856px;
+  font-family: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-20) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.36px;
+  color: #230D2C;
+  font-size: 14px;
+}
+.about_text:last-child {
+  padding-bottom: 80px;
+}
+.edit-post-animation {
+  animation: save 0.8s;
+  animation-fill-mode: forwards
+}
+@keyframes save {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.save-post-animation {
+  animation: edit 0.8s;
+  animation-fill-mode: forwards;
+}
+.save_button {
+  visibility: hidden;
+}
+@keyframes edit {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+    visibility: visible;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(55px);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.title-animation {
+  animation: editTitle 0.8s;
+  animation-fill-mode: forwards;
+}
+@keyframes editTitle {
+  0% {
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(35px);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.title-back-animation {
+  animation: editTitleBack 0.8s;
+  animation-fill-mode: forwards;
+}
+@keyframes editTitleBack {
+  0% {
+    transform: translateY(20px);
+    opacity: 1;
+    visibility: visible;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(-35px);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.title-back-animation2 {
+  animation: editTitleBack2 0.8s;
+  animation-fill-mode: forwards;
+}
+@keyframes editTitleBack2 {
+  0% {
+    transform: translateY(70px);
+    opacity: 0;
+    visibility: visible;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.72;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.editor_hide {
+  display: none;
+}
+.editor-animation {
+  display: block;
+}
+.save-cancel-post {
+  padding: 9px 16px;
+  background: var(--unnamed-color-fbeff2) 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  color: #E37D93;
+  text-align: center;
+  font-size: 13px;
+  margin-right: 4px;
+}
+.save-cancel-post:hover {
+  background-color: #F8DEE4;
+}
+.edit_title {
+  font-family: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-16)/var(--unnamed-line-spacing-25) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.64px;
+  color: #230D2C;
+  font-size: 16px;
+}
+.icon_back {
+  background: url("../../../../../assets/images/icons/icon-arrow-back.png") no-repeat;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  top: 2px;
+}
+::ng-deep .privacy_policy_editor .ck.ck-reset_all, .ck.ck-reset_all * {
+  width: 100%;
+}
+::ng-deep .privacy_policy_editor .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+  width: 100%;
+  height: 632px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  background: transparent;
+  border: 1px solid #F8DEE4;
+}
+::ng-deep .privacy_policy_editor .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar, .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background: transparent;
+  border: 1px solid #F8DEE4;
+}
+.editor-text-animation {
+  animation: animationText 0.8s;
+  animation-fill-mode: forwards;
+}
+@keyframes animationText {
+  0% {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+  }
+}
+.editor-text-back-animation {
+  animation: animationTextBack 0.8s;
+  animation-fill-mode: forwards;
+}
+@keyframes animationTextBack {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+  }
+}
+
+::ng-deep .main {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+::ng-deep .main::-webkit-scrollbar {
+  width: 2px;
+  top: 2px;
+}
+::ng-deep .main::-webkit-scrollbar-thumb {
+  background-color: #e37d93;
+  border-radius: 20px;
+}
+

@@ -1,0 +1,23 @@
+<div class="content">
+  <div class="content-head">
+    <div>
+    </div>
+    <div class="close-button-btn">
+      <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="info-block">
+      <div class="info-block-description">
+        <p class="info-title margin-t-40">{{helperService.translation?.title}}</p>
+        <p class="info-description">{{viewData?.key}}</p>
+        <div *ngIf="viewData">
+          <div *ngFor="let item of myObject.keys(viewData?.translations)">
+              <p class="info-title margin-t-40">{{helperService.translation?.translation}} ({{viewData?.translations[item]?.language?.title}})</p>
+              <p class="info-description">{{viewData?.translations[item]?.translation}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

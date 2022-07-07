@@ -1,0 +1,68 @@
+<div class="position-relative">
+
+  <div [@page]="showPage ? 'open' : 'closed'">
+    <div class=" d-flex" [style]="!isOpen ? 'overflow: hidden;height: 100vh' : ''">
+      <div class="content-size">
+        <div class="app-header">
+          <app-header></app-header>
+        </div>
+        <div class="head">
+          <div class="title">
+            <h4>{{helperService.translation?.translations}}</h4>
+          </div>
+          <button (click)="showCreatePage('add');" class="button-style btn">{{helperService.translation?.add_translation}}</button>
+        </div>
+        <div class="content-body">
+          <div *ngIf="this.data && this.data['message']" style="padding-top: 30px;">
+            <span class="data_empty">{{helperService.translation?.no_result}}</span>
+          </div>
+          <table class="table admin-table" *ngIf="this.data && !this.data['message']" [style]="isOpen ? 'table-layout: fixed' : ''">
+            <thead>
+            <tr>
+              <th>{{helperService.translation?.title}}</th>
+              <th [@openClose]="isOpen ? 'showColumn' : 'hideColumn'">{{helperService.translation?.translation}}</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of data">
+              <td class="cursor-pointer" (click)="showViewPage(item)">{{item.key}}</td>
+              <td [@openClose]="isOpen ? 'showColumn' : 'hideColumn'">{{item.translations[this.language].translation}}</td>
+              <td class="actions">
+                <div (click)="showViewPage(item)" class="action-eye cursor-pointer"></div>
+                <div (click)="showCreatePage('edit', item);" class="action-edit cursor-pointer"></div>
+                <div class="actions-dropdown-block">
+                  <div class="action-more cursor-pointer"></div>
+                  <div class="actions-dropdown-item">
+                    <ul>
+                      <li (click)="showViewPage(item)">
+                        <a><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a>
+                      </li>
+                      <li (click)="showCreatePage('edit', item);">
+                        <a><img src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}</a>
+                      </li>
+                      <li (click)="popup.deleteModal(item.key)"><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+        <div [@openClose]="isOpen ? 'closed' : 'open'">
+          <app-translations-view [viewData]="itemData" (myEvent)="close($event)"></app-translations-view>
+        </div>
+    </div>
+  </div>
+
+  <div [@page]="!showPage ? 'open' : 'closed'">
+    <app-translations-edit-create (closePage)="close($event)"></app-translations-edit-create>
+  </div>
+</div>
+
+
+<app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>
+
+

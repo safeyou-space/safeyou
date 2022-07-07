@@ -1,0 +1,49 @@
+<div class="app-header">
+  <app-header [isShowSearch]="false"></app-header>
+</div>
+
+<div class="content">
+  <div class="head">
+    <div class="title">
+      <h4><img class="cursor-pointer" src="assets/images/icons/icon-arrow-back.png" (click)="togglePage()" alt="image">
+        {{this.key ? helperService.translation?.edit : helperService.translation?.add_translation}}
+      </h4>
+    </div>
+    <div class="head-actions">
+      <button  class="btn head-cancel" (click)="togglePage()">{{helperService.translation?.cancel}}</button>
+      <button  class="btn head-cancel" (click)="onSubmit(this.form.value, 0)">{{helperService.translation?.remember}}</button>
+      <button class="btn head-save-button" (click)="onSubmit(this.form.value, 1)">{{helperService.translation?.remember_publish}}</button>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="form-block">
+      <form class="push-form" [formGroup]="form">
+        <div class="form-group">
+          <label [ngClass]="(form.controls.key?.invalid &&
+        (form.controls.key?.dirty || form.controls.key?.touched)) ? 'invalid-label-color' : ''" for="key">
+            {{helperService.translation?.title}} *
+          </label>
+          <input class="form-control" formControlName="key" id="key">
+          <div *ngIf="!form.controls.key?.valid && (form.controls.key?.dirty || form.controls.key?.touched)">
+            <span class="error-message">{{helperService.translation?.title_required}}</span>
+          </div>
+        </div>
+        <div formArrayName="translations">
+          <div *ngFor="let unit of form['controls'].translations['controls']; let i = index ">
+            <div [formGroupName]="i">
+              <div class="form-group">
+                <label [ngClass]="(!unit?.valid && (unit?.dirty || unit?.touched)) ? 'invalid-label-color' : ''">{{languageList[i].title}} *</label>
+                <textarea rows="6" class="form-control" [formControlName]="languageList[i].code"></textarea>
+                <div *ngIf="!unit?.valid && (unit?.dirty || unit?.touched)">
+                  <span class="error-message">{{languageList[i].title}} {{helperService.translation?.is_required}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

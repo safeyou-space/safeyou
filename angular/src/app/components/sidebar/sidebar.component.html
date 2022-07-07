@@ -158,6 +158,20 @@
                 <span class="menu-text">{{helperService.translation?.settings}}</span>
               </a>
             </li>
+            <li *ngIf="access?.translations || is_admin == true" [@openClose]="isOpen == 2 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/translations">
+                <img src="assets/images/icons/icon-language.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-language(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.translations}}</span>
+              </a>
+            </li>
+            <li *ngIf="access?.privacy_policy  || is_admin == true" [@openClose]="isOpen == 2 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/privacy-policy">
+                <img src="assets/images/icons/icon-legal.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-legal(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.privacy_policy}}</span>
+              </a>
+            </li>
           </ul>
         </li>
       </ul>

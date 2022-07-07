@@ -109,6 +109,14 @@ export const routes: Routes = [
         path: ':country/:language/help-messages',
         loadChildren: () => import('./pages/admin/app-settings/help-messages/help-messages.module').then(m => m.HelpMessagesModule)
       },
+      {
+        path: ':country/:language/translations',
+        loadChildren: () => import('./pages/admin/app-settings/translations/translations.module').then(m => m.TranslationsModule)
+      },
+      {
+        path: ':country/:language/privacy-policy',
+        loadChildren: () => import('./pages/admin/app-settings/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}
