@@ -172,6 +172,20 @@
                 <span class="menu-text">{{helperService.translation?.privacy_policy}}</span>
               </a>
             </li>
+            <li *ngIf="access?.terms_conditions_consultant   || is_admin == true" [@openClose]="isOpen == 2 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/terms-of-consultation">
+                <img src="assets/images/icons/icon-legal.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-legal(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.terms_of_consultation}}</span>
+              </a>
+            </li>
+            <li *ngIf="access?.terms_conditions  || is_admin == true" [@openClose]="isOpen == 2 ? 'open' : 'closed'">
+              <a class="link" routerLinkActive="active-link" routerLink="/{{country}}/{{this.helperService.defaultLanguage}}/terms-and-conditions">
+                <img src="assets/images/icons/icon-legal.png" class="icon" alt="image">
+                <img src="assets/images/icons/icon-legal(HoverState).png" class="hover-image" alt="image">
+                <span class="menu-text">{{helperService.translation?.terms_and_conditions}}</span>
+              </a>
+            </li>
           </ul>
         </li>
       </ul>

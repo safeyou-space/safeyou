@@ -117,6 +117,18 @@ export const routes: Routes = [
         path: ':country/:language/privacy-policy',
         loadChildren: () => import('./pages/admin/app-settings/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule)
       },
+      {
+        path: ':country/:language/terms-and-conditions',
+        loadChildren: () => import('./pages/admin/app-settings/terms-and-conditions/terms-and-conditions.module').then(m => m.TermsAndConditionsModule)
+      },
+      {
+        path: ':country/:language/terms-of-consultation',
+        loadChildren: () => import('./pages/admin/app-settings/terms-of-consultation/terms-of-consultation.module').then(m => m.TermsOfConsultationModule)
+      },
+      {
+        path: ':country/:language/settings/user-settings',
+        loadChildren: () => import('./pages/admin/user-settings/user-profile/user-profile.module').then(m => m.UserProfileModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}

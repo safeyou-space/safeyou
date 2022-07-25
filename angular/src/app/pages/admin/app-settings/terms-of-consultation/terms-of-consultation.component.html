@@ -1,0 +1,79 @@
+<div class="app-header">
+  <app-header></app-header>
+</div>
+
+<div class="content">
+  <div class="title-block position-relative">
+    <div class="d-inline-block save_button float-left position-absolute" style="top: -35px;"
+         [ngClass]="[!this.show ? 'title-animation' : '',  !this.backPage ? 'title-back-animation' : '']">
+      <span class="page-title">
+        <span class="icon_back d-inline-block cursor-pointer" (click)="backBlock()"></span>
+        <span style="padding-left: 16px;">{{helperService.translation?.edit}}</span>
+      </span>
+    </div>
+    <div class="d-inline-block" [ngClass]="[!this.show ? 'edit-post-animation' : '',  !this.backPage ? 'title-back-animation2' : '']">
+      <h4 class="page-title">
+        {{helperService.translation?.terms_of_consultation}}
+      </h4>
+    </div>
+    <button style="position: absolute;right: 0;" type="button" class="btn create-post"
+            [ngClass]="[!this.show ? 'edit-post-animation' : '', !this.backPage ? 'title-back-animation2' : '']"
+            (click)="editBlock()">
+      <span class="d-flex-center">
+        <span style="margin-right: 5px;" class="action-edit cursor-pointer"></span> {{helperService.translation?.edit}}
+      </span>
+    </button>
+    <span class="float-right" style="position: absolute;right: 0;top: -20px;;">
+      <button (click)="backBlock()" style="margin-top: -70px;" type="button" class="btn save-cancel-post save_button"
+              [ngClass]="[!this.show ? 'save-post-animation' : '', !this.backPage ? 'title-back-animation' : '']">
+        <span class="d-flex-center">
+           {{helperService.translation?.cancel}}
+        </span>
+      </button>
+      <button style="margin-top: -70px;" type="button" class="btn save-cancel-post save_button"
+              [ngClass]="[!this.show ? 'save-post-animation' : '', !this.backPage ? 'title-back-animation' : '']"
+              (click)="onSubmit(form.value, 0)">
+        <span class="d-flex-center">
+           {{helperService.translation?.save}}
+        </span>
+      </button>
+      <button style="margin-top: -70px;" type="button" class="btn create-save-post save_button"
+              [ngClass]="[!this.show ? 'save-post-animation' : '', !this.backPage ? 'title-back-animation' : '']"
+              (click)="onSubmit(form.value, 1)">
+        <span class="d-flex-center">
+           {{helperService.translation?.save_publish}}
+        </span>
+      </button>
+    </span>
+  </div>
+
+
+  <div class="page-block">
+    <form [formGroup]="form">
+      <tabset *ngIf="show" class="my-tab terms_of_consultation_editor" >
+        <tab *ngFor="let item of data" heading="{{item?.language?.title}}">
+          <div style="position: relative;">
+            <div  style="position: absolute;" [@openClose]="show ? 'openIf' : 'closedIf'" class="about_text  mt-3">
+              <div [innerHTML]="item?.content"></div>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+
+      <tabset *ngIf="!show" formGroupName="content" class="my-tab terms_of_consultation_editor">
+        <tab *ngFor="let j of translationsForm.controls, let i = index"
+             heading="{{languageTranslations[i].title}}">
+          <div style="position: relative;">
+            <div  style="position: absolute;width: 856px; padding: 30px 0;" [formGroupName]="i" class="form-group">
+              <ckeditor (change)="onChangeEditor($event, objectKeys(j.value)[0])" [editor]="Editor" [config]='config' [formControlName]="objectKeys(j.value)[0]"></ckeditor>
+              <div *ngIf="this.letterCount[objectKeys(j.value)[0]]">
+                <span style="padding-right: 1em;">{{helperService.translation?.words}}: {{this.wordCount[objectKeys(j.value)[0]]}}</span>
+                <span>{{helperService.translation?.characters}}: {{this.letterCount[objectKeys(j.value)[0]]}}</span>
+              </div>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+    </form>
+  </div>
+</div>

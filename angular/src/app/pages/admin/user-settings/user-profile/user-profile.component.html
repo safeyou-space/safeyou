@@ -1,0 +1,499 @@
+<div>
+  <div class="app-header">
+    <app-header [isShowSearch]="false" [isShowMenu]="false"></app-header>
+  </div>
+  <div class="head">
+    <h4>{{helperService.translation?.account}}</h4>
+  </div>
+  <div class="content-body">
+    <div class="user-profile-block profile-bg">
+      <div class="profile-title">
+        <div>
+          <h4 class="title-style">{{helperService.translation?.personal_info}}</h4>
+        </div>
+       <div *ngIf="access.indexOf('edit') != -1">
+                  <button (click)="showModal('profile')" class="button-style">
+           <img src="assets/images/icons/icon-edit.png" alt="image">
+           {{helperService.translation?.edit}}
+         </button>
+       </div>
+      </div>
+      <div class="text-right mt-2" *ngIf="data?.role == 'Emergency'">
+        <button (click)="showModal('ngo')" class="button-style">
+          <img src="assets/images/icons/icon-edit.png" alt="image">
+          {{helperService.translation?.organization_edit}}
+        </button>
+      </div>
+      <div class="profile-body">
+        <div class="image-block position-relative">
+          <img class="user-image" onError="this.src='assets/images/img/user-male.png'"
+               src="{{this.requestService.imgSite + data?.image?.url}}" alt="image">
+          <form [formGroup]="formImage">
+            <label>
+              <input hidden (change)="onChange($event)" type="file" formControlName="file">
+              <img *ngIf="data?.role != 'Emergency'" class="user-edit-icon cursor-pointer" src="assets/images/icons/icon-edit.png" alt="image">
+            </label>
+            <div style="width: 345px" class="error-message">
+              <span *ngIf="formImage.controls.file?.hasError('size')">{{helperService.translation?.image_size_error}}</span>
+              <span *ngIf="formImage.controls.file?.hasError('type')">{{helperService.translation?.invalid_image}}</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="info-block">
+          <h4>{{data?.first_name}} {{data?.last_name}}</h4>
+          <p *ngIf="data?.location"><img src="assets/images/icons/icon-pin.png" alt="icon">
+            {{data?.location}}</p>
+          <p>
+            <a *ngFor="let item of data?.social_links" class="link" href="{{item?.url}}" target="_blank">
+              <img src="assets/images/icons/icon-{{item?.name}}.png" alt="icon">
+              <span class="links" tooltip="{{item?.url}}">/{{item?.url | slice:0:20}}</span>
+            </a>
+          </p>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-settings-block profile-bg">
+      <div class="profile-settings-title">
+        <h4 class="title-style">{{helperService.translation?.login_info}}</h4>
+      </div>
+      <div class="profile-settings-body">
+        <div class="login-info">
+          <div>
+            <p class="m-0 login-info-text">
+              <img src="assets/images/icons/icon-lock.png" alt="icon">
+              <span>***********</span>
+            </p>
+          </div>
+
+          <div>
+            <button (click)="showModal('password')" class="button-style">
+              <img src="assets/images/icons/icon-edit.png" alt="image">
+              {{helperService.translation?.change_password}}
+            </button>
+          </div>
+      </div>
+        <div class="login-info">
+          <div>
+            <p class="m-0 login-info-text">
+              <img src="assets/images/icons/icon-email.png" alt="icon">
+              <span>/{{data?.email}}</span>
+            </p>
+          </div>
+
+          <div>
+            <button (click)="showModal('email')" class="button-style">
+              <img src="assets/images/icons/icon-edit.png" alt="image">
+              {{helperService.translation?.change_email}}
+            </button>
+          </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div *ngIf="isModalShown" [config]="{ show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-dialog-centered" style="justify-content: center;">
+    <div class="modal-content" [style]="data?.role == 'Emergency' && requestType == 'ngo' ? 'width: auto;max-width: 1200px' : ''">
+      <div class="modal-header report_modal_header">
+        <h4 id="dialog-auto-name" *ngIf="requestType == 'password'" class="modal-title pull-left">{{helperService.translation?.change_password}}</h4>
+        <h4 id="dialog-name" *ngIf="requestType == 'email'" class="modal-title pull-left">{{helperService.translation?.change_email}}</h4>
+        <h4 id="dialog-name-2" *ngIf="requestType == 'profile'" class="modal-title pull-left">{{helperService.translation?.personal_info}}</h4>
+        <h4 id="dialog-name-3" *ngIf="requestType == 'ngo'" class="modal-title pull-left">{{helperService.translation?.personal_info}}</h4>
+        <h4 id="dialog-image-2" *ngIf="requestType == 'image'" class="modal-title pull-left">{{helperService.translation?.organization_data}}</h4>
+        <button type="button" class="close pull-right font-weight-light" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="requestType == 'password'" class="modal-body report_modal_body">
+        <div class="report_form">
+          <form [formGroup]="form" autocomplete="off">
+            <div class="form-group">
+              <label [ngClass]="(form.controls.current_password?.invalid &&
+        (form.controls.current_password?.dirty || form.controls.current_password?.touched)) ? 'invalid-label-color' : ''" class="label-style" for="old_password">{{helperService.translation?.old_password}} *</label>
+              <div>
+                <input class="input-style w-100" type="password" formControlName="current_password" id="old_password">
+                <div *ngIf="!form.controls.current_password?.valid && (form.controls.current_password?.dirty || form.controls.current_password?.touched)">
+                  <span class="error-message">{{helperService.translation?.old_password_required}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label [ngClass]="(form.controls.password?.invalid &&
+        (form.controls.password?.dirty || form.controls.password?.touched)) ? 'invalid-label-color' : ''" class="label-style" for="new_password">{{helperService.translation?.new_password}} *</label>
+              <div>
+                <input class="input-style w-100" type="password" formControlName="password" id="new_password">
+                <div *ngIf="!form.controls.password?.valid && (form.controls.password?.dirty || form.controls.password?.touched)">
+                  <span class="error-message">{{helperService.translation?.new_password_required}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label [ngClass]="(form.controls.confirm_password?.invalid &&
+        (form.controls.confirm_password?.dirty || form.controls.confirm_password?.touched)) ? 'invalid-label-color' : ''" class="label-style" for="conf_password">{{helperService.translation?.repeat_password}} *</label>
+              <div>
+                <input class="input-style w-100" type="password" formControlName="confirm_password" id="conf_password">
+                <div class="error-message">
+                  <span
+                    *ngIf="form.controls.confirm_password?.errors?.required && (form.controls.confirm_password?.dirty || form.controls.confirm_password?.touched)">
+                    {{helperService.translation?.confirm_password_required}}
+                  </span>
+                  <span
+                    *ngIf="form.controls.confirm_password.hasError('mismatchedPasswords')&& (form.controls.confirm_password?.dirty || form.controls.confirm_password?.touched)">
+                    {{helperService.translation?.password_missmatch}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div *ngIf="requestType == 'email'" class="modal-body report_modal_body">
+        <div class="report_form">
+          <form [formGroup]="emailForm">
+            <div class="form-group">
+              <label class="label-style" [ngClass]="(emailForm.controls.email?.invalid &&
+        (emailForm.controls.email?.dirty || emailForm.controls.email?.touched)) ? 'invalid-label-color' : ''" for="old_password">{{helperService.translation?.email}} *</label>
+              <div>
+                <input class="input-style w-100" type="email" formControlName="email" id="email">
+                <div class="error-message">
+                  <span *ngIf="emailForm.controls.email?.errors?.required && (emailForm.controls.email?.dirty || emailForm.controls.email?.touched)">{{helperService.translation?.email_required}} </span>
+                  <span *ngIf="emailForm.controls.email?.errors?.pattern && (emailForm.controls.email?.dirty || emailForm.controls.email?.touched)">{{helperService.translation?.email_invalid}}</span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div *ngIf="requestType == 'profile'" class="modal-body report_modal_body">
+        <div class="report_form">
+          <form [formGroup]="profileForm">
+            <div class="form-group">
+              <label class="label-style" for="first_name"
+                     [ngClass]="(profileForm.controls.first_name?.invalid && (profileForm.controls.first_name?.dirty || profileForm.controls.first_name?.touched)) ? 'invalid-label-color' : ''">
+                {{helperService.translation?.first_name}} *
+              </label>
+              <div>
+                <input class="input-style w-100" type="text" formControlName="first_name" id="first_name">
+                <div *ngIf="!profileForm.controls.first_name?.valid && (profileForm.controls.first_name?.dirty || profileForm.controls.first_name?.touched)">
+                  <span class="error-message">{{helperService.translation?.name_required}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="label-style" for="last_name"
+                     [ngClass]="(profileForm.controls.last_name?.invalid && (profileForm.controls.last_name?.dirty || profileForm.controls.last_name?.touched)) ? 'invalid-label-color' : ''">
+                {{helperService.translation?.last_name}} *</label>
+              <div>
+                <input class="input-style w-100" type="text" formControlName="last_name" id="last_name">
+                <div *ngIf="!profileForm.controls.last_name?.valid && (profileForm.controls.last_name?.dirty || profileForm.controls.last_name?.touched)">
+                  <span class="error-message">{{helperService.translation?.lastname_required}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="data?.role == 'Consultant'">
+              <label class="label-style" for="nickname">{{helperService.translation?.username}}</label>
+              <div>
+                <input class="input-style w-100" type="text" formControlName="nickname" id="nickname">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="label-style" for="phone1"
+                     [ngClass]="(profileForm.controls.phone?.invalid && (profileForm.controls.phone?.dirty || profileForm.controls.phone?.touched)) ? 'invalid-label-color' : ''">{{helperService.translation?.phone}}</label>
+              <div>
+                <input class="input-style w-100" type="tel" formControlName="phone" id="phone1">
+                <div class="error-message">
+                  <span
+                    *ngIf="profileForm.controls.phone?.errors?.required && (profileForm.controls.phone?.dirty || profileForm.controls.phone?.touched)">{{helperService.translation?.phone_required}}</span>
+                  <span
+                    *ngIf="profileForm.controls.phone?.errors?.pattern && (profileForm.controls.phone?.dirty || profileForm.controls.phone?.touched)">{{helperService.translation?.invalid_phone}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="data?.role == 'Consultant'">
+              <div class="form-group">
+                <label class="label-style" [ngClass]="(profileForm.controls.birthday?.invalid &&
+        (profileForm.controls.birthday?.dirty || profileForm.controls.birthday?.touched)) ? 'invalid-label-color' : ''">{{helperService.translation?.birthday}}</label>
+                <app-date-input formControlName="birthday"></app-date-input>
+              </div>
+              <div class="form-group">
+                <label class="label-style" [ngClass]="(profileForm.controls.description?.invalid &&
+        (profileForm.controls.description?.dirty || profileForm.controls.description?.touched)) ? 'invalid-label-color' : ''">{{helperService.translation?.user_about}}</label>
+                <ckeditor (change)="onChangeEditor($event)" [config]='config' id="description" [editor]="Editor" formControlName="description"></ckeditor>
+                <div *ngIf="this.letterCount">
+                  <span style="padding-right: 1em;">{{helperService.translation?.words}}: {{this.wordCount}}</span>
+                  <span>{{helperService.translation?.characters}}: {{this.letterCount}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="data?.role == 'Consultant'" formGroupName="social_links">
+              <div class="form-group">
+                <label class="label-style" for="instagram">{{helperService.translation?.instagram_link}}</label>
+                <div class="position-relative" formGroupName="0">
+                  <input type="text" style="padding-left: 32px; padding-bottom: 7px;" id="instagram" formControlName="url"
+                         class="form-control input-style">
+                  <img style="top: 4px;left: 4px;" class="position-absolute" src="assets/images/icons/icon-instagram.png"
+                       alt="">
+                  <div *ngIf="!profileForm.controls.instagram?.valid && (profileForm.controls.instagram?.dirty || profileForm.controls.instagram?.touched)">
+                    <span class="error-message">{{helperService.translation?.instagram_link_required}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="label-style" for="facebook">{{helperService.translation?.facebook_link}}</label>
+                <div class="position-relative" formGroupName="1">
+                  <input style="padding-left: 32px; padding-bottom: 7px;" type="text" id="facebook" formControlName="url"
+                         class="form-control input-style">
+                  <img style="top: 4px;left: 4px;" class="position-absolute" src="assets/images/icons/icon-facebook.png" alt="">
+                  <div *ngIf="!form.controls.facebook?.valid && (form.controls.facebook?.dirty || form.controls.facebook?.touched)">
+                    <span class="error-message">{{helperService.translation?.facebook_link_required}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div *ngIf="requestType == 'ngo'" class="modal-body report_modal_body">
+        <div class="report_form">
+          <form class="data-form" [formGroup]="formNgo">
+            <div class="d-inline-flex">
+              <div>
+                <div class="drag-and-drop"
+                     [style]="imageValueNgo || typeNgo ? 'box-shadow: none; background: none; border: 2px solid transparent' : ''">
+
+                  <div *ngIf="!typeNgo" class="drag-and-drop-info"></div>
+
+                  <div class="drag-and-drop-container"
+                       [style]="imageValueNgo || typeNgo ? 'padding: 22px 8px 16px 8px; background-image: none' : ''"
+                       (fileDropped)="onChangeNgo($event)">
+                    <div *ngIf="imageValueNgo || editImagePathNgo">
+                      <div class="upload-image-block">
+                        <img *ngIf="imageValueNgo || editImagePathNgo"
+                             src="{{imageValueNgo ? imageValueNgo : this.requestService.imgSite + editImagePathNgo}}" alt="image"
+                             class="user-image">
+                        <img src="assets/images/icons/icon-edit.png" alt="image" class="user-edit-icon">
+                      </div>
+                    </div>
+                    <input accept="image/png, image/jpeg, image/jpg, image/bmp" formControlName="image" type="file" id="fileDropRef_form" (change)="onChangeNgo($event)"/>
+                    <div *ngIf="!typeNgo">
+                      <img class="btn-upload" src="../../../../../../assets/images/icons/btn-upload.png" alt="upload">
+                      <h3>{{helperService.translation?.select_image}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div style="width: 144px;" class="error-message">
+                  <span *ngIf="formNgo.controls?.image && formNgo.controls?.image?.hasError('size')">{{helperService.translation?.image_size_error}}</span>
+                  <span *ngIf="formNgo.controls?.image && formNgo.controls?.image?.hasError('type')">{{helperService.translation?.invalid_image}}</span>
+                </div>
+              </div>
+              <div style="padding-left: 40px;">
+                <div class="form-group">
+                  <label for="email_form"
+                         [ngClass]="(formNgo.controls.email?.invalid && (formNgo.controls.email?.dirty || formNgo.controls.email?.touched)) ? 'invalid-label-color' : ''">
+                    {{helperService.translation?.email}} *
+                  </label>
+                  <input type="text" id="email_form" formControlName="email" class="form-control">
+                  <div class="error-message">
+                    <span *ngIf="formNgo.controls.email?.errors?.required && (formNgo.controls.email?.dirty || formNgo.controls.email?.touched)">{{helperService.translation?.email_required}} </span>
+                    <span *ngIf="formNgo.controls.email?.errors?.pattern && (formNgo.controls.email?.dirty || formNgo.controls.email?.touched)">{{helperService.translation?.email_invalid}}</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="instagram_link">{{helperService.translation?.instagram_link}}</label>
+                  <div class="position-relative">
+                    <input style="padding-left: 32px; padding-bottom: 7px;" type="text" id="instagram_link"
+                           formControlName="instagram" class="form-control">
+                    <img style="top: 4px;left: 4px;" class="position-absolute"
+                         src="assets/images/icons/icon-instagram.png" alt="">
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding-left: 15px;">
+                <div class="form-group">
+                  <label for="phone"
+                         [ngClass]="(formNgo.controls.phone?.invalid && (formNgo.controls.phone?.dirty || formNgo.controls.phone?.touched)) ? 'invalid-label-color' : ''">
+                    {{helperService.translation?.phone}} *</label>
+                  <input type="text" id="phone" formControlName="phone" class="form-control">
+                  <div class="error-message">
+                    <span *ngIf="formNgo.controls.phone?.errors?.required && (formNgo.controls.phone?.dirty || formNgo.controls.phone?.touched)">{{helperService.translation?.phone_required}}</span>
+                    <span *ngIf="formNgo.controls.phone?.errors?.pattern && (formNgo.controls.phone?.dirty || formNgo.controls.phone?.touched)">{{helperService.translation?.invalid_phone}}</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="facebook_link">{{helperService.translation?.facebook_link}}</label>
+                  <div class="position-relative">
+                    <input style="padding-left: 32px; padding-bottom: 7px;" type="text" id="facebook_link"
+                           formControlName="facebook" class="form-control">
+                    <img style="top: 4px;left: 4px;" class="position-absolute"
+                         src="assets/images/icons/icon-facebook.png" alt="">
+                  </div>
+                </div>
+              </div>
+
+
+              <div style="padding-left: 15px;">
+
+                <div class="form-group">
+                  <label for="web_address">{{helperService.translation?.web_link}}</label>
+                  <input type="text" id="web_address" formControlName="web_address" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <label for="emergency_service_category"
+                         [ngClass]="(formNgo.controls.emergency_service_category?.invalid && (formNgo.controls.emergency_service_category?.dirty || formNgo.controls.emergency_service_category?.touched)) ? 'invalid-label-color' : ''">
+                    {{helperService.translation?.emergency_service_category}} *
+                  </label>
+                  <angular2-multiselect [data]="itemListCategory"
+                                        id="emergency_service_category"
+                                        formControlName="emergency_service_category"
+                                        [settings]="settingsCategory"
+                                        (onDeSelect)="closeDropdown(dropdownRef3)"
+                                        #dropdownRef3>
+                    <c-badge>
+                      <ng-template let-item="item">
+                        <label style="margin: 0px;">{{item.itemName}}</label>
+                      </ng-template>
+                    </c-badge>
+                    <c-item>
+                      <ng-template let-item="item">
+                        <label>{{item.itemName}}</label>
+                      </ng-template>
+                    </c-item>
+                  </angular2-multiselect>
+                  <div *ngIf="!formNgo.controls.emergency_service_category?.valid && (formNgo.controls.emergency_service_category?.dirty || formNgo.controls.emergency_service_category?.touched)">
+                    <span class="error-message">{{helperService.translation?.emergency_service_category_required}}</span>
+                  </div>
+                </div>
+
+
+
+
+
+              </div>
+            </div>
+            <div class="form-group form-check" style="margin-top: 10px;">
+              <label class="checkbox-item">
+                <input (change)="changePhoneValidators()" type="checkbox" id="is_send_sms" formControlName="is_send_sms">
+                <label for="is_send_sms"></label>
+                <span style="position: relative;top: -2px;">{{helperService.translation?.emergency_organization}}</span>
+              </label>
+              <span class="ml-4">
+                <label class="checkbox-item">
+                  <input type="checkbox" id="block_private_chat" formControlName="private_chat">
+                  <label for="block_private_chat"></label>
+                  <span style="position: relative;top: -2px;">{{helperService.translation?.activate_deactivate_chat}}</span>
+                </label>
+              </span>
+            </div>
+
+            <div [formGroupName]="'translations'">
+              <div class="form-group">
+                <accordion class="accordion forum_editor" style="width: 888px;" [isAnimated]="true"
+                           *ngFor="let trans of objectKeys(formNgo.controls['translations']['controls']), let i = index">
+                  <accordion-group (isOpenChange)="log($event, 0)">
+                        <span accordion-heading class="accordionhead">
+                          <img style="margin-right: 8px; width: 16px;" src="{{this.requestService.imgSite + languageTranslations[i].image.url}}" alt="">
+                              {{languageTranslations[i].title}}*
+                          <img width="20px" style="transition: 0.5s;"
+                               [attr.class]="languageCollapse[0] == true ? 'float-right reverse' : 'float-right'"
+                               src="assets/images/icons/icon-arrow-down.png" alt="">
+                        </span>
+                    <div [formGroupName]="trans">
+                      <div class="d-flex">
+                        <div class="form-group">
+                          <label for="title_{{languageTranslations[i].title}}"
+                                 [ngClass]="(formNgo.get('translations').get(trans).get('title')?.invalid &&
+                                     (formNgo.get('translations').get(trans).get('title')?.dirty || formNgo.get('translations').get(trans).get('title')?.touched))
+                                     ? 'invalid-label-color' : ''">{{helperService.translation?.organization_name}} *</label>
+                          <input style="width: 456px;" type="text" id="title_{{languageTranslations[i].title}}" formControlName="title" class="form-control">
+                          <div class="error-message">
+                            <span *ngIf="formNgo.get('translations').get(trans).get('title').errors?.required &&
+                              (formNgo.get('translations').get(trans).get('title')?.dirty || formNgo.get('translations').get(trans).get('title')?.touched)">
+                              {{helperService.translation?.organization_name_required}}
+                            </span>
+                            <span *ngIf="formNgo.get('translations').get(trans).get('title').errors?.minlength &&
+                              (formNgo.get('translations').get(trans).get('title')?.dirty || formNgo.get('translations').get(trans).get('title')?.touched)">
+                              {{helperService.translation?.organization_name_required_length}}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group" style="padding-left: 10px;">
+                          <label for="short_title_{{languageTranslations[i].title}}">{{helperService.translation?.short_title}}</label>
+                          <input type="text" id="short_title_{{languageTranslations[i].title}}" formControlName="short_title" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="d-flex">
+                        <div class="form-group">
+                          <label for="city_{{languageTranslations[i].title}}"
+                                 [ngClass]="(formNgo.get('translations').get(trans).get('city')?.invalid &&
+                                     (formNgo.get('translations').get(trans).get('city')?.dirty || formNgo.get('translations').get(trans).get('city')?.touched))
+                                     ? 'invalid-label-color' : ''">{{helperService.translation?.city}}</label>
+                          <input type="text" id="city_{{languageTranslations[i].title}}" formControlName="city" class="form-control">
+                        </div>
+                        <div class="form-group" style="padding-left: 10px;">
+                          <label for="address_{{languageTranslations[i].title}}"
+                                 [ngClass]="(formNgo.get('translations').get(trans).get('address')?.invalid &&
+                                     (formNgo.get('translations').get(trans).get('address')?.dirty || formNgo.get('translations').get(trans).get('address')?.touched))
+                                     ? 'invalid-label-color' : ''">{{helperService.translation?.address}}</label>
+                          <input style="width: 456px;" type="text" id="address_{{languageTranslations[i].title}}" formControlName="address"
+                                 class="form-control">
+                          <div *ngIf="!formNgo.get('translations').get(trans).get('address').valid &&
+                              (formNgo.get('translations').get(trans).get('address')?.dirty || formNgo.get('translations').get(trans).get('address')?.touched)">
+                            <span class="error-message">{{helperService.translation?.address_required}}</span>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label for="description_{{languageTranslations[i].title}}"
+                               [ngClass]="(formNgo.get('translations').get(trans).get('description')?.invalid &&
+                                 (formNgo.get('translations').get(trans).get('description')?.dirty || formNgo.get('translations').get(trans).get('description')?.touched))
+                                  ? 'invalid-label-color' : ''">{{helperService.translation?.description}} *</label>
+                        <ckeditor (change)="onChangeEditor($event)" [config]='config' id="description_{{languageTranslations[i].title}}" [editor]="Editor" formControlName="description"></ckeditor>
+                        <div class="error-message">
+                            <span *ngIf="formNgo.get('translations').get(trans).get('description').errors?.required &&
+                              (formNgo.get('translations').get(trans).get('description')?.dirty || formNgo.get('translations').get(trans).get('description')?.touched)">
+                              {{helperService.translation?.description_required}}
+                            </span>
+                        </div>
+                        <div *ngIf="this.letterCount">
+                          <span style="padding-right: 1em;">{{helperService.translation?.words}}: {{this.wordCount}}</span>
+                          <span>{{helperService.translation?.characters}}: {{this.letterCount}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </accordion-group>
+                </accordion>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <div *ngIf="requestType == 'image'" class="modal-body report_modal_body">
+        <img style="max-width: 100%" src="{{imageValue}}" alt="">
+      </div>
+      <div class="modal-footer report_modal_footer">
+        <button (click)="hideModal()" class="cancel_button">{{helperService.translation?.cancel}}</button>
+        <button (click)="onSubmit()" class="send_button">{{helperService.translation?.send}}</button>
+      </div>
+    </div>
+  </div>
+</div>
