@@ -1,0 +1,101 @@
+<div class="app-header">
+  <app-header [isShowMenu]="false"></app-header>
+</div>
+<div class="head">
+  <div>
+    <h4 class="title"> {{helperService.translation?.notifications}}</h4>
+  </div>
+</div>
+<div style="padding-bottom: 22px">
+  <div class="content">
+    <div class="block">
+      <div style="padding: 24px 24px 11px 24px;" *ngIf="socketConnect.newNotifications.length > 0">
+        <span class="notification_title">{{helperService.translation?.new_notification}}</span>
+      </div>
+      <div style="width: 512px;margin: 0 auto;" *ngIf="socketConnect.newNotifications.length > 0">
+        <div class="users_list" *ngFor="let notification of socketConnect.newNotifications">
+          <div class="w-100" *ngIf="notification.type == 2" (click)="getter(notification, 'new')">
+            <img class="float-left" src="{{notification?.body?.message_send_by?.user_image}}" alt="">
+            <p class="m-0">{{notification?.body?.message_send_by?.user_username + ' ' + helperService.translation?.write_forum_message}}</p>
+            <span class="message">
+
+              {{notification?.body?.message_content | slice:0:30}}
+
+            </span>
+            <span class="time" style="position: relative;top: -4px; left: 8px;">
+              {{getMinutes(notification?.body?.message_created_at)}} {{helperService.translation?.ago}}
+            </span>
+          </div>
+          <div class="w-100" *ngIf="notification.type == 1" (click)="getter(notification, 'new')">
+            <img class="float-left" src="{{imageUrl + notification?.body?.creator?.image?.url}}" alt="">
+            <p class="m-0">{{notification?.body?.creator?.first_name + ' ' + helperService.translation?.create_new_forum}}</p>
+            <span class="message">
+
+              {{notification?.body?.title | slice:0:30}}
+
+            </span>
+            <span class="time" style="position: relative;top: -4px; left: 8px;">
+              {{getMinutes(notification?.body?.created_at)}} {{helperService.translation?.ago}}
+            </span>
+          </div>
+
+          <div class="w-100" *ngIf="notification.type == 3" (click)="getter(notification, 'new')">
+            <img class="float-left" src="{{imageUrl + notification?.body?.user?.image?.url}}" alt="">
+            <p class="m-0">{{notification?.body?.resolved == 1 ? notification?.body?.user?.first_name + ' ' + helperService.translation?.confirm_report :
+              notification?.body?.user?.first_name + ' ' + helperService.translation?.reject_report}}</p>
+            <span class="message">
+
+              {{notification?.body?.message | slice:0:30}}
+
+            </span>
+            <span class="time" style="position: relative;top: -4px; left: 8px;">
+              {{getMinutes(notification?.body?.updated_at)}} {{helperService.translation?.ago}}
+            </span>
+          </div>
+
+        </div>
+      </div>
+      <div class="block_border" *ngIf="socketConnect.newNotifications.length > 0"></div>
+      <div style="padding: 24px 24px 11px 24px;">
+        <span class="notification_title">{{helperService.translation?.old_notification}}</span>
+      </div>
+      <div style="width: 512px;margin: 0 auto;" *ngIf="notifications && notifications.length > 0">
+        <div class="users_list" *ngFor = "let notification of notifications">
+          <div class="w-100" *ngIf="notification.notify_type == 1" (click)="getter(notification)">
+            <img class="float-left" src="{{imageUrl + notification.notify_body.creator?.image?.url}}" alt="">
+            <p class="m-0">{{notification.notify_body.creator?.first_name + ' ' + helperService.translation?.create_new_forum}}</p>
+            <span tooltip="notification.notify_body.title" class="message"> 
+              {{notification.notify_body.title | slice:0:30}}
+            </span>
+            <span class="time" style="position: relative;top: -4px; left: 8px;">
+              {{getMinutes(notification.notify_created_at)}} {{helperService.translation?.ago}}
+            </span>
+          </div>
+          <div class="w-100" *ngIf="notification?.notify_type == 2" (click)="getter(notification)">
+            <img class="float-left" src="{{notification?.notify_body?.message_send_by?.user_image}}" alt="">
+            <p class="m-0">{{notification?.notify_body?.message_send_by?.user_username + ' ' + helperService.translation?.wrote_message}}</p>
+            <span tooltip="notification?.notify_body?.message_content" class="message"> 
+              {{notification?.notify_body?.message_content | slice:0:30}}
+            </span>
+            <span class="time" style="position: relative;top: -4px; left: 8px;">
+              {{getMinutes(notification?.notify_created_at)}} {{helperService.translation?.ago}}
+            </span>
+          </div>
+          <div class="w-100" *ngIf="notification?.notify_type == 3" (click)="getter(notification)">
+            <img class="float-left" src="{{imageUrl + notification?.notify_body?.user?.image?.url}}" alt="">
+            <p class="m-0">{{notification?.notify_body?.resolved == 1 ? notification?.notify_body?.user?.first_name + ' ' + helperService.translation?.confirm_report
+              : notification?.notify_body?.user?.first_name + ' ' + helperService.translation?.reject_report}}</p>
+            <span tooltip="notification?.notify_body?.message" class="message"> 
+              {{notification?.notify_body?.message | slice:0:30}}
+            </span>
+            <span class="time" style="position: relative;top: -4px; left: 8px;">
+              {{getMinutes(notification?.notify_body?.updated_at)}} {{helperService.translation?.ago}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

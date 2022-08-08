@@ -1,0 +1,91 @@
+.content {
+  width: 560px;
+  height: 586px;
+  border-radius: 16px;
+  box-shadow: 4px 4px 20px #230d2c1a;
+  position: relative;
+  left: 24px;
+}
+.block {
+  overflow-y: auto;
+  width: 540px;
+  height: 519px;
+  position: relative;
+  top: 24px;
+}
+.block::-webkit-scrollbar {
+  width: 2px;
+  top: 2px;
+}
+.block::-webkit-scrollbar-track {
+  background: #fff;
+  height: 10px;
+
+}
+.block::-webkit-scrollbar-thumb {
+  background-color: #E37D93;
+}
+.head {
+  padding: 24px;
+}
+.title {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-16)/var(--unnamed-line-spacing-25) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.64px;
+  color: #230D2C;
+}
+.notification_title {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+}
+.users_list {
+  /* height: 64px; */
+  max-height: 64px;
+  cursor: pointer;
+  position: relative;
+  padding: 16px 8px 16px 24px;;
+  transition:  0.8s;
+}
+.users_list:hover {
+  background: #FBEFF2 0% 0% no-repeat padding-box;
+  border-radius: 12px;
+}
+.users_list img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding-left: 0;
+  padding-right: 0;
+  margin-right: 8px;
+}
+.users_list p {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-19) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+}
+.message {
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  width: 232px;
+  display: inline-block;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-11)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0px;
+  color: #230D2C;
+}
+.time {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-11)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0px;
+  color: #A79EAA;
+}
+.block_border {
+  width: 512px;
+  height: 0px;
+  border: 1px solid #F8DEE4;
+  margin: 8px auto 0 auto;
+}

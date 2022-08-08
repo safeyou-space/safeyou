@@ -1,0 +1,101 @@
+<div class="position-relative">
+  <div [@page]="showPage && showCreate  ? 'open' : 'closed'" class=" d-flex"
+  [style]="isOpen ? '' : 'overflow: hidden;height: 100vh'">
+    <div class="content-size">
+      <div class="app-header">
+        <app-header [isShowSearch]="false" [isShowMenu]="false"></app-header>
+      </div>
+      <div class="head">
+        <div class="title">
+          <h4>{{helperService.translation?.roles_competencies}}</h4>
+        </div>
+        <div class="head-actions">
+          <div class="d-flex justify-content-end">
+            <div class="search-block">
+              <form action="">
+                <input type="search" placeholder="{{helperService.translation?.search}}" class="search-input input-font" id="search" name="search">
+              </form>
+
+              <div class="search-icon-block" (click)="close()">
+                <img class="search-icon" src="assets/images/icons/icon-search.png" alt="icon">
+                <img class="search-icon-hover" src="assets/images/icons/icon-search(HoverState).png" alt="icon">
+              </div>
+            </div>
+            <div class=""><button (click)="showPage = false;" class="button-style btn">{{helperService.translation?.invite_admin}}</button></div>
+            <div class=""><button (click)="createOrEdit('add', null)" class="button-style btn">{{helperService.translation?.add_admin}}</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="content-body">
+        <p class="content-info-text">{{helperService.translation?.view_action}}</p>
+        <table *ngIf="this.users" class="table admin-table admin-table1">
+          <thead>
+          <tr>
+            <th></th>
+            <th class="admin-table-th">{{helperService.translation?.first_name}}</th>
+            <th class="admin-table-th">{{helperService.translation?.email}}</th>
+            <th class="admin-table-th">{{helperService.translation?.role}}</th>
+            <th class="admin-table-th">{{helperService.translation?.status}}</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of users">
+            <td class="image-block">
+              <img  src="{{this.requestService.imgSite + item.image?.url}}" alt=""
+                   onError="this.src='assets/images/img/no-image.png'">
+            </td>
+            <td (click)="viewData(item)" class="cursor-pointer"><span tooltip="{{item?.first_name}} {{item?.last_name}}">{{item?.first_name}} {{item?.last_name}}</span></td>
+            <td><span>{{item.email}}</span></td>
+            <td><span>{{item.role}}</span></td>
+            <td>
+              <label  class="switch m-0">
+                <input type="checkbox" (click)="changeStatus(item)" [disabled]="userId == item.id" [checked]='item.status'>
+                <div>
+                  <span></span>
+                </div>
+              </label>
+            </td>
+            <td class="actions">
+              <div (click)="viewData(item)"  class="action-eye cursor-pointer"></div>
+              <div (click)="createOrEdit('edit', item.id)" class="action-edit cursor-pointer"></div>
+              <div class="actions-dropdown-block">
+                <div class="action-more cursor-pointer"></div>
+                <div class="actions-dropdown-item">
+                  <ul>
+                    <li><a (click)="viewData(item)"><img src="assets/images/icons/icon-eye-hover.png" alt="icon"> {{helperService.translation?.view}}</a></li>
+                    <li><a (click)="createOrEdit('edit', item.id)"><img src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation?.edit}}</a></li>
+<!--                    <li (click)="popup.deleteModal(item.id)"><a><img src="assets/images/icons/icon-delete.png" alt="icon"> {{helperService.translation?.delete}}</a></li>-->
+                  </ul>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination *ngIf="allPageData && allPageData.total > 10"
+                    [boundaryLinks]="true"
+                    [totalItems]="allPageData.total"
+                    [itemsPerPage]="allPageData.per_page"
+                    [maxSize]="10"
+                    (pageChanged)="pageChanged($event)"
+                    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        </pagination>
+      </div>
+    </div>
+    <div [@openClose]="isOpen ? 'closed' : 'open'">
+      <app-user-roles-view [viewData]="userData" (myEvent)="close()"></app-user-roles-view>
+    </div>
+  </div>
+
+  <div [@page]="!showPage ? 'open' : 'closed'">
+    <app-user-roles-create-update (closePage)="showPage = true;"></app-user-roles-create-update>
+  </div>
+  <div  [@page]="!showCreate ? 'open' : 'closed'">
+    <app-user-roles-create (getEvent)="getData(this.url); showCreate = true" (closePage)="showCreate = true;"></app-user-roles-create>
+  </div>
+</div>
+
+<app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>

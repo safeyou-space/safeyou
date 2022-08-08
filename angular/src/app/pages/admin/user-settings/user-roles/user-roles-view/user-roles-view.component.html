@@ -1,0 +1,39 @@
+<div class="content">
+  <div class="content-head">
+    <div>
+        <button class="button-style" (click)="editData(viewData?.id)"><img class="icon-style" src="assets/images/icons/icon-edit.png" alt="icon"> {{helperService.translation.edit}}</button>
+    </div>
+    <div class="close-button-btn">
+      <i class="fa fa-times cursor-pointer" (click)="close()" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="profile-block">
+      <div class="image-block">
+        <img class="user-image" src="{{this.requestService.imgSite +  viewData?.image?.url}}" alt="image"
+             onError="this.src='assets/images/img/no-image.png'">
+        <img (click)="editData(viewData?.id)" class="user-edit-icon" src="assets/images/icons/icon-edit.png" alt="icon">
+      </div>
+      <div class="profile-info">
+        <h4>{{viewData?.first_name}} {{viewData?.last_name}}</h4>
+        <p>{{viewData?.role_name}} | {{viewData?.role}}</p>
+      </div>
+    </div>
+    <div class="user-info-block">
+      <div class="user-contacts-block">
+        <div class="user-contact-info">
+          <p class="user-title-style">
+            <img class="icon-style" src="assets/images/icons/icon-calendar.png" alt="icon">
+            {{viewData?.created_at | date:'d MMMM, y'}}
+          </p>
+        </div>
+        <div class="user-contact-info">
+          <p class="user-title-style">
+            <img class="icon-style" src="assets/images/icons/icon-email.png" alt="icon">
+            {{viewData?.email}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="app-header">
+  <app-header [isShowSearch]="false" [isShowMenu]="false"></app-header>
+</div>
+
+<div class="content">
+  <div class="head">
+    <div class="title">
+      <h4><img class="cursor-pointer" src="assets/images/icons/icon-arrow-back.png" (click)="togglePage()" alt="image"> {{helperService.translation?.invite_member}}</h4>
+    </div>
+    <div class="head-actions">
+      <button  class="btn head-cancel" (click)="togglePage()">{{helperService.translation?.cancel}}</button>
+      <button class="btn head-save-button" (click)="onSubmit(form.value)">{{helperService.translation?.send_invitation}}</button>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="form-block">
+      <div class="scrollbar">
+        <!--<p class="form-title">-->
+          <!--Լոռեմ իպսում դոլոռ սիթ ամեթ, եթ վիմ ռեծթեքուե դիսսենթիեթ. ան նամ լիբեռ նիհիլ:-->
+        <!--</p>-->
+        <form [formGroup]="form">
+          <div>
+            <label class="label-style" for="email_invite"
+                   [ngClass]="(form.controls.email?.invalid && (form.controls.email?.dirty || form.controls.email?.touched)) ? 'invalid-label-color' : ''">
+              {{helperService.translation?.email}} *</label>
+            <div>
+              <input type="email" formControlName="email" id="email_invite" class="input-style w-100">
+            </div>
+          </div>
+          <div class="error-message">
+            <span *ngIf="form.controls.email?.errors?.required && (form.controls.email?.dirty || form.controls.email?.touched)">{{helperService.translation?.email_required}} </span>
+            <span *ngIf="form.controls.email?.errors?.pattern && (form.controls.email?.dirty || form.controls.email?.touched)">{{helperService.translation?.email_invalid}}</span>
+          </div>
+          <div class="radio-button-block">
+            <h4 class="radio-title">{{helperService.translation?.roles_competencies}}</h4>
+            <!--<p class="radio-description">-->
+              <!--Լոռեմ իպսում դոլոռ սիթ ամեթ, եթ վիմ ռեծթեքուե դիսսենթիեթ. ան նամ լիբեռ նիհիլ, պռի թիմեամ ապեռիամ ին, սիթ ծու նոմինավի մենանդռի.-->
+            <!--</p>-->
+
+            <div class="">
+              <p class="form-block-title">{{helperService.translation?.select_role}}</p>
+
+              <div class="radio-group-block" *ngFor="let item of this.roles | keyvalue">
+                <div class="radio-item">
+                  <input type="radio" id="{{item.key}}" formControlName="role" value="{{item.key}}">
+                  <label for="{{item.key}}"></label>
+                </div>
+                <div class="radio-label-block">
+                  <p class="label-title" [ngClass]="(form.controls.role?.invalid && (form.controls.role?.dirty || form.controls.role?.touched)) ? 'invalid-label-color' : ''">{{item.value}}</p>
+                  <!--<p class="label-sub-title">Լոռեմ իպսում դոլոռ սիթ ամեթ, եթ վիմ ռեծթեքուե դիսսենթիեթ. ան նամ լիբեռ նիհիլ</p>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+

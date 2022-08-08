@@ -1,0 +1,253 @@
+.content {
+  padding: 0 22px;
+}
+.head {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.title h4{
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-16)/var(--unnamed-line-spacing-25) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.64px;
+  color: #230D2C;
+}
+.title h4 img {
+  margin-right: 16px;
+}
+.head-cancel {
+  padding: 9px 16px;
+  margin-right: 8px;
+  background: var(--unnamed-color-fbeff2) 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  color: #E37D93;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);  outline: none;
+  opacity: 1;
+  transition: all 0.8s;
+}
+.head-save-button {
+  padding: 9px 16px;
+  background: #E37D93 0% 0% no-repeat padding-box;
+  border-radius: 16px;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-15) var(--unnamed-font-family-hayroboto);
+  text-align: center;
+  letter-spacing: 0.78px;
+  color: #FEFBFC;
+  opacity: 1;
+  transition: opacity 0.8s;
+}
+.head-cancel:hover {
+  color: #E37D93;
+  background-color: #F8DEE4;
+}
+.head-save-button:hover {
+  background: #DC5D78 0% 0% no-repeat padding-box;
+}
+.content-body {
+  margin: 16px 0;
+}
+
+
+.select-style:hover {
+  border: 1px solid #EA9DAE;
+}
+.label-style {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-18) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.26px;
+  color: #A79EAA;
+  margin-left: 8px;
+  margin-bottom: 0;
+}
+.input-style {
+  border: 1px solid #F8DEE4;
+  border-radius: 30px;
+  height: 32px;
+  outline: none;
+  padding: 3px 0 3px 8px;
+  background: transparent;
+  transition: border 0.4s;
+}
+.input-style:hover {
+  border: 1px solid #EA9DAE;
+}
+.margin-r-8 {
+  margin-right: 8px;
+}
+.margin-t-24 {
+  margin-top: 24px;
+}
+
+.form-block {
+  background-color: transparent;
+  max-width: 552px;
+  box-shadow: 23px 0px 50px 1px #f4eff2;
+  padding: 8px;
+  border-radius: 10px;
+  max-height: 632px;
+}
+.scrollbar {
+  overflow-y: auto;
+  max-height: 616px;
+  padding: 8px;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+.scrollbar::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #F1BEC9;
+  opacity: 0;
+  height: 10px;
+}
+
+.form-title {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+}
+.input-sub-image {
+  padding-left: 8px;
+}
+.input-sub-title p{
+  font: var(--unnamed-font-style-italic) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-14) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.26px;
+  color: #EA9DAE;
+  margin-bottom: 0;
+}
+.radio-title {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-15)/var(--unnamed-line-spacing-23) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.45px;
+  color: #230D2C;
+  margin-top: 40px;
+}
+.radio-description {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+  margin-top: 17px;
+  margin-bottom: 40px;
+}
+.form-block-title {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-18) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.26px;
+  color: #A79EAA;
+}
+
+
+/*radio css*/
+
+.radio-item {
+  display: inline-block;
+  position: relative;
+  margin-right: 18px;
+}
+
+.radio-item input[type='radio'] {
+  display: none;
+}
+
+.radio-item label {
+  color: #666;
+  font-weight: normal;
+  vertical-align: top;
+}
+
+.radio-item label:before {
+  content: " ";
+  display: inline-block;
+  position: relative;
+  top: 0px;
+  width: 12px;
+  height: 12px;
+  border-radius: 11px;
+  border: 2px solid #E37D93;
+  background-color: transparent;
+  vertical-align: top;
+}
+.radio-item label:hover > .radio-item label:before{
+  border: 2px solid #DC5D78;
+}
+
+.radio-item input[type=radio]:checked + label:after {
+  border-radius: 11px;
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  content: " ";
+  display: block;
+  background: #E37D93;
+}
+
+/*checkbox css*/
+.checkbox-item {
+  display: inline-block;
+  position: relative;
+  margin-right: 18px;
+}
+
+.checkbox-item input[type='checkbox'] {
+  display: none;
+}
+
+.checkbox-item label {
+  color: #666;
+  font-weight: normal;
+  vertical-align: top;
+}
+
+.checkbox-item label:before {
+  content: " ";
+  display: inline-block;
+  position: relative;
+  top: 0px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #E37D93;
+  background-color: transparent;
+  vertical-align: top;
+}
+
+.checkbox-item input[type=checkbox]:checked + label:after {
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  content: " ";
+  display: block;
+  background: #E37D93;
+}
+
+
+
+.radio-group-block {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 21px;
+}
+.label-title {
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-16) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.29px;
+  color: #230D2C;
+  margin-bottom: 0;
+}
+.label-sub-title {
+  font: var(--unnamed-font-style-italic) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-12)/var(--unnamed-line-spacing-14) var(--unnamed-font-family-hayroboto);
+  text-align: left;
+  letter-spacing: 0.26px;
+  color: #EA9DAE;
+  margin-bottom: 0;
+}

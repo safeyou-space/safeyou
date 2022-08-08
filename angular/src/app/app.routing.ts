@@ -129,6 +129,18 @@ export const routes: Routes = [
         path: ':country/:language/settings/user-settings',
         loadChildren: () => import('./pages/admin/user-settings/user-profile/user-profile.module').then(m => m.UserProfileModule)
       },
+      {
+        path: ':country/:language/settings/languages',
+        loadChildren: () => import('./pages/admin/user-settings/languages/languages.module').then(m => m.LanguagesModule)
+      },
+      {
+        path: ':country/:language/settings/roles',
+        loadChildren: () => import('./pages/admin/user-settings/user-roles/user-roles.module').then(m => m.UserRolesModule)
+      },
+      {
+        path: ':country/:language/settings/notifications',
+        loadChildren: () => import('./pages/admin/user-settings/notifications/notifications.module').then(m => m.NotificationsModule)
+      },
     ]
   },
   {path: '**', component: NotFoundComponent}
