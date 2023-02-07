@@ -14,11 +14,11 @@
 #import "SYAuthenticationService.h"
 #import "UIViewController+AlertInterface.h"
 #import "RegistrationDataModel.h"
-#import "VerifyPhoneNumberViewController.h"
 #import "MaritalStatusDataModel.h"
 #import "ChooseOptionsViewController.h"
 #import "MoreViewTableViewCell.h"
 #import "SettingsViewFieldViewModel.h"
+#import "SafeYou-Swift.h"
 
 @interface RegistrationViewController () <FormTableViewCellDelegate, MoreViewTableViewCellDelegate>
 
@@ -156,7 +156,13 @@
 #pragma mark - Customization
 - (void)configureNavigationBar
 {
+    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+    [appearance configureWithTransparentBackground];
+    appearance.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.standardAppearance = appearance;
+    self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
     [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -178,6 +184,7 @@
     chooseOptionController.optionsArray = [statusNamesArray mutableCopy];
     chooseOptionController.optionTitle = LOC(@"select_marital_status_text_key");
     chooseOptionController.selectedOptionName = selectedOptionName;
+    chooseOptionController.chooseOptionType = SYChooseOptionTypeRadio;
     chooseOptionController.selectionBlock = ^(NSInteger selectedIndex) {
          strongify(self)
         selectedField.fieldDisplayValue = statusNamesArray[selectedIndex];
@@ -190,14 +197,7 @@
 // @FIXME: Dublicate code need refactor
 - (void)configureGradientBackground
 {
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    
-    gradient.frame = self.view.bounds;
-    UIColor *color1 = [UIColor colorWithSYColor:SYGradientColorTypeBottom alpha:1.0];
-    UIColor *color2 = [UIColor colorWithSYColor:SYGradientColorTypeTop alpha:1.0];
-    gradient.colors = @[(id)color2.CGColor, (id)color1.CGColor];
-    
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    self.view.backgroundColor = [UIColor mainTintColor2];
 }
 
 #pragma mark - Layout
@@ -220,16 +220,16 @@
 
 - (void)configureFormDataSource
 {
-    FormDataModel *firstNameField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeText dataType:FormFieldDataTypeText title:LOC(@"first_name_title_key") placeholder:LOC(@"first_name_title_key") value:@"" isRequired:NO];
+    FormDataModel *firstNameField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeText dataType:FormFieldDataTypeText title:LOC(@"first_name_title_key") placeholder:LOC(@"first_name_title_key") value:@"" isRequired:YES];
     self.firstNameField = firstNameField;
     
-    FormDataModel *lastNameField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeText dataType:FormFieldDataTypeText title:LOC(@"last_name_text_key") placeholder:LOC(@"last_name_text_key") value:@"" isRequired:NO];
+    FormDataModel *lastNameField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeText dataType:FormFieldDataTypeText title:LOC(@"last_name_title_key") placeholder:LOC(@"last_name_title_key") value:@"" isRequired:YES];
     self.lastNameField = lastNameField;
     
     FormDataModel *nickNameField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeText dataType:FormFieldDataTypeText title:@"nick_name_title_key" placeholder:LOC(@"nickname_placeholder") value:@"" isRequired:NO];
     self.nickNameField = nickNameField;
     
-    FormDataModel *birthDateField = [[FormDataModel alloc] initWithFieldType:FormFieldTypePicker dataType:FormFieldDataTypeText title:LOC(@"birth_date_title_key") placeholder:LOC(@"birth_date_title_key") value:@"" isRequired:NO];
+    FormDataModel *birthDateField = [[FormDataModel alloc] initWithFieldType:FormFieldTypePicker dataType:FormFieldDataTypeText title:LOC(@"birth_date_title_key") placeholder:LOC(@"birth_date_title_key") value:@"" isRequired:YES];
     
     self.birthDateField = birthDateField;
     
@@ -275,14 +275,14 @@
 
 - (void)updateLocalizations
 {
-    self.titleLabel.text = LOC(@"sign_up_title_key");
+    self.titleLabel.text = LOC(@"title_signup");
     [self.confirmButton setTitle:[self saveButtonTitle] forState:UIControlStateNormal];
     [self reloadDataSource];
 }
 
 - (NSString *)saveButtonTitle
 {
-    return LOC(@"submit_title_key");
+    return LOC(@"next_key");
 }
 
 - (NSString *)cancelButtonTitle
@@ -370,39 +370,8 @@
     self.registrationData.phoneNumber  = self.mobileNumberField.fieldValue;
     self.registrationData.password  = self.passwordField.fieldValue;
     self.registrationData.confirmPassword  = self.confirmPasswordField.fieldValue;
-        
-    NSDictionary *registrationDataDict = [self.registrationData toDictionary];
-    
-    [self showLoader];
-    weakify(self);
-    [self.registrationService registerUserWithData:registrationDataDict withComplition:^(id  _Nonnull response) {
-        strongify(self);
-        [self hideLoader];
-        NSLog(@"Uraaaaaa");
-        NSString *phoneNumber = self.mobileNumberField.fieldValue;
-        [self performSegueWithIdentifier:@"showVerificationView" sender:phoneNumber];
-    } failure:^(NSError * _Nonnull error) {
-        strongify(self);
-        [self hideLoader];
-        NSLog(@"Registraion error");
-        [self handleRegistrationError:error];
-    }];
-}
 
-- (void)handleRegistrationError:(NSError *)error
-{
-    NSDictionary *errorInfo = error.userInfo;
-    NSDictionary *errorsDict = errorInfo[@"errors"];
-    NSString *firstErrorKey = [errorsDict allKeys].firstObject;
-    NSArray *errorsArray = errorsDict[firstErrorKey];
-    NSString *errorMessage = [self textFromStringsArray:errorsArray];
-    
-    if (!errorMessage.length) {
-        errorMessage = errorInfo[@"message"];
-    }
-    
-    [self showAlertViewWithTitle:LOC(@"registration_error_key") withMessage:errorMessage cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
-    
+    [self performSegueWithIdentifier:@"showTermsAndConditionsView" sender: self];
 }
 
 - (NSString *)textFromStringsArray:(NSArray *)stringsArray
@@ -480,6 +449,20 @@
     [formCell resignFirstResponder];
 }
 
+- (BOOL)formCell:(FormTableViewCell *)formCell shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:formCell];
+    FormDataModel *currentField = self.dataSource[cellIndexPath.row];
+    if (currentField == self.mobileNumberField) {
+        NSString *newString = [currentField.fieldDisplayValue stringByReplacingCharactersInRange:range withString:string];
+        if (![newString hasPrefix:[Settings sharedInstance].countryPhoneCode]) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
 
 
 #pragma mark - UITableViewDelegate
@@ -502,7 +485,7 @@
 
 - (SYColorType)eyeTintColorType
 {
-    return SYColorTypeMain3;
+    return SYColorTypeMain6;
 }
 
 #pragma mark - Setter
@@ -648,11 +631,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"showVerificationView"]) {
-        VerifyPhoneNumberViewController *destinationVC = segue.destinationViewController;
-        destinationVC.phoneNumber = (NSString *)sender;
-        destinationVC.password = self.registrationData.password;
-        destinationVC.isFromRegistration = YES;
+    if ([segue.identifier isEqualToString: @"showTermsAndConditionsView"]) {
+        TermsAndConditionsViewController *destinationVC = segue.destinationViewController;
+        [destinationVC registrationDataDict: [self.registrationData toDictionary]];
     }
 }
 

@@ -24,9 +24,9 @@
 {
     sender.selected = !sender.selected;
     if (self.selected) {
-        [self setImage:[UIImage imageNamed:@"radio_button_purple_selected"] forState:UIControlStateSelected];
+        [self setImage:[UIImage imageNamed:@"radio_button_pink_selected"] forState:UIControlStateSelected];
     } else {
-        [self setImage:[UIImage imageNamed:@"radion_button_purple_empty"] forState:UIControlStateNormal];}
+        [self setImage:[UIImage imageNamed:@"radion_button_pink_empty"] forState:UIControlStateNormal];}
 }
 
 /*

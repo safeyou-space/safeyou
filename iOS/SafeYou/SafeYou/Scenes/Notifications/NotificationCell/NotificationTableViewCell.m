@@ -7,7 +7,7 @@
 //
 
 #import "NotificationTableViewCell.h"
-#import "NotificationDataModel.h"
+#import "NotificationData.h"
 #import <SDWebImage.h>
 
 @interface NotificationTableViewCell ()
@@ -48,19 +48,15 @@
  @property (nonatomic, strong) NSString *key;
  @property (nonatomic, strong) NSString *name;
  */
-- (void)configureNotificationData:(NotificationDataModel *)notificationData
+- (void)configureNotificationData:(NotificationData *)notificationData
 {
     self.notificationData = notificationData;
-    NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", BASE_RESOURCE_URL, notificationData.imagePath]];
+    NSURL *imageUrl = [NSURL URLWithString:notificationData.notificationMessage.user.userImage];
     [self.avatarImageView sd_setImageWithURL:imageUrl];
-    self.userNameLabel.text = notificationData.name;
+    self.userNameLabel.text = self.notificationData.notificationMessage.user.userUsername ? self.notificationData.notificationMessage.user.userUsername :self.notificationData.notificationMessage.user.userNgoName;
     self.userActionLabel.text = LOC(@"replied_to_your_comment");
-    self.userDateLabel.text = notificationData.formattedDateString;
-    if (notificationData.isReaded) {
-        self.designableContentView.backgroundColorAlpha = 0;
-    } else {
-        self.designableContentView.backgroundColorAlpha = 1;
-    }
+    self.designableContentView.backgroundColorAlpha = 0;
+    self.userDateLabel.text = notificationData.notificationMessage.formattedUpdatedDate;
 }
 
 @end

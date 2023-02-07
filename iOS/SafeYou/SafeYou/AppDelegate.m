@@ -17,8 +17,15 @@
 #import "PhotoGalleryViewController.h"
 #import "SocketIOManager.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "UIColor+UIImage.h"
+#import "FBSDKCoreKit/FBSDKSettings.h"
+#import <Lokalise/Lokalise.h>
 
 @import Firebase;
+@import FBSDKCoreKit;
+
+
 
 @interface AppDelegate () <CLLocationManagerDelegate, FIRMessagingDelegate, UNUserNotificationCenterDelegate>
 
@@ -34,6 +41,8 @@
     
     [Settings sharedInstance];
     [self accessUserLocation];
+    FBSDKSettings.sharedSettings.advertiserTrackingEnabled = YES;
+    
     
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInternetConnectionAlert) name:NoInternetConnectionNotificationName object:nil];
@@ -54,9 +63,47 @@
         [Settings sharedInstance].receivedRemoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     }
     
+    [FBSDKSettings setAdvertiserTrackingEnabled:YES];
+
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+
+    
+    [[Lokalise sharedObject] setProjectID:LOKALISE_PROJECT_ID token:LOKALISE_TOKEN];
+    [[Lokalise sharedObject] swizzleMainBundle];
+#if DEBUG
+    [Lokalise sharedObject].localizationType = LokaliseLocalizationPrerelease;
+#endif
+    
     return YES;
 }
 
+
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+    FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
+    if (dynamicLink) {
+        [self handleDynamicLink:dynamicLink];
+        return YES;
+    }
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                   openURL:url
+                                                   options:options];
+    return YES;
+}
+
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts
+API_AVAILABLE(ios(13.0)) API_AVAILABLE(ios(13.0)){
+  UIOpenURLContext *context = URLContexts.allObjects.firstObject;
+  [FBSDKApplicationDelegate.sharedInstance application:UIApplication.sharedApplication
+                                               openURL:context.URL
+                                     sourceApplication:context.options.sourceApplication
+                                            annotation:context.options.annotation];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -89,6 +136,12 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[Lokalise sharedObject] checkForUpdatesWithCompletion:^(BOOL updated, NSError * _Nullable error) {
+            NSLog(@"Lokalise Updated %d\nError: %@", updated, error);
+        if (updated) {
+            NSLog(@"checkForUpdatesWithCompletion push_hold_text_key %@", LOC(@"push_hold_text_key"));
+        }
+    }];
 }
 
 
@@ -96,27 +149,38 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+    BOOL handled = [[FIRDynamicLinks dynamicLinks] handleUniversalLink:userActivity.webpageURL
+                                                            completion:^(FIRDynamicLink * _Nullable dynamicLink,
+                                                                         NSError * _Nullable error) {
+        [self handleDynamicLink: dynamicLink];
+    }];
+    return handled;
+}
+
+- (void)handleDynamicLink:(FIRDynamicLink *)dynamicLink
+{
+    if (dynamicLink.url) {
+        [Settings sharedInstance].dynamicLinkUrl = dynamicLink.url;
+        [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationOpenedByDynamicLinkNotificationName
+                                                            object:nil];
+    }
+}
+
 #pragma mark - Appearence
 
 - (void)configureNavibationBar
 {
-    
-    [[UINavigationBar appearance] setTranslucent:NO];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor mainTintColor1]];
-    
-    UIImage *image = [self imageWithColor:[UIColor mainTintColor1] withPoint:CGSizeMake(1, 1)];
-    
-    [[UINavigationBar appearance] setShadowImage:image];
-    
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-
-    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-    
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    
-    [[UINavigationBar appearance] setTitleTextAttributes:
+    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundColor = [UIColor mainTintColor1];
+    [appearance setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor],
        NSFontAttributeName:[UIFont fontWithName:@"HayRoboto-regular" size:18]}];
+    [UINavigationBar appearance].standardAppearance = appearance;
+    [UINavigationBar appearance].scrollEdgeAppearance = [UINavigationBar appearance].standardAppearance;
 }
 
 - (void)configureNavibationBarAfterLogout
@@ -124,34 +188,9 @@
     [[UINavigationBar appearance] setTranslucent:YES];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
     [[UINavigationBar appearance] setBarTintColor:[UIColor clearColor]];
-    
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    
-    
     [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
-
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-    
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-}
-
-- (UIImage *)imageWithColor:(UIColor *)color withPoint:(CGSize)size
-{
-    CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    if (!context) {
-        return nil;
-    }
-    
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
 }
 
 #pragma mark - Application main coordinator
@@ -164,6 +203,7 @@
     MainTabbarController *mainController = [mainStoryBoard instantiateViewControllerWithIdentifier:@"MainTabbarController"];
     mainController.isFromSignInFlow = isFromSignInFlow;
     [self setupAnimationWithDuration:0.3 transitionType:kCATransitionReveal andSubType:kCATransitionFade];
+    self.window.rootViewController = nil;
     [self.window setRootViewController:mainController];
 }
 
@@ -182,12 +222,18 @@
 {
    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
        switch (status) {
-           case AFNetworkReachabilityStatusUnknown:
            case AFNetworkReachabilityStatusNotReachable:
+               [[NSNotificationCenter defaultCenter] postNotificationName:InternetConnectionDidLost object:nil];
                [self showInternetConnectionAlert];
 
                break;
                
+           case AFNetworkReachabilityStatusReachableViaWWAN:
+           case AFNetworkReachabilityStatusReachableViaWiFi:
+               [[NSNotificationCenter defaultCenter] postNotificationName:InternetConnectionDidConnected object:nil];
+               break;
+           case AFNetworkReachabilityStatusUnknown:
+               break;
            default:
                break;
        }

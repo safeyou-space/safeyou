@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -215,7 +215,7 @@
                                 <blurEffect style="regular"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="234" placeholderIntrinsicHeight="214" translatesAutoresizingMaskIntoConstraints="NO" id="9xm-JA-VhO" userLabel="ContentView" customClass="SYSemiRoundedView">
-                                <rect key="frame" x="43" y="130" width="234" height="268.5"/>
+                                <rect key="frame" x="43" y="121" width="234" height="286.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUi-8z-hYF" customClass="SYCorneredButton">
                                         <rect key="frame" x="194" y="10" width="30" height="30"/>
@@ -274,8 +274,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="148" placeholderIntrinsicHeight="50" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WXv-im-Tnz">
-                                        <rect key="frame" x="43" y="130.5" width="148" height="108"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="148" placeholderIntrinsicHeight="50" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="WXv-im-Tnz">
+                                        <rect key="frame" x="43" y="144.5" width="148" height="112"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bO-Zt-nAS" customClass="SYDesignableButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="148" height="50"/>
@@ -305,7 +305,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUy-SW-erQ" customClass="SYDesignableButton">
-                                                <rect key="frame" x="0.0" y="58" width="148" height="50"/>
+                                                <rect key="frame" x="0.0" y="62" width="148" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="AKb-sA-yVT"/>
                                                 </constraints>
@@ -326,6 +326,12 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                                                         <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="closeButtonAction:" destination="OWY-ir-ja2" eventType="touchUpInside" id="Ysx-56-bzt"/>
@@ -339,7 +345,7 @@
                                     <constraint firstItem="1lc-zu-DbN" firstAttribute="leading" secondItem="9xm-JA-VhO" secondAttribute="leading" constant="20" id="5F7-d7-yxt"/>
                                     <constraint firstItem="WXv-im-Tnz" firstAttribute="leading" secondItem="9xm-JA-VhO" secondAttribute="leading" constant="43" id="GmW-UI-tG5"/>
                                     <constraint firstAttribute="trailing" secondItem="iUi-8z-hYF" secondAttribute="trailing" constant="10" id="NSV-4k-New"/>
-                                    <constraint firstItem="WXv-im-Tnz" firstAttribute="top" secondItem="WCb-Nd-uLm" secondAttribute="bottom" constant="10" id="OY5-YC-lsD"/>
+                                    <constraint firstItem="WXv-im-Tnz" firstAttribute="top" secondItem="WCb-Nd-uLm" secondAttribute="bottom" constant="24" id="OY5-YC-lsD"/>
                                     <constraint firstItem="iUi-8z-hYF" firstAttribute="top" secondItem="9xm-JA-VhO" secondAttribute="top" constant="10" id="UC3-NW-PZf"/>
                                     <constraint firstItem="WCb-Nd-uLm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9xm-JA-VhO" secondAttribute="leading" constant="20" id="UGj-qF-iij"/>
                                     <constraint firstAttribute="trailing" secondItem="1lc-zu-DbN" secondAttribute="trailing" constant="20" id="VNm-4U-W7K"/>
@@ -405,17 +411,17 @@
             <size key="intrinsicContentSize" width="48" height="30"/>
         </designable>
         <designable name="cVV-QC-kk0">
-            <size key="intrinsicContentSize" width="24" height="24"/>
+            <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="iUi-8z-hYF">
-            <size key="intrinsicContentSize" width="24" height="24"/>
+            <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="nsU-97-Igh">
             <size key="intrinsicContentSize" width="4" height="17"/>
         </designable>
     </designables>
     <resources>
-        <image name="close" width="24" height="24"/>
+        <image name="close" width="16" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

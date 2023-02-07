@@ -42,7 +42,7 @@
 
 - (void)configureWithFourmData:(ForumItemDataModel *)forumItem
 {
-    self.titleLabel.text = [NSString stringWithFormat:LOC(@"{param}_people_commented_text_key"), @(forumItem.commentsCount)];
+    self.titleLabel.text = [NSString stringWithFormat:LOC(@"people_commented_text_key"), @(forumItem.commentsCount)];
     
     [self configureCommentedUsersSection:forumItem];
 }
@@ -85,13 +85,5 @@
     
     return [NSURL URLWithString:imageURLString];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

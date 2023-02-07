@@ -21,14 +21,20 @@
         case SYRemotContentTypeAboutUs:
             return [NSString stringWithFormat:@"%@/%@", [self endpoint],@"about_us"];
             break;
-        case SYRemotContentTypeTermsAndConditions:
+        case SYRemotContentTypeTermsAndConditionsForAdults:
             return [NSString stringWithFormat:@"%@/%@", [self endpoint],@"terms_conditions"];
+            break;
+        case SYRemotContentTypeTermsAndConditionsForMinors:
+            return [NSString stringWithFormat:@"%@/%@", [self endpoint],@"terms_conditions-18"];
             break;
         case SYRemotContentTypeConsultantTermsAndConditions:
             return [NSString stringWithFormat:@"%@/%@", [self endpoint],@"terms_conditions_consultant"];
             break;
-        case SYRemotContentTypePrivacyPolicy:
+        case SYRemotContentTypePrivacyPolicyForAdults:
             return [NSString stringWithFormat:@"%@/%@", [self endpoint],@"privacy_policy"];
+            break;
+        case SYRemotContentTypePrivacyPolicyForMinors:
+            return [NSString stringWithFormat:@"%@/%@", [self endpoint],@"privacy_policy-18"];
             break;
         default:
             return [self endpoint];

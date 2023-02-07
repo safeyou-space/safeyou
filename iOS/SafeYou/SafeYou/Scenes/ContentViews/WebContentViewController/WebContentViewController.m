@@ -68,64 +68,43 @@
 
 - (void)configureNavibationBar
 {
-    
     [self.navigationController.navigationBar setTranslucent:NO];
     [self.navigationController.navigationBar setBarTintColor:[UIColor mainTintColor1]];
-    
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    
     UIImage *image = [self imageWithColor:[UIColor mainTintColor1] withPoint:CGSizeMake(1, 1)];
-    
     [self.navigationController.navigationBar setShadowImage:image];
-    
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
-    
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 #pragma mark - Localiations
 
 - (void)updateLocalizations
-
-/**
- "terms_and_conditions" = "Terms & Conditions";
-
- "privacy_policy" = "Pravacy Policy";
-
- "terms_for_consultance" = "Terms for Consultance";
- */
 {
     self.navigationItem.title = self.title;
     
     switch (self.contentType) {
-        case SYRemotContentTypeTermsAndConditions:
+        case SYRemotContentTypeTermsAndConditionsForAdults:
+        case SYRemotContentTypeTermsAndConditionsForMinors:
             self.navigationItem.title = LOC(@"terms_and_conditions");
             break;
         case SYRemotContentTypeAboutUs:
-            self.navigationItem.title = LOC(@"about_us");
+            self.navigationItem.title = LOC(@"about_us_title_key");
             break;
         case SYRemotContentTypeConsultantTermsAndConditions:
-            self.navigationItem.title = LOC(@"terms_for_consultance");
+            self.navigationItem.title = LOC(@"consultant_terms_and_conditions");
             break;
             
-        case SYRemotContentTypePrivacyPolicy:
+        case SYRemotContentTypePrivacyPolicyForAdults:
+        case SYRemotContentTypePrivacyPolicyForMinors:
             self.navigationItem.title = LOC(@"privacy_policy");
             break;
             
         default:
             break;
     }
-    
-    /**
-      "terms_and_conditions" = "Terms & Conditions";
-
-      "privacy_policy" = "Pravacy Policy";
-
-      "terms_for_consultance" = "Terms for Consultance";
-     */
 }
 
 
@@ -153,6 +132,7 @@
 - (void)configureWebView
 {
     [self.webKitView loadHTMLString:self.htmlContent baseURL:nil];
+    NSLog(@"contenthelo %@", self.htmlContent);
 }
 
 #pragma mark - Functionality

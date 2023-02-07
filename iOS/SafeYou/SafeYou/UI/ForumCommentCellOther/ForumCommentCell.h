@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ForumCommentDataModel, ForumCommentCell;
+@class ChatMessageDataModel, ForumCommentCell;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ForumCommentCellDelegate <NSObject>
 
+- (void)commentCellDidSelectLike:(NSNumber *)messageId isLiked:(BOOL)isLiked;
+- (void)commentCellDidSelectMessage:(ForumCommentCell *)cell;
 - (void)commentCellDidSelectReply:(ForumCommentCell *)cell;
+- (void)commentCellDidSelectMore:(ForumCommentCell *)cell moreButton:(SYDesignableButton *)button;
+- (void)commentCellDidSelectImage:(ForumCommentCell *)cell;
 
 @end
 
@@ -21,10 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ForumCommentCell : UITableViewCell
 
-- (void)configureWithCommentData:(ForumCommentDataModel *)commentData;
+- (void)configureWithMessageData:(ChatMessageDataModel *)messageData andUserAge:(BOOL)isMinorUser;
 
 @property (weak, nonatomic) id<ForumCommentCellDelegate> delegate;
-@property (nonatomic, readonly) ForumCommentDataModel *commentData;
+//@property (nonatomic, readonly) ChatMessageDataModel *messageData;
+@property (nonatomic) ChatMessageDataModel *messageData;
 
 
 @end

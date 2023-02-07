@@ -10,15 +10,4 @@
 
 @implementation ConsultantExpertiseFieldDataModel
 
-- (instancetype)initWithId:(NSString *)categoryId name:(NSString *)categoryName
-{
-    self = [super init];
-    if (self) {
-        _categoryId = categoryId;
-        _categoryName = categoryName;
-    }
-    
-    return self;
-}
-
 @end

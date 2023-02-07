@@ -20,14 +20,14 @@
             [self setBackgroundImage:self.checkedImage forState:UIControlStateSelected];
         } else {
             // set application default checkbox icon
-            self.checkedImage = [UIImage imageNamed:@"icon_checkbox_checked"];
+            self.checkedImage = [[UIImage imageNamed:@"icon_checkbox_checked"] imageWithTintColor: UIColor.mainTintColor1];
         }
         
         if (self.unCheckedImage) {
             [self setBackgroundImage:self.unCheckedImage forState:UIControlStateNormal];
         } else {
             // set application default checkbox icons
-            self.unCheckedImage = [UIImage imageNamed:@"icon_checkbox_unchecked"];
+            self.unCheckedImage = [[UIImage imageNamed:@"icon_checkbox_unchecked"] imageWithTintColor: UIColor.mainTintColor1];
         }
     }
     return self;

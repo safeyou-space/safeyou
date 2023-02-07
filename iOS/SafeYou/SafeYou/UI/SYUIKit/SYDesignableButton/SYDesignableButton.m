@@ -60,11 +60,9 @@
 
 - (void)configureTitleColor
 {
-    
     NSInteger titleColorType = _titleColorType;
-    
     if(titleColorType < SYColorTypeNone || titleColorType > SYColorTypeLast) {
-        
+        // todo handle
     } else {
         UIColor *titleColor = [UIColor colorWithSYColor:self.titleColorType alpha:self.titleColorTypeAlpha];
         
@@ -78,7 +76,6 @@
     if(!self.isSelected) {
         [self changeImageTintColorWithColorType:_imageColorType];
     }
-    
 }
 
 - (void)setSelectedImageColorType:(NSInteger)selectedImageColorType
@@ -95,6 +92,11 @@
     if(selectedImageColorType < SYColorTypeNone || selectedImageColorType > SYColorTypeLast) {
         
     } else {
+        if (self.currentImage) {
+            UIColor *imageColor = [UIColor colorWithSYColor:self.selectedImageColorType alpha:1.0];
+            [self setTintColor:imageColor];
+            self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        }
         if(self.imageView.image) {
             UIColor *imageColor = [UIColor colorWithSYColor:self.selectedImageColorType alpha:1.0];
             [self setTintColor:imageColor];

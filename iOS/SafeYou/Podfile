@@ -1,4 +1,6 @@
 platform :ios, '10.0'
+inhibit_all_warnings!
+
 
 target 'SafeYou' do
     
@@ -7,13 +9,17 @@ target 'SafeYou' do
   pod 'SDWebImage'    #, '~>3.8'
   pod 'DZNEmptyDataSet'
   pod 'GoogleMaps'
-  pod 'Socket.IO-Client-Swift', '~> 15.1.0'
+  pod 'Socket.IO-Client-Swift' , '~> 15.2.0'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Messaging'
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
+  pod 'FirebaseDynamicLinks'
   pod 'TTTAttributedLabel'
   pod 'UITextView+Placeholder'
-  
+  pod 'FBSDKCoreKit'
+  pod 'NYTPhotoViewer'
+  pod 'Lokalise'
+
 end

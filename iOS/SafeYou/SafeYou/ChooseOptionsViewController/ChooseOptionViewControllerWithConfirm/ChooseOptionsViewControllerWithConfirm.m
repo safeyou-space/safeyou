@@ -146,7 +146,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 28;
+    return CGFLOAT_MIN;
 }
 
 #pragma mark - UITableViewDelegate delegate
@@ -170,7 +170,7 @@
         }
     }
     if (self.chooseOptionType == SYChooseOptionTypeRadio) {
-        CellIdentifier = @"ChooseOptionsRadioTableViewCell";
+        CellIdentifier = @"ChooseOptionsRadioTableViewCellConfirm";
     }
     ChooseOptionsTableViewCell *chooseOptionsTableViewCell = (ChooseOptionsTableViewCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     chooseOptionsTableViewCell.chooseOptionType = self.chooseOptionType;

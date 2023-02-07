@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="X48-tw-GvH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="X48-tw-GvH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,7 +22,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationTableViewCell" rowHeight="64" id="59n-1o-fEq" customClass="NotificationTableViewCell">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="64"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="59n-1o-fEq" id="5wU-9v-NGM">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
@@ -63,7 +64,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Replied to Your Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="PHc-Ql-Xfp" customClass="HyRobotoLabelRegular">
-                                                            <rect key="frame" x="158" y="18.5" width="164.5" height="17"/>
+                                                            <rect key="frame" x="158" y="18.5" width="164.5" height="16.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -105,16 +106,20 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="s7n-aq-M0T" secondAttribute="bottom" constant="8.5" id="8Fl-sr-vab"/>
                                                         <constraint firstItem="s7n-aq-M0T" firstAttribute="leading" secondItem="rI8-qA-c2U" secondAttribute="trailing" constant="17" id="E8X-ME-GOR"/>
+                                                        <constraint firstItem="rI8-qA-c2U" firstAttribute="top" secondItem="vs3-F3-R46" secondAttribute="top" constant="12" id="J0Z-vH-CKy"/>
                                                         <constraint firstItem="9mz-9U-8dj" firstAttribute="leading" secondItem="rI8-qA-c2U" secondAttribute="trailing" constant="14" id="MCV-6e-wXz"/>
                                                         <constraint firstItem="9mz-9U-8dj" firstAttribute="top" secondItem="vs3-F3-R46" secondAttribute="top" constant="17" id="YW1-iY-iv9"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="s7n-aq-M0T" secondAttribute="trailing" constant="20" id="a2o-8Z-3jG"/>
                                                         <constraint firstItem="PHc-Ql-Xfp" firstAttribute="leading" secondItem="9mz-9U-8dj" secondAttribute="trailing" constant="10" id="cBE-VR-166"/>
+                                                        <constraint firstAttribute="bottom" secondItem="rI8-qA-c2U" secondAttribute="bottom" constant="12" id="gdk-7T-N6l"/>
                                                         <constraint firstItem="rI8-qA-c2U" firstAttribute="leading" secondItem="vs3-F3-R46" secondAttribute="leading" constant="20" id="lSU-hJ-qyA"/>
                                                         <constraint firstItem="s7n-aq-M0T" firstAttribute="top" secondItem="9mz-9U-8dj" secondAttribute="bottom" constant="4" id="mwn-a5-dTu"/>
                                                         <constraint firstItem="rI8-qA-c2U" firstAttribute="centerY" secondItem="vs3-F3-R46" secondAttribute="centerY" id="o9v-ib-O02"/>
                                                         <constraint firstItem="PHc-Ql-Xfp" firstAttribute="centerY" secondItem="9mz-9U-8dj" secondAttribute="centerY" id="rDn-Ca-7D3"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PHc-Ql-Xfp" secondAttribute="trailing" constant="10" id="rZy-mw-toV"/>
+                                                        <constraint firstItem="PHc-Ql-Xfp" firstAttribute="top" secondItem="vs3-F3-R46" secondAttribute="top" constant="18.5" id="s1T-Hr-eHR"/>
                                                         <constraint firstItem="rI8-qA-c2U" firstAttribute="leading" secondItem="vs3-F3-R46" secondAttribute="leading" constant="20" id="uh6-7b-gHt"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -151,14 +156,14 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="zON-Qk-CVJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="URC-dS-P57" firstAttribute="leading" secondItem="zON-Qk-CVJ" secondAttribute="leading" id="Ce1-qj-NFg"/>
                             <constraint firstItem="zON-Qk-CVJ" firstAttribute="bottom" secondItem="URC-dS-P57" secondAttribute="bottom" id="f8B-oU-Zfc"/>
                             <constraint firstItem="URC-dS-P57" firstAttribute="top" secondItem="zON-Qk-CVJ" secondAttribute="top" id="lcl-at-Sek"/>
                             <constraint firstItem="zON-Qk-CVJ" firstAttribute="trailing" secondItem="URC-dS-P57" secondAttribute="trailing" id="qAn-fs-7sC"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="zON-Qk-CVJ"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
                                 <integer key="value" value="5"/>
@@ -177,7 +182,15 @@
             <point key="canvasLocation" x="-120.28985507246378" y="79.6875"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="rI8-qA-c2U">
+            <size key="intrinsicContentSize" width="375" height="376"/>
+        </designable>
+    </designables>
     <resources>
         <image name="avatar_example" width="375" height="376"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

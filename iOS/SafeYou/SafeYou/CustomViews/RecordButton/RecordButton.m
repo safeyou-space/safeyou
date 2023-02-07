@@ -61,9 +61,6 @@
     self.canStop = NO;
     [self.titleTimer invalidate];
     self.timeRemaining = TIMER_TIME_INTERVAL;
-//    [self addTarget:self action:@selector(touchDownAction:) forControlEvents:UIControlEventTouchDown];
-//    [self addTarget:self action:@selector(touchUpAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [self addTarget:self action:@selector(touchCancelled:) forControlEvents:UIControlEventTouchCancel];
 }
 
 - (void)updateLocalizations
@@ -191,12 +188,12 @@
 #pragma mark - Normal state
 - (void)configureNormalState
 {
-    self.backgroundColor = [UIColor greenColor];
+    self.backgroundColor = [UIColor mainTintColor1];
     self.progressLayer.hidden = YES;
     self.progressLayer.fillColor  = [UIColor greenColor].CGColor;
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self setTitle:LOC(@"push_hold_text_key") forState:UIControlStateNormal];
-    [self.titleLabel setFont:[UIFont fontWithName:@"HayRoboto-Regular" size:39]];
+    [self.titleLabel setFont:[UIFont fontWithName:@"HayRoboto-Bold" size:39]];
     self.layer.masksToBounds = YES;
     
     self.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
@@ -216,7 +213,7 @@
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     NSString *title = [NSString stringWithFormat:@"%@", @(self.timeRemaining)];
     [self setTitle:title forState:UIControlStateNormal];
-    [self.titleLabel setFont:[UIFont fontWithName:@"HayRoboto-Regular" size:60]];
+    [self.titleLabel setFont:[UIFont fontWithName:@"HayRoboto-Bold" size:60]];
     self.titleLabel.numberOfLines = 1;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
 }

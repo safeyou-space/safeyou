@@ -72,7 +72,7 @@
     for (CountryDataModel *countryData in optionsList) {
         ChooseRegionalOptionViewModel *viewData = [[ChooseCountryViewModel alloc] initWithData:(RegionalOptionDataModel *)countryData];
         [viewModelsArray addObject:viewData];
-        if ([countryData.shortCode isEqualToString:[Settings sharedInstance].selectedCountryCode]) {
+        if ([countryData.apiServiceCode isEqualToString:[Settings sharedInstance].selectedCountryCode]) {
             viewData.isSelected = YES;
             self.selectedRegionalOption = (CountryDataModel *)viewData.regionalOptionData;
         } else {

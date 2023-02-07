@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -61,8 +61,16 @@
                                     <constraint firstAttribute="width" constant="24" id="9P1-rx-hnd"/>
                                     <constraint firstAttribute="height" constant="24" id="rhk-f9-JPc"/>
                                 </constraints>
-                                <state key="normal" image="radion_button_purple_empty"/>
-                                <state key="selected" image="radio_button_selected"/>
+                                <state key="normal" image="radion_button_pink_empty"/>
+                                <state key="selected" image="radio_button_pink_selected"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedImageColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gRb-Ic-bbW"/>
@@ -76,6 +84,12 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                <integer key="value" value="9"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                <real key="value" value="1"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -95,12 +109,12 @@
             <size key="intrinsicContentSize" width="22" height="22"/>
         </designable>
         <designable name="WUM-YL-iad">
-            <size key="intrinsicContentSize" width="25" height="25"/>
+            <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
     </designables>
     <resources>
         <image name="flag-armenia" width="22" height="22"/>
-        <image name="radio_button_selected" width="25" height="25"/>
-        <image name="radion_button_purple_empty" width="25" height="25"/>
+        <image name="radio_button_pink_selected" width="16" height="16"/>
+        <image name="radion_button_pink_empty" width="16" height="16"/>
     </resources>
 </document>

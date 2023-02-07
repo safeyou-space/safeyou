@@ -46,6 +46,12 @@ NSString *const kEmergencyServiceCategoryid = @"emergency_service_category_id";
 NSString *const kEmergencyServiceCategoryName = @"category_translation";
 NSString *const kEmergencyServiceIsSendSMS = @"is_send_sms";
 
+NSString *const kEmegensyServiceName = @"title";
+NSString *const kEmergencyServiceEmail = @"email";
+NSString *const kEmergencyServiceCity = @"city";
+NSString *const kEmergencyServiceAddress = @"address";
+NSString *const kEmergencyServiceDescription = @"description";
+
 
 
 @implementation EmergencyServiceDataModel
@@ -69,15 +75,26 @@ NSString *const kEmergencyServiceIsSendSMS = @"is_send_sms";
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
     if (self && [dict isKindOfClass:[NSDictionary class]]) {
+        self.name = [self objectOrNilForKey: kEmergnecyServiceTitle fromDictionary:dict];
+        self.email = [self objectOrNilForKey: kEmergnecyServiceEmail fromDictionary:dict];
+        self.phoneNumber = [self objectOrNilForKey: kEmergnecyServicePhone fromDictionary:dict];
+        self.city = [self objectOrNilForKey: kEmergnecyServiceLocation fromDictionary:dict];
         self.userId = [self objectOrNilForKey: kEmergnecyServiceUserId fromDictionary:dict];
-        self.userDetails = [UserDetail modelObjectWithDictionary:[dict objectForKey: kEmergnecyServiceUserDetails]];
+        self.infoText = [self objectOrNilForKey: kEmergnecyServiceDescription fromDictionary:dict];
+        
+//        self.userDetails = [UserDetail modelObjectWithDictionary:[dict objectForKey: kEmergnecyServiceUserDetails]];
         self.webAddress = [self objectOrNilForKey: kEmergnecyServiceWebAddress fromDictionary:dict];
         self.longitude = [self objectOrNilForKey: kEmergnecyServiceLongitude fromDictionary:dict];
         self.serviceId = [NSString stringWithFormat:@"%@",[self objectOrNilForKey: kEmergnecyServiceId fromDictionary:dict]];
         self.serviceType = [self objectOrNilForKey: kEmergnecyServiceType fromDictionary:dict];
         self.latitude = [self objectOrNilForKey: kEmergnecyServiceLatitude fromDictionary:dict];
         self.serviceDescription = [self objectOrNilForKey: kEmergnecyServiceDescription fromDictionary:dict];
-        self.image = [ImageDataModel modelObjectWithDictionary:[dict objectForKey: kEmergnecyServiceImage]];
+        
+        NSDictionary *userDetailDict = [dict objectForKey:kEmergnecyServiceUserDetails];
+        if ([userDetailDict isKindOfClass:[NSDictionary class]]) {
+            self.image = [ImageDataModel modelObjectWithDictionary:[userDetailDict objectForKey: kEmergnecyServiceImage]];
+        }
+
         self.isAvailableForEmergency = [[self objectOrNilForKey:kEmergencyServiceIsSendSMS fromDictionary:dict] boolValue];
         
         NSDictionary *iconsDict = [self objectOrNilForKey:@"icons" fromDictionary:dict];

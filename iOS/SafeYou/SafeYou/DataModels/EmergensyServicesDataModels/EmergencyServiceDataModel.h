@@ -36,11 +36,19 @@
 @property (nonatomic, strong) NSString *phoneIconURL;
 
 @property (nonatomic, strong) NSString *userEmergencyServiceId;
-@property (nonatomic, strong) UserDetail *userDetails;
+//@property (nonatomic, strong) UserDetail *userDetails;
 
 @property (nonatomic, assign) BOOL isAvailableForEmergency;
 
 @property (nonatomic, strong) ImageDataModel *image;
+
+// new properties
+
+@property (nonatomic) NSString *name;
+@property (nonatomic) NSString *phoneNumber;
+@property (nonatomic) NSString *email;
+@property (nonatomic) NSString *city;
+@property (nonatomic) NSString *infoText;
 
 
 // category

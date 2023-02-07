@@ -62,6 +62,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 {
     [self.networkManager GET:[self endpoint] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         UserDataModel *userData = [[UserDataModel alloc] initWithDictionary:responseObject];
+        [Settings sharedInstance].onlineUser = userData;
         if (complition) {
             complition(userData);
         }
@@ -103,10 +104,8 @@ static NSString *const kthenByConfigurationsValue = @"[]";
     NSString *value = [NSString stringWithFormat:@"%@", fieldValue];
     NSDictionary *params = @{@"field_name":fieldName, @"field_value":value};
     [self.networkManager PUT:[self endpoint] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self getUserDataWithComplition:^(UserDataModel *userData) {
-            [Settings sharedInstance].onlineUser = userData;
-        } failure:^(NSError *error) {
-            NSLog(@"Error");
+        [self getUserDataWithComplition:nil failure:^(NSError *error) {
+            NSLog(@"Error %@", error);
         }];
         if (complition) {
             complition(responseObject);
@@ -299,6 +298,24 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 - (void)removeUserAvatarComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
     [self.networkManager DELETE:@"profile/remove_image" parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (complition) {
+            complition(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+/*
+ DELETE
+ Delete profile
+ endpoint: profile/delete
+ */
+- (void)deleteProfile:(void (^)(id))complition failure:(void (^)(NSError *))failure
+{
+    [self.networkManager DELETE:@"profile/delete" parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }

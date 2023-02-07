@@ -1,0 +1,17 @@
+/* 
+  Localizations.strings
+  SafeYou
+
+  Created by Garnik Simonyan on 8/25/19.
+  Copyright © 2019 Garnik Simonyan. All rights reserved.
+*/
+
+NSCameraUsageDescription = "نحتاج الدخول إلى ملف الصور الخاص بك حتى تتمكن من اختيار صورة ملفك الشخصي";
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "يستخدم تطبيف Safe YOU موقعك الجغرافي من أجل تقديم الدعم الأكثر فعالية ودقة في حالة الطوارئ";
+
+NSLocationWhenInUseUsageDescription = "يستخدم تطبيف Safe YOU موقعك الجغرافي من أجل تقديم الدعم الأكثر فعالية ودقة في حالة الطوارئ";
+
+NSMicrophoneUsageDescription = "يحتاج تطبيق Safe YOU الدخول إلى الميكروفون الخاص بك لتسجيل الصوت عندما تكون في مشكلة";
+
+NSPhotoLibraryUsageDescription = "نود الدخول إلى ملف الصور الخاص بك لإعادة توجيهك إلى هناك عند إدخال رقم التعريف الشخصي المزيف";

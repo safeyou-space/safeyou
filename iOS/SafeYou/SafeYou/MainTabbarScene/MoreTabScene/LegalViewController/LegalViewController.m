@@ -11,6 +11,8 @@
 #import "SettingsViewFieldViewModel.h"
 #import "MoreViewTableViewCell.h"
 #import "WebContentViewController.h"
+#import "UserDataModel.h"
+#import "SafeYou-Swift.h"
 
 @interface LegalViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -62,14 +64,7 @@
 - (void)configureDataSource
 {
     NSMutableArray *dataSourceTemp = [[NSMutableArray alloc] init];
-     
-    /**
-     "terms_and_conditions" = "Terms & Conditions";
-
-     "privacy_policy" = "Pravacy Policy";
-
-     "terms_for_consultance" = "Terms for Consultance";
-     */
+    
     SettingsViewFieldViewModel *termsAndConditionsViewModel = [[SettingsViewFieldViewModel alloc] init];
     termsAndConditionsViewModel.mainTitle =  LOC(@"terms_and_conditions");
     termsAndConditionsViewModel.accessoryType = FieldAccessoryTypeArrow;
@@ -83,7 +78,7 @@
     [dataSourceTemp addObject:privacyPolicyViewModel];
     
     SettingsViewFieldViewModel *consultantTermsViewModel = [[SettingsViewFieldViewModel alloc] init];
-    consultantTermsViewModel.mainTitle =  LOC(@"terms_for_consultance");
+    consultantTermsViewModel.mainTitle =  LOC(@"consultant_terms_and_conditions");
     consultantTermsViewModel.accessoryType = FieldAccessoryTypeArrow;
     consultantTermsViewModel.actionString = @"showConsultantTerms";
     [dataSourceTemp addObject:consultantTermsViewModel];
@@ -162,15 +157,24 @@
 - (void)showTermsAndConditions
 {
     WebContentViewController *webContentView = [WebContentViewController initializeWebContentView];
-    webContentView.contentType = SYRemotContentTypeTermsAndConditions;
+    NSString *userBirthday = [Settings sharedInstance].onlineUser.birthday;
+    if ([Helper isUserAdultWithBirthday:userBirthday isRegisteration:NO]) {
+        webContentView.contentType = SYRemotContentTypeTermsAndConditionsForAdults;
+    } else {
+        webContentView.contentType = SYRemotContentTypeTermsAndConditionsForMinors;
+    }
     [self.navigationController pushViewController:webContentView animated:YES];
-    
 }
 
 - (void)showPrivacyPolicy
 {
     WebContentViewController *webContentView = [WebContentViewController initializeWebContentView];
-    webContentView.contentType = SYRemotContentTypePrivacyPolicy;
+    NSString *userBirthday = [Settings sharedInstance].onlineUser.birthday;
+    if ([Helper isUserAdultWithBirthday:userBirthday isRegisteration:NO]) {
+        webContentView.contentType = SYRemotContentTypePrivacyPolicyForAdults;
+    } else {
+        webContentView.contentType = SYRemotContentTypePrivacyPolicyForMinors;
+    }
     [self.navigationController pushViewController:webContentView animated:YES];
 }
 

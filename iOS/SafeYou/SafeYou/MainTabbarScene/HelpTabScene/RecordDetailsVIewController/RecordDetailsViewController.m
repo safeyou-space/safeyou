@@ -80,7 +80,7 @@
 {
     self.navigationItem.title  = LOC(@"recording_title_key");
     [self.deleteButton setTitle:LOC(@"delete_key") forState:UIControlStateNormal];
-    NSString *timeString = LOC(@"time_text_key:");
+    NSString *timeString = LOC(@"time_text_key");
     self.recordTimerLabel.text = [NSString stringWithFormat:@"%@ %@",timeString, self.currentRecord.time];
 }
 
@@ -122,7 +122,7 @@
             [self.sendButton setImage:[UIImage imageNamed:@"send_icon"] forState:UIControlStateNormal];
         }
         self.recordNameLabel.text = self.currentRecord.location;
-        NSString *timeString = LOC(@"time_text_key:");
+        NSString *timeString = LOC(@"time_text_key");
         self.recordTimerLabel.text = [NSString stringWithFormat:@"%@ %@",timeString, self.currentRecord.time];
         
         NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_RESOURCE_URL, self.currentRecord.url];

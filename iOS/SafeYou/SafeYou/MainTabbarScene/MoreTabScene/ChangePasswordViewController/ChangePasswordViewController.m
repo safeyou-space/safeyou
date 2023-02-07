@@ -69,10 +69,10 @@
     self.navigationItem.title = LOC(@"change_password_key");
     self.currentPasswordTextField.placeholder = LOC(@"current_password_text_key");
     self.passwordNewTextField.placeholder = LOC(@"new_password_title_key");
-    self.confirmNewPasswordTextField.placeholder = LOC(@"confirm_password_text_key");
+    self.confirmNewPasswordTextField.placeholder = LOC(@"confirm_new_password");
     [self.savePasswordButton setTitle:[LOC(@"save_key") uppercaseString] forState:UIControlStateNormal];
     [self.cancelChangesButton setTitle:[LOC(@"cancel") uppercaseString] forState:UIControlStateNormal];
-    [self.forgotPasswordButton setTitle:LOC(@"forgot_password_text_key") forState:UIControlStateNormal];
+    [self.forgotPasswordButton setTitle:LOC(@"title_forgot_password") forState:UIControlStateNormal];
 }
 
 #pragma mark - Actions
@@ -104,10 +104,10 @@
                 errorString = LOC(@"passwords_not_match_text_key");
             }
         } else {
-            errorString = LOC(@"passwords_lentgh_error_text_key");
+            errorString = LOC(@"please_enter_valid_password_message_key");
         }
     } else {
-        errorString = LOC(@"fill_curren_password_field_text_key");
+        errorString = LOC(@"fill_current_password_field_text_key");
     }
     
     if (errorString.length > 0) {

@@ -38,28 +38,70 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetConnectionDidLost:) name:InternetConnectionDidLost object:nil];
     if ([Settings sharedInstance].userAuthToken.length > 0) {
         [self fetchUsertData];
     } else {
         self.isBackgroundDataReady = YES;
-        if ([self.delegate respondsToSelector:@selector(applicationIsReadyToStart)]) {
-            [self.delegate applicationIsReadyToStart];
+        if ([self.delegate respondsToSelector:@selector(startApplicationInitially)]) {
+            [self.delegate startApplicationInitially];
         }
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewDidDisappear:animated];
+}
+
+- (void)dealloc
+{
+    NSLog(@"LaunchViewController: Deallocated");
+}
+
+#pragma mark - Observe InternetConnection Notifications
+
+- (void)observeInternetConnectionStatus
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetConnectionDidConnected:) name:InternetConnectionDidConnected object:nil];
+}
+
+#pragma mark - Notifications
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    [self fetchUsertData];
+}
+
+- (void)internetConnectionDidConnected:(NSNotification *)notification
+{
+    [self fetchUsertData];
+}
+
+- (void)internetConnectionDidLost:(NSNotification *)notification
+{
+    [self observeInternetConnectionStatus];
 }
 
 #pragma mark - Fetch initial dtaa
 
 - (void)fetchUsertData
 {
+    if (![Utilities isNetworkAvailable]) {
+        [self showInternetConnectionAlert];
+        [self observeInternetConnectionStatus];
+        return;
+    } else {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:InternetConnectionDidConnected object:nil];
+    }
     weakify(self);
     [self.profileDataService getUserDataWithComplition:^(UserDataModel *userData) {
         strongify(self);
         
-        [Settings sharedInstance].onlineUser = userData;
         self.isBackgroundDataReady = YES;
-        if ([self.delegate respondsToSelector:@selector(applicationIsReadyToStart)]) {
-            [self.delegate applicationIsReadyToStart];
+        if ([self.delegate respondsToSelector:@selector(startApplicationInitially)]) {
+            [self.delegate startApplicationInitially];
         }
         if ([Settings sharedInstance].updatedFcmToken && [Settings sharedInstance].updatedFcmToken.length != 0) {
             [self saveFcmToken];
@@ -69,8 +111,8 @@
         if (self.fetchDataAtemptsCount > 0) {
             self.fetchDataAtemptsCount = 0;
             [self resetUserAuthData];
-            if ([self.delegate respondsToSelector:@selector(applicationIsReadyToStart)]) {
-                [self.delegate applicationIsReadyToStart];
+            if ([self.delegate respondsToSelector:@selector(startApplicationInitially)]) {
+                [self.delegate startApplicationInitially];
             }
         } else {
             ++self.fetchDataAtemptsCount;
@@ -100,8 +142,8 @@
         strongify(self);
         [self resetUserAuthData];
         self.isBackgroundDataReady = YES;
-        if ([self.delegate respondsToSelector:@selector(applicationIsReadyToStart)]) {
-            [self.delegate applicationIsReadyToStart];
+        if ([self.delegate respondsToSelector:@selector(startApplicationInitially)]) {
+            [self.delegate startApplicationInitially];
         }
     }];
 }
@@ -120,8 +162,8 @@
 {
     _delegate = delegate;
     if (self.isBackgroundDataReady) {
-        if ([self.delegate respondsToSelector:@selector(applicationIsReadyToStart)]) {
-            [self.delegate applicationIsReadyToStart];
+        if ([self.delegate respondsToSelector:@selector(startApplicationInitially)]) {
+            [self.delegate startApplicationInitially];
         }
     }
 }

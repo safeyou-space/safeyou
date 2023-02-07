@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSNumber * _Nullable itemId;
 @property (nonatomic) NSString * _Nullable name;
-@property (nonatomic) NSString * _Nullable shortCode;
+@property (nonatomic) NSString * _Nullable apiServiceCode;
+@property (nonatomic) NSString * _Nullable localizationShortCode;
 @property (nonatomic) NSNumber * _Nullable imageId;
 @property (nonatomic) ImageDataModel * _Nullable imageData;
 
@@ -39,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface LanguageDataModel : RegionalOptionDataModel
+
++ (NSString *)localizationCodeForApiCode:(NSString *)apiCode;
 
 @end
 

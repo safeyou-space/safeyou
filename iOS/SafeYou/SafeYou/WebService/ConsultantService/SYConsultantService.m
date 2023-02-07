@@ -14,16 +14,12 @@
 - (void)getConsultantCategoriesWithComplition:(void(^)(NSArray <ConsultantExpertiseFieldDataModel *> *))complition failure:(void(^)(NSError *error))failure
 {
     NSString *endPoint = @"consultant_categories";
-    weakify(self);
     [self.networkManager GET:endPoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        strongify(self);
-        NSLog(@"Response is: %@", responseObject);
-        NSArray *categoriesList = [self consultantCatgoriesFromDictionary:responseObject];
+        NSArray *categoriesList = [ConsultantExpertiseFieldDataModel catgoriesFromDictionary:responseObject];
         if (complition) {
             complition(categoriesList);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"Error %@", endPoint);
         if (failure) {
             failure(error);
         }
@@ -72,20 +68,6 @@
             failure(error);
         }
     }];
-}
-
-#pragma mark - Helper
-
-- (NSArray <ConsultantExpertiseFieldDataModel *> *)consultantCatgoriesFromDictionary:(NSDictionary *)categoriesDict
-{
-    NSArray *allKeys = [categoriesDict allKeys];
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    for (NSString *key in allKeys) {
-        ConsultantExpertiseFieldDataModel *categoryData = [[ConsultantExpertiseFieldDataModel alloc] initWithId:key name:categoriesDict[key]];
-        [tempArray addObject:categoryData];
-    }
-    
-    return [tempArray copy];
 }
 
 @end

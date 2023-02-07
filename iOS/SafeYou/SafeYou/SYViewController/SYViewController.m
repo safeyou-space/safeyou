@@ -29,21 +29,33 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userPinHasChanged:) name:UserPinChangedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChange:) name:ApplicationLanguageDidChangeNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotificationsCount:) name:InAppNotificationsCountDidChangeNotificationName object:nil];
+    [self configureBackgroundColor];
     [self configureNotificationsBarButtonItem];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[self mainTabbarController] hideTabbar:NO];
     [self updateLocalizations];
-//    self.title = @"";
     [self handleNotificationsCount:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.navigationItem.backButtonTitle = @" ";
+    [super viewWillDisappear:animated];
 }
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion
 {
     viewControllerToPresent.modalPresentationStyle = UIModalPresentationFullScreen;
     [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
+#pragma mark - UI Customization
+- (void)configureBackgroundColor {
+    self.view.backgroundColor = [UIColor mainTintColor8];
 }
 
 

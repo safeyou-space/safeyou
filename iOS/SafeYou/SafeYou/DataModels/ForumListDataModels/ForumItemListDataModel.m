@@ -10,6 +10,7 @@
 #import "ForumItemDataModel.h"
 
 NSString *const kForumItemsListData = @"data";
+NSString *const kForumsLastPage = @"last_page";
 
 
 @interface ForumItemListDataModel ()
@@ -34,6 +35,7 @@ NSString *const kForumItemsListData = @"data";
     // passed into the model class doesn't break the parsing.
     
     if (self && [dict isKindOfClass:[NSDictionary class]]) {
+        integerObjectOrNilForKey(self.lastPage, dict, kForumsLastPage);
         NSObject *receivedForumItem = [dict objectForKey:kForumItemsListData];
         NSMutableArray *parsedForumItem = [NSMutableArray array];
         
@@ -49,6 +51,14 @@ NSString *const kForumItemsListData = @"data";
         
         self.forumItems = [NSArray arrayWithArray:parsedForumItem];
         
+    } else if (self && [dict isKindOfClass:[NSArray class]]) {
+        NSMutableArray *parsedForumItem = [NSMutableArray array];
+        for (NSDictionary *item in (NSArray *)dict) {
+            if ([item isKindOfClass:[NSDictionary class]]) {
+                [parsedForumItem addObject:[ForumItemDataModel modelObjectWithDictionary:item]];
+            }
+        }
+        self.forumItems = [NSArray arrayWithArray:parsedForumItem];
     }
     
     return self;

@@ -8,6 +8,8 @@
 
 #import "SYViewController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class TermsViewController;
 
 @protocol TermsViewDelegate  <NSObject>
@@ -15,8 +17,6 @@
 - (void)termsViewDidAcceptTerms:(TermsViewController *)termsViewController;
 
 @end
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface TermsViewController : SYViewController
 

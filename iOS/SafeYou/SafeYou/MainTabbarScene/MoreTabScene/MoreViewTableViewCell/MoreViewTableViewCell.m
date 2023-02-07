@@ -43,6 +43,7 @@
 
 - (void)configureWithViewData:(SettingsViewFieldViewModel *)viewData
 {
+    self.iconImageView.image = nil;
     _viewData = viewData;
     if (_viewData.isIconImageFromURL) {
         NSURL *iconImageURL = [NSURL URLWithString:_viewData.iconImageUrl];

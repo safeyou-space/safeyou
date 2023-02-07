@@ -7,17 +7,20 @@
 //
 
 #import "SocketIOManager.h"
+#import "ChatUserDataModel.h"
+#import "ChatMessageDataModel.h"
+#import "RoomDataModel.h"
 
 @interface SocketIOManager ()
 
-@property (nonatomic) SocketManager *socketManager;
-
+@property (nonatomic, strong) SocketManager *socketManager;
 
 @end
 
 @implementation SocketIOManager
 
 @synthesize socketClient = _socketClient;
+@synthesize chatOnlineUser = _chatOnlineUser;
 
 + (instancetype)sharedInstance
 {
@@ -38,21 +41,25 @@
 - (void)connectSocketClient
 {
     NSString *token = [Settings sharedInstance].userAuthToken;
-    NSURL* url = [[NSURL alloc] initWithString:[Settings sharedInstance].socketIOURL];
-    NSDictionary *params = @{@"key":token};
-    NSMutableDictionary *connectionConfig = [[NSMutableDictionary alloc] init];
-    [connectionConfig setObject:params forKey:@"connectParams"];
+    NSString *host  = [Settings sharedInstance].socketIOURL;
+    NSString *urlString = [NSString stringWithFormat:@"%@?_=%@",host, token];
+    NSURL* url = [[NSURL alloc] initWithString:urlString];
+    NSDictionary *params = @{@"_":token};
+    NSMutableDictionary *connectionConfig =  [[NSMutableDictionary alloc] init];    [connectionConfig setObject:params forKey:@"connectParams"];
     [connectionConfig setValue:@YES forKey:@"compress"];
     [connectionConfig setValue:@YES forKey:@"log"];
-    [connectionConfig setValue:@YES forKey:@"secure"];
+    [connectionConfig setValue:@NO forKey:@"secure"];
+    [connectionConfig setValue:@"3" forKey:@"EIO"];
     
     self.socketManager = [[SocketManager alloc] initWithSocketURL:url config:connectionConfig];
-     _socketClient = self.socketManager.defaultSocket;
+    _socketClient = self.socketManager.defaultSocket;
     
     weakify(self);
+    
     [self.socketClient on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
-        NSLog(@"socket connected");
+        NSLog(@"socket connected %@", self.socketClient.sid);
         strongify(self);
+        [self listenAllSignals];
         [self didConnect];
     }];
     
@@ -67,9 +74,61 @@
     [self.socketClient connect];
 }
 
+- (void)listenAllSignals
+{
+    weakify(self);
+    [self.socketClient on:@"signal" callback:^(NSArray* data, SocketAckEmitter* ack) {
+        strongify(self);
+        if ([data[0] integerValue] == SocketIOSignalPROFILE) { // SIGNAL_PROFILE = 0
+            NSDictionary *receivedDataDict = data[1];
+            NSDictionary *profileDict = receivedDataDict[@"data"];
+            ChatUserDataModel *chatProfileData = [ChatUserDataModel modelObjectWithDictionary:profileDict];
+            self->_chatOnlineUser = chatProfileData;
+        }
+        
+        if ([data[0] integerValue] == SocketIOSignalMessageINSERT) { // SIGNAL_PROFILE = 0
+            NSDictionary *receivedDataDict = data[1];
+            NSDictionary *messageDict = receivedDataDict[@"data"];
+            ChatMessageDataModel *messageData = [ChatMessageDataModel modelObjectWithDictionary:messageDict];
+            if ([self.delegate respondsToSelector:@selector(socketIOManager:didInsertMessage:)]) {
+                [self.delegate socketIOManager:self didInsertMessage:messageData];
+            }
+        }
+        
+        if ([data[0] integerValue] == SocketIOSignalNotificationReceived) { // SIGNAL_PROFILE = 0
+            NSDictionary *receivedDataDict = data[1];
+            NSDictionary *notificationDict = receivedDataDict[@"data"];
+            if (notificationDict) {
+                if (self.receiveNewNotificationBlock) {
+                    self.receiveNewNotificationBlock(notificationDict);
+                }
+            }
+        }
+        
+        if ([data[0] integerValue] == SocketIOSignalNotificationReceived) { // SIGNAL_PROFILE = 0
+            NSDictionary *receivedDataDict = data[1];
+            NSNumber *notificationsCount = receivedDataDict[@"data"];
+            if (self.notificationsCountUpdateBlock) {
+                self.notificationsCountUpdateBlock(notificationsCount);
+            }
+            
+        }
+        
+        if ([data[0] integerValue] == SocketIOSignalCommentCount) {
+            NSLog(@"Count update reveived");
+            NSDictionary *receivedDataDict = data[1];
+            if ([receivedDataDict[@"error"] integerValue] == 0) {
+                NSDictionary *receivedUpdateDict = receivedDataDict[@"data"];
+                if (self.didReceiveUpdateBlock) {
+                    self.didReceiveUpdateBlock(receivedUpdateDict);
+                }
+            }
+        }
+    }];
+}
+
 - (void)didConnect
 {
-    // empty implementation
     [[NSNotificationCenter defaultCenter] postNotificationName:SOCKET_IO_DID_CONNECT_NOTIFICATION_NAME object:nil];
 }
 

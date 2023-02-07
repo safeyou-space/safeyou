@@ -12,6 +12,7 @@
 NSString *const  kRegionalOptionId = @"id";
 NSString *const  kRegionalOptionName = @"name";
 NSString *const  kRegionalOptionShortCode = @"short_code";
+NSString *const  kRegionalOptionLocalizationCode = @"localization_code";
 NSString *const  kRegionalOptionImageId = @"image_id";
 NSString *const  kRegionalOptionImageData = @"image";
 
@@ -25,7 +26,7 @@ NSString *const  kRegionalOptionImageData = @"image";
     if (self && [dict isKindOfClass:[NSDictionary class]]) {
         objectOrNilForKey(self.itemId, dict, kRegionalOptionId);
         objectOrNilForKey(self.name, dict, kRegionalOptionName);
-        objectOrNilForKey(self.shortCode, dict, kRegionalOptionShortCode);
+        objectOrNilForKey(self.apiServiceCode, dict, kRegionalOptionShortCode);
         objectOrNilForKey(self.imageId, dict, kRegionalOptionImageId);
         NSDictionary *imageDataDict = nilOrJSONObjectForKey(dict, kRegionalOptionImageData);
         if (imageDataDict) {
@@ -43,7 +44,7 @@ NSString *const  kRegionalOptionImageData = @"image";
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.itemId forKey:kRegionalOptionId];
     [encoder encodeObject:self.name forKey:kRegionalOptionName];
-    [encoder encodeObject:self.shortCode forKey:kRegionalOptionShortCode];
+    [encoder encodeObject:self.apiServiceCode forKey:kRegionalOptionShortCode];
     [encoder encodeObject:self.imageData forKey:kRegionalOptionImageData];
 }
 
@@ -52,7 +53,7 @@ NSString *const  kRegionalOptionImageData = @"image";
         //decode properties, other class vars
         self.itemId = [decoder decodeObjectForKey:kRegionalOptionId];
         self.name = [decoder decodeObjectForKey:kRegionalOptionName];
-        self.shortCode = [decoder decodeObjectForKey:kRegionalOptionShortCode];
+        self.apiServiceCode = [decoder decodeObjectForKey:kRegionalOptionShortCode];
         self.imageData = [decoder decodeObjectForKey:kRegionalOptionImageData];
     }
     return self;
@@ -74,7 +75,8 @@ NSString *const  kLanguageOptionImageData   = @"image";
     if (self && [dict isKindOfClass:[NSDictionary class]]) {
         objectOrNilForKey(self.itemId, dict, kLanguageOptionId);
         objectOrNilForKey(self.name, dict, kLanguageOptionName);
-        objectOrNilForKey(self.shortCode, dict, kLanguageOptionShortCode);
+        objectOrNilForKey(self.apiServiceCode, dict, kLanguageOptionShortCode);
+        self.localizationShortCode = [LanguageDataModel localizationCodeForApiCode:self.apiServiceCode];
         objectOrNilForKey(self.imageId, dict, kLanguageOptionImageId);
         NSDictionary *imageDataDict = nilOrJSONObjectForKey(dict, kLanguageOptionImageData);
         if (imageDataDict) {
@@ -90,7 +92,8 @@ NSString *const  kLanguageOptionImageData   = @"image";
     
     [encoder encodeObject:self.itemId forKey:kRegionalOptionId];
     [encoder encodeObject:self.name forKey:kRegionalOptionName];
-    [encoder encodeObject:self.shortCode forKey:kRegionalOptionShortCode];
+    [encoder encodeObject:self.apiServiceCode forKey:kRegionalOptionShortCode];
+    [encoder encodeObject:self.localizationShortCode forKey:kRegionalOptionLocalizationCode];
     [encoder encodeObject:self.imageData forKey:kRegionalOptionImageData];
 }
 
@@ -99,10 +102,39 @@ NSString *const  kLanguageOptionImageData   = @"image";
         //decode properties, other class vars
         self.itemId = [decoder decodeObjectForKey:kRegionalOptionId];
         self.name = [decoder decodeObjectForKey:kRegionalOptionName];
-        self.shortCode = [decoder decodeObjectForKey:kRegionalOptionShortCode];
+        self.apiServiceCode = [decoder decodeObjectForKey:kRegionalOptionShortCode];
+        self.localizationShortCode = [decoder decodeObjectForKey:kRegionalOptionLocalizationCode];
+        self.localizationShortCode = nil;
         self.imageData = [decoder decodeObjectForKey:kRegionalOptionImageData];
     }
     return self;
+}
+
++ (NSString *)localizationCodeForApiCode:(NSString *)apiCode
+{
+    /**
+     kurdish sorani - key - qs
+     kurdish badini - key - ku
+     arabic- key - ar
+     */
+    /**
+     kurdish sorani - key - ckb
+     kurdish badini - key - ku
+     arabic- key - ar
+     */
+    if ([apiCode isEqualToString:@"iw"]) {
+        return @"ckb";
+    }
+    
+    if ([apiCode isEqualToString:@"ps"]) {
+        return @"ku";
+    }
+    
+    if ([apiCode isEqualToString:@"ka"]) {
+        return @"ka_GE";
+    }
+    
+    return apiCode;
 }
 
 @end

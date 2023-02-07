@@ -32,13 +32,17 @@
 
 - (void)getLanguagesListWithComplition:(void(^)(NSArray <LanguageDataModel *> *languagesList))complition failure:(void(^)(NSError *error))failure
 {
-    
     [self.networkManager GET:@"languages" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (NSDictionary *languageDataDict in responseObject) {
             LanguageDataModel *languageData = [LanguageDataModel modelObjectWithDictionary:languageDataDict];
             [tempArray addObject:languageData];
         }
+//#if DEBUG
+//        [tempArray addObject:[self kurdishSoraniLanguageData]];
+//        [tempArray addObject:[self kartuliLanguageData]];
+//#endif
+
         if (complition) {
             complition([tempArray copy]);
         }
@@ -67,6 +71,31 @@
             failure(error);
         }
     }];
+}
+
+// For Testing
+- (LanguageDataModel *)arabicLanguageData
+{
+    LanguageDataModel *arabic = [[LanguageDataModel alloc] init];
+    arabic.name = @"Arabic";
+    arabic.apiServiceCode = @"ar";
+    return arabic;
+}
+
+- (LanguageDataModel *)kurdishSoraniLanguageData
+{
+    LanguageDataModel *arabic = [[LanguageDataModel alloc] init];
+    arabic.name = @"Sorani";
+    arabic.apiServiceCode = @"ckb";
+    return arabic;
+}
+
+- (LanguageDataModel *)kartuliLanguageData
+{
+    LanguageDataModel *arabic = [[LanguageDataModel alloc] init];
+    arabic.name = @"Kartuli";
+    arabic.apiServiceCode = @"ka";
+    return arabic;
 }
 
 @end

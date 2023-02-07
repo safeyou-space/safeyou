@@ -54,6 +54,8 @@
     // Do any additional setup after loading the view.
     
     [self.navigationController setNavigationBarHidden:YES];
+    self.phoneNumbertextField.delegate = self;
+    self.passwordTextField.delegate = self;
     self.phoneNumbertextField.text = [Settings sharedInstance].countryPhoneCode;
     [self configureGradientBackground];
     [self registerForKeyboardNotifications];
@@ -75,7 +77,7 @@
     self.passwordTextField.placeholder = LOC(@"password_text_key");
     
     self.titleLabel.text = LOC(@"title_login");
-    [self.signInButton setTitle:LOC(@"title_login") forState:UIControlStateNormal];
+    [self.signInButton setTitle:LOC(@"title_login").uppercaseString forState:UIControlStateNormal];
     [self.signUpButton setTitle:LOC(@"title_signup") forState:UIControlStateNormal];
     [self.forgotPasswordButton setTitle:LOC(@"title_forgot_password") forState:UIControlStateNormal];
 }
@@ -94,8 +96,6 @@
             [self performSegueWithIdentifier:@"showVerifyPhoneNumberView" sender:self.phoneNumber];
         } else {
             if (response[@"refresh_token"] && response[@"access_token"]) {
-                [Settings sharedInstance].userRefreshToken = response[@"refresh_token"];
-                [Settings sharedInstance].userAuthToken = response[@"access_token"];
                 [[Settings sharedInstance] activateUsingDualPin:NO];
                 [self fetchUserProfileData];
             } else {
@@ -111,8 +111,7 @@
         NSString *message = LOC(@"something_went_wrong_text_key");
         if (errorInfo[@"message"]) {
             if ([errorInfo[@"message"] isKindOfClass:[NSDictionary class]]) {
-                [self handleSignInError:error];
-                return;
+                message = [self messageFromError:error];
             } else {
                 message = errorInfo[@"message"];
             }
@@ -129,7 +128,6 @@
     weakify(self);
     [self.profileDataService getUserDataWithComplition:^(UserDataModel *userData) {
         strongify(self);
-        [Settings sharedInstance].onlineUser = userData;
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [appDelegate openApplication:YES];
         if ([Settings sharedInstance].updatedFcmToken) {
@@ -155,7 +153,7 @@
 
 #pragma mark - Handle Errors
 
-- (void)handleSignInError:(NSError *)error
+- (NSString *)messageFromError:(NSError *)error
 {
     NSDictionary *errorInfo = error.userInfo;
     NSDictionary *errorsDict = errorInfo[@"message"];
@@ -167,8 +165,7 @@
         errorMessage = errorInfo[@"message"];
     }
     
-    [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:errorMessage cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
-    
+    return errorMessage;
 }
 
 - (NSString *)textFromStringsArray:(NSArray *)stringsArray
@@ -198,14 +195,7 @@
 // @FIXME: Dublicate code need refactor
 - (void)configureGradientBackground
 {
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    
-    gradient.frame = self.view.bounds;
-    UIColor *color1 = [UIColor colorWithSYColor:SYGradientColorTypeBottom alpha:1.0];
-    UIColor *color2 = [UIColor colorWithSYColor:SYGradientColorTypeTop alpha:1.0];
-    gradient.colors = @[(id)color2.CGColor, (id)color1.CGColor];
-    
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    self.view.backgroundColor = [UIColor mainTintColor2];
 }
 
 #pragma mark - Actions
@@ -283,6 +273,23 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.activeField = (HyRobotoRegualrTextField *)textField;
+    if (textField == self.phoneNumbertextField) {
+//        NSInteger offset = [textField offsetFromPosition:textField.endOfDocument toPosition:textField.endOfDocument];
+//        UITextPosition *endOfField =  [[UITextPosition alloc] init];
+//        [textField paste:textField.text];
+//        textField.selectedTextRange = [textField textRangeFromPosition:endPosition toPosition:endPosition];
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == self.phoneNumbertextField) {
+        NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (![newString hasPrefix:[Settings sharedInstance].countryPhoneCode]) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 #pragma mark - Functionality
@@ -303,7 +310,6 @@
     
     if ([segue.identifier isEqualToString:@"showVerifyPhoneNumberView"]) {
         VerifyPhoneNumberViewController *destinationVC = segue.destinationViewController;
-        destinationVC.isFromRegistration = YES;
         destinationVC.phoneNumber = self.phoneNumber;
         destinationVC.password = self.password;
         destinationVC.phoneNumber = sender;

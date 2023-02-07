@@ -8,6 +8,8 @@
 
 #import "SYViewController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, SYChooseOptionControllerPresentationStyle) {
     SYChooseOptionControllerPresentationStylePopover,
     SYChooseOptionControllerPresentationStylePush,
@@ -66,3 +68,6 @@ typedef NS_ENUM(NSInteger, SYChooseOptionControllerPresentationStyle) {
 @property (nonatomic, weak) id  <ChooseOptionsViewDelegate> delegate;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

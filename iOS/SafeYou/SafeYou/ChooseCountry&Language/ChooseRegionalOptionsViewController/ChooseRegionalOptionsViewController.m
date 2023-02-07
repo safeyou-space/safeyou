@@ -165,14 +165,7 @@
 
 // @FIXME: Dublicate code need refactor
 - (void)configureGradientBackground {
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    
-    gradient.frame = self.view.bounds;
-    UIColor *color1 = [UIColor colorWithSYColor:SYGradientColorTypeBottom alpha:1.0];
-    UIColor *color2 = [UIColor colorWithSYColor:SYGradientColorTypeTop alpha:1.0];
-    gradient.colors = @[(id)color2.CGColor, (id)color1.CGColor];
-    
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    self.view.backgroundColor = [UIColor mainTintColor2];
 }
 
 /*

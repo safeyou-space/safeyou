@@ -238,14 +238,11 @@
 - (void)changeDatePickerDesign:(id)picker
 {
     if(_isCustomColor) {
-
         [picker setValue:[UIColor grayColor] forKeyPath:@"textColor"];
         [picker setValue:[UIColor whiteColor] forKeyPath:@"textColor"];
         if ([picker isKindOfClass:[UIDatePicker class]]) {
             if (@available(iOS 13.4, *)) {
                 ((UIDatePicker *)picker).preferredDatePickerStyle = UIDatePickerStyleWheels;
-            } else {
-                // Fallback on earlier versions
             }
         }
         

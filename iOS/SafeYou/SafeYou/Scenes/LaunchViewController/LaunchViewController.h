@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LaunchViewControllerDelegate <NSObject>
 
-- (void)applicationIsReadyToStart;
+- (void)startApplicationInitially;
 
 @end
 

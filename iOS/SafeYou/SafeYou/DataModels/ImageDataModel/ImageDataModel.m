@@ -8,13 +8,21 @@
 
 #import "ImageDataModel.h"
 
-
 NSString *const kImagePath = @"path";
 NSString *const kImageName = @"name";
 NSString *const kImageUrl = @"url";
 NSString *const kImageType = @"type";
 NSString *const kImageImageId = @"id";
 
+@implementation ImageDataModel (ImageURL)
+
+- (NSURL *)imageFullURL
+{
+    NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", BASE_RESOURCE_URL, self.url];
+    return [NSURL URLWithString:imageUrlString];
+}
+
+@end
 
 @interface ImageDataModel ()
 

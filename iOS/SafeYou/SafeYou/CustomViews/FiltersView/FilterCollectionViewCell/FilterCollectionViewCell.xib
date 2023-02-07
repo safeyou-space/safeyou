@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HayRoboto-Regular.ttf">
+            <string>HayRoboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="FilterCollectionViewCell" id="gTV-IL-0wX" customClass="FilterCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="121" height="32"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="121" height="32"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mc8-na-CRy" customClass="SYDesignableView">
+                        <rect key="frame" x="0.0" y="0.0" width="121" height="32"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KnV-d8-DTx" customClass="HyRobotoLabelRegular">
+                                <rect key="frame" x="8" y="9" width="105" height="14"/>
+                                <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KnV-d8-DTx" firstAttribute="top" secondItem="Mc8-na-CRy" secondAttribute="top" constant="9" id="ArN-eT-QiM"/>
+                            <constraint firstAttribute="trailing" secondItem="KnV-d8-DTx" secondAttribute="trailing" constant="8" id="C7f-Hy-u0x"/>
+                            <constraint firstItem="KnV-d8-DTx" firstAttribute="leading" secondItem="Mc8-na-CRy" secondAttribute="leading" constant="8" id="Kr8-39-wCu"/>
+                            <constraint firstItem="KnV-d8-DTx" firstAttribute="centerY" secondItem="Mc8-na-CRy" secondAttribute="centerY" id="U9D-9m-hsn"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                <integer key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Mc8-na-CRy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="AXK-VA-bYk"/>
+                <constraint firstItem="Mc8-na-CRy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="XiO-wD-PNb"/>
+                <constraint firstAttribute="bottom" secondItem="Mc8-na-CRy" secondAttribute="bottom" id="aEI-zL-gzF"/>
+                <constraint firstAttribute="trailing" secondItem="Mc8-na-CRy" secondAttribute="trailing" id="nBG-Nn-ccX"/>
+            </constraints>
+            <size key="customSize" width="121" height="32"/>
+            <connections>
+                <outlet property="containerView" destination="Mc8-na-CRy" id="Oee-sl-3sL"/>
+                <outlet property="titleLabel" destination="KnV-d8-DTx" id="lXG-7z-45C"/>
+            </connections>
+            <point key="canvasLocation" x="189.13043478260872" y="88.392857142857139"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

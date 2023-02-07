@@ -10,6 +10,8 @@
 #import "ForumItemDataModel.h"
 #import "ForumCommentedUserDataModel.h"
 #import <SDWebImage.h>
+#import "ImageDataModel.h"
+#import "NSString+HTML.h"
 
 
 @interface ForumItemTableViewCell ()
@@ -22,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *dateLabel;
 @property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *contentLabel;
 @property (weak, nonatomic) IBOutlet HyRobotoLabelBold *moreInfoLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *peopleCommentedLabel;
+@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *activityLabel;
 
 @property (strong, nonatomic) IBOutletCollection(SYDesignableImageView) NSArray *avatarsCollection;
 @property (weak, nonatomic) IBOutlet UIView *avatarsContainerView;
@@ -70,22 +72,38 @@
         self.shadowedContentView.borderColorType = SYColorTypeMain1;
         self.shadowedContentView.borderWidth = 3.0;
         self.recentActivityView.hidden = NO;
-        self.recentActivityLabel.text = [NSString stringWithFormat:LOC(@"{param}_people_commented_on_this_post"), @(forumItem.newMessagesCount)];
+        self.recentActivityLabel.text = [NSString stringWithFormat:LOC(@"people_commented_text_key"), @(forumItem.newMessagesCount)];
     } else {
         self.shadowedContentView.borderColorType = SYColorTypeMain1;
         self.shadowedContentView.borderWidth = 0.0;
         self.recentActivityView.hidden = YES;
     }
     self.titleLabel.text = forumItem.title;
-    self.dateLabel.text = forumItem.subTitle;
-    self.contentLabel.text = forumItem.shortDescription;
+    self.dateLabel.text = [NSString stringWithFormat:@"%@ | %@", forumItem.author, forumItem.formattedCreatedAt];
+    [self configureContent:forumItem.shortDescription];
     self.moreInfoLabel.text = LOC(@"more_info_text_key");
     
-    [self.titleImageView sd_setImageWithURL:[self imageUrlForPath:forumItem.imagePath]];
+    [self.titleImageView sd_setImageWithURL:forumItem.imageData.imageFullURL];
     
-    self.peopleCommentedLabel.text = [NSString stringWithFormat:LOC(@"{param}_people_commented_text_key"), @(forumItem.commentsCount)];
+    [self updateComments:forumItem.commentsCount andViewsCount:forumItem.viewsCount];
+    // Hide views count bug from backend
+//    self.activityLabel.text = [NSString stringWithFormat:@"%@" , commentsCountText];
     
     [self configureCommentedUsersSection:forumItem];
+}
+
+- (void)updateComments:(NSInteger)commentsCount andViewsCount:(NSInteger)viewsCount
+{
+    NSString *commentsCountText = [NSString stringWithFormat:LOC(@"count_comments"), @(commentsCount)];
+    NSString *viewsCountText = [NSString stringWithFormat:LOC(@"count_views"), @(viewsCount)];
+    self.activityLabel.text = [NSString stringWithFormat:@"%@ | %@", viewsCountText, commentsCountText];
+}
+
+- (void)configureContent:(NSString *)htmlString
+{
+    NSMutableAttributedString *mAttrString = [[NSString attributedStringFromHTML:htmlString] mutableCopy];
+    [mAttrString addAttribute:NSFontAttributeName value:[UIFont hyRobotoFontRegularOfSize:18] range:NSMakeRange(0, mAttrString.length)];
+    self.contentLabel.attributedText = mAttrString;
 }
 
 - (void)configureCommentedUsersSection:(ForumItemDataModel *)forumitem

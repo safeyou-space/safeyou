@@ -14,7 +14,6 @@
 #import "SYProfileService.h"
 #import "AppDelegate.h"
 #import "ApplicationLaunchCoordinator.h"
-#import "ChooseLanguageVC.h"
 #import "MaritalStatusDataModel.h"
 #import "SYAuthenticationService.h"
 #import "ChooseOptionsViewController.h"
@@ -141,6 +140,7 @@
     
     NSString *selectedOptionName = selectedField.fieldValue;
     ChooseOptionsViewController *chooseOptionController = [ChooseOptionsViewController instantiateChooseOptionController];
+    chooseOptionController.chooseOptionType = SYChooseOptionTypeRadio;
     chooseOptionController.optionsArray = [statusNamesArray mutableCopy];
     chooseOptionController.optionTitle = LOC(@"select_marital_status_text_key");
     chooseOptionController.selectedOptionName = selectedOptionName;
@@ -244,7 +244,6 @@
     }
     [self.profileService getUserDataWithComplition:^(UserDataModel *userData) {
         strongify(self);
-        [Settings sharedInstance].onlineUser = userData;
         [self configureDataSource];
         [self hideLoader];
     } failure:^(NSError *error) {
@@ -265,8 +264,8 @@
         ProfileViewFieldViewModel *fieldData = cell.fieldData;
         if ([fieldData.actionString isEqualToString:@"changeAppLanguage"]) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ChooseLanguageVC *chooseLanguageVC = [storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageVC"];
-            [self presentViewController:chooseLanguageVC animated:YES completion:nil];
+//            ChooseLanguageVC *chooseLanguageVC = [storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageVC"];
+//            [self presentViewController:chooseLanguageVC animated:YES completion:nil];
         }
     } else {
         UserDataFieldCell *cell = [tableView cellForRowAtIndexPath:indexPath];

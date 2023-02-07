@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,9 +43,10 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="46" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LRL-Z6-JNI">
                                         <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionsTableViewCell" rowHeight="46" id="PMl-zi-DYH" customClass="ChooseOptionsTableViewCell">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="46"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="375" height="46"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PMl-zi-DYH" id="wkv-dM-FBN">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
@@ -53,15 +54,7 @@
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5h-9u-mxF" customClass="SYDesignableView">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
-                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                                    <integer key="value" value="9"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
-                                                                    <real key="value" value="1"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wbw-jm-VOx" customClass="SYDesignableLabel">
                                                             <rect key="frame" x="28" y="10" width="93" height="26"/>
@@ -70,10 +63,13 @@
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                                                    <integer key="value" value="17"/>
+                                                                    <integer key="value" value="9"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
                                                                     <integer key="value" value="0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                                    <real key="value" value="1"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
@@ -85,7 +81,7 @@
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
-                                                                    <integer key="value" value="1"/>
+                                                                    <integer key="value" value="9"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
                                                                     <real key="value" value="1"/>
@@ -93,7 +89,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="m5h-9u-mxF" secondAttribute="bottom" id="Cdz-SE-FwG"/>
                                                         <constraint firstItem="m5h-9u-mxF" firstAttribute="top" secondItem="wkv-dM-FBN" secondAttribute="top" id="IvX-J0-l6t"/>
@@ -107,14 +103,14 @@
                                                         <constraint firstAttribute="trailing" secondItem="32c-vs-877" secondAttribute="trailing" constant="16" id="vwl-OF-4KT"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <outlet property="checkActiveImageView" destination="32c-vs-877" id="xgF-q5-ulz"/>
                                                     <outlet property="optionNameLabel" destination="Wbw-jm-VOx" id="5V9-UL-zgg"/>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionsRadioTableViewCell" rowHeight="46" id="miN-BD-LcN" customClass="ChooseOptionsTableViewCell">
-                                                <rect key="frame" x="0.0" y="74" width="375" height="46"/>
+                                                <rect key="frame" x="0.0" y="90.5" width="375" height="46"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="miN-BD-LcN" id="GAG-AL-W98">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
@@ -122,15 +118,7 @@
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQQ-ZA-ug0" customClass="SYDesignableView">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
-                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                                    <integer key="value" value="9"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
-                                                                    <real key="value" value="1"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nni-s9-dyT" customClass="SYDesignableLabel">
                                                             <rect key="frame" x="28" y="10" width="93" height="26"/>
@@ -144,9 +132,12 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
                                                                     <integer key="value" value="0"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_purple_empty" translatesAutoresizingMaskIntoConstraints="NO" id="3Gw-Ha-BHP" customClass="SYDesignableImageView">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_pink_empty" translatesAutoresizingMaskIntoConstraints="NO" id="3Gw-Ha-BHP" customClass="SYDesignableImageView">
                                                             <rect key="frame" x="339" y="13" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="Dwp-Dq-VEY"/>
@@ -161,7 +152,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_purple_selected" translatesAutoresizingMaskIntoConstraints="NO" id="Wts-92-uLz" customClass="SYDesignableImageView">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_pink_selected" translatesAutoresizingMaskIntoConstraints="NO" id="Wts-92-uLz" customClass="SYDesignableImageView">
                                                             <rect key="frame" x="339" y="13" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="Vbt-I9-Kxt"/>
@@ -177,7 +168,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="Nni-s9-dyT" firstAttribute="leading" secondItem="GAG-AL-W98" secondAttribute="leadingMargin" constant="12" id="1aw-ge-Mmt"/>
                                                         <constraint firstItem="3Gw-Ha-BHP" firstAttribute="centerY" secondItem="GAG-AL-W98" secondAttribute="centerY" id="3ip-9O-sF6"/>
@@ -193,7 +184,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="Wts-92-uLz" secondAttribute="trailing" constant="16" id="xhp-9i-qCh"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <outlet property="checkActiveImageView" destination="Wts-92-uLz" id="zDE-n3-XRx"/>
                                                     <outlet property="checkDeactiveImageView" destination="3Gw-Ha-BHP" id="cfV-sr-BjG"/>
@@ -217,7 +208,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                        <integer key="value" value="4"/>
+                                        <integer key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
                                         <real key="value" value="1"/>
@@ -233,14 +224,6 @@
                             <constraint firstItem="mII-e2-ntY" firstAttribute="leading" secondItem="pxS-li-BKp" secondAttribute="leading" id="hHM-dv-3TN"/>
                             <constraint firstAttribute="trailing" secondItem="mII-e2-ntY" secondAttribute="trailing" id="kkA-Ai-fCG"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                <integer key="value" value="4"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
-                                <real key="value" value="1"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                     <navigationItem key="navigationItem" id="g7P-dy-6iK">
                         <barButtonItem key="rightBarButtonItem" id="kp6-I4-e1Q" customClass="SYDesignableBarButtonItem">
@@ -275,97 +258,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="doV-P9-XFa">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                        <rect key="frame" x="0.0" y="44" width="375" height="493"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <view key="tableFooterView" contentMode="scaleToFill" id="hKy-7x-cLI" customClass="SYDesignableView">
-                                            <rect key="frame" x="0.0" y="266" width="375" height="187"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8QO-BX-Lb7" customClass="SYDesignableButton">
-                                                    <rect key="frame" x="30" y="30" width="315" height="50"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="pyX-zz-KWv"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="17"/>
-                                                    <inset key="contentEdgeInsets" minX="50" minY="0.0" maxX="50" maxY="0.0"/>
-                                                    <state key="normal" title="Save"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                            <integer key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
-                                                            <real key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="25"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
-                                                            <real key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
-                                                            <integer key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                                                            <integer key="value" value="9"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
-                                                            <integer key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <real key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="saveButtonPressed:" destination="hEI-qe-Mb4" eventType="touchUpInside" id="2LY-XR-qkx"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIB-13-l1M" customClass="SYDesignableButton">
-                                                    <rect key="frame" x="30" y="100" width="315" height="50"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="YST-fe-1xt"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="17"/>
-                                                    <inset key="contentEdgeInsets" minX="50" minY="0.0" maxX="50" maxY="0.0"/>
-                                                    <state key="normal" title="Cancel"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                            <integer key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="25"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
-                                                            <real key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
-                                                            <integer key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                                                            <integer key="value" value="6"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
-                                                            <integer key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="cancelButtonPressed:" destination="hEI-qe-Mb4" eventType="touchUpInside" id="Roy-4l-sPS"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="CIB-13-l1M" secondAttribute="bottom" constant="37" id="4Xh-tV-IAL"/>
-                                                <constraint firstItem="8QO-BX-Lb7" firstAttribute="top" secondItem="hKy-7x-cLI" secondAttribute="top" constant="30" id="6gJ-ND-vie"/>
-                                                <constraint firstItem="CIB-13-l1M" firstAttribute="top" secondItem="8QO-BX-Lb7" secondAttribute="bottom" constant="20" id="8Zu-Pm-y3g"/>
-                                                <constraint firstItem="8QO-BX-Lb7" firstAttribute="leading" secondItem="hKy-7x-cLI" secondAttribute="leading" constant="30" id="9Uo-2b-0W5"/>
-                                                <constraint firstItem="CIB-13-l1M" firstAttribute="leading" secondItem="hKy-7x-cLI" secondAttribute="leading" constant="30" id="XjZ-VR-ygN"/>
-                                                <constraint firstAttribute="trailing" secondItem="CIB-13-l1M" secondAttribute="trailing" constant="30" id="cic-hW-jxQ"/>
-                                                <constraint firstAttribute="trailing" secondItem="8QO-BX-Lb7" secondAttribute="trailing" constant="30" id="lHO-3c-uh9"/>
-                                            </constraints>
-                                        </view>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionsTableViewCell" rowHeight="70" id="PGY-bS-n6g" customClass="ChooseOptionsTableViewCell">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="375" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PGY-bS-n6g" id="8vB-qH-WPw">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -390,10 +287,13 @@
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                                                    <integer key="value" value="17"/>
+                                                                    <integer key="value" value="6"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
                                                                     <integer key="value" value="0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                                    <real key="value" value="1"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
@@ -433,8 +333,8 @@
                                                     <outlet property="optionNameLabel" destination="BU6-6O-JTN" id="8Hu-6T-t4c"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionsRadioTableViewCell" rowHeight="70" id="Pts-8N-4GP" customClass="ChooseOptionsTableViewCell">
-                                                <rect key="frame" x="0.0" y="98" width="375" height="70"/>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionsRadioTableViewCellConfirm" rowHeight="70" id="Pts-8N-4GP" customClass="ChooseOptionsTableViewCell">
+                                                <rect key="frame" x="0.0" y="114.5" width="375" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pts-8N-4GP" id="kEu-28-A1O">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -442,31 +342,23 @@
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oXd-wP-eJv" customClass="SYDesignableView">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
-                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                                    <integer key="value" value="9"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
-                                                                    <real key="value" value="1"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bB6-zU-ahJ" customClass="SYDesignableLabel">
                                                             <rect key="frame" x="28" y="10" width="93" height="50"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <color key="textColor" red="0.76078431369999999" green="0.7725490196" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                                                    <integer key="value" value="17"/>
+                                                                    <integer key="value" value="6"/>
                                                                 </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                                    <integer key="value" value="0"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                                    <real key="value" value="1"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_purple_empty" translatesAutoresizingMaskIntoConstraints="NO" id="GjB-aC-oxD" customClass="SYDesignableImageView">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_pink_empty" translatesAutoresizingMaskIntoConstraints="NO" id="GjB-aC-oxD" customClass="SYDesignableImageView">
                                                             <rect key="frame" x="339" y="25" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="9AL-BP-Wsp"/>
@@ -481,7 +373,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_purple_selected" translatesAutoresizingMaskIntoConstraints="NO" id="k2q-cP-1lh" customClass="SYDesignableImageView">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_pink_selected" translatesAutoresizingMaskIntoConstraints="NO" id="k2q-cP-1lh" customClass="SYDesignableImageView">
                                                             <rect key="frame" x="339" y="25" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="Nv1-dA-8Xa"/>
@@ -497,7 +389,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="oXd-wP-eJv" secondAttribute="bottom" id="29a-8j-PBH"/>
                                                         <constraint firstAttribute="trailing" secondItem="k2q-cP-1lh" secondAttribute="trailing" constant="16" id="4xa-Jw-A1g"/>
@@ -521,7 +413,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionCustomInputCell" rowHeight="70" id="WU1-Dh-n48" customClass="ChooseOptionCustomInputCell">
-                                                <rect key="frame" x="0.0" y="168" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="184.5" width="375" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WU1-Dh-n48" id="jIa-rK-yXC">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -539,7 +431,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_purple_empty" translatesAutoresizingMaskIntoConstraints="NO" id="cJ1-8y-3iN" customClass="SYDesignableImageView">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_pink_empty" translatesAutoresizingMaskIntoConstraints="NO" id="cJ1-8y-3iN" customClass="SYDesignableImageView">
                                                             <rect key="frame" x="339" y="25" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="KYY-dx-Oz9"/>
@@ -554,7 +446,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_purple_selected" translatesAutoresizingMaskIntoConstraints="NO" id="8Fv-NO-Tss" customClass="SYDesignableImageView">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_pink_selected" translatesAutoresizingMaskIntoConstraints="NO" id="8Fv-NO-Tss" customClass="SYDesignableImageView">
                                                             <rect key="frame" x="339" y="25" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="ZMx-od-a2O"/>
@@ -642,18 +534,92 @@
                                             <outlet property="delegate" destination="hEI-qe-Mb4" id="eft-SI-zZF"/>
                                         </connections>
                                     </tableView>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8QO-BX-Lb7" customClass="SYDesignableButton">
+                                        <rect key="frame" x="119" y="547" width="137" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="pyX-zz-KWv"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="17"/>
+                                        <inset key="contentEdgeInsets" minX="50" minY="0.0" maxX="50" maxY="0.0"/>
+                                        <state key="normal" title="Save"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                <integer key="value" value="9"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="saveButtonPressed:" destination="hEI-qe-Mb4" eventType="touchUpInside" id="2LY-XR-qkx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIB-13-l1M" customClass="SYDesignableButton">
+                                        <rect key="frame" x="111.5" y="607" width="152" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="YST-fe-1xt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="17"/>
+                                        <inset key="contentEdgeInsets" minX="50" minY="0.0" maxX="50" maxY="0.0"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="hEI-qe-Mb4" eventType="touchUpInside" id="Roy-4l-sPS"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <viewLayoutGuide key="safeArea" id="u5E-ro-j8D"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="u5E-ro-j8D" firstAttribute="trailing" secondItem="doV-P9-XFa" secondAttribute="trailing" id="7nC-00-cRJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="doV-P9-XFa" secondAttribute="bottom" id="E5W-5N-lVX"/>
+                                    <constraint firstItem="CIB-13-l1M" firstAttribute="top" secondItem="8QO-BX-Lb7" secondAttribute="bottom" constant="20" id="8k6-ZM-jRI"/>
+                                    <constraint firstItem="u5E-ro-j8D" firstAttribute="bottom" secondItem="CIB-13-l1M" secondAttribute="bottom" constant="20" id="IKs-Xk-gCS"/>
                                     <constraint firstItem="doV-P9-XFa" firstAttribute="leading" secondItem="u5E-ro-j8D" secondAttribute="leading" id="Tev-Ge-Q2K"/>
                                     <constraint firstItem="doV-P9-XFa" firstAttribute="top" secondItem="u5E-ro-j8D" secondAttribute="top" id="icb-9Y-GYB"/>
+                                    <constraint firstItem="8QO-BX-Lb7" firstAttribute="centerX" secondItem="cru-hB-vIY" secondAttribute="centerX" id="ivF-c0-4CO"/>
+                                    <constraint firstItem="8QO-BX-Lb7" firstAttribute="top" secondItem="doV-P9-XFa" secondAttribute="bottom" constant="10" id="mZE-LE-UHw"/>
+                                    <constraint firstItem="CIB-13-l1M" firstAttribute="centerX" secondItem="cru-hB-vIY" secondAttribute="centerX" id="sEp-jH-TyT"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                        <integer key="value" value="4"/>
+                                        <integer key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
                                         <real key="value" value="1"/>
@@ -669,14 +635,6 @@
                             <constraint firstAttribute="trailing" secondItem="cru-hB-vIY" secondAttribute="trailing" id="cnk-QR-BcR"/>
                             <constraint firstItem="cru-hB-vIY" firstAttribute="top" secondItem="5bV-0w-yzy" secondAttribute="top" id="hCe-EN-zan"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                <integer key="value" value="4"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
-                                <real key="value" value="1"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                     <navigationItem key="navigationItem" id="x7Q-BQ-fjg">
                         <barButtonItem key="rightBarButtonItem" id="UAr-fT-AxF" customClass="SYDesignableBarButtonItem">
@@ -707,39 +665,39 @@
             <size key="intrinsicContentSize" width="23" height="22.5"/>
         </designable>
         <designable name="3Gw-Ha-BHP">
-            <size key="intrinsicContentSize" width="25" height="25"/>
+            <size key="intrinsicContentSize" width="16" height="16"/>
         </designable>
         <designable name="8Fv-NO-Tss">
-            <size key="intrinsicContentSize" width="25" height="25"/>
+            <size key="intrinsicContentSize" width="16" height="16"/>
         </designable>
         <designable name="8QO-BX-Lb7">
-            <size key="intrinsicContentSize" width="138" height="20"/>
+            <size key="intrinsicContentSize" width="137" height="17"/>
         </designable>
         <designable name="AWx-Hg-Amf">
             <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="CIB-13-l1M">
-            <size key="intrinsicContentSize" width="153" height="20"/>
+            <size key="intrinsicContentSize" width="152" height="17"/>
         </designable>
         <designable name="GjB-aC-oxD">
-            <size key="intrinsicContentSize" width="25" height="25"/>
+            <size key="intrinsicContentSize" width="16" height="16"/>
         </designable>
         <designable name="Vdk-uB-abP">
             <size key="intrinsicContentSize" width="23" height="22.5"/>
         </designable>
         <designable name="Wts-92-uLz">
-            <size key="intrinsicContentSize" width="25" height="25"/>
+            <size key="intrinsicContentSize" width="16" height="16"/>
         </designable>
         <designable name="cJ1-8y-3iN">
-            <size key="intrinsicContentSize" width="25" height="25"/>
+            <size key="intrinsicContentSize" width="16" height="16"/>
         </designable>
         <designable name="k2q-cP-1lh">
-            <size key="intrinsicContentSize" width="25" height="25"/>
+            <size key="intrinsicContentSize" width="16" height="16"/>
         </designable>
     </designables>
     <resources>
         <image name="checkmark" width="23" height="22.5"/>
-        <image name="radio_button_purple_selected" width="25" height="25"/>
-        <image name="radion_button_purple_empty" width="25" height="25"/>
+        <image name="radio_button_pink_selected" width="16" height="16"/>
+        <image name="radion_button_pink_empty" width="16" height="16"/>
     </resources>
 </document>

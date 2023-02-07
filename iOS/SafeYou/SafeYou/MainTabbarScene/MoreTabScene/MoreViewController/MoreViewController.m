@@ -13,7 +13,6 @@
 #import "SYProfileService.h"
 #import "AppDelegate.h"
 #import "ApplicationLaunchCoordinator.h"
-#import "ChooseLanguageVC.h"
 #import "MaritalStatusDataModel.h"
 #import "SYAuthenticationService.h"
 #import "ChooseOptionsViewController.h"
@@ -50,6 +49,8 @@
 
 @property (nonatomic) CountryDataModel *currentSelectedCountry;
 @property (nonatomic) LanguageDataModel *currentSelectedLanguage;
+
+@property (nonatomic) DialogViewController *deleteAccountDialogView;
 
 @end
 
@@ -107,7 +108,6 @@
     [self.tableView reloadData];
     self.navigationItem.title = LOC(@"title_menu");
     self.title = LOC(@"title_menu");
-    self.tabBarItem.title = LOC(@"title_menu");
 }
 
 #pragma mark - DataSource
@@ -148,6 +148,22 @@
     becomeConsultantField.actionString = @"showBecomeConsultantFromMoreView";
     becomeConsultantField.accessoryType = FieldAccessoryTypeArrow;
     [dataSourceTemp addObject:becomeConsultantField];
+    
+    //icon_security
+    SettingsViewFieldViewModel *emergencyContactsField = [[SettingsViewFieldViewModel alloc] init];
+    emergencyContactsField.mainTitle =  LOC(@"emergency_contacts_title_key");
+    emergencyContactsField.iconImageName = @"intro_contacts_icon";
+    emergencyContactsField.accessoryType = FieldAccessoryTypeArrow;
+    emergencyContactsField.actionString = @"showEmergencyContactsView";
+    [dataSourceTemp addObject:emergencyContactsField];
+    
+    //icon_security
+    SettingsViewFieldViewModel *recordingsField = [[SettingsViewFieldViewModel alloc] init];
+    recordingsField.mainTitle =  LOC(@"recording_title_key");
+    recordingsField.iconImageName = @"recordings";
+    recordingsField.accessoryType = FieldAccessoryTypeArrow;
+    recordingsField.actionString = @"showRecordingsView";
+    [dataSourceTemp addObject:recordingsField];
     
     //icon_security
     SettingsViewFieldViewModel *changePasswordField = [[SettingsViewFieldViewModel alloc] init];
@@ -204,6 +220,12 @@
     logoutField.accessoryType = FieldAccessoryTypeUnknown;
     [dataSourceTemp addObject:logoutField];
 
+    SettingsViewFieldViewModel *deleteAccountField = [[SettingsViewFieldViewModel alloc] init];
+    deleteAccountField.mainTitle = LOC(@"delete_account_title_key");
+    deleteAccountField.iconImageName = @"delete_recycle_icon";
+    deleteAccountField.actionString = @"deleteAccountAction";
+    deleteAccountField.accessoryType = FieldAccessoryTypeUnknown;
+    [dataSourceTemp addObject:deleteAccountField];
     
     self.dataSource = dataSourceTemp;
     [self.tableView reloadData];
@@ -330,6 +352,16 @@
 
 }
 
+- (void)showEmergencyContactsView
+{
+    [self performSegueWithIdentifier:@"showEmergencyContactsView" sender:nil];
+}
+
+- (void)showRecordingsView
+{
+    [self performSegueWithIdentifier:@"showRecordingsView" sender:nil];
+}
+
 - (void)showChooseCountryFromMoreView
 {
     CountryListViewController *countryListVC = [[CountryListViewController alloc] initWithNibName:@"CountryListViewController" bundle:nil];
@@ -387,7 +419,7 @@
 - (void)showRegionalOptionsDialogAndLogout
 {
     weakify(self)
-    if (![self.currentSelectedCountry.shortCode isEqualToString:[Settings sharedInstance].selectedCountryCode]) {
+    if (![self.currentSelectedCountry.apiServiceCode isEqualToString:[Settings sharedInstance].selectedCountryCode]) {
         [self showAlertViewWithTitle:@"" withMessage:LOC(@"apply_regional_changes_text") cancelButtonTitle:LOC(@"cancel") okButtonTitle:LOC(@"apply_title_key") cancelAction:^{
             // cancel action
             self.currentSelectedCountry = nil;
@@ -404,7 +436,7 @@
                 NSLog(@"Logout error");
             }];
         }];
-    } else if (![self.currentSelectedLanguage.shortCode isEqualToString:[Settings sharedInstance].selectedLanguageCode]) {
+    } else if (![self.currentSelectedLanguage.apiServiceCode isEqualToString:[Settings sharedInstance].selectedLanguageCode]) {
         self.currentSelectedCountry = nil;
         self.currentSelectedLanguage = nil;
         [Settings sharedInstance].selectedLanguage = self.currentSelectedLanguage;
@@ -412,6 +444,15 @@
         self.currentSelectedCountry = nil;
         self.currentSelectedLanguage = nil;
     }
+}
+
+- (void)deleteAccountAction
+{
+    self.deleteAccountDialogView = [DialogViewController instansiateDialogViewWithType:DialogViewTypeButtonAction title:LOC(@"delete_account_title") message:LOC(@"delete_account_description")];
+    self.deleteAccountDialogView.showCancelButton = YES;
+    self.deleteAccountDialogView.delegate = self;
+    self.deleteAccountDialogView.continueButtonText = LOC(@"delete_key");
+    [self addChildViewController:self.deleteAccountDialogView onView:self.view];
 }
 
 #pragma mark - Helper
@@ -446,6 +487,25 @@
 {
     // refresh to set switch to old state
     [self.tableView reloadData];
+}
+
+- (void)dialogViewDidPressActionButton:(DialogViewController *)dialogView
+{
+    if (dialogView == self.deleteAccountDialogView) {
+        [self showLoader];
+        weakify(self);
+        [self.profileService deleteProfile:^(id response) {
+            strongify(self);
+            [self hideLoader];
+            [Settings sharedInstance].isPopupShown = NO;
+            [[Settings sharedInstance] resetUserData];
+            [ApplicationLaunchCoordinator showWelcomeScreenAfterLogout];
+        } failure:^(NSError *error) {
+            strongify(self);
+            [self hideLoader];
+            NSLog(@"Error on delete profile %@", error);
+        }];
+    }
 }
 
 #pragma mark - SwitchCellDelegate
@@ -546,7 +606,6 @@
     weakify(self);
     [self.profileService getUserDataWithComplition:^(UserDataModel *userData) {
         strongify(self);
-        [Settings sharedInstance].onlineUser = userData;
         [self configureDataSource];
         if (withLoader) {
             [self hideLoader];
@@ -660,7 +719,7 @@
         [self showRegionalOptionsDialogAndLogout];
     } else {
         [self.navigationController popToRootViewControllerAnimated:YES];
-        [Settings sharedInstance].selectedLanguage = selectedRegionalOption;
+        [[Settings sharedInstance] setSelectedLanguage:selectedRegionalOption];
     }
 }
 

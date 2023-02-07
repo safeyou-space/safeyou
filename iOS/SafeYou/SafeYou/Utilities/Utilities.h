@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Utilities : NSObject
 
 + (NSString *)fetchTranslationForKey:(NSString *)locKey;
++ (BOOL)isNetworkAvailable;
 
 @end
 

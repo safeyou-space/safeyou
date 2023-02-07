@@ -8,413 +8,351 @@
 
 
 "about_us_title_key" = "Մեր մասին";
-
 "birth_date_title_key" = "Ծննդյան ամսաթիվ օր/ամիս/տարի";
-
 "cancel" = "Չեղարկել";
-
 "choose_from_gallery_title_key" = "Ընտրել պատկերասրահից";
-
 "choose_photo_title" = "Ընտրել նկար";
-
 "confirm_fake_pin_text_key" = "Հաստատել կեղծ PIN-ը";
-
 "confirm_password_text_key" = "Հաստատել գաղտնաբառը";
-
 "confirm_real_pin_text_key" = "Հաստատել իրական PIN-ը";
-
 "done_key" = "Ավարտված";
-
-"emergency_contact_one_title_key" = "Ահազանգի կոնտակտ1";
-
-"emergency_contact_three_title_key" = "Ահազանգի կոնտակտ3";
-
-"emergency_contact_two_title_key" = "Ահազանգի կոնտակտ2";
-
-"emergency_message_title_key" = "Ահազանգ SMS";
-
-"enter_fake_pin_text_key" = "Ավելացնել 4 նիշանոց կեղծ PIN-ը ";
-
-"enter_real_pin_text_key" = "Ավելացնել 4 նիշանոց իրական PIN-ը ";
-
+"emergency_contact_title_key" = "Ահազանգի կոնտակտ %@";
+"emergency_message_title_key" = "Ահազանգի SMS";
+"enter_fake_pin_text_key" = "Ավելացնել 4 նիշանոց կեղծ PIN-ը";
+"enter_real_pin_text_key" = "Ավելացնել 4 նիշանոց իրական PIN-ը";
 "error_text_key" = "Սխալ";
-
 "fill_required_fields_text_key" = "Խնդրում ենք լրացնել պարտադիր դաշտերը";
-
 "first_name_title_key" = "Անուն";
-
-"last_name_text_key" = "Ազգանուն";
-
 "log_out_title_key" = "Դուրս գալ";
-
 "mobile_number_text_key" = "Բջջային հեռախոսահամար";
-
-"my_profile_title" = "Իմ էջը";
-
 "next_key" = "Առաջ";
-
-"ngo_one_title_key" = "Աջակցության կոնտակտ 1";
-
-"ngo_two_title_key" = "Աջակցության կոնտակտ 2";
-
-"ngo_three_title_key" = "Աջակցության կոնտակտ 3";
-
+"ngo_title_key" = "Աջակցության կոնտակտ %@";
 "nick_name_title_key" = "Կեղծանուն";
-
 "ok" = "լավ";
-
 "password_text_key" = "Գաղտնաբառ";
-
 "passwords_not_match_text_key" = "Գաղտնաբառերը չեն համընկնում";
-
 "pins_do_not_match_text_key" = "Դաշտերը չեն համընկնում";
-
 "please_enter_valid_email_message_key" = "Խնդրում ենք մուտքագրել վավեր Էլ․փոստի հասցե";
-
 "please_enter_valid_number_message_key" = "Խնդրում ենք մուտքագրել վավեր հեռախոսահամար";
-
-"please_enter_valid_password_message_key" = "Գաղտնաբառը պետք է պարունակի 8 նիշ";
-
+"please_enter_valid_password_message_key" = "Գաղտնաբառը պետք է պարունակի առնվազն 8 նիշ";
 "police_title_key" = "Ոստիկանություն";
-
-"registration_title_key" = "Գրանցվել";
-
 "remove_photo_title_key" = "Հեռացնել նկարը";
-
 "resend_otp_text_key" = "Կրկին ուղարկե՞լ 6 նիշանոց ԿՈԴԸ   %@s";
-
 "resend_title_key" = "Կրկին ուղարկել";
-
 "return_key" = "Վերադառնալ";
-
 "submit_title_key" = "Հանձնել";
-
 "take_photo_title_key" = "Նոր ֆոտո անել";
-
-"verifying_otp_text_key" = "Մուտքագրել ԿՈԴԸ";
-
-"wrong_credentials_text_key" = "Սխալ հեռախոսահամար կամ գաղտնաբառ";
-
+"verifying_otp_text_key" = "Վավերացման կոդ";
 "dual_pin_title_key" = "2-ակի PIN";
-
-"dual_pin_descritpion_text_key" = "Ավելացրեք իրական PIN –ը իրական հավելված մուտք գործելու համար: Ավելացրեք կեղծ PIN նկարների էջ մուտք գործելու համար, որպեսզի թաքցնեք իրական հավելվածը ուրիշներից:";
-
-"ngos_title_key" = "Ցանց";
-
-"ngos_descritpion_text_key" = "Գտեք և կապ հաստատեք կանանց իրավունքների պաշտպանությամբ զբաղվող և կանանց այլ կերպ աջակցող կազմակերպությունների հետ։";
-
+"ngos_description_text_key" = "Գտեք և կապ հաստատեք կանանց իրավունքների պաշտպանությամբ զբաղվող և կանանց այլ կերպ աջակցող կազմակերպությունների հետ։";
 "forums_title_key" = "Ֆորում";
-
-"forums_descritpion_text_key" = "Քննարկման հարթակ, որտեղ անանուն կերպով կարող եք կիսվել տարբեր թեժ թեմաների շուրջ և  ստանալ մասնագետների խորհրդատվություն:";
-
-"info_title_key" = "Ինֆո";
-
-"common_informtaion_text_key" = "Այս հավելվածը ստեղծված է կանանց համար: Այն ապահով տարածք է, որը Ձեզ տրամադրում է պաշտպանված լինելու գործիքներ, թեժ հարցեր քննարկելու հարթակ և ամենօրյա կյանքում Ձեզ աջակցող մասնագիտացված ցանց:";
-
-"help_intro_title_key" = "Կանչ";
-
-"help_section_descritpion_text_key" = "Սեղմեք Կանչ կոճակը և ուղարկեք անվճար ահազանգ SMS ձեր տեղակայման հետ միասին  արդեն ընտրված կոնտակտներին՝ հայտնելով, որ դուք գտնվում եք վտանգի մեջ: Այն նաև ակտիվացնում է ձայնագրումը, որը դուք կարող եք ուղարկել աջակցության կոնտակտներին, պահպանել հետագա օգտագործման համար կամ ցանկացած պահի ջնջել։";
-
+"forums_description_text_key" = "Քննարկման հարթակ, որտեղ անանուն կերպով կարող եք կիսվել տարբեր թեժ թեմաների շուրջ և  ստանալ մասնագետների խորհրդատվություն:";
+"help_section_description_text_key" = "Սեղմեք Կանչ կոճակը և ուղարկեք անվճար ահազանգ SMS ձեր տեղակայման հետ միասին  արդեն ընտրված կոնտակտներին՝ հայտնելով, որ դուք գտնվում եք վտանգի մեջ: Այն նաև ակտիվացնում է ձայնագրումը, որը դուք կարող եք ուղարկել աջակցության կոնտակտներին, պահպանել հետագա օգտագործման համար կամ ցանկացած պահի ջնջել։";
 "otp_info_text_key" = "6 նիշանոց կոդն ուղարկվել է Ձեր կողմից նշված բջջային հեռախոսահամարին %@";
-
 "network_title" = "Ցանց";
-
 "help_title_key" = "Կանչ";
-
 "alert_message_sent_text_key" = "Ահազանգ sms-ները հաջողությամբ ուղարկված են";
-
 "something_went_wrong_text_key" = "Ինչ-որ բան սխալ է";
-
-"message_not_sent_key" = "Ահազանգ sms-ն ուղարկված չէ";
-
 "settings_title" = "Կարգավորումներ";
-
 "last_name_title_key" = "Ազգանուն";
-
-"app_language_title_key" = "Լեզու";
-
 "other_title" = "Այլ";
-
 "no_records_yet_text_key" = "Դուք դեռ ոչ մի ձայնագրություն չունեք:";
-
 "registration_error_key" = "Գրանցման սխալ";
-
 "edit_key" = "Խմբագրել";
-
 "save_key" = "Պահպանել";
-
 "value_can_not_be_empty_key" = "Դաշտը չի կարող դատարկ լինել";
-
-"pin_text_key" = "PIN";
-
-"passwords_lentgh_error_text_key" = "Գաղտնաբառը պետք է պարունակի 8 նիշ";
-
-"fill_curren_password_field_text_key" = "Խնդրում ենք լրացնել Ընթացիկ գաղտնաբառի դաշտը";
-
-"more_info_text_key" = "ՄԱՆՐԱՄԱՍՆ";
-
-"{param}_people_commented_text_key" = "%@ մարդ մեկնաբանել է";
-
+"fill_current_password_field_text_key" = "Խնդրում ենք լրացնել Ընթացիկ գաղտնաբառի դաշտը";
+"more_info_text_key" = "Մանրամասն";
 "reply_text_key" = "Պատասխանել";
-
 "web_address_text_key" = "Կայք";
-
 "email_text_key" = "էլ-փոստ";
-
 "mobile_text_key" = "Բջջային";
-
 "remove_from_helpline_title_key" = "Հեռացնել";
-
 "add_to_helpline_title_key" = "Ավելացնել";
-
 "title_tutorial" = "ՈՒսուցողական";
-
 "new_password_title_key" = "Նոր գաղտնաբառ";
-
 "add_dual_pin_title_key" = "Ավելացնել 2-ակի PIN";
-
-"sign_up_title_key" = "Գրանցվել";
-
-"agree_terms_and_conditions_title" = "Շարունակելով Դուք համաձայնություն եք տալիս հավելվածի ընդհանուր դրույթներին և պայմաններին";
-
-"title_login" = "ՄՈՒՏՔ ԳՈՐԾԵԼ";
-
-"title_signup" = "ԳՐԱՆՑՎԵԼ";
-
+"title_login" = "Մուտք գործել";
+"title_signup" = "Գրանցվել";
 "title_forgot_password" = "Չե՞ք հիշում գաղտնաբառը";
-
 "title_request_new_password" = "Ստանալ նոր գաղտնաբառ";
-
-"mobile_number_text+key" = "Հեռախոսահամար";
-
 "forgot_pin_text_key" = "Չե՞ք հիշում PIN-ը";
-
 "current_password_text_key" = "Ընթացիկ գաղտնաբառ";
-
-"forgot_password_text_key" = "Չե՞ք հիշում գաղտնաբառը";
-
 "title_all" = "Բոլորը";
-
-"title_volunteers" = "Կամավորներ";
-
-"title_legal_services" = "Իրավախորհրդատու";
-
-"push_hold_text_key" = "ՍԵՂՄԵԼ\nՊԱՀԵԼ";
-
+"push_hold_text_key" = "ՍԵՂՄԵԼ\
+ՊԱՀԵԼ";
 "stop_recording_text_key" = "ԱՎԱՐՏ";
-
-"update_password_title" = "Փոխարինել";
-
+"update_password_title" = "Փոխել գաղտնաբառը";
 "alert_message_title" = "Ահազանգ SMS";
-
 "add_emergency_contacts_text_key" = "Ավելացրեք կոնտակներ, որոնք կլինեն Ձեր ահազանգ SMS-ների հասցեատերը ԿԱՆՉ կոճակից օգտվելու դեպքում։";
-
 "pin_length_text_key" = "PIN-ը պետք է բաղկացած լինի 4 թվային նիշից";
-
 "real_pin_fake_pin_different" = "Իրական PIN-ը պետք է տարբերվի կեղծ PIN-ից";
-
 "check_internet_connection_text_key" = "Խնդրում ենք ստուգել ինտերնետ կապի առկայությունը";
-
 "marital_status_text_key" = "Ամուսնական կարգավիճակ";
-
 "select_marital_status_text_key" = "Ընտրել Ամուսնական Կարգավիճակը";
-
 "photo_library" = "Նկարներ";
-
-"you_replied_to_{param}" = "Դու պատասխանել ես  %@-ին";
-
-"{person1}_replied_to_{person2}" = "%@ պատասխանել է %@-ին";
-
-"replying_to_{param}" = "Պատասխանել %@-ին";
-
+"you_replied_to_text_key" = "Դու պատասխանել ես  %@-ին";
+"replied_to_text_key" = "%@ պատասխանել է %@-ին";
+"replying_to_text_key" = "Պատասխանել %@-ին";
 "record_was_successfully_saved_text_key" = "Ձայնագրությունը հաջողությամբ պահպանված է";
-
 "record_was_successfully_sent_text_key" = "Ձայանգրությունը հաջողությամբ ուղարկված է";
-
 "close_key" = "Փակել";
-
 "please_fill_phone_number_text_key" = "Լրացրեք հեռախոսահամարի դաշտը։";
-
 "password_update_success_text_key" = "Գաղտնաբառը հաջողությամբ փոխվել է։";
-
 "success_text_key" = "հաջողված փորձ";
-
 "no_mail_account_registered" = "Դուք չունեք գրանցված էլ-փոստի հասցե ձեր հեռախոսում";
-
-"time_text_key:" = "Ժամ։";
-
+"time_text_key" = "Ժամ։";
 "enter_passcode_text_key" = "Մուտքագրեք PIN-ը";
-
 "title_saved_key" = "Պահպանված";
-
 "title_sent_key" = "Ուղարկված";
-
 "delete_key" = "Ջնջել";
-
 "recording_title_key" = "Ձայնագրություններ";
-
 "want_logout_text_key" = "Ցանկանո՞ւմ եք դուրս գալ։";
-
 "wrong_url_text_key" = "Սխալ հղում";
-
-"clear_tex_key" = "Ջնջել";
-
-"add_dual_pin_for_security" = "Ցանկանում ես ուրիշներից թաքցնե՞լ հավելվածը: \n Ապա ակտիվացրու 2-ակի PIN-ը: Իրական PIN հավելված մուտք գործելու համար, կեղծ PIN ֆոտոների էջ մտնելու համար: \n Մուտքը դեպի հավելված առանց 2-ակի PIN ավելի արագ է:";
-
+"clear_text_key" = "Ջնջել";
+"add_dual_pin_for_security" = "Ցանկանում ես ուրիշներից թաքցնե՞լ հավելվածը: \
+ Ապա ակտիվացրու 2-ակի PIN-ը: Իրական PIN հավելված մուտք գործելու համար, կեղծ PIN ֆոտոների էջ մտնելու համար: \
+ Մուտքը դեպի հավելված առանց 2-ակի PIN ավելի արագ է:";
 "continue_without_pin_title_key" = "Շարունակել առանց 2-ակի PIN";
-
 "enter_pint_to_deactivate" = "Կրկին մուտքագրեք իրական PIN -ը 2-ակի PIN-ը  ապաակտիվացնելու համար: ";
-
-"re_enter_pin_code" = "Վերամուտքագրել PIN-ը";
-
 "choose_your_country" = "Ընտրեք ձեր երկիրը";
-
 "which_country_to_browse_in" = "Ո՞ր երկրում եք ցանկանում մուտք գործել:";
-
 "choose_your_language" = "Ընտրեք հավելվածի լեզուն";
-
 "choose_the_language_to_continue" = "Ընտրեք լեզուն շարունակելու համար";
-
 "profile_title_key" = "Իմ էջը";
-
 "change_password_key" = "Փոխել Գաղտնաբառը";
-
 "country_title_key" = "Երկիր";
-
 "language_title_key" = "Լեզու";
-
-"notifications_title_key" = "Ծանուցումներ";
-
 "support_title_key" = "Աջակցություն";
-
-"edit_dual_pin_title_key" = "Խմբագրել 2-ակի PIN-ը";
-
-"settings_tab_title_key" = "Կարգավորում";
-
 "apply_regional_changes_text" = "Ընտրված կարգավորումները կիրառելու դեպքում դուք դուրս կգաք համակարգից";
-
 "apply_title_key" = "Կիրառել";
-
 "profile_picture_title_key" = "Էջի նկար";
-
-"emergency_contacts_title" = "Ահազանգի կոնտակտներ";
-
 "emergency_services_title" = "Իմ աջակցության կոնտակտները";
-
-"add_emergency_contact" = "Ավելացնել ահազանգի կոնտակտ";
-
-"add_emergency_service" = "Ավելացնել";
-
 "edit_pin_code_title" = "Խմբագրել PIN Կոդը";
-
 "enter_your_pin_code" = "Մուտքագրեք Ձեր ընթացիկ PIN Կոդը";
-
-"{param}_comments" = "%@ մեկնաբանություններ";
-
+"count_comments" = "%@ մեկնաբանություններ";
 "comment" = "մեկնաբանություն";
-
-"{param}_replies" = "Պատասխաններ";
-
+"count_replies" = "%@ Պատասխաններ";
 "view_more_replies" = "Տեսնել ավելին";
-
 "nickname_placeholder" = "Ուրիշները կտեսնեն միայն կեղծանունը";
-
-"{param}_people_commented_on_this_post" = "%@ մարդ մեկնաբանել է";
-
+"people_commented_text_key" = "%@ մարդ մեկնաբանել է";
 "replied_to_your_comment" = "Պատասխանել է Ձեր մեկնաբանությանը";
-
-"addres" = "Հասցե";
-
-"intro_view_description_text_key" = "Ծանոթացեք հավելվածի ֆունկցիաներին սեղմելով ներքևի նշանների վրա։";
-
+"address" = "Հասցե";
+"intro_view_description_text_key" = "Ծանոթացեք հավելվածի ֆունկցիաներին սեղմելով ներքևի սեղմելով ներքևի կոճակները";
 "intro_support_text_key" = "Այս բաժնում ընտրեք մինչև 3 կոնտակտ ձեր անձնական կոնտակտներից, մինչև 3 կոնտակտ մեր ցանցի անդամներից, ինչպես նաև ակտիվացրեք ոստիկանությանը դիմելու ֆունկցիան։";
-
-"title_dual_pin_camouflage_icon_key" = "2-ԱԿԻ PIN / ՔՈՂԱՐԿԻՉ ՆՇԱՆ";
-
+"security_introduction_text_key" = "Հավելվածը ուրիշներից թաքցնելու համար դուք կարող եք՝\
+\
+*Ակտիվացնել 2-ակի PIN-ը․\
+Մուտքագրեք իրական PIN-ը և մուտք գործեք իրական հավելված, մուտքագրեք կեղծ PIN-ը և մուտք գործեք ձեր հեռախոսի նկարների բաժին։\
+\
+*Ակտիվացնել Քողարկիչ Նշանը․\
+Այս ֆունկցիան կփոխի Հավելվածի հիմնական նշանը և անվանումը ձեր հեռախոսի էկրանի վրա։";
 "title_menu" = "Մենյու";
-
 "title_security_and_login" = "Անվտանգություն";
-
 "title_camouflage_icon" = "Քողարկիչ նշան";
-
 "edit_deactivate_dual_pin" = "Փոխել/Ապաակտիվացնել (2-ակի PIN-ը)";
-
-"continue" = "Շարունակել";
-
+"continue_txt" = "Շարունակել";
 "security" = "Անվտանգություն";
-
-"choose_your_camouflage_icon" = "Choose Your Camouflage Icon";
-
+"choose_your_camouflage_icon" = "Ընտրեք ձեր քողարկիչ նշանը";
 "art_gallery" = "Art Gallery";
-
 "gallery_editor" = "Gallery Editor";
-
 "visual_editor" = "Visual Editor";
-
-"would_you_activate_dual_pin" =  " Կցանկանա՞ք նաև ակտիվացնել 2-ակի PIN-ը։";
-
+"would_you_activate_dual_pin" = "Կցանկանա՞ք նաև ակտիվացնել 2-ակի PIN-ը։";
 "we_recommend_to_activate_dual_pin" = "Մենք Ձեզ խորհուրդ ենք տալիս ակտիվացնել 2-ակի PIN-ը, որը թույլ կտա թաքցնել Հավելվածի իրական ֆունկցիաները այլ անձանցից։";
-
-"would_you_activate_camouflage_icon" = " Կցանկանա՞ք նաև ակտիվացնել Քողարկիչ Նշանի ֆունկցիան։";
-
-"we_recommend_to_activate_camouflage_icon" =  "Մենք ձեզ խորհուրդ ենք տալիս ակտիվացնել Քողարկիչ Նշանը, այս ֆունկցիան կփոխի Հավելվածի իրական անունը և տարբերանշանը ձեր հեռախոսի մենյուի մեջ։";
-
+"would_you_activate_camouflage_icon" = "Կցանկանա՞ք նաև ակտիվացնել Քողարկիչ Նշանի ֆունկցիան։";
+"we_recommend_to_activate_camouflage_icon" = "Մենք ձեզ խորհուրդ ենք տալիս ակտիվացնել Քողարկիչ Նշանը, այս ֆունկցիան կփոխի Հավելվածի իրական անունը և տարբերանշանը ձեր հեռախոսի մենյուի մեջ։";
 "name_lastname" = "Անուն Ազգանուն";
-
-//////////////////// NEW //////////////////////////
-
 "become_consultant_title" = "Դառնալ խորհրդատու";
-
 "why_become_consultant" = "Ինչո՞ւ եք ուզում դառնալ Safe YOU-ի խորհրդատու";
-
 "why_would_you_placeholder" = "Ինչո՞ւ եք ուզում դառնալ...";
-
 "consultant_agreement_text" = "Սեղմելով \"Շարունակել\" և ուղարկելով սույն հայտը՝ Դուք հավաստում եք, որ կարդացել եք և համաձայն եք \"%@\"";
-
-"consultant_terms_and_conditions" = "Խորհրդատուի ընդհանուր պայմաններ";
-
+"legal_consultant_terms_and_conditions" = "Խորհրդատուի ընդհանուր պայմաններ";
+"consultant_terms_and_conditions" = "Ընդհանուր դրույթներ և պայմաններ Խորհրդատուների համար";
 "add_your_experience" = "Ավելացրեք Ձեր մասնագիտացման ոլորտը";
-
 "field_of_expertise" = "Ձեր մասնագիտացման ոլորտը";
-
 "email_address" = "Էլ․ Փոստ";
-
 "request_status" = "Հայտի կարգավիճակ";
-
 "pending_approval" = "Ընթացքի մեջ";
-
 "title_legal" = "Իրավական դրույթներ";
-
 "terms_and_conditions" = "Ընդհանուր դրույթներ և պայմաններ";
-
 "privacy_policy" = "Գաղտնիության քաղաքականություն";
-
-"terms_for_consultance" = "Ընդհանուր դրույթներ և պայմաններ Խորհրդատուների համար";
-
 "declined_on_date" = "Հայտը մերժվել է %@";
-
 "approved_on_date" = "Հայտը հաստատվել է %@";
-
 "submission_date" = "Հայտի ուղարկման ամսաթիվ";
-
 "cancel_request" = "Չեղարկել հայտը";
-
 "deactivate" = "Ապաակտիվացնել";
-
 "new_request_inquiry" = "Ուղարկել նոր հայտ";
-
-"send_request" = "Ուղարկել հայտ";
-
 "deactivate_confirm_message" = "Սեղմելով \"Շարունակել\" Դուք հավաստում եք, որ Դուք այլևս չեք ուզում հանդիսանալ Safe YOU-ի Խորհրդատու։ Շարունակելով՝ Ձեր կարգավիճակը դառնում է հասարակ օգտատիրոջ կարգավիճակ։";
-
-"approved" =  "Հաստատված";
-
+"approved" = "Հաստատված";
 "declined" = "Մերժված";
-
 "pending" = "Ընթացքի մեջ";
-
 "back" = "Վերադառնալ";
-
 "cancel_request_message" = "Սեղմելով \"Շարունակել\" Դուք հավաստում եք, որ ցանկանում եք ձեղարկել Ձեր կողմից ուղարկված հայտը։";
-
 "consultant_request_success_message" = "Ձեր հայտը հաջողությամբ ուղարկվեց";
+"police_warning" = "!!Ուշադրություն!!";
+"police_warning_message" = "Դուք պատրաստվում եք ակտիվացնել Ոստիկանությանը դիմելու գործառույթը։ Կանչ կոճակից օգտվելու դեպքում Ոստիկանությունը կստանա Ձեր գտնվելու վայրը և հեռախոսահամարը։";
+"i_understand" = "Հասկանում եմ";
+"filters" = "Ֆիլտրել";
+"categories" = "Կատեգորիաներ";
+"clear_categories" = "Մաքրել կատեգորիան";
+"languages" = "Լեզուներ";
+"back_to_default_language" = "Վերադառնալ հիմնական լեզվին";
+"clear_all_filters" = "Մաքրել բոլոր ֆիլտրերը";
+"show_results" = "Ցույց տալ արդյունքները";
+"count_views" = "%@ դիտում";
+"messages" = "Նամակներ";
+"emergency_contacts_title_key" = "Ահազանգի կոնտակտներ";
+"messages_title_key" = "Անձնական նամակ";
+"intro_private_messages_text_key" = "Դուք կարող եք անձնական նամակով դիմել ծառայություն մատուցողին ապահով եւ անանուն նամակագրության համար։ Դուք կարող եք զեկուցել ցանկացած երևույթ, որը Ձեզ կանհանգստացնի մասնագետների հետ անհատական շփման ընթացքում։";
+"search" = "Փնտրել";
+"confirm_new_password" = "Հաստատել նոր գաղտնաբառը";
+"copy" = "Պատճենել";
+"my_recordings" = "Իմ ձայնագրությունները";
+"filter" = "Ֆիլտր";
+"report" = "Զեկուցել";
+"forum_comment" = "Ֆորումի մեկնաբանություն";
+"report_spinner_title" = "Կատեգորիա";
+"terms_and_conditions_agreement_text" = "Ես կարդացել եմ և համաձայն եմ օգտագործման պայմանների և գաղտնիության քաղաքականության հետ";
+"privacy_policy_txt" = "գաղտնիության քաղաքականության";
+"type_a_comment" = "Մուտքագրեք տեքստը...";
+"type_a_message" = "Գրեք նամակ...";
+"message_comment" = "Նամակի մեկնաբանություն";
+"delete_account_title_key" = "Ջնջել Հաշիվը";
+"delete_account_title" = "Վստա՞հ եք, որ ցանկանում եք ջնջել հաշիվը։";
+"delete_account_description" = "Դուք չեք կարողանա մուտք գործել ձեր ընթացիկ հաշիվ: Ձեր տվյալները կջնջվեն: Եթե ցանկանում եք կրկին միանալ մեր համայնքին, ապա պետք է սպասեք 14 օր՝ նույն հեռախոսահամարով նոր հաշիվ ստեղծելու համար:";
+"first_name_required_title_key" = "Անուն *";
+"last_name_required_text_key" = "Ազգանուն *";
+"enter_pin_code" = "Մուտքագրեք PIN-ը";
+"notifications_title_key" = "Ծանուցումներ";
+"dual_pin" = "Անվտանգություն";
+"title_alert_message" = "Ահազանգ SMS";
+"create_password" = "Ստեղծել գաղտնաբառ";
+"create_new_password" = "Ստեղծել գաղտնաբառ";
+"enter_otp" = "Մուտքագրել Կոդը";
+"add_dual_pin" = "Ավելացնել 2-ակի PIN";
+"all_recordings" = "Ձայնագրություններ";
+"emergency_message" = "Ահազանգ SMS";
+"mobile_phone_number" = "Բջջային հեռախոսահամար";
+"location" = "Գտնվելու վայրը";
+"re_type_new_password" = "Կրկնել նոր գաղտնաբառը";
+"send" = "Ուղարկել";
+"change_photo_title" = "Փոխել ֆոտոն";
+"please_wait" = "Խնդրում ենք սպասել";
+"the_connections_seems_to_be_slow" = "Բեռնում…";
+"empty_field" = "Դատարկ դաշտեր";
+"phone_min_length" = "Հեռախոսահամարի նվազագույն երկարությունը(օր՝. +374******** կամ +995**********)";
+"min_length_2" = "Կրճատ անվան նվազագույն երկարությունը 8 նիշ";
+"invalid_pin" = "Սխալ PIN, կրկին փորձեք";
+"yes" = "Այո";
+"no" = "Ոչ";
+"map_not_ready" = "Քարտեզը պատրաստ չէ";
+"detail_not_ready" = "Մանրամասները պատրաստ չեն";
+"map_detail_not_ready" = "քարտեզը պատրաստ չէ";
+"phone_is_empty" = "Հեռախոսահամարը դատարկ է";
+"email_is_empty" = "Էլ-հասցեն դատարկ է";
+"your_map_not_ready" = "Քարտեզը պատրաստ չէ";
+"ngo" = "ՀԿ %1$li";
+"delete_record" = "Ջնջել ձայնագրությունը";
+"do_you_wont_delete_record" = "Ցանկանու՞մ եք ջնջել ձայնագրությունը";
+"send_mail" = "Ուղարկել էլ-հասցեին";
+"verify" = "Հաստատել";
+"change_phone_number" = "Փոխել հեռախոսահամարը";
+"real_pin_and_conform_real_not_match" = "Դաշտերը չեն համընկնում";
+"fake_and_fake_confirm_not_match" = "Դաշտերը չեն համընկնում";
+"select_marital" = "Ընտրեք ձեր ամուսնական կարգավիճակը";
+"not_selected" = "Ընտրված չէ";
+"verify_phone_number" = "Խնդրում ենք հաստատել ձեր հեռախոսի համարը";
+"exit" = "Ելք";
+"write_your_location" = "Գրեք ձեր հասցեն";
+"support_contact" = "Աջակցության Կոնտակտ %1$li";
+"confirm_change_country" = "Երկիրը փոխելու դեպքում հասանելի կլինեն ընտրված երկրի ընթացիկ ծառայությունները";
+"not_attached_services" = "Դուք չունեք ավելացրած որևէ կոնտակտ";
+"comments" = "Մեկնաբանություններ";
+"edit_pin_dialog_description" = "Մուտքագրեք Ձեր PIN-ը այն խմբագրելու համար";
+"please_select_language" = "Ընտրեք լեզուն";
+"this_is_inform_the_police" = "Տեղեկացնել ոստիկանությանը";
+"consultant_request" = "Խորհրդատու դառնալու հայտ";
+"your_field_of_expertise" = "Ձեր մասնագիտացման ոլորտը";
+"edit_deactivate_pin_code" = "Փոխել/Ապաակտիվացնել 2-ակի փինը";
+"edit_deactivate_camouflage_icon" = "Ապաակտիվացնել/Փոխել Քողարկիչ Նշանը";
+"new_request" = "Ուղարկել նոր հայտ";
+"input" = "Մուտքագրել";
+"deactivate_become_consultant" = "Ապաակտիվացնել Խորհրդատուի կարգավիճակը";
+"user_id" = "Օգտատիրոջ ID";
+"info" = "Տեղեկատվություն";
+"read_more" = "Կարդալ ավելին";
+"title_report" = "Զեկուցել";
+"text_btn_on_report" = "Զեկուցել";
+"please_select_category" = "Խնդրում ենք ընտրել";
+"new_comment" = "Նոր մեկնաբանություն";
+"error_message_emergency_contact" = "Այս հեռախոսահամարը սխալ է \
+(Օր․ +374XXXXXXXX)\
+Դուք չեք կարող ավելացնել այլ երկրի հեռախոսահամար։";
+"min_rate_characters" = "Նվազագույնը %li նիշ";
+"review" = "Գրել կարծիք";
+"my_review" = "Իմ գնահատականը";
+"review_required" = "Գրել կարծիք *";
+"what_rate_forum" = "Ի՞նչպես կգնահատեք այս նյութը";
+"what_rate_ngo" = "Ի՞նչ կարծիք ունեք այս կառույցի մասին";
+"rate_placeholder" = "Խնդրում ենք գրել Ձեր կարծիքն այստեղ";
+"review_visible_text" = "Ձեր կարծիքը հրապարակային չէ";
+"newest_to_oldest" = "Ամենանորից սկսած";
+"oldest_to_newest" = "Ամենահնից սկսած";
+"relevancy" = "Ըստ վերջին ակտիվության";
+"sort_by" = "Սորտավորել";
+"forum_was_created" = "Հրապարակվել է նոր ֆորում";
+"last_month_activity" = "%1$li օգտատեր ակտիվ է եղել նախորդ ամսում";
+"dark_mode_title_key" = "Dark Mode";
+"want_block_user_text_key" = "Դուք պատրաստվում եք արգելափակել այս օգտատիրոջը։ \
+Դուք չեք կարողանա դիտել նրանց մեկնաբանությունները:";
+"title_black_list" = "Սև ցուցակ";
+"confirm" = "Հաստատել";
+"successfully_blocked" = "%@-ն ավելացվել է սև ցուցակում";
+"block_user" = "Արգելափակել";
+"access_safe_you_forum" = "Մուտք գործեք Safe YOU ֆորումներ";
+"share" = "Կիսվել";
+"back_icon_description" = "";
+"next_key_description" = "";
+"close_dialog_description" = "";
+"show_password_description" = "";
+"show_real_pin_description" = "";
+"show_fake_pin_description" = "";
+"show_confirm_real_pin_description" = "";
+"show_confirm_fake_pin_description" = "";
+"show_confirm_password_description" = "";
+"verification_code_description" = "";
+"success_icon_description" = "";
+"search_iconDescription" = "";
+"recording_description" = "";
+"edit_nickname_description" = "";
+"edit_last_name_description" = "";
+"edit_first_name_description" = "";
+"edit_marital_description" = "";
+"edit_phone_number_description" = "";
+"edit_location_description" = "";
+"emergency_contacts_icon_description" = "";
+"support_contacts_icon_description" = "";
+"policy_icon_description" = "";
+"my_recordings_icon_description" = "";
+"comments_count_icon_description" = "";
+"rate_icon_description" = "";
+"not_rated_icon_description" = "";
+"rated_icon_description" = "";
+"rated_count_icon_description" = "";
+"forum_image_description" = "";
+"ngo_image_description" = "";
+"like_icon_description" = "";
+"private_message_icon_description" = "";
+"average_rate_icon_description" = "";
+"average_rate_double_icon_description" = "";
+"view_count_icon_description" = "";
+"record_audio_icon_description" = "";
+"take_photo_icon_description" = "";
+"attachment_icon_description" = "";
+"send_message_icon_description" = "";
+"audio_wave_description" = "";
+"preview_icon_description" = "";
+"play_icon_description" = "";
+"pause_icon_description" = "";
+"block_icon_description" = "";
+"unblock_user_descryption" = "";

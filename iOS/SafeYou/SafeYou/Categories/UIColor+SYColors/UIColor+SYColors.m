@@ -9,14 +9,19 @@
 #import "UIColor+SYColors.h"
 
 #pragma mark - Main TintColor Purple
-static NSString * const mainTitnColorHex1 = @"#9834B7";
-static NSString * const mainTitnColorHex2 = @"#DCB1E9";
-static NSString * const mainTitnColorHex3 = @"#F8EFFB";
-static NSString * const mainTitnColorHex4 = @"#F8EFFB";
-static NSString * const mainTitnColorHex5 = @"#FDFAFE";
+static NSString * const mainTitnColorHex1 = @"#DC5D78";
+static NSString * const mainTitnColorHex2 = @"#DF6D85";
+static NSString * const mainTitnColorHex3 = @"#E37D93";
+static NSString * const mainTitnColorHex4 = @"#EA9DAE";
+static NSString * const mainTitnColorHex5 = @"#F1BEC9";
+static NSString * const mainTitnColorHex6 = @"#F8DEE4";
+static NSString * const mainTitnColorHex7 = @"#FBEFF2";
+static NSString * const mainTitnColorHex8 = @"#FEFBFC";
 
 static NSString * const gradientColorBottomHex = @"#6F2984";
 static NSString * const gradientColoeTopHex = @"#C783DC";
+
+static NSString * const gradientColorOtherGray = @"#F5F5F5";
 
 static NSString * const blackColorHex = @"#1D1D1D"; //black
 static NSString * const darkGrayColorHex = @"#818181"; // dark gray
@@ -27,7 +32,9 @@ static NSString * const navyBlueColorHex = @"#142A3B"; // navy blue
 static NSString * const blueColorHex = @"#1F3C53"; // blue
 static NSString * const lightBlueColorHex = @"#20BAFF"; // light blue
 static NSString * const greenColorHex = @"#30BF05"; // green
-static NSString * const redColorHex = @"#FE0000"; // red
+static NSString * const redColorHex1 = @"#FE0000"; // red1
+static NSString * const redColorHex2 = @"#F2253A"; // red2
+static NSString * const purpleColorHex1 = @"#9A3F7F"; // purple1
 
 
 
@@ -60,6 +67,26 @@ static NSString * const redColorHex = @"#FE0000"; // red
     return [UIColor colorFromHexString:mainTitnColorHex4];
 }
 
++ (UIColor *)mainTintColor5
+{
+    return [UIColor colorFromHexString:mainTitnColorHex5];
+}
+
++ (UIColor *)mainTintColor6
+{
+    return [UIColor colorFromHexString:mainTitnColorHex6];
+}
+
++ (UIColor *)mainTintColor7
+{
+    return [UIColor colorFromHexString:mainTitnColorHex7];
+}
+
++ (UIColor *)mainTintColor8
+{
+    return [UIColor colorFromHexString:mainTitnColorHex8];
+}
+
 + (UIColor *)gradientColorBottom
 {
     return [UIColor colorFromHexString:gradientColorBottomHex];
@@ -70,14 +97,14 @@ static NSString * const redColorHex = @"#FE0000"; // red
     return [UIColor colorFromHexString:gradientColoeTopHex];
 }
 
++ (UIColor *)gradientColorOtherGray
+{
+    return [UIColor colorFromHexString:gradientColorOtherGray];
+}
+
 + (UIColor *)lightBlueColor
 {
     return [UIColor colorFromHexString:lightBlueColorHex];
-}
-
-+ (UIColor *)mainTintColor5
-{
-    return [UIColor colorFromHexString:mainTitnColorHex5];
 }
 
 + (UIColor *)blackColor
@@ -115,9 +142,19 @@ static NSString * const redColorHex = @"#FE0000"; // red
     return [UIColor colorFromHexString:greenColorHex];
 }
 
-+ (UIColor *)redColor
++ (UIColor *)redColor1
 {
-    return [UIColor colorFromHexString:redColorHex];
+    return [UIColor colorFromHexString:redColorHex1];
+}
+
++ (UIColor *)redColor2
+{
+    return [UIColor colorFromHexString:redColorHex2];
+}
+
++ (UIColor *)purpleColor1
+{
+    return [UIColor colorFromHexString:purpleColorHex1];
 }
 
 #pragma marl - Color factory for color types
@@ -175,8 +212,27 @@ static NSString * const redColorHex = @"#FE0000"; // red
             color = [UIColor gradientColorTop];
             break;
             
+        case SYColorTypeOtherGray:
+            color = [UIColor gradientColorOtherGray];
+            break;
+            
         case SYColorTypeLightBlue:
             color = [UIColor lightBlueColor];
+            break;
+            
+        case SYColorTypeMain6:
+            color = [UIColor mainTintColor6];
+            break;
+            
+        case SYColorTypeMain7:
+            color = [UIColor mainTintColor7];
+            break;
+            
+        case SYColorTypeMain8:
+            color = [UIColor mainTintColor8];
+            break;
+        case SYColorTypeOtherAccent:
+            color = [UIColor purpleColor1];
             break;
             
         default:

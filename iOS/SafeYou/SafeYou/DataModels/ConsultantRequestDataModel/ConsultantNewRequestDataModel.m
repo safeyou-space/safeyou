@@ -41,6 +41,7 @@
     }
     if (self.promotionalText.length) {
         [dataDictionary setValue:self.promotionalText forKey:@"message"];
+        [dataDictionary setValue:self.promotionalText forKey:@"motivation"];
     }
     
     return [dataDictionary copy];

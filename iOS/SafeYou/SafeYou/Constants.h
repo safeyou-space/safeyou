@@ -57,22 +57,16 @@ MODEL_PROPERTY = [nilOrJSONObjectForKey(DICT, KEY) integerValue];\
 
 #if DEBUG
 
-#define BASE_API_URL @"http://localhost:8080/api/%@/%@/"
-#define BASE_RESOURCE_URL @"http://localhost:8080"
+#define BASE_API_URL @"http://136.244.117.119:88/api/%@/%@/"
+#define BASE_RESOURCE_URL @"http://136.244.117.119:88"
 
 #else
 // prod
 
-#define BASE_API_URL @"http://localhost:8080/api/%@/%@/"
-#define BASE_RESOURCE_URL @"http://localhost:8080"
-
-//#define BASE_API_URL @"https://localhost/api/%@/%@/"
-//#define BASE_RESOURCE_URL @"https://localhost"
+#define BASE_API_URL @"https://dashboard.safeyou.space:88/api/%@/%@/"
+#define BASE_RESOURCE_URL @"https://dashboard.safeyou.space:88/"
 
 #endif
-
-//#define SOCKET_IO_BASE_URL @"/" //not used values are set in Settings.m
-//#define SOCKET_IO_BASE_URL @" " // not used
 
 #define SOCKET_COMMAND_GET_PROFILE  @"SafeYOU_V4##PROFILE_INFO#RESULT"
 #define SOCKET_COMMAND_REQUEST_FORUMS @"SafeYOU_V4##GET_ALL_FORUMS"
@@ -103,16 +97,27 @@ MODEL_PROPERTY = [nilOrJSONObjectForKey(DICT, KEY) integerValue];\
 #define CommonNetworkErrorNotificationName @"com.SafeYou.commonNetworkErrorNotificationName"
 #define ApplicationLanguageDidChangeNotificationName @"com.SafeYou.applicationLanguageDidChange"
 #define InAppNotificationsCountDidChangeNotificationName @"com.SafeYou.inAppNotificationsCountDidChange"
+#define ApplicationOpenedByDynamicLinkNotificationName @"com.SafeYou.applicationOpenedByDynamicLink"
 
 #define APPLICATION_URL_DEFAULT_SETTINGS @{UIApplicationOpenURLOptionUniversalLinksOnly:@(NO)}
+#define APP_DELEGATE ((AppDelegate *)[UIApplication sharedApplication].delegate)
+
+#define InternetConnectionDidConnected @"com.SafeYou.InternetConnectionDidConnected"
+#define InternetConnectionDidLost @"com.SafeYou.InternetConnectionDidLost"
+
+#define NGO_IDS_TO_SHOW_CHAT_FOR_MINOR_USERS @[@"2", @"4"]
+
+#define LOKALISE_PROJECT_ID @""
+#define LOKALISE_TOKEN @""
 
 typedef NS_ENUM(NSUInteger, SYRemotContentType) {
     SYRemotContentTypeUnknown,
     SYRemotContentTypeAboutUs,
-    SYRemotContentTypeTermsAndConditions,
+    SYRemotContentTypeTermsAndConditionsForAdults,
+    SYRemotContentTypeTermsAndConditionsForMinors,
     SYRemotContentTypeConsultantTermsAndConditions,
-    SYRemotContentTypePrivacyPolicy,
-    
+    SYRemotContentTypePrivacyPolicyForAdults,
+    SYRemotContentTypePrivacyPolicyForMinors
 };
 
 typedef NS_ENUM(NSUInteger, FieldAccessoryType) {
@@ -133,6 +138,32 @@ typedef NS_ENUM(NSUInteger, ConsultantRequestStatus) {
     ConsultantRequestStatusPending,
     ConsultantRequestStatusConfirmed,
     ConsultantRequestStatusDeclined
+};
+
+typedef NS_ENUM(NSUInteger, RoomType) {
+    RoomTypePrivateOneToMany = 1,
+    RoomTypePrivateOnToOne = 2,
+    RoomTypePublicOnToMany = 3
+};
+
+typedef NS_ENUM(NSUInteger, MessageType) {
+    MessageTypeCommon = 1,
+    MessageTypeMedia = 2,
+    MessageTypeSystem = 3
+};
+
+typedef NS_ENUM(NSUInteger, MessageFileType) {
+    FileTypeNone = 0,
+    FileTypeImage = 1,
+    FileTypeAudio = 2,
+};
+
+typedef NS_ENUM(NSUInteger, RemoteNotificationType) {
+    NotificationTypeNewForum = 1,
+    NotificationTypeMessage = 2,
+    NotificationTypeNewReport = 3,
+    NotificationTypeNewEmergency = 6,
+    NotificationTypeRemoveEmergency = 7
 };
 
 

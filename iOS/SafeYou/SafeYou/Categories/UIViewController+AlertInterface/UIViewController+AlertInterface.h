@@ -14,4 +14,6 @@
 
 - (UIAlertController*)showActionSheetWithTitle:(NSString*)title withMessage:(NSString*)message cancelButtonTitle:(NSString*)cancelButtonTitle moreButton1Title:(NSString*)moreButton1Title moreButton2Title:(NSString*)moreButton2Title cancelAction:(void(^)(void))cancel moreButton1Action:(void(^)(void))button1Action moreButton2Action:(void(^)(void))button2Action;
 
+- (void)showInternetConnectionAlert;
+
 @end

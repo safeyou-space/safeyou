@@ -73,6 +73,8 @@
     [self.buttonAll setTitle:LOC(@"title_all")];
     [self.buttonSaved setTitle:LOC(@"title_saved_key")];
     [self.buttonSent setTitle:LOC(@"title_sent_key")];
+    [self.searchBar setValue:LOC(@"cancel") forKey:@"cancelButtonText"];
+    self.searchBar.placeholder = LOC(@"search");
 }
 
 #pragma mark - SearchBar
@@ -80,14 +82,15 @@
 - (void)configureSearchBar
 {
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    UIColor *tint = [UIColor colorWithSYColor:SYColorTypeMain2 alpha:1.0];
-    self.searchBar.tintColor = tint;
     self.searchBar.showsCancelButton = NO;
     self.searchBar.delegate = self;
     self.searchBar.layer.cornerRadius = 15.0;
     self.searchBar.clipsToBounds = YES;
-    self.searchBar.tintColor = [UIColor mainTintColor2];
-    self.searchBar.placeholder = @"Search by date/time/place";
+    self.searchBar.tintColor = [UIColor whiteColor];
+    self.searchBar.searchTextField.textColor = [UIColor whiteColor];
+    self.searchBar.searchTextField.leftView.tintColor = [UIColor whiteColor];
+    self.searchBar.searchTextField.backgroundColor = [UIColor mainTintColor3];
+    [self.searchBar setImage:[UIImage imageNamed:@"close_icon"] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     self.navigationItem.titleView = self.searchBar;
 }
 

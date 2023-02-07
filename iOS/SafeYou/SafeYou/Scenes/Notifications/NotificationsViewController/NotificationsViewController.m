@@ -10,14 +10,14 @@
 #import "NotificationTableViewCell.h"
 #import "MainTabbarController.h"
 #import "ForumsViewController.h"
-#import "NotificationDataModel.h"
+#import "NotificationData.h"
 #import "SocketIOManager.h"
 #import "ForumNotificationsManager.h"
 
 @interface NotificationsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic) NSArray <NotificationDataModel *> *notificationsDataSource;
+@property (nonatomic) NSArray <NotificationData *> *notificationsDataSource;
 
 @end
 
@@ -43,7 +43,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NotificationTableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    NotificationDataModel *selectedNotification = selectedCell.notificationData;
+    NotificationData *selectedNotification = selectedCell.notificationData;
     [[ForumNotificationsManager sharedInstance] readNotification:selectedNotification];
     [self openForumFromNotification:indexPath];
 }
@@ -53,14 +53,13 @@
 - (void)openForumFromNotification:(NSIndexPath *)indexPath
 {
     MainTabbarController *tabbatController = (MainTabbarController *)self.navigationController.tabBarController;
-    NotificationDataModel *selectedNotification = self.notificationsDataSource[indexPath.row];
+    NotificationData *selectedNotification = self.notificationsDataSource[indexPath.row];
     self.mainTabbarController.selectedNotificationData = selectedNotification;
     tabbatController.isFromNotificationsView = YES;
-    if (tabbatController.selectedIndex != 1) {
-        tabbatController.selectedIndex = 1;
+    if (tabbatController.selectedIndex != 0) {
+        tabbatController.selectedIndex = 0;
         [self.navigationController popViewControllerAnimated:NO];
     } else {
-        
         [self.navigationController popViewControllerAnimated:NO];
     }
 }
@@ -75,7 +74,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NotificationTableViewCell *notCell = [tableView dequeueReusableCellWithIdentifier:@"NotificationTableViewCell"];
-    NotificationDataModel *notificationData = self.notificationsDataSource[indexPath.row];
+    NotificationData *notificationData = self.notificationsDataSource[indexPath.row];
     [notCell configureNotificationData:notificationData];
     
     return notCell;

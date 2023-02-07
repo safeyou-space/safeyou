@@ -74,8 +74,12 @@
 {
     self.titleLabel.text = self.titleText;
     self.hintTextLabel.text = self.message;
-    [self.acceptButton setTitle:[LOC(@"continue") uppercaseString] forState:UIControlStateNormal];
-    [self.cancelButton setTitle:[LOC(@"cancel") uppercaseString] forState:UIControlStateNormal];
+    if (_continueButtonText.length == 0) {
+        [self.acceptButton setTitle:  [LOC(@"continue_txt") capitalizedString] forState:UIControlStateNormal];
+    } else {
+        [self.acceptButton setTitle:  [_continueButtonText capitalizedString] forState:UIControlStateNormal];
+    }
+    [self.cancelButton setTitle:LOC(@"cancel") forState:UIControlStateNormal];
 }
 
 #pragma mark - Animation

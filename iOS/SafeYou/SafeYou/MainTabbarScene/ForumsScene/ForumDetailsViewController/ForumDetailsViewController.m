@@ -11,67 +11,91 @@
 #import "ForumCommentsViewController.h"
 #import "ForumCommentCell.h"
 #import "ForumTitleHeaderView.h"
-#import "ForumDescriptionCell.h"
-#import "ForumDetials.h"
-#import "ForumCommentDataModel.h"
+#import "ForumDetialsData.h"
+#import "ChatMessageDataModel.h"
 #import "ForumCommentedUserDataModel.h"
 #import "ForumTitleHeaderView.h"
 #import "ForumItemDataModel.h"
 #import "MainTabbarController.h"
 #import "ForumCommentsViewController.h"
 #import <SDWebImage.h>
+#import "SYForumService.h"
+#import "SocketIOManager.h"
+#import <WebKit/WebKit.h>
+#import "ImageDataModel.h"
+#import "NSString+HTML.h"
 
 @import SocketIO;
+@import Firebase;
 
-@interface ForumDetailsViewController () <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UINavigationControllerDelegate>
+@interface ForumDetailsViewController () <UITextViewDelegate, UINavigationControllerDelegate, WKNavigationDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet HyRobotoButton *commentButton;
 @property (weak, nonatomic) IBOutlet HyRobotoButton *commentsCountButton;
+
+@property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
+@property (weak, nonatomic) IBOutlet UILabel *forumTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *forumShorDescriptionLabel;
+@property (weak, nonatomic) IBOutlet WKWebView *forumContentWebView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *forumContentHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
 
 
 - (IBAction)commentButtonAction:(UIButton *)sender;
 - (IBAction)commenctCountButtonAction:(UIButton *)sender;
 
-@property (nonatomic) ForumDetials *forumDetialsData;
+@property (nonatomic) ForumItemDataModel *forumItemData;
+
+@property (nonatomic) SYForumService *forumService;
 
 // Reply mode
 
-@property (nonatomic) ForumCommentDataModel *replyingComment;
+@property (nonatomic) ChatMessageDataModel *replyingComment;
 
 
 @end
 
 @implementation ForumDetailsViewController
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.forumService = [[SYForumService alloc] init];
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self enableKeyboardNotifications];
-    [self configureNibs];
+    
+    self.titleImageView.clipsToBounds = YES;
+    
+    [self configureShareButton];
+    
+    [self configureWebView];
+    
+    [self loadForumDetailsById: self.forumItemId];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.title = self.forumItemData.title;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
+    weakify(self);
+    [SocketIOManager sharedInstance].didReceiveUpdateBlock = ^(id  _Nonnull updateData) {
+        strongify(self);
+        [self handleCommentCountUpdate:updateData];
+    };
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([self mainTabbarController].isFromNotificationsView) {
-        // handle event
-        [self performSegueWithIdentifier:@"showForumComments" sender:@(NO)];
-    } else {
-        [self handleReceivedNotification];
-    }
+    [self handleReceivedNotification];
 }
 
 - (void)viewDidLayoutSubviews
@@ -81,10 +105,41 @@
 
 - (void)updateLocalizations
 {
-    self.title = LOC(@"forums_title_key");
-    NSString *buttonTitle = [NSString stringWithFormat:LOC(@"{param}_comments"), @(self.forumItemData.commentsCount)];
-    [self.commentsCountButton setTitle:buttonTitle forState:UIControlStateNormal];
+    [self updateCommentsCount:self.forumItemData.commentsCount viewsCount:self.forumItemData.viewsCount];
     [self.commentButton setTitle:LOC(@"comment") forState:UIControlStateNormal];
+}
+
+- (void)updateCommentsCount:(NSInteger)commentsCount viewsCount:(NSInteger)viewsCount
+{
+    NSString *commentsCountText = [NSString stringWithFormat:LOC(@"count_comments"), @(self.forumItemData.commentsCount)];
+    NSString *viewsCountText = [NSString stringWithFormat:LOC(@"count_views"), @(self.forumItemData.viewsCount)];
+    NSString *buttonTitle = [NSString stringWithFormat:@"%@ | %@", viewsCountText, commentsCountText];
+    [self.commentsCountButton setTitle:buttonTitle forState:UIControlStateNormal];
+}
+
+#pragma mark - Fetch Data
+- (void)loadForumDetailsById:(NSString *)forumId
+{
+    [self showLoader];
+    weakify(self);
+    [self.forumService getForumDetails:forumId forLanguage:[Settings sharedInstance].selectedLanguageCode withComplition:^(ForumItemDataModel * _Nonnull forumItem) {
+        strongify(self);
+        [self hideLoader];
+        self.forumItemData = forumItem;
+        [self configureWithForumData:self.forumItemData];
+    } failure:^(NSError * _Nonnull error) {
+        strongify(self);
+        [self hideLoader];
+    }];
+}
+
+#pragma mark - Handle Socket Updates
+
+- (void)handleCommentCountUpdate:(NSDictionary *)receivedUpdate
+{
+    NSInteger commentsCount = [receivedUpdate[@"messages_count"] integerValue];
+    self.forumItemData.commentsCount = commentsCount;
+    [self updateCommentsCount:commentsCount viewsCount:self.forumItemData.viewsCount];
 }
 
 #pragma mark - Hendle remote Notification
@@ -92,24 +147,13 @@
 - (void)handleReceivedNotification
 {
     if ([Settings sharedInstance].receivedRemoteNotification) {
-        NSDictionary *receivedNoitificationData = [Settings sharedInstance].receivedRemoteNotification;
-        NSString *notificationType = nilOrJSONObjectForKey(receivedNoitificationData, @"notification_type");
-        if ([notificationType isEqualToString:@"forum"]) {
-            [Settings sharedInstance].receivedRemoteNotification = nil;
-        } else {
+        RemoteNotificationType notifyType = [[Settings sharedInstance].receivedRemoteNotification[@"notify_type"] integerValue];
+        if (notifyType == NotificationTypeMessage) {
             [self performSegueWithIdentifier:@"showForumComments" sender:@(NO)];
         }
+    } else if ([self mainTabbarController].isFromNotificationsView) {
+        [self performSegueWithIdentifier:@"showForumComments" sender:@(NO)];
     }
-}
-
-
-#pragma mark - Configure Nibs
-
-- (void)configureNibs
-{
-    UINib *headerNib = [UINib nibWithNibName:@"ForumTitleHeaderView" bundle:nil];
-    [self.tableView registerNib:headerNib forHeaderFooterViewReuseIdentifier:@"ForumTitleHeaderView"];
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 #pragma mark - Actions
@@ -121,60 +165,8 @@
     [self performSegueWithIdentifier:@"showForumComments" sender:@(YES)];
 }
 
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    ForumDescriptionCell *descriptionCell = [tableView dequeueReusableCellWithIdentifier:@"ForumDescriptionCell"];
-    [descriptionCell configureWithForumData:self.forumItemData];
-    return descriptionCell;
-}
-
-#pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) {
-        return 283;
-    }
-    
-    return 153;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section == 1) {
-        return 100;
-    }
-    
-    return 0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    if (section == 1) {
-        ForumTitleHeaderView *sectionHeaderView = (ForumTitleHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"ForumTitleHeaderView"];
-        [sectionHeaderView configureWithFourmData:self.forumItemData];
-        
-        return sectionHeaderView;
-        
-    }
-    return nil;
+- (IBAction)shareButtonAction:(UIButton *)sender {
+    [self generateDynamicLink];
 }
 
 #pragma mark - Navigation
@@ -187,6 +179,107 @@
         commentsController.isForComposing = isForComposing;
         commentsController.forumItemData = self.forumItemData;
     }
+}
+
+#pragma mark - WKWebView Navigation delegate
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
+{
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        if (navigationAction.request.URL) {
+            if ([[UIApplication sharedApplication] canOpenURL:navigationAction.request.URL]) {
+                [[UIApplication sharedApplication] openURL:navigationAction.request.URL options:@{} completionHandler: nil];
+                decisionHandler(WKNavigationActionPolicyCancel);
+            }
+        }
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    if (!webView.isLoading) {
+        [webView evaluateJavaScript:@"document.body.scrollHeight" completionHandler:^(id result, NSError * _Nullable error) {
+            CGFloat height = [result doubleValue];
+            self.forumContentHeightConstraint.constant = height;
+        }];
+    }
+}
+
+#pragma mark - View configs
+
+- (void)configureWebView
+{
+    self.forumContentWebView.navigationDelegate = self;
+    self.forumContentWebView.scrollView.scrollEnabled = NO;
+    self.forumContentWebView.scrollView.bounces = NO;
+}
+
+- (void)configureShareButton
+{
+    UIImage *shareImage = [[UIImage imageNamed:@"send_icon_white"] imageWithTintColor: UIColor.mainTintColor1];
+    [self.shareButton setImage:shareImage forState:UIControlStateNormal];
+    [self.shareButton setTitle:@"" forState:UIControlStateNormal];
+}
+
+- (void)configureWithForumData:(ForumItemDataModel *)forumItemData
+{
+    self.title = forumItemData.title;
+    [self.titleImageView sd_setImageWithURL:forumItemData.imageData.imageFullURL];
+    self.forumTitleLabel.text = forumItemData.title;
+    
+    NSMutableAttributedString *mAttrShortDescription = [[NSString attributedStringFromHTML:forumItemData.shortDescription] mutableCopy];
+    [mAttrShortDescription addAttribute:NSFontAttributeName value:[UIFont hyRobotoFontRegularOfSize:18.0] range:NSMakeRange(0, mAttrShortDescription.length)];
+    [mAttrShortDescription addAttribute:NSForegroundColorAttributeName value:[UIColor mainTintColor3] range:NSMakeRange(0, mAttrShortDescription.length)];
+    
+    self.forumShorDescriptionLabel.attributedText = mAttrShortDescription;
+    
+    // meta info helps web view to show currect size
+    NSString *htmlContent = [NSString stringWithFormat:@"<meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1'/> %@", forumItemData.forumItemDescription];
+    [self.forumContentWebView loadHTMLString:htmlContent baseURL:nil];
+    
+    [self updateCommentsCount:forumItemData.commentsCount viewsCount:forumItemData.viewsCount];
+}
+
+#pragma mark - Share forum configs
+
+- (void)generateDynamicLink
+{
+    NSString *linkStr = [NSString stringWithFormat:@"https://safeyou.space?forumId=%@", self.forumItemData.forumItemId];
+    NSURL *link = [[NSURL alloc] initWithString:linkStr];
+    NSString *dynamicLinksDomainURIPrefix = @"https://safeyou.page.link";
+    FIRDynamicLinkComponents *linkBuilder = [[FIRDynamicLinkComponents alloc]
+                                             initWithLink:link
+                                             domainURIPrefix:dynamicLinksDomainURIPrefix];
+    
+    NSString *bundleId = NSBundle.mainBundle.bundleIdentifier;
+    if (bundleId) {
+        linkBuilder.iOSParameters = [[FIRDynamicLinkIOSParameters alloc] initWithBundleID:bundleId];
+    }
+    linkBuilder.iOSParameters.appStoreID = @"1491665304";
+    
+    linkBuilder.androidParameters = [[FIRDynamicLinkAndroidParameters alloc] initWithPackageName:@"fambox.pro"];
+    
+    linkBuilder.socialMetaTagParameters = [[FIRDynamicLinkSocialMetaTagParameters alloc] init];
+    linkBuilder.socialMetaTagParameters.title = LOC(@"access_safe_you_forum");
+    
+    [linkBuilder shortenWithCompletion:^(NSURL * _Nullable shortURL,
+                                         NSArray<NSString *> * _Nullable warnings,
+                                         NSError * _Nullable error) {
+        if (error || shortURL == nil) {
+            return;
+        }
+        [self shareAction:shortURL];
+    }];
+}
+
+- (void)shareAction:(NSURL *)text
+{
+    NSArray* sharedObjects=[NSArray arrayWithObjects:text,  nil];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:sharedObjects applicationActivities:nil];
+    activityViewController.popoverPresentationController.sourceView = self.view;
+    [self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 @end

@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <DialogViewDelegate> delegate;
 @property (nonatomic) NSString *message;
 @property (nonatomic) NSString *titleText;
+@property (nonatomic) NSString *continueButtonText;
 @property (nonatomic) BOOL showCancelButton;
 
 @end

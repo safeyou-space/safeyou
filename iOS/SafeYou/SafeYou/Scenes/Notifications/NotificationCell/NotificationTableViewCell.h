@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-@class NotificationDataModel;
+@class NotificationData;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NotificationTableViewCell : UITableViewCell
 
-@property (nonatomic) NotificationDataModel *notificationData;
-- (void)configureNotificationData:(NotificationDataModel *)notificationData;
+@property (nonatomic) NotificationData *notificationData;
+- (void)configureNotificationData:(NotificationData *)notificationData;
 
 @end
 

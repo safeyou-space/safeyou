@@ -30,7 +30,12 @@ typedef NS_ENUM(NSUInteger, SYColorType) {
     SYColorTypeBrown = 16,
     SYColorTypeOtherGray = 17,
     SYColorTypeLightBlue = 18,
-    SYColorTypeLast = 19
+    // new Accent Colors
+    SYColorTypeMain6 = 19,
+    SYColorTypeMain7 = 20,
+    SYColorTypeMain8 = 21,
+    SYColorTypeOtherAccent = 22,
+    SYColorTypeLast = 23
 };
 
 @interface UIColor (SYColors)
@@ -51,6 +56,12 @@ typedef NS_ENUM(NSUInteger, SYColorType) {
 
 + (UIColor *)mainTintColor5;
 
++ (UIColor *)mainTintColor6;
+
++ (UIColor *)mainTintColor7;
+
++ (UIColor *)mainTintColor8;
+
 + (UIColor *)blackColor;
 
 + (UIColor *)darkGrayColor;
@@ -65,7 +76,11 @@ typedef NS_ENUM(NSUInteger, SYColorType) {
 
 + (UIColor *)greenColor;
 
-+ (UIColor *)redColor;
++ (UIColor *)redColor1;
+
++ (UIColor *)redColor2;
+
++ (UIColor *)purpleColor1;
 
 @end
 

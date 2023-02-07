@@ -56,10 +56,10 @@
         }
     }
     
-    for (EmergencyServiceDataModel *userContact in onlineUser.emergencyServices) {
-        NSString *contactName = userContact.userDetails.firstName;
+    for (EmergencyServiceDataModel *userContactService in onlineUser.emergencyServices) {
+        NSString *contactName = userContactService.name;
         [contactsString appendString:contactName];
-        if (userContact == onlineUser.emergencyServices.lastObject) {
+        if (userContactService == onlineUser.emergencyServices.lastObject) {
             [contactsString appendString:@"\n"];
         } else {
             [contactsString appendString:@","];

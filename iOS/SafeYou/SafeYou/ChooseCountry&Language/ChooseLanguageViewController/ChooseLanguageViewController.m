@@ -26,7 +26,6 @@
     [super viewWillAppear:animated];
     self.navigationItem.hidesBackButton = NO;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-
 }
 
 

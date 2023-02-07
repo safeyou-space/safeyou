@@ -80,7 +80,7 @@
 {
     [Settings sharedInstance].termsAreAccepted = YES;
     if (self.isReady) {
-        [self applicationIsReadyToStart];
+        [self startApplicationInitially];
     } else {
         [self start];
     }
@@ -198,7 +198,7 @@
 
 #pragma mark - LaunchViewControllerDelegate
 
-- (void)applicationIsReadyToStart
+- (void)startApplicationInitially
 {
     self.isReady = YES;
     if (![Settings sharedInstance].termsAreAccepted) {

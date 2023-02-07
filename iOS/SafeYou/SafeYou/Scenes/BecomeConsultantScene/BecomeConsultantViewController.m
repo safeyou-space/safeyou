@@ -141,7 +141,7 @@
             [self.cancelButton setTitle:LOC(@"back") forState:UIControlStateNormal];
         }
     } else {
-        [self.sendRequestButton setTitle:LOC(@"continue") forState:UIControlStateNormal];
+        [self.sendRequestButton setTitle:LOC(@"continue_txt") forState:UIControlStateNormal];
         [self.cancelButton setTitle:LOC(@"cancel") forState:UIControlStateNormal];
     }
 }
@@ -201,15 +201,12 @@
 
 - (void)configureConsultantAgreementText
 {
-//    "consultant_agreement_text" = "By pressing \"Send Request\" you agree to our \"%@\"";
-
-//    "consultant_terms_and_conditions" = "Consultant terms and conditions";
     if (self.currentConsultantRequestData) {
         self.agreementTextLabel.hidden = YES;
         self.agrrementCheckboxButton.hidden = YES;
     } else {
         NSString *mainText = LOC(@"consultant_agreement_text");
-        NSString *urlText = LOC(@"consultant_terms_and_conditions");
+        NSString *urlText = LOC(@"legal_consultant_terms_and_conditions");
         NSString *finalText = [NSString stringWithFormat:mainText, urlText];
         
         self.agreementTextLabel.text = finalText;
@@ -529,7 +526,6 @@
     weakify(self);
     [self.profileService getUserDataWithComplition:^(UserDataModel *userData) {
         strongify(self);
-        [Settings sharedInstance].onlineUser = userData;
         self.currentConsultantRequestData = userData.currentConsultantRequest;
         [self configureFormDataSource];
         [self hideLoader];

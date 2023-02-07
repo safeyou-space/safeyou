@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, EmergencyServiceType) {
 
 - (void)getEmergencyServicesById:(NSString *_Nonnull)serviceId type:(NSString *_Nonnull)type complition:(void(^_Nonnull)(EmergencyServiceDataModel * _Nonnull serviceData))complition failure:(void(^_Nonnull)(NSError * _Nullable error))failure;
 
-- (void)getEmergencyServicesWithSearchString:(NSString *_Nonnull)searchString complition:(void(^_Nonnull)(NSArray <ServiceSearchResult *> * _Nullable searchResult))complition failure:(void(^_Nonnull)(NSError * _Nullable error))failure;
+- (void)getEmergencyServicesWithSearchString:(NSString *_Nonnull)searchString categoryId:(NSString *_Nonnull)categoryId complition:(void(^_Nonnull)(NSArray <ServiceSearchResult *> * _Nullable searchResult))complition failure:(void(^_Nonnull)(NSError * _Nullable error))failure;
 
 - (void)getEmergencyServicesCategoriesWithComplition:(void(^_Nonnull)(NSArray <ServiceCategoryDataModel*> * _Nonnull emergencySerivcesCategoryList))complition failure:(void(^_Nonnull)(NSError * _Nullable error))failure;
 

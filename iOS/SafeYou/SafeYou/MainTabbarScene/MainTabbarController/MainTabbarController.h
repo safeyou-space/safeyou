@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class NotificationDataModel;
+@class NotificationData;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MainTabbarController : UITabBarController
 
-- (void)showCenterButton:(BOOL)show;
+- (void)hideTabbar:(BOOL)hide;
+
 @property (nonatomic) BOOL isFromSignInFlow;
 @property (nonatomic) BOOL isFromNotificationsView;
-@property (nonatomic) NotificationDataModel *selectedNotificationData;
+@property (nonatomic) NotificationData *selectedNotificationData;
 
 @end
 

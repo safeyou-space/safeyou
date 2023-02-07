@@ -8,13 +8,16 @@
 
 #import "ForumNotificationsManager.h"
 #import "SocketIOManager.h"
-#import "NotificationDataModel.h"
+#import "NotificationData.h"
+#import "SYHTTPSessionManager.h"
+#import "SocketIOAPIService.h"
+#import "NotificationData.h"
 
 @interface ForumNotificationsManager ()
 
-@property (nonatomic) NSMutableArray <NotificationDataModel *>*receivedNotifications;
-
+@property (nonatomic) NSMutableArray <NotificationData *>*receivedNotifications;
 @property (nonatomic) NSInteger unreadCount;
+@property (nonatomic) SocketIOAPIService *socketAPIService;
 
 @end
 
@@ -26,6 +29,8 @@
     if (self) {
         _unreadCount = 0;
         _receivedNotifications = [[NSMutableArray alloc] init];
+        _socketAPIService = [[SocketIOAPIService alloc] init];
+        
     }
     return self;
 }
@@ -51,56 +56,43 @@
 
 - (void)resetBadgeCount
 {
-    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-    NSInteger seconds = time;
-    NSTimeInterval timeZoneSeconds = [[NSTimeZone localTimeZone] secondsFromGMT];
-    NSInteger finalSeconds = seconds + timeZoneSeconds;
-    NSDictionary *param = @{@"datetime":@(finalSeconds)};
-    weakify(self);
-    [[SocketIOManager sharedInstance].socketClient emit:SOCKET_COMMAND_GET_NOTIFICATIONS_COUNT with:@[param] completion:^{
-        strongify(self);
-        [self resetBadgeCountTwice];
-    }];
-}
-
-// FIXME: Workaround backend issue for resetting method should be called twice
-- (void)resetBadgeCountTwice
-{
-    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-    NSInteger seconds = time;
-    NSTimeInterval timeZoneSeconds = [[NSTimeZone localTimeZone] secondsFromGMT];
-    NSInteger finalSeconds = seconds + timeZoneSeconds;
-    NSDictionary *param = @{@"datetime":@(finalSeconds)};
-    weakify(self);
-    [[SocketIOManager sharedInstance].socketClient emit:SOCKET_COMMAND_GET_NOTIFICATIONS_COUNT with:@[param] completion:^{
-        strongify(self);
-        [self listenForBadgeCount];
-    }];
+    self.unreadCount = 0;
 }
 
 - (void)getBadgeCount
 {
-    [[SocketIOManager sharedInstance].socketClient emit:SOCKET_COMMAND_GET_NOTIFICATIONS_COUNT with:@[] completion:^{
-        [self listenForBadgeCount];
-    }];
+    [self listenForBadgeCount];
 }
 
 - (void)listenForBadgeCount
 {
     weakify(self);
-    [[SocketIOManager sharedInstance].socketClient on:SOCKET_COMMAND_GET_NOTIFICATIONS_COUNT_RESULT callback:^(NSArray *data, SocketAckEmitter * emitter) {
+    [SocketIOManager sharedInstance].receiveNewNotificationBlock = ^(id  _Nonnull notificationData) {
         strongify(self);
-        NSDictionary *receivedDataDict = data.firstObject;
-        NSInteger badgeCount = [receivedDataDict[@"count"] integerValue];
-        self.unreadCount = badgeCount;
-    }];
+        NSLog(@"Received Not is: %@", notificationData);
+        NotificationData *receivedNotification = [[NotificationData alloc] initWithDictionary:notificationData];
+        [self.receivedNotifications insertObject:receivedNotification atIndex:0];
+        self.unreadCount += 1;        
+    };
 }
 
 - (void)getNotifications
 {
-    [[SocketIOManager sharedInstance].socketClient emit:SOCKET_COMMAND_GET_NOTIFICATION with:@[] completion:^{
-        NSLog(@"Notification Data Request");
-        [self listenNotificationsData];
+    // @TODO: Implement Notifications Data and Functionality
+    [self.socketAPIService getUserNotificationsSuccess:^(id  _Nonnull response) {
+        // @TODO: Implement Notifications Data
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        NSDictionary *notificationsDict = response[@"data"];
+        for (NSDictionary *notificationDict in notificationsDict) {
+            NotificationData *notificationData = [[NotificationData alloc] initWithDictionary:notificationDict];
+            if (notificationData.notificationMessage && notificationData.notificationMessage.user) {
+                [tempArray addObject:notificationData];
+            }
+        }
+        self.receivedNotifications = tempArray;
+        NSLog(@"Response is %@", response);
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"");
     }];
 }
 
@@ -114,7 +106,7 @@
         NSDictionary *receivedData = ((NSArray *)data).firstObject;
         NSDictionary *notificationDict = receivedData[@"data"];
         
-        NotificationDataModel *receivedNotification = [NotificationDataModel modelObjectWithDictionary:notificationDict];
+        NotificationData *receivedNotification = [[NotificationData alloc] initWithDictionary:notificationDict];
         if (![self.receivedNotifications containsObject:receivedNotification]) {
             [self.receivedNotifications addObject:receivedNotification];
             [self sortNotificationsArray];
@@ -122,14 +114,9 @@
     }];
 }
 
-- (void)readNotification:(NotificationDataModel *)notificationData
+- (void)readNotification:(NotificationData *)notificationData
 {
-    //SafeYOU_V4##READ_NOTIFICATION
 
-    NSDictionary *params = @{@"key":notificationData.key};
-    [[SocketIOManager sharedInstance].socketClient emit:SOCKET_COMMAND_READ_NOTIFICATION with:@[params] completion:^{
-        NSLog(@"Is read");
-    }];
 }
 
 - (NSArray *)sortedNotificationsArray

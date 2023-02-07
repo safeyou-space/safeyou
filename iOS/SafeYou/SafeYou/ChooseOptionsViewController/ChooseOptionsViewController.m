@@ -50,15 +50,15 @@
 #pragma mark - Customization
 - (void)configureNavigationBar
 {
-    [self.navigationController setNavigationBarHidden:NO];
-    UIImage *image = [self imageWithColor:[UIColor mainTintColor1] withPoint:CGSizeMake(1, 1)];
-    
-//    [[UINavigationBar appearance] setShadowImage:image];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-    @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+//    [self.navigationController setNavigationBarHidden:NO];
+//    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+//    [appearance configureWithTransparentBackground];
+//    appearance.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
+//    appearance.backgroundColor = [UIColor clearColor];
+//    self.navigationController.navigationBar.standardAppearance = appearance;
+//    self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
+//    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
 }
 
 - (UIImage *)imageWithColor:(UIColor *)color withPoint:(CGSize)size
@@ -229,12 +229,12 @@
     if([self.delegate respondsToSelector:@selector(optionDidSelect:withRow:)]) {
         [self.delegate optionDidSelect:self.selectedOptionName withRow:row];
     }
+    [tableView reloadData];
+    
     if (self.selectionBlock) {
         self.selectionBlock(row);
         [self.navigationController popViewControllerAnimated:YES];
     }
-    
-    [tableView reloadData];
 }
 
 #pragma mark - actions

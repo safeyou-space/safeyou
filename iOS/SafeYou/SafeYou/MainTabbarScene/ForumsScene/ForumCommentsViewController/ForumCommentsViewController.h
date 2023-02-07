@@ -8,7 +8,7 @@
 
 #import "SYViewController.h"
 
-@class SocketIOClient, ForumItemDataModel, ForumCommentDataModel;
+@class SocketIOClient, ForumItemDataModel, ChatMessageDataModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) ForumItemDataModel *forumItemData;
 
-@property (nonatomic) ForumCommentDataModel *currentComment; // nil if level is 0
+@property (nonatomic) ChatMessageDataModel *currentComment; // nil if level is 0
 
 @property (nonatomic) BOOL isForComposing;
 

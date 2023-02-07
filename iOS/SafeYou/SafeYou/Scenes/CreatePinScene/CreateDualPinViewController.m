@@ -78,7 +78,12 @@
     return SYColorTypeLightGray;
 }
 
-#pragma mark -
+#pragma mark - Customization
+
+- (void)configureNavigationBar
+{
+    
+}
 
 #pragma mark - UITableViewDelegate
 

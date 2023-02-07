@@ -35,6 +35,11 @@
     return @"services";
 }
 
+- (NSString *)endpointByCategoryId:(NSString *)categoryId
+{
+    return [NSString stringWithFormat:@"services_by_category/%@", categoryId];
+}
+
 - (NSString *)endpointForServiceId:(NSString *)serviceId
 {
     return [NSString stringWithFormat:@"service/%@", serviceId];
@@ -75,7 +80,7 @@
     }];
 }
 
-- (void)getEmergencyServicesWithSearchString:(NSString *_Nonnull)searchString complition:(void(^_Nonnull)(NSArray <ServiceSearchResult *> * _Nullable searchResult))complition failure:(void(^_Nonnull)(NSError * _Nullable error))failure
+- (void)getEmergencyServicesWithSearchString:(NSString *_Nonnull)searchString categoryId:(NSString *_Nonnull)categoryId complition:(void(^_Nonnull)(NSArray <ServiceSearchResult *> * _Nullable searchResult))complition failure:(void(^_Nonnull)(NSError * _Nullable error))failure
 {
     NSDictionary *params = @{@"search_string": searchString};
     if (self.onlyForEmergency) {
@@ -83,7 +88,15 @@
                    @"is_send_sms":@"true"};
     }
     
-    [self.networkManager GET:[self endpoint] parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    //services?search_string=Char
+    //services_by_category/2?search_string=Char
+
+    NSString *endpoint = [self endpoint];
+    if (![categoryId isEqualToString:@""]) {
+        endpoint = [self endpointByCategoryId:categoryId];
+    }
+    
+    [self.networkManager GET:endpoint parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableArray *responseArray = [[NSMutableArray alloc] init];
         if ([responseObject isKindOfClass:[NSArray class]]) {
             for (NSDictionary *dict in responseObject) {
@@ -112,7 +125,8 @@
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         NSArray *idsArray = [responseObject allKeys];
         for (NSString *categoryId in idsArray) {
-            NSString *categoryName = responseObject[categoryId];
+            
+            NSString *categoryName = nilOrJSONObjectForKey(responseObject, categoryId);
             ServiceCategoryDataModel *categoryData = [[ServiceCategoryDataModel alloc] initWithId:categoryId name:categoryName];
             [tempArray addObject:categoryData];
         }

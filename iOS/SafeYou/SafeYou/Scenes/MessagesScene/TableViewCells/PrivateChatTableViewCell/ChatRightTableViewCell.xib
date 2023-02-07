@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="480" id="KGk-i7-Jjw" customClass="PrivateChatTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="323"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="323"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRF-Xm-uyh" customClass="SYDesignableView">
+                        <rect key="frame" x="42.5" y="0.0" width="273.5" height="317"/>
+                        <subviews>
+                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Uhn-Ql-gdk">
+                                <rect key="frame" x="0.0" y="5" width="273.5" height="307"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Slm-Lt-QhC" customClass="SYDesignableImageView">
+                                        <rect key="frame" x="0.0" y="0.0" width="273.5" height="207"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="aaq-Dd-kWd"/>
+                                            <constraint firstAttribute="width" secondItem="Slm-Lt-QhC" secondAttribute="height" multiplier="160:121" id="iFt-58-mue"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="12"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y4B-Lj-UaW" userLabel="AudioView">
+                                        <rect key="frame" x="0.0" y="217" width="273.5" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shx-af-efQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="shx-af-efQ" secondAttribute="height" multiplier="1:1" id="clm-HD-8kk"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="play_icon_chat" title=" "/>
+                                                <connections>
+                                                    <action selector="playButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="cxy-X7-eli"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="microphone_icon" translatesAutoresizingMaskIntoConstraints="NO" id="90G-Vb-qVm" customClass="SYDesignableImageView">
+                                                <rect key="frame" x="243" y="12" width="16" height="16"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="16" id="3HW-V7-rNw"/>
+                                                    <constraint firstAttribute="height" constant="16" id="p4i-7v-Cy2"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                        <integer key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gNq-7V-DuY">
+                                                <rect key="frame" x="40" y="18" width="191" height="4"/>
+                                                <color key="progressTintColor" name="mainTint2"/>
+                                            </progressView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y01-DB-phn" customClass="HyRobotoLabelLight">
+                                                <rect key="frame" x="40" y="24" width="21.5" height="12"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                        <integer key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="Y01-DB-phn" firstAttribute="top" secondItem="gNq-7V-DuY" secondAttribute="bottom" constant="2" id="3v3-E5-Tj2"/>
+                                            <constraint firstItem="90G-Vb-qVm" firstAttribute="centerY" secondItem="Y4B-Lj-UaW" secondAttribute="centerY" id="Axb-dV-afh"/>
+                                            <constraint firstItem="90G-Vb-qVm" firstAttribute="leading" secondItem="gNq-7V-DuY" secondAttribute="trailing" constant="12" id="EMP-tb-W2L"/>
+                                            <constraint firstAttribute="height" constant="40" placeholder="YES" id="J3d-ac-2gA"/>
+                                            <constraint firstAttribute="bottom" secondItem="shx-af-efQ" secondAttribute="bottom" id="LA5-HA-Xx4"/>
+                                            <constraint firstItem="shx-af-efQ" firstAttribute="top" secondItem="Y4B-Lj-UaW" secondAttribute="top" id="QH0-yL-LMJ"/>
+                                            <constraint firstItem="gNq-7V-DuY" firstAttribute="centerY" secondItem="Y4B-Lj-UaW" secondAttribute="centerY" id="bp4-78-UWo"/>
+                                            <constraint firstItem="shx-af-efQ" firstAttribute="leading" secondItem="Y4B-Lj-UaW" secondAttribute="leading" id="cLj-vU-kJc"/>
+                                            <constraint firstItem="gNq-7V-DuY" firstAttribute="leading" secondItem="shx-af-efQ" secondAttribute="trailing" id="fO1-ua-hri"/>
+                                            <constraint firstAttribute="trailing" secondItem="90G-Vb-qVm" secondAttribute="trailing" constant="14.5" id="lWV-V2-d1a"/>
+                                            <constraint firstItem="Y01-DB-phn" firstAttribute="leading" secondItem="gNq-7V-DuY" secondAttribute="leading" id="vbG-pW-J2k"/>
+                                        </constraints>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YOB-9Q-Hhv" userLabel="RepliedMessageView">
+                                        <rect key="frame" x="0.0" y="262" width="273" height="4"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zpo-Co-8os" customClass="SYDesignableView">
+                                                <rect key="frame" x="5" y="0.0" width="2" height="4"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="2" id="JgN-bU-cup"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                        <integer key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iic-BC-clS" customClass="HyRobotoLabelBold">
+                                                <rect key="frame" x="12" y="0.0" width="249" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                        <integer key="value" value="6"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="oponent message" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRI-Y9-5XA" customClass="HyRobotoLabelRegular">
+                                                <rect key="frame" x="12" y="4" width="249" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                        <integer key="value" value="6"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="hRI-Y9-5XA" secondAttribute="trailing" constant="12" id="4mA-Lw-kOi"/>
+                                            <constraint firstAttribute="bottom" secondItem="hRI-Y9-5XA" secondAttribute="bottom" id="Jjg-1y-047"/>
+                                            <constraint firstItem="zpo-Co-8os" firstAttribute="leading" secondItem="YOB-9Q-Hhv" secondAttribute="leading" constant="5" id="NEm-0I-12m"/>
+                                            <constraint firstAttribute="bottom" secondItem="zpo-Co-8os" secondAttribute="bottom" id="Wss-2W-KJt"/>
+                                            <constraint firstItem="Iic-BC-clS" firstAttribute="leading" secondItem="zpo-Co-8os" secondAttribute="trailing" constant="5" id="XJQ-jG-oaB"/>
+                                            <constraint firstItem="Iic-BC-clS" firstAttribute="top" secondItem="YOB-9Q-Hhv" secondAttribute="top" id="bWW-hE-tGb"/>
+                                            <constraint firstItem="hRI-Y9-5XA" firstAttribute="top" secondItem="Iic-BC-clS" secondAttribute="bottom" constant="4" id="cVb-fi-uGk"/>
+                                            <constraint firstItem="hRI-Y9-5XA" firstAttribute="leading" secondItem="zpo-Co-8os" secondAttribute="trailing" constant="5" id="dfD-fR-7Vq"/>
+                                            <constraint firstItem="zpo-Co-8os" firstAttribute="top" secondItem="YOB-9Q-Hhv" secondAttribute="top" id="qY9-kR-anL"/>
+                                            <constraint firstAttribute="trailing" secondItem="Iic-BC-clS" secondAttribute="trailing" constant="12" id="tXK-3G-AZH"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0H4-93-0N2" userLabel="MessageView">
+                                        <rect key="frame" x="0.0" y="267" width="273" height="40"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3ee-FC-T31">
+                                                <rect key="frame" x="12" y="5" width="212.5" height="30"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abu-wJ-Q6t" customClass="HyRobotoLabelLight">
+                                                <rect key="frame" x="239.5" y="23" width="21.5" height="12"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                        <integer key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="3ee-FC-T31" firstAttribute="leading" secondItem="0H4-93-0N2" secondAttribute="leading" constant="12" id="7Xx-H9-IzK"/>
+                                            <constraint firstItem="abu-wJ-Q6t" firstAttribute="bottom" secondItem="3ee-FC-T31" secondAttribute="bottom" id="8QS-pY-NhT"/>
+                                            <constraint firstAttribute="bottom" secondItem="3ee-FC-T31" secondAttribute="bottom" constant="5" id="CsU-PI-0xW"/>
+                                            <constraint firstAttribute="height" constant="40" placeholder="YES" id="TJy-2r-MgR"/>
+                                            <constraint firstItem="3ee-FC-T31" firstAttribute="top" secondItem="0H4-93-0N2" secondAttribute="top" constant="5" id="a9I-A4-hoX"/>
+                                            <constraint firstItem="abu-wJ-Q6t" firstAttribute="leading" secondItem="3ee-FC-T31" secondAttribute="trailing" constant="15" id="dMt-d6-Ph2"/>
+                                            <constraint firstAttribute="trailing" secondItem="abu-wJ-Q6t" secondAttribute="trailing" constant="12" id="hcC-ZI-aRw"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Y4B-Lj-UaW" secondAttribute="trailing" id="Vbg-Lu-xSo"/>
+                                    <constraint firstItem="Y4B-Lj-UaW" firstAttribute="leading" secondItem="Uhn-Ql-gdk" secondAttribute="leading" id="f8d-F7-jZX"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Uhn-Ql-gdk" firstAttribute="leading" secondItem="LRF-Xm-uyh" secondAttribute="leading" id="2CB-oN-Izl"/>
+                            <constraint firstAttribute="trailing" secondItem="Uhn-Ql-gdk" secondAttribute="trailing" id="8cq-IA-OgM"/>
+                            <constraint firstAttribute="bottom" secondItem="Uhn-Ql-gdk" secondAttribute="bottom" constant="5" id="f5T-cg-qdW"/>
+                            <constraint firstItem="Uhn-Ql-gdk" firstAttribute="top" secondItem="LRF-Xm-uyh" secondAttribute="top" constant="5" id="oaL-x5-xAr"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                <integer key="value" value="19"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowColorType">
+                                <integer key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.0" height="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="2.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="LRF-Xm-uyh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="gwQ-7L-yFl"/>
+                    <constraint firstItem="LRF-Xm-uyh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="iGM-Eg-iYT"/>
+                    <constraint firstAttribute="bottom" secondItem="LRF-Xm-uyh" secondAttribute="bottom" constant="6" id="jxT-d5-KMQ"/>
+                    <constraint firstAttribute="trailing" secondItem="LRF-Xm-uyh" secondAttribute="trailing" constant="4" id="rd2-ot-ezw"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="audioDurationLabel" destination="Y01-DB-phn" id="cj5-Ho-5Ti"/>
+                <outlet property="audioPlayButton" destination="shx-af-efQ" id="u13-ga-4MC"/>
+                <outlet property="audioProgressView" destination="gNq-7V-DuY" id="6e2-54-o1U"/>
+                <outlet property="dateLabel" destination="abu-wJ-Q6t" id="kiK-2n-aSV"/>
+                <outlet property="mainContentView" destination="LRF-Xm-uyh" id="wAX-nU-bJy"/>
+                <outlet property="messageContentAudio" destination="Y4B-Lj-UaW" id="8bT-mV-gBL"/>
+                <outlet property="messageContentImageView" destination="Slm-Lt-QhC" id="4Lu-De-OUv"/>
+                <outlet property="messageContentText" destination="0H4-93-0N2" id="PaK-hQ-h4n"/>
+                <outlet property="messageTextView" destination="3ee-FC-T31" id="KAs-wy-sDv"/>
+                <outlet property="oponentMessageLabel" destination="hRI-Y9-5XA" id="nzz-lL-lrN"/>
+                <outlet property="oponentNameLabel" destination="Iic-BC-clS" id="kN2-eG-OYI"/>
+                <outlet property="repliedMessageView" destination="YOB-9Q-Hhv" id="qD9-1k-itl"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="147.65625"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="90G-Vb-qVm">
+            <size key="intrinsicContentSize" width="16" height="16"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="microphone_icon" width="16" height="16"/>
+        <image name="play_icon_chat" width="16" height="16"/>
+        <namedColor name="mainTint2">
+            <color red="0.86274509803921573" green="0.69411764705882351" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

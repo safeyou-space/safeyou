@@ -16,6 +16,10 @@
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, assign) NSInteger type;
 
+@end
 
+@interface ImageDataModel (ImageURL)
+
+- (NSURL *)imageFullURL;
 
 @end

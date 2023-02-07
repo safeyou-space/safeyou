@@ -71,6 +71,10 @@
     }  else if (fieldType == FormFieldTypePassword) {
         self.formTextField.secureTextEntry = YES;
         [self configureRightViewButtonForPasswordField];
+    } else {
+        self.formTextField.secureTextEntry = NO;
+        self.formTextField.rightView = nil;
+        self.formTextField.rightViewMode = UITextFieldViewModeNever;
     }
     
     if (value) {
@@ -205,7 +209,7 @@
     [offsetComponents setYear:-90]; // note that I'm setting it to -1
     NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
     
-    [offsetComponents setYear:0];
+    [offsetComponents setYear:-12];
     NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
     
     
@@ -232,8 +236,6 @@
         [self.formCellDelegate formTableViewCell:self didChangeText:sender.text];
     }
 }
-
-#pragma mark - UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView
 {
@@ -265,9 +267,6 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 
 {
-    if ([string isEqualToString:@""]) {
-        return YES;
-    }
     if (self.inputLength !=-1 && self.inputLength > 0) {
         if (textField.text.length >= self.inputLength) {
             return NO;

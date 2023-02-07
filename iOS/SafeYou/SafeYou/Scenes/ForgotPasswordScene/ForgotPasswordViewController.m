@@ -51,7 +51,7 @@
 {
     self.titleLabel.text = LOC(@"title_forgot_password");
     [self.requestPasswordButton setTitle:LOC(@"title_request_new_password") forState:UIControlStateNormal];
-    self.phoneNumberField.placeholder = LOC(@"mobile_number_text+key");
+    self.phoneNumberField.placeholder = LOC(@"mobile_number_text_key");
 }
 #pragma mark - Customization
 
@@ -67,14 +67,7 @@
 // @FIXME: Dublicate code need refactor
 - (void)configureGradientBackground
 {
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    
-    gradient.frame = self.view.bounds;
-    UIColor *color1 = [UIColor colorWithSYColor:SYGradientColorTypeBottom alpha:1.0];
-    UIColor *color2 = [UIColor colorWithSYColor:SYGradientColorTypeTop alpha:1.0];
-    gradient.colors = @[(id)color2.CGColor, (id)color1.CGColor];
-    
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    self.view.backgroundColor = [UIColor mainTintColor2];
 }
 
 #pragma mark - Actions
@@ -106,7 +99,7 @@
     NSDictionary *errorInfo = error.userInfo;
     NSDictionary *errorsDict = errorInfo[@"message"];
     NSString *errorMessage;
-    if (errorsDict[@"phone"]) {
+    if ([errorsDict isKindOfClass:[NSDictionary class]] && errorsDict[@"phone"]) {
         NSArray *errorArray = errorsDict[@"phone"];
         errorMessage = errorArray.firstObject;
     } else {

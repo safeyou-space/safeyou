@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NetworkItemTableViewCell" id="KGk-i7-Jjw" customClass="NetworkItemTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="190"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="190"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i13-Fx-QYz" customClass="SYDesignableView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="190"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kNe-yq-gCR" customClass="SYDesignableView">
+                                <rect key="frame" x="20" y="16" width="64" height="64"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ngo_logo" translatesAutoresizingMaskIntoConstraints="NO" id="zi9-L3-XZ6" customClass="SYDesignableImageView">
+                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="zi9-L3-XZ6" secondAttribute="bottom" id="9aI-vt-z5O"/>
+                                    <constraint firstAttribute="height" constant="64" id="ATy-ML-voa"/>
+                                    <constraint firstItem="zi9-L3-XZ6" firstAttribute="leading" secondItem="kNe-yq-gCR" secondAttribute="leading" id="NIl-vu-kNk"/>
+                                    <constraint firstAttribute="width" constant="64" id="QED-nW-Haj"/>
+                                    <constraint firstItem="zi9-L3-XZ6" firstAttribute="top" secondItem="kNe-yq-gCR" secondAttribute="top" id="bqc-ld-Dmk"/>
+                                    <constraint firstAttribute="trailing" secondItem="zi9-L3-XZ6" secondAttribute="trailing" id="gyv-nD-49W"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="32"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlR-z1-A7e" customClass="SYDesignableButton">
+                                <rect key="frame" x="264" y="33" width="40" height="30"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="icon_messages"/>
+                                <buttonConfiguration key="configuration" style="plain" image="icon_private_message"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedImageColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="chatButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="L7N-D2-ycC"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DaO-jP-FDj">
+                                <rect key="frame" x="100" y="24" width="150.5" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="For Women NGO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBp-Ll-6b1" customClass="HyRobotoLabelBold">
+                                        <rect key="frame" x="0.0" y="0.0" width="150.5" height="13"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="4.1 mi via Washington Blvd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBV-Aa-KnZ" customClass="HyRobotoLabelLight">
+                                        <rect key="frame" x="0.0" y="17" width="150.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1r-5y-ybp" customClass="HyRobotoLabelLight">
+                                        <rect key="frame" x="0.0" y="35.5" width="150.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="bu8-hN-DsA"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="LdF-Gt-4kF">
+                                <rect key="frame" x="40" y="90" width="265" height="80"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Hc-ng-PZi" userLabel="Email Section">
+                                        <rect key="frame" x="0.0" y="0.0" width="265" height="16"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="email_icon" translatesAutoresizingMaskIntoConstraints="NO" id="dcE-1C-LYU" customClass="SYDesignableImageView">
+                                                <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                        <integer key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email@forwomen.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxZ-8E-AsT" customClass="HyRobotoLabelRegular">
+                                                <rect key="frame" x="56" y="-0.5" width="143" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                        <integer key="value" value="6"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NXC-Gs-at0">
+                                                <rect key="frame" x="0.0" y="0.0" width="265" height="16"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <connections>
+                                                    <action selector="mailButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YOZ-N8-e5z"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="NXC-Gs-at0" firstAttribute="leading" secondItem="3Hc-ng-PZi" secondAttribute="leading" id="8P7-85-MlF"/>
+                                            <constraint firstItem="xxZ-8E-AsT" firstAttribute="leading" secondItem="dcE-1C-LYU" secondAttribute="trailing" constant="40" id="8bZ-X9-imU"/>
+                                            <constraint firstAttribute="bottom" secondItem="NXC-Gs-at0" secondAttribute="bottom" id="8e3-aQ-WWx"/>
+                                            <constraint firstItem="dcE-1C-LYU" firstAttribute="leading" secondItem="3Hc-ng-PZi" secondAttribute="leading" id="RZo-an-ipu"/>
+                                            <constraint firstAttribute="trailing" secondItem="NXC-Gs-at0" secondAttribute="trailing" id="TkL-MM-0lf"/>
+                                            <constraint firstItem="NXC-Gs-at0" firstAttribute="top" secondItem="3Hc-ng-PZi" secondAttribute="top" id="bcO-mK-9Xm"/>
+                                            <constraint firstItem="xxZ-8E-AsT" firstAttribute="centerY" secondItem="3Hc-ng-PZi" secondAttribute="centerY" id="cfl-9k-mdw"/>
+                                            <constraint firstAttribute="height" constant="16" id="gnt-JC-QIE"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xxZ-8E-AsT" secondAttribute="trailing" constant="10" id="ll9-b2-JhP"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9i-4E-pRj" userLabel="Phone Section">
+                                        <rect key="frame" x="0.0" y="32" width="265" height="16"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="phone_icon" translatesAutoresizingMaskIntoConstraints="NO" id="UvY-zh-iXC" customClass="SYDesignableImageView">
+                                                <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                        <integer key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1 234 567 8900" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRI-ni-rdc" customClass="HyRobotoLabelRegular">
+                                                <rect key="frame" x="56" y="-0.5" width="112.5" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                        <integer key="value" value="6"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fvg-js-yPa">
+                                                <rect key="frame" x="0.0" y="0.0" width="265" height="16"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <connections>
+                                                    <action selector="phoneButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="B8q-fE-cDT"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="UvY-zh-iXC" firstAttribute="leading" secondItem="J9i-4E-pRj" secondAttribute="leading" id="Bbf-4L-KWF"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WRI-ni-rdc" secondAttribute="trailing" constant="10" id="GCc-iG-flA"/>
+                                            <constraint firstAttribute="trailing" secondItem="Fvg-js-yPa" secondAttribute="trailing" id="IPN-pd-Zhi"/>
+                                            <constraint firstAttribute="bottom" secondItem="Fvg-js-yPa" secondAttribute="bottom" id="Te4-hb-c76"/>
+                                            <constraint firstAttribute="height" constant="16" id="YMg-nU-b7t"/>
+                                            <constraint firstItem="Fvg-js-yPa" firstAttribute="leading" secondItem="J9i-4E-pRj" secondAttribute="leading" id="dEa-cJ-3FZ"/>
+                                            <constraint firstItem="Fvg-js-yPa" firstAttribute="top" secondItem="J9i-4E-pRj" secondAttribute="top" id="g8J-n6-iv6"/>
+                                            <constraint firstItem="WRI-ni-rdc" firstAttribute="centerY" secondItem="J9i-4E-pRj" secondAttribute="centerY" id="uBs-u1-ufH"/>
+                                            <constraint firstItem="WRI-ni-rdc" firstAttribute="leading" secondItem="UvY-zh-iXC" secondAttribute="trailing" constant="40" id="zYI-no-EG2"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fq4-RB-NHP" userLabel="Info Section">
+                                        <rect key="frame" x="0.0" y="64" width="265" height="16"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info_icon" translatesAutoresizingMaskIntoConstraints="NO" id="cIa-3L-7EN" customClass="SYDesignableImageView">
+                                                <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="16" id="VT0-h9-EDk"/>
+                                                    <constraint firstAttribute="width" constant="16" id="gD8-N6-vhu"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                        <integer key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSD-tv-bn8" customClass="HyRobotoLabelRegular">
+                                                <rect key="frame" x="56" y="0.5" width="198" height="15"/>
+                                                <string key="text">Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet </string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                        <integer key="value" value="6"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="cIa-3L-7EN" firstAttribute="top" secondItem="fq4-RB-NHP" secondAttribute="top" id="9n4-1t-QD2"/>
+                                            <constraint firstItem="RSD-tv-bn8" firstAttribute="top" secondItem="fq4-RB-NHP" secondAttribute="top" constant="0.5" id="PWS-QL-8QF"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="RSD-tv-bn8" secondAttribute="trailing" constant="10" id="Se6-0G-tpk"/>
+                                            <constraint firstItem="RSD-tv-bn8" firstAttribute="leading" secondItem="cIa-3L-7EN" secondAttribute="trailing" constant="40" id="Sog-MF-BZv"/>
+                                            <constraint firstAttribute="bottom" secondItem="RSD-tv-bn8" secondAttribute="bottom" constant="0.5" id="VwQ-l5-Uhq"/>
+                                            <constraint firstItem="cIa-3L-7EN" firstAttribute="leading" secondItem="fq4-RB-NHP" secondAttribute="leading" id="fKb-CA-fme"/>
+                                            <constraint firstItem="cIa-3L-7EN" firstAttribute="leading" secondItem="fq4-RB-NHP" secondAttribute="leading" id="se8-Lk-Qei"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="LdF-Gt-4kF" secondAttribute="trailing" constant="15" id="2Pf-rt-aN9"/>
+                            <constraint firstItem="LdF-Gt-4kF" firstAttribute="top" secondItem="DaO-jP-FDj" secondAttribute="bottom" constant="16" id="3cB-aZ-AlR"/>
+                            <constraint firstItem="YlR-z1-A7e" firstAttribute="centerY" secondItem="zi9-L3-XZ6" secondAttribute="centerY" id="5JS-SD-keu"/>
+                            <constraint firstItem="kNe-yq-gCR" firstAttribute="leading" secondItem="i13-Fx-QYz" secondAttribute="leading" constant="20" id="Oiz-wL-lU5"/>
+                            <constraint firstItem="LdF-Gt-4kF" firstAttribute="leading" secondItem="i13-Fx-QYz" secondAttribute="leading" constant="40" id="bPH-Q7-zM3"/>
+                            <constraint firstAttribute="bottom" secondItem="LdF-Gt-4kF" secondAttribute="bottom" constant="20" id="cVj-er-DmD"/>
+                            <constraint firstItem="kNe-yq-gCR" firstAttribute="top" secondItem="i13-Fx-QYz" secondAttribute="top" constant="16" id="eHY-nB-4ti"/>
+                            <constraint firstAttribute="trailing" secondItem="YlR-z1-A7e" secondAttribute="trailing" constant="16" id="fmW-y6-b6b"/>
+                            <constraint firstItem="YlR-z1-A7e" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DaO-jP-FDj" secondAttribute="trailing" constant="10" id="m6K-Rb-apW"/>
+                            <constraint firstItem="DaO-jP-FDj" firstAttribute="leading" secondItem="kNe-yq-gCR" secondAttribute="trailing" constant="16" id="vu2-c4-bza"/>
+                            <constraint firstItem="DaO-jP-FDj" firstAttribute="top" secondItem="i13-Fx-QYz" secondAttribute="top" constant="24" id="wBA-TG-va7"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                <integer key="value" value="21"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="i13-Fx-QYz" secondAttribute="trailing" id="Bh2-HS-lk8"/>
+                    <constraint firstItem="i13-Fx-QYz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="J6O-8c-fqd"/>
+                    <constraint firstAttribute="bottom" secondItem="i13-Fx-QYz" secondAttribute="bottom" id="UUi-gZ-vVS"/>
+                    <constraint firstItem="i13-Fx-QYz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fIG-Le-fIG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="address2Label" destination="t1r-5y-ybp" id="jW6-fJ-MXG"/>
+                <outlet property="addressLabel" destination="lBV-Aa-KnZ" id="p7m-5b-heB"/>
+                <outlet property="chatButton" destination="YlR-z1-A7e" id="os2-4X-GGV"/>
+                <outlet property="emailContainerView" destination="3Hc-ng-PZi" id="S9q-OK-OEt"/>
+                <outlet property="emailLabel" destination="xxZ-8E-AsT" id="3CI-uy-Zuf"/>
+                <outlet property="infoContainerView" destination="fq4-RB-NHP" id="Gdh-5o-YE1"/>
+                <outlet property="infoLabel" destination="RSD-tv-bn8" id="Nbs-Uw-IUJ"/>
+                <outlet property="logoImageView" destination="zi9-L3-XZ6" id="5r2-Sh-2YD"/>
+                <outlet property="phoneContainerView" destination="J9i-4E-pRj" id="nh1-ut-cWX"/>
+                <outlet property="phoneNumberLabel" destination="WRI-ni-rdc" id="HpL-lj-BMX"/>
+                <outlet property="serviceNameLabel" destination="dBp-Ll-6b1" id="4rk-kP-Mq1"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="UvY-zh-iXC">
+            <size key="intrinsicContentSize" width="16" height="16"/>
+        </designable>
+        <designable name="YlR-z1-A7e">
+            <size key="intrinsicContentSize" width="40" height="30"/>
+        </designable>
+        <designable name="cIa-3L-7EN">
+            <size key="intrinsicContentSize" width="17" height="17"/>
+        </designable>
+        <designable name="dcE-1C-LYU">
+            <size key="intrinsicContentSize" width="16" height="16"/>
+        </designable>
+        <designable name="zi9-L3-XZ6">
+            <size key="intrinsicContentSize" width="82" height="82"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="email_icon" width="16" height="16"/>
+        <image name="icon_messages" width="16" height="16"/>
+        <image name="icon_private_message" width="16" height="16"/>
+        <image name="info_icon" width="17" height="17"/>
+        <image name="ngo_logo" width="82" height="82"/>
+        <image name="phone_icon" width="16" height="16"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

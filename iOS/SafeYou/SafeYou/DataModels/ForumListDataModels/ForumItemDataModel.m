@@ -8,6 +8,8 @@
 
 #import "ForumItemDataModel.h"
 #import "ForumCommentedUserDataModel.h"
+#import "ImageDataModel.h"
+#import "SafeYou-Swift.h"
 
 
 NSString *const kForumItemImagePath = @"image_path";
@@ -21,7 +23,10 @@ NSString *const kForumItemTopCommentedUsers = @"top_commented_users";
 NSString *const kForumItemUsersCount = @"users_count";
 NSString *const kForumItemDescription = @"description";
 NSString *const kForumItemCommentsCount = @"comments_count";
+NSString *const kForumItemViewCount = @"views_count";
 NSString *const kForumItemNewMessagesCount = @"NEW_MESSAGES_COUNT";
+NSString *const kForumItemImage = @"image";
+NSString *const kForumItemAuthor = @"author";
 
 
 @interface ForumItemDataModel ()
@@ -43,6 +48,7 @@ NSString *const kForumItemNewMessagesCount = @"NEW_MESSAGES_COUNT";
 @synthesize usersCount = _usersCount;
 @synthesize forumItemDescription = _forumItemDescription;
 @synthesize commentsCount = _commentsCount;
+@synthesize author = _author;
 
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict {
@@ -62,6 +68,9 @@ NSString *const kForumItemNewMessagesCount = @"NEW_MESSAGES_COUNT";
         self.code = [self objectOrNilForKey:kForumItemCode fromDictionary:dict];
         self.createdAt = [self objectOrNilForKey:kForumItemCreatedAt fromDictionary:dict];
         self.title = [self objectOrNilForKey:kForumItemTitle fromDictionary:dict];
+        self.commentsCount = [[self objectOrNilForKey:kForumItemCommentsCount fromDictionary:dict] integerValue];
+        self.viewsCount = [[self objectOrNilForKey:kForumItemViewCount fromDictionary:dict] integerValue];
+        self.imageData = [ImageDataModel modelObjectWithDictionary:dict[kForumItemImage]];
         NSObject *receivedTopCommentedUsers = [dict objectForKey:kForumItemTopCommentedUsers];
         NSMutableArray *parsedTopCommentedUsers = [NSMutableArray array];
         
@@ -80,6 +89,9 @@ NSString *const kForumItemNewMessagesCount = @"NEW_MESSAGES_COUNT";
         self.forumItemDescription = [self objectOrNilForKey:kForumItemDescription fromDictionary:dict];
         self.commentsCount = [[self objectOrNilForKey:kForumItemCommentsCount fromDictionary:dict] doubleValue];
         self.newMessagesCount = [[self objectOrNilForKey:kForumItemNewMessagesCount fromDictionary:dict] integerValue];
+
+        self.formattedCreatedAt = [Helper formatDateToShowWithInitialDateString:self.createdAt];
+        self.author = [self objectOrNilForKey:kForumItemAuthor fromDictionary:dict];
     }
     
     return self;
@@ -110,6 +122,7 @@ NSString *const kForumItemNewMessagesCount = @"NEW_MESSAGES_COUNT";
     [mutableDict setValue:[NSNumber numberWithDouble:self.usersCount] forKey:kForumItemUsersCount];
     [mutableDict setValue:self.forumItemDescription forKey:kForumItemDescription];
     [mutableDict setValue:[NSNumber numberWithDouble:self.commentsCount] forKey:kForumItemCommentsCount];
+    [mutableDict setValue:self.author forKey:kForumItemAuthor];
     
     return [NSDictionary dictionaryWithDictionary:mutableDict];
 }
@@ -139,6 +152,7 @@ NSString *const kForumItemNewMessagesCount = @"NEW_MESSAGES_COUNT";
     self.usersCount = [aDecoder decodeDoubleForKey:kForumItemUsersCount];
     self.forumItemDescription = [aDecoder decodeObjectForKey:kForumItemDescription];
     self.commentsCount = [aDecoder decodeDoubleForKey:kForumItemCommentsCount];
+    self.author = [aDecoder decodeObjectForKey:kForumItemAuthor];
     return self;
 }
 
@@ -156,6 +170,7 @@ NSString *const kForumItemNewMessagesCount = @"NEW_MESSAGES_COUNT";
     [aCoder encodeDouble:_usersCount forKey:kForumItemUsersCount];
     [aCoder encodeObject:_forumItemDescription forKey:kForumItemDescription];
     [aCoder encodeDouble:_commentsCount forKey:kForumItemCommentsCount];
+    [aCoder encodeObject:_author forKey:kForumItemAuthor];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -172,6 +187,7 @@ NSString *const kForumItemNewMessagesCount = @"NEW_MESSAGES_COUNT";
         copy.usersCount = self.usersCount;
         copy.forumItemDescription = [self.forumItemDescription copyWithZone:zone];
         copy.commentsCount = self.commentsCount;
+        copy.author = self.author;
     }
     return copy;
 }

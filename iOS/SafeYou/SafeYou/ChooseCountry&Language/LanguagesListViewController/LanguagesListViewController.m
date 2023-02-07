@@ -52,7 +52,7 @@
     [self showLoader];
     weakify(self);
     if (self.currentSelectedCountry && self.isFromChooseCountry) {
-        [self.optionsService getLanguagesListForCountry:self.currentSelectedCountry.shortCode withComplition:^(NSArray<LanguageDataModel *> * _Nonnull languagesList) {
+        [self.optionsService getLanguagesListForCountry:self.currentSelectedCountry.apiServiceCode withComplition:^(NSArray<LanguageDataModel *> * _Nonnull languagesList) {
             strongify(self);
             [self hideLoader];
             [self configureViewWithReceivedLanguages:languagesList];
@@ -77,7 +77,7 @@
     NSMutableArray <ChooseLanguageViewModel *>*viewModelsArray = [[NSMutableArray alloc] init];
     for (LanguageDataModel *languageData in languagesList) {
         ChooseLanguageViewModel *viewData = [[ChooseLanguageViewModel alloc] initWithData:(RegionalOptionDataModel *)languageData];
-        if ([languageData.shortCode isEqualToString:[Settings sharedInstance].selectedLanguageCode]) {
+        if ([languageData.apiServiceCode isEqualToString:[Settings sharedInstance].selectedLanguageCode]) {
             viewData.isSelected = YES;
             self.selectedRegionalOption = (LanguageDataModel *)viewData.regionalOptionData;
         } else {

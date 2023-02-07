@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -89,7 +90,8 @@
                             <rect key="frame" x="30" y="560" width="354" height="178"/>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <viewLayoutGuide key="safeArea" id="kgo-QF-HVR"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="kgo-QF-HVR" firstAttribute="trailing" secondItem="iMT-EJ-9eZ" secondAttribute="trailing" constant="20" id="4gL-LI-7qw"/>
                         <constraint firstItem="kgo-QF-HVR" firstAttribute="trailing" secondItem="huF-KT-KQM" secondAttribute="trailing" constant="30" id="8ea-78-ujE"/>
@@ -105,7 +107,6 @@
                         <constraint firstItem="kgo-QF-HVR" firstAttribute="trailing" secondItem="9Fn-aH-54C" secondAttribute="trailing" constant="20" id="oZW-8x-G1I"/>
                         <constraint firstItem="huF-KT-KQM" firstAttribute="top" secondItem="ztn-3o-qZH" secondAttribute="bottom" constant="30" id="pMD-EU-eeX"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="kgo-QF-HVR"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
                             <integer key="value" value="1"/>
@@ -116,12 +117,20 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <point key="canvasLocation" x="139" y="138"/>
         </view>
     </objects>
+    <designables>
+        <designable name="huF-KT-KQM">
+            <size key="intrinsicContentSize" width="51" height="22"/>
+        </designable>
+    </designables>
     <resources>
         <image name="button_forward" width="13" height="12.5"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

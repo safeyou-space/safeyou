@@ -27,20 +27,34 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define RECORD_MAX_DURATION 60
 
-
 @interface HelpTabbarItemViewController () <RecordButtonDelegate, AVAudioRecorderDelegate>
 
-@property (weak, nonatomic) IBOutlet RoundedButton *leftButton;
-@property (weak, nonatomic) IBOutlet RoundedButton *rightButton;
 @property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *timerLabel;
 
 @property (weak, nonatomic) IBOutlet SYDesignableView *helpButtonLargeCircle;
 @property (weak, nonatomic) IBOutlet SYDesignableView *helpButtonSmallCircle;
 @property (weak, nonatomic) IBOutlet RecordButton *recordButton;
+@property (weak, nonatomic) IBOutlet UIView *emergnecyContactsView;
+@property (weak, nonatomic) IBOutlet UIView *recordingsView;
 
-- (IBAction)leftButtonAction:(UIButton *)sender;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *emergencyContactsTapGesture;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *reconrdingsTapGesture;
+@property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *rightImageView;
 
-- (IBAction)rightButtonAction:(UIButton *)sender;
+// icons
+@property (weak, nonatomic) IBOutlet SYDesignableImageView *contactsIcon;
+@property (weak, nonatomic) IBOutlet SYDesignableImageView *ngosIcon;
+@property (weak, nonatomic) IBOutlet SYDesignableImageView *policeIcon;
+@property (weak, nonatomic) IBOutlet SYDesignableImageView *recordingsStoreIcon;
+
+@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *infoMessageLabel;
+
+@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *emergencyContactsLabel;
+@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *recordingsLabel;
+
+- (IBAction)emergencyContactsTapped:(UITapGestureRecognizer *)sender;
+- (IBAction)recordingsTapped:(UITapGestureRecognizer *)sender;
 
 @property (nonatomic) RecordViewState recordViewState;
 @property (nonatomic) RecordsService *recordsService;
@@ -124,18 +138,23 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
             }];
             break;
     }
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self configureEmergencyIcons];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     if (![Settings sharedInstance].isPopupShown) {
         [self showInfoAlert];
         [Settings sharedInstance].isPopupShown = YES;
     }
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -148,9 +167,38 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 
 - (void)viewDidLayoutSubviews
 {
-    [super viewDidLayoutSubviews];
     self.helpButtonLargeCircle.cornerRadius = self.helpButtonLargeCircle.frame.size.width/2;
     self.helpButtonSmallCircle.cornerRadius = self.helpButtonSmallCircle.frame.size.width/2;
+    [super viewDidLayoutSubviews];
+}
+
+#pragma mark - UI Customization
+
+- (void)configureBackgroundColor
+{
+    // override empty
+}
+
+- (void)configureEmergencyIcons
+{
+    UserDataModel *onlineUser = [Settings sharedInstance].onlineUser;
+    if (onlineUser.emergencyContacts.count) {
+        self.contactsIcon.imageColorType = SYColorTypeWhite;
+    } else {
+        self.contactsIcon.imageColorType = SYColorTypeLightGray;
+    }
+    
+    if (onlineUser.emergencyServices.count) {
+        self.ngosIcon.imageColorType = SYColorTypeWhite;
+    } else {
+        self.ngosIcon.imageColorType = SYColorTypeLightGray;
+    }
+    
+    if (onlineUser.checkPolice) {
+        self.policeIcon.imageColorType = SYColorTypeWhite;
+    } else {
+        self.policeIcon.imageColorType = SYColorTypeLightGray;
+    }
 }
 
 #pragma Getter
@@ -188,27 +236,15 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
         case RecordViewStateNormal: {
             self.timerLabel.text = @"00:00";
             self.timerLabel.hidden = YES;
-            self.leftButton.enabled = YES;
-            self.rightButton.enabled = YES;
-            [self.leftButton setImage:[UIImage imageNamed:@"info_icon"] forState:UIControlStateNormal];
-            [self.rightButton setImage:[UIImage imageNamed:@"icon-playlist"] forState:UIControlStateNormal];
             break;
         }
             
         case RecordViewStateRecording: {
             self.timerLabel.hidden = NO;
-            self.leftButton.enabled = YES;
-            self.rightButton.enabled = YES;
-            [self.leftButton setImage:[UIImage imageNamed:@"delete_icon"] forState:UIControlStateNormal];
-            [self.rightButton setImage:[UIImage imageNamed:@"send_icon_white"] forState:UIControlStateNormal];
             break;
         }
         case RecordViewStateRecordingFinished: {
             self.timerLabel.hidden = YES;
-            self.leftButton.enabled = YES;
-            self.rightButton.enabled = YES;
-            [self.leftButton setImage:[UIImage imageNamed:@"info_icon"] forState:UIControlStateNormal];
-            [self.rightButton setImage:[UIImage imageNamed:@"icon-playlist"] forState:UIControlStateNormal];
             break;
         }
             
@@ -311,7 +347,7 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
         [self showOpenLocationSettingsAlert];
     } else if (!self.isRecordPerrmissionGranted) {
         [sender reset];
-        [self showOpenMicrophonrSettingsAlert];
+        [self showOpenMicrophoneSettingsAlert];
     } else {
         [self startRecording];
     }
@@ -355,7 +391,7 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 
 #pragma mark - Microphone Alert
 
-- (void)showOpenMicrophonrSettingsAlert
+- (void)showOpenMicrophoneSettingsAlert
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:LOC(@"Microphone Access") message:LOC(@"Please go to Settings to enable Microphone to record emergency audio") preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:LOC(@"cancel") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -390,6 +426,9 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 - (void)updateLocalizations
 {
     self.navigationItem.title  = LOC(@"help_title_key");
+    self.infoMessageLabel.text = LOC(@"help_section_description_text_key");
+    self.recordingsLabel.text = LOC(@"my_recordings");
+    self.emergencyContactsLabel.text = LOC(@"emergency_contacts_title_key");
     [self.recordButton updateLocalizations];
 }
 
@@ -407,7 +446,7 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
                                                         target:self
                                                       selector:@selector(timerController)
                                                       userInfo:nil
-                                                       repeats:YES];
+                                        	               repeats:YES];
 }
 
 - (void)sendEmergencyMessage
@@ -449,21 +488,11 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 
 
 #pragma mark - Actions
-- (IBAction)leftButtonAction:(id)sender {
-    if (self.recordViewState == RecordViewStateNormal || self.recordViewState == RecordViewStateRecordingFinished) {
-        // show info
-        [self showInfoAlert];
-    }
-    
-    if (self.recordViewState == RecordViewStateRecording) {
-        self.isCancelingRecord = YES;
-        [self stopRecording];
-        [self cancelRecordAndDelete];
-        self.recordViewState = RecordViewStateNormal;
-    }
+- (IBAction)emergencyContactsTapped:(UITapGestureRecognizer *)sender {
+    [self performSegueWithIdentifier:@"showemergencyContacts" sender:nil];
 }
 
-- (IBAction)rightButtonAction:(id)sender {
+- (IBAction)recordingsTapped:(UITapGestureRecognizer *)sender {
     if (self.recordViewState == RecordViewStateNormal) {
         [self performSegueWithIdentifier:@"showRecordsList" sender:nil];
     }

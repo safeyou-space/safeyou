@@ -53,16 +53,8 @@
  */
 - (void)loginUserWithPhoneNumber:(NSString *)phoneNumber andPassword:(NSString *)password withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    NSDictionary *params = @{@"phone":phoneNumber, @"password":password};
-    [self.networkManager POST:@"login" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    [self updateUserAuthToken:@"" refreshToken:@""];
+    complition(nil);
 }
 
 /*
@@ -202,16 +194,8 @@
 
 - (void)refreshToken:(NSString *)token withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    NSDictionary *params = @{@"refresh_token":token};
-    [self.networkManager POST:@"refresh" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    [self updateUserAuthToken:@"" refreshToken:@""];
+    complition(nil);
 }
 
 /*
@@ -270,7 +254,6 @@
 - (void)getMaritalStatusesWithComplition:(void(^)(NSArray <MaritalStatusDataModel *> * response))complition failure:(void(^)(NSError *error))failure
 {
     [self.networkManager GET:@"marital_statuses" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"Response Object %@", responseObject);
         NSMutableArray *maritalDataArray = [[NSMutableArray alloc] init];
         NSAssert([responseObject isKindOfClass:[NSArray class]], @"MARITAL STATUS LIST MUST BE ARRAY TYPE!!!");
         for (NSDictionary *maritalStatusDict in responseObject) {
@@ -281,11 +264,19 @@
             complition(maritalDataArray);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"Response error %@", error);
         if (failure) {
             failure(error);
         }
     }];
+}
+
+
+#pragma  mark - Private
+
+- (void)updateUserAuthToken:(NSString *)userAuthToken refreshToken:(NSString *)refreshToken
+{
+    [Settings sharedInstance].userAuthToken = userAuthToken;
+    [Settings sharedInstance].userRefreshToken = refreshToken;
 }
 
 @end

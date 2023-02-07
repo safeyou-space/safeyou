@@ -9,13 +9,13 @@
 #import "Settings.h"
 #import <GoogleMaps/GMSGeocoder.h>
 #import "RegionalOptionDataModel.h"
+#import <Lokalise/Lokalise.h>
 
 static NSString * const kUserDefaultsIsFirstLogin = @"isFirsLogin";
 static NSString * const kUserDefaultsIsFirstLaunch = @"isFirsLaunch";
 static NSString * const kUserDefaultsUserPin = @"userPin";
 static NSString * const kUserDefaultsUserFakePin = @"userFakePin";
 static NSString * const kUserDefaultsSelectedLanguage = @"userSelectedAppLanguage";
-static NSString * const kUserDeafultsAuthToken = @"userAuthToken";
 static NSString * const kUserDefaultsAuthRefreshToken = @"userAuthRefreshToken";
 static NSString * const kUserDefaultsLocationGranted = @"userLocationIsGrantedKey";
 static NSString * const kUserDefaultsUserLocationName = @"userLocationNameKey";
@@ -138,11 +138,6 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 - (void)setUserAuthToken:(NSString *)userAuthToken
 {
     _userAuthToken = userAuthToken;
-    if (_userAuthToken == nil) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDeafultsAuthToken];
-    } else {
-    [[NSUserDefaults standardUserDefaults] setValue:self.userAuthToken forKey:kUserDeafultsAuthToken];
-    }
 }
 
 - (void)setUserRefreshToken:(NSString *)userRefreshToken
@@ -175,21 +170,45 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
     
 }
 
+- (BOOL)isLanguageRTL
+{
+    return [self isRTLLanguage:self.selectedLanguage.localizationShortCode];
+}
+
 - (void)setSelectedLanguage:(LanguageDataModel *)selectedLanguage
 {
     _selectedLanguage = selectedLanguage;
-    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:_selectedLanguage];
+    NSString *languageCode = [self localizationsLanguageCode];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:languageCode, nil] forKey:@"AppleLanguages"];
+    if ([self isRTLLanguage:selectedLanguage.localizationShortCode]) {
+        [UIView.appearance setSemanticContentAttribute:UISemanticContentAttributeForceRightToLeft];
+    } else {
+        [UIView.appearance setSemanticContentAttribute:UISemanticContentAttributeForceLeftToRight];
+    }
+    
+    
+    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:_selectedLanguage requiringSecureCoding:NO error:nil];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:encodedObject forKey:kUserDefaultsSelectedLanguageData];
     [defaults synchronize];
     
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:languageCode];
+    [[Lokalise sharedObject] setLocalizationLocale:locale makeDefault:false completion:^(NSError * _Nullable error) {
+        NSLog(@"Lokalise setLocalizationLocale with error %@", error);
+    }];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationLanguageDidChangeNotificationName object:nil];
+}
+
+- (BOOL)isRTLLanguage:(NSString *)languageCode
+{
+    return [languageCode isEqualToString:@"ar"] || [languageCode isEqualToString:@"ku"] || [languageCode isEqualToString:@"ckb"];
 }
 
 - (void)setSelectedCountry:(CountryDataModel *)selectedCountry
 {
     _selectedCountry = selectedCountry;
-    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:_selectedCountry];
+    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:_selectedCountry requiringSecureCoding:NO error:nil];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:encodedObject forKey:kUserDefaultsSelectedCountryData];
     [defaults synchronize];
@@ -205,40 +224,66 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 #pragma mark - Getter
 /**
+ http://safeyou.space:3001    Hayastan
+ http://safeyou.space:3002   Vrastan
+
+ CHAT_HOST_ARM -> 136.244.117.119:1998
+ CHAT_HOST_GEO -> 136.244.117.119:1997
+ CHAT_HOST_IRQ -> 136.244.117.119:1996
+ */
+
+/**
+ CHAT_HOST_ARM - https://dashboard.safeyou.space:1998/
+ CHAT_HOST_GEO - https://dashboard.safeyou.space:1997/
+ CHAT_HOST_IRQ - https://dashboard.safeyou.space:1996/
 
  */
+
 - (NSString *)socketIOURL
 {
     BOOL debug = NO;
 #ifdef DEBUG
     debug = DEBUG;
 #endif
-    if ([self.selectedCountry.shortCode isEqualToString:@"arm"]) {
+    if ([self.selectedCountry.apiServiceCode isEqualToString:@"arm"]) {
         if (debug) {
-            return @"https://localhost:3333/";
+            return @"http://136.244.117.119:1998";
         } else {
-            return @"https://localhost:333";
+            return @"https://dashboard.safeyou.space:1998/";
         }
     }
     
-    if ([self.selectedCountry.shortCode isEqualToString:@"geo"]) {
+    if ([self.selectedCountry.apiServiceCode isEqualToString:@"geo"]) {
         if (debug) {
-            return @"https://localhost:3334/";
+            return @"http://136.244.117.119:1997";
         } else {
-            return @"https://localhost:334";
+            return @"https://dashboard.safeyou.space:1997/";
+        }
+    }
+    
+    if ([self.selectedCountry.apiServiceCode isEqualToString:@"irq"]) {
+        if (debug) {
+            return @"http://136.244.117.119:1996";
+        } else {
+            return @"https://dashboard.safeyou.space:1996/";
         }
     }
     
     if (debug) {
-        return @"http://localhost:2222";
+        return @"http://136.244.117.119:1998";
     }
-    return @"https://localhost:222";
+    return @"https://dashboard.safeyou.space:1998/";
+}
+
+- (NSString *)socketAPIURL
+{
+    return  [self socketIOURL];
 }
 
 - (NSString *)selectedCountryCode
 {
     if (self.selectedCountry) {
-        return self.selectedCountry.shortCode;
+        return self.selectedCountry.apiServiceCode;
     }
     return @"arm";
 }
@@ -246,7 +291,15 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 - (NSString *)selectedLanguageCode
 {
     if (self.selectedLanguage) {
-        return self.selectedLanguage.shortCode;
+        return self.selectedLanguage.apiServiceCode;
+    }
+    return @"en";
+}
+
+- (NSString *)localizationsLanguageCode
+{
+    if (self.selectedLanguage) {
+        return self.selectedLanguage.localizationShortCode;
     }
     return @"en";
 }
@@ -287,10 +340,7 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 - (void)retreive
 {
-//    NSString *language = [[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultsSelectedLanguage];
-//    self.selectedLanguageCode = language;
-    
-    self.userAuthToken = [[NSUserDefaults standardUserDefaults] valueForKey:kUserDeafultsAuthToken];
+    self.userAuthToken = @"";
     
     self.userRefreshToken = [[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultsAuthRefreshToken];
     
@@ -355,15 +405,7 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 - (NSString *)countryPhoneCode
 {
-    if ([self.selectedCountryCode isEqualToString:@"arm"]) {
-        return @"+374";
-    }
-    
-    if ([self.selectedCountryCode isEqualToString:@"geo"]) {
-        return @"+995";
-    }
-    
-    return @"+374";
+    return [NSString stringWithFormat:@"+%@", [self countryPhoneCodeWhtoutPlusSign]];
 }
 
 - (NSString *)countryPhoneCodeWhtoutPlusSign
@@ -374,6 +416,10 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
     
     if ([self.selectedCountryCode isEqualToString:@"geo"]) {
         return @"995";
+    }
+    
+    if ([self.selectedCountryCode isEqualToString:@"irq"]) {
+        return @"964";
     }
     
     return @"374";

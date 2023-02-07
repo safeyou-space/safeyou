@@ -22,9 +22,6 @@
     Settings *settings = [Settings sharedInstance];
         NSString *token = settings.userAuthToken;
         NSDictionary *headerParams;
-        if (token.length) {
-           headerParams = @{@"Authorization" : [NSString stringWithFormat:@"Bearer %@", token]};
-        }
     
         SYHTTPSessionManager *manager = [SYHTTPSessionManager sessionManagerWithBaseURL:urlString headerParams:headerParams configuration:nil];
         return manager;
@@ -35,9 +32,6 @@
     Settings *settings = [Settings sharedInstance];
     NSString *token = settings.userAuthToken;
     NSDictionary *headerParams;
-    if (token.length) {
-       headerParams = @{@"Authorization" : [NSString stringWithFormat:@"Bearer %@", token]};
-    }
     
     NSString *baseURL = [NSString stringWithFormat:BASE_API_URL, settings.selectedCountryCode, settings.selectedLanguageCode];
     

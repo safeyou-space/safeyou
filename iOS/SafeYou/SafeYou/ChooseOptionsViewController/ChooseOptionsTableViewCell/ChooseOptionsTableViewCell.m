@@ -72,26 +72,12 @@
 
 - (void)configureSelectedState
 {
-    if (_labelTextColorType == -1 && _selectedLabelTextColorType == -1) {
-        if(self.isSelect) {
-            [_optionNameLabel setTextColor:[UIColor mainTintColor1]];
-        } else {
-            [_optionNameLabel setTextColor:[UIColor blackColor]];
-        }
+    if (self.isSelect) {
+        self.optionNameLabel.textColorType = SYColorTypeMain1;
+        self.optionNameLabel.textColorAlpha = 1;
     } else {
-        if(self.isSelect) {
-            if (_selectedLabelTextColorType == -1) {
-                [_optionNameLabel setTextColor:[UIColor mainTintColor1]];
-            } else {
-                 _optionNameLabel.textColor = [UIColor colorWithSYColor:self.selectedLabelTextColorType alpha:1.0];
-            }
-        } else {
-            if (_labelTextColorType == - 1) {
-                [_optionNameLabel setTextColor:[UIColor mainTintColor2]];
-            } else {
-                 _optionNameLabel.textColor = [UIColor colorWithSYColor:self.labelTextColorType alpha:1.0];
-            }
-        }
+        self.optionNameLabel.textColorType = SYColorTypeBlack;
+        self.optionNameLabel.textColorAlpha = 1;
     }
 }
 

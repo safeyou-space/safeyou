@@ -6,16 +6,13 @@
 //  Copyright © 2021 Garnik Simonyan. All rights reserved.
 //
 
-#import "BaseDataModel.h"
+#import "BaseCategoryDataModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ConsultantExpertiseFieldDataModel : BaseDataModel
+@interface ConsultantExpertiseFieldDataModel : BaseCategoryDataModel
 
-@property (nonatomic) NSString *categoryId;
-@property (nonatomic) NSString *categoryName;
 
-- (instancetype)initWithId:(NSString *)categoryId name:(NSString *)categoryName;
 
 @end
 

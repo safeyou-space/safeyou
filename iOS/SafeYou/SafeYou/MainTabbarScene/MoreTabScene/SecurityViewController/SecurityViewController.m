@@ -13,7 +13,6 @@
 #import "SYProfileService.h"
 #import "AppDelegate.h"
 #import "ApplicationLaunchCoordinator.h"
-#import "ChooseLanguageVC.h"
 #import "MaritalStatusDataModel.h"
 #import "SYAuthenticationService.h"
 #import "ChooseOptionsViewController.h"
@@ -424,7 +423,6 @@
     weakify(self);
     [self.profileService getUserDataWithComplition:^(UserDataModel *userData) {
         strongify(self);
-        [Settings sharedInstance].onlineUser = userData;
         [self configureDataSource];
         if (withLoader) {
             [self hideLoader];

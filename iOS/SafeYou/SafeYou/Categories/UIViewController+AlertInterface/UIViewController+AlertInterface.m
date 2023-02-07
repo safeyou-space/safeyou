@@ -103,5 +103,13 @@
     return nil;
 }
 
+- (void)showInternetConnectionAlert
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:LOC(@"error_text_key") message:LOC(@"check_internet_connection_text_key") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:LOC(@"ok") style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 @end
 

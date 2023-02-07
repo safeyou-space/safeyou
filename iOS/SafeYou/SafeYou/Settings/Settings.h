@@ -45,8 +45,10 @@
 
 @property (nonatomic, readonly) NSString *selectedCountryCode;
 @property (nonatomic, readonly) NSString *selectedLanguageCode;
+@property (nonatomic, readonly) NSString *localizationsLanguageCode;
 
 @property (nonatomic, readonly) NSString *socketIOURL;
+@property (nonatomic, readonly) NSString *socketAPIURL;
 
 @property (nonatomic) BOOL termsAreAccepted;
 
@@ -56,6 +58,9 @@
 @property (nonatomic) NSString *updatedFcmToken;
 
 @property (nonatomic) NSDictionary *receivedRemoteNotification;
+@property (nonatomic) NSURL *dynamicLinkUrl;
+
+- (BOOL)isLanguageRTL;
 
 - (void)saveUserAddress;
 - (void)activateUsingDualPin:(BOOL)activate;

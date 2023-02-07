@@ -8,14 +8,14 @@
 
 #import "SYViewController.h"
 
-@class SocketIOClient, ForumItemDataModel;
+@class SocketIOClient;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ForumDetailsViewController : SYViewController
 
 @property (nonatomic) SocketIOClient *socketClient;
-@property (nonatomic) ForumItemDataModel *forumItemData;
+@property (nonatomic) NSString *forumItemId;
 
 @end
 

@@ -9,16 +9,16 @@
 #import "MainTabbarController.h"
 #import "UIColor+SYColors.h"
 #import "SYUIKit.h"
-#import "SYViewController.h"
 #import "NotificationsViewController.h"
 #import "SocketIOManager.h"
 #import "ForumNotificationsManager.h"
 #import "ForumsViewController.h"
+#import "AppDelegate.h"
 
 
 @interface MainTabbarController () <UITabBarControllerDelegate>
 
-@property (nonatomic) SYDesignableButton *centerButton;
+@property (nonatomic) UIButton *centerButton;
 @property (nonatomic) SYDesignableImageView *forumActivitiIcon;
 @property (nonatomic) NSInteger forumActivityCount;
 
@@ -30,9 +30,11 @@
     [super viewDidLoad];
     [SocketIOManager sharedInstance];
     [ForumNotificationsManager sharedInstance];
+    self.selectedIndex = 2;
     self.delegate = self;
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChange:) name:ApplicationLanguageDidChangeNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDynamicLink) name:ApplicationOpenedByDynamicLinkNotificationName object:nil];
     [self configureHelpButton];
     [self configureTabbarNotificationsIcon];
     [self listenForForumActivites];
@@ -44,29 +46,21 @@
     [super viewWillAppear:animated];
     [self updateLocalizations];
     [self.tabBar setTintColor:[UIColor mainTintColor1]];
-    if (!self.isFromSignInFlow) {
-        if ([Settings sharedInstance].receivedRemoteNotification == nil) {
-            self.isFromSignInFlow = YES;
-            self.selectedIndex = 2;
-        }
-    }
+    self.tabBar.backgroundColor = [UIColor whiteColor];
+    self.tabBar.opaque = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([Settings sharedInstance].receivedRemoteNotification) {
-        self.selectedIndex = 1;
-    }
+    [self checkReceivedNotification];
 }
 
 
 #pragma mark - Handle Application State
 - (void)openFromBackground
 {
-    if ([Settings sharedInstance].receivedRemoteNotification) {
-        self.selectedIndex = 1;
-    }
+    [self checkReceivedNotification];
 }
 
 #pragma mark - Subscribe for data updates
@@ -119,11 +113,8 @@
     UIImage *notificationsIconImage = [UIImage imageNamed:@"tabbar_notification_icon"];
     self.forumActivitiIcon = [[SYDesignableImageView alloc] initWithImage:notificationsIconImage];
     
-    CGFloat bottomPadding = 0;
-    if (@available(iOS 11.0, *)) {
-        UIWindow *window = UIApplication.sharedApplication.keyWindow;
-        bottomPadding = window.safeAreaInsets.bottom;
-    }
+    UIWindow *window = APP_DELEGATE.window;
+    CGFloat bottomPadding = window.safeAreaInsets.bottom;
     CGFloat step = self.tabBar.frame.size.width / self.tabBar.items.count;
     CGFloat originX = step + step/2 - notificationsIconImage.size.width/2;
     CGFloat originY = self.view.frame.size.height - bottomPadding - self.tabBar.frame.size.height - 40;
@@ -136,22 +127,21 @@
 - (void)configureHelpButton
 {
     CGFloat buttonSize = 75;
-    self.centerButton = [[SYDesignableButton alloc] initWithFrame:CGRectMake(0, 0, buttonSize , buttonSize)];
-    NSString *imageName = [NSString stringWithFormat:@"help_icon_%@", [Settings sharedInstance].selectedLanguageCode];
+    self.centerButton = [[SYDesignableButton alloc] initWithFrame:CGRectMake(0, 0, buttonSize, buttonSize)];
+    NSString *imageName = @"help_button_empty";
     UIImage *localizedImage = [UIImage imageNamed:imageName];
-    if (!localizedImage) {
-        localizedImage = [UIImage imageNamed:@"help_icon_en"];
-    }
-    [self.centerButton setImage:localizedImage forState:UIControlStateNormal];
+    
+    [self.centerButton setBackgroundImage:localizedImage forState:UIControlStateNormal];// setImage:localizedImage forState:UIControlStateNormal];
+    
+    self.centerButton.titleLabel.font = [UIFont systemFontOfSize:18];
+    
+    [self.centerButton setTitle:LOC(@"help_title_key").uppercaseString forState:UIControlStateNormal];
         
-    CGFloat bottomPadding = 0;
-    if (@available(iOS 11.0, *)) {
-        UIWindow *window = UIApplication.sharedApplication.keyWindow;
-        bottomPadding = window.safeAreaInsets.bottom;
-    }
+    UIWindow *window = APP_DELEGATE.window;
+    CGFloat bottomPadding = window.safeAreaInsets.bottom;
     
     CGRect centerButtonFrame = self.centerButton.frame;
-    centerButtonFrame.origin.y = (self.tabBar.frame.origin.y - 30 - bottomPadding); // - centerButtonFrame.size.height) - 10;
+    centerButtonFrame.origin.y = (self.tabBar.frame.origin.y - 30 - bottomPadding);
     centerButtonFrame.origin.x = self.view.bounds.size.width/2 - centerButtonFrame.size.width/2;
     
     self.centerButton.frame = centerButtonFrame;
@@ -163,11 +153,15 @@
     [self.view layoutIfNeeded];
 }
 
-
-- (void)showCenterButton:(BOOL)show
+- (void)hideCenterButton:(BOOL)hide
 {
-    self.centerButton.hidden = !show;
-    self.centerButton.enabled = show;
+    self.centerButton.hidden = hide;
+}
+
+- (void)hideTabbar:(BOOL)hide
+{
+    self.tabBar.hidden = hide;
+    [self hideCenterButton:hide];
 }
 
 - (void)showActivityIcon:(BOOL)show
@@ -192,27 +186,15 @@
 - (void)appLanguageDidChange:(NSNotification *)notification
 {
     [self updateLocalizations];
-    
-    NSString *imageName = [NSString stringWithFormat:@"help_icon_%@", [Settings sharedInstance].selectedLanguageCode];
-    UIImage *localizedImage = [UIImage imageNamed:imageName];
-    if (!localizedImage) {
-        localizedImage = [UIImage imageNamed:@"help_icon_en"];
-    }
-    [self.centerButton setImage:localizedImage forState:UIControlStateNormal];
 }
 
 - (void)updateLocalizations
 {
-    for (UINavigationController *controller in self.viewControllers) {
-        if([controller isKindOfClass:[UINavigationController class]]) {
-            if(  controller.viewControllers != nil ) {
-                SYViewController *tabbarItemViewController = [controller.viewControllers objectAtIndex:0];
-                if ([tabbarItemViewController respondsToSelector:@selector(updateLocalizations)]) {
-                    [tabbarItemViewController updateLocalizations];
-                }
-            }
-        }
-    }
+    [self.centerButton setTitle:LOC(@"help_title_key").uppercaseString forState:UIControlStateNormal];
+    [[self.tabBar.items objectAtIndex:0] setTitle:LOC(@"forums_title_key")];
+    [[self.tabBar.items objectAtIndex:1] setTitle:LOC(@"network_title")];
+    [[self.tabBar.items objectAtIndex:3] setTitle:LOC(@"messages")];
+    [[self.tabBar.items objectAtIndex:4] setTitle:LOC(@"title_menu")];
 }
 
 #pragma mark - Actions
@@ -248,6 +230,27 @@
         self.forumActivitiIcon.hidden = !(self.forumActivityCount > 0);
     }
     
+}
+
+- (void)checkReceivedNotification
+{
+    if ([Settings sharedInstance].receivedRemoteNotification) {
+        RemoteNotificationType notifyType = [[Settings sharedInstance].receivedRemoteNotification[@"notify_type"] integerValue];
+        if (notifyType == NotificationTypeNewForum || notifyType == NotificationTypeMessage) {
+            self.selectedIndex = 0;
+        }
+    } else if ([Settings sharedInstance].dynamicLinkUrl) {
+        self.selectedIndex = 0;
+    }
+}
+
+#pragma mark - Handle dynamic link
+
+- (void)handleDynamicLink
+{
+    if ([Settings sharedInstance].dynamicLinkUrl) {
+        self.selectedIndex = 0;
+    }
 }
 
 @end

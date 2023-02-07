@@ -7,8 +7,11 @@
 //
 
 #import "ForumCommentCell.h"
-#import "ForumCommentDataModel.h"
+#import "ChatMessageDataModel.h"
 #import <SDWebImage.h>
+#import "UserDataModel.h"
+#import "SocketIOManager.h"
+#import "MessageFileDataModel.h"
 
 @interface ForumCommentCell ()
 
@@ -16,24 +19,35 @@
 @property (weak, nonatomic) IBOutlet HyRobotoLabelBold *userNameLabel;
 @property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *userRoleLabel;
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *commentContentLabel;
-@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UITextView *commentContentTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *messageContentImageView;
+
 @property (weak, nonatomic) IBOutlet HyRobotoLabelLight *commentDateLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *userCheckIconImageView;
-@property (weak, nonatomic) IBOutlet SYDesignableView *shadowedContentView;
+
+@property (weak, nonatomic) IBOutlet SYDesignableButton *likeButton;
+@property (weak, nonatomic) IBOutlet UIView *likeButtonDotSeperator;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *messageButton;
+@property (weak, nonatomic) IBOutlet UIView *messageButtonDotSeperator;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIView *replyButtonDotSeperator;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *moreButton;
+
+@property (weak, nonatomic) IBOutlet SYDesignableView *mainContentView;
+
+@property (weak, nonatomic) IBOutlet SYDesignableView *likesCountView;
+@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *likesCountLabel;
+
 
 @property (weak, nonatomic) IBOutlet SYDesignableView *replyInfoView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *replyInfoHeightConstraint;
 @property (weak, nonatomic) IBOutlet HyRobotoLabelItalic *replyInfoLabel;
 
-- (IBAction)replyButtonPressed:(UIButton *)sender;
-
-
 @end
 
 @implementation ForumCommentCell
 
-@synthesize commentData = _commentData;
+//@synthesize messageData = _messageData;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -48,58 +62,128 @@
     // Configure the view for the selected state
 }
 
-- (void)configureWithCommentData:(ForumCommentDataModel *)commentData
+- (void)configureWithMessageData:(ChatMessageDataModel *)messageData andUserAge:(BOOL)isMinorUser
 {
-    _commentData = commentData;
-    NSString *avatarUrlString = [NSString stringWithFormat:@"%@%@", BASE_RESOURCE_URL, commentData.imagePath];
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:avatarUrlString]];
-    self.userNameLabel.text = commentData.name;
+    self.messageData = messageData;
+    [self.avatarImageView sd_setImageWithURL:self.messageData.sender.avatarUrl];
+    self.userNameLabel.text = self.messageData.sender.userName;
     
-    self.commentContentLabel.text = commentData.message;
-    self.commentDateLabel.text = commentData.formattedCreatedDate;
-    if (commentData.userTypeId.integerValue == 1) {
-        self.userCheckIconImageView.hidden = NO;
+    if (messageData.messageFiles.count > 0) {
+        MessageFileDataModel *messageFileDataModel = [MessageFileDataModel modelObjectWithDictionary:messageData.messageFiles[0]];
+        if (messageFileDataModel.type == FileTypeImage) {
+            self.messageContentImageView.hidden = NO;
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnImageView:)];
+            [self.messageContentImageView addGestureRecognizer:tapGesture];
+            [self.messageContentImageView sd_setImageWithURL:[messageFileDataModel mediaPath] placeholderImage:messageData.messageImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                if(image != nil) {
+                    messageData.messageImage = image;
+                }
+            }];
+        }
     } else {
+        self.messageContentImageView.hidden = YES;
+    }
+    
+    if ((([SocketIOManager sharedInstance].chatOnlineUser.role == ChatUserRoleUser) && (_messageData.sender.role == ChatUserRoleUser)) || isMinorUser) {
+        self.messageButton.hidden = YES;
+        self.messageButtonDotSeperator.hidden = YES;
+    } else {
+        self.messageButton.hidden = NO;
+        self.messageButtonDotSeperator.hidden = NO;
+    }
+    
+    self.commentContentTextView.text = self.messageData.messageContent;
+    self.commentDateLabel.text = self.messageData.formattedCreatedDate;
+    
+    if (self.messageData.sender.role == ChatUserRoleUser) {
         self.userCheckIconImageView.hidden = YES;
+    } else {
+        self.userCheckIconImageView.hidden = NO;
     }
     self.userRoleLabel.textColorType = SYColorTypeMain1;
-    if (commentData.userTypeId.integerValue == 4) {
-        self.userCheckIconImageView.hidden = NO;
-    } else {
-        self.userCheckIconImageView.hidden = YES;
-    }
     
-    if (![commentData.userType.lowercaseString isEqualToString:@"visitor"]) {
-        self.userRoleLabel.text = commentData.userType.uppercaseString;
+    if (self.messageData.sender.role != ChatUserRoleUser) {
+        self.userRoleLabel.text = self.messageData.sender.roleLabel.uppercaseString;
     } else {
         self.userRoleLabel.text = @"";
     }
     [self.replyButton setTitle:LOC(@"reply_text_key") forState:UIControlStateNormal];
-    if (self.replyInfoLabel && commentData.isReply) {
-        self.replyInfoLabel.text = commentData.replyInfo;
+    if (self.replyInfoLabel && messageData.isReply) {
+        self.replyInfoLabel.text = messageData.replyInfo;
     }
     
-    if (commentData.isMine) {
-        self.shadowedContentView.backgroundColorType = SYColorTypeMain3;
-        self.shadowedContentView.backgroundColorAlpha = 1;
+//    if (self.messageData.likes.count) {
+//        self.likesCountView.hidden = NO;
+//        NSString *likesCountText = [NSString stringWithFormat:@"%@", @(self.messageData.likes.count)];
+//        self.likesCountLabel.text = likesCountText;
+//    } else {
+//        self.likesCountView.hidden = YES;
+//    }
+    [self configureLikeButton];
+    
+    if (messageData.isMine) {
+        self.mainContentView.backgroundColorType = SYColorTypeMain6;
+        self.mainContentView.backgroundColorAlpha = 1;
     } else {
-        self.shadowedContentView.backgroundColorType = SYColorTypeWhite;
-        self.shadowedContentView.backgroundColorAlpha = 1;
+        self.mainContentView.backgroundColorType = SYColorTypeWhite;
+        self.mainContentView.backgroundColorAlpha = 1;
     }
     
-    if (self.commentData.level.integerValue > 1) {
+    if (self.messageData.messageLevel > 0) {
         self.replyInfoView.hidden = NO;
         self.replyInfoHeightConstraint.constant = 30;
-        self.replyInfoLabel.text = _commentData.replyInfo;
+        self.replyInfoLabel.text = self.messageData.replyInfo;
     } else {
         self.replyInfoView.hidden = YES;
         self.replyInfoHeightConstraint.constant = 0;
     }
 }
 
-- (IBAction)replyButtonPressed:(UIButton *)sender {
+- (void)configureLikeButton
+{
+    if (self.messageData.isLiked) {
+        [self.likeButton setImage:[UIImage imageNamed:@"icon_like_selected"] forState:UIControlStateNormal];
+    } else {
+        [self.likeButton setImage:[UIImage imageNamed:@"icon_like"] forState:UIControlStateNormal];
+    }
+    self.likesCountView.hidden = YES;
+    NSString *likesCountText = [NSString stringWithFormat:@"%@", @(self.messageData.likesCount)];
+    self.likesCountLabel.text = likesCountText;
+}
+
+#pragma mark - IBActions
+
+- (IBAction)likeButtonPressed:(SYDesignableButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(commentCellDidSelectLike:isLiked:)]) {
+        self.messageData.isLiked = !self.messageData.isLiked;
+        self.messageData.likesCount = self.messageData.isLiked ? self.messageData.likesCount + 1 : self.messageData.likesCount - 1;
+        [self configureLikeButton];
+        [self.delegate commentCellDidSelectLike:self.messageData.messageId isLiked:self.messageData.isLiked];
+    }
+}
+
+- (IBAction)messageButtonPressed:(SYDesignableButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(commentCellDidSelectMessage:)]) {
+        [self.delegate commentCellDidSelectMessage:self];
+    }
+}
+
+- (IBAction)replyButtonPressed:(SYDesignableButton *)sender {
     if ([self.delegate respondsToSelector:@selector(commentCellDidSelectReply:)]) {
         [self.delegate commentCellDidSelectReply:self];
     }
 }
+
+- (IBAction)moreButtonPressed:(SYDesignableButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(commentCellDidSelectMore:moreButton:)]) {
+        [self.delegate commentCellDidSelectMore:self moreButton:sender];
+    }
+}
+
+- (void)tapOnImageView:(UITapGestureRecognizer *)sender {
+    if ([self.delegate respondsToSelector:@selector(commentCellDidSelectImage:)]) {
+        [self.delegate commentCellDidSelectImage:self];
+    }
+}
+
 @end

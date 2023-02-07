@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isFromForgotPasswordView;
 @property (nonatomic) BOOL isFromEditPhoneNumber;
 
-@property (nonatomic) BOOL isFromRegistration;
 @property (nonatomic) NSString *phoneNumber;
 @property (nonatomic) NSString *password;
 

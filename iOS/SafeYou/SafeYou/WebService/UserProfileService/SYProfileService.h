@@ -103,5 +103,12 @@ Delete Emergency Contact by Emergency Id
 - (void)removeUserAvatarComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure;
 
 
+/*
+ DELETE
+ Delete profile
+ endpoint: profile/delete
+ */
+- (void)deleteProfile:(void(^)(id response))complition failure:(void(^)(NSError *error))failure;
+
 
 @end

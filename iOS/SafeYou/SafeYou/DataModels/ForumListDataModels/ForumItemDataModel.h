@@ -7,8 +7,7 @@
 //
 
 #import "BaseDataModel.h"
-
-
+@class ImageDataModel;
 
 @interface ForumItemDataModel : BaseDataModel
 
@@ -23,10 +22,13 @@
 @property (nonatomic, assign) NSInteger usersCount;
 @property (nonatomic, strong) NSString *forumItemDescription;
 @property (nonatomic, assign) NSInteger commentsCount;
+@property (nonatomic, assign) NSInteger viewsCount;
 @property (nonatomic, assign) NSInteger newMessagesCount;
+@property (nonatomic, strong) ImageDataModel *imageData;
+@property (nonatomic, strong) NSString *author;
 
 @property (nonatomic, strong) NSURL *imageURL;
 
-
+@property (nonatomic) NSString *formattedCreatedAt;
 
 @end

@@ -30,10 +30,10 @@
 
     if (selected || self.viewData.isSelected) {
         self.titleLabel.textColorType = SYColorTypeMain1;
-        [self.radioButton setImage:[UIImage imageNamed:@"radio_button_purple_selected"] forState:UIControlStateNormal];
+        [self.radioButton setImage:[UIImage imageNamed:@"radio_button_pink_selected"] forState:UIControlStateNormal];
     } else {
         self.titleLabel.textColorType = SYColorTypeBlack;
-        [self.radioButton setImage:[UIImage imageNamed:@"radion_button_purple_empty"] forState:UIControlStateNormal];
+        [self.radioButton setImage:[UIImage imageNamed:@"radion_button_pink_empty"] forState:UIControlStateNormal];
     }
 }
 

@@ -31,7 +31,7 @@
 
 - (void)configureWithNumber:(NSNumber *)repliesNumber
 {
-    self.numberOfRepliesLabel.text = [NSString stringWithFormat:LOC(@"{param}_replies"), repliesNumber];
+    self.numberOfRepliesLabel.text = [NSString stringWithFormat:LOC(@"count_replies"), repliesNumber];
     self.viewMoreRepliesLabel.text = LOC(@"view_more_replies");
 }
 

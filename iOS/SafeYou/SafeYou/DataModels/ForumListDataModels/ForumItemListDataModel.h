@@ -13,7 +13,7 @@
 @interface ForumItemListDataModel : BaseDataModel
 
 @property (nonatomic, strong) NSArray <ForumItemDataModel *>*forumItems;
-
+@property (nonatomic) NSInteger lastPage;
 
 
 @end

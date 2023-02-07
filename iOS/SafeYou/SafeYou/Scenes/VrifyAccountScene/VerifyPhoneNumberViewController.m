@@ -66,6 +66,7 @@
     [self enableKeyboardNotifications];
     [self configureGradientBackground];
     [self.inputOTPTextField createNumberTextFieldInputAccessoryView];
+    [self disableNextButton];
     [self start];
 }
 
@@ -102,12 +103,39 @@
     self.resendButton.titleColorTypeAlpha = 0.7;
 }
 
+#pragma mark - ResendButton
+
+- (void)enableNextButton
+{
+    self.nextButton.enabled = YES;
+    self.nextButton.backgroundColorAlpha = 1.0;
+    self.nextButton.titleColorTypeAlpha = 1.0;
+}
+
+- (void)disableNextButton
+{
+    self.nextButton.enabled = NO;
+    self.nextButton.backgroundColorAlpha = 0.8;
+    self.nextButton.titleColorTypeAlpha = 0.7;
+}
+
 #pragma mark - UITaxtFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldDidChangeSelection:(UITextField *)textField
+{
+    if (self.inputOTPTextField == textField) {
+        if (textField.text.length > 0) {
+            [self enableNextButton];
+        } else {
+            [self disableNextButton];
+        }
+    }
 }
 
 #pragma mark - Timer
@@ -134,11 +162,8 @@
 
 - (void)updateLocalizations
 {
-    self.inputOTPTextField.text = @"";
-    self.inputOTPTextField.placeholder = LOC(@"enter_code_here");
     self.titleLabel.text = LOC(@"verifying_otp_text_key");
     self.infoTextLabel.text = [NSString stringWithFormat:LOC(@"otp_info_text_key"), self.phoneNumber];
-    self.inputOTPTextField.placeholder = LOC(@"code");
     [self.nextButton setTitle:LOC(@"next_key") forState:UIControlStateNormal];
     [self.resendButton setTitle:LOC(@"resend_title_key") forState:UIControlStateNormal];
 }
@@ -148,14 +173,7 @@
 
 // @FIXME: Dublicate code need refactor
 - (void)configureGradientBackground {
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    
-    gradient.frame = self.view.bounds;
-    UIColor *color1 = [UIColor colorWithSYColor:SYGradientColorTypeBottom alpha:1.0];
-    UIColor *color2 = [UIColor colorWithSYColor:SYGradientColorTypeTop alpha:1.0];
-    gradient.colors = @[(id)color2.CGColor, (id)color1.CGColor];
-    
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    self.view.backgroundColor = [UIColor mainTintColor2];
 }
 
 - (IBAction)resendButtonPressed:(UIButton *)sender {
@@ -165,11 +183,6 @@
 
 - (IBAction)nextButtonPressed:(UIButton *)sender {
     self.insertedCode = self.inputOTPTextField.text;
-    if (self.insertedCode.length == 0) {
-        [self showAlertViewWithTitle:LOC(@"error_text_key")
-                         withMessage:LOC(@"enter_code_sent_to_number") cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
-        return;
-    }
     if (self.isFromForgotPasswordView) {
         [self showLoader];
         weakify(self);
@@ -180,6 +193,7 @@
         } failure:^(NSError * _Nonnull error) {
             strongify(self);
             [self hideLoader];
+            [self handleError:error.userInfo];
         }];
     } else if (self.isFromEditPhoneNumber) {
         [self verifyNumberFromEditPhoneNumber];
@@ -195,7 +209,7 @@
         } failure:^(NSError * _Nonnull error) {
             strongify(self);
             [self hideLoader];
-            // handle error
+            [self handleError:error.userInfo];
         }];
     }
 }
@@ -210,8 +224,6 @@
         strongify(self);
         [self hideLoader];
         if (response[@"refresh_token"] && response[@"access_token"]) {
-            [Settings sharedInstance].userRefreshToken = response[@"refresh_token"];
-            [Settings sharedInstance].userAuthToken = response[@"access_token"];
             [self fetchUserProfileData];
         }
     } failure:^(NSError * _Nonnull error) {
@@ -224,8 +236,6 @@
 - (void)fetchUserProfileData
 {
     [self.profileDataService getUserDataWithComplition:^(UserDataModel *userData) {
-        [Settings sharedInstance].onlineUser = userData;
-        
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [appDelegate openApplication:YES];
     } failure:^(NSError *error) {
@@ -319,5 +329,24 @@
     }
 }
 
+#pragma mark - Error Handling
+
+- (void)handleError:(NSDictionary *)errorInfo
+{
+    NSString *message = @"";
+    if (errorInfo[@"message"]) {
+        if ([errorInfo[@"message"] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *errorMessageDict = errorInfo[@"message"];
+            if ([errorMessageDict[@"message"] isKindOfClass:[NSArray class]]) {
+                message = errorMessageDict[@"message"][0];
+            } else {
+                message = errorMessageDict[@"message"];
+            }
+        } else {
+            message = errorInfo[@"message"];
+        }
+    }
+    [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:message cancelButtonTitle:nil okButtonTitle:LOC(@"ok") cancelAction:nil okAction:nil];
+}
 
 @end
