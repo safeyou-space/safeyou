@@ -31,15 +31,7 @@
 
 - (void)registerUserWithData:(NSDictionary *)userDataDict withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager POST:@"registration" parameters:userDataDict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    complition(nil);
 }
 
 /*
@@ -69,16 +61,7 @@
 
 - (void)verifyPhoneNumber:(NSString *)phoneNumber withCode:(NSString *)verificationCode withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    NSDictionary *params = @{@"phone":phoneNumber, @"code":verificationCode};
-    [self.networkManager POST:@"verify_phone" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    complition(nil);
 }
 
 /*
@@ -92,16 +75,7 @@
 
 - (void)resendVerifyCodeToPhoneNumber:(NSString *)phoneNumber withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    NSDictionary *params = @{@"phone":phoneNumber};
-    [self.networkManager POST:@"resend_verify_code" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    complition(nil);
 }
 
 /*
@@ -115,16 +89,7 @@
 
 - (void)sendForgotPasswordWithPhoneNumber:(NSString *)phoneNumber withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    NSDictionary *params = @{@"phone":phoneNumber};
-    [self.networkManager POST:@"forgot_password" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    complition(nil);
 }
 
 
@@ -140,16 +105,7 @@
 
 - (void)verifyForgotPasswordPhoneNumber:(NSString *)phoneNumber withCode:(NSString *)verificationCode withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    NSDictionary *params = @{@"phone":phoneNumber, @"code":verificationCode};
-    [self.networkManager POST:@"forgot_password_verify_code" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    complition(nil);
 }
 
 
@@ -167,19 +123,7 @@
 
 - (void)createNewpassowrd:(NSString *)password confirm:(NSString *)confirmPassowrd token:(NSString *)token andPhoneNumber:(NSString *)phoneNumber withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    NSDictionary *params = @{@"password":password,
-                             @"confirm_password":confirmPassowrd,
-                             @"token":token,
-                             @"phone":phoneNumber};
-    [self.networkManager POST:@"create_password" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    complition(nil);
 }
 
 
@@ -211,18 +155,7 @@
 
 - (void)changePassowrd:(NSString *)oldPassword withNewPassword:(NSString *)newPassword confirmPassword:(NSString *)confirmPassword withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    NSDictionary *params = @{@"old_password":oldPassword,
-                             @"password":newPassword,
-                             @"confirm_password":confirmPassword};
-    [self.networkManager POST:@"profile/change_password" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    complition(nil);
 }
 
 /*
@@ -233,15 +166,7 @@
 
 - (void)logoutUserWithComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager POST:@"logout" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (complition) {
-            complition(responseObject);
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
-        }
-    }];
+    complition(nil);
 }
 
 /*
@@ -275,8 +200,8 @@
 
 - (void)updateUserAuthToken:(NSString *)userAuthToken refreshToken:(NSString *)refreshToken
 {
-    [Settings sharedInstance].userAuthToken = userAuthToken;
-    [Settings sharedInstance].userRefreshToken = refreshToken;
+    [Settings sharedInstance].userAuthToken = @"";
+    [Settings sharedInstance].userRefreshToken = @"";
 }
 
 @end

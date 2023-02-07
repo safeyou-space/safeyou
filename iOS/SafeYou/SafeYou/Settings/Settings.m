@@ -137,7 +137,7 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 - (void)setUserAuthToken:(NSString *)userAuthToken
 {
-    _userAuthToken = userAuthToken;
+    _userAuthToken = @"";
 }
 
 - (void)setUserRefreshToken:(NSString *)userRefreshToken
