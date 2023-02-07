@@ -337,8 +337,7 @@ didFailWithError:(NSError *)error
 
 - (void)configureFirebase
 {
-    [FIRApp configure];
-    [FIRMessaging messaging].delegate = self;
+    
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
