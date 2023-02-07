@@ -1,89 +1,57 @@
 package fambox.pro.presenter;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 
-import com.google.gson.Gson;
+import androidx.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.net.HttpURLConnection;
+import java.util.List;
 
+import fambox.pro.Constants;
 import fambox.pro.SafeYouApp;
-import fambox.pro.network.SocketHandler;
-import fambox.pro.network.model.chat.BaseNotificationResponse;
-import fambox.pro.network.model.chat.NotificationData;
 import fambox.pro.presenter.basepresenter.BasePresenter;
+import fambox.pro.privatechat.network.model.BaseModel;
+import fambox.pro.privatechat.network.model.ChatMessage;
+import fambox.pro.privatechat.network.model.Notification;
+import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.view.NotificationContract;
-import io.socket.emitter.Emitter;
+import io.socket.client.Socket;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NotificationPresenter extends BasePresenter<NotificationContract.View>
         implements NotificationContract.Presenter {
-    private SocketHandler mSocketHandler;
-    private Set<BaseNotificationResponse> mNotificationResponseTemp = new HashSet<>();
-    private Emitter.Listener onNotification = args -> {
-        if (args[0] instanceof JSONObject) {
-            String json = args[0].toString();
-            BaseNotificationResponse baseNotificationResponse = new Gson().fromJson(json, BaseNotificationResponse.class);
-            if (mNotificationResponseTemp.contains(baseNotificationResponse)) {
-                if (mNotificationResponseTemp.remove(baseNotificationResponse)) {
-                    mNotificationResponseTemp.add(baseNotificationResponse);
-                }
-            }
-            mNotificationResponseTemp.add(baseNotificationResponse);
-            new Handler(Looper.getMainLooper()).post(() -> {
-                try {
-                    getView().initRecView(new ArrayList<>(mNotificationResponseTemp));
-                } catch (Exception ignore) {
-
-                }
-            });
-        }
-        new Handler(Looper.getMainLooper()).post(() -> {
-            try {
-                if (getView() != null) {
-                    getView().setProgressVisibility(View.GONE);
-                }
-            } catch (Exception ignore) {
-
-            }
-        });
-    };
+    private Socket mSocket;
 
     @Override
     public void viewIsReady() {
-        SafeYouApp application = ((SafeYouApp) getView().getApplication());
-        mSocketHandler = application.getSocket();
+        mSocket = ((SafeYouApp) getView().getApplication()).getChatSocket("").getSocket();
         getNotifications();
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            if (getView() != null) {
-                getView().setProgressVisibility(View.GONE);
-            }
-        }, 5000);
     }
 
     @Override
-    public void destroy() {
-        super.destroy();
-        if (mSocketHandler != null) {
-            mSocketHandler.off("SafeYOU_V4##NOTIFICATION#RESULT", onNotification);
-        }
-    }
-
-    @Override
-    public void onClickReply(NotificationData notificationData) {
+    public void onClickReply(Notification notificationData) {
         try {
             JSONObject keyObject = new JSONObject();
-            keyObject.put("key", notificationData.getKey());
-            mSocketHandler.emit("SafeYOU_V4##READ_NOTIFICATION", keyObject);
+            keyObject.put("notify_id", notificationData.getNotify_id());
+            if (mSocket != null) {
+                mSocket.emit("signal", 18, keyObject);
+                mSocket.emit("signal", 19, new JSONObject());
+            }
+            ChatMessage message = notificationData.getNotify_body();
             Bundle bundle = new Bundle();
-            bundle.putLong("comment_id", Long.parseLong(notificationData.getForum_id()));
-            bundle.putLong("reply_id", Long.parseLong(notificationData.getReply_id()));
+            bundle.putLong("reply_id", notificationData.getNotify_id());
+            bundle.putBoolean("is_opened_from_notification", true);
+            bundle.putLong("message_parent_id", message.getMessage_parent_id());
+            bundle.putString("room_key", message.getMessage_room_key());
+            bundle.putLong("message_id", message.getMessage_id());
+            bundle.putLong("forum_id", notificationData.getNotify_type() == 2 ? message.getMessage_forum_id() : message.getId());
+            bundle.putLong("notification_type", notificationData.getNotify_type());
             getView().startForumActivity(bundle);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -91,10 +59,32 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
     }
 
     private void getNotifications() {
-        if (getView() != null) {
+        if (SafeYouApp.getChatApiService() != null) {
             getView().setProgressVisibility(View.VISIBLE);
+            SafeYouApp.getChatApiService().getNotifications().enqueue(new Callback<BaseModel<List<Notification>>>() {
+                @Override
+                public void onResponse(@NonNull Call<BaseModel<List<Notification>>> call,
+                                       @NonNull Response<BaseModel<List<Notification>>> response) {
+                    if (RetrofitUtil.isResponseSuccess(response, HttpURLConnection.HTTP_OK)) {
+                        if (response.body() != null) {
+                            List<Notification> notificationResponses = response.body().getData();
+                            if (notificationResponses != null) {
+                                getView().initRecView(notificationResponses);
+                            }
+                        }
+                    }
+                    if (getView() != null) {
+                        getView().setProgressVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<BaseModel<List<Notification>>> call, @NonNull Throwable t) {
+                    if (getView() != null) {
+                        getView().setProgressVisibility(View.GONE);
+                    }
+                }
+            });
         }
-        mSocketHandler.on("SafeYOU_V4##NOTIFICATION#RESULT", onNotification);
-        mSocketHandler.emit("SafeYOU_V4##NOTIFICATION");
     }
 }

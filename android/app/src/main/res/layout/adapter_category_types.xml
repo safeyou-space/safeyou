@@ -2,29 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_8sdp"
-    android:layout_marginBottom="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_10sdp"
     android:gravity="center">
 
     <ToggleButton
         android:id="@+id/tglCategoryType"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_5sdp"
-        android:paddingStart="@dimen/_5sdp"
-        android:paddingEnd="@dimen/_5sdp"
-        android:minWidth="@dimen/_40sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_10sdp"
+        android:minWidth="@dimen/_20sdp"
         android:background="@drawable/toggle_map_filter_background"
         android:checked="false"
-        android:fontFamily="@font/hay_roboto_light"
+        android:fontFamily="@font/hay_roboto_normal"
         android:gravity="center"
         android:textAllCaps="false"
-        android:textColor="@color/statusBarColorPurpleDark"
+        android:textColor="@color/black"
         android:textOff=""
         android:textOn=""
-        android:textSize="@dimen/_14ssp" />
+        android:textSize="@dimen/_13ssp" />
 
 
 </LinearLayout>

@@ -1,9 +1,14 @@
 package fambox.pro.view.fragment;
 
+import static fambox.pro.Constants.BASE_URL;
+import static fambox.pro.Constants.Key.KEY_CHANGE_LANGUAGE;
+import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
+import static fambox.pro.Constants.Key.KEY_IS_DARK_MODE_ENABLED;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +20,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
+
+import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,38 +34,38 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import fambox.pro.BaseActivity;
 import fambox.pro.Constants;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.presenter.fragment.FragmentOtherPresenter;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.view.BecomeConsultantActivity;
+import fambox.pro.view.BlockUserActivity;
 import fambox.pro.view.ChooseAppLanguageActivity;
 import fambox.pro.view.ChooseCountryActivity;
-import fambox.pro.view.DualPinActivity;
 import fambox.pro.view.EditProfileActivity;
+import fambox.pro.view.EmergencyContactActivity;
 import fambox.pro.view.HelpActivity;
+import fambox.pro.view.LegalActivity;
 import fambox.pro.view.LoginWithBackActivity;
 import fambox.pro.view.MainActivity;
+import fambox.pro.view.RecordActivity;
 import fambox.pro.view.SecurityLoginActivity;
-import fambox.pro.view.TermsAndConditionsActivity;
-import fambox.pro.view.dialog.PinDeleteDialog;
-
-import static fambox.pro.Constants.BASE_URL;
-import static fambox.pro.Constants.Key.KEY_CHANGE_LANGUAGE;
-import static fambox.pro.Constants.Key.KEY_CHANGE_PIN;
-import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
+import fambox.pro.view.WebViewActivity;
+import fambox.pro.view.dialog.DeleteAccountDialog;
 
 public class FragmentOther extends BaseFragment implements FragmentOtherContract.View {
 
     private FragmentOtherPresenter mFragmentOtherPresenter;
     private FragmentActivity mContext;
-    private boolean isFirst;
+    private FragmentProfile.ChangeMainPageListener mChangeMainPageListener;
 
-    //    @BindView(R.id.containerCreatePin)
-    //    ConstraintLayout containerCreatePin;
-
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     @BindView(R.id.pinSwitchNotification)
     Switch pinSwitchNotification;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    @BindView(R.id.switchDarkMode)
+    Switch switchDarkMode;
 
     @BindView(R.id.txtCountryName)
     TextView txtCountryName;
@@ -67,9 +75,13 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
     CircleImageView iconCountry;
     @BindView(R.id.otherLoading)
     LinearLayout otherLoading;
+    @BindView(R.id.becomeConsultantRequest)
+    TextView becomeConsultantRequest;
+    @BindView(R.id.becomeConsultant)
+    TextView becomeConsultant;
 
     @Override
-    protected View provideYourFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View fragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_other, container, false);
     }
 
@@ -81,6 +93,14 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
         mFragmentOtherPresenter.viewIsReady();
         if (getActivity() != null) {
             mContext = getActivity();
+        }
+    }
+
+    @Override
+    public void onAttach(@NotNull Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentProfile.ChangeMainPageListener) {
+            mChangeMainPageListener = (FragmentProfile.ChangeMainPageListener) context;
         }
     }
 
@@ -116,77 +136,62 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
         if (button.getId() == R.id.pinSwitchNotification) {
             String countryCode = SafeYouApp.getPreference().getStringValue(KEY_COUNTRY_CODE, "");
             mFragmentOtherPresenter.checkNotificationStatus(checked, countryCode,
-                    SafeYouApp.getLocale());
+                    LocaleHelper.getLanguage(getContext()));
         }
     }
 
-    private void openPinDeleteDialog(boolean checked) {
-        boolean withPin =
-                SafeYouApp.getPreference(mContext).getBooleanValue(Constants.Key.KEY_WITHOUT_PIN, false);
-        if (checked && !withPin) {
-            goDualPinWithResult(true);
-        } else if (!checked && withPin) {
-            PinDeleteDialog pinDeleteDialog = new PinDeleteDialog(mContext, true);
-            if (pinDeleteDialog.getWindow() != null) {
-                pinDeleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+    @OnCheckedChanged(R.id.switchDarkMode)
+    void onDarkModeChanged(CompoundButton button, boolean checked) {
+        if (button.getId() == R.id.switchDarkMode) {
+            SafeYouApp.getPreference().setValue(KEY_IS_DARK_MODE_ENABLED, checked);
+            if (checked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
             }
-            pinDeleteDialog.setSwitchStateListener((canceled) -> {
-//                containerCreatePin.setVisibility(canceled ? View.VISIBLE : View.GONE);
-//                pinSwitch.setChecked(canceled);
-            });
-            pinDeleteDialog.show();
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1010) {
-            if (resultCode == Activity.RESULT_OK) {
-//                containerCreatePin.setVisibility(View.VISIBLE);
-//                pinSwitch.setChecked(true);
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-                if (isFirst) {
-//                    containerCreatePin.setVisibility(View.GONE);
-//                    pinSwitch.setChecked(false);
-                }
-
+        if (resultCode == Activity.RESULT_OK && requestCode == 1212) {
+            if (data != null) {
+                mChangeMainPageListener.onPageChange(data.getIntExtra("page", 1),
+                        data.getLongExtra("serviceId", 0), data.getBooleanExtra("isSendSms", false));
             }
         }
     }
 
-    private void goDualPinWithResult(boolean isFirst) {
-        this.isFirst = isFirst;
-        Intent intent = new Intent(getActivity(), DualPinActivity.class);
-        intent.putExtra(KEY_CHANGE_PIN, true);
-        startActivityForResult(intent, 1010);
+    @OnClick(R.id.containerRecords)
+    void onClickRecList() {
+        startActivity(new Intent(getActivity(), RecordActivity.class));
     }
 
-//    @OnClick(R.id.containerConsultant)
-//    void onClickConsultant() {
-//        nextActivity(getActivity(), BecomeConsultantActivity.class);
-//    }
+    @OnClick(R.id.containerEmergencyContacts)
+    void onClickEmergencyContact() {
+        startActivityForResult(new Intent(getActivity(), EmergencyContactActivity.class), 1212);
+    }
+
+    @OnClick(R.id.containerConsultant)
+    void onClickConsultant() {
+        nextActivity(getActivity(), BecomeConsultantActivity.class);
+    }
+
+    @OnClick(R.id.containerLegal)
+    void onClickLegal() {
+        nextActivity(getActivity(), LegalActivity.class);
+    }
 
     @OnClick(R.id.containerDualPin)
     void onClickPinEdit() {
         nextActivity(getActivity(), SecurityLoginActivity.class);
-//        boolean isPinCodeEnabled = SafeYouApp.getPreference(mContext).getBooleanValue(Constants.Key.KEY_WITHOUT_PIN, false);
-//        if (isPinCodeEnabled) {
-//            PinDeleteDialog pinDeleteDialog = new PinDeleteDialog(mContext);
-//            if (pinDeleteDialog.getWindow() != null) {
-//                pinDeleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//            }
-//            pinDeleteDialog.setSwitchStateListener((canceled) -> {
-//                if (canceled) {
-//                    nextActivity(getActivity(), ChangeAppIconActivity.class);
-//                }
-//            });
-//            pinDeleteDialog.show();
-//        } else {
-//            nextActivity(getActivity(), ChangeAppIconActivity.class);
-//        }
+    }
+
+    @OnClick(R.id.containerBlockUser)
+    void onClickBlockUser() {
+        nextActivity(getActivity(), BlockUserActivity.class);
     }
 
     @OnClick(R.id.containerTutorial)
@@ -198,13 +203,8 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
 
     @OnClick(R.id.containerAboutUs)
     void onClickAboutUs() {
-        mFragmentOtherPresenter.clickTermAndCondition();
+        mFragmentOtherPresenter.clickAboutUs();
     }
-
-//    @OnClick(R.id.containerChangePassword)
-//    void clickEditPassword() {
-//        nextActivity(getActivity(), SettingsChangePassActivity.class);
-//    }
 
     @OnClick(R.id.containerChangeLanguage)
     void onClickChangeLanguage() {
@@ -226,6 +226,27 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
     }
 
     @Override
+    public void configConsultantRequest(int status) {
+        String text;
+        int visibility;
+        if (status == 0) {
+            text = getResources().getString(R.string.pending);
+            visibility = View.VISIBLE;
+        } else if (status == 1) {
+            text = getResources().getString(R.string.approved);
+            visibility = View.VISIBLE;
+        } else if (status == 2) {
+            text = getResources().getString(R.string.declined);
+            visibility = View.VISIBLE;
+        } else {
+            text = getResources().getString(R.string.become_consultant_title);
+            visibility = View.GONE;
+        }
+        becomeConsultant.setVisibility(visibility);
+        becomeConsultantRequest.setText(text);
+    }
+
+    @Override
     public void setCountry(String countryName, String imageUrl) {
         txtCountryName.setText(countryName);
         if (imageUrl != null) {
@@ -242,14 +263,35 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
     @OnClick(R.id.containerLogOut)
     void onClickLogout() {
         AlertDialog.Builder ad = new AlertDialog.Builder(mContext);
-        ad.setTitle(R.string.log_out);
-        ad.setMessage(R.string.do_you_log_out);
-        ad.setPositiveButton(R.string.yes, (dialogInterface, i) -> {
-            mFragmentOtherPresenter.logout(((MainActivity) mContext).getCountryCode(),
-                    ((MainActivity) mContext).getLocale());
-        });
+        ad.setTitle(R.string.log_out_title_key);
+        ad.setMessage(R.string.want_logout_text_key);
+        ad.setPositiveButton(R.string.yes, (dialogInterface, i) ->
+                mFragmentOtherPresenter.logout(((MainActivity) mContext).getCountryCode(),
+                ((MainActivity) mContext).getLocale()));
         ad.setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.dismiss());
         ad.create().show();
+    }
+
+    @OnClick(R.id.containerDeleteAccount)
+    void onDeleteAccount() {
+        if (getContext() == null) {
+            return;
+        }
+        DeleteAccountDialog securityQuestionDialog = new DeleteAccountDialog(getContext());
+        securityQuestionDialog.setDialogClickListener((dialog, which) -> {
+            switch (which) {
+                case DeleteAccountDialog.CLICK_CLOSE:
+                case DeleteAccountDialog.CLICK_CANCEL:
+                    dialog.dismiss();
+                    break;
+                case DeleteAccountDialog.CLICK_DELETE:
+                    mFragmentOtherPresenter.deleteAccount(((MainActivity) mContext).getCountryCode(),
+                            ((MainActivity) mContext).getLocale());
+                    dialog.dismiss();
+                    break;
+            }
+        });
+        securityQuestionDialog.show();
     }
 
     @Override
@@ -259,8 +301,8 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
     }
 
     @Override
-    public void goTermAndCondition(Bundle bundle) {
-        nextActivity(mContext, TermsAndConditionsActivity.class, bundle);
+    public void goWebViewActivity(Bundle bundle) {
+        nextActivity(mContext, WebViewActivity.class, bundle);
     }
 
     @Override
@@ -289,13 +331,12 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
     }
 
     @Override
-    public void configSwitchButton(boolean checked) {
-//        pinSwitch.setChecked(!checked);
-//        containerCreatePin.setVisibility(!checked ? View.VISIBLE : View.GONE);
+    public void configNotificationSwitch(boolean checked) {
+        pinSwitchNotification.setChecked(checked);
     }
 
     @Override
-    public void configNotificationSwitch(boolean checked) {
-        pinSwitchNotification.setChecked(checked);
+    public void configDarkModeSwitch(boolean checked) {
+        switchDarkMode.setChecked(checked);
     }
 }

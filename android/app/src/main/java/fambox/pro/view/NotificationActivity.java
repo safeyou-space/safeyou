@@ -7,16 +7,14 @@ import android.widget.LinearLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fambox.pro.BaseActivity;
 import fambox.pro.R;
-import fambox.pro.network.model.chat.BaseNotificationResponse;
-import fambox.pro.network.model.chat.NotificationData;
 import fambox.pro.presenter.NotificationPresenter;
+import fambox.pro.privatechat.network.model.Notification;
 import fambox.pro.view.adapter.AdapterNotification;
 
 public class NotificationActivity extends BaseActivity implements NotificationContract.View {
@@ -32,11 +30,17 @@ public class NotificationActivity extends BaseActivity implements NotificationCo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addAppBar(null, false, true, false,
-                getResources().getString(R.string.title_notifications), false);
+                getResources().getString(R.string.notifications_title_key), false);
         ButterKnife.bind(this);
         mNotificationPresenter = new NotificationPresenter();
         mNotificationPresenter.attachView(this);
-        mNotificationPresenter.viewIsReady();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mNotificationPresenter != null)
+            mNotificationPresenter.viewIsReady();
     }
 
     @Override
@@ -94,16 +98,11 @@ public class NotificationActivity extends BaseActivity implements NotificationCo
     }
 
     @Override
-    public void initRecView(List<BaseNotificationResponse> notificationResponses) {
-        Collections.sort(notificationResponses,
-                (o1, o2) -> o2.getData().getCreated_at().compareTo(o1.getData().getCreated_at()));
+    public void initRecView(List<Notification> notificationResponses) {
         AdapterNotification adapterNotification = new AdapterNotification(this, notificationResponses);
-        adapterNotification.setOnClickNotification(v -> {
-            if (v.getTag() instanceof NotificationData) {
-                mNotificationPresenter.onClickReply((NotificationData) v.getTag());
-            }
+        adapterNotification.setOnClickNotification(notification -> {
+            mNotificationPresenter.onClickReply(notification);
         });
-
         LinearLayoutManager horizontalLayoutManager =
                 new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recViewNotifications.setLayoutManager(horizontalLayoutManager);

@@ -11,8 +11,6 @@ import fambox.pro.enums.Types;
 import fambox.pro.presenter.LoginPagePresenter;
 import fambox.pro.utils.Utils;
 
-import static fambox.pro.Constants.Key.KEY_IS_TERM;
-
 public class LoginPageActivity extends BaseActivity implements LoginPageContract.View {
 
     private LoginPagePresenter mLoginPagePresenter;
@@ -20,9 +18,9 @@ public class LoginPageActivity extends BaseActivity implements LoginPageContract
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_BLACK_STATUS_BAR_PURPLE_LIGHT);
-        addAppBar(null,true, true, false,
-                null,false);
+        Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE_DARK);
+        addAppBar(null, true, true, false,
+                null, false);
         ButterKnife.bind(this);
         mLoginPagePresenter = new LoginPagePresenter();
         mLoginPagePresenter.attachView(this);
@@ -75,11 +73,4 @@ public class LoginPageActivity extends BaseActivity implements LoginPageContract
         nextActivity(this, RegistrationActivity.class);
     }
 
-
-    @OnClick(R.id.txtLicense)
-    void clickTermsAndConditions() {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(KEY_IS_TERM, true);
-        nextActivity(this, TermsAndConditionsActivity.class, bundle);
-    }
 }

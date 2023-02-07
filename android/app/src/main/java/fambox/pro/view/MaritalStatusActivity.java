@@ -1,12 +1,12 @@
 package fambox.pro.view;
 
+import static fambox.pro.Constants.Key.KEY_MARITAL_STATUS;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,13 +16,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fambox.pro.BaseActivity;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.network.model.MarriedListResponse;
 import fambox.pro.presenter.MaritalStatusPresenter;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.view.adapter.MarriedListAdapter;
-
-import static fambox.pro.Constants.Key.KEY_MARITAL_STATUS;
 
 public class MaritalStatusActivity extends BaseActivity implements MaritalStatusContract.View {
 
@@ -47,9 +46,9 @@ public class MaritalStatusActivity extends BaseActivity implements MaritalStatus
             isRegistration = bundle.getBoolean("registration_key");
             registrationMaritalPosition = bundle.getInt("registration_marital_position", -1);
         }
-        mMaritalStatusPresenter.getMaritalList(getCountryCode(), getLocale());
+        mMaritalStatusPresenter.getMaritalList(getCountryCode(), LocaleHelper.getLanguage(getContext()));
         addAppBar(null, false, true,
-                false, getResources().getString(R.string.select_marital_status), false);
+                false, getResources().getString(R.string.select_marital_status_text_key), false);
     }
 
     @Override
@@ -73,7 +72,7 @@ public class MaritalStatusActivity extends BaseActivity implements MaritalStatus
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             } else {
-                mMaritalStatusPresenter.setMaritalStatus(getCountryCode(), getLocale(), type);
+                mMaritalStatusPresenter.setMaritalStatus(getCountryCode(), LocaleHelper.getLanguage(getContext()), type);
             }
         });
         recViewMaritalList.setAdapter(marriedListAdapter);

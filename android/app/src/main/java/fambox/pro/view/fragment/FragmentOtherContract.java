@@ -17,6 +17,8 @@ public interface FragmentOtherContract {
 
         Context getAppContext();
 
+        void configConsultantRequest(int status);
+
         void setCountry(String countryName, String imageUrl);
 
         void setLanguage(String text);
@@ -25,13 +27,13 @@ public interface FragmentOtherContract {
 
         void dismissProgress();
 
-        void configSwitchButton(boolean checked);
-
         void configNotificationSwitch(boolean checked);
+
+        void configDarkModeSwitch(boolean checked);
 
         void logout();
 
-        void goTermAndCondition(Bundle bundle);
+        void goWebViewActivity(Bundle bundle);
     }
 
     interface Presenter extends MvpPresenter<FragmentOtherContract.View> {
@@ -41,9 +43,13 @@ public interface FragmentOtherContract {
 
         void logout(String countryCode, String locale);
 
-        void clickTermAndCondition();
+        void deleteAccount(String countryCode, String locale);
+
+        void clickAboutUs();
 
         void checkIsNotificationEnabled();
+
+        void checkIsDarkModeEnabled();
 
         void checkNotificationStatus(boolean checked, String countryCode, String locale);
     }
@@ -59,5 +65,8 @@ public interface FragmentOtherContract {
 
         void logout(Context context, String countryCode, String locale,
                     NetworkCallback<Response<Message>> response);
+
+        void deleteAccount(Context context, String countryCode, String locale,
+                           NetworkCallback<Response<Message>> response);
     }
 }

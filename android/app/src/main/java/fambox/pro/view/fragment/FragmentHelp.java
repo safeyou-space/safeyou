@@ -1,6 +1,7 @@
 package fambox.pro.view.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,12 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -36,12 +37,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fambox.pro.BaseActivity;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.audiorecordservice.AudioRecordService;
 import fambox.pro.enums.Types;
 import fambox.pro.presenter.fragment.FragmentHelpPresenter;
 import fambox.pro.utils.ContinuousLongClick;
 import fambox.pro.utils.SnackBar;
+import fambox.pro.view.EmergencyContactActivity;
 import fambox.pro.view.MainActivity;
 import fambox.pro.view.RecordActivity;
 import fambox.pro.view.dialog.RecordInfoDialog;
@@ -51,15 +54,31 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
 
     private FragmentHelpPresenter mFragmentHelpPresenter;
     private FragmentActivity mContext;
+    private FragmentProfile.ChangeMainPageListener mChangeMainPageListener;
+
     /**
      * This field for pass data to {@link fambox.pro.view.MainActivity}.
      * For change app bar title.
      */
     private PassData mPassData;
-
     private AudioRecordService mAudioRecordService;
-
     private boolean mBound = false;
+
+    @BindView(R.id.recordProgress)
+    ProgressBar recordProgress;
+    @BindView(R.id.pushButton)
+    Button pushButton;
+    @BindView(R.id.chronometer)
+    Chronometer chronometer;
+    @BindView(R.id.btnEmergencyContacts)
+    ImageView btnEmergencyContacts;
+    @BindView(R.id.btnEmergencyServices)
+    ImageView btnEmergencyServices;
+    @BindView(R.id.btnPolice)
+    ImageView btnPolice;
+    @BindView(R.id.btnRecordings)
+    ImageView btnRecordings;
+
     /**
      * Callbacks for service binding, passed to bindService()
      */
@@ -98,9 +117,6 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
 
                         @Override
                         public void onDenied(Context context, ArrayList<String> deniedPermissions) {
-//                            mFragmentHelpPresenter.sendHelpMessage(mContext.getApplicationContext(),
-//                                    ((BaseActivity) mContext).getCountryCode(),
-//                                    ((BaseActivity) mContext).getLocale());
                         }
                     });
         }
@@ -111,24 +127,6 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
         }
     };
 
-    @BindView(R.id.recordProgress)
-    ProgressBar recordProgress;
-    @BindView(R.id.pushButton)
-    Button pushButton;
-    @BindView(R.id.chronometer)
-    Chronometer chronometer;
-    @BindView(R.id.containerCancelSend)
-    ConstraintLayout containerCancelSend;
-    @BindView(R.id.containerMoreInfoRecList)
-    ConstraintLayout containerMoreInfoRecList;
-    @BindView(R.id.btnMoreInfo)
-    ImageButton btnMoreInfo;
-    @BindView(R.id.btnRecList)
-    ImageButton btnRecList;
-    @BindView(R.id.btnCancel)
-    ImageButton btnCancel;
-    @BindView(R.id.btnSend)
-    ImageButton btnSend;
 
     @Override
     public View onCreateView(
@@ -149,7 +147,7 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
         mFragmentHelpPresenter = new FragmentHelpPresenter();
         mFragmentHelpPresenter.attachView(this);
         mFragmentHelpPresenter.viewIsReady();
-        String locale = getResources().getConfiguration().locale.getLanguage();
+        String locale = LocaleHelper.getLanguage(mContext);
         if (Objects.equals(locale, "en")) {
             pushButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen._27ssp));
         } else {
@@ -171,13 +169,18 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
         if (!getUserVisibleHint()) {
             return;
         }
-        mFragmentHelpPresenter.setUpDialogPopup(((MainActivity) mContext).getCountryCode(),
-                getResources().getConfiguration().locale.getLanguage());
+        String countryCode = ((MainActivity) mContext).getCountryCode();
+        String languageCode = LocaleHelper.getLanguage(getContext());
+        mFragmentHelpPresenter.setUpDialogPopup(countryCode, languageCode);
+        mFragmentHelpPresenter.getProfile(countryCode, languageCode);
     }
 
     @Override
     public void onAttach(@NotNull Context context) {
         super.onAttach(context);
+        if (context instanceof FragmentProfile.ChangeMainPageListener) {
+            mChangeMainPageListener = (FragmentProfile.ChangeMainPageListener) context;
+        }
         if (context instanceof PassData) {
             mPassData = (PassData) context;
         }
@@ -207,40 +210,30 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == 1212) {
+            if (data != null) {
+                mChangeMainPageListener.onPageChange(data.getIntExtra("page", 1),
+                        data.getLongExtra("serviceId", 0), data.getBooleanExtra("isSendSms", false));
+            }
+        }
+    }
+
+    @Override
     public void setUpPushButton() {
         new ContinuousLongClick(pushButton, mContinuousLongClickListener);
         pushButton.setOnClickListener(v -> mFragmentHelpPresenter.stopRecording());
     }
 
-    @OnClick(R.id.btnMoreInfo)
-    void onClickMoreInfo() {
-        mFragmentHelpPresenter.getAllServices(((BaseActivity) mContext).getCountryCode(),
-                ((BaseActivity) mContext).getLocale());
+    @OnClick(R.id.emergencyBackground)
+    void btnEmergencyContainerClick() {
+        startActivityForResult(new Intent(getActivity(), EmergencyContactActivity.class), 1212);
     }
 
-    @OnClick(R.id.btnRecList)
+    @OnClick(R.id.recordingsBackground)
     void onClickRecList() {
         startActivity(new Intent(getActivity(), RecordActivity.class));
-    }
-
-    @OnClick(R.id.btnCancel)
-    void onClickCancel() {
-        chronometer.stop();
-        if (mPassData != null) {
-            mPassData.onScreenDimmer(View.GONE);
-        }
-        mFragmentHelpPresenter.configSentCancelButtons();
-        mAudioRecordService.cancelRecord();
-    }
-
-    @OnClick(R.id.btnSend)
-    void onClickSend() {
-        mAudioRecordService.sentRecord();
-        chronometer.stop();
-        if (mPassData != null) {
-            mPassData.onScreenDimmer(View.GONE);
-        }
-        mFragmentHelpPresenter.configSentCancelButtons();
     }
 
     @Override
@@ -251,14 +244,27 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
             recordInfoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
         if (getActivity() != null)
-            recordInfoDialog.setDialogTitle(getActivity().getResources().getString(R.string.the_alert_message));
+            recordInfoDialog.setDialogTitle(getActivity().getResources().getString(R.string.alert_message_title));
 
         recordInfoDialog.setHelpInfoText("",
-                getString(R.string.rec_info_dialog_info), text);
+                getString(R.string.add_emergency_contacts_text_key), text);
 
         if (!recordInfoDialog.isShowing()) {
             recordInfoDialog.show();
         }
+    }
+
+    @Override
+    public void setUpEmergencyButtons(boolean emergencyContacts, boolean emergencyServices,
+                                      boolean police, boolean records) {
+        btnEmergencyContacts.setColorFilter(ContextCompat.getColor(mContext, emergencyContacts ? R.color.white : R.color.emergency_icons_default_color),
+                android.graphics.PorterDuff.Mode.SRC_IN);
+        btnEmergencyServices.setColorFilter(ContextCompat.getColor(mContext, emergencyServices ? R.color.white : R.color.emergency_icons_default_color),
+                android.graphics.PorterDuff.Mode.SRC_IN);
+        btnPolice.setColorFilter(ContextCompat.getColor(mContext, police ? R.color.white : R.color.emergency_icons_default_color),
+                android.graphics.PorterDuff.Mode.SRC_IN);
+        btnRecordings.setColorFilter(ContextCompat.getColor(mContext, records ? R.color.white : R.color.emergency_icons_default_color),
+                android.graphics.PorterDuff.Mode.SRC_IN);
     }
 
     @Override
@@ -268,30 +274,20 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
 
     @Override
     public void setContainerMoreInfoRecListVisibility(int visibility) {
-        containerMoreInfoRecList.setVisibility(visibility);
     }
 
     @Override
     public void setContainerCancelSend(int visibility) {
-        containerCancelSend.setVisibility(visibility);
-    }
-
-    @Override
-    public void setAppBarTextChange() {
-        if (mPassData != null) {
-            if (getActivity() != null)
-                mPassData.onAppBarTextChange(getActivity().getResources().getString(R.string.help_lowercase));
-        }
     }
 
     @Override
     public void startRecord() {
+        mPassData.onLongClickEnable(false);
         mFragmentHelpPresenter.sendHelpMessage(mContext.getApplicationContext(), ((BaseActivity) mContext).getCountryCode(),
                 ((BaseActivity) mContext).getLocale());
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
         if (mPassData != null) {
-            mPassData.onAppBarTextChange(mContext.getResources().getString(R.string.help_lowercase));
             mPassData.onScreenDimmer(View.VISIBLE);
         }
         mContext.startService(new Intent(mContext, AudioRecordService.class));
@@ -303,7 +299,7 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
         if (recordInfoDialog.getWindow() != null) {
             recordInfoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
-        recordInfoDialog.setDialogTitle(mContext.getResources().getString(R.string.allert_message_successfully_send));
+        recordInfoDialog.setDialogTitle(mContext.getResources().getString(R.string.alert_message_sent_text_key));
         if (!recordInfoDialog.isShowing()) {
             recordInfoDialog.show();
         }
@@ -312,9 +308,14 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
     @Override
     public void stopRecord() {
         // stop recording into AudioRecordService.class
-        mAudioRecordService.stopRecording(false);
-        chronometer.stop();
+        if (mAudioRecordService != null) {
+            mAudioRecordService.stopRecording(false);
+        }
+        if (chronometer != null) {
+            chronometer.stop();
+        }
         if (mPassData != null) {
+            mPassData.onLongClickEnable(true);
             mPassData.onScreenDimmer(View.GONE);
         }
     }
@@ -335,13 +336,13 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
         pushButton.setBackgroundResource(recordButtonType.getRecId());
         switch (recordButtonType) {
             case PUSH_HOLD:
-                pushButton.setText(mContext.getResources().getString(R.string.push_hold));
+                pushButton.setText(mContext.getResources().getString(R.string.push_hold_text_key));
                 break;
             case COUNT_DOWN:
                 pushButton.setText(String.valueOf(time));
                 break;
             case STOP_RECORD:
-                pushButton.setText(mContext.getResources().getString(R.string.stop_record));
+                pushButton.setText(mContext.getResources().getString(R.string.stop_recording_text_key));
                 break;
         }
     }
@@ -349,8 +350,28 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
     @Override
     public void onLocationSuccessEnable() {
         mFragmentHelpPresenter.startTimerCountDown(recordProgress);
-        if (mPassData != null)
-            mPassData.onAppBarTextChange("");
+    }
+
+    public void onStartRecordWithMainActivity() {
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.RECORD_AUDIO};
+        Permissions.check(mContext, permissions, null, null,
+                new PermissionHandler() {
+                    @Override
+                    public void onGranted() {
+                        if (mFragmentHelpPresenter != null) {
+                            mFragmentHelpPresenter.setupGPS();
+                        }
+                    }
+
+                    @Override
+                    public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                    }
+                });
+    }
+
+    public void onStopRecordWithMainActivity() {
+        mFragmentHelpPresenter.stopTimerCountDown();
     }
 
     @Override
@@ -364,7 +385,7 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
         if (recordInfoDialog.getWindow() != null) {
             recordInfoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
-        recordInfoDialog.setDialogTitle(mContext.getResources().getString(R.string.record_was_successful_saved));
+        recordInfoDialog.setDialogTitle(mContext.getResources().getString(R.string.record_was_successfully_saved_text_key));
         if (!recordInfoDialog.isShowing()) {
             recordInfoDialog.show();
         }
@@ -377,7 +398,7 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
             recordInfoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
         recordInfoDialog.setSentActionMessages(mContext.getResources()
-                .getString(R.string.recording_was_sent_successfully), name, time, date);
+                .getString(R.string.record_was_successfully_saved_text_key), name, time, date);
         if (!recordInfoDialog.isShowing()) {
             recordInfoDialog.show();
         }
@@ -414,8 +435,8 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
     }
 
     public interface PassData {
-        void onAppBarTextChange(String text);
-
         void onScreenDimmer(int visibility);
+
+        void onLongClickEnable(boolean isEnable);
     }
 }

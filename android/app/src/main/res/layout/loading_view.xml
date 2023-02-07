@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/white_transparent"
+    android:background="@color/loading_background"
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="gone">
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:SpinKit_Color="@color/statusBarColorPurpleDark" />
+            app:SpinKit_Color="@color/borderless_button_text_color" />
 
     </LinearLayout>
 
@@ -44,7 +44,7 @@
         android:layout_marginTop="@dimen/_16sdp"
         android:fontFamily="@font/hay_roboto_light"
         android:text="@string/the_connections_seems_to_be_slow"
-        android:textColor="@color/statusBarColorPurple"
+        android:textColor="@color/borderless_button_text_color"
         android:textSize="@dimen/_12sdp" />
 
 </LinearLayout>

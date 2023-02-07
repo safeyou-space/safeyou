@@ -24,10 +24,22 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
+        android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup"
         tools:targetApi="q">
+        <activity
+            android:name=".view.ReportActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".view.ForumFilterActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".view.EmergencyContactActivity" />
+        <activity android:name=".view.LegalActivity" />
+        <activity
+            android:name=".privatechat.view.ChatActivity"
+            android:theme="@style/FullScreenWhitStatusBar" />
         <activity
             android:name=".view.ChooseProfessionActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -52,20 +64,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".view.ChooseDualPinModeActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" /> <!-- <activity -->
-        <!-- android:name=".view.SplashActivity" -->
-        <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- android:theme="@style/SplashScreenTheme" -->
-        <!-- android:windowSoftInputMode="stateHidden"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <activity
             android:name=".view.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
@@ -73,23 +71,11 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity-alias
-            android:name=".One"
-            android:enabled="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:targetActivity=".view.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
-        <activity-alias
-            android:name=".Two"
+            android:name=".Four"
             android:enabled="false"
-            android:icon="@drawable/art_gallery_icon"
-            android:label="@string/art_gallery"
+            android:exported="true"
+            android:icon="@drawable/photo_editor_icon"
+            android:label="@string/visual_editor"
             android:targetActivity=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -100,6 +86,7 @@
         <activity-alias
             android:name=".Three"
             android:enabled="false"
+            android:exported="true"
             android:icon="@drawable/galler_editor_icon"
             android:label="@string/gallery_editor"
             android:targetActivity=".view.SplashActivity">
@@ -110,10 +97,25 @@
             </intent-filter>
         </activity-alias>
         <activity-alias
-            android:name=".Four"
+            android:name=".Two"
             android:enabled="false"
-            android:icon="@drawable/photo_editor_icon"
-            android:label="@string/photo_editor"
+            android:exported="true"
+            android:icon="@drawable/art_gallery_icon"
+            android:label="@string/art_gallery"
+            android:targetActivity=".view.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".One"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:targetActivity=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -139,16 +141,35 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".view.TermsAndConditionsActivity"
+            android:name=".view.WebViewActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+
+                <data android:scheme="mailto" />
+            </intent-filter>
+            <intent-filter android:label="realworks_email_opstellen">
+                <action android:name="android.intent.action.SEND" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            <intent-filter android:label="realworks_email_opstellen">
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.RecordDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.RecordActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.MainActivity"
@@ -193,13 +214,17 @@
         <activity
             android:name=".view.NgoMapDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.ServerErrorActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.NotificationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".view.BlockUserActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
 
@@ -221,13 +246,15 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-
-        <meta-data android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
-            android:value="false"/>
+        <meta-data
+            android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
+            android:value="true" />
+        <meta-data
+            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
+            android:value="true" />
 
         <uses-library
             android:name="org.apache.http.legacy"

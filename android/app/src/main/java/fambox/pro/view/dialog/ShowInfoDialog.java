@@ -4,6 +4,7 @@ package fambox.pro.view.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,13 +33,19 @@ public class ShowInfoDialog extends Dialog {
         ButterKnife.bind(this);
     }
 
+    @Override
+    public void show() {
+        super.show();
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
     public void setTxtDescription(Types.InfoDialogText infoDialogText) {
         txtTitle.setText(infoDialogText.getTitle());
         txtDescription.setText(infoDialogText.getText());
     }
 
     @OnClick(R.id.cancelIcon)
-    void clickCloseDialog(){
+    void clickCloseDialog() {
         cancel();
     }
 }

@@ -15,8 +15,9 @@ import fambox.pro.R;
 public class LinearDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     public static final int SIZE_THIN = 2;
-    private Paint paint;
-    private int dividerHeight;
+    private final Paint paint;
+    private final int dividerHeight;
+
     private int layoutOrientation = -1;
 
     public LinearDividerItemDecoration(Context context, int dHeight) {

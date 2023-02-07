@@ -63,13 +63,11 @@ public interface RecordDetailsContract {
 
         void pause();
 
-        void repeat(Activity activity);
-
         void googleMapReady();
 
         void getRecord(String countryCode, String locale, long recordId);
 
-        void sendRecord(String countryCode,String locale);
+        void sendRecord(String countryCode, String locale);
 
         void deleteRecord(String countryCode, String locale);
 

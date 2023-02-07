@@ -1,17 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".view.TermsAndConditionsActivity">
+    android:scrollbars="none">
 
-    <fambox.pro.utils.LollipopFixedWebView
-        android:id="@+id/webView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_16sdp" />
+        android:background="@color/otherContainerElementsColor"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <fambox.pro.utils.LollipopFixedWebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:orientation="horizontal"
+                tools:context="com.example.pager.MainActivity">
+
+                <CheckBox
+                    android:id="@+id/terms_check_box"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:button="@drawable/checkbox_button"
+
+                    />
+
+                <TextView
+                    android:id="@+id/agreeTextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:lineSpacingExtra="4dp"
+                    android:text="@string/terms_and_conditions_agreement_text"
+                    android:textColor="@color/check_text_color"
+                    android:textColorLink="@color/blue"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:background="@drawable/button_border_fill_disabled"
+                android:enabled="false"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:minHeight="@dimen/_40sdp"
+                android:text="@string/submit_title_key"
+                android:textAllCaps="false"
+                android:textColor="@color/chunkBackgroundColor"
+                android:textSize="16sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </LinearLayout>
+
+</ScrollView>

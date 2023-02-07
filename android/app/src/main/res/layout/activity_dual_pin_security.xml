@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/otherContainerElementsColor"
     tools:context=".view.DualPinSecurityActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,9 +14,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/containerSwitchDualPin"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_55sdp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_55sdp"
             android:layout_marginTop="@dimen/_1sdp"
-            android:background="@color/white"
+            android:background="@color/otherContainerElementsColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -25,7 +26,8 @@
                 android:layout_width="@dimen/_18sdp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_13sdp"
-                android:contentDescription="@string/app_name"
+                android:contentDescription="@null"
+                app:tint="@color/new_main_icon_tint_color"
                 android:src="@drawable/pin_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:fontFamily="@font/hay_roboto_regular"
-                android:text="@string/add_a_new_dual_pin"
+                android:text="@string/add_dual_pin_title_key"
                 android:textColor="@color/fewBlack"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,9 +49,9 @@
 
             <Switch
                 android:id="@+id/pinSwitch"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_18sdp"
+                android:layout_width="52dp"
+                android:layout_height="48dp"
+                android:padding="15dp"
                 android:thumb="@drawable/switch_thumb"
                 android:track="@drawable/switch_track"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -78,32 +80,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_26sdp"
-                    android:background="@color/white"
+                    android:background="@color/otherContainerElementsColor"
                     android:orientation="vertical"
                     android:padding="@dimen/_12sdp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/hay_roboto_normal"
-                        android:gravity="center_vertical"
-                        android:text="@string/enter_real_pin_in_4_digits"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputRealPin"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:hint="@string/create_password"
-                        android:textColorHint="@color/hint_gray"
-                        app:hintAnimationEnabled="false"
-                        app:hintEnabled="false"
+                        android:hint="@string/enter_real_pin_text_key"
+                        android:textColorHint="@color/consultant_hint_color"
+                        app:hintAnimationEnabled="true"
+                        app:hintEnabled="true"
+                        app:passwordToggleContentDescription="@string/show_real_pin_description"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/gray">
+                        app:passwordToggleTint="@color/become_consultan_gray_color">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtRealPin"
@@ -125,32 +117,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_26sdp"
                     android:layout_marginTop="@dimen/_1sdp"
-                    android:background="@color/white"
+                    android:background="@color/otherContainerElementsColor"
                     android:orientation="vertical"
                     android:padding="@dimen/_12sdp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/hay_roboto_normal"
-                        android:gravity="center_vertical"
-                        android:text="@string/confirm_real_pin"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputConfirmRealPin"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:hint="@string/create_password"
-                        android:textColorHint="@color/hint_gray"
-                        app:hintAnimationEnabled="false"
-                        app:hintEnabled="false"
+                        android:hint="@string/confirm_real_pin_text_key"
+                        android:textColorHint="@color/consultant_hint_color"
+                        app:hintAnimationEnabled="true"
+                        app:hintEnabled="true"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/gray">
+                        app:passwordToggleContentDescription="@string/show_confirm_real_pin_description"
+                        app:passwordToggleTint="@color/become_consultan_gray_color">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtConfirmRealPin"
@@ -172,32 +154,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_26sdp"
                     android:layout_marginTop="@dimen/_1sdp"
-                    android:background="@color/white"
+                    android:background="@color/otherContainerElementsColor"
                     android:orientation="vertical"
                     android:padding="@dimen/_12sdp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/hay_roboto_normal"
-                        android:gravity="center_vertical"
-                        android:text="@string/enter_fake_pin_in_4_digits"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputFakePin"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:hint="@string/create_password"
-                        android:textColorHint="@color/hint_gray"
-                        app:hintAnimationEnabled="false"
-                        app:hintEnabled="false"
+                        android:hint="@string/enter_fake_pin_text_key"
+                        android:textColorHint="@color/consultant_hint_color"
+                        app:hintAnimationEnabled="true"
+                        app:hintEnabled="true"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/gray">
+                        app:passwordToggleContentDescription="@string/show_fake_pin_description"
+                        app:passwordToggleTint="@color/become_consultan_gray_color">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtFakePin"
@@ -219,32 +191,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_26sdp"
                     android:layout_marginTop="@dimen/_1sdp"
-                    android:background="@color/white"
+                    android:background="@color/otherContainerElementsColor"
                     android:orientation="vertical"
                     android:padding="@dimen/_12sdp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/hay_roboto_normal"
-                        android:gravity="center_vertical"
-                        android:text="@string/confirm_fake_pin"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputConfirmFakePin"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:hint="@string/create_password"
-                        android:textColorHint="@color/hint_gray"
-                        app:hintAnimationEnabled="false"
-                        app:hintEnabled="false"
+                        android:hint="@string/confirm_fake_pin_text_key"
+                        android:textColorHint="@color/consultant_hint_color"
+                        app:hintAnimationEnabled="true"
+                        app:hintEnabled="true"
                         app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/gray">
+                        app:passwordToggleContentDescription="@string/show_confirm_fake_pin_description"
+                        app:passwordToggleTint="@color/become_consultan_gray_color">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtConfirmFakePin"
@@ -278,14 +240,16 @@
             android:id="@+id/btnSubmit"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_40sdp"
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/_18sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_18sdp"
             android:background="@drawable/button_border_fill"
+            app:backgroundTint="@color/new_main_color"
             android:fontFamily="@font/hay_roboto_normal"
-            android:text="@string/save"
+            android:text="@string/save_key"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp"
@@ -293,9 +257,9 @@
 
         <TextView
             android:id="@+id/btnCancel"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_40sdp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:gravity="center"
             android:text="@string/cancel"

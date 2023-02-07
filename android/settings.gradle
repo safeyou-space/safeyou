@@ -1,1 +1,2 @@
-include ':app', ':audiowaveview', ':materialsearchview'
+include ':app', ':audiowaveview', ':materialsearchview', ':SpinnerDatePickerLib'
+include ':chatkit'

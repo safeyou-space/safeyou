@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import fambox.pro.network.model.forum.UserRateResponseBody;
 import lombok.Data;
 
 @Data
@@ -81,7 +82,28 @@ public class ServicesResponseBody {
     @Expose
     private CategoryTranslation category_trans;
 
+    @SerializedName("user_rate")
+    @Expose
+    private UserRateResponseBody userRate;
+
+    @SerializedName("rates_count")
+    @Expose
+    private int ratesCount;
+
     @SerializedName("social_links")
     @Expose
     private List<SocialLinks> socialLinks;
+
+    //new response keys
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("city")
+    @Expose
+    private String city;
+
 }

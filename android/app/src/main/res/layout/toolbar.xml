@@ -4,14 +4,14 @@
     android:id="@+id/appBarBase"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?actionBarSize"
-    android:background="@color/transparent">
+    android:background="@color/transparent"
+    android:minHeight="?actionBarSize">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarBase"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_height="?actionBarSize"
         android:background="@color/statusBarColorPurpleLight"
         android:contentInsetStart="0dp"
         android:contentInsetLeft="0dp"
@@ -20,28 +20,30 @@
         app:contentInsetEnd="0dp"
         app:contentInsetLeft="0dp"
         app:contentInsetRight="0dp"
-        app:contentInsetStart="0dp">
+        app:contentInsetStart="12dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:titleTextAppearance="@style/ToolbarSubtitleAppearance"
+        app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance">
 
         <TextView
             android:id="@+id/actionBarTitle"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:fontFamily="@font/hay_roboto_regular"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:fontFamily="@font/hay_roboto_bold"
             android:gravity="center"
             android:maxLines="1"
-            android:maxWidth="@dimen/_150sdp"
-            android:ellipsize="end"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp" />
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/notificationView"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/_13sdp"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@string/notifications_title_key"
+            android:padding="15dp"
             android:src="@drawable/tollbar_notification_icon"
             android:visibility="gone" />
 
@@ -54,10 +56,11 @@
             android:background="@drawable/ripple_effect_transparent"
             android:fontFamily="@font/hay_roboto_normal"
             android:gravity="center"
-            android:text="@string/next"
+            android:text="@string/next_key"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="14sp"
+            android:contentDescription="@string/next_key_description"
             android:visibility="gone" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,22 +71,23 @@
 
             <TextView
                 android:id="@+id/networkSearch"
-                android:layout_width="@dimen/_210sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_width="@dimen/_250sdp"
+                android:layout_height="32dp"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:background="@drawable/record_search_bg"
-                android:drawableStart="@drawable/search"
+                android:background="@drawable/network_search_bg"
                 android:drawablePadding="@dimen/_5sdp"
                 android:focusable="auto"
                 android:gravity="center_vertical"
                 android:hint="@string/search"
-                android:padding="@dimen/_9sdp"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:textSize="@dimen/_10ssp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/white"
+                android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:drawableEndCompat="@drawable/search"
+                app:drawableTint="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

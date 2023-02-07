@@ -41,11 +41,11 @@ public class SecurityQuestionDialog extends Dialog {
         setContentView(R.layout.dialog_security_question);
         ButterKnife.bind(this);
         if (mOpenFromPinActivity) {
-            txtTitle.setText(mContext.getResources().getString(R.string.activate_camouflage_icon));
-            txtSubTitle.setText(mContext.getResources().getString(R.string.activate_camouflage_icon_body));
+            txtTitle.setText(mContext.getResources().getString(R.string.would_you_activate_camouflage_icon));
+            txtSubTitle.setText(mContext.getResources().getString(R.string.we_recommend_to_activate_camouflage_icon));
         } else {
-            txtTitle.setText(mContext.getResources().getString(R.string.activate_dual_pin));
-            txtSubTitle.setText(mContext.getResources().getString(R.string.activate_dual_pin_body));
+            txtTitle.setText(mContext.getResources().getString(R.string.would_you_activate_dual_pin));
+            txtSubTitle.setText(mContext.getResources().getString(R.string.we_recommend_to_activate_dual_pin));
         }
     }
 

@@ -10,6 +10,8 @@ public class OtherConsultantRequest {
     private String suggested_category;
     @SerializedName("message")
     private String message;
+    @SerializedName("motivation")
+    private String motivation;
     @SerializedName("email")
     private String email;
 }

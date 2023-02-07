@@ -20,15 +20,16 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
-                android:background="@color/white">
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_100sdp"
+                android:background="@color/otherContainerElementsColor">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgUserForChange"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:layout_marginStart="@dimen/_13sdp"
-                    android:contentDescription="@string/app_name"
+                    android:layout_width="@dimen/_75sdp"
+                    android:layout_height="@dimen/_75sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:contentDescription="@string/profile_picture_title_key"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -37,10 +38,11 @@
                 <ImageButton
                     android:id="@+id/btnChangeImage"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:background="@drawable/change_photo_icon"
-                    android:contentDescription="@string/app_name"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/change_photo_icon"
+                    android:padding="15dp"
+                    android:contentDescription="@string/choose_photo_title"
                     app:layout_constraintBottom_toBottomOf="@id/imgUserForChange"
                     app:layout_constraintEnd_toEndOf="@id/imgUserForChange" />
 
@@ -48,10 +50,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_13sdp"
-                    android:fontFamily="@font/hay_roboto_regular"
-                    android:text="@string/profile_picture"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:text="@string/profile_picture_title_key"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="@id/imgUserForChange"
                     app:layout_constraintStart_toEndOf="@id/imgUserForChange"
                     app:layout_constraintTop_toTopOf="@id/imgUserForChange" />
@@ -60,9 +62,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_55sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_55sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/white">
+                android:background="@color/otherContainerElementsColor">
 
                 <TextView
                     android:id="@+id/txtNickname"
@@ -73,9 +76,9 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/hay_roboto_light"
                     android:gravity="start"
-                    android:text="@string/nickname"
+                    android:text="@string/nick_name_title_key"
                     android:textColor="@color/settings_gray_color"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toTopOf="@id/edtChangeNickName"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -84,19 +87,20 @@
                     android:id="@+id/edtChangeNickName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:layout_marginStart="@dimen/_13sdp"
                     android:layout_marginBottom="@dimen/_6sdp"
                     android:background="@color/transparent"
                     android:ems="15"
                     android:enabled="false"
-                    android:fontFamily="@font/hay_roboto_light"
-                    android:hint="@string/write_your_nickname"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:hint="@string/nickname_placeholder"
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLength="20"
                     android:maxLines="1"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtNickname" />
@@ -104,32 +108,79 @@
                 <ToggleButton
                     android:id="@+id/btnChangeNickName"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_1sdp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:button="@drawable/toggle_selector"
                     android:fontFamily="@font/hay_roboto_light"
                     android:gravity="center"
-                    android:text="@string/edit"
+                    android:text="@string/edit_key"
                     android:textAllCaps="false"
                     android:textColor="@color/statusBarColorPurpleDark"
                     android:textOff=""
                     android:textOn=""
                     android:textSize="@dimen/_13ssp"
+                    android:contentDescription="@string/edit_nickname_description"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edtChangeNickName" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_55sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@color/otherContainerElementsColor">
+
+                <TextView
+                    android:id="@+id/txtUserId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="start"
+                    android:text="@string/user_id"
+                    android:textColor="@color/settings_gray_color"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/txtUserIdStatus"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/txtUserIdStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:background="@color/transparent"
+                    android:ems="15"
+                    android:enabled="false"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtUserId"
+                    tools:ignore="TextViewEdits" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--            /************************-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_55sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_55sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/white">
+                android:background="@color/otherContainerElementsColor">
 
                 <TextView
                     android:id="@+id/txtFirstName"
@@ -140,9 +191,9 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/hay_roboto_light"
                     android:gravity="start"
-                    android:text="@string/first_name"
+                    android:text="@string/first_name_title_key"
                     android:textColor="@color/settings_gray_color"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toTopOf="@id/edtFirstName"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -151,18 +202,19 @@
                     android:id="@+id/edtFirstName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:layout_marginStart="@dimen/_13sdp"
                     android:layout_marginBottom="@dimen/_6sdp"
                     android:background="@color/transparent"
                     android:ems="15"
                     android:enabled="false"
-                    android:fontFamily="@font/hay_roboto_light"
+                    android:fontFamily="@font/hay_roboto_regular"
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLength="20"
                     android:maxLines="1"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtFirstName" />
@@ -170,31 +222,33 @@
                 <ToggleButton
                     android:id="@+id/btnEditFirstName"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginEnd="@dimen/_1sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:button="@drawable/toggle_selector"
                     android:fontFamily="@font/hay_roboto_light"
                     android:gravity="center"
-                    android:text="@string/edit"
+                    android:text="@string/edit_key"
                     android:textAllCaps="false"
                     android:textColor="@color/statusBarColorPurpleDark"
                     android:textOff=""
                     android:textOn=""
                     android:textSize="@dimen/_13ssp"
+                    android:contentDescription="@string/edit_first_name_description"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/edtFirstName" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_55sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_55sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/white">
+                android:background="@color/otherContainerElementsColor">
 
                 <TextView
                     android:id="@+id/txtLastName"
@@ -205,9 +259,9 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/hay_roboto_light"
                     android:gravity="start"
-                    android:text="@string/last_name"
+                    android:text="@string/last_name_title_key"
                     android:textColor="@color/settings_gray_color"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toTopOf="@id/edtLastName"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -216,18 +270,19 @@
                     android:id="@+id/edtLastName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:layout_marginStart="@dimen/_13sdp"
                     android:layout_marginBottom="@dimen/_6sdp"
                     android:background="@color/transparent"
                     android:ems="15"
                     android:enabled="false"
-                    android:fontFamily="@font/hay_roboto_light"
+                    android:fontFamily="@font/hay_roboto_regular"
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLength="20"
                     android:maxLines="1"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtLastName" />
@@ -235,22 +290,22 @@
                 <ToggleButton
                     android:id="@+id/btnEditSurname"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginEnd="@dimen/_1sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:button="@drawable/toggle_selector"
                     android:fontFamily="@font/hay_roboto_light"
                     android:gravity="center"
-
                     android:textAllCaps="false"
                     android:textColor="@color/statusBarColorPurpleDark"
                     android:textOff=""
                     android:textOn=""
                     android:textSize="@dimen/_13ssp"
+                    android:contentDescription="@string/edit_last_name_description"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/edtLastName" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -258,9 +313,10 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerEditMaritalStatus"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_55sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_55sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/white">
+                android:background="@color/otherContainerElementsColor">
 
                 <TextView
                     android:id="@+id/txtMaritalStatusTitle"
@@ -271,9 +327,9 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/hay_roboto_light"
                     android:gravity="start"
-                    android:text="@string/marital_status"
+                    android:text="@string/marital_status_text_key"
                     android:textColor="@color/settings_gray_color"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toTopOf="@id/txtMaritalStatus"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -283,39 +339,43 @@
                     android:id="@+id/txtMaritalStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:layout_marginStart="@dimen/_13sdp"
                     android:layout_marginBottom="@dimen/_6sdp"
                     android:background="@color/transparent"
                     android:ems="15"
                     android:enabled="false"
-                    android:fontFamily="@font/hay_roboto_light"
+                    android:fontFamily="@font/hay_roboto_regular"
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtMaritalStatusTitle"
                     tools:ignore="TextViewEdits" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_25sdp"
-                    android:contentDescription="@string/app_name"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/_17sdp"
+                    android:padding="15dp"
+                    android:contentDescription="@string/edit_marital_description"
                     android:src="@drawable/new_arrow_icon_purple"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:tint="@color/new_main_icon_tint_color"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_55sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_55sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/white">
+                android:background="@color/otherContainerElementsColor">
 
                 <TextView
                     android:id="@+id/txtPhoneNumber"
@@ -328,26 +388,22 @@
                     android:gravity="start"
                     android:text="@string/mobile_phone_number"
                     android:textColor="@color/settings_gray_color"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toTopOf="@id/edtPhoneNumber"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputEditText
+                <TextView
                     android:id="@+id/edtPhoneNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_13sdp"
                     android:layout_marginBottom="@dimen/_6sdp"
                     android:background="@color/transparent"
-                    android:ems="15"
-                    android:enabled="false"
-                    android:fontFamily="@font/hay_roboto_light"
-                    android:imeOptions="actionDone"
-                    android:inputType="phone"
+                    android:fontFamily="@font/hay_roboto_regular"
                     android:maxLines="1"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtPhoneNumber" />
@@ -355,8 +411,8 @@
                 <Button
                     android:id="@+id/btnEditPhoneNumber"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginEnd="@dimen/_1sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:drawableStart="@drawable/edit_icon_purple"
@@ -365,6 +421,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/statusBarColorPurpleDark"
                     android:textSize="@dimen/_13ssp"
+                    android:contentDescription="@string/edit_phone_number_description"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -373,8 +430,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_55sdp"
-                android:background="@color/white">
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_55sdp"
+                android:background="@color/otherContainerElementsColor">
 
                 <TextView
                     android:id="@+id/txtLocation"
@@ -387,7 +445,7 @@
                     android:gravity="start"
                     android:text="@string/location"
                     android:textColor="@color/settings_gray_color"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toTopOf="@id/edtLocation"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -396,18 +454,19 @@
                     android:id="@+id/edtLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:layout_marginStart="@dimen/_13sdp"
                     android:layout_marginBottom="@dimen/_6sdp"
                     android:background="@color/transparent"
                     android:ems="15"
                     android:enabled="false"
-                    android:fontFamily="@font/hay_roboto_light"
+                    android:fontFamily="@font/hay_roboto_regular"
                     android:hint="@string/write_your_location"
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtLocation" />
@@ -415,8 +474,8 @@
                 <ToggleButton
                     android:id="@+id/btnEditLocation"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_marginEnd="@dimen/_1sdp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:button="@drawable/toggle_selector"
@@ -426,43 +485,12 @@
                     android:textColor="@color/statusBarColorPurpleDark"
                     android:textOff=""
                     android:textOn=""
+                    android:contentDescription="@string/edit_location_description"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/edtLocation" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:id="@+id/containerBecomeConsultant"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/_55sdp"-->
-<!--                android:background="@color/white">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="@dimen/_13sdp"-->
-<!--                    android:fontFamily="@font/hay_roboto_regular"-->
-<!--                    android:text="@string/become_a_consultant"-->
-<!--                    android:textColor="@color/fewBlack"-->
-<!--                    android:textSize="@dimen/_14ssp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                <Switch-->
-<!--                    android:id="@+id/becomeConsultantSwitch"-->
-<!--                    android:layout_width="@dimen/_40sdp"-->
-<!--                    android:layout_height="@dimen/_10sdp"-->
-<!--                    android:layout_marginEnd="@dimen/_24sdp"-->
-<!--                    android:thumb="@drawable/switch_thumb"-->
-<!--                    android:track="@drawable/switch_track"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    tools:ignore="UseSwitchCompatOrMaterialXml" />-->
-
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </LinearLayout>
 

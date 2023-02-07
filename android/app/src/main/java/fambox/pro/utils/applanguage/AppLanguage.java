@@ -3,11 +3,8 @@ package fambox.pro.utils.applanguage;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.util.DisplayMetrics;
-import android.util.Log;
 
-import java.util.Locale;
+import fambox.pro.LocaleHelper;
 
 public class AppLanguage {
 
@@ -16,20 +13,28 @@ public class AppLanguage {
     private static final String DEFAULT_LANGUAGE_KAY = "en";
     private SharedPreferences preferences;
 
-    private Context context;
+    private final Context context;
+    private static AppLanguage instance;
 
-    public AppLanguage(Context context) {
+    private AppLanguage(Context context) {
         this.context = context;
         if (context != null) {
             preferences = context.getSharedPreferences(LOAD_LOCALE_KAY, Activity.MODE_PRIVATE);
         }
     }
 
+    public static AppLanguage getInstance(Context context) {
+        if (instance == null) {
+            instance = new AppLanguage(context);
+        }
+        return instance;
+    }
+
     public void loadLocale() {
         if (preferences != null) {
             String language = preferences.getString(LANGUAGE_PREFERENCES_KAY, DEFAULT_LANGUAGE_KAY);
             if (language != null) {
-                changeLang(language);
+                LocaleHelper.setLocale(context, language);
             }
         }
     }
@@ -38,15 +43,11 @@ public class AppLanguage {
         if (lang.equalsIgnoreCase("")) {
             return;
         }
-        Locale myLocale = new Locale(lang);
-        saveLocale(lang);
-        if (context != null) {
-            Resources res = context.getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            android.content.res.Configuration conf = res.getConfiguration();
-            conf.setLocale(myLocale);
-            res.updateConfiguration(conf, dm);
+        if (lang.equals("iw")) {
+            lang = "ku";
         }
+        saveLocale(lang);
+        LocaleHelper.setLocale(context, lang);
     }
 
     private void saveLocale(String lang) {

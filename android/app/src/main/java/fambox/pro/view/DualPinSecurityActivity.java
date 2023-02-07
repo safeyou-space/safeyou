@@ -47,7 +47,7 @@ public class DualPinSecurityActivity extends BaseActivity implements DualPinSecu
         ButterKnife.bind(this);
         addAppBar(null, false,
                 true, false,
-                getResources().getString(R.string.dual_pin_security), true);
+                getResources().getString(R.string.dual_pin_title_key), true);
         mDualPinSecurityPresenter = new DualPinSecurityPresenter();
         mDualPinSecurityPresenter.attachView(this);
         mDualPinSecurityPresenter.initBundle(getIntent().getExtras());
@@ -55,7 +55,7 @@ public class DualPinSecurityActivity extends BaseActivity implements DualPinSecu
 
         boolean isDualPinEnabled = SafeYouApp.getPreference(this).getBooleanValue(Constants.Key.KEY_WITHOUT_PIN, false);
         pinSwitchTitle.setText(isDualPinEnabled ? getResources().getString(R.string.edit_deactivate_dual_pin)
-                : getResources().getString(R.string.add_a_new_dual_pin));
+                : getResources().getString(R.string.add_dual_pin_title_key));
         pinSwitch.setChecked(isDualPinEnabled);
     }
 

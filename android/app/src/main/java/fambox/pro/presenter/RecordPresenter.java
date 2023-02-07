@@ -1,7 +1,6 @@
 package fambox.pro.presenter;
 
 import fambox.pro.presenter.basepresenter.BasePresenter;
-import fambox.pro.view.DualPinContract;
 import fambox.pro.view.RecordContract;
 
 public class RecordPresenter extends BasePresenter<RecordContract.View> implements RecordContract.Presenter {

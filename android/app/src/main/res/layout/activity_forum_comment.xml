@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,7 +31,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/commentDivider"
-            android:background="@color/white"
+            android:background="@color/dialog_show_info_color"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/seeNewComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/edtComment"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/button_border_fill"
+            android:elevation="4dp"
+            android:padding="10dp"
+            android:text="@string/new_comment"
+            android:textColor="@color/dialog_show_info_color"
             android:visibility="gone" />
 
         <View
@@ -40,45 +55,37 @@
             android:layout_above="@id/edtComment"
             android:background="@color/gray" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtComment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:layout_toStartOf="@id/btnCommentSender"
-            android:background="@drawable/border_edit_text"
-            android:fontFamily="@font/hay_roboto_normal"
-            android:hint="@string/type_a_comment"
-            android:imeOptions="actionSend"
-            android:inputType="textMultiLine"
-            android:lineSpacingExtra="@dimen/_7sdp"
-            android:maxLines="5"
-            android:padding="@dimen/_8sdp"
-            android:scrollbars="vertical"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/statusBarColorPurpleDark"
-            android:textColorHint="@color/statusBarColorPurple"
-            android:textSize="@dimen/_12ssp" />
 
-        <ImageView
-            android:id="@+id/clearText"
-            android:layout_width="@dimen/_21sdp"
-            android:layout_height="@dimen/_21sdp"
-            android:layout_alignStart="@id/btnCommentSender"
-            android:layout_alignTop="@id/edtComment"
-            android:layout_alignEnd="@id/btnCommentSender"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/cancel_icon" />
+        <com.fambox.chatkit.messages.MessageInput
+            android:id="@+id/edtComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dialog_show_info_color"
+            android:elevation="@dimen/_8sdp"
+            app:attachmentButtonBackground="@color/transparent"
+            app:attachmentButtonIcon="@drawable/icon_select_image"
+            app:attachmentButtonContentDescription="@string/attachment_icon_description"
+            app:inputButtonBackground="@color/transparent"
+            app:inputButtonIcon="@drawable/icon_send_message"
+            app:inputButtonContentDescription="@string/send_message_icon_description"
+            app:inputHint="@string/type_a_comment"
+            app:inputTextColor="@color/comment_input_text_color"
+            app:inputMaxLines="5"
+            app:inputTextSize="13sp"
+            app:recordAudioButtonIcon="@drawable/icon_microphone"
+            app:recordAudioButtonContentDescription="@string/record_audio_icon_description"
+            app:showAttachmentButton="true"
+            app:takePhotoButtonIcon="@drawable/icon_take_image"
+            app:takePhotoButtonContentDescription="@string/take_photo_icon_description"/>
 
         <ImageView
             android:id="@+id/btnCommentSender"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="10dp"
             android:layout_alignBottom="@id/edtComment"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/_10sdp"
@@ -94,7 +101,14 @@
         android:id="@+id/forumDetailContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/dialog_show_info_color"
+        android:visibility="visible" />
+
+    <FrameLayout
+        android:id="@+id/ratingContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dialog_show_info_color"
         android:visibility="visible" />
 
     <include

@@ -12,7 +12,7 @@ public class RefreshTokenResponse {
 
     @SerializedName("expires_in")
     @Expose
-    private int  expiresIn;
+    private int expiresIn;
 
     @SerializedName("access_token")
     @Expose

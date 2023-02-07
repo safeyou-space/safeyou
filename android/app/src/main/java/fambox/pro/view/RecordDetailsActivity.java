@@ -14,20 +14,21 @@ import android.widget.ToggleButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.maps.CameraUpdateFactory;
+import com.google.android.libraries.maps.GoogleMap;
+import com.google.android.libraries.maps.OnMapReadyCallback;
+import com.google.android.libraries.maps.SupportMapFragment;
+import com.google.android.libraries.maps.model.CameraPosition;
+import com.google.android.libraries.maps.model.LatLng;
+import com.google.android.libraries.maps.model.Marker;
+import com.google.android.libraries.maps.model.MarkerOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import fambox.pro.BaseActivity;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.audiowaveview.AudioWaveView;
 import fambox.pro.audiowaveview.OnProgressListener;
@@ -76,7 +77,7 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
         super.onCreate(savedInstanceState);
         // change status bar color api level 6.0 and above.
         Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE_DARK);
-        addAppBar(getResources().getString(R.string.recordings), false, true, false, null, true);
+        addAppBar(getResources().getString(R.string.recording_title_key), false, true, false, null, true);
         // initialize ButterKnife for this activity.
         ButterKnife.bind(this);
         mRecordDetailsPresenter = new RecordDetailsPresenter();
@@ -144,20 +145,13 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
         }
     }
 
-    /**
-     * for audio media repeat
-     */
-    void repeatRecord() {
-        mRecordDetailsPresenter.repeat(this);
-    }
-
     @OnClick(R.id.delete)
     void deleteRecord() {
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         ad.setTitle(getResources().getString(R.string.delete_record));
         ad.setMessage(getResources().getString(R.string.do_you_wont_delete_record));
         ad.setPositiveButton(R.string.yes, (dialogInterface, i) ->
-                mRecordDetailsPresenter.deleteRecord(getCountryCode(), getLocale()));
+                mRecordDetailsPresenter.deleteRecord(getCountryCode(), LocaleHelper.getLanguage(getContext())));
         ad.setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.dismiss());
         if (!ad.create().isShowing())
             ad.create().show();
@@ -165,7 +159,7 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
 
     @OnClick(R.id.shareRecord)
     void shareRecord() {
-        mRecordDetailsPresenter.sendRecord(getCountryCode(), getLocale());
+        mRecordDetailsPresenter.sendRecord(getCountryCode(), LocaleHelper.getLanguage(getContext()));
     }
 
     @Override
@@ -235,8 +229,8 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
         recDuration.setText(Utils.millisecondsToMinute(record.getDuration() * 1000));
         if (record.getTime() != null) {
             String time = getResources()
-                    .getString(R.string.rec_time_time, record.getTime()
-                            .substring(0, record.getTime().lastIndexOf(":")));
+                    .getString(R.string.time_text_key) + record.getTime()
+                    .substring(0, record.getTime().lastIndexOf(":"));
             recTime.setText(time);
         }
         recTitle.setText(record.getLocation());
@@ -265,7 +259,7 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
         if (recordInfoDialog.getWindow() != null) {
             recordInfoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
-        recordInfoDialog.setSentActionMessages(getResources().getString(R.string.record_was_send_success),
+        recordInfoDialog.setSentActionMessages(getResources().getString(R.string.record_was_successfully_sent_text_key),
                 name, time, date);
         if (!recordInfoDialog.isShowing()) {
             recordInfoDialog.show();
@@ -275,6 +269,7 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
     @Override
     public void onPlayButtonChanged(boolean state) {
         play.setChecked(state);
+        play.setContentDescription(getString(R.string.play_icon_description));
     }
 
     @Override

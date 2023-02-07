@@ -28,7 +28,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanseState) {
-        return provideYourFragmentView(inflater, container, savedInstanseState);
+        return fragmentView(inflater, container, savedInstanseState);
     }
 
     @Override
@@ -45,7 +45,7 @@ public abstract class BaseFragment extends Fragment {
         super.onResume();
     }
 
-    protected abstract View provideYourFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    protected abstract View fragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     protected abstract void viewCrated(View view);
 

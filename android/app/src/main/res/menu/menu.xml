@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menuProfile"
+        android:id="@+id/menuForum"
         android:checked="true"
-        android:icon="@drawable/support_icon"
-        android:title="@string/support" />
+        android:icon="@drawable/icon_forum_gray"
+        android:title="@string/forums_title_key" />
 
     <item
-        android:id="@+id/menuForum"
-        android:icon="@drawable/forum_icon"
-        android:title="@string/forum" />
-    <!--must set the item title to empty-->
+        android:id="@+id/menuNetwork"
+        android:icon="@drawable/icon_network_gray"
+        android:title="@string/network_title" />
+
     <item
         android:id="@+id/menuHelp"
-        android:title="" />
+        android:title="@null" />
+
     <item
-        android:id="@+id/menuNetwork"
-        android:icon="@drawable/network_icon"
-        android:title="@string/network" />
+        android:id="@+id/menuProfile"
+        android:icon="@drawable/icon_messages_gray"
+        android:title="@string/messages" />
+
     <item
         android:id="@+id/menuOther"
-        android:icon="@drawable/icon_menu"
-        android:title="@string/settings" />
+        android:icon="@drawable/icon_menu_gray"
+        android:title="@string/title_menu" />
 </menu>

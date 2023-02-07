@@ -51,7 +51,7 @@ public class AdapterChooseProfession extends RecyclerView.Adapter<ChooseProfessi
     public AdapterChooseProfession(Context context, List<Integer> ides, List<String> names) {
         this.mContext = context;
         ides.add(-2);
-        names.add("Other");
+        names.add(context.getResources().getString(R.string.other_title));
         this.mIdes = ides;
         this.mNames = names;
     }
@@ -81,7 +81,6 @@ public class AdapterChooseProfession extends RecyclerView.Adapter<ChooseProfessi
     public void onBindViewHolder(@NonNull ChooseProfessionsHolder holder, int position) {
 
         holder.getProfessionName().setText(mNames.get(position));
-
         if (position == 0) {
             holder.getRadioButton().setChecked(true);
             mCategoryId = mIdes.get(position);
@@ -89,7 +88,7 @@ public class AdapterChooseProfession extends RecyclerView.Adapter<ChooseProfessi
             holder.getProfessionName().setTextColor(mContext.getResources().getColor(R.color.textPurpleColor));
             isFirst = true;
         }
-
+        holder.getRadioButton().setContentDescription(mNames.get(position));
         if (holder.getRadioButton().isChecked()) {
             lastCheckedRB = holder.getRadioButton();
             lastCheckedTV = holder.getProfessionName();

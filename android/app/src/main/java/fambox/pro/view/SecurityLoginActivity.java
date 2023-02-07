@@ -19,7 +19,7 @@ public class SecurityLoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         addAppBar(null, false,
                 true, false,
-                getResources().getString(R.string.security_and_login), true);
+                getResources().getString(R.string.title_security_and_login), true);
     }
 
     @Override
@@ -48,21 +48,6 @@ public class SecurityLoginActivity extends BaseActivity {
 
     @OnClick(R.id.containerCamouflage)
     void onClickCamouflageIcon() {
-//        boolean isPinCodeEnabled = SafeYouApp.getPreference(this).getBooleanValue(Constants.Key.KEY_WITHOUT_PIN, false);
-//
-//        if (isPinCodeEnabled) {
-//            PinDeleteDialog pinDeleteDialog = new PinDeleteDialog(this, false);
-//            if (pinDeleteDialog.getWindow() != null) {
-//                pinDeleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//            }
-//            pinDeleteDialog.setSwitchStateListener((canceled) -> {
-//                if (canceled) {
-//                    nextActivity(this, ChangeAppIconActivity.class);
-//                }
-//            });
-//            pinDeleteDialog.show();
-//        } else {
-//        }
         nextActivity(this, ChangeAppIconActivity.class);
     }
 

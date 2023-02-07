@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import fambox.pro.R;
 import lombok.Getter;
 

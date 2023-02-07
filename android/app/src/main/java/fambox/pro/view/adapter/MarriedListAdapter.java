@@ -18,12 +18,12 @@ import fambox.pro.view.adapter.holder.MarriedListHolder;
 
 public class MarriedListAdapter extends RecyclerView.Adapter<MarriedListHolder> {
 
-    private List<MarriedListResponse> marriedListResponses;
+    private final List<MarriedListResponse> marriedListResponses;
     private ClickListener clickListener;
-    private String maritalStatus;
-    private int maritalStatusRegistration;
-    private boolean isRegistration;
-    private Context context;
+    private final String maritalStatus;
+    private final int maritalStatusRegistration;
+    private final boolean isRegistration;
+    private final Context context;
 
     public MarriedListAdapter(Context context, List<MarriedListResponse> marriedListResponses,
                               String maritalStatus, int maritalStatusRegistration, boolean isRegistration) {
@@ -47,6 +47,7 @@ public class MarriedListAdapter extends RecyclerView.Adapter<MarriedListHolder> 
         Drawable img = context.getResources().getDrawable(R.drawable.check_icon);
         if (Objects.equals(marriedListResponses.get(position).getLabel(), maritalStatus)) {
             holder.getBtnMarried().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+            holder.getBtnMarried().setTextColor(context.getResources().getColor(R.color.textPurpleColor));
         } else if (Objects.equals(marriedListResponses.get(position).getType(), maritalStatusRegistration)
                 && isRegistration) {
             holder.getBtnMarried().setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);

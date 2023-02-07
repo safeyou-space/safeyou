@@ -1,6 +1,9 @@
 package fambox.pro.view.adapter;
 
+import static fambox.pro.Constants.Key.KEY_IS_DARK_MODE_ENABLED;
+
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +17,21 @@ import java.util.List;
 import java.util.Objects;
 
 import fambox.pro.R;
+import fambox.pro.SafeYouApp;
 import fambox.pro.network.model.CountriesLanguagesResponseBody;
 import fambox.pro.view.adapter.holder.ChooseLanguageHolder;
 
 public class AdapterChooseLanguage extends RecyclerView.Adapter<ChooseLanguageHolder> {
 
-    private Context mContext;
-    private List<CountriesLanguagesResponseBody> mCountriesLanguagesResponseBodyList;
+    private final Context mContext;
+    private final List<CountriesLanguagesResponseBody> mCountriesLanguagesResponseBodyList;
+    private final boolean isChangeLanguage;
+    private final String locale;
+
     private RadioButton lastCheckedRB = null;
     private TextView lastCheckedTV = null;
     private boolean isFirst;
-    private boolean isChangeLanguage;
     private String languageCode;
-    private String locale;
 
     public AdapterChooseLanguage(Context context, List<CountriesLanguagesResponseBody>
             mCountriesLanguagesResponseBodyList, String locale, boolean isChangeLanguage) {
@@ -52,15 +57,10 @@ public class AdapterChooseLanguage extends RecyclerView.Adapter<ChooseLanguageHo
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull ChooseLanguageHolder holder, int position) {
-//        String imagePath = mCountriesLanguagesResponseBodyList.get(position).getImage().getUrl();
-//        if (imagePath != null) {
-//            Glide.with(mContext).load(BASE_URL.concat(imagePath.replaceAll("\"", "")))
-//                    .into(holder.getCountryImage());
-//        }
         holder.getLanguageName().setText(mCountriesLanguagesResponseBodyList.get(position).getTitle());
+        holder.getRadioButton().setContentDescription(mCountriesLanguagesResponseBodyList.get(position).getTitle());
         if (position == 0 && !isChangeLanguage) {
             holder.getRadioButton().setChecked(true);
             languageCode = mCountriesLanguagesResponseBodyList.get(position).getCode();
@@ -86,6 +86,14 @@ public class AdapterChooseLanguage extends RecyclerView.Adapter<ChooseLanguageHo
                     lastCheckedRB.setChecked(false);
                     if (isChangeLanguage) {
                         lastCheckedTV.setTextColor(mContext.getResources().getColor(R.color.black));
+                        boolean isDarkModeEnabled = SafeYouApp.getPreference().getBooleanValue(KEY_IS_DARK_MODE_ENABLED, false);
+                        int nightModeFlags =
+                                mContext.getResources().getConfiguration().uiMode &
+                                        Configuration.UI_MODE_NIGHT_MASK;
+                        if (isDarkModeEnabled || nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                            lastCheckedTV.setTextColor(mContext.getResources().getColor(R.color.white));
+
+                        }
                         holder.getLanguageName().setTextColor(mContext.getResources().getColor(R.color.textPurpleColor));
                     }
                     holder.getRadioButton().setSelected(false);

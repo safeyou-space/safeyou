@@ -11,7 +11,6 @@ import fambox.pro.network.model.CountriesLanguagesResponseBody;
 import fambox.pro.network.model.DeviceConfigBody;
 import fambox.pro.presenter.basepresenter.MvpPresenter;
 import fambox.pro.presenter.basepresenter.MvpView;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public interface ChooseCountryContract {

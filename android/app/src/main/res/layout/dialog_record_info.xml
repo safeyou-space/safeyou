@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_280sdp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minWidth="@dimen/_280sdp"
+    android:paddingHorizontal="@dimen/_10sdp"
     android:layout_gravity="center"
     android:background="@drawable/dialog_shadow"
     android:paddingBottom="@dimen/_25sdp">
 
-    <ImageButton
+    <ImageView
         android:id="@+id/cancelIcon"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:layout_margin="@dimen/_10sdp"
-        android:background="@drawable/icon_cancel_record_info_dialog"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="15dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/close_dialog_description"
+        android:src="@drawable/icon_cancel_record_info_dialog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/new_main_icon_tint_color" />
 
     <TextView
         android:id="@+id/txtTitle"
-        android:layout_width="@dimen/_260sdp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="@dimen/_260sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/hay_roboto_bold"
         android:gravity="center"
-        android:text="@string/recording_was_sent_successfully"
-        android:textColor="@color/textPurpleColor"
-        android:textSize="@dimen/_15ssp"
+        android:text="@string/record_was_successfully_saved_text_key"
+        android:textColor="@color/borderless_button_text_color"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cancelIcon" />
 
     <TextView
         android:id="@+id/txtSubTitle"
-        android:layout_width="@dimen/_260sdp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="@dimen/_260sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/hay_roboto_light"
         android:gravity="center"
@@ -46,8 +52,9 @@
 
     <TextView
         android:id="@+id/txtHelpInfoDescription"
-        android:layout_width="@dimen/_260sdp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="@dimen/_260sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:fontFamily="@font/hay_roboto_light"
         android:gravity="center"
@@ -59,8 +66,9 @@
 
     <TextView
         android:id="@+id/txtPeopleList"
-        android:layout_width="@dimen/_260sdp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="@dimen/_260sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/hay_roboto_bold"
         android:gravity="center"
@@ -78,7 +86,9 @@
         android:src="@drawable/icon_success"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+        android:contentDescription="@string/success_icon_description"
+        app:tint="@color/icon_success_tint_color" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerAlertMessage"

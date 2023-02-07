@@ -1,99 +1,125 @@
 package fambox.pro;
 
 
+import static fambox.pro.Constants.Key.KEY_COUNTRY_CHANGED;
+import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
+import static fambox.pro.Constants.Key.KEY_PASSWORD;
+import static fambox.pro.Constants.Key.KEY_USER_PHONE;
+import static fambox.pro.utils.applanguage.AppLanguage.LANGUAGE_PREFERENCES_KAY;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.tasks.Task;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import fambox.pro.network.ApiClient;
-import fambox.pro.network.SocketHandler;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.utils.applanguage.AppLanguage;
 import fambox.pro.view.ChooseAppLanguageActivity;
 import fambox.pro.view.ChooseCountryActivity;
 import fambox.pro.view.DualPinActivity;
 import fambox.pro.view.EditProfileActivity;
+import fambox.pro.view.EmergencyContactActivity;
 import fambox.pro.view.HelpActivity;
 import fambox.pro.view.LoginPageActivity;
 import fambox.pro.view.LoginWithBackActivity;
 import fambox.pro.view.MainActivity;
 import fambox.pro.view.NotificationActivity;
+import fambox.pro.view.SplashActivity;
 import fambox.pro.view.dialog.InfoDialog;
+import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import q.rorbin.badgeview.QBadgeView;
 
-import static fambox.pro.Constants.Key.KEY_COUNTRY_CHANGED;
-import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
-import static fambox.pro.Constants.Key.KEY_PASSWORD;
-import static fambox.pro.Constants.Key.KEY_USER_PHONE;
-import static io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider.REQUEST_CHECK_SETTINGS;
-
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private Locale mLocale;
-    private TextView actionBarTitle;
-    private View mActionBar;
     private Toolbar toolbar;
-    private static SocketHandler mSocketHandler;
+    private Socket mSocket;
     private static int mNotificationCount;
     private QBadgeView mQBadgeView;
     private final Emitter.Listener mNotificationListener = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            if (args[0] instanceof JSONObject) {
-                JSONObject json = (JSONObject) args[0];
-                runOnUiThread(() -> {
-                    try {
-                        mNotificationCount = json.getInt("count");
-                        if (mQBadgeView != null) {
-                            mQBadgeView.setBadgeNumber(mNotificationCount);
+            if (args.length >= 2 && (int) args[0] == 19) {
+                try {
+                    JSONObject notification = new JSONObject(args[1].toString()).getJSONObject("data");
+                    runOnUiThread(() -> {
+                        try {
+                            mNotificationCount = notification.getInt("notify_read_0_count");
+                            if (mQBadgeView != null) {
+                                mQBadgeView.setBadgeNumber(mNotificationCount);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (mSocket != null && args.length >= 2 && (int) args[0] != 19) {
+                mSocket.emit("signal", 19, new JSONObject());
             }
         }
     };
 
+    private final Emitter.Listener onConnect = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            SafeYouApp.initChatSocket(getApplication(), mSocket.id());
+        }
+    };
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase, newBase.getSharedPreferences("locale", Activity.MODE_PRIVATE).getString(LANGUAGE_PREFERENCES_KAY, "en")));
+    }
+    public  void adjustFontScale(Configuration configuration, float scale) {
+
+        configuration.fontScale = scale;
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        wm.getDefaultDisplay().getMetrics(metrics);
+        metrics.scaledDensity = configuration.fontScale * metrics.density;
+        getBaseContext().getResources().updateConfiguration(configuration, metrics);
+
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        new AppLanguage(this).loadLocale();
+        AppLanguage.getInstance(this).loadLocale();
         super.onCreate(savedInstanceState);
-        mLocale = getResources().getConfiguration().locale;
+        if (LocaleHelper.getLanguage(this).equals("iw")) {
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
         if (getLayout() != 0) {
             setContentView(getLayout());
         }
 
         if (BaseActivity.this instanceof MainActivity) {
-            mSocketHandler = ((SafeYouApp) getApplication()).getSocket();
+            mSocket = ((SafeYouApp) getApplication()).getChatSocket("").getSocket();
+            mSocket.on("connect", onConnect);
+            if (!mSocket.isActive()) {
+                mSocket.connect();
+            }
+            adjustFontScale( getResources().getConfiguration(),1.0f);
         }
 
         boolean isNotificationEnabled = SafeYouApp.getPreference(this)
@@ -114,14 +140,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract int getLayout();
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mSocketHandler != null) {
-            mSocketHandler.off("SafeYOU_V4##GET_TOTAL_NEW_COMMENTS_COUNT#RESULT", mNotificationListener);
-        }
-    }
-
     protected void addAppBar(@Nullable String toolbarDefaultTitle,
                              boolean statusBarColorLight,
                              boolean backEnable,
@@ -133,7 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
         getSupportActionBar().setCustomView(R.layout.toolbar);
 
-        mActionBar = getSupportActionBar().getCustomView();
+        View mActionBar = getSupportActionBar().getCustomView();
         toolbar = mActionBar.findViewById(R.id.toolbarBase);
         toolbar.setTitle(toolbarDefaultTitle);
         // find views
@@ -144,25 +162,25 @@ public abstract class BaseActivity extends AppCompatActivity {
             clearNotification();
         });
 
-        actionBarTitle = mActionBar.findViewById(R.id.actionBarTitle);
-        actionBarTitle.setText(title);
+        toolbar.setSubtitle(title);
 
         if (statusBarColorLight) {
             if (BaseActivity.this instanceof LoginPageActivity) {
-                toolbar.setBackgroundColor(getResources().getColor(R.color.statusBarColorPurpleLight));
+                toolbar.setBackgroundColor(getResources().getColor(R.color.login_page_background));
             } else {
                 toolbar.setBackgroundColor(getResources().getColor(R.color.statusBarColorPurple));
             }
         } else {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.statusBarColorPurpleDark));
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background));
         }
 
         if (backEnable) {
-            if (BaseActivity.this instanceof LoginPageActivity) {
-                toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.icon_back));
-            } else {
-                toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.icon_back_white));
+            toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.icon_back_white));
+            if (toolbar.getNavigationIcon() != null) {
+                toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
             }
+
+            toolbar.setNavigationContentDescription(R.string.back_icon_description);
             toolbar.setNavigationOnClickListener(v -> {
                         if (BaseActivity.this instanceof DualPinActivity) {
                             ((DualPinActivity) BaseActivity.this).backCanceledIntent();
@@ -196,27 +214,29 @@ public abstract class BaseActivity extends AppCompatActivity {
             notificationImage.post(() -> mQBadgeView.bindTarget(toolbar)
                     .setShowShadow(false)
                     .setGravityOffset(notificationImage.getPivotX()
-                                    + getResources().getDimensionPixelOffset(R.dimen._13sdp),
+                                    + 10,
                             notificationImage.getPivotY()
-                                    - getResources().getDimensionPixelOffset(R.dimen._1sdp), false)
+                                    + 5, false)
                     .setBadgeBackgroundColor(getResources().getColor(R.color.white))
                     .setBadgeTextColor(getResources().getColor(R.color.textPurpleColor))
-                    .setBadgeTextSize(getResources().getDimensionPixelOffset(R.dimen._4ssp), true)
-//                    .setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
-//                        @Override
-//                        public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-//                            if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-//                                Toast.makeText(BaseActivity.this, "Wow! its Cool", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    })
+                    .setBadgeTextSize(getResources().getDimensionPixelOffset(R.dimen._3ssp), true)
                     .setExactMode(true));
         }
     }
 
     /* setBaseTitle used only main activity for change toolbar title with view pager*/
     public void setBaseTitle(String title) {
-        actionBarTitle.setText(title);
+        toolbar.setSubtitle(title);
+        if (Objects.equals(getResources().getString(R.string.help_title_key), title)) {
+            toolbar.setSubtitle("");
+            toolbar.setLogo(R.drawable.safe_you_text_logo);
+        } else {
+            toolbar.setLogo(null);
+        }
+    }
+
+    public void setToolbarColor(int color) {
+        toolbar.setBackgroundColor(color);
     }
 
     /* setDefaultTitle used only view more activity for change default title to forum name*/
@@ -226,55 +246,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             toolbar.setTitle(toolbarDefaultTitle);
         }
-    }
-
-    private void setUpGps() {
-        LocationRequest locationRequest = LocationRequest.create();
-
-        //Setting priority of Location request to high
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        locationRequest.setInterval(10000);
-
-        //5 sec Time interval for location update
-        locationRequest.setFastestInterval(5000);
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
-        builder.setNeedBle(true);
-        builder.setAlwaysShow(true);
-
-        Task<LocationSettingsResponse> result2 =
-                LocationServices.getSettingsClient(this).checkLocationSettings(builder.build());
-        result2.addOnCompleteListener(task -> {
-            try {
-                task.getResult(ApiException.class);
-                // All location settings are satisfied. The client can initialize location
-                // requests here.
-            } catch (ApiException exception) {
-                switch (exception.getStatusCode()) {
-                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        // Location settings are not satisfied. But could be fixed by showing the
-                        // user a dialog.
-                        try {
-                            // Cast to a resolvable exception.
-                            ResolvableApiException resolvable = (ResolvableApiException) exception;
-                            // Show the dialog by calling startResolutionForResult(),
-                            // and check the result in onActivityResult().
-                            resolvable.startResolutionForResult(
-                                    BaseActivity.this,
-                                    REQUEST_CHECK_SETTINGS);
-                        } catch (IntentSender.SendIntentException e) {
-                            // Ignore the error.
-                        } catch (ClassCastException e) {
-                            // Ignore, should be an impossible error.
-                        }
-                        break;
-                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        // Location settings are not satisfied. However, we have no way to fix the
-                        // settings so we won't show the dialog.
-                        break;
-                }
-            }
-        });
     }
 
     public static boolean checkLogin() {
@@ -295,7 +266,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public String getLocale() {
-        return mLocale.getLanguage();
+        return LocaleHelper.getLanguage(getBaseContext());
     }
 
     public String getCountryCode() {
@@ -318,32 +289,32 @@ public abstract class BaseActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("datetime", (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()) + 4 * 60 * 60));
-            mSocketHandler.emit("SafeYOU_V4##GET_TOTAL_NEW_COMMENTS_COUNT", jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     private void notificationCount() {
-        if (mSocketHandler != null) {
-            mSocketHandler.on("SafeYOU_V4##GET_TOTAL_NEW_COMMENTS_COUNT#RESULT", mNotificationListener);
-
-            try {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("datetime", (TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())) + 4 * 60 * 60);
-                if (mSocketHandler != null) {
-                    mSocketHandler.emit("SafeYOU_V4##GET_TOTAL_NEW_COMMENTS_COUNT", jsonObject);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        if (mSocket != null) {
+            mSocket.on("signal", mNotificationListener);
+            mSocket.emit("signal", 19, new JSONObject());
         }
     }
 
     private void openDialog() {
-        ApiClient.setmOpenInfoDialogListener((title, text) -> runOnUiThread(() -> {
+        ApiClient.setmOpenInfoDialogListener((errorCode, text) -> runOnUiThread(() -> {
+            if (BaseActivity.this instanceof SplashActivity) {
+                return;
+            }
+            String message = text;
             InfoDialog infoDialog = new InfoDialog(BaseActivity.this);
-            infoDialog.setContent(title, text);
+            String title = getString(R.string.error_text_key);
+            if (BaseActivity.this instanceof EmergencyContactActivity) {
+                if (errorCode == 422) {
+                    message = getString(R.string.error_message_emergency_contact);
+                }
+            }
+            infoDialog.setContent(title, message);
             infoDialog.setOnDismissListener(dialog -> {
                 if (BaseActivity.this instanceof EditProfileActivity) {
                     finish();

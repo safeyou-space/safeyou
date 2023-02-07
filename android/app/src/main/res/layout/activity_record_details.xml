@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:name="com.google.android.libraries.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_170sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +44,7 @@
         app:layout_constraintTop_toBottomOf="@id/recInfo"
         app:minChunkHeight="@dimen/_2sdp"
         app:touchable="true"
+        android:contentDescription="@string/audio_wave_description"
         app:waveBackgroundColor="@color/chunkBackgroundColor"
         app:waveColor="@color/chunkColor" />
 
@@ -53,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:textSize="@dimen/_13ssp"
+        android:textColor="@color/text_color"
         app:layout_constraintStart_toStartOf="@id/audioWaveView"
         app:layout_constraintTop_toBottomOf="@id/audioWaveView" />
 
@@ -63,15 +65,17 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/rec_current_position"
         android:textSize="@dimen/_13ssp"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="@id/audioWaveView"
         app:layout_constraintTop_toBottomOf="@id/audioWaveView" />
 
     <TextView
         android:id="@+id/delete"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:text="@string/delete"
+        android:text="@string/delete_key"
         android:textSize="@dimen/_12ssp"
         android:textColor="@color/red"
         android:background="?android:attr/selectableItemBackgroundBorderless"
@@ -82,16 +86,18 @@
 
     <ImageView
         android:id="@+id/shareRecord"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:paddingTop="@dimen/_7sdp"
         android:paddingBottom="@dimen/_7sdp"
         android:scaleType="fitEnd"
         android:src="@drawable/share_gray"
+        android:contentDescription="@string/com_facebook_share_button_text"
         app:layout_constraintEnd_toEndOf="@id/audioWaveView"
-        app:layout_constraintTop_toBottomOf="@id/recDurationEnd" />
+        app:layout_constraintTop_toBottomOf="@id/recDurationEnd"
+        app:tint="@color/share_button_gray" />
 
     <SeekBar
         android:id="@+id/seekBarVolume"
@@ -107,12 +113,14 @@
 
     <ImageView
         android:id="@+id/prev"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="10dp"
         android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:src="@drawable/prev"
+        android:contentDescription="@string/preview_icon_description"
         app:layout_constraintBottom_toBottomOf="@id/play"
         app:layout_constraintEnd_toStartOf="@id/play"
         app:layout_constraintTop_toTopOf="@id/play" />
@@ -127,19 +135,22 @@
         android:background="@drawable/check_play"
         android:textOff=""
         android:textOn=""
+        android:contentDescription="@string/play_icon_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/next"
         app:layout_constraintTop_toBottomOf="@id/delete" />
 
     <ImageView
         android:id="@+id/next"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="10dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:src="@drawable/next"
         app:layout_constraintBottom_toBottomOf="@id/play"
         app:layout_constraintEnd_toEndOf="@id/audioWaveView"
-        app:layout_constraintTop_toTopOf="@id/play" />
+        app:layout_constraintTop_toTopOf="@id/play"
+        android:contentDescription="@string/next_key"/>
 
     <include layout="@layout/loading_view"/>
 

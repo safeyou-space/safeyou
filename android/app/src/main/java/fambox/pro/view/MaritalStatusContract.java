@@ -27,9 +27,9 @@ public interface MaritalStatusContract {
     }
 
     interface Presenter extends MvpPresenter<MaritalStatusContract.View> {
-        void getMaritalList(String countryCode,String locale);
+        void getMaritalList(String countryCode, String locale);
 
-        void setMaritalStatus(String countryCode,String locale, Object value);
+        void setMaritalStatus(String countryCode, String locale, Object value);
 
     }
 

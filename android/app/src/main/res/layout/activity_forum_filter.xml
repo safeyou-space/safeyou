@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_page_background"
+    tools:context=".view.ForumFilterActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarBase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:minHeight="?actionBarSize"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/toolbar_background"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="14dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance">
+
+            <TextView
+                android:id="@+id/actionBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:fontFamily="@font/hay_roboto_bold"
+                android:gravity="center"
+                android:maxWidth="@dimen/_150sdp"
+                android:maxLines="1"
+                android:text="@string/filters"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/closeFilterActivity"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="4dp"
+                android:background="@color/transparent"
+                android:contentDescription="@string/close_key"
+                android:src="@drawable/icon_filter_close"
+                android:visibility="visible"
+                app:tint="@color/white" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/appBarBase">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="14dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="0dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="16dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="4dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineEnd14dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="14dp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerTitleCategories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toTopOf="@id/guidelineTop">
+
+                <TextView
+                    android:id="@+id/txtCategories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hay_roboto_bold"
+                    android:text="@string/categories"
+                    android:textColor="@color/new_main_color"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgButtonCategories"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imgButtonCategories" />
+
+                <ImageButton
+                    android:id="@+id/imgButtonCategories"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/icon_arrow_down"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/containerChipsCategory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/containerTitleCategories">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:chipSpacingVertical="5dp" />
+
+                <Button
+                    android:id="@+id/btnClearAllCategories"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/hay_roboto_bold"
+                    android:text="@string/clear_categories"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/dividerCategoriesLanguage"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:background="@color/new_main_color"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd14dp"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/containerChipsCategory" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerTitleLanguages"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/dividerCategoriesLanguage">
+
+                <TextView
+                    android:id="@+id/txtLanguages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hay_roboto_bold"
+                    android:text="@string/languages"
+                    android:textColor="@color/new_main_color"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgButtonLanguages"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imgButtonLanguages" />
+
+                <ImageButton
+                    android:id="@+id/imgButtonLanguages"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/icon_arrow_down"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/containerChipsLanguages"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/containerTitleLanguages">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupLanguages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:chipSpacingVertical="5dp" />
+
+                <Button
+                    android:id="@+id/btnClearAllLanguages"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/hay_roboto_bold"
+                    android:text="@string/back_to_default_language"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:background="@color/new_main_color"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd14dp"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/containerChipsCategory" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/dividerButtons"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="59dp"
+        android:background="@color/new_main_color"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:paddingVertical="13dp"
+        android:background="@color/bottom_bar_background"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <Button
+            android:id="@+id/btnClearAllFilters"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/button_border_transparent"
+            android:backgroundTint="@color/colorAccent"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:minWidth="128dp"
+            android:padding="5dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/clear_categories"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <Button
+            android:id="@+id/btnShow"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button_border_fill_with_icon_color"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:minWidth="128dp"
+            android:padding="5dp"
+            android:text="@string/show_results"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

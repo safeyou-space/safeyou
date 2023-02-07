@@ -6,12 +6,12 @@
             android:visible="true"
             android:dither="true"
             android:useLevel="false">
-            <solid android:color="@color/statusBarColorPurpleDark"/>
+            <solid android:color="@color/new_main_color"/>
             <size
-                android:width="@dimen/_20sdp"
-                android:height="@dimen/_20sdp"/>
+                android:width="@dimen/_14sdp"
+                android:height="@dimen/_14sdp"/>
             <stroke
-                android:width="4dp"
+                android:width="6dp"
                 android:color="#0000"/>
         </shape>
     </item>
@@ -21,12 +21,12 @@
             android:visible="true"
             android:dither="true"
             android:useLevel="false">
-          <solid android:color="@color/gray"/>
+          <solid android:color="@color/switchColor"/>
             <size
-                android:width="@dimen/_20sdp"
-                android:height="@dimen/_20sdp"/>
+                android:width="@dimen/_14sdp"
+                android:height="@dimen/_14sdp"/>
             <stroke
-                android:width="4dp"
+                android:width="6dp"
                 android:color="#0000"/>
         </shape>
     </item>

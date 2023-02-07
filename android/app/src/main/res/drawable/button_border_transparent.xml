@@ -14,7 +14,7 @@
             <corners android:radius="@dimen/_100sdp" />
             <stroke
                 android:width="@dimen/_1sdp"
-                android:color="@color/buttonBorderColor" />
+                android:color="@color/button_border" />
         </shape>
     </item>
 </ripple>

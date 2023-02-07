@@ -1,9 +1,11 @@
 package fambox.pro.presenter.fragment;
 
+import static fambox.pro.Constants.Key.KEY_IS_ABOUT_US;
+
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.net.HttpURLConnection;
 import java.util.List;
@@ -15,6 +17,7 @@ import fambox.pro.SafeYouApp;
 import fambox.pro.model.ChooseAppLanguageModel;
 import fambox.pro.model.fragment.FragmentOtherModel;
 import fambox.pro.network.NetworkCallback;
+import fambox.pro.network.model.ConsultantRequestResponse;
 import fambox.pro.network.model.CountriesLanguagesResponseBody;
 import fambox.pro.network.model.Message;
 import fambox.pro.network.model.ProfileResponse;
@@ -23,8 +26,6 @@ import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.view.fragment.FragmentOtherContract;
 import retrofit2.Response;
-
-import static fambox.pro.Constants.Key.KEY_IS_TERM;
 
 public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.View>
         implements FragmentOtherContract.Presenter {
@@ -36,12 +37,9 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
     public void viewIsReady() {
         mFragmentOtherModel = new FragmentOtherModel();
         mChooseAppLanguageModel = new ChooseAppLanguageModel();
-//        String preferenceRealPin =
-//                SafeYouApp.getPreference(getView().getContext())
-//                        .getStringValue(Constants.Key.KEY_SHARED_REAL_PIN, "");
-//        getView().configSwitchButton(Objects.equals(preferenceRealPin, ""));.
 
         checkIsNotificationEnabled();
+        checkIsDarkModeEnabled();
     }
 
     @Override
@@ -74,7 +72,7 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
     public void getProfile(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
 
@@ -83,20 +81,30 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
                 new NetworkCallback<Response<ProfileResponse>>() {
                     @Override
                     public void onSuccess(Response<ProfileResponse> response) {
-                        if (response.isSuccessful()) {
-                            if (response.code() == HttpURLConnection.HTTP_OK) {
-                                if (response.body() != null) {
-                                    if (response.body().getCountry().getImage() != null) {
-                                        getView().setCountry(response.body().getCountry().getName(),
-                                                response.body().getCountry().getImage());
+                        if (getView() != null) {
+                            if (response.isSuccessful()) {
+                                if (response.code() == HttpURLConnection.HTTP_OK) {
+                                    if (response.body() != null) {
+                                        if (response.body().getCountry().getImage() != null) {
+                                            getView().setCountry(response.body().getCountry().getName(),
+                                                    response.body().getCountry().getImage());
+                                        }
+                                        List<ConsultantRequestResponse> consultantRequestResponse
+                                                = response.body().getConsultantRequest();
+                                        if (consultantRequestResponse != null && consultantRequestResponse.size() > 0) {
+                                            ConsultantRequestResponse consultantRequest = consultantRequestResponse.get(0);
+                                            getView().configConsultantRequest(consultantRequest.getStatus());
+                                        } else {
+                                            getView().configConsultantRequest(-1);
+                                        }
                                     }
                                 }
+                            } else {
+                                getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
                             }
-                        } else {
-                            getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
-                        }
 
-                        getView().dismissProgress();
+                            getView().dismissProgress();
+                        }
                     }
 
                     @Override
@@ -111,7 +119,7 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
     public void logout(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         mFragmentOtherModel.logout(getView().getContext(), countryCode, locale,
@@ -120,14 +128,14 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
                     public void onSuccess(Response<Message> response) {
                         if (response.isSuccessful()) {
                             if (response.code() == HttpURLConnection.HTTP_OK) {
-                                SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_ACCESS_TOKEN);
-                                SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_REFRESH_TOKEN);
                                 SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_PASSWORD);
                                 SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_USER_PHONE);
                                 SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_SHARED_REAL_PIN);
                                 SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_SHARED_FAKE_PIN);
+                                SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_USER_ID);
 
                                 ((SafeYouApp) getView().getAppContext()).getSocket().disconnect();
+                                ((SafeYouApp) getView().getAppContext()).getChatSocket("").disconnect();
 
                                 getView().logout();
                             }
@@ -144,10 +152,46 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
     }
 
     @Override
-    public void clickTermAndCondition() {
+    public void deleteAccount(String countryCode, String locale) {
+        if (!Connectivity.isConnected(getView().getContext())) {
+            getView().showErrorMessage(getView().getContext()
+                    .getResources().getString(R.string.check_internet_connection_text_key));
+            return;
+        }
+        mFragmentOtherModel.deleteAccount(getView().getContext(), countryCode, locale,
+                new NetworkCallback<Response<Message>>() {
+                    @Override
+                    public void onSuccess(Response<Message> response) {
+                        if (response.isSuccessful()) {
+                            if (response.code() == HttpURLConnection.HTTP_OK) {
+                                SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_PASSWORD);
+                                SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_USER_PHONE);
+                                SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_SHARED_REAL_PIN);
+                                SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_SHARED_FAKE_PIN);
+                                SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_USER_ID);
+
+                                ((SafeYouApp) getView().getAppContext()).getSocket().disconnect();
+                                ((SafeYouApp) getView().getAppContext()).getChatSocket("").disconnect();
+
+                                getView().logout();
+                            }
+                        } else {
+                            getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        getView().showErrorMessage(error.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void clickAboutUs() {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(KEY_IS_TERM, false);
-        getView().goTermAndCondition(bundle);
+        bundle.putBoolean(KEY_IS_ABOUT_US, true);
+        getView().goWebViewActivity(bundle);
     }
 
     @Override
@@ -158,14 +202,24 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
     }
 
     @Override
+    public void checkIsDarkModeEnabled() {
+        boolean isNotificationEnabled = SafeYouApp.getPreference(getView().getContext())
+                .getBooleanValue(Constants.Key.KEY_IS_DARK_MODE_ENABLED, false);
+        getView().configDarkModeSwitch(isNotificationEnabled);
+    }
+
+    @Override
     public void checkNotificationStatus(boolean checked, String countryCode, String locale) {
         getView().showProgress();
         SafeYouApp.getPreference(getView().getContext())
                 .setValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, checked);
 
         // getting FCM device token
-        FirebaseInstanceId.getInstance().getInstanceId()
+        FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
+                    if (getView() == null) {
+                        return;
+                    }
                     if (checked) {
                         if (!task.isSuccessful()) {
                             Log.w("Device_token", "getInstanceId failed", task.getException());
@@ -176,8 +230,7 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
                         }
                     }
 
-                    String deviceToken = checked ? Objects.requireNonNull(task.getResult()).getToken() : "";
-                    Log.i("Device_token", deviceToken);
+                    String deviceToken = checked ? Objects.requireNonNull(task.getResult()) : "";
 
                     mFragmentOtherModel.editProfile(getView().getAppContext(), countryCode, locale,
                             "device_token", deviceToken, new NetworkCallback<Response<Message>>() {

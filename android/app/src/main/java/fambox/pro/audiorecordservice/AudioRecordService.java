@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 import fambox.pro.Constants;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.model.RecordDetailsModel;
@@ -45,8 +46,7 @@ public class AudioRecordService extends Service {
     private static final int MILLIS_IN_FUTURE = 61000;
     private static final int COUNT_DOWN_INTERVAL = 1000;
     private RecordDetailsModel mRecordDetailsModel;
-    private Locale mLocale;
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private MediaRecorder recorder;
     private static final String TAG = AudioRecordService.class.getSimpleName();
     private final static String FOREGROUND_CHANNEL_ID = "RECORD_CHANEL_SAFE_YOU";
@@ -57,9 +57,10 @@ public class AudioRecordService extends Service {
     private long mRecordDuration;
     private long recordStartTime;
     String countryCode;
+
     // Registered callback
     private ServiceCallback serviceCallback;
-    private CountDownTimer countDownTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
+    private final CountDownTimer countDownTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
 
         @Override
         public void onTick(long millisUntilFinished) {
@@ -97,7 +98,6 @@ public class AudioRecordService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mLocale = getResources().getConfiguration().locale;
         countryCode = SafeYouApp.getPreference(getApplicationContext())
                 .getStringValue(Constants.Key.KEY_COUNTRY_CODE, "");
         mRecordDetailsModel = new RecordDetailsModel();
@@ -109,7 +109,7 @@ public class AudioRecordService extends Service {
     private Notification prepareNotification() {
         // handle build version above android oreo
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.all);
+            CharSequence name = getString(R.string.title_all);
             NotificationChannel channel = new NotificationChannel(FOREGROUND_CHANNEL_ID, name, NotificationManager.IMPORTANCE_MIN);
             channel.setImportance(NotificationManager.IMPORTANCE_LOW);
             channel.setLockscreenVisibility(Notification.VISIBILITY_SECRET);
@@ -168,32 +168,12 @@ public class AudioRecordService extends Service {
         }
     }
 
-    public void cancelRecord() {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-
-        if (recorder != null) {
-            recorder.stop();
-            recorder.release();
-            recorder = null;
-        }
-
-        if (serviceCallback != null) {
-            serviceCallback.onFileSuccessSend();
-        }
-
-        stopService();
-    }
-
     public void sentRecord() {
         stopRecording(true);
     }
 
     public void stopRecording(boolean isSendFromClick) {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
+        countDownTimer.cancel();
         mRecordDuration = (System.currentTimeMillis() - recordStartTime) / COUNT_DOWN_INTERVAL;
         if (recorder != null) {
             recorder.stop();
@@ -237,7 +217,7 @@ public class AudioRecordService extends Service {
         RequestBody date = createFormDataBody(TimeUtil.getCurrentTime("yyyy-MM-dd"));
         RequestBody time = createFormDataBody(TimeUtil.getCurrentTime("HH:mm:ss"));
 
-        mCompositeDisposable.add(SafeYouApp.getApiService().addRecord(countryCode, mLocale.getLanguage(),
+        mCompositeDisposable.add(SafeYouApp.getApiService().addRecord(countryCode, LocaleHelper.getLanguage(getBaseContext()),
                 audio, name, location, latitude,
                 longitude, duration, date, time, false)
                 .subscribeOn(Schedulers.io())
@@ -253,7 +233,7 @@ public class AudioRecordService extends Service {
                                 }
 
                                 if (isSendFromClick) {
-                                    sentRecordToUsers(countryCode, mLocale.getLanguage());
+                                    sentRecordToUsers(countryCode, LocaleHelper.getLanguage(getBaseContext()));
                                     return;
                                 }
                             }
@@ -319,6 +299,7 @@ public class AudioRecordService extends Service {
 
     private void stopService() {
         Log.i(TAG, "stopService: ");
+        SmartLocation.with(this).location().stop();
         stopForeground(true);
         stopSelf();
     }

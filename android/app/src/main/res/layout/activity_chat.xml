@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/chatAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:minHeight="?actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/chatToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            android:layout_alignParentTop="true"
+            android:background="@color/statusBarColorPurpleDark"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance">
+
+            <ImageView
+                android:id="@+id/iconBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/back_icon_description"
+                android:paddingStart="0dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/icon_back_white" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userProfileImage"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/hay_roboto_bold"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/userProfession"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:textColor="#F1BEC9"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splash_white" />
+
+    <RelativeLayout
+        android:id="@+id/messageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chatAppBar">
+
+        <ProgressBar
+            android:id="@+id/loadMoreProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <com.fambox.chatkit.messages.MessagesList
+            android:id="@+id/chatKitList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/chatKitInput"
+            android:layout_below="@id/loadMoreProgress"
+            android:background="@color/transparent"
+            app:dateHeaderFormat="dd MMM yy"
+            app:dateHeaderTextColor="@color/chip_text_black"
+            app:incomingDefaultBubbleColor="@color/dialog_show_info_color"
+            app:incomingTextLinkColor="@color/mainBlueColor"
+            app:incomingTextSize="12sp"
+            app:incomingTextColor="@color/black"
+            app:incomingTimeTextColor="#A79EAA"
+            app:incomingTimeTextSize="12sp"
+            app:outcomingDefaultBubbleColor="@color/color_chat_item_background"
+            app:outcomingImageTimeTextSize="10sp"
+            app:outcomingTextColor="@color/black"
+            app:outcomingTextLinkColor="@color/mainBlueColor"
+            app:outcomingTextSize="12sp"
+            app:outcomingTimeTextColor="#A79EAA"
+            app:outcomingTimeTextSize="12sp"
+            app:textAutoLink="all" />
+
+        <!--        <View-->
+        <!--            android:id="@+id/messageLineView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0.5dp"-->
+        <!--            android:layout_above="@+id/chatKitInput"-->
+        <!--            android:background="@color/gray" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mentionList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/chatKitInput" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/replyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/chatKitInput"
+            android:background="@color/shadow_gray"
+            android:maxHeight="100dp"
+            android:padding="15dp"
+            android:visibility="gone">
+
+            <View
+                android:id="@+id/replyTextLine"
+                android:layout_width="2dp"
+                android:layout_height="0dp"
+                android:background="@color/shadow_gray"
+                android:elevation="2dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/replyText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/replyUserName" />
+
+            <TextView
+                android:id="@+id/replyUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/replyTextLine"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/replyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="@id/replyTextLine"
+                app:layout_constraintTop_toBottomOf="@id/replyUserName" />
+
+            <ImageView
+                android:id="@+id/closeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/close_key"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.fambox.chatkit.messages.MessageInput
+            android:id="@+id/chatKitInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/chat_send_backgreound_color"
+            android:elevation="@dimen/_8sdp"
+            app:attachmentButtonBackground="@color/transparent"
+            app:attachmentButtonContentDescription="@string/attachment_icon_description"
+            app:attachmentButtonIcon="@drawable/icon_select_image"
+            app:inputButtonBackground="@color/transparent"
+            app:inputButtonContentDescription="@string/send_message_icon_description"
+            app:inputButtonIcon="@drawable/icon_send_message"
+            app:inputHint="@string/type_a_message"
+            app:inputMaxLines="5"
+            app:inputTextColor="@color/comment_input_text_color"
+            app:inputTextSize="13sp"
+            app:recordAudioButtonContentDescription="@string/record_audio_icon_description"
+            app:recordAudioButtonIcon="@drawable/icon_microphone"
+            app:showAttachmentButton="true"
+            app:takePhotoButtonContentDescription="@string/take_photo_icon_description"
+            app:takePhotoButtonIcon="@drawable/icon_take_image" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

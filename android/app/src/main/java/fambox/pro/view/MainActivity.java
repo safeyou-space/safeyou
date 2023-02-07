@@ -1,21 +1,29 @@
 package fambox.pro.view;
 
+import static fambox.pro.Constants.Key.KEY_LOG_IN_FIRST_TIME;
+import static fambox.pro.Constants.Key.KEY_SERVICE_ID;
+import static fambox.pro.Constants.Key.KEY_SERVICE_TYPE;
+
 import android.content.Context;
-import android.graphics.Typeface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,18 +33,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fambox.pro.BaseActivity;
 import fambox.pro.R;
+import fambox.pro.SafeYouApp;
+import fambox.pro.enums.Types;
 import fambox.pro.network.model.ServicesSearchResponse;
 import fambox.pro.presenter.MainPresenter;
+import fambox.pro.utils.ContinuousLongClick;
 import fambox.pro.utils.SnackBar;
+import fambox.pro.utils.SwipeDisabledViewPager;
 import fambox.pro.utils.Utils;
 import fambox.pro.view.fragment.FragmentHelp;
 import fambox.pro.view.fragment.FragmentNetwork;
 import fambox.pro.view.fragment.FragmentProfile;
 import fambox.pro.view.viewpager.MainViewPager;
 import pro.fambox.materialsearchview.MaterialSearchView;
-
-import static fambox.pro.Constants.Key.KEY_SERVICE_ID;
-import static fambox.pro.Constants.Key.KEY_SERVICE_TYPE;
 
 public class MainActivity extends BaseActivity implements MainContract.View,
         FragmentHelp.PassData, FragmentNetwork.TransferDataListener,
@@ -46,13 +55,42 @@ public class MainActivity extends BaseActivity implements MainContract.View,
     private FragmentNetwork.TransferSearchTextListener mTransferSearchTextListener;
     private Fragment fragment;
     private FragmentNetwork fragmentNetwork;
+    private FragmentHelp fragmentHelp;
+    private boolean isLongClickEnable = true;
+
+    private final ContinuousLongClick.ContinuousLongClickListener mContinuousLongClickListener
+            = new ContinuousLongClick.ContinuousLongClickListener() {
+        @Override
+        public void onStartLongClick(View view) {
+            if (isLongClickEnable) {
+                viewPager.setCurrentItem(2, false);
+                bottomNavigationViewEx.setSelectedItemId(R.id.menuHelp);
+                fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 2);
+                if (fragment instanceof FragmentHelp) {
+                    fragmentHelp = (FragmentHelp) fragment;
+                    fragmentHelp.onStartRecordWithMainActivity();
+                }
+            }
+        }
+
+        @Override
+        public void onEndLongClick(View view) {
+            if (isLongClickEnable) {
+                fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager + ":" + 2);
+                if (fragment instanceof FragmentHelp) {
+                    fragmentHelp = (FragmentHelp) fragment;
+                    fragmentHelp.onStopRecordWithMainActivity();
+                }
+            }
+        }
+    };
 
     @BindView(R.id.bottomNavigationViewEx)
-    BottomNavigationViewEx bottomNavigationViewEx;
+    BottomNavigationView bottomNavigationViewEx;
     @BindView(R.id.fab)
-    FloatingActionButton fab;
+    Button fab;
     @BindView(R.id.viewPager)
-    ViewPager viewPager;
+    SwipeDisabledViewPager viewPager;
     @BindView(R.id.screenDimmer)
     View screenDimmer;
     @BindView(R.id.containerNetworkSearch)
@@ -63,9 +101,11 @@ public class MainActivity extends BaseActivity implements MainContract.View,
     MaterialSearchView searchView;
     @BindView(R.id.bottomNotificationIcon)
     ImageView bottomNotificationIcon;
+    @BindView(R.id.bottomPrivateNotificationIcon)
+    ImageView bottomPrivateNotificationIcon;
 
-    public ImageView getBottomNotificationIcon() {
-        return bottomNotificationIcon;
+    public ImageView getBottomPrivateNotificationIcon() {
+        return bottomPrivateNotificationIcon;
     }
 
     public void setTransferSearchTextListener(FragmentNetwork.TransferSearchTextListener mTransferSearchTextListener) {
@@ -76,8 +116,7 @@ public class MainActivity extends BaseActivity implements MainContract.View,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addAppBar(null, false, false, false,
-                getResources().getString(R.string.help), true);
-//        setSupportActionBar(toolbar);
+                "", true);
         ButterKnife.bind(this);
         mMainPresenter = new MainPresenter();
         mMainPresenter.attachView(MainActivity.this);
@@ -114,6 +153,31 @@ public class MainActivity extends BaseActivity implements MainContract.View,
         searchView.setSubmitOnClick(true);
 
         logSentFriendRequestEvent();
+
+        // TODO: chang
+        SafeYouApp.getPreference().setValue(KEY_LOG_IN_FIRST_TIME, true);
+
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, pendingDynamicLinkData -> {
+                    // Get deep link from result (may be null if no link is found)
+                    Uri deepLink;
+                    if (pendingDynamicLinkData != null) {
+                        deepLink = pendingDynamicLinkData.getLink();
+                        if (deepLink != null) {
+                            Intent intent = new Intent(MainActivity.this, ForumCommentActivity.class);
+                            intent.putExtra("forum_id", Long.parseLong(deepLink.getQueryParameter("forumId")));
+                            startActivity(intent);
+                        }
+                    }
+                })
+                .addOnFailureListener(this, e -> Log.e("TAG", "getDynamicLink:onFailure", e));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        viewPager.setCurrentItem(1);
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -136,14 +200,6 @@ public class MainActivity extends BaseActivity implements MainContract.View,
     @Override
     protected int getLayout() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        addAppBar(null, false, false, false,
-//                getResources().getString(R.string.help), true);
-        mMainPresenter.getProfile(getCountryCode(), getLocale());
     }
 
     @Override
@@ -179,26 +235,46 @@ public class MainActivity extends BaseActivity implements MainContract.View,
 
     @Override
     public void configViews() {
-        Typeface face = ResourcesCompat.getFont(this, R.font.hay_roboto_regular);
-        bottomNavigationViewEx.enableItemShiftingMode(false);
-        bottomNavigationViewEx.enableShiftingMode(false);
-        bottomNavigationViewEx.enableAnimation(false);
-        bottomNavigationViewEx.setupWithViewPager(viewPager);
-        bottomNavigationViewEx.setTextSize(getResources().getDimensionPixelOffset(R.dimen._3ssp));
-        bottomNavigationViewEx.setTypeface(face);
-        if (Objects.equals(getCountryCode(), "geo") || Objects.equals(getLocale(), "ka")) {
-            fab.setImageDrawable(Utils.textToDrawable(this, "SOS"));
-        } else {
-            fab.setImageDrawable(Utils.textToDrawable(this, getResources().getString(R.string.help)));
-        }
-
+        fab.setText(getResources().getString(R.string.help_title_key));
+        bottomNavigationViewEx.setSelectedItemId(R.id.menuHelp);
+        bottomNavigationViewEx.setAnimation(null);
+        bottomNavigationViewEx.setOnItemSelectedListener(
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.menuForum:
+                            viewPager.setCurrentItem(0);
+                            break;
+                        case R.id.menuNetwork:
+                            viewPager.setCurrentItem(1);
+                            break;
+                        case R.id.menuHelp:
+                            viewPager.setCurrentItem(2);
+                            break;
+                        case R.id.menuProfile:
+                            viewPager.setCurrentItem(3);
+                            break;
+                        case R.id.menuOther:
+                            viewPager.setCurrentItem(4);
+                            break;
+                    }
+                    return true;
+                });
         View menuItem = findViewById(R.id.menuForum);
         menuItem.post(() -> {
-            bottomNotificationIcon.setX(((menuItem.getLeft() + menuItem.getRight()) / 2f)
-                    - (bottomNotificationIcon.getWidth() / 2f));
-            bottomNotificationIcon.setY(bottomNavigationViewEx.getBottom()
-                    - (bottomNavigationViewEx.getHeight() + bottomNotificationIcon.getHeight() + 15));
+            float x = ((menuItem.getLeft() + menuItem.getRight()) / 2f) + 10;
+            float y = bottomNavigationViewEx.getBottom() - (bottomNavigationViewEx.getHeight()) + 15;
+            bottomNotificationIcon.setX(x);
+            bottomNotificationIcon.setY(y);
         });
+
+        View menuPrivatItem = findViewById(R.id.menuProfile);
+        menuPrivatItem.post(() -> {
+            float x = ((menuPrivatItem.getLeft() + menuPrivatItem.getRight()) / 2f) + 10;
+            float y = bottomNavigationViewEx.getBottom() - (bottomNavigationViewEx.getHeight()) + 15;
+            bottomPrivateNotificationIcon.setX(x);
+            bottomPrivateNotificationIcon.setY(y);
+        });
+        new ContinuousLongClick(fab, mContinuousLongClickListener);
     }
 
     @Override
@@ -206,11 +282,10 @@ public class MainActivity extends BaseActivity implements MainContract.View,
         viewPager.setAdapter(new MainViewPager(getSupportFragmentManager()));
         viewPager.setCurrentItem(pos);
         viewPager.setOffscreenPageLimit(4);
-        mMainPresenter.setViewPagerPosition(viewPager);
+        viewPager.setPagingEnabled(false);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                mMainPresenter.setViewPagerPosition(viewPager);
                 if (fragment != null) {
                     if (fragment instanceof FragmentNetwork && position != 3) {
                         fragmentNetwork.setSendSms(false);
@@ -232,7 +307,7 @@ public class MainActivity extends BaseActivity implements MainContract.View,
 
     @Override
     public void openForum() {
-        if (viewPager != null) viewPager.setCurrentItem(1);
+        if (viewPager != null) viewPager.setCurrentItem(0);
     }
 
     @Override
@@ -243,6 +318,7 @@ public class MainActivity extends BaseActivity implements MainContract.View,
 
     @OnClick(R.id.fab)
     void onClickFab() {
+        bottomNavigationViewEx.setSelectedItemId(R.id.menuHelp);
         viewPager.setCurrentItem(2, false);
     }
 
@@ -266,15 +342,23 @@ public class MainActivity extends BaseActivity implements MainContract.View,
     @Override
     public void setToolbarTitle(String title) {
         setBaseTitle(title);
+        if (Objects.equals(getResources().getString(R.string.help_title_key), title)) {
+            Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_HELP_FRAGMENT_COLOR);
+            setToolbarColor(getResources().getColor(R.color.helpScreenBackground));
+        } else {
+            setToolbarColor(getResources().getColor(R.color.toolbar_background));
+            Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE);
+        }
     }
 
     @Override
     public void onBackPressed() {
-        if (viewPager.getCurrentItem() != 2) {
-            viewPager.setCurrentItem(2, false);
-        } else if (searchView.isSearchOpen()) {
+        if (searchView.isSearchOpen()) {
             searchView.closeSearch();
             networkSearch.setVisibility(View.VISIBLE);
+        } else if (viewPager.getCurrentItem() != 2) {
+            viewPager.setCurrentItem(2, false);
+            bottomNavigationViewEx.setSelectedItemId(R.id.menuHelp);
         } else {
             super.onBackPressed();
         }
@@ -300,16 +384,6 @@ public class MainActivity extends BaseActivity implements MainContract.View,
     }
 
     /**
-     * Changing app bar text in {@link FragmentHelp}
-     *
-     * @param text app bar text.
-     */
-    @Override
-    public void onAppBarTextChange(String text) {
-        setBaseTitle(text);
-    }
-
-    /**
      * Changing screen dimmer visibility in {@link FragmentHelp}
      *
      * @param visibility screen dimmer visibility.
@@ -330,5 +404,10 @@ public class MainActivity extends BaseActivity implements MainContract.View,
             fragmentNetwork = (FragmentNetwork) fragment;
             fragmentNetwork.setServiceId(serviceId, true, true);
         }
+    }
+
+    @Override
+    public void onLongClickEnable(boolean isEnable) {
+        this.isLongClickEnable = isEnable;
     }
 }

@@ -1,5 +1,7 @@
 package fambox.pro.presenter;
 
+import static fambox.pro.Constants.BASE_URL;
+
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,8 +31,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-
-import static fambox.pro.Constants.BASE_URL;
 
 public class EditProfilePresenter extends
         BasePresenter<EditProfileContract.View> implements EditProfileContract.Presenter {
@@ -151,9 +151,6 @@ public class EditProfilePresenter extends
                 case R.id.btnEditLocation:
                     editProfile(countryCode, locale, "location", Utils.getEditableToString(editText.getText()));
                     break;
-//                case R.id.btnEditEmail:
-//                    editProfile(locale, "email", Utils.getEditableToString(editText.getText()));
-//                    break;
                 case R.id.btnChangeNickName:
                     editProfile(countryCode, locale, "nickname", Utils.getEditableToString(editText.getText()));
                     break;
@@ -169,7 +166,7 @@ public class EditProfilePresenter extends
             public void onSuccess(Response<Message> response) {
                 if (response.isSuccessful()) {
                     if (response.code() == HttpURLConnection.HTTP_OK) {
-                        if (response.body() != null){
+                        if (response.body() != null) {
                             getView().showSuccessMessage(response.body().getMessage());
                             profileSingle(countryCode, locale, "image");
                         }
@@ -197,7 +194,7 @@ public class EditProfilePresenter extends
     private void editProfile(String countryCode, String locale, String key, Object value) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
 
@@ -230,7 +227,7 @@ public class EditProfilePresenter extends
     public void getProfile(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
 
@@ -241,21 +238,28 @@ public class EditProfilePresenter extends
                     public void onSuccess(Response<ProfileResponse> response) {
                         if (response.isSuccessful()) {
                             if (response.code() == HttpURLConnection.HTTP_OK) {
-                                if (response.body() != null) {
+                                if (response.body() != null && getView() != null) {
                                     getView().setFirstName(response.body().getFirst_name());
                                     getView().setLastName(response.body().getLast_name());
+                                    getView().setUserId(response.body().getUid());
                                     getView().setMaritalStatus(response.body().getMarital_status());
                                     getView().setMobilePhone(response.body().getPhone());
                                     getView().setLocation(response.body().getLocation());
                                     getView().setNickname(response.body().getNickname());
-                                    getView().setImage(BASE_URL.concat(response.body().getImage().getUrl()));
+                                    if (response.body().getImage() != null) {
+                                        getView().setImage(BASE_URL.concat(response.body().getImage().getUrl()));
+                                    } else {
+                                        getView().setImage("");
+                                    }
 
                                 }
                             }
                         } else {
                             getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
                         }
-                        getView().dismissProgress();
+                        if (getView() != null) {
+                            getView().dismissProgress();
+                        }
                     }
 
                     @Override
@@ -264,10 +268,5 @@ public class EditProfilePresenter extends
                         getView().dismissProgress();
                     }
                 });
-    }
-
-    @Override
-    public void saveMarred(String countryCode, String locale, int marred) {
-        editProfile(countryCode, locale, "marital_status", marred);
     }
 }

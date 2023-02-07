@@ -10,8 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import fambox.pro.network.model.ImageResponse;
-
 public class UnityNetworkResponse implements Parcelable {
 
     @SerializedName("id")

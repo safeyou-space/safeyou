@@ -1,24 +1,21 @@
 package fambox.pro.presenter.fragment;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import fambox.pro.BaseActivity;
 import fambox.pro.R;
 import fambox.pro.model.fragment.FragmentNetworkModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.ServicesResponseBody;
 import fambox.pro.network.model.ServicesSearchResponse;
-import fambox.pro.network.model.UnityNetworkResponse;
 import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
@@ -32,7 +29,7 @@ public class FragmentNetworkPresenter extends BasePresenter<FragmentNetworkContr
 
     private FragmentNetworkModel mFragmentNetworkModel;
     private List<ServicesResponseBody> mServicesResponseBodyList;
-    private Map<String, String> mCategoriesTypes = new HashMap<>();
+    private final Map<String, String> mCategoriesTypes = new HashMap<>();
 
     @Override
     public void viewIsReady() {
@@ -49,7 +46,7 @@ public class FragmentNetworkPresenter extends BasePresenter<FragmentNetworkContr
                         if (RetrofitUtil.isResponseSuccess(response, HttpURLConnection.HTTP_OK)) {
                             if (response.body() != null) {
                                 try {
-                                    if (mCategoriesTypes != null && isSendSms) {
+                                    if (isSendSms) {
                                         mCategoriesTypes.clear();
                                     }
                                     JSONObject categoryType = new JSONObject(response.body().string());
@@ -71,7 +68,6 @@ public class FragmentNetworkPresenter extends BasePresenter<FragmentNetworkContr
 
                     @Override
                     public void onError(Throwable error) {
-//                        getView().showErrorMessage(error.getMessage());
                         getView().dismissProgress();
                     }
                 });
@@ -97,7 +93,6 @@ public class FragmentNetworkPresenter extends BasePresenter<FragmentNetworkContr
 
                     @Override
                     public void onError(Throwable error) {
-//                        getView().showErrorMessage(error.getMessage());
                         getView().dismissProgress();
                     }
                 });
@@ -107,7 +102,7 @@ public class FragmentNetworkPresenter extends BasePresenter<FragmentNetworkContr
     public void getServices(String countryCode, String locale, boolean isSendSms) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         getView().showProgress();
@@ -118,26 +113,20 @@ public class FragmentNetworkPresenter extends BasePresenter<FragmentNetworkContr
                         if (response.isSuccessful()) {
                             if (response.code() == HttpURLConnection.HTTP_OK) {
                                 if (response.body() != null) {
-                                    Log.i("taguyi", "response.body(): " + response.body().size());
                                     if (mServicesResponseBodyList != null) {
                                         mServicesResponseBodyList.clear();
-                                        Log.i("taguyi", "mServicesResponseBodyList size " + mServicesResponseBodyList.size());
                                     }
                                     mServicesResponseBodyList = response.body();
                                     getView().initRecyclerView(mServicesResponseBodyList);
                                     getMarkersPositionInServer();
-                                    Log.i("taguyi", "mServicesResponseBodyList size verj" + mServicesResponseBodyList.size() + isSendSms);
                                 }
                             }
-                        } else {
-//                            getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
                         }
                         getView().dismissProgress();
                     }
 
                     @Override
                     public void onError(Throwable error) {
-//                        getView().showErrorMessage(error.getMessage());
                         getView().dismissProgress();
                     }
                 });
@@ -154,15 +143,15 @@ public class FragmentNetworkPresenter extends BasePresenter<FragmentNetworkContr
                                 if (response.body() != null) {
                                     getView().setSearchResult(response.body());
                                 }
+                            } else if (response.code() == 202) {
+                                getView().setSearchResult(new ArrayList<>());
                             }
-                        } else {
-//                            getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
                         }
                     }
 
                     @Override
                     public void onError(Throwable error) {
-//                        getView().showErrorMessage(error.getMessage());
+                        getView().setSearchResult(new ArrayList<>());
                     }
                 });
     }
@@ -174,8 +163,8 @@ public class FragmentNetworkPresenter extends BasePresenter<FragmentNetworkContr
             for (int i = 0; i < mServicesResponseBodyList.size(); i++) {
                 double latitude = Utils.convertStringToDuple(mServicesResponseBodyList.get(i).getLatitude());
                 double longitude = Utils.convertStringToDuple(mServicesResponseBodyList.get(i).getLongitude());
-                String fullName = mServicesResponseBodyList.get(i).getUser_detail().getFirst_name();
-                getView().addMarkersOnMap(fullName, mServicesResponseBodyList.get(i).getUser_detail().getLocation(),
+                String fullName = mServicesResponseBodyList.get(i).getTitle();
+                getView().addMarkersOnMap(fullName, mServicesResponseBodyList.get(i).getCity(),
                         latitude, longitude);
             }
         }

@@ -25,6 +25,8 @@ public interface EditProfileContract {
 
         void setLastName(String text);
 
+        void setUserId(String id);
+
         void setEmail(String text);
 
         void setMobilePhone(String text);
@@ -32,8 +34,6 @@ public interface EditProfileContract {
         void setLocation(String text);
 
         void initDialog();
-
-        void setUpFilePicker();
 
         void setNickname(String nickname);
 
@@ -56,8 +56,6 @@ public interface EditProfileContract {
         void configEditText(String countryCode, String locale, FragmentActivity context, TextInputEditText editText, boolean isChecked, int viewId);
 
         void removeProfileImage(String countryCode, String locale);
-
-        void saveMarred(String countryCode, String locale, int marred);
 
     }
 

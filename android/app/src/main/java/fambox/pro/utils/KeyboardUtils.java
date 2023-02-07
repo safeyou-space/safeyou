@@ -1,11 +1,11 @@
 package fambox.pro.utils;
 
+import static android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
-import static android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT;
 
 public class KeyboardUtils {
 

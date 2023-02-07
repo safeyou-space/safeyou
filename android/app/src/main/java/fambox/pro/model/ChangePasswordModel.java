@@ -15,7 +15,7 @@ import retrofit2.Response;
 
 public class ChangePasswordModel implements SettingsChangePassContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void changePassword(Context context,

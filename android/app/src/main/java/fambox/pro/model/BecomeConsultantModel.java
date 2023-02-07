@@ -1,7 +1,6 @@
 package fambox.pro.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,6 +22,44 @@ public class BecomeConsultantModel implements BecomeConsultantContract.Model {
     public void consultantRequest(Context appContext, String countryCode, String language, Object consultantRequest,
                                   NetworkCallback<Response<ResponseBody>> response) {
         mCompositeDisposable.add(SafeYouApp.getApiService(appContext).consultantRequest(countryCode, language, consultantRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Response<ResponseBody>>() {
+                    @Override
+                    public void onSuccess(@NotNull Response<ResponseBody> listResponse) {
+                        response.onSuccess(listResponse);
+                    }
+
+                    @Override
+                    public void onError(@NotNull Throwable e) {
+                        response.onError(e);
+                    }
+                }));
+    }
+
+    @Override
+    public void cancelConsultantRequest(Context appContext, String countryCode, String language,
+                                        NetworkCallback<Response<ResponseBody>> response) {
+        mCompositeDisposable.add(SafeYouApp.getApiService(appContext).cancelConsultantRequest(countryCode, language)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Response<ResponseBody>>() {
+                    @Override
+                    public void onSuccess(@NotNull Response<ResponseBody> listResponse) {
+                        response.onSuccess(listResponse);
+                    }
+
+                    @Override
+                    public void onError(@NotNull Throwable e) {
+                        response.onError(e);
+                    }
+                }));
+    }
+
+    @Override
+    public void deactivateConsultantRequest(Context appContext, String countryCode, String language,
+                                            NetworkCallback<Response<ResponseBody>> response) {
+        mCompositeDisposable.add(SafeYouApp.getApiService(appContext).deactivateConsultantRequest(countryCode, language)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Response<ResponseBody>>() {

@@ -17,7 +17,7 @@ import retrofit2.Response;
 
 public class FragmentRecordModel implements FragmentRecordsContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void getRecords(Context context, String countryCode, String locale, NetworkCallback<Response<List<RecordResponse>>> response) {

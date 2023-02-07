@@ -1,9 +1,11 @@
 package fambox.pro.view;
 
+import static fambox.pro.Constants.Key.KEY_CHANGE_COUNTRY;
+import static fambox.pro.Constants.Key.KEY_CHANGE_LANGUAGE;
+import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE_BUNDLE;
+
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +22,6 @@ import fambox.pro.network.model.CountriesLanguagesResponseBody;
 import fambox.pro.presenter.ChooseCountryPresenter;
 import fambox.pro.utils.Utils;
 import fambox.pro.view.adapter.AdapterChooseCountries;
-import fambox.pro.view.dialog.InfoDialog;
-
-import static fambox.pro.Constants.Key.KEY_CHANGE_COUNTRY;
-import static fambox.pro.Constants.Key.KEY_CHANGE_LANGUAGE;
-import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE_BUNDLE;
 
 public class ChooseCountryActivity extends BaseActivity implements ChooseCountryContract.View {
 
@@ -44,7 +41,7 @@ public class ChooseCountryActivity extends BaseActivity implements ChooseCountry
         mChooseCountryPresenter.initBundle(getIntent().getExtras());
         if (isChangeCountry) {
             addAppBar(null, false,
-                    true, false, getResources().getString(R.string.country), true);
+                    true, false, getResources().getString(R.string.country_title_key), true);
         } else {
             Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE);
             addAppBar(null, true,

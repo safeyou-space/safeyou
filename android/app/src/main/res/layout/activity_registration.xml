@@ -21,8 +21,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/hay_roboto_normal"
                 android:gravity="center"
-                android:text="@string/sign_up_lowercase"
-                android:textColor="@color/white"
+                android:text="@string/title_signup"
+                android:textColor="@color/colorChooseCountryText"
                 android:textSize="@dimen/_26ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:hint="@string/first_name1"
+                    android:hint="@string/first_name_required_title_key"
                     android:textColorHint="@color/hint_gray"
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true">
@@ -57,14 +57,15 @@
                         android:id="@+id/edtFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="@dimen/_48sdp"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:fontFamily="@font/hay_roboto_normal"
+                        android:fontFamily="@font/hay_roboto_regular"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:hint="@string/last_name1"
+                    android:hint="@string/last_name_required_text_key"
                     android:textColorHint="@color/hint_gray"
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true">
@@ -84,12 +85,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:fontFamily="@font/hay_roboto_normal"
+                        android:fontFamily="@font/hay_roboto_regular"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +100,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:hint="@string/nickname"
+                    android:hint="@string/nick_name_title_key"
                     android:textColorHint="@color/hint_gray"
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true">
@@ -110,12 +111,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:fontFamily="@font/hay_roboto_normal"
+                        android:fontFamily="@font/hay_roboto_regular"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="16sp"  />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,7 +126,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:hint="@string/date_of_birth"
+                    android:hint="@string/birth_date_title_key"
                     android:textColorHint="@color/hint_gray"
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true">
@@ -140,12 +141,12 @@
                         android:ems="10"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:fontFamily="@font/hay_roboto_normal"
+                        android:fontFamily="@font/hay_roboto_regular"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="16sp"  />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,10 +166,10 @@
                         app:ccpDialog_allowSearch="false"
                         app:ccpDialog_backgroundColor="@color/colorAccent"
                         app:ccpDialog_showCloseIcon="true"
-                        app:ccpDialog_textColor="@color/white"
+                        app:ccpDialog_textColor="@color/colorChooseCountryText"
                         app:ccp_arrowSize="@dimen/_20sdp"
                         app:ccp_autoDetectCountry="true"
-                        app:ccp_contentColor="@color/white"
+                        app:ccp_contentColor="@color/colorChooseCountryText"
                         app:ccp_showFlag="false"
                         app:ccp_showNameCode="false"
                         app:ccp_textGravity="LEFT"
@@ -178,7 +179,7 @@
                         android:id="@+id/txtInputLayoutMobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/mobile_number"
+                        android:hint="@string/mobile_number_text_key"
                         android:textColorHint="@color/hint_gray"
                         app:hintAnimationEnabled="true"
                         app:hintEnabled="true">
@@ -187,13 +188,14 @@
                             android:id="@+id/edtMobile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:minHeight="@dimen/_40sdp"
                             android:ems="10"
-                            android:fontFamily="@font/hay_roboto_normal"
+                            android:fontFamily="@font/hay_roboto_regular"
                             android:imeOptions="actionNext"
                             android:inputType="phone"
                             android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_16ssp" />
+                            android:textColor="@color/colorChooseCountryText"
+                            android:textSize="16sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -217,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_2sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:hint="@string/email_registration"
+                        android:hint="@string/marital_status_text_key"
                         android:textColorHint="@color/hint_gray"
                         app:hintAnimationEnabled="true"
                         app:hintEnabled="true" />
@@ -228,11 +230,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_2sdp"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:fontFamily="@font/hay_roboto_normal"
+                        android:fontFamily="@font/hay_roboto_regular"
                         android:maxLines="1"
-                        android:text="@string/dont_selected"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:text="@string/not_selected"
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -253,6 +255,7 @@
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true"
                     app:passwordToggleEnabled="true"
+                    app:passwordToggleContentDescription="@string/show_password_description"
                     app:passwordToggleTint="@color/statusBarColorPurpleLight">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -261,12 +264,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:fontFamily="@font/hay_roboto_normal"
+                        android:fontFamily="@font/hay_roboto_regular"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -276,11 +279,12 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:hint="@string/confirm_password"
+                    android:hint="@string/confirm_password_text_key"
                     android:textColorHint="@color/hint_gray"
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true"
                     app:passwordToggleEnabled="true"
+                    app:passwordToggleContentDescription="@string/show_confirm_password_description"
                     app:passwordToggleTint="@color/statusBarColorPurpleLight">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -289,12 +293,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:fontFamily="@font/hay_roboto_normal"
+                        android:fontFamily="@font/hay_roboto_regular"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -304,17 +308,18 @@
                 android:id="@+id/btnSubmit"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_40sdp"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
                 android:background="@drawable/button_border"
-                android:fontFamily="@font/hay_roboto_normal"
-                android:text="@string/submit"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:text="@string/next_key"
                 android:textAllCaps="false"
                 android:textColor="@color/textPurpleColor"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

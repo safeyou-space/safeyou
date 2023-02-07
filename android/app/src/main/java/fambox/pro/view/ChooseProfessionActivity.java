@@ -20,7 +20,6 @@ import fambox.pro.view.adapter.AdapterChooseProfession;
 
 public class ChooseProfessionActivity extends BaseActivity implements ChooseProfessionContract.View {
 
-    private ChooseProfessionPresenter mChooseProfessionPresenter;
     private AdapterChooseProfession mAdapterChooseProfession;
 
     @BindView(R.id.recViewProfessions)
@@ -32,15 +31,15 @@ public class ChooseProfessionActivity extends BaseActivity implements ChooseProf
         ButterKnife.bind(this);
         addAppBar(null, false,
                 true, false,
-                getResources().getString(R.string.field_for_expertise), true);
-        mChooseProfessionPresenter = new ChooseProfessionPresenter();
+                getResources().getString(R.string.field_of_expertise), true);
+        ChooseProfessionPresenter mChooseProfessionPresenter = new ChooseProfessionPresenter();
         mChooseProfessionPresenter.attachView(this);
         mChooseProfessionPresenter.viewIsReady();
     }
 
     @Override
     public void configRecViewProfessions(List<Integer> ides, List<String> names) {
-        mAdapterChooseProfession = new AdapterChooseProfession(getContext(), ides, names);
+        mAdapterChooseProfession = new AdapterChooseProfession(this, ides, names);
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recViewProfessions.setLayoutManager(linearLayoutManager);

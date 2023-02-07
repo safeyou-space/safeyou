@@ -1,11 +1,11 @@
 package fambox.pro.view;
 
-import android.annotation.SuppressLint;
+import static fambox.pro.Constants.Key.KEY_CHANGE_PIN;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -18,8 +18,6 @@ import fambox.pro.enums.Types;
 import fambox.pro.presenter.DualPinPresenter;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.utils.Utils;
-
-import static fambox.pro.Constants.Key.KEY_CHANGE_PIN;
 
 public class DualPinActivity extends BaseActivity implements DualPinContract.View {
 
@@ -105,8 +103,8 @@ public class DualPinActivity extends BaseActivity implements DualPinContract.Vie
     @Override
     public void goMainActivity() {
         if (isSettings) {
-                setResult(Activity.RESULT_OK, new Intent());
-                finish();
+            setResult(Activity.RESULT_OK, new Intent());
+            finish();
         } else {
             nextActivity(this, PassKeypadActivity.class);
             finishAffinity();
@@ -131,10 +129,10 @@ public class DualPinActivity extends BaseActivity implements DualPinContract.Vie
         resultCanceledIntent();
     }
 
-   private void resultCanceledIntent(){
-       Intent returnIntent = new Intent();
-       returnIntent.putExtra("is_canceled", true);
-       setResult(Activity.RESULT_CANCELED, returnIntent);
-       finish();
-   }
+    private void resultCanceledIntent() {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("is_canceled", true);
+        setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
+    }
 }

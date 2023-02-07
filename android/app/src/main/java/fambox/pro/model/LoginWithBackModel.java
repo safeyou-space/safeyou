@@ -15,7 +15,7 @@ import retrofit2.Response;
 
 public class LoginWithBackModel implements LoginWithBackContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void login(Context context, String countryCode, String locale,

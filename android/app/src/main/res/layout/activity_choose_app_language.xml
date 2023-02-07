@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/splash_background"
     android:orientation="vertical"
     android:fillViewport="true"
@@ -14,32 +15,32 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtChooseYourLanguage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_18sdp"
-                android:layout_marginTop="@dimen/_65sdp"
-                android:layout_marginEnd="@dimen/_18sdp"
-                android:fontFamily="@font/hay_roboto_regular"
-                android:gravity="center"
-                android:text="@string/choose_your_language"
-                android:textColor="@color/colorChooseCountryText"
-                android:textSize="@dimen/_28ssp" />
+        <TextView
+            android:id="@+id/txtChooseYourLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_18sdp"
+            android:layout_marginTop="@dimen/_65sdp"
+            android:layout_marginEnd="@dimen/_18sdp"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:gravity="center"
+            android:text="@string/choose_your_language"
+            android:textColor="@color/colorChooseCountryText"
+            android:textSize="34sp" />
 
-            <TextView
-                android:id="@+id/txtCountryDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_50sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_below="@id/txtChooseYourLanguage"
-                android:fontFamily="@font/hay_roboto_regular"
-                android:gravity="center"
-                android:text="@string/which_language_do_you_like_to_browse_in"
-                android:textColor="@color/colorChooseCountryText"
-                android:textSize="@dimen/_13ssp" />
+        <TextView
+            android:id="@+id/txtCountryDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtChooseYourLanguage"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:gravity="center"
+            android:text="@string/choose_the_language_to_continue"
+            android:textColor="@color/colorChooseCountryText"
+            android:textSize="16sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recViewLanguages"
@@ -48,13 +49,16 @@
                 android:layout_marginStart="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:layout_above="@id/containerNext"
+                android:scrollbars="vertical"
+                android:scrollbarSize="5dp"
+                android:scrollbarStyle="outsideInset"
                 android:layout_marginEnd="@dimen/_18sdp" />
 
         <LinearLayout
             android:id="@+id/containerNext"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/_18sdp"
             android:layout_marginTop="@dimen/_20sdp"
@@ -67,19 +71,20 @@
                 android:id="@+id/txtNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hay_roboto_normal"
+                android:minHeight="@dimen/_40sdp"
+                android:fontFamily="@font/hay_roboto_regular"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="@string/next"
+                android:text="@string/next_key"
                 android:textAllCaps="true"
                 android:textColor="@color/textPurpleColor"
-                android:textSize="@dimen/_14ssp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="@dimen/_11sdp"
                 android:layout_height="@dimen/_11sdp"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:contentDescription="@string/app_name"
+                app:tint="@color/new_main_icon_tint_color"
                 android:src="@drawable/next_button_icon" />
 
         </LinearLayout>

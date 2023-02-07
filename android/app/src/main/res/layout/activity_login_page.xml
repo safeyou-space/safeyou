@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/statusBarColorPurpleLight"
+    android:background="@color/login_page_background"
     android:orientation="vertical"
     tools:context=".view.LoginPageActivity">
 
@@ -12,80 +12,55 @@
         android:id="@+id/lmgLoginLogo"
         android:layout_width="@dimen/_250sdp"
         android:layout_height="@dimen/_250sdp"
+        android:contentDescription="@null"
         android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@id/btnLogin"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:layout_constraintBottom_toTopOf="@id/containerLoginRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/app_name"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:layout_marginTop="@dimen/_16sdp"
-        android:id="@+id/btnLogin"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginStart="@dimen/_25sdp"
-        android:layout_marginEnd="@dimen/_25sdp"
-        android:background="@drawable/button_border_transparent"
-        android:fontFamily="@font/hay_roboto_normal"
-        android:text="@string/login"
-        android:textAllCaps="false"
-        android:textColor="@color/textPurpleColor"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintBottom_toTopOf="@id/btnSignUp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lmgLoginLogo" />
-
-    <!--<Button-->
-        <!--android:id="@+id/btnFacebook"-->
-        <!--style="?android:attr/borderlessButtonStyle"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/_40sdp"-->
-        <!--android:layout_marginStart="@dimen/_25sdp"-->
-        <!--android:layout_marginEnd="@dimen/_25sdp"-->
-        <!--android:background="@drawable/button_border"-->
-        <!--android:fontFamily="@font/hay_roboto_normal"-->
-        <!--android:text="Facebook"-->
-        <!--android:textAllCaps="false"-->
-        <!--android:textColor="@color/textPurpleColor"-->
-        <!--android:textSize="@dimen/_14ssp"-->
-        <!--app:layout_constraintBottom_toTopOf="@id/btnSignUp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/btnLogin" />-->
-
-    <Button
-        android:id="@+id/btnSignUp"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:background="@drawable/ripple_effect_transparent"
-        android:fontFamily="@font/hay_roboto_normal"
-        android:text="@string/sign_up"
-        android:textAllCaps="false"
-        android:textColor="@color/textPurpleColor"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintBottom_toTopOf="@id/txtLicense"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
-
-    <TextView
-        android:id="@+id/txtLicense"
+    <LinearLayout
+        android:id="@+id/containerLoginRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/hay_roboto_medium"
-        android:gravity="center"
-        android:background="@drawable/ripple_effect_transparent"
-        android:text="@string/license_text"
-        android:textColor="@color/textPurpleColor"
-        android:textSize="@dimen/_10ssp"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_20sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSignUp" />
+        app:layout_constraintTop_toBottomOf="@id/lmgLoginLogo">
+
+        <Button
+            android:id="@+id/btnSignUp"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_40sdp"
+            android:minWidth="@dimen/_168sdp"
+            android:background="@drawable/button_border_fill"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:text="@string/title_signup"
+            android:textAllCaps="true"
+            android:textColor="@color/button_text_color"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/_168sdp"
+            android:minHeight="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@drawable/button_border_transparent"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:text="@string/title_login"
+            android:textAllCaps="false"
+            android:textColor="@color/borderless_button_text_color"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

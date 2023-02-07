@@ -10,6 +10,7 @@ import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.CountriesLanguagesResponseBody;
 import fambox.pro.presenter.basepresenter.MvpPresenter;
 import fambox.pro.presenter.basepresenter.MvpView;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public interface ChooseAppLanguageContract {
@@ -24,6 +25,9 @@ public interface ChooseAppLanguageContract {
 
         void openSaveCountryDialog();
 
+        void showProgress();
+
+        void dismissProgress();
     }
 
     interface Presenter extends MvpPresenter<View> {
@@ -40,5 +44,8 @@ public interface ChooseAppLanguageContract {
 
         void getLanguages(Context context, String countryCode, String locale,
                           NetworkCallback<Response<List<CountriesLanguagesResponseBody>>> languageResponse);
+
+        void changeLanguage(Context context, String countryCode, String locale,
+                            NetworkCallback<Response<ResponseBody>> languageResponse);
     }
 }

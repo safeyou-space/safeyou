@@ -1,70 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="?android:attr/borderlessButtonStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="?android:attr/borderlessButtonStyle"
-    android:background="@drawable/ripple_effect_light_purple"
+    android:background="@color/otherContainerElementsColor"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/_16sdp">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidline16dpVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
 
-        <TextView
-            android:id="@+id/txtMapNgoName"
-            android:layout_width="@dimen/_190sdp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/hay_roboto_bold"
-            android:gravity="start"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidline16dpHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp" />
 
-        <TextView
-            android:id="@+id/txtMapNgoAddress"
-            android:layout_width="@dimen/_175sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/hay_roboto_light"
-            android:gravity="start"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintStart_toStartOf="@id/txtMapNgoName"
-            app:layout_constraintTop_toBottomOf="@id/txtMapNgoName" />
 
-        <ImageButton
-            android:id="@+id/imgBtnCall"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginEnd="@dimen/_2sdp"
-            style="?android:attr/borderlessButtonStyle"
-            android:background="@drawable/ripple_effect_light_purple_services"
-            android:src="@drawable/icon_call"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/imgBtnEmail"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/app_name" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ngoImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:elevation="0dp"
+        app:layout_constraintStart_toStartOf="@id/guidline16dpVertical"
+        app:layout_constraintTop_toTopOf="@id/guidline16dpHorizontal" />
 
-        <ImageButton
-            android:id="@+id/imgBtnEmail"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            style="?android:attr/borderlessButtonStyle"
-            android:background="@drawable/ripple_effect_light_purple_services"
-            android:src="@drawable/icon_email"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/app_name" />
+    <ImageButton
+        android:id="@+id/imgBtnPrivateMessage"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@color/transparent"
+        android:src="@drawable/icon_private_message"
+        app:tint="@color/new_main_icon_tint_color"
+        android:layout_marginEnd="13dp"
+        android:contentDescription="@string/messages_title_key"
+        app:layout_constraintBottom_toBottomOf="@id/ngoImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ngoImage" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidlineForText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="90dp" />
+
+    <TextView
+        android:id="@+id/txtMapNgoName"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/hay_roboto_bold"
+        android:gravity="start"
+        android:textColor="@color/new_main_color"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/guidlineForText"
+        app:layout_constraintTop_toTopOf="@id/ngoImage" />
+
+    <TextView
+        android:id="@+id/txtMapNgoAddress"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/hay_roboto_light"
+        android:gravity="start"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/guidlineForText"
+        app:layout_constraintTop_toBottomOf="@id/txtMapNgoName" />
+
+    <ImageButton
+        android:id="@+id/imgBtnCall"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/ripple_effect_light_purple_services"
+        android:contentDescription="@string/mobile_phone_number"
+        android:src="@drawable/icon_call"
+        app:layout_constraintEnd_toEndOf="@id/ngoImage"
+        app:layout_constraintStart_toStartOf="@id/ngoImage"
+        app:layout_constraintTop_toBottomOf="@id/imgBtnEmail" />
+
+    <ImageButton
+        android:id="@+id/imgBtnEmail"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/ripple_effect_light_purple_services"
+        android:contentDescription="@string/email_address"
+        android:src="@drawable/icon_email"
+        app:layout_constraintEnd_toEndOf="@id/ngoImage"
+        app:layout_constraintStart_toStartOf="@id/ngoImage"
+        app:layout_constraintTop_toBottomOf="@id/txtMapNgoAddress" />
+
+    <ImageButton
+        android:id="@+id/imgInfo"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/ripple_effect_light_purple_services"
+        android:contentDescription="@string/info"
+        android:src="@drawable/new_info_icom"
+        android:tint="@color/new_main_icon_tint_color"
+        app:layout_constraintEnd_toEndOf="@id/ngoImage"
+        app:layout_constraintStart_toStartOf="@id/ngoImage"
+        app:layout_constraintTop_toBottomOf="@id/imgBtnCall" />
+
+    <TextView
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:gravity="start"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:linksClickable="true"
+        android:autoLink="all"
+        android:maxWidth="200dp"
+        android:textColorLink="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/imgBtnEmail"
+        app:layout_constraintStart_toStartOf="@id/guidlineForText"
+        app:layout_constraintTop_toTopOf="@id/imgBtnEmail" />
+
+    <TextView
+        android:id="@+id/txtPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="200dp"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:gravity="start"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:linksClickable="true"
+        android:autoLink="all"
+        android:textColorLink="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/imgBtnCall"
+        app:layout_constraintStart_toStartOf="@id/guidlineForText"
+        app:layout_constraintTop_toTopOf="@id/imgBtnCall" />
+
+    <TextView
+        android:id="@+id/txtShortDecscription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="220dp"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:gravity="start"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textColorLink="@color/black"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="@id/guidlineForText"
+        app:layout_constraintTop_toTopOf="@id/imgInfo" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/dividerColor" />
+        android:layout_marginTop="12dp"
+        android:background="@color/dividerColor"
+        app:layout_constraintTop_toBottomOf="@id/txtShortDecscription"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

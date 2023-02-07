@@ -1,11 +1,10 @@
 package fambox.pro.presenter.fragment;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 import java.util.List;
 
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
-import fambox.pro.model.RecordDetailsModel;
 import fambox.pro.model.fragment.FragmentRecordModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.RecordResponse;
@@ -20,17 +19,15 @@ public class FragmentRecordsPresenter extends BasePresenter<FragmentRecordsContr
         implements FragmentRecordsContract.Presenter {
 
     private FragmentRecordModel mFragmentRecordModel;
-    private RecordDetailsModel mRecordDetailsModel;
 
     @Override
     public void viewIsReady() {
         mFragmentRecordModel = new FragmentRecordModel();
-        mRecordDetailsModel = new RecordDetailsModel();
     }
 
     @Override
     public void getRecord(String countryCode, String locale) {
-        mFragmentRecordModel.getRecords(getView().getContext(), countryCode, locale,
+        mFragmentRecordModel.getRecords(getView().getContext(), countryCode, LocaleHelper.getLanguage(getView().getContext()),
                 new NetworkCallback<Response<List<RecordResponse>>>() {
                     @Override
                     public void onSuccess(Response<List<RecordResponse>> response) {
@@ -61,7 +58,7 @@ public class FragmentRecordsPresenter extends BasePresenter<FragmentRecordsContr
     public void getRecordByType(String countryCode, String locale, int type) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         getView().showProgress();
@@ -82,11 +79,10 @@ public class FragmentRecordsPresenter extends BasePresenter<FragmentRecordsContr
     public void startSearch(String countryCode, String locale, String text) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         search(countryCode, locale, text);
-//        getRecordIsSnt(locale, null, text);
     }
 
     private void getRecordIsSnt(String countryCode, String locale, String isSent, String search) {
@@ -110,32 +106,6 @@ public class FragmentRecordsPresenter extends BasePresenter<FragmentRecordsContr
                     public void onError(Throwable error) {
                         if (getView() != null)
                             getView().dismissProgress();
-                    }
-                });
-    }
-
-    public void getSingleRecord(String countryCode, String locale, String id) {
-        mRecordDetailsModel.getSingleRecord(getView().getContext(), countryCode, locale, Long.valueOf(id),
-                new NetworkCallback<Response<RecordResponse>>() {
-                    @Override
-                    public void onSuccess(Response<RecordResponse> response) {
-                        if (response.isSuccessful()) {
-                            if (response.code() == HttpURLConnection.HTTP_OK) {
-                                if (response.body() != null) {
-                                    List<RecordResponse> recordResponses = new ArrayList<>();
-                                    getView().initRecordRecyclerView(recordResponses);
-                                }
-                            }
-                        } else {
-                            getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
-                        }
-                        getView().dismissProgress();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable error) {
-                        getView().dismissProgress();
                     }
                 });
     }

@@ -1,5 +1,7 @@
 package fambox.pro.presenter;
 
+import static fambox.pro.Constants.Key.KEY_BIRTHDAY;
+
 import android.text.Editable;
 
 import java.net.HttpURLConnection;
@@ -10,7 +12,6 @@ import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.model.DualPinModel;
 import fambox.pro.network.NetworkCallback;
-import fambox.pro.network.SocketHandler;
 import fambox.pro.network.model.LoginBody;
 import fambox.pro.network.model.LoginResponse;
 import fambox.pro.presenter.basepresenter.BasePresenter;
@@ -19,9 +20,6 @@ import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.utils.Utils;
 import fambox.pro.view.DualPinContract;
 import retrofit2.Response;
-
-import static fambox.pro.Constants.Key.KEY_ACCESS_TOKEN;
-import static fambox.pro.Constants.Key.KEY_REFRESH_TOKEN;
 
 public class DualPinPresenter extends BasePresenter<DualPinContract.View> implements DualPinContract.Presenter {
 
@@ -48,19 +46,19 @@ public class DualPinPresenter extends BasePresenter<DualPinContract.View> implem
                 || confirmRealPinToString.equals("")
                 || fakePinToString.equals("")
                 || confirmFakePinToString.equals("")) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.please_fill_in_all_fields));
-        }else if (Objects.equals(confirmRealPinToString, confirmFakePinToString)){
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.real_and_fake_dublicated));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.fill_required_fields_text_key));
+        } else if (Objects.equals(confirmRealPinToString, confirmFakePinToString)) {
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.real_pin_fake_pin_different));
         } else if (!Objects.equals(realPinToString, confirmRealPinToString)) {
             getView().showErrorMessage(getView().getContext().getResources().getString(R.string.real_pin_and_conform_real_not_match));
         } else if (checkLength(realPinToString, confirmRealPinToString,
                 fakePinToString, confirmFakePinToString)) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.pin_min_length));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.pin_length_text_key));
         } else if (!Objects.equals(fakePinToString, confirmFakePinToString)) {
             getView().showErrorMessage(getView().getContext().getResources().getString(R.string.fake_and_fake_confirm_not_match));
         } else {
             if (!Connectivity.isConnected(getView().getContext())) {
-                getView().showErrorMessage(getView().getContext().getResources().getString(R.string.internet_connection));
+                getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
                 return;
             }
 
@@ -68,9 +66,9 @@ public class DualPinPresenter extends BasePresenter<DualPinContract.View> implem
             SafeYouApp.getPreference(getView().getContext()).setValue(Constants.Key.KEY_SHARED_FAKE_PIN, fakePinToString);
             SafeYouApp.getPreference(getView().getContext()).setValue(Constants.Key.KEY_WITHOUT_PIN, true);
 
-            if (isSettings){
+            if (isSettings) {
                 getView().goMainActivity();
-            }else {
+            } else {
                 login(countryCode, locale);
             }
         }
@@ -98,9 +96,7 @@ public class DualPinPresenter extends BasePresenter<DualPinContract.View> implem
                             if (response.code() == HttpURLConnection.HTTP_OK) {
                                 if (response.body() != null) {
                                     SafeYouApp.getPreference(getView().getContext())
-                                            .setValue(KEY_ACCESS_TOKEN, response.body().getAccessToken());
-                                    SafeYouApp.getPreference(getView().getContext())
-                                            .setValue(KEY_REFRESH_TOKEN, response.body().getRefreshToken());
+                                            .setValue(KEY_BIRTHDAY, response.body().getBirthday());
                                     getView().goMainActivity();
                                 }
                             }

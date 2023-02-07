@@ -33,9 +33,9 @@ public class PinDeleteDialog extends Dialog {
     ConstraintLayout containerEnterPin;
 
     private SwitchStateListener mSwitchStateListener;
-    private boolean mIsPinDialog;
+    private final boolean mIsPinDialog;
 
-    private Context mContext;
+    private final Context mContext;
 
     public PinDeleteDialog(@NonNull Context context, boolean isPinDialog) {
         super(context);
@@ -65,9 +65,6 @@ public class PinDeleteDialog extends Dialog {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 4 && s.toString().equals(preferenceRealPin)) {
-//                    SafeYouApp.getPreference(mContext).removeKey(Constants.Key.KEY_SHARED_REAL_PIN);
-//                    SafeYouApp.getPreference(mContext).removeKey(Constants.Key.KEY_SHARED_FAKE_PIN);
-//                    SafeYouApp.getPreference(mContext).setValue(Constants.Key.KEY_WITHOUT_PIN, false);
                     mSwitchStateListener.onStateChanged(true);
                     dismiss();
                 } else if (s.length() == 4 && !s.equals(preferenceRealPin)) {
@@ -93,7 +90,6 @@ public class PinDeleteDialog extends Dialog {
 
     @OnClick(R.id.cancelIcon)
     void dismissDialog() {
-//        mSwitchStateListener.onStateChanged(true);
         cancel();
     }
 

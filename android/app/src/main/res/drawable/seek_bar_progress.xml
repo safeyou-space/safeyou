@@ -12,7 +12,7 @@
             <shape android:shape="line">
                 <stroke
                     android:width="@dimen/_4sdp"
-                    android:color="@color/statusBarColorPurpleDark" />
+                    android:color="@color/seekBarProgress" />
             </shape>
         </clip>
     </item>

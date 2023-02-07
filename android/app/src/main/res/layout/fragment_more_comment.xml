@@ -12,23 +12,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:background="?android:attr/selectableItemBackground"
-        android:drawableStart="@drawable/icon_back"
+        android:contentDescription="@string/back_icon_description"
+        android:drawableStart="@drawable/icon_back_comment"
         android:drawablePadding="@dimen/_12sdp"
-        android:fontFamily="@font/hay_roboto_normal"
+        android:drawableTint="@color/new_main_color"
+        android:fontFamily="@font/hay_roboto_regular"
         android:gravity="start|center_vertical"
         android:text="@string/comments"
         android:textAllCaps="false"
-        android:textColor="@color/statusBarColorPurpleDark"
-        android:textSize="@dimen/_12ssp" />
+        android:textColor="@color/new_main_color"
+        android:textSize="12sp" />
 
     <View
         android:id="@+id/commentDivider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@id/btnBackComments"
-        android:background="@color/statusBarColorPurple" />
+        android:background="@color/color_chat_item_background" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/btnBackComments"
@@ -40,114 +43,235 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgCommentUser"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_8sdp" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/siruk" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerMessages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginBottom="15dp"
                 android:layout_toEndOf="@id/imgCommentUser"
-                android:background="@drawable/comment_frame"
+                android:background="@drawable/comment_frame_white"
                 android:elevation="@dimen/_3sdp"
-                android:paddingBottom="@dimen/_10sdp">
+                android:paddingBottom="10dp">
 
                 <TextView
                     android:id="@+id/txtCommentUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/hay_roboto_bold"
                     android:gravity="center_vertical"
+                    android:text="Samantha Sutton"
                     android:textColor="@color/black"
-                    android:textIsSelectable="true"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imgCommentUserBadge"
-                    android:layout_width="@dimen/_10sdp"
-                    android:layout_height="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_2sdp"
-                    android:contentDescription="@string/app_name"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="4dp"
                     android:src="@drawable/icon_type_user"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtCommentUserName"
+                    app:layout_constraintBottom_toBottomOf="@id/txtCommentUserName"
                     app:layout_constraintStart_toEndOf="@id/txtCommentUserName"
                     app:layout_constraintTop_toTopOf="@id/txtCommentUserName" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/forumImage"
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:scaleType="fitStart"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@id/txtCommentUserName"
+                    app:layout_constraintTop_toBottomOf="@id/txtCommentUserPosition"
+                    app:riv_corner_radius="6dp" />
 
                 <TextView
                     android:id="@+id/txtCommentUserPosition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/hay_roboto_normal"
+                    android:fontFamily="@font/hay_roboto_regular"
                     android:gravity="center_vertical"
-                    android:textColor="@color/statusBarColorPurpleDark"
-                    android:textSize="@dimen/_10ssp"
+                    android:text="NGO Name"
+                    android:textColor="@color/new_main_color"
+                    android:textSize="11sp"
                     app:layout_constraintStart_toStartOf="@id/txtCommentUserName"
                     app:layout_constraintTop_toBottomOf="@id/txtCommentUserName" />
 
-
                 <TextView
                     android:id="@+id/txtCommentUserComment"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginEnd="12dp"
                     android:autoLink="all"
-                    android:textIsSelectable="true"
-                    android:fontFamily="@font/hay_roboto_regular"
+                    android:fontFamily="@font/hay_roboto_normal"
                     android:gravity="center_vertical"
                     android:lineSpacingExtra="@dimen/_2sdp"
                     android:linksClickable="true"
-                    android:maxWidth="@dimen/_228sdp"
+                    android:minHeight="48dp"
+                    android:text="Loremstie arcu eget vsemper."
                     android:textColor="@color/black"
                     android:textColorLink="@android:color/holo_blue_light"
-                    android:textSize="@dimen/_11ssp"
+                    android:textIsSelectable="true"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/txtCommentUserName"
-                    app:layout_constraintTop_toBottomOf="@id/txtCommentUserPosition" />
+                    app:layout_constraintTop_toBottomOf="@id/forumImage" />
 
+                <View
+                    android:id="@+id/commentLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/bottom_bar_text_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtCommentUserComment" />
+
+                <TextView
+                    android:id="@+id/txtCommentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/containerMessages"
+                    android:layout_alignStart="@id/containerMessages"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="center_vertical"
+                    android:text="Nov 4, 2021 | 18:03"
+                    android:textColor="@color/color_outcoming_reply_message_time"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/txtCommentUserName" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    app:layout_constraintTop_toBottomOf="@id/commentLine">
+
+                    <ImageView
+                        android:id="@+id/likeBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/containerMessages"
+                        android:layout_alignEnd="@id/containerMessages"
+                        android:layout_gravity="center_vertical"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:fontFamily="@font/hay_roboto_regular"
+                        android:gravity="center_vertical"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:padding="15dp"
+                        android:src="@drawable/icon_like_coment_empty"
+                        android:text="@string/reply_text_key"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="@id/txtReply"
+                        app:layout_constraintEnd_toStartOf="@id/prvtMessageBtn"
+                        app:layout_constraintTop_toTopOf="@id/txtReply"
+                        app:tint="@color/new_main_color" />
+
+                    <ImageView
+                        android:id="@+id/prvtMessageBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/containerMessages"
+                        android:layout_alignEnd="@id/containerMessages"
+                        android:layout_gravity="center_vertical"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:fontFamily="@font/hay_roboto_regular"
+                        android:gravity="center_vertical"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:padding="20dp"
+                        android:src="@drawable/icon_forun_private_chat"
+                        android:text="@string/reply_text_key"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toStartOf="@id/txtReply"
+                        app:layout_constraintTop_toTopOf="@id/txtReply"
+                        app:tint="@color/new_main_color" />
+
+                    <TextView
+                        android:id="@+id/txtReply"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/containerMessages"
+                        android:layout_alignEnd="@id/containerMessages"
+                        android:layout_gravity="center_vertical"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:fontFamily="@font/hay_roboto_regular"
+                        android:gravity="center"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:text="@string/reply_text_key"
+                        android:textColor="@color/new_main_color"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toStartOf="@id/moreBtn"
+                        app:layout_constraintTop_toBottomOf="@id/commentLine"
+                        app:layout_constraintTop_toTopOf="@id/moreBtn" />
+
+
+                    <ImageButton
+                        android:id="@+id/moreBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/containerMessages"
+                        android:layout_alignEnd="@id/containerMessages"
+                        android:layout_gravity="center_vertical"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:fontFamily="@font/hay_roboto_regular"
+                        android:gravity="center_vertical"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:padding="20dp"
+                        android:src="@drawable/icon_menu_gray"
+                        android:text="@string/reply_text_key"
+                        android:textSize="11sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/commentLine"
+                        app:tint="@color/new_main_color" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/txtCommentDate"
+                android:id="@+id/commentLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/containerMessages"
                 android:layout_alignStart="@id/containerMessages"
-                android:layout_marginStart="@dimen/_14sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:fontFamily="@font/hay_roboto_normal"
-                android:gravity="center_vertical"
-                android:padding="@dimen/_4sdp"
-                android:textColor="@color/statusBarColorPurple"
-                android:textSize="@dimen/_9ssp" />
-
-            <TextView
-                android:id="@+id/txtReply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/containerMessages"
-                android:layout_alignEnd="@id/containerMessages"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:background="?android:attr/selectableItemBackground"
-                android:fontFamily="@font/hay_roboto_normal"
-                android:gravity="center_vertical"
-                android:padding="@dimen/_4sdp"
-                android:text="@string/reply"
-                android:textColor="@color/statusBarColorPurpleDark"
-                android:textSize="@dimen/_11ssp" />
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="-25dp"
+                android:background="@drawable/comment_like_shape"
+                android:drawablePadding="5dp"
+                android:elevation="5dp"
+                android:fontFamily="@font/hay_roboto_light"
+                android:paddingStart="9dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="9dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/icon_licke_coment_full"
+                app:drawableTint="@color/borderless_button_text_color" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recViewChildComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtReply"
+                android:layout_below="@id/containerMessages"
+                android:layout_marginStart="9dp"
                 android:layout_toEndOf="@id/imgCommentUser"
                 android:nestedScrollingEnabled="true" />
 

@@ -4,7 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fambox.pro.R;
+import fambox.pro.utils.Utils;
 
 public class InfoDialog extends Dialog {
 
@@ -20,6 +22,8 @@ public class InfoDialog extends Dialog {
     TextView txtSubTitle;
     @BindView(R.id.txtTitle)
     TextView txtTitle;
+    @BindView(R.id.cancelIcon)
+    ImageView cancelIcon;
     private String errors;
     private String title;
 
@@ -36,7 +40,7 @@ public class InfoDialog extends Dialog {
         if (getWindow() != null) {
             getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
-        txtTitle.setText(title);
+        txtTitle.setText(Utils.convertStringToHtml(title));
         txtSubTitle.setText(errors);
     }
 
@@ -55,4 +59,7 @@ public class InfoDialog extends Dialog {
         this.errors = errors;
     }
 
+    public void goneCloseIcon() {
+        cancelIcon.setVisibility(View.GONE);
+    }
 }

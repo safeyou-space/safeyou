@@ -1,19 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fragmentsBackgroundColors"
     tools:context=".view.fragment.FragmentForum">
 
+    <LinearLayout
+        android:id="@+id/containerChooseFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
+        android:visibility="visible"
+        android:gravity="center_vertical"
+        android:background="@color/dialog_show_info_color"
+        android:elevation="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recViewChooseFilteredCategory"
+            android:layout_width="0dp"
+            android:layout_marginEnd="5dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/new_main_icon_tint_color" />
+
+        <Button
+            android:id="@+id/btnForumFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/forum_filter_button_background"
+            android:drawableEnd="@drawable/icon_arrow_down_white"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:paddingStart="0dp"
+            android:paddingEnd="10dp"
+            android:text="@string/filter"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:visibility="visible"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/btnForumSort"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/forum_filter_button_background"
+            android:drawableStart="@drawable/icon_arrow_down_white"
+            android:drawablePadding="@dimen/_3sdp"
+            android:padding="@dimen/_3sdp"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/sort_by"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:visibility="visible"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+
     <include layout="@layout/server_error_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recViewForum"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/containerChooseFilter"
+        tools:itemCount="2"
+        android:clipToPadding="false"
+        android:paddingBottom="60dp"
+        tools:listitem="@layout/adapter_forum" />
+
+    <FrameLayout
+        android:id="@+id/frameForForumFilter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/forumLoading"
         layout="@layout/loading_view" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recViewForum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

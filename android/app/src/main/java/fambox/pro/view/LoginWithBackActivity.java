@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseApp;
 import com.hbb20.CountryCodePicker;
 
 import java.util.Objects;
@@ -30,6 +31,8 @@ public class LoginWithBackActivity extends BaseActivity implements LoginWithBack
     TextInputEditText edtPassword;
     @BindView(R.id.countryPicker)
     CountryCodePicker countryPicker;
+    private String countryCode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +45,21 @@ public class LoginWithBackActivity extends BaseActivity implements LoginWithBack
         mLoginWithBackPresenter.attachView(this);
         mLoginWithBackPresenter.viewIsReady();
         edtLogin.setSelection(Objects.requireNonNull(edtLogin.getText()).length());
+        switch (getCountryCode()) {
+            case "geo":
+                countryCode = "GE";
+                break;
+            case "arm":
+                countryCode = "AM";
+                break;
+            case "irq":
+                countryCode = "IQ";
+                break;
+        }
         countryPicker.setCcpClickable(false);
-        countryPicker.setCountryForNameCode(Objects.equals(getCountryCode(), "geo") ? "GE" : "AM");
+        countryPicker.setCountryForNameCode(countryCode);
         countryPicker.showArrow(false);
+
     }
 
     @Override
@@ -80,6 +95,7 @@ public class LoginWithBackActivity extends BaseActivity implements LoginWithBack
 
     @OnClick(R.id.btnLoginWithBAck)
     void loginWithBAck() {
+        FirebaseApp.initializeApp(getApplicationContext());
         mLoginWithBackPresenter.loginRequest(getCountryCode(), getLocale(), getPhoneNumber(), edtPassword.getText());
     }
 
@@ -95,11 +111,8 @@ public class LoginWithBackActivity extends BaseActivity implements LoginWithBack
 
     @Override
     public void goDualPinScreen() {
-//        Bundle bundle = new Bundle();
-//        bundle.putBoolean("is_registration_page", false);
-//        nextActivity(this, ChooseDualPinModeActivity.class, bundle);
         nextActivity(this, MainActivity.class);
-//        finishAffinity();
+        finishAffinity();
     }
 
     @Override

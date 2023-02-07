@@ -1,5 +1,8 @@
 package fambox.pro.presenter;
 
+import static fambox.pro.Constants.BASE_URL;
+import static fambox.pro.Constants.Key.KEY_SERVICE_ID;
+
 import android.os.Bundle;
 import android.view.View;
 
@@ -7,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.model.AddToHelplineModel;
 import fambox.pro.network.NetworkCallback;
@@ -22,8 +26,6 @@ import fambox.pro.utils.Utils;
 import fambox.pro.view.NgoMapDetailContract;
 import retrofit2.Response;
 
-import static fambox.pro.Constants.Key.KEY_SERVICE_ID;
-
 public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.View>
         implements NgoMapDetailContract.Presenter {
 
@@ -33,7 +35,6 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
     private boolean isAddedFromProfile = false;
     private long serviceId;
     private long oldServiceId;
-    private String locale;
     private String countryCode;
 
     @Override
@@ -47,7 +48,6 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
             isAddedFromProfile = bundle.getBoolean("is_added_from_profile", false);
             oldServiceId = bundle.getLong("service_old_id");
             serviceId = bundle.getLong(KEY_SERVICE_ID);
-            this.locale = locale;
             this.countryCode = countryCode;
             getServiceByServiceId(serviceId);
         }
@@ -56,10 +56,10 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
     @Override
     public void getServiceByServiceId(long serviceId) {
         if (!Connectivity.isConnected(getView().getContext())) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.internet_connection));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
-        mAddToHelplineModel.getServiceByServiceId(getView().getContext(), countryCode, locale, this.serviceId,
+        mAddToHelplineModel.getServiceByServiceId(getView().getContext(), countryCode, LocaleHelper.getLanguage(getView().getContext()), this.serviceId,
                 new NetworkCallback<Response<ServicesResponseBody>>() {
                     @Override
                     public void onSuccess(Response<ServicesResponseBody> response) {
@@ -68,6 +68,15 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
 
                                 List<SocialMediaBody> socialMediaBodyList = new ArrayList<>();
 
+                                if (response.body().getDescription() != null) {
+                                    SocialMediaBody socialMediaBodyInfo = new SocialMediaBody();
+                                    socialMediaBodyInfo.setName(getView().getContext().getResources().getString(R.string.info));
+                                    socialMediaBodyInfo.setSocialMediaTitle(response.body().getDescription());
+                                    socialMediaBodyInfo.setHtml(true);
+                                    socialMediaBodyInfo.setSocialMediaIconPath(response.body().getIcons().getInfo());
+                                    socialMediaBodyList.add(socialMediaBodyInfo);
+                                }
+
                                 if (response.body().getAddress() != null) {
                                     SocialMediaBody socialMediaBodyAddress = new SocialMediaBody();
                                     socialMediaBodyAddress.setName(getView().getContext().getResources().getString(R.string.address));
@@ -75,23 +84,24 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
                                     socialMediaBodyAddress.setSocialMediaIconPath(response.body().getIcons().getAddress());
                                     socialMediaBodyList.add(socialMediaBodyAddress);
                                 }
-                                if (response.body().getUser_detail().getPhone() != null) {
+
+                                if (response.body().getPhone() != null) {
                                     SocialMediaBody socialMediaBodyPhone = new SocialMediaBody();
-                                    socialMediaBodyPhone.setName(getView().getContext().getResources().getString(R.string.mobile));
-                                    socialMediaBodyPhone.setSocialMediaTitle(response.body().getUser_detail().getPhone());
+                                    socialMediaBodyPhone.setName(getView().getContext().getResources().getString(R.string.mobile_text_key));
+                                    socialMediaBodyPhone.setSocialMediaTitle(response.body().getPhone());
                                     socialMediaBodyPhone.setSocialMediaIconPath(response.body().getIcons().getPhone());
                                     socialMediaBodyList.add(socialMediaBodyPhone);
                                 }
-                                if (response.body().getUser_detail().getEmail() != null) {
+                                if (response.body().getEmail() != null) {
                                     SocialMediaBody socialMediaBodyEmail = new SocialMediaBody();
-                                    socialMediaBodyEmail.setName(getView().getContext().getResources().getString(R.string.office));
-                                    socialMediaBodyEmail.setSocialMediaTitle(response.body().getUser_detail().getEmail());
+                                    socialMediaBodyEmail.setName(getView().getContext().getResources().getString(R.string.email_text_key));
+                                    socialMediaBodyEmail.setSocialMediaTitle(response.body().getEmail());
                                     socialMediaBodyEmail.setSocialMediaIconPath(response.body().getIcons().getEmail());
                                     socialMediaBodyList.add(socialMediaBodyEmail);
                                 }
                                 if (response.body().getWeb_address() != null) {
                                     SocialMediaBody socialMediaBodyWebAddress = new SocialMediaBody();
-                                    socialMediaBodyWebAddress.setName(getView().getContext().getResources().getString(R.string.web_address));
+                                    socialMediaBodyWebAddress.setName(getView().getContext().getResources().getString(R.string.web_address_text_key));
                                     socialMediaBodyWebAddress.setSocialMediaTitle(response.body().getWeb_address());
                                     socialMediaBodyWebAddress.setSocialMediaIconPath(response.body().getIcons().getWeb_address());
                                     socialMediaBodyList.add(socialMediaBodyWebAddress);
@@ -109,18 +119,17 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
                                 }
 
                                 onMapReady(response.body());
+                                String imagePath = BASE_URL.concat(response.body().getUser_detail().getImage().getUrl());
+
                                 getView().configUserData(getConcatedFulName(response.body()),
-                                        response.body().getUser_detail().getLocation(), socialMediaBodyList);
+                                        response.body().getUser_detail().getLocation(), socialMediaBodyList, imagePath,
+                                        response.body().getUserRate(), response.body().getRatesCount(), serviceId);
 
                                 configDetailActivity(response.body());
                                 getView().configAddToHelplineButtonVisibility(response.body().getIs_send_sms() == 0 ? View.GONE : View.VISIBLE);
                                 if (response.body().getUser_service() != null) {
-                                    if (response.body().getUser_service().size() != 0
-                                            && response.body().getIs_send_sms() != 0) {
-                                        configAddToHelplineButton(true);
-                                    } else {
-                                        configAddToHelplineButton(false);
-                                    }
+                                    configAddToHelplineButton(response.body().getUser_service().size() != 0
+                                            && response.body().getIs_send_sms() != 0);
                                 }
                             }
                         } else {
@@ -170,7 +179,7 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
     @Override
     public void deleteFromHelpline(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.internet_connection));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         if (mServicesResponseBody.getUser_service() != null && mServicesResponseBody.getUser_service().size() >= 1) {
@@ -241,13 +250,12 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
     @Override
     public void configAddToHelplineButton(boolean added) {
         add = added;
-        String btnText = added ? getView().getContext().getResources().getString(R.string.remove_from_helpline)
-                : getView().getContext().getResources().getString(R.string.add_to_helpline);
+        String btnText = added ? getView().getContext().getResources().getString(R.string.remove_from_helpline_title_key)
+                : getView().getContext().getResources().getString(R.string.add_to_helpline_title_key);
         int color = added ? getView().getContext().getResources().getColor(R.color.red)
-                : getView().getContext().getResources().getColor(R.color.textPurpleColor);
+                : getView().getContext().getResources().getColor(R.color.white);
         getView().configHelplineButton(btnText, color);
     }
-
 
 
     private void addEditHelpline(Response<Message> response) {
@@ -262,6 +270,21 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
                 getServiceByServiceId(serviceId);
             }
         }
+    }
+
+    @Override
+    public void goToPrivateMessage() {
+        Bundle bundle = new Bundle();
+        if (mServicesResponseBody == null) {
+            getView().goToPrivateChat(bundle);
+            return;
+        }
+        bundle.putBoolean("opened_from_network", true);
+        bundle.putString("user_id", mServicesResponseBody.getUser_id());
+        bundle.putString("user_name", mServicesResponseBody.getTitle());
+        bundle.putString("user_image", mServicesResponseBody.getUser_detail().getImage().getUrl());
+        bundle.putString("user_profession", mServicesResponseBody.getCategory());
+        getView().goToPrivateChat(bundle);
     }
 
     private String getImagePath(String key, IconsResponse icons) {
@@ -279,6 +302,8 @@ public class NgoMapDetailPresenter extends BasePresenter<NgoMapDetailContract.Vi
                     return icons.getEmail();
                 case "web_address":
                     return icons.getWeb_address();
+                case "info":
+                    return icons.getInfo();
                 default:
                     return "";
             }

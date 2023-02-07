@@ -1,7 +1,11 @@
 package fambox.pro.view;
 
+import static fambox.pro.Constants.Key.KEY_CHANGE_LANGUAGE;
+
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,8 +25,6 @@ import fambox.pro.utils.SnackBar;
 import fambox.pro.utils.Utils;
 import fambox.pro.view.adapter.AdapterChooseLanguage;
 
-import static fambox.pro.Constants.Key.KEY_CHANGE_LANGUAGE;
-
 public class ChooseAppLanguageActivity extends BaseActivity implements ChooseAppLanguageContract.View {
 
     private ChooseAppLanguagePresenter mChooseAppLanguagePresenter;
@@ -32,6 +34,8 @@ public class ChooseAppLanguageActivity extends BaseActivity implements ChooseApp
 
     @BindView(R.id.recViewLanguages)
     RecyclerView recViewLanguages;
+    @BindView(R.id.progressView)
+    LinearLayout progressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,7 @@ public class ChooseAppLanguageActivity extends BaseActivity implements ChooseApp
         }
         if (isChangeLanguage) {
             addAppBar(null, false,
-                    true, false, getResources().getString(R.string.language), true);
+                    true, false, getResources().getString(R.string.language_title_key), true);
         } else {
             Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE);
             addAppBar(null, true,
@@ -137,6 +141,16 @@ public class ChooseAppLanguageActivity extends BaseActivity implements ChooseApp
         if (mChooseAppLanguagePresenter != null) {
             mChooseAppLanguagePresenter.destroy();
         }
+    }
+
+    @Override
+    public void showProgress() {
+        runOnUiThread(() -> progressView.setVisibility(View.VISIBLE));
+    }
+
+    @Override
+    public void dismissProgress() {
+        runOnUiThread(() -> progressView.setVisibility(View.GONE));
     }
 
     @Override

@@ -1,12 +1,20 @@
 package fambox.pro.presenter;
 
+import static fambox.pro.Constants.Key.KEY_BIRTHDAY;
+import static fambox.pro.Constants.Key.KEY_PHONE_NUMBER;
+import static fambox.pro.Constants.Key.KEY_USER_PHONE;
+import static fambox.pro.Constants.Key.KEY_VERIFICATION_FOR_NEW_PASSWORD;
+
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.net.HttpURLConnection;
+import java.util.Objects;
 
 import fambox.pro.Constants;
 import fambox.pro.R;
@@ -14,7 +22,6 @@ import fambox.pro.SafeYouApp;
 import fambox.pro.model.DualPinModel;
 import fambox.pro.model.ForgotChangePasswordModel;
 import fambox.pro.model.VerificationModel;
-import fambox.pro.model.fragment.FragmentProfileModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.ForgotVerifySmsResponse;
 import fambox.pro.network.model.LoginBody;
@@ -27,12 +34,6 @@ import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.view.VerificationContract;
 import retrofit2.Response;
-
-import static fambox.pro.Constants.Key.KEY_ACCESS_TOKEN;
-import static fambox.pro.Constants.Key.KEY_PHONE_NUMBER;
-import static fambox.pro.Constants.Key.KEY_REFRESH_TOKEN;
-import static fambox.pro.Constants.Key.KEY_USER_PHONE;
-import static fambox.pro.Constants.Key.KEY_VERIFICATION_FOR_NEW_PASSWORD;
 
 public class VerificationPresenter extends BasePresenter<VerificationContract.View>
         implements VerificationContract.Presenter {
@@ -50,7 +51,7 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
     private ForgotVerifySmsResponse mForgotVerifySmsResponse;
     private boolean isPhone;
     private boolean isVerifyAgain;
-    private CountDownTimer mCountDownTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
+    private final CountDownTimer mCountDownTimer = new CountDownTimer(MILLIS_IN_FUTURE, COUNT_DOWN_INTERVAL) {
         @Override
         public void onTick(long millisUntilFinished) {
             getView().resendCountDownTimer(getView().getContext().getResources()
@@ -75,7 +76,7 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
 
         if (!navigateView) {
             getView().setVerificationNumber(getView().getContext().getResources()
-                    .getString(R.string.verifying_text_description, mPhoneNumber));
+                    .getString(R.string.otp_info_text_key, mPhoneNumber));
         }
 
         resentCountDownTimerInit();
@@ -87,7 +88,7 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
             navigateView = bundle.getBoolean(KEY_VERIFICATION_FOR_NEW_PASSWORD);
             phone = bundle.getString(KEY_PHONE_NUMBER);
             getView().setVerificationNumber(getView().getContext().getResources()
-                    .getString(R.string.verifying_text_description, phone));
+                    .getString(R.string.otp_info_text_key, phone));
             isPhone = bundle.getBoolean(Constants.Key.KEY_CHANGE_PHONE_NUMBER_BOOLEAN);
             if (isPhone) {
                 getView().configNextButton(getView().getContext().getResources().getString(R.string.verify));
@@ -97,7 +98,7 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
             mPhoneNumber = bundle.getString("verify_again");
             if (isVerifyAgain) {
                 getView().setVerificationNumber(getView().getContext().getResources()
-                        .getString(R.string.verifying_text_description, mPhoneNumber));
+                        .getString(R.string.otp_info_text_key, mPhoneNumber));
                 resentActivationCode(countryCode, locale);
             }
         }
@@ -106,7 +107,7 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
     @Override
     public void verification(String countryCode, String locale, Editable verificationCode) {
         if (!Connectivity.isConnected(getView().getContext())) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.internet_connection));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         VerifyPhoneBody verifyPhoneBody = new VerifyPhoneBody();
@@ -209,7 +210,7 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
     @Override
     public void resentActivationCode(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.internet_connection));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         resentCountDownTimerInit();
@@ -229,21 +230,6 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
                         }
                     });
         } else if (isPhone) {
-//            FragmentProfileModel mFragmentProfileModel = new FragmentProfileModel();
-//            mFragmentProfileModel.editProfileServer(getView().getContext(), countryCode, locale, "phone", phone,
-//                    new NetworkCallback<Response<Message>>() {
-//                        @Override
-//                        public void onSuccess(Response<Message> response) {
-//                            if (!response.isSuccessful()) {
-//                                getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable error) {
-//
-//                        }
-//                    });
             VerifyPhoneResendBody verifyPhoneResendBody = new VerifyPhoneResendBody();
             verifyPhoneResendBody.setPhone(phone);
             mVerificationModel.resendVerificationCode(getView().getContext(), countryCode, locale,
@@ -319,7 +305,6 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
             getView().goBack();
         } else {
             login(countryCode, locale);
-//            getView().goDualPin();
         }
     }
 
@@ -334,30 +319,44 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
                 .getStringValue(Constants.Key.KEY_USER_PHONE, ""));
         loginBody.setPassword(SafeYouApp.getPreference(getView().getContext())
                 .getStringValue(Constants.Key.KEY_PASSWORD, ""));
-        mDualPinModel.loginRequest(getView().getContext(), countryCode, locale, loginBody,
-                new NetworkCallback<Response<LoginResponse>>() {
-                    @Override
-                    public void onSuccess(Response<LoginResponse> response) {
-                        if (response.isSuccessful()) {
-                            if (response.code() == HttpURLConnection.HTTP_OK) {
-                                if (response.body() != null) {
-                                    SafeYouApp.getPreference(getView().getContext())
-                                            .setValue(KEY_ACCESS_TOKEN, response.body().getAccessToken());
-                                    SafeYouApp.getPreference(getView().getContext())
-                                            .setValue(KEY_REFRESH_TOKEN, response.body().getRefreshToken());
-                                    getView().goMainActivity();
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w("Device_token", "getInstanceId failed", task.getException());
+                        return;
+                    }
+                    String deviceToken = Objects.requireNonNull(task.getResult());
+                    boolean isNotificationEnabled = SafeYouApp.getPreference(getView().getContext())
+                            .getBooleanValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, true);
+                    if (isNotificationEnabled) {
+                        loginBody.setDeviceToken(deviceToken);
+                        loginBody.setDeviceType("android");
+                        SafeYouApp.getPreference(getView().getContext())
+                                .setValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, true);
+                    }
+                    mDualPinModel.loginRequest(getView().getContext(), countryCode, locale, loginBody,
+                            new NetworkCallback<Response<LoginResponse>>() {
+                                @Override
+                                public void onSuccess(Response<LoginResponse> response) {
+                                    if (response.isSuccessful()) {
+                                        if (response.code() == HttpURLConnection.HTTP_OK) {
+                                            if (response.body() != null) {
+                                                SafeYouApp.getPreference(getView().getContext())
+                                                        .setValue(KEY_BIRTHDAY, response.body().getBirthday());
+                                                getView().goMainActivity();
+                                            }
+                                        }
+                                    } else {
+                                        getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
+                                        getView().goLoginPage();
+                                    }
                                 }
-                            }
-                        } else {
-                            getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
-                            getView().goLoginPage();
-                        }
-                    }
 
-                    @Override
-                    public void onError(Throwable error) {
-                        getView().showErrorMessage(error.getMessage());
-                    }
+                                @Override
+                                public void onError(Throwable error) {
+                                    getView().showErrorMessage(error.getMessage());
+                                }
+                            });
                 });
     }
 
@@ -368,9 +367,7 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
             mVerificationModel.onDestroy();
         }
 
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-        }
+        mCountDownTimer.cancel();
     }
 
 }

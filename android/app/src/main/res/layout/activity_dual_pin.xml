@@ -27,8 +27,8 @@
                 android:fontFamily="@font/hay_roboto_normal"
                 android:gravity="center"
                 android:text="@string/add_dual_pin"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_26ssp"
+                android:textColor="@color/colorChooseCountryText"
+                android:textSize="34sp"
                 android:focusable="true"
                 app:layout_constraintBottom_toTopOf="@id/containerDualPin"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:hint="@string/enter_real_pin_in_4_digits"
+                    android:hint="@string/enter_real_pin_text_key"
                     android:textColorHint="@color/hint_gray"
                     app:errorEnabled="true"
                     app:hintAnimationEnabled="true"
@@ -72,8 +72,8 @@
                         android:inputType="numberPassword"
                         android:maxLength="4"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="12sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,7 +84,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:hint="@string/confirm_real_pin"
+                    android:hint="@string/confirm_real_pin_text_key"
                     android:textColorHint="@color/hint_gray"
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true"
@@ -101,8 +101,8 @@
                         android:inputType="numberPassword"
                         android:maxLength="4"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="12sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,7 +113,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:hint="@string/enter_fake_pin_in_4_digits"
+                    android:hint="@string/enter_fake_pin_text_key"
                     android:textColorHint="@color/hint_gray"
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true"
@@ -130,8 +130,8 @@
                         android:inputType="numberPassword"
                         android:maxLength="4"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="12sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,7 +141,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_weight="1"
-                    android:hint="@string/confirm_fake_pin"
+                    android:hint="@string/confirm_fake_pin_text_key"
                     android:textColorHint="@color/hint_gray"
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true"
@@ -158,8 +158,8 @@
                         android:inputType="numberPassword"
                         android:maxLines="1"
                         android:maxLength="4"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp" />
+                        android:textColor="@color/colorChooseCountryText"
+                        android:textSize="12sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -174,11 +174,11 @@
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:background="@drawable/button_border"
-                android:fontFamily="@font/hay_roboto_normal"
-                android:text="@string/submit"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:text="@string/submit_title_key"
                 android:textAllCaps="false"
                 android:textColor="@color/textPurpleColor"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

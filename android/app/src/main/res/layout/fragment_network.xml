@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,13 +22,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNetworkCategory"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="true" />
+                app:cardElevation="@dimen/_5sdp">
 
-            <fragment
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNetworkCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/forum_card_background"
+                    android:nestedScrollingEnabled="true" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/map"
                 android:name="fambox.pro.view.fragment.map.MySupportMapFragment"
                 android:layout_width="match_parent"
@@ -37,7 +47,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recViewMap"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_450sdp"
+                tools:listitem="@layout/adapter_map_ngos"
+                tools:itemCount="2"
+                android:background="@color/forum_card_background"
+                android:layout_height="match_parent"
                 android:nestedScrollingEnabled="true" />
 
         </LinearLayout>

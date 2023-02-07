@@ -3,8 +3,6 @@ package fambox.pro.network.model.chat;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import org.jetbrains.annotations.NotNull;
-
 public class ReplyComment {
     @SerializedName("message")
     @Expose

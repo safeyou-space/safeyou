@@ -1,19 +1,21 @@
 package fambox.pro.view;
 
+import static fambox.pro.Constants.Key.KEY_IS_TERM;
+import static fambox.pro.Constants.Key.KEY_REGISTRATION_FORM;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.hbb20.CountryCodePicker;
 import com.tsongkha.spinnerdatepicker.SpinnerDatePickerDialogBuilder;
 
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +23,7 @@ import butterknife.OnClick;
 import fambox.pro.BaseActivity;
 import fambox.pro.R;
 import fambox.pro.enums.Types;
+import fambox.pro.network.model.RegistrationBody;
 import fambox.pro.presenter.RegistrationPresenter;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.utils.TimeUtil;
@@ -30,6 +33,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
 
     private RegistrationPresenter mRegistrationPresenter;
     private int marred = -1;
+    private String countryCode;
 
     @BindView(R.id.edtFirstName)
     TextInputEditText edtFirstName;
@@ -37,6 +41,14 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     TextInputEditText edtLastName;
     @BindView(R.id.edtNickname)
     TextInputEditText edtNickname;
+    @BindView(R.id.txtInputLayoutDateOfBirth)
+    TextInputLayout txtInputLayoutDateOfBirth;
+    @BindView(R.id.txtInputLayoutMobile)
+    TextInputLayout txtInputLayoutMobile;
+    @BindView(R.id.txtInputTextConfirmPass)
+    TextInputLayout txtInputTextConfirmPass;
+    @BindView(R.id.txtInputTextPass)
+    TextInputLayout txtInputTextPass;
     @BindView(R.id.edtDateOfBirth)
     TextInputEditText edtDateOfBirth;
     @BindView(R.id.edtMobile)
@@ -49,8 +61,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     TextInputEditText edtConfirmPass;
     @BindView(R.id.countryPicker)
     CountryCodePicker countryPicker;
-//    @BindView(R.id.spinner)
-//    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +70,28 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         mRegistrationPresenter = new RegistrationPresenter();
         mRegistrationPresenter.attachView(this);
         mRegistrationPresenter.viewIsReady();
-//        edtDateOfBirth.addTextChangedListener(new DateTextWatcher());
-        addAppBar(null,true, true,
-                false,null,false);
+        addAppBar(null, true, true,
+                false, null, false);
+        switch (getCountryCode()) {
+            case "geo":
+                countryCode = "GE";
+                break;
+            case "arm":
+                countryCode = "AM";
+                break;
+            case "irq":
+                countryCode = "IQ";
+                break;
+        }
+
         countryPicker.setCcpClickable(false);
-        countryPicker.setCountryForNameCode(Objects.equals(getCountryCode(), "geo") ? "GE" : "AM");
+        countryPicker.setCountryForNameCode(countryCode);
         countryPicker.showArrow(false);
+
+        txtInputLayoutDateOfBirth.setHint(String.format(Locale.getDefault(), "%s %s", txtInputLayoutDateOfBirth.getHint(), "*"));
+        txtInputLayoutMobile.setHint(String.format(Locale.getDefault(), "%s %s", txtInputLayoutMobile.getHint(), "*"));
+        txtInputTextConfirmPass.setHint(String.format(Locale.getDefault(), "%s %s", txtInputTextConfirmPass.getHint(), "*"));
+        txtInputTextPass.setHint(String.format(Locale.getDefault(), "%s %s", txtInputTextPass.getHint(), "*"));
     }
 
     @Override
@@ -127,6 +153,9 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
 
     @OnClick(R.id.edtDateOfBirth)
     void onClickDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -12);
+
         new SpinnerDatePickerDialogBuilder()
                 .context(RegistrationActivity.this)
                 .spinnerTheme(R.style.NumberPickerStyle)
@@ -136,15 +165,23 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
                 })
                 .showDaySpinner(true)
                 .defaultDate(2000, 0, 1)
-                .maxDate(2020, 0, 1)
+                .maxDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
                 .minDate(1920, 0, 1)
                 .build()
                 .show();
     }
 
+    @Override
+    public void goTermsAndConditions(RegistrationBody registrationBody) {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra(KEY_IS_TERM, true);
+        intent.putExtra(KEY_REGISTRATION_FORM, registrationBody);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.btnSubmit)
-    void submitClick() {
-        mRegistrationPresenter.submitRegistration(getLocale(), getCountryCode(),
+    void clickTermsAndConditions() {
+        mRegistrationPresenter.checkFields(
                 edtFirstName.getText(),
                 edtLastName.getText(),
                 edtNickname.getText(),
@@ -163,10 +200,5 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
             countryPicker.registerCarrierNumberEditText(edtMobile);
             return countryPicker.getFullNumberWithPlus();
         }
-    }
-
-    @Override
-    public void goVerifyRegistration() {
-        nextActivity(this, VerificationActivity.class);
     }
 }

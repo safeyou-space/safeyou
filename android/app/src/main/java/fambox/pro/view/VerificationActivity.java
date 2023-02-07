@@ -10,6 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fambox.pro.BaseActivity;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.enums.Types;
 import fambox.pro.presenter.VerificationPresenter;
@@ -67,7 +68,7 @@ public class VerificationActivity extends BaseActivity implements VerificationCo
 
     @OnClick(R.id.btnResend)
     void onClickResent() {
-        mVerificationPresenter.resentActivationCode(getCountryCode(), getLocale());
+        mVerificationPresenter.resentActivationCode(getCountryCode(), LocaleHelper.getLanguage(getContext()));
     }
 
     @Override
@@ -90,7 +91,7 @@ public class VerificationActivity extends BaseActivity implements VerificationCo
     public void signUpButtonActivation(boolean isClick, int color) {
         if (isClick) {
             btnOTPSignUp.setOnClickListener(
-                    v -> mVerificationPresenter.verification(getCountryCode(), getLocale(), edtOTP.getText()));
+                    v -> mVerificationPresenter.verification(getCountryCode(), LocaleHelper.getLanguage(getContext()), edtOTP.getText()));
         } else {
             btnOTPSignUp.setOnClickListener(null);
         }
@@ -116,12 +117,6 @@ public class VerificationActivity extends BaseActivity implements VerificationCo
     public void goToMainActivity() {
         nextActivity(this, MainActivity.class);
         finish();
-    }
-
-    @Override
-    public void goDualPin() {
-        nextActivity(this, ChooseDualPinModeActivity.class);
-        finishAffinity();
     }
 
     @Override

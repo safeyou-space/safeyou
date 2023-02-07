@@ -18,7 +18,7 @@ import retrofit2.Response;
 
 public class MaritalStatusModel implements MaritalStatusContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void editProfile(Context context, String countryCode, String locale, String key,

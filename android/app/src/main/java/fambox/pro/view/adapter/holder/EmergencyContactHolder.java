@@ -1,7 +1,6 @@
 package fambox.pro.view.adapter.holder;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import fambox.pro.R;
 import lombok.Getter;
 

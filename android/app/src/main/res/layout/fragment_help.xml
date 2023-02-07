@@ -7,18 +7,23 @@
     android:background="@color/helpScreenBackground"
     tools:context=".view.fragment.FragmentHelp">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#80DC5D78"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/pushButton"
-        android:layout_width="@dimen/_220sdp"
-        android:layout_height="@dimen/_220sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:background="@drawable/push_green_background"
-        android:fontFamily="@font/hay_roboto_regular"
+        android:fontFamily="@font/oswald_bold"
         android:gravity="center"
-        android:text="@string/push_hold"
+        android:text="@string/push_hold_text_key"
         android:textColor="@color/white"
-        android:textSize="@dimen/_27ssp"
-        app:layout_constraintBottom_toTopOf="@+id/containerCancelSend"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toTopOf="@+id/infoMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,9 +31,9 @@
     <ProgressBar
         android:id="@+id/recordProgress"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="@dimen/_176sdp"
-        android:layout_height="@dimen/_176sdp"
-        android:layout_marginBottom="@dimen/_7sdp"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:layout_marginBottom="7dp"
         android:indeterminate="false"
         android:max="100"
         android:progressDrawable="@drawable/style_circular"
@@ -53,57 +58,203 @@
         app:layout_constraintStart_toStartOf="@id/pushButton"
         app:layout_constraintTop_toTopOf="@id/pushButton" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerMoreInfoRecList"
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/containerMoreInfoRecList"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent">-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/btnMoreInfo"-->
+    <!--            android:layout_width="@dimen/_90sdp"-->
+    <!--            android:layout_height="@dimen/_90sdp"-->
+    <!--            android:background="@drawable/icon_rec_info"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/btnRecList"-->
+    <!--            android:layout_width="@dimen/_70sdp"-->
+    <!--            android:layout_height="@dimen/_70sdp"-->
+    <!--            android:layout_marginEnd="@dimen/_10sdp"-->
+    <!--            android:layout_marginBottom="@dimen/_10sdp"-->
+    <!--            android:background="@drawable/icon_record_list"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/containerCancelSend"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent">-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/btnCancel"-->
+    <!--            android:layout_width="@dimen/_90sdp"-->
+    <!--            android:layout_height="@dimen/_90sdp"-->
+    <!--            android:background="@drawable/icon_cancel"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+    <!--        <ImageButton-->
+    <!--            android:id="@+id/btnSend"-->
+    <!--            android:layout_width="@dimen/_90sdp"-->
+    <!--            android:layout_height="@dimen/_90sdp"-->
+    <!--            android:background="@drawable/icon_send_rec"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <TextView
+        android:id="@+id/infoMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_margin="15dp"
+        android:background="@drawable/info_message_background"
+        android:backgroundTint="@color/new_main_color"
+        android:fontFamily="@font/hay_roboto_normal"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp"
+        android:text="@string/help_section_description_text_key"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintBottom_toTopOf="@id/containerEmergencyAndRecordings" />
 
-        <ImageButton
-            android:id="@+id/btnMoreInfo"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_90sdp"
-            android:background="@drawable/icon_rec_info"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnRecList"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_70sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/icon_record_list"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerCancelSend"
+    <LinearLayout
+        android:id="@+id/containerEmergencyAndRecordings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:minHeight="@dimen/_62sdp"
+        android:layout_marginBottom="30dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layoutDirection="ltr"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageButton
-            android:id="@+id/btnCancel"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_90sdp"
-            android:background="@drawable/icon_cancel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/emergencyBackground"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/emergency_contacts"
+            android:backgroundTint="@color/new_main_color">
 
-        <ImageButton
-            android:id="@+id/btnSend"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_90sdp"
-            android:background="@drawable/icon_send_rec"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineIcons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="35dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/emergencyContactTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/emergency_contacts_title_key"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/btnEmergencyContacts"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:contentDescription="@string/emergency_contacts_icon_description"
+                android:src="@drawable/contacts_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emergencyContactTitle"
+                app:layout_constraintTop_toTopOf="@id/guidelineIcons"
+                app:tint="@color/emergency_icons_default_color" />
+
+            <ImageView
+                android:id="@+id/btnEmergencyServices"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="13dp"
+                android:contentDescription="@string/my_recordings_icon_description"
+                android:src="@drawable/my_ngos_icon"
+                app:layout_constraintStart_toEndOf="@id/btnEmergencyContacts"
+                app:layout_constraintTop_toTopOf="@id/guidelineIcons"
+                app:tint="@color/emergency_icons_default_color" />
+
+            <ImageView
+                android:id="@+id/btnPolice"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="13dp"
+                android:contentDescription="@string/policy_icon_description"
+                android:src="@drawable/police_icon"
+                app:layout_constraintStart_toEndOf="@id/btnEmergencyServices"
+                app:layout_constraintTop_toTopOf="@id/guidelineIcons"
+                app:tint="@color/emergency_icons_default_color" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recordingsBackground"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/home_record_bg"
+            android:backgroundTint="@color/new_main_color">
+
+            <TextView
+                android:id="@+id/recordingsTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/my_recordings"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRecordIcons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="35dp" />
+
+            <ImageView
+                android:id="@+id/btnRecordings"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/my_recordings_icon_description"
+                android:src="@drawable/icon_recording_folder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guidelineRecordIcons"
+                app:tint="@color/emergency_icons_default_color" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

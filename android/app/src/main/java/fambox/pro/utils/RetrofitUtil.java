@@ -1,19 +1,16 @@
 package fambox.pro.utils;
 
-import android.util.Log;
-
 import androidx.annotation.Nullable;
 
 import org.json.JSONObject;
 
-import fambox.pro.network.model.Message;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class RetrofitUtil {
 
     public static boolean isResponseSuccess(Response response, int code) {
-        return response.isSuccessful() && response.code() == code && response.body() != null;
+        return response != null && response.isSuccessful() && response.code() == code && response.body() != null;
     }
 
     public static String getErrorMessage(@Nullable ResponseBody errorBody) {

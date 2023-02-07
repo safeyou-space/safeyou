@@ -33,9 +33,9 @@ public class SettingsChangePassPresenter extends BasePresenter<SettingsChangePas
         String newPassword = Utils.getEditableToString(newPass);
         String confirmNewPassword = Utils.getEditableToString(confirmNewPass);
         if (!Objects.equals(newPassword, confirmNewPassword)) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.confirm_pass_field));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.passwords_not_match_text_key));
         } else if ((newPassword.length() < 8) || (confirmNewPass.length() < 8)) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.min_length_8));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.please_enter_valid_password_message_key));
         } else {
             changePass(countryCode, locale, oldPassword, newPassword, confirmNewPassword);
         }

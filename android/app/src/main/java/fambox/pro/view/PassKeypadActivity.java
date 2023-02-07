@@ -19,7 +19,6 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class PassKeypadActivity extends BaseActivity implements PassKeypadContract.View {
 
-
     private PassKeypadPresenter mPassKeypadPresenter;
     @BindView(R.id.btnForgetPin)
     Button btnForgotPin;

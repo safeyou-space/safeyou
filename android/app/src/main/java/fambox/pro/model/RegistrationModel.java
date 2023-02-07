@@ -15,7 +15,7 @@ import retrofit2.Response;
 
 public class RegistrationModel implements RegistrationContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void registrationRequest(Context context, String countryCode, String locale, RegistrationBody registrationBody,

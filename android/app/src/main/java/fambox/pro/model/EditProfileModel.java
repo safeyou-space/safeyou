@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class EditProfileModel implements EditProfileContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void editPhotoNickname(Context context, String countryCode, String locale,

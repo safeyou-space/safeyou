@@ -1,5 +1,8 @@
 package fambox.pro.presenter.fragment;
 
+import static fambox.pro.Constants.Key.KEY_LOG_IN_FIRST_TIME_FOR_POPUP;
+import static io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider.REQUEST_CHECK_SETTINGS;
+
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.IntentSender;
@@ -24,9 +27,11 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Locale;
 
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.enums.Types;
@@ -34,6 +39,7 @@ import fambox.pro.model.fragment.FragmentHelpModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.EmergencyContactsResponse;
 import fambox.pro.network.model.Message;
+import fambox.pro.network.model.ProfileResponse;
 import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
@@ -41,9 +47,6 @@ import fambox.pro.view.fragment.FragmentHelpContract;
 import io.nlopez.smartlocation.SmartLocation;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
-
-import static fambox.pro.Constants.Key.KEY_LOG_IN_FIRST_TIME_FOR_POPUP;
-import static io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider.REQUEST_CHECK_SETTINGS;
 
 public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.View>
         implements FragmentHelpContract.Presenter {
@@ -167,16 +170,6 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
     }
 
     @Override
-    public void configSentCancelButtons() {
-        isCountDownTimerStop = false;
-        isRecord = false;
-        getView().setContainerMoreInfoRecListVisibility(View.VISIBLE);
-        getView().setContainerCancelSend(View.INVISIBLE);
-        getView().changePushButtonBackground(Types.RecordButtonType.PUSH_HOLD, 0);
-        getView().setRecordTimeCounterVisibility(View.GONE);
-    }
-
-    @Override
     public void stopTimerCountDown() {
         if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
@@ -190,7 +183,6 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
             isCountDownTimerStop = false;
             return;
         }
-        getView().setAppBarTextChange();
         getView().setContainerMoreInfoRecListVisibility(View.VISIBLE);
         getView().setContainerCancelSend(View.INVISIBLE);
         getView().changePushButtonBackground(Types.RecordButtonType.PUSH_HOLD, 0);
@@ -202,7 +194,7 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
     public void getAllServices(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
 
@@ -243,10 +235,37 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
     }
 
     @Override
+    public void getProfile(String countryCode, String locale) {
+        mFragmentHelpModel.getProfile(getView().getContext(), countryCode, locale,
+                new NetworkCallback<Response<ProfileResponse>>() {
+                    @Override
+                    public void onSuccess(Response<ProfileResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.code() == HttpURLConnection.HTTP_OK) {
+                                if (response.body() != null) {
+                                    getView().setUpEmergencyButtons(response.body().getEmergency_contacts().size() > 0,
+                                            response.body().getEmergencyServices().size() > 0,
+                                            response.body().getCheck_police() > 0,
+                                            response.body().getRecords().size() > 0);
+                                }
+                            }
+                        } else {
+                            getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        getView().showErrorMessage(error.getMessage());
+                    }
+                });
+    }
+
+    @Override
     public void sendHelpMessage(Context context, String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         SmartLocation.with(context).location().start(location -> {
@@ -263,14 +282,16 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
                     e.printStackTrace();
                 }
             }
-
-            mFragmentHelpModel.sendSms(getView().getContext(), countryCode, locale,
+            address = Normalizer.normalize(address, Normalizer.Form.NFKD);
+            address = address.replaceAll("\\p{M}", "");
+            mFragmentHelpModel.sendSms(getView().getContext(), countryCode, LocaleHelper.getLanguage(getView().getContext()),
                     String.valueOf(location.getLongitude()),
                     String.valueOf(location.getLatitude()),
                     address,
                     new NetworkCallback<Response<Message>>() {
                         @Override
                         public void onSuccess(Response<Message> response) {
+                            SmartLocation.with(context).location().stop();
                             if (response.isSuccessful()) {
                                 if (response.code() == HttpURLConnection.HTTP_OK) {
                                     getView().onSmsSend();
@@ -282,6 +303,7 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
 
                         @Override
                         public void onError(Throwable error) {
+                            SmartLocation.with(context).location().stop();
                             getView().showErrorMessage(error.getMessage());
                         }
                     });

@@ -7,8 +7,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -17,15 +15,11 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Map;
 import java.util.Objects;
 
 import fambox.pro.model.EditProfileModel;
 import fambox.pro.network.NetworkCallback;
-import fambox.pro.network.SocketHandler;
 import fambox.pro.network.model.Message;
 import fambox.pro.utils.SharedPreferenceUtils;
 import fambox.pro.view.ForumCommentActivity;
@@ -39,10 +33,9 @@ public class FCM extends FirebaseMessagingService {
     public static final String MAIN_MESSAGE_CHANNEL_ID = "com.supportop.notification.OTHER_CHANNEL_ID";
     public static final String MAIN_MESSAGE = "Main Message";
     public static final int MESSAGE_NOTIFICATION_ID = 0x227EE;
-    private static final String[] NOTIFICATION_TYPES = {"message", "forum"};
+    private static final String[] NOTIFICATION_TYPES = {"2", "1"};
     private EditProfileModel mEditProfileModel;
     private NotificationManager mManager;
-    private SocketHandler mSocketHandler;
     private boolean mDefaultAppState;
     private boolean mIsArtGalleryEnabled;
     private boolean mIsGalleryEditEnabled;
@@ -53,12 +46,6 @@ public class FCM extends FirebaseMessagingService {
         super.onCreate();
         createNotificationChanel();
         mEditProfileModel = new EditProfileModel();
-        SafeYouApp application = ((SafeYouApp) getApplication());
-        String username = SafeYouApp.getPreference().getStringValue(KEY_USER_PHONE, "");
-        String password = SafeYouApp.getPreference().getStringValue(KEY_PASSWORD, "");
-        if (!(Objects.equals(username, "") && Objects.equals(password, ""))) {
-            mSocketHandler = application.getSocket();
-        }
 
         SharedPreferenceUtils preferenceUtils = SafeYouApp.getPreference(this);
         mDefaultAppState = preferenceUtils.getBooleanValue(Constants.Key.KEY_IS_CAMOUFLAGE_ICON_ENABLED, false);
@@ -74,7 +61,7 @@ public class FCM extends FirebaseMessagingService {
         String username = SafeYouApp.getPreference().getStringValue(KEY_USER_PHONE, "");
         String password = SafeYouApp.getPreference().getStringValue(KEY_PASSWORD, "");
         if (!(Objects.equals(username, "") && Objects.equals(password, ""))) {
-            mEditProfileModel.editProfile(this, SafeYouApp.getCountryCode(), SafeYouApp.getLocale(),
+            mEditProfileModel.editProfile(this, SafeYouApp.getCountryCode(), LocaleHelper.getLanguage(getBaseContext()),
                     "device_token", s, new NetworkCallback<Response<Message>>() {
                         @Override
                         public void onSuccess(Response<Message> response) {
@@ -94,50 +81,29 @@ public class FCM extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         boolean isNotificationEnabled = SafeYouApp.getPreference(this)
                 .getBooleanValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, false);
-
         if (isNotificationEnabled) {
             try {
                 if (remoteMessage != null && remoteMessage.getData() != null) {
                     Log.i("tagFCM", "SocketHandler: " + remoteMessage.getData());
                     Map<String, String> data = remoteMessage.getData();
-                    String notificationType = data.get("notification_type");
-                    String appLanguage = SafeYouApp.getLocale();
-                    String notificationTitle = data.get("title_en");
-                    String notificationBody = data.get("text_en");
-                    switch (appLanguage) {
-                        case "en":
-                            notificationTitle = data.get("title_en");
-                            notificationBody = data.get("text_en");
-                            break;
-                        case "hy":
-                            notificationTitle = data.get("title_arm");
-                            notificationBody = data.get("text_arm");
-                            break;
-                        case "ka":
-                            notificationTitle = data.get("title_geo");
-                            notificationBody = data.get("text_geo");
-                            break;
-                    }
+                    String notificationType = data.get("notify_type");
+                    String notificationTitle = data.get("notify_title");
+                    String notificationBody = data.get("notify_body");
 
                     Intent intent = new Intent(this, MainActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putBoolean("is_opened_from_notification", true);
 
                     if (NOTIFICATION_TYPES[0].equals(notificationType)) {
-                        try {
-                            JSONObject keyObject = new JSONObject();
-                            keyObject.put("key", data.get("key"));
-                            if (mSocketHandler != null) {
-                                new Handler(Looper.getMainLooper()).post(() ->
-                                        mSocketHandler.emit("SafeYOU_V4##READ_NOTIFICATION", keyObject));
-                            }
                             intent = new Intent(this, ForumCommentActivity.class);
-                            bundle.putLong("comment_id", Long.parseLong(data.get("forum_id")));
-                            bundle.putLong("reply_id", Long.parseLong(data.get("reply_id")));
+
+                            bundle.putLong("reply_id", 0);
+                            bundle.putLong("message_parent_id", Long.parseLong(Objects.requireNonNull(data.get("message_parent_id"))));
+                            bundle.putString("room_key", data.get("message_room_key"));
+                            bundle.putLong("message_id", Long.parseLong(Objects.requireNonNull(data.get("message_id"))));
+                            bundle.putLong("forum_id", Long.parseLong(Objects.requireNonNull(data.get("message_forum_id"))));
                             intent.putExtras(bundle);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
                     } else if (NOTIFICATION_TYPES[1].equals(notificationType)) {
                         intent = new Intent(this, MainActivity.class);
                         bundle.putBoolean("is_forum_notification", true);

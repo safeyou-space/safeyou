@@ -1,41 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#DCB1E9</color>
-    <color name="colorAccent">#9834B7</color>
+    <color name="colorPrimaryDark">#E37D93</color>
+    <color name="colorAccent">#E37D93</color>
 
-    <color name="statusBarColorPurple">#FFC783DC</color>
-    <color name="statusBarColorPurpleDark">#9834B7</color>
+    <color name="statusBarColorPurple">#DC5D78</color>
+    <color name="statusBarColorPurpleDark">#DC5D78</color>
+    <color name="colorPurpleLight">#DC5D78</color>
     <color name="statusBarColorPurpleLight">#F6E8FB</color>
     <color name="statusBarColorPurpleLanguage">#FDF9FE</color>
     <color name="statusBarColorWhite">#FDFAFE</color>
     <color name="statusBarColorBlack">#FDFAFE</color>
     <color name="white">#FFFFFF</color>
+    <color name="button_background">#FFFFFF</color>
+    <color name="button_border">#E37D93</color>
+
+    <color name="otherContainerElementsColor">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="chip_text_black">#000000</color>
     <color name="fewBlack">#1D1D1D</color>
+    <color name="lightBlack">#1D1D1D</color>
     <color name="red">#FF0000</color>
     <color name="gray">#818181</color>
+    <color name="switchColor">#5E5E5E</color>
     <color name="shadow_gray">#05E4E3E3</color>
     <color name="hint_gray">#80F8EFFB</color>
-    <color name="buttonBorderColor">#9834B7</color>
-    <color name="textPurpleColor">#9834B7</color>
+    <color name="buttonBorderColor">#DC5D78</color>
+    <color name="textPurpleColor">#DC5D78</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="white_transparent">#D3FFFFFF</color>
-    <color name="forgetSwitchColor">#DEB6EA</color>
+    <color name="disable_button_color">#f5f5f5</color>
+    <color name="forgetSwitchColor">#E37D93</color>
     <color name="dividerColor">#9A979797</color>
     <color name="chunkColor">#FE0000</color>
     <color name="chunkBackgroundColor">#C6C6C6</color>
     <color name="seekBarProgressBackground">#D8D8D8</color>
+    <color name="seekBarProgress">#DC5D78</color>
     <color name="replyGray">#73D8D8D8</color>
     <color name="fragmentsBackgroundColors">#FDFAFE</color>
     <color name="settings_gray_color">#818181</color>
-    <color name="helpScreenBackground">#142A3B</color>
+    <color name="helpScreenBackground">#230D2C</color>
     <color name="countDownProgressColor">#FE0000</color>
     <color name="countDownProgressBackgroundColor">#1AFE0000</color>
     <color name="colorMyComment">#F8EFFB</color>
     <color name="screenDimmer">#A8000000</color>
-    <color name="colorSeparatorMaritalStatus">#CBA5D8</color>
-    <color name="colorChooseCountryText">#F8EFFB</color>
-    <color name="white_transparent_rec_items">#4DFFFFFF</color>
+    <color name="colorSeparatorMaritalStatus">#E37D93</color>
+    <color name="colorChooseCountryText">#F8DEE4</color>
+    <color name="white_transparent_rec_items">#1FFFFFFF</color>
     <color name="transparent_white">#B0FFFFFF</color>
+    <color name="colorSelectedNavigationTab">#F377C2</color>
+    <color name="networkFilterBackground">#FBEFF2</color>
+
+    <color name="new_main_icon_tint_color">#E37D93</color>
+    <color name="new_main_color">#DC5D78</color>
+    <color name="login_page_background">#FEFBFC</color>
+    <color name="new_add_helpline_background_color">#DC5D78</color>
+
+    <color name="color_moon_black">#000000</color>
+    <color name="dialog_show_info_color">#FFFFFF</color>
+    <color name="loading_shape_color">#FFFFFF</color>
+    <color name="splash_background_end_color">#DC5D78</color>
+    <color name="splash_background_start_color">#DC5D78</color>
+
+    <color name="color_chat_item_background">#F8DEE4</color>
+    <color name="become_consultan_gray_color">#818181</color>
+    <color name="color_outcoming_reply_message_time">#A79EAA</color>
+    <color name="emergency_icons_default_color">#80FFFFFF</color>
+    <color name="login_hint_new_color">#80F8DEE4</color>
+    <color name="icon_success_tint_color">#61CACA</color>
+    <color name="color_forum_filter_chip_background">#F8DEE4</color>
+    <color name="chip_background_color">#FBEFF2</color>
+    <color name="report_divider_color">#AE6598</color>
+    <color name="spinner_hint_color">#818181</color>
+    <color name="sort_by_textColor">#DF6D85</color>
+    <color name="button_text_color">#FFFFFF</color>
+    <color name="borderless_button_text_color">#DC5D78</color>
+    <color name="check_icon_color">#E37D93</color>
+    <color name="check_text_color">#8D8D8D</color>
+    <color name="webview_background_color">#230F2C</color>
+    <color name="bottom_bar_background">#FFFFFF</color>
+    <color name="bottom_bar_text_color">#E37D93</color>
+    <color name="bottom_bar_text_not_check_color">#5E5E5E</color>
+    <color name="toolbar_background">#DC5D78</color>
+    <color name="seekBarThumb">#00000000</color>
+    <color name="share_button_gray">#818181</color>
+    <color name="text_color">#000000</color>
+    <color name="comment_input_text_color">#000000</color>
+    <color name="input_hint_color">#8D8D8D</color>
+    <color name="devider_color">#818181</color>
+    <color name="consultant_hint_color">#8D8D8D</color>
+    <color name="switch_background_clor">#FFFFFF</color>
+    <color name="forum_card_background">#FEFBFC</color>
+    <color name="loading_background">#D3FFFFFF</color>
+    <color name="chat_send_backgreound_color">#FFFFFF</color>
+    <color name="sort_by_icon_background">#C6C6C6</color>
+    <color name="sort_by_selected_background">#FBEFF2</color>
+    <color name="read_more_color">#000000</color>
+    <color name="rate_count_color">#E37D93</color>
+
+
+
+
 </resources>

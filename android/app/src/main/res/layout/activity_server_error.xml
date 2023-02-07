@@ -12,7 +12,6 @@
         android:id="@+id/brokenRobot"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_300sdp"
-        android:contentDescription="@string/app_name"
         android:src="@drawable/broken_robot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fambox.pro.BaseActivity;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.enums.RecordViewType;
 import fambox.pro.network.model.RecordResponse;
@@ -52,7 +53,7 @@ public class FragmentRecords extends BaseFragment implements FragmentRecordsCont
     }
 
     @Override
-    protected View provideYourFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View fragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_records, container, false);
     }
 
@@ -107,12 +108,12 @@ public class FragmentRecords extends BaseFragment implements FragmentRecordsCont
         if (bundle != null) {
             mRecordType = bundle.getInt(KEY_RECORD_TYPE);
             mFragmentRecordsPresenter.getRecordByType(((BaseActivity) mContext).getCountryCode(),
-                    ((BaseActivity) mContext).getLocale(), mRecordType);
+                    LocaleHelper.getLanguage(getContext()), mRecordType);
         }
 
         ((RecordActivity) mContext).setDataReceivedListener(text ->
                 mFragmentRecordsPresenter.startSearch(((BaseActivity) mContext).getCountryCode(),
-                        ((BaseActivity) mContext).getLocale(), text));
+                        LocaleHelper.getLanguage(getContext()), text));
     }
 
     @Override

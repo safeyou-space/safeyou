@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/otherContainerElementsColor"
     tools:context=".view.fragment.FragmentForumDetail">
 
     <ScrollView
@@ -19,13 +21,13 @@
                 android:id="@+id/imgForumDetail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_180sdp"
-                android:contentDescription="@string/app_name"
                 android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/txtForumTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_11sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
@@ -33,6 +35,36 @@
                 android:textColor="@color/black"
                 android:textIsSelectable="true"
                 android:textSize="@dimen/_24ssp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_5sdp">
+
+                <include
+                    layout="@layout/rate_bar_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/forumShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_23sdp"
+                    android:contentDescription="@string/com_facebook_share_button_text"
+                    android:padding="@dimen/_2sdp"
+                    android:src="@drawable/rec_share_icon"
+                    app:tint="@color/new_main_icon_tint_color"
+                    android:visibility="visible"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/txtForumShortDescription"
@@ -54,18 +86,6 @@
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_20sdp" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/txtForumDescription"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/_20sdp"-->
-<!--                android:layout_marginEnd="@dimen/_20sdp"-->
-<!--                android:fontFamily="@font/hay_roboto_light"-->
-<!--                android:lineSpacingExtra="@dimen/_5sdp"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textIsSelectable="true"-->
-<!--                android:textSize="@dimen/_14ssp" />-->
-
         </LinearLayout>
     </ScrollView>
 
@@ -74,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@color/otherContainerElementsColor"
         android:elevation="@dimen/_5sdp">
 
         <Button
@@ -86,26 +106,48 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:drawableStart="@drawable/ic_comment"
             android:drawablePadding="@dimen/_5sdp"
+            android:drawableTint="@color/borderless_button_text_color"
             android:fontFamily="@font/hay_roboto_normal"
             android:paddingStart="@dimen/_20sdp"
             android:paddingEnd="@dimen/_20sdp"
-            android:text="@string/comment"
             android:textAllCaps="false"
-            android:textColor="@color/statusBarColorPurpleDark" />
+            tools:targetApi="m" />
 
-        <TextView
-            android:id="@+id/txtComments"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:fontFamily="@font/hay_roboto_normal"
+            android:gravity="center_vertical"
             android:paddingStart="@dimen/_20sdp"
             android:paddingTop="@dimen/_15sdp"
             android:paddingEnd="@dimen/_20sdp"
-            android:paddingBottom="@dimen/_15sdp"
-            android:textColor="@color/black" />
+            android:paddingBottom="@dimen/_15sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/comments_count_icon_description"
+                android:src="@drawable/icon_comments"
+                app:tint="@color/borderless_button_text_color" />
+
+            <TextView
+                android:id="@+id/txtComments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:fontFamily="@font/hay_roboto_normal"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/progressView"
+            layout="@layout/loading_view" />
 
     </RelativeLayout>
 

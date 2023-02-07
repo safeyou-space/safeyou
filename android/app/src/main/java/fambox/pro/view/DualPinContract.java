@@ -8,6 +8,7 @@ import fambox.pro.model.BaseModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.LoginBody;
 import fambox.pro.network.model.LoginResponse;
+import fambox.pro.network.model.Message;
 import fambox.pro.presenter.basepresenter.MvpPresenter;
 import fambox.pro.presenter.basepresenter.MvpView;
 import retrofit2.Response;
@@ -38,5 +39,8 @@ public interface DualPinContract {
                           String locale,
                           LoginBody loginBody,
                           NetworkCallback<Response<LoginResponse>> response);
+
+        void editProfile(Context context, String countryCode, String locale, String key,
+                         Object value, NetworkCallback<Response<Message>> response);
     }
 }

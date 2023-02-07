@@ -6,9 +6,9 @@ import android.content.SharedPreferences;
 
 public class SharedPreferenceUtils {
     private static SharedPreferenceUtils mSharedPreferenceUtils;
+    private final SharedPreferences mSharedPreferences;
+    private final SharedPreferences.Editor mSharedPreferencesEditor;
     protected Context mContext;
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mSharedPreferencesEditor;
     private SaveDataCallback mSaveDataCallback;
 
     @SuppressLint("CommitPrefEdits")

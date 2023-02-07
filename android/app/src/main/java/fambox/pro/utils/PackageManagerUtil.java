@@ -3,7 +3,6 @@ package fambox.pro.utils;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import fambox.pro.Constants;
 import fambox.pro.Four;

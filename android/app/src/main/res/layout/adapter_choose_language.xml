@@ -2,24 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_43sdp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/_8sdp"
     android:background="@drawable/country_item_background"
     android:orientation="horizontal">
-
-<!--    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--        android:id="@+id/countryImage"-->
-<!--        android:layout_width="@dimen/_20sdp"-->
-<!--        android:layout_height="@dimen/_20sdp"-->
-<!--        android:layout_gravity="center_vertical"-->
-<!--        android:layout_marginStart="@dimen/_13sdp"-->
-<!--        android:src="@drawable/forum_image_exam"-->
-<!--        app:civ_border_width="0dp" />-->
 
     <TextView
         android:id="@+id/languageName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/_43sdp"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/_13sdp"
         android:layout_weight="1"
@@ -27,7 +19,7 @@
         android:fontFamily="@font/hay_roboto_regular"
         android:gravity="center_vertical"
         android:textColor="@color/colorChooseCountryText"
-        android:textSize="@dimen/_15ssp" />
+        android:textSize="16sp" />
 
 
     <RadioButton

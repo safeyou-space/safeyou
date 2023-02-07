@@ -2,7 +2,6 @@ package fambox.pro.presenter;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 
 import java.util.Objects;
 
@@ -12,12 +11,10 @@ import fambox.pro.Constants;
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.model.ForgotChangePasswordModel;
-import fambox.pro.model.VerificationModel;
 import fambox.pro.model.fragment.FragmentProfileModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.CreateNewPasswordBody;
 import fambox.pro.network.model.Message;
-import fambox.pro.network.model.VerifyPhoneResendBody;
 import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
@@ -53,7 +50,7 @@ public class ForgotChangePassPresenter extends BasePresenter<ForgotChangePassCon
     @Override
     public void sendPhoneToForgotChangePassword(String countryCode, String locale, String phoneNumber) {
         if (!Connectivity.isConnected(getView().getContext())) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.internet_connection));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         mForgotChangePasswordModel.sendPhoneNumber(getView().getContext(), countryCode, locale, phoneNumber,
@@ -89,12 +86,12 @@ public class ForgotChangePassPresenter extends BasePresenter<ForgotChangePassCon
         if (password.equals("") || createdConfirmPassword.equals("")) {
             getView().showErrorMessage(getView().getContext().getResources().getString(R.string.empty_field));
         } else if (!Objects.equals(password, createdConfirmPassword)) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.confirm_pass_field));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.passwords_not_match_text_key));
         } else if (password.length() < 8 || createdConfirmPassword.length() < 8) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.min_length_8));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.please_enter_valid_password_message_key));
         }
         if (!Connectivity.isConnected(getView().getContext())) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.internet_connection));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         CreateNewPasswordBody createNewPasswordBody = new CreateNewPasswordBody();
@@ -107,8 +104,6 @@ public class ForgotChangePassPresenter extends BasePresenter<ForgotChangePassCon
                     @Override
                     public void onSuccess(Response<Message> response) {
                         if (response.isSuccessful()) {
-                            SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_ACCESS_TOKEN);
-                            SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_REFRESH_TOKEN);
                             SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_PASSWORD);
                             SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_USER_PHONE);
                             SafeYouApp.getPreference(getView().getContext()).removeKey(Constants.Key.KEY_SHARED_REAL_PIN);
@@ -133,7 +128,7 @@ public class ForgotChangePassPresenter extends BasePresenter<ForgotChangePassCon
         if (bundle != null) {
             if (bundle.getBoolean(Constants.Key.KEY_REQUEST_NEW_PASSWORD)) {
                 getView().configView(
-                        getView().getContext().getResources().getString(R.string.new_password),
+                        getView().getContext().getResources().getString(R.string.new_password_title_key),
                         getView().getContext().getResources().getString(R.string.create_new_password),
                         getView().getContext().getResources().getString(R.string.confirm_new_password));
             } else if (bundle.getBoolean(Constants.Key.KEY_CHANGE_PHONE_NUMBER)) {
@@ -148,7 +143,7 @@ public class ForgotChangePassPresenter extends BasePresenter<ForgotChangePassCon
     @Override
     public void editPhoneNumber(String countryCode, String locale, String phone) {
         if (!Connectivity.isConnected(getView().getContext())) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.internet_connection));
+            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         mFragmentProfileModel.editProfileServer(getView().getContext(), countryCode, locale, "phone", phone,

@@ -14,8 +14,8 @@ import fambox.pro.view.fragment.FragmentRecords;
 
 public class RecordViewPagerAdapter extends FragmentPagerAdapter {
 
-    private static final Integer[] FRAGMENT_PAGE_TITLES = {R.string.all, R.string.saved, R.string.sent};
-    private Context mContext;
+    private static final Integer[] FRAGMENT_PAGE_TITLES = {R.string.title_all, R.string.title_saved_key, R.string.title_sent_key};
+    private final Context mContext;
 
     public RecordViewPagerAdapter(Context context, FragmentManager fm) {
         super(fm);

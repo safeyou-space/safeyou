@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_44sdp"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/_44sdp"
     android:layout_marginBottom="@dimen/_1sdp"
-    android:background="@color/white"
+    android:background="@color/otherContainerElementsColor"
     android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -26,7 +27,7 @@
         android:fontFamily="@font/hay_roboto_regular"
         android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:textSize="@dimen/_15ssp" />
+        android:textSize="16sp" />
 
 
     <RadioButton

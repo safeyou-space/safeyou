@@ -1,6 +1,9 @@
 package fambox.pro.view.adapter.holder;
 
+import static fambox.pro.Constants.Key.KEY_IS_DARK_MODE_ENABLED;
+
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,17 +15,22 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fambox.pro.Constants;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
+import fambox.pro.SafeYouApp;
 import fambox.pro.network.model.chat.Comments;
+import fambox.pro.privatechat.network.model.Like;
 import fambox.pro.utils.Utils;
+import lombok.Data;
 
-import static fambox.pro.Constants.BASE_URL;
-
+@Data
 public class CommentHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.imgCommentUser)
@@ -41,6 +49,16 @@ public class CommentHolder extends RecyclerView.ViewHolder {
     TextView txtReply;
     @BindView(R.id.containerMessages)
     ConstraintLayout containerMessages;
+    @BindView(R.id.likeBtn)
+    ImageView likeBtn;
+    @BindView(R.id.commentLikeOne)
+    TextView commentLikeOne;
+    @BindView(R.id.prvtMessageBtn)
+    ImageView prvtMessageBtn;
+    @BindView(R.id.moreBtn)
+    ImageView moreBtn;
+    @BindView(R.id.forumImage)
+    RoundedImageView forumImage;
 
     @BindView(R.id.imgCommentUserOne)
     ImageView imgCommentUserOne;
@@ -60,6 +78,16 @@ public class CommentHolder extends RecyclerView.ViewHolder {
     ConstraintLayout containerMessagesOne;
     @BindView(R.id.containerOne)
     RelativeLayout containerOne;
+    @BindView(R.id.likeBtnOne)
+    ImageView likeBtnOne;
+    @BindView(R.id.commentLikeTwo)
+    TextView commentLikeTwo;
+    @BindView(R.id.prvtMessageBtnOne)
+    ImageView prvtMessageBtnOne;
+    @BindView(R.id.moreBtnOne)
+    ImageView moreBtnOne;
+    @BindView(R.id.forumImageOne)
+    RoundedImageView forumImageOne;
 
     @BindView(R.id.imgCommentUserTwo)
     ImageView imgCommentUserTwo;
@@ -81,6 +109,16 @@ public class CommentHolder extends RecyclerView.ViewHolder {
     ConstraintLayout containerMessagesTwo;
     @BindView(R.id.containerTwo)
     RelativeLayout containerTwo;
+    @BindView(R.id.commentLikeThree)
+    TextView commentLikeThree;
+    @BindView(R.id.likeBtnTwo)
+    ImageView likeBtnTwo;
+    @BindView(R.id.prvtMessageBtnTwo)
+    ImageView prvtMessageBtnTwo;
+    @BindView(R.id.moreBtnTwo)
+    ImageView moreBtnTwo;
+    @BindView(R.id.forumImageTwo)
+    RoundedImageView forumImageTwo;
 
 
     public CommentHolder(@NonNull View itemView) {
@@ -128,6 +166,14 @@ public class CommentHolder extends RecyclerView.ViewHolder {
         return containerMessages;
     }
 
+    public ImageView getLikeBtn() {
+        return likeBtn;
+    }
+
+    public TextView getCommentLikeOne() {
+        return commentLikeOne;
+    }
+
     public ConstraintLayout getContainerMessagesOne() {
         return containerMessagesOne;
     }
@@ -141,8 +187,6 @@ public class CommentHolder extends RecyclerView.ViewHolder {
     }
 
     public void addReply(Context context, List<Comments> replies) {
-        String locale = context.getResources().getConfiguration().locale.getLanguage();
-
         // reset
         containerOne.setVisibility(View.GONE);
         containerTwo.setVisibility(View.GONE);
@@ -150,196 +194,215 @@ public class CommentHolder extends RecyclerView.ViewHolder {
 
         if (replies != null) {
             if (replies.size() == 1) {
-                Comments comment = replies.get(0);
-                containerOne.setVisibility(View.VISIBLE);
-                containerMessagesOne.setBackground(comment.isMy() ? ContextCompat.getDrawable(context, R.drawable.comment_frame)
-                        : ContextCompat.getDrawable(context, R.drawable.comment_frame_white));
-                txtCommentUserNameOne.setText(comment.getName());
-                txtCommentUserCommentOne.setText(comment.getMessage());
-                txtCommentDateOne.setText(Utils.timeUTC(comment.getCreated_at(), locale));
-                txtCommentUserPositionOne.setText(comment.getUser_type());
-                if (comment.getImage_path() != null) {
-                    Glide.with(context).load(BASE_URL.concat(comment.getImage_path()))
-                            .into(imgCommentUserOne);
+                setupReply(context, replies.get(0), containerOne,
+                        containerMessagesOne,
+                        txtCommentUserNameOne,
+                        txtCommentUserCommentOne,
+                        txtCommentDateOne,
+                        txtCommentUserPositionOne,
+                        prvtMessageBtnOne,
+                        imgCommentUserOne,
+                        forumImageOne,
+                        likeBtnOne,
+                        commentLikeTwo,
+                        imgCommentUserBadgeOne);
+            } else if (replies.size() >= 2) {
+                setupReply(context, replies.get(0), containerOne,
+                        containerMessagesOne,
+                        txtCommentUserNameOne,
+                        txtCommentUserCommentOne,
+                        txtCommentDateOne,
+                        txtCommentUserPositionOne,
+                        prvtMessageBtnOne,
+                        imgCommentUserOne,
+                        forumImageOne,
+                        likeBtnOne,
+                        commentLikeTwo,
+                        imgCommentUserBadgeOne);
+                setupReply(context, replies.get(1), containerTwo,
+                        containerMessagesTwo,
+                        txtCommentUserNameTwo,
+                        txtCommentUserCommentTwo,
+                        txtCommentDateTwo,
+                        txtCommentUserPositionTwo,
+                        prvtMessageBtnTwo,
+                        imgCommentUserTwo,
+                        forumImageTwo,
+                        likeBtnTwo,
+                        commentLikeThree,
+                        imgCommentUserBadgeTwo);
+
+                if (replies.size() > 2) {
+                    txtViewMore.setVisibility(View.VISIBLE);
+                    String replyText = context.getResources().getString(R.string.count_replies, replies.size() - 2) + " | " +
+                            context.getResources().getString(R.string.view_more_replies);
+                    txtViewMore.setText(replyText);
                 }
-
-                switch (comment.getUser_type_id()) {
-                    case 1:
-                        imgCommentUserBadgeOne.setVisibility(View.GONE);
-                        break;
-                    case 2:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                        break;
-                    case 3:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                        break;
-                    case 4:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                        break;
-                    case 5:
-                        txtCommentUserPositionOne.setVisibility(View.GONE);
-                        imgCommentUserBadgeOne.setVisibility(View.GONE);
-                        break;
-                    default:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                }
-
-                txtReplyOne.setTag(comment);
-                containerMessagesOne.setTag(comment);
-
-            } else if (replies.size() == 2) {
-                Comments comment = replies.get(0);
-                containerOne.setVisibility(View.VISIBLE);
-                containerMessagesOne.setBackground(comment.isMy() ? ContextCompat.getDrawable(context, R.drawable.comment_frame)
-                        : ContextCompat.getDrawable(context, R.drawable.comment_frame_white));
-                txtCommentUserNameOne.setText(comment.getName());
-                txtCommentUserCommentOne.setText(comment.getMessage());
-                txtCommentDateOne.setText(Utils.timeUTC(comment.getCreated_at(), locale));
-                txtCommentUserPositionOne.setText(comment.getUser_type());
-                if (comment.getImage_path() != null) {
-                    Glide.with(context).load(BASE_URL.concat(comment.getImage_path()))
-                            .into(imgCommentUserOne);
-                }
-
-                switch (comment.getUser_type_id()) {
-                    case 1:
-                        imgCommentUserBadgeOne.setVisibility(View.GONE);
-                        break;
-                    case 2:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                        break;
-                    case 3:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                        break;
-                    case 4:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                        break;
-                    case 5:
-                        txtCommentUserPositionOne.setVisibility(View.GONE);
-                        imgCommentUserBadgeOne.setVisibility(View.GONE);
-                        break;
-                    default:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                }
-
-                txtReplyOne.setTag(comment);
-                containerMessagesOne.setTag(comment);
-
-                Comments comment1 = replies.get(1);
-                containerTwo.setVisibility(View.VISIBLE);
-                containerMessagesTwo.setBackground(comment1.isMy() ? ContextCompat.getDrawable(context, R.drawable.comment_frame)
-                        : ContextCompat.getDrawable(context, R.drawable.comment_frame_white));
-                txtCommentUserNameTwo.setText(comment1.getName());
-                txtCommentUserCommentTwo.setText(comment1.getMessage());
-                txtCommentDateTwo.setText(Utils.timeUTC(comment1.getCreated_at(), locale));
-                txtCommentUserPositionTwo.setText(comment1.getUser_type());
-                if (comment1.getImage_path() != null) {
-                    Glide.with(context).load(BASE_URL.concat(comment1.getImage_path()))
-                            .into(imgCommentUserTwo);
-                }
-
-                switch (comment1.getUser_type_id()) {
-                    case 1:
-                        imgCommentUserBadgeTwo.setVisibility(View.GONE);
-                        break;
-                    case 2:
-                        imgCommentUserBadgeTwo.setVisibility(View.VISIBLE);
-                        break;
-                    case 3:
-                        imgCommentUserBadgeTwo.setVisibility(View.VISIBLE);
-                        break;
-                    case 4:
-                        imgCommentUserBadgeTwo.setVisibility(View.VISIBLE);
-                        break;
-                    case 5:
-                        txtCommentUserPositionTwo.setVisibility(View.GONE);
-                        imgCommentUserBadgeTwo.setVisibility(View.GONE);
-                        break;
-                    default:
-                        imgCommentUserBadgeTwo.setVisibility(View.VISIBLE);
-                }
-
-                txtReplyTwo.setTag(comment1);
-                containerMessagesTwo.setTag(comment1);
-
-            } else if (replies.size() > 2) {
-                Comments comment = replies.get(0);
-                containerOne.setVisibility(View.VISIBLE);
-                containerMessagesOne.setBackground(comment.isMy() ? ContextCompat.getDrawable(context, R.drawable.comment_frame)
-                        : ContextCompat.getDrawable(context, R.drawable.comment_frame_white));
-                txtCommentUserNameOne.setText(comment.getName());
-                txtCommentUserCommentOne.setText(comment.getMessage());
-                txtCommentDateOne.setText(Utils.timeUTC(comment.getCreated_at(), locale));
-                txtCommentUserPositionOne.setText(comment.getUser_type());
-                if (comment.getImage_path() != null) {
-                    Glide.with(context).load(BASE_URL.concat(comment.getImage_path()))
-                            .into(imgCommentUserOne);
-                }
-
-                switch (comment.getUser_type_id()) {
-                    case 1:
-                        imgCommentUserBadgeOne.setVisibility(View.GONE);
-                        break;
-                    case 2:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                        break;
-                    case 3:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                        break;
-                    case 4:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                        break;
-                    case 5:
-                        txtCommentUserPositionOne.setVisibility(View.GONE);
-                        imgCommentUserBadgeOne.setVisibility(View.GONE);
-                        break;
-                    default:
-                        imgCommentUserBadgeOne.setVisibility(View.VISIBLE);
-                }
-
-                txtReplyOne.setTag(comment);
-                containerMessagesOne.setTag(comment);
-
-                Comments comment1 = replies.get(1);
-                containerTwo.setVisibility(View.VISIBLE);
-                containerMessagesTwo.setBackground(comment1.isMy() ? ContextCompat.getDrawable(context, R.drawable.comment_frame)
-                        : ContextCompat.getDrawable(context, R.drawable.comment_frame_white));
-                txtCommentUserNameTwo.setText(comment1.getName());
-                txtCommentUserCommentTwo.setText(comment1.getMessage());
-                txtCommentDateTwo.setText(Utils.timeUTC(comment1.getCreated_at(), locale));
-                txtCommentUserPositionTwo.setText(comment1.getUser_type());
-                if (comment1.getImage_path() != null) {
-                    Glide.with(context).load(BASE_URL.concat(comment1.getImage_path()))
-                            .into(imgCommentUserTwo);
-                }
-
-                switch (comment1.getUser_type_id()) {
-                    case 1:
-                        imgCommentUserBadgeTwo.setVisibility(View.GONE);
-                        break;
-                    case 2:
-                        imgCommentUserBadgeTwo.setVisibility(View.VISIBLE);
-                        break;
-                    case 3:
-                        imgCommentUserBadgeTwo.setVisibility(View.VISIBLE);
-                        break;
-                    case 4:
-                        imgCommentUserBadgeTwo.setVisibility(View.VISIBLE);
-                        break;
-                    case 5:
-                        txtCommentUserPositionTwo.setVisibility(View.GONE);
-                        imgCommentUserBadgeTwo.setVisibility(View.GONE);
-                        break;
-                    default:
-                        imgCommentUserBadgeTwo.setVisibility(View.VISIBLE);
-                }
-
-                txtReplyTwo.setTag(comment1);
-                containerMessagesTwo.setTag(comment1);
-
-                txtViewMore.setVisibility(View.VISIBLE);
-                txtViewMore.setText(context.getResources().getString(R.string.view_more, comment1.getReply_count()));
             }
         }
+    }
+
+    private void setupReply(Context context,
+                            Comments comment,
+                            RelativeLayout container,
+                            ConstraintLayout containerMessages,
+                            TextView commentUserName,
+                            TextView commentUserComment,
+                            TextView commentDate,
+                            TextView commentUserPosition,
+                            ImageView prvtMessageBtn,
+                            ImageView imgCommentUser,
+                            RoundedImageView forumImage,
+                            ImageView likeBtn,
+                            TextView commentLike,
+                            ImageView imgCommentUserBadge
+
+    ) {
+        String locale = LocaleHelper.getLanguage(context);
+        long currentUserID = SafeYouApp.getPreference().getLongValue(Constants.Key.KEY_USER_ID, 0);
+
+        container.setVisibility(View.VISIBLE);
+        containerMessages.setBackground(comment.isMy() ? ContextCompat.getDrawable(context, R.drawable.comment_frame)
+                : ContextCompat.getDrawable(context, R.drawable.comment_frame_white));
+        boolean isDarkModeEnabled = SafeYouApp.getPreference().getBooleanValue(KEY_IS_DARK_MODE_ENABLED, false);
+        int nightModeFlags =
+                context.getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        if ((isDarkModeEnabled || nightModeFlags == Configuration.UI_MODE_NIGHT_YES)) {
+            if (comment.isMy()) {
+                changeMyStylesForDarkMode(context);
+            } else {
+                changeStylesForDarkMode(context);
+            }
+        }
+        commentUserName.setText(comment.getName());
+        commentUserComment.setText(comment.getMessage());
+
+        commentDate.setText(Utils.timeUTC(comment.getCreated_at(), locale));
+        commentUserPosition.setText(comment.getUser_type());
+        prvtMessageBtn.setVisibility(comment.getUser_id() == currentUserID
+                || comment.getUser_type_id() == 5 || (SafeYouApp.isMinorUser() && comment.getUser_id() != 10 && comment.getUser_id() != 8) ? View.GONE : View.VISIBLE);
+        if (comment.getImage_path() != null) {
+            Glide.with(context).load(comment.getImage_path())
+                    .into(imgCommentUser);
+        }
+
+        if (comment.getContentImage() != null && !comment.getContentImage().equals("")) {
+            forumImage.setVisibility(View.VISIBLE);
+            Glide.with(context).load(comment.getContentImage()).into(forumImage);
+        } else {
+            forumImage.setVisibility(View.GONE);
+        }
+
+        List<Like> likes = comment.getLikes();
+        if (likes != null) {
+            int likeCount = 0;
+            for (Like likeForCount : likes) {
+                if (likeForCount.getLike_user_id() == currentUserID) {
+                    if (likeForCount.getLike_type() == 1) {
+                        likeBtn.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_licke_coment_full));
+                        likeBtn.setTag(0);
+                    } else {
+                        likeBtn.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_like_coment_empty));
+                        likeBtn.setTag(1);
+                    }
+                } else {
+                    likeBtn.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.icon_like_coment_empty));
+                    likeBtn.setTag(1);
+                }
+                if (likeForCount.getLike_type() > 0) {
+                    likeCount++;
+                }
+            }
+
+            if (likeCount > 0) {
+                commentLike.setVisibility(View.VISIBLE);
+                commentLike.setText("" + likeCount);
+                commentLike.setContentDescription(context.getString(R.string.like_icon_description) + likeCount);
+
+            } else {
+                commentLike.setVisibility(View.GONE);
+            }
+        } else {
+            commentLike.setVisibility(View.GONE);
+        }
+
+        switch (comment.getUser_type_id()) {
+            case 1:
+                imgCommentUserBadge.setVisibility(View.GONE);
+                break;
+            case 2:
+                imgCommentUserBadge.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                imgCommentUserBadge.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                imgCommentUserBadge.setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                commentUserPosition.setVisibility(View.GONE);
+                imgCommentUserBadge.setVisibility(View.GONE);
+                break;
+            default:
+                imgCommentUserBadge.setVisibility(View.VISIBLE);
+        }
+
+        prvtMessageBtn.setTag(comment);
+        containerMessages.setTag(comment);
+    }
+
+    public void changeStylesForDarkMode(Context context) {
+        txtReply.setTextColor(context.getResources().getColor(R.color.new_main_color));
+        txtReplyOne.setTextColor(context.getResources().getColor(R.color.new_main_color));
+        txtReplyTwo.setTextColor(context.getResources().getColor(R.color.new_main_color));
+
+        txtCommentUserPosition.setTextColor(context.getResources().getColor(R.color.new_main_color));
+        txtCommentUserPositionOne.setTextColor(context.getResources().getColor(R.color.new_main_color));
+        txtCommentUserPositionTwo.setTextColor(context.getResources().getColor(R.color.new_main_color));
+
+        likeBtn.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+        likeBtnOne.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+        likeBtnTwo.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+
+        prvtMessageBtn.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+        prvtMessageBtnOne.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+        prvtMessageBtnTwo.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+
+        moreBtn.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+        moreBtnOne.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+        moreBtnTwo.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+
+        imgCommentUserBadge.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+        imgCommentUserBadgeOne.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+        imgCommentUserBadgeTwo.setColorFilter(context.getResources().getColor(R.color.new_main_color));
+
+    }
+
+    public void changeMyStylesForDarkMode(Context context) {
+        txtReply.setTextColor(context.getResources().getColor(R.color.white));
+        txtReplyOne.setTextColor(context.getResources().getColor(R.color.white));
+        txtReplyTwo.setTextColor(context.getResources().getColor(R.color.white));
+
+        txtCommentUserPosition.setTextColor(context.getResources().getColor(R.color.white));
+        txtCommentUserPositionOne.setTextColor(context.getResources().getColor(R.color.white));
+        txtCommentUserPositionTwo.setTextColor(context.getResources().getColor(R.color.white));
+
+        likeBtn.setColorFilter(context.getResources().getColor(R.color.white));
+        likeBtnOne.setColorFilter(context.getResources().getColor(R.color.white));
+        likeBtnTwo.setColorFilter(context.getResources().getColor(R.color.white));
+
+        prvtMessageBtn.setColorFilter(context.getResources().getColor(R.color.white));
+        prvtMessageBtnOne.setColorFilter(context.getResources().getColor(R.color.white));
+        prvtMessageBtnTwo.setColorFilter(context.getResources().getColor(R.color.white));
+
+        moreBtn.setColorFilter(context.getResources().getColor(R.color.white));
+        moreBtnOne.setColorFilter(context.getResources().getColor(R.color.white));
+        moreBtnTwo.setColorFilter(context.getResources().getColor(R.color.white));
+
+        imgCommentUserBadge.setColorFilter(context.getResources().getColor(R.color.white));
+        imgCommentUserBadgeOne.setColorFilter(context.getResources().getColor(R.color.white));
+        imgCommentUserBadgeTwo.setColorFilter(context.getResources().getColor(R.color.white));
+
     }
 }

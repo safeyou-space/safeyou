@@ -10,7 +10,7 @@ import fambox.pro.view.fragment.FragmentForum;
 import fambox.pro.view.fragment.FragmentHelp;
 import fambox.pro.view.fragment.FragmentNetwork;
 import fambox.pro.view.fragment.FragmentOther;
-import fambox.pro.view.fragment.FragmentProfile;
+import fambox.pro.view.fragment.FragmentPrivateMessage;
 
 public class MainViewPager extends FragmentPagerAdapter {
 
@@ -23,13 +23,13 @@ public class MainViewPager extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentProfile();
-            case 1:
                 return new FragmentForum();
+            case 1:
+                return new FragmentNetwork();
             case 2:
                 return new FragmentHelp();
             case 3:
-                return new FragmentNetwork();
+                return new FragmentPrivateMessage();
             case 4:
                 return new FragmentOther();
         }

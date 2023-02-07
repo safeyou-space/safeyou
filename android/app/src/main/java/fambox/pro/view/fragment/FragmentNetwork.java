@@ -1,10 +1,14 @@
 package fambox.pro.view.fragment;
 
+import static fambox.pro.Constants.Key.KEY_SERVICE_ID;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +21,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.maps.CameraUpdateFactory;
+import com.google.android.libraries.maps.GoogleMap;
+import com.google.android.libraries.maps.OnMapReadyCallback;
+import com.google.android.libraries.maps.model.CameraPosition;
+import com.google.android.libraries.maps.model.LatLng;
+import com.google.android.libraries.maps.model.Marker;
+import com.google.android.libraries.maps.model.MarkerOptions;
 
 import java.util.List;
 import java.util.Map;
@@ -31,10 +35,12 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fambox.pro.BaseActivity;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.network.model.ServicesResponseBody;
 import fambox.pro.network.model.ServicesSearchResponse;
 import fambox.pro.presenter.fragment.FragmentNetworkPresenter;
+import fambox.pro.privatechat.view.ChatActivity;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.view.MainActivity;
 import fambox.pro.view.NgoMapDetailActivity;
@@ -42,14 +48,11 @@ import fambox.pro.view.adapter.AdapterCategoryType;
 import fambox.pro.view.adapter.MapNGOsAdapter;
 import fambox.pro.view.fragment.map.MySupportMapFragment;
 
-import static fambox.pro.Constants.Key.KEY_SERVICE_ID;
-
 public class FragmentNetwork extends BaseFragment implements FragmentNetworkContract.View,
         OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private FragmentNetworkPresenter mFragmentNetworkPresenter;
     private GoogleMap mMap;
-    private MySupportMapFragment mMapFragment = null;
     private FragmentActivity mContext;
     private TransferDataListener mTransferDataListener;
     private boolean isAddedFromProfile = false;
@@ -66,6 +69,7 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
     LinearLayout networkLoading;
 
     public void setServiceId(long serviceId, boolean isAddedFromProfile, boolean isSendSms) {
+        showProgress();
         this.mOldServiceId = serviceId;
         this.isAddedFromProfile = isAddedFromProfile;
         this.isSendSms = isSendSms;
@@ -73,7 +77,7 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
     }
 
     @Override
-    protected View provideYourFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View fragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_network, container, false);
     }
 
@@ -88,7 +92,7 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
         mFragmentNetworkPresenter.attachView(this);
         mFragmentNetworkPresenter.viewIsReady();
         scrollView.fullScroll(View.FOCUS_UP);
-        mMapFragment = (MySupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        MySupportMapFragment mMapFragment = (MySupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mMapFragment != null)
             mMapFragment.setListener(() -> scrollView.requestDisallowInterceptTouchEvent(true));
         if (mMapFragment != null) {
@@ -97,7 +101,7 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
 
         ((MainActivity) mContext).setTransferSearchTextListener(text
                 -> mFragmentNetworkPresenter.search(((MainActivity) mContext).getCountryCode(),
-                ((MainActivity) mContext).getLocale(), text));
+                LocaleHelper.getLanguage(getContext()), text));
     }
 
     @Override
@@ -105,9 +109,6 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
         if (googleMap != null) {
             mMap = googleMap;
             mMap.setOnMarkerClickListener(this);
-            // show current location button
-//            mMap.setMyLocationEnabled(true);
-//            mMap.getUiSettings().setMyLocationButtonEnabled(true);
             String countryCode = ((BaseActivity) mContext).getCountryCode();
             LatLng location = new LatLng(40.0691, 45.0382);
             if (countryCode != null) {
@@ -118,6 +119,9 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
                     case "geo":
                         location = new LatLng(42.3154, 43.3569);
                         break;
+                    case "irq":
+                        location = new LatLng(36.2209, 43.6848);
+                        break;
                 }
             }
             CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -125,7 +129,6 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
                     .zoom(6.5f)
                     .build();
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-//            onResume();
         } else {
             if (getActivity() != null)
                 showErrorMessage(getActivity().getResources().getString(R.string.your_map_not_ready));
@@ -144,9 +147,9 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
     public void onResume() {
         super.onResume();
         mFragmentNetworkPresenter.getServices(((MainActivity) mContext).getCountryCode(),
-                ((MainActivity) mContext).getLocale(), isSendSms);
+                LocaleHelper.getLanguage(getContext()), isSendSms);
         mFragmentNetworkPresenter.getServiceCategoryTypes(((MainActivity) mContext).getCountryCode(),
-                ((MainActivity) mContext).getLocale(), isSendSms);
+                LocaleHelper.getLanguage(getContext()), isSendSms);
     }
 
     public void setSendSms(boolean sendSms) {
@@ -180,7 +183,7 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
 
     @Override
     public void initRecyclerView(List<ServicesResponseBody> servicesResponseBodyList) {
-        MapNGOsAdapter mapNGOsAdapter = new MapNGOsAdapter(servicesResponseBodyList);
+        MapNGOsAdapter mapNGOsAdapter = new MapNGOsAdapter(mContext, servicesResponseBodyList);
         mapNGOsAdapter.setItemClick(position -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean("is_added_from_profile", isAddedFromProfile);
@@ -189,16 +192,26 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
             nextActivity(mContext, NgoMapDetailActivity.class, bundle);
         });
         mapNGOsAdapter.setItemCallClick(position -> {
-            setUpCall(servicesResponseBodyList.get(position).getUser_detail().getPhone());
+            setUpCall(servicesResponseBodyList.get(position).getPhone());
         });
 
         mapNGOsAdapter.setItemEmailClick(position -> {
-            setUpEmailAddress(servicesResponseBodyList.get(position).getUser_detail().getEmail());
+            setUpEmailAddress(servicesResponseBodyList.get(position).getEmail());
         });
 
+        mapNGOsAdapter.setItemPrivatMessageClick(position -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("opened_from_network", true);
+            bundle.putString("user_id", servicesResponseBodyList.get(position).getUser_id());
+            bundle.putString("user_name", servicesResponseBodyList.get(position).getTitle());
+            bundle.putString("user_image", servicesResponseBodyList.get(position).getUser_detail().getImage().getUrl());
+            bundle.putString("user_profession", servicesResponseBodyList.get(position).getCategory());
+            nextActivity(mContext, ChatActivity.class, bundle);
+        });
         LinearLayoutManager verticalLayoutManager =
                 new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
         recViewMap.setLayoutManager(verticalLayoutManager);
+        recViewMap.setItemViewCacheSize(mapNGOsAdapter.getItemCount());
         recViewMap.setAdapter(mapNGOsAdapter);
     }
 
@@ -207,10 +220,10 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
         AdapterCategoryType adapterCategoryType = new AdapterCategoryType(getContext(), categoryTypes, categoryId -> {
             if (categoryId == -111) {
                 mFragmentNetworkPresenter.getServices(((MainActivity) mContext).getCountryCode(),
-                        ((MainActivity) mContext).getLocale(), isSendSms);
+                        LocaleHelper.getLanguage(getContext()), isSendSms);
             } else {
                 mFragmentNetworkPresenter.getServiceByCategoryID(((MainActivity) mContext).getCountryCode(),
-                        ((MainActivity) mContext).getLocale(), categoryId, isSendSms);
+                        LocaleHelper.getLanguage(getContext()), categoryId, isSendSms);
             }
         });
         LinearLayoutManager horizontalLayoutManager =
@@ -222,14 +235,13 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
     @Override
     public void setUpEmailAddress(String emailAddress) {
         if (emailAddress != null) {
-            Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType("text/plain");
+            Intent i = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
             i.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
             try {
                 startActivity(Intent.createChooser(i, mContext.getResources().getString(R.string.send_mail)));
             } catch (android.content.ActivityNotFoundException ex) {
                 if (getActivity() != null)
-                    showErrorMessage(getActivity().getResources().getString(R.string.sendet_email_is_emty));
+                    showErrorMessage(getActivity().getResources().getString(R.string.email_is_empty));
             }
         }
 
@@ -288,7 +300,9 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
 
     @Override
     public void dismissProgress() {
-        networkLoading.setVisibility(View.GONE);
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> networkLoading.setVisibility(View.GONE), 1000);
+
     }
 
     @Override

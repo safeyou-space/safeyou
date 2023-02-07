@@ -17,7 +17,7 @@ import retrofit2.Response;
 
 public class AddToHelplineModel implements NgoMapDetailContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void addEmergencyService(Context context, String countryCode, String locale,

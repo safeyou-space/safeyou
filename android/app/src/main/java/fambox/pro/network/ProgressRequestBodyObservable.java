@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -17,7 +16,7 @@ public class ProgressRequestBodyObservable extends RequestBody {
     public enum RequestBodyMediaType {
 
         AUDIO("audio/*"), IMAGE("image/*"), TEXT("text/plain");
-        private String type;
+        private final String type;
 
         RequestBodyMediaType(String type) {
             this.type = type;
@@ -28,20 +27,16 @@ public class ProgressRequestBodyObservable extends RequestBody {
         }
     }
 
-    private File file;
-    private int ignoreFirstNumberOfWriteToCalls;
+    private final File file;
+    private final int ignoreFirstNumberOfWriteToCalls;
+    private final PublishSubject<Float> floatPublishSubject = PublishSubject.create();
+    private final RequestBodyMediaType mediaType;
     private int numWriteToCalls;
-    private PublishSubject<Float> floatPublishSubject = PublishSubject.create();
-    private RequestBodyMediaType mediaType;
 
     public ProgressRequestBodyObservable(File file, RequestBodyMediaType mediaType) {
         this.file = file;
         this.mediaType = mediaType;
         ignoreFirstNumberOfWriteToCalls = 0;
-    }
-
-    public Observable<Float> getProgressSubject() {
-        return floatPublishSubject;
     }
 
     @Override

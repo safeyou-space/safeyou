@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/splash_background"
     android:fillViewport="true"
     android:orientation="vertical"
@@ -25,7 +26,7 @@
             android:gravity="center"
             android:text="@string/choose_your_country"
             android:textColor="@color/colorChooseCountryText"
-            android:textSize="@dimen/_28ssp" />
+            android:textSize="34sp" />
 
         <TextView
             android:id="@+id/txtCountryDescription"
@@ -37,50 +38,55 @@
             android:layout_marginEnd="@dimen/_20sdp"
             android:fontFamily="@font/hay_roboto_regular"
             android:gravity="center"
-            android:text="@string/which_country_do_you_like_to_browse_in"
+            android:text="@string/which_country_to_browse_in"
             android:textColor="@color/colorChooseCountryText"
-            android:textSize="@dimen/_13ssp" />
+            android:textSize="16sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recViewCountries"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp"
+            android:layout_height="wrap_content"
             android:layout_above="@id/containerNext"
             android:layout_marginStart="@dimen/_18sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_18sdp" />
+            android:layout_marginEnd="@dimen/_18sdp"
+            android:minHeight="@dimen/_150sdp"
+            android:scrollbarSize="5dp"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbars="vertical" />
 
         <LinearLayout
             android:id="@+id/containerNext"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/_18sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_18sdp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:background="@drawable/button_border"
-            android:gravity="center">
+            android:gravity="center"
+            android:minHeight="@dimen/_40sdp">
 
             <TextView
                 android:id="@+id/txtNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hay_roboto_normal"
+                android:fontFamily="@font/hay_roboto_regular"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="@string/next"
+                android:text="@string/next_key"
                 android:textAllCaps="true"
                 android:textColor="@color/textPurpleColor"
-                android:textSize="@dimen/_14ssp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="@dimen/_11sdp"
                 android:layout_height="@dimen/_11sdp"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/next_button_icon" />
+                android:src="@drawable/next_button_icon"
+                app:tint="@color/new_main_icon_tint_color" />
 
         </LinearLayout>
 

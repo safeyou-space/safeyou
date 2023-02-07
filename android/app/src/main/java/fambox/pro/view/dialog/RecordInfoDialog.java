@@ -18,7 +18,6 @@ import fambox.pro.R;
 public class RecordInfoDialog extends Dialog {
 
     public static final int DIALOG_TYPE_SENT = 0;
-    public static final int DIALOG_TYPE_ALERT = 1;
     public static final int DIALOG_TYPE_SMS_SEND = 2;
     public static final int DIALOG_TYPE_HELP_INFO = 3;
 
@@ -51,7 +50,7 @@ public class RecordInfoDialog extends Dialog {
     @BindView(R.id.iconSuccess)
     ImageView iconSuccess;
 
-    private int mDialogType;
+    private final int mDialogType;
     private String mDialogTitle;
     private String mName;
     private String mTime;

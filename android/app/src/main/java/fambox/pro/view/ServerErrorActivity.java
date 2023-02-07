@@ -31,7 +31,7 @@ public class ServerErrorActivity extends BaseActivity {
     }
 
     @OnClick(R.id.btnExit)
-    void onClickExit(){
+    void onClickExit() {
         //TODO add exit functional
     }
 }

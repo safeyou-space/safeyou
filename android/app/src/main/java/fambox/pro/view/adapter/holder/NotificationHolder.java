@@ -23,7 +23,7 @@ public class NotificationHolder extends RecyclerView.ViewHolder {
     TextView notificationRepliedText;
     @BindView(R.id.notificationRepliedTime)
     TextView notificationRepliedTime;
-    
+
     public NotificationHolder(@NonNull View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);

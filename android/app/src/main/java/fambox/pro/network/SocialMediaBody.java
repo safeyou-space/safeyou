@@ -6,6 +6,15 @@ public class SocialMediaBody {
     private String socialMediaTitle;
     private String socialMediaLink;
     private String socialMediaIconPath;
+    private boolean isHtml;
+
+    public boolean isHtml() {
+        return isHtml;
+    }
+
+    public void setHtml(boolean html) {
+        isHtml = html;
+    }
 
     public String getSocialMediaTitle() {
         return socialMediaTitle;

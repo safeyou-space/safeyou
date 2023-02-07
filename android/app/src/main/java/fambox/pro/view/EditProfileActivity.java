@@ -1,5 +1,7 @@
 package fambox.pro.view;
 
+import static fambox.pro.Constants.Key.KEY_MARITAL_STATUS;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -9,11 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,6 +28,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import fambox.pro.BaseActivity;
 import fambox.pro.Constants;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.enums.Types;
 import fambox.pro.presenter.EditProfilePresenter;
@@ -37,12 +37,9 @@ import fambox.pro.view.dialog.ChangePhotoDialog;
 import in.mayanknagwanshi.imagepicker.imageCompression.ImageCompressionListener;
 import in.mayanknagwanshi.imagepicker.imagePicker.ImagePicker;
 
-import static fambox.pro.Constants.Key.KEY_MARITAL_STATUS;
-
 public class EditProfileActivity extends BaseActivity implements EditProfileContract.View {
 
     private EditProfilePresenter mEditProfilePresenter;
-    private ChangePhotoDialog mChangePhotoDialog;
     private ImagePicker mImagePicker;
     private String maritalStatus;
 
@@ -57,23 +54,21 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     TextInputEditText edtLastName;
     @BindView(R.id.txtMaritalStatus)
     TextView txtMaritalStatus;
+    @BindView(R.id.txtUserIdStatus)
+    TextView txtUserIdStatus;
     @BindView(R.id.edtPhoneNumber)
-    TextInputEditText edtPhoneNumber;
+    TextView edtPhoneNumber;
     @BindView(R.id.edtLocation)
     TextInputEditText edtLocation;
     @BindView(R.id.btnEditFirstName)
     ToggleButton btnEditFirstName;
-//    @BindView(R.id.becomeConsultantSwitch)
-//    Switch becomeConsultantSwitch;
-//    @BindView(R.id.containerBecomeConsultant)
-//    ConstraintLayout containerBecomeConsultant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE_DARK);
         addAppBar(null, false, true, false,
-                getResources().getString(R.string.profile), true);
+                getResources().getString(R.string.profile_title_key), true);
         ButterKnife.bind(this);
         mEditProfilePresenter = new EditProfilePresenter();
         mEditProfilePresenter.attachView(this);
@@ -90,7 +85,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
         super.onResume();
         showProgress();
         if (mEditProfilePresenter != null) {
-            mEditProfilePresenter.getProfile(getCountryCode(), getLocale());
+            mEditProfilePresenter.getProfile(getCountryCode(), LocaleHelper.getLanguage(getContext()));
         }
     }
 
@@ -106,13 +101,13 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
 
                     @Override
                     public void onCompressed(String s) {
-                        mEditProfilePresenter.editProfileDetail(getCountryCode(), getLocale(), s);
+                        mEditProfilePresenter.editProfileDetail(getCountryCode(), LocaleHelper.getLanguage(getContext()), s);
                     }
                 });
 
                 String filePath = mImagePicker.getImageFilePath(data);
                 if (filePath != null) {
-                    mEditProfilePresenter.editProfileDetail(getCountryCode(), getLocale(), filePath);
+                    mEditProfilePresenter.editProfileDetail(getCountryCode(), LocaleHelper.getLanguage(getContext()), filePath);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -136,42 +131,28 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
         }
     }
 
-//    @OnClick(R.id.containerBecomeConsultant)
-//    void onClickBecomeConsultant() {
-//        nextActivity(this, BecomeConsultantActivity.class);
-//    }
-
     @OnClick(R.id.btnChangeImage)
     void openChangeDialog() {
         initDialog();
     }
 
-//    @OnCheckedChanged(R.id.btnChangeNickName)
-//    void onRadioButtonCheckChanged(boolean checked) {
-//        mEditProfilePresenter.configEditText(getLocale(), this, edtChangeNickName, checked);
-//    }
-
     @OnCheckedChanged({R.id.btnEditFirstName, R.id.btnEditSurname, R.id.btnEditLocation, R.id.btnChangeNickName})
     void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
         switch (button.getId()) {
             case R.id.btnEditFirstName:
-                mEditProfilePresenter.configEditText(getCountryCode(), getLocale(),
+                mEditProfilePresenter.configEditText(getCountryCode(), LocaleHelper.getLanguage(getContext()),
                         this, edtFirstName, checked, button.getId());
                 break;
             case R.id.btnEditSurname:
-                mEditProfilePresenter.configEditText(getCountryCode(), getLocale(),
+                mEditProfilePresenter.configEditText(getCountryCode(), LocaleHelper.getLanguage(getContext()),
                         this, edtLastName, checked, button.getId());
                 break;
-//            case R.id.btnEditEmail:
-//                mFragmentOtherPresenter.configEditText(((MainActivity) mContext).getLocale(),
-//                        mContext, edtEmail, checked, button.getId());
-//                break;
             case R.id.btnEditLocation:
-                mEditProfilePresenter.configEditText(getCountryCode(), getLocale(),
+                mEditProfilePresenter.configEditText(getCountryCode(), LocaleHelper.getLanguage(getContext()),
                         this, edtLocation, checked, button.getId());
                 break;
             case R.id.btnChangeNickName:
-                mEditProfilePresenter.configEditText(getCountryCode(), getLocale(),
+                mEditProfilePresenter.configEditText(getCountryCode(), LocaleHelper.getLanguage(getContext()),
                         this, edtChangeNickName, checked, button.getId());
                 break;
         }
@@ -199,6 +180,11 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     @Override
     public void setLastName(String text) {
         edtLastName.setText(text);
+    }
+
+    @Override
+    public void setUserId(String id) {
+        txtUserIdStatus.setText(id);
     }
 
     @Override
@@ -232,27 +218,23 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
     public void setImage(String imagePath) {
         Glide.with(this)
                 .asBitmap()
-                .load(imagePath)
+                .load(imagePath.isEmpty() ? R.drawable.avatar : imagePath)
                 .placeholder(R.drawable.profile_bottom_icon)
                 .error(R.drawable.profile_bottom_icon)
                 .into(imgUserForChange);
     }
 
     @Override
-    public void setUpFilePicker() {
-    }
-
-    @Override
     public void initDialog() {
-        mChangePhotoDialog = new ChangePhotoDialog(this);
+        ChangePhotoDialog mChangePhotoDialog = new ChangePhotoDialog(this);
         Objects.requireNonNull(mChangePhotoDialog.getWindow())
                 .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         mChangePhotoDialog.setEditPhotoListener(new ChangePhotoDialog.EditPhotoListener() {
             @Override
             public void takeNewPhoto() {
                 Permissions.check(EditProfileActivity.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        null, new PermissionHandler() {
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
+                        null, null, new PermissionHandler() {
                             @Override
                             public void onGranted() {
                                 mImagePicker = new ImagePicker();
@@ -295,7 +277,7 @@ public class EditProfileActivity extends BaseActivity implements EditProfileCont
 
             @Override
             public void removePhoto() {
-                mEditProfilePresenter.removeProfileImage(getCountryCode(), getLocale());
+                mEditProfilePresenter.removeProfileImage(getCountryCode(), LocaleHelper.getLanguage(getContext()));
             }
         });
         mChangePhotoDialog.show();

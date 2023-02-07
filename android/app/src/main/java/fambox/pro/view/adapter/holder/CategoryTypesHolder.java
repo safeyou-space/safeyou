@@ -1,7 +1,6 @@
 package fambox.pro.view.adapter.holder;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;

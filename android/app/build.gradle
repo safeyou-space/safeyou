@@ -1,17 +1,21 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.google.gms.google-services'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'com.google.gms.google-services'
+    id 'com.google.android.libraries.mapsplatform.v3-beta-migration' version '0.1.0'
+}
+
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 31
+    buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId "fambox.pro"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 16
-        versionName "2.2.3"
+        targetSdkVersion 31
+        versionCode 39       //  version code changed 30.12.2022
+        versionName "2.4.6"  //  version name changed 30.12.2022
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -21,7 +25,7 @@ android {
             minifyEnabled true
 
             // Enables resource shrinking, which is performed by the
-            // Android Gradle plugin.
+            // Android Gradle plugin.rates_count
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -36,20 +40,34 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+        res {
+            srcDirs 'src\\main\\res', 'src\\main\\res\\layout-ar'
+        }
+    } }
 
     buildFeatures {
         viewBinding true
+    }
+    bundle {
+        language {
+            // Specifies that the app bundle should not support
+            // configuration APKs for language resources. These
+            // resources are instead packaged with each base and
+            // dynamic feature APK.
+            enableSplit = false
+        }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -63,8 +81,9 @@ dependencies {
     // okHttp logging.
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
     //glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
     //butter knife
     implementation 'com.jakewharton:butterknife:10.2.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
@@ -75,29 +94,28 @@ dependencies {
     implementation 'in.arjsna:passcodeview:1.2.1'
     // implementation
     implementation project(path: ':audiowaveview')
+    // chat
+    implementation project(path: ':chatkit')
     // kotlin implementation
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    // bottom view
-    implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     // circle Image view
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     // loading dialog
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    // google map
-    implementation name: 'maps-sdk-3.0.0-beta', ext: 'aar'
-    implementation name: 'places-maps-sdk-3.0.0-beta', ext: 'aar'
-    implementation 'com.google.android.gms:play-services-basement:17.6.0'
-    implementation 'com.google.android.gms:play-services-base:17.6.0'
+
+
+    implementation 'com.google.android.libraries.maps:maps:3.1.0-beta+'
+
+    // If you are using Places, add all of the dependencies below
+    implementation name:'places-maps-sdk-3.1.0-beta', ext:'aar'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
-    implementation 'com.google.android.gms:play-services-location:17.1.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.maps.android:android-maps-utils-sdk-v3-compat:0.1'
+    implementation 'com.google.auto.value:auto-value-annotations:1.6.2'
+
     // firebase core
-    implementation 'com.google.firebase:firebase-core:18.0.2'
+    implementation 'com.google.firebase:firebase-core:20.0.0'
     // SDK for Firebase Cloud Messaging
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
     // image piker
@@ -109,13 +127,12 @@ dependencies {
     // location
     implementation 'io.nlopez.smartlocation:library:3.3.3'
     // socket IO
-    implementation 'io.socket:socket.io-client:1.0.0'
+    implementation 'io.socket:socket.io-client:2.0.1'
     // phone number parser
     implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
     // sesrch view
     implementation project(path: ':materialsearchview')
-    // expandable
-    implementation 'com.thoughtbot:expandablerecyclerview:1.4'
+    implementation project(path: ':SpinnerDatePickerLib')
     // firebase
     implementation 'com.google.firebase:firebase-analytics:18.0.2'
     // horizontal progress
@@ -127,11 +144,31 @@ dependencies {
     implementation 'q.rorbin:badgeview:1.1.3'
     // country phone code picker
     implementation 'com.hbb20:ccp:2.3.9'
-    // date picker
-    implementation 'com.github.drawers:SpinnerDatePicker:2.0.1'
     // facebook
     implementation 'com.facebook.android:facebook-core:5.15.3'
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+    // image pic
+    implementation  'com.fxn769:pix:1.5.6'
+    // record view
+    implementation 'com.devlomi.record-view:record-view:2.0.1'
+    //chip views
+    implementation("com.robertlevonyan.view:MaterialChipView:3.0.2")
+    // spinner view
+    implementation "com.github.skydoves:powerspinner:1.1.9"
+    // Rounded Image View
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    // time difference calculator
+    implementation 'com.github.kevinsawicki:timeago:1.0.1'
+
+    implementation 'androidx.webkit:webkit:1.3.0'
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
+
+    // Add the dependencies for the Dynamic Links and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-dynamic-links'
+
 }
 repositories {
     mavenCentral()

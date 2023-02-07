@@ -9,14 +9,15 @@
     <Button
         android:id="@+id/btnMarried"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_45sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_45sdp"
         android:background="@drawable/ripple_effect_light_purple"
         android:fontFamily="@font/hay_roboto_normal"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/_13sdp"
         android:paddingEnd="@dimen/_15sdp"
         android:textAllCaps="false"
-        android:textColor="@color/textPurpleColor"
+        android:textColor="@color/black"
         android:textSize="@dimen/_13ssp" />
 
 </LinearLayout>

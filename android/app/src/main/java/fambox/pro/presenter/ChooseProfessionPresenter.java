@@ -1,15 +1,17 @@
 package fambox.pro.presenter;
 
+import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
+
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fambox.pro.LocaleHelper;
 import fambox.pro.SafeYouApp;
 import fambox.pro.model.ChooseProfessionModel;
 import fambox.pro.network.NetworkCallback;
-import fambox.pro.network.model.CountriesLanguagesResponseBody;
 import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.view.ChooseProfessionContract;
@@ -34,8 +36,10 @@ public class ChooseProfessionPresenter extends BasePresenter<ChooseProfessionCon
     }
 
     private void getCategoriesFromServer() {
-        mChooseProfessionModel.getConsultantCategories(getView().getContext(), SafeYouApp.getCountryCode(),
-                SafeYouApp.getLocale(), new NetworkCallback<Response<HashMap<Integer, String>>>() {
+        mChooseProfessionModel.getConsultantCategories(getView().getContext(),
+                SafeYouApp.getPreference().getStringValue(KEY_COUNTRY_CODE, ""),
+                LocaleHelper.getLanguage(getView().getContext()),
+                new NetworkCallback<Response<HashMap<Integer, String>>>() {
                     @Override
                     public void onSuccess(Response<HashMap<Integer, String>> response) {
                         if (RetrofitUtil.isResponseSuccess(response, HttpURLConnection.HTTP_OK)) {

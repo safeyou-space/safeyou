@@ -10,7 +10,6 @@ import fambox.pro.network.model.MarriedListResponse;
 import fambox.pro.network.model.Message;
 import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.Connectivity;
-import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.view.MaritalStatusContract;
 import retrofit2.Response;
 
@@ -29,7 +28,7 @@ public class MaritalStatusPresenter extends BasePresenter<MaritalStatusContract.
     public void setMaritalStatus(String countryCode, String locale, Object value) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         getView().showProgress();
@@ -62,7 +61,7 @@ public class MaritalStatusPresenter extends BasePresenter<MaritalStatusContract.
     public void getMaritalList(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         getView().showProgress();

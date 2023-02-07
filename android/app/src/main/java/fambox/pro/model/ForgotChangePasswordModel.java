@@ -17,7 +17,7 @@ import retrofit2.Response;
 
 public class ForgotChangePasswordModel implements ForgotChangePassContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
 
     @Override

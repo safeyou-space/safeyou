@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import fambox.pro.Constants;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.audiowaveview.AudioWaveView;
 import fambox.pro.model.RecordDetailsModel;
@@ -34,17 +35,16 @@ public class RecordDetailsPresenter extends BasePresenter<RecordDetailsContract.
     private ArrayList<Integer> recordIdsList = new ArrayList<>();
     private int recordCurrentIndex;
     private RecordDetailsModel mRecordDetailsModel;
-    private Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
     private AudioWaveView mAudioWaveView;
     private MediaPlayer mMediaPlayer;
-    private boolean mIsTrackCompleted;
     private long currentRecordId;
     private String longitude;
     private String latitude;
     private String mName;
     private String mTime;
     private String mDate;
-    private Runnable mTarget = new Runnable() {
+    private final Runnable mTarget = new Runnable() {
         @Override
         public void run() {
             if (mMediaPlayer != null) {
@@ -109,10 +109,7 @@ public class RecordDetailsPresenter extends BasePresenter<RecordDetailsContract.
         getView().setRecDuration(Utils.millisecondsToMinute(mMediaPlayer.getDuration()));
         getView().onWaveChanged(mMediaPlayer);
 
-        mMediaPlayer.setOnCompletionListener(mp -> {
-            getView().onPlayButtonChanged(false);
-            mIsTrackCompleted = true;
-        });
+        mMediaPlayer.setOnCompletionListener(mp -> getView().onPlayButtonChanged(false));
     }
 
     @Override
@@ -127,18 +124,6 @@ public class RecordDetailsPresenter extends BasePresenter<RecordDetailsContract.
     public void pause() {
         if (mMediaPlayer != null) {
             mMediaPlayer.pause();
-        }
-    }
-
-    @Override
-    public void repeat(Activity activity) {
-        if (mMediaPlayer != null && mIsTrackCompleted) {
-            if (mHandler == null) {
-                activity.runOnUiThread(mTarget);
-            }
-            mMediaPlayer.start();
-            getView().onPlayButtonChanged(true);
-            mIsTrackCompleted = false;
         }
     }
 
@@ -170,10 +155,10 @@ public class RecordDetailsPresenter extends BasePresenter<RecordDetailsContract.
     public void getRecord(String countryCode, String locale, long recordId) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
-        mRecordDetailsModel.getSingleRecord(getView().getContext(), countryCode, locale, recordId,
+        mRecordDetailsModel.getSingleRecord(getView().getContext(), countryCode, LocaleHelper.getLanguage(getView().getContext()), recordId,
                 new NetworkCallback<Response<RecordResponse>>() {
                     @Override
                     public void onSuccess(Response<RecordResponse> response) {
@@ -216,7 +201,7 @@ public class RecordDetailsPresenter extends BasePresenter<RecordDetailsContract.
     public void sendRecord(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         getView().showProgress();
@@ -246,7 +231,7 @@ public class RecordDetailsPresenter extends BasePresenter<RecordDetailsContract.
     public void deleteRecord(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
             getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.internet_connection));
+                    .getResources().getString(R.string.check_internet_connection_text_key));
             return;
         }
         mRecordDetailsModel.deleteRecord(getView().getContext(), countryCode, locale, currentRecordId,
@@ -283,9 +268,7 @@ public class RecordDetailsPresenter extends BasePresenter<RecordDetailsContract.
     @Override
     public void destroy() {
         super.destroy();
-        if (mHandler != null) {
-            mHandler.removeCallbacks(mTarget, null);
-        }
+        mHandler.removeCallbacks(mTarget, null);
 
         if (mMediaPlayer != null) {
             mMediaPlayer.release();

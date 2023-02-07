@@ -11,7 +11,8 @@
         android:id="@+id/containerDualPin"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_55sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_55sdp"
         android:layout_marginTop="@dimen/_1sdp"
         android:background="@drawable/ripple_effect_light_purple">
 
@@ -20,8 +21,9 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_13sdp"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@null"
             android:src="@drawable/pin_icon"
+            app:tint="@color/new_main_icon_tint_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,9 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:fontFamily="@font/hay_roboto_regular"
-            android:text="@string/dual_pin_security"
-            android:textColor="@color/fewBlack"
-            android:textSize="@dimen/_16ssp"
+            android:text="@string/dual_pin_title_key"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iconDualPin"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,8 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_17sdp"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@null"
             android:src="@drawable/new_arrow_icon_purple"
+            app:tint="@color/new_main_icon_tint_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +57,8 @@
         android:id="@+id/containerCamouflage"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_55sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_55sdp"
         android:layout_marginTop="@dimen/_1sdp"
         android:background="@drawable/ripple_effect_light_purple">
 
@@ -63,8 +67,9 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_13sdp"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@null"
             android:src="@drawable/dual_pin_pressed"
+            app:tint="@color/new_main_icon_tint_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -75,9 +80,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:fontFamily="@font/hay_roboto_regular"
-            android:text="@string/camouflage_icon"
-            android:textColor="@color/fewBlack"
-            android:textSize="@dimen/_16ssp"
+            android:text="@string/title_camouflage_icon"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iconCamouflage"
             app:layout_constraintTop_toTopOf="parent" />
@@ -86,8 +91,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_17sdp"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@null"
             android:src="@drawable/new_arrow_icon_purple"
+            app:tint="@color/new_main_icon_tint_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +104,8 @@
         android:id="@+id/containerChangePassword"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_55sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_55sdp"
         android:layout_marginTop="@dimen/_1sdp"
         android:background="@drawable/ripple_effect_light_purple">
 
@@ -107,8 +114,9 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_13sdp"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@null"
             android:src="@drawable/change_pass_icon_new"
+            app:tint="@color/new_main_icon_tint_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -119,9 +127,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:fontFamily="@font/hay_roboto_regular"
-            android:text="@string/change_password"
-            android:textColor="@color/fewBlack"
-            android:textSize="@dimen/_16ssp"
+            android:text="@string/change_password_key"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iconChangePassword"
             app:layout_constraintTop_toTopOf="parent" />
@@ -130,7 +138,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_17sdp"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@null"
+            app:tint="@color/new_main_icon_tint_color"
             android:src="@drawable/new_arrow_icon_purple"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

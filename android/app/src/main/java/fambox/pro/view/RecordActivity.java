@@ -1,17 +1,14 @@
 package fambox.pro.view;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,6 +19,7 @@ import fambox.pro.R;
 import fambox.pro.enums.Types;
 import fambox.pro.network.model.RecordSearchResult;
 import fambox.pro.presenter.RecordPresenter;
+import fambox.pro.utils.SwipeDisabledViewPager;
 import fambox.pro.utils.Utils;
 import fambox.pro.view.fragment.FragmentRecords;
 import fambox.pro.view.viewpager.RecordViewPagerAdapter;
@@ -31,15 +29,27 @@ public class RecordActivity extends BaseActivity implements RecordContract.View,
 
     private RecordPresenter mRecordPresenter;
     private FragmentRecords.DataReceivedListener mDataReceivedListener;
-
-    @BindView(R.id.recordSearch)
-    TextView recordSearch;
-    @BindView(R.id.recordTableLayout)
-    TabLayout recordTableLayout;
+    private int colorWhite;
+    private int colorMain;
+    private Drawable defaultBackground;
+    private Drawable pressedBackground;
     @BindView(R.id.recordViewPager)
-    ViewPager recordViewPager;
+    SwipeDisabledViewPager recordViewPager;
     @BindView(R.id.searchView)
     MaterialSearchView searchView;
+    @BindView(R.id.toolbarRecordings)
+    Toolbar toolbarRecordings;
+    @BindView(R.id.notificationView)
+    ImageView notificationView;
+    @BindView(R.id.searchIcon)
+    ImageView searchIcon;
+
+    @BindView(R.id.txtAll)
+    TextView txtAll;
+    @BindView(R.id.txtSaved)
+    TextView txtSaved;
+    @BindView(R.id.txtSend)
+    TextView txtSend;
 
     public void setDataReceivedListener(FragmentRecords.DataReceivedListener dataReceivedListener) {
         this.mDataReceivedListener = dataReceivedListener;
@@ -48,15 +58,14 @@ public class RecordActivity extends BaseActivity implements RecordContract.View,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // change status bar color api level 6.0 and above.
         Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE_DARK);
-        addAppBar(null, false, true, false,
-                getResources().getString(R.string.all_recordings), true);
-        // initialize ButterKnife for this activity.
         ButterKnife.bind(this);
-        // init presenter and attach view.
         mRecordPresenter = new RecordPresenter();
         mRecordPresenter.attachView(this);
+        colorWhite = getResources().getColor(R.color.white);
+        colorMain = getResources().getColor(R.color.new_main_color);
+        defaultBackground = getResources().getDrawable(R.drawable.recording_filter_background);
+        pressedBackground = getResources().getDrawable(R.drawable.recording_filter_pressed_background);
         searchView.setEllipsize(true);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -76,12 +85,12 @@ public class RecordActivity extends BaseActivity implements RecordContract.View,
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-                recordSearch.setVisibility(View.GONE);
+                searchIcon.setVisibility(View.GONE);
             }
 
             @Override
             public void onSearchViewClosed() {
-                recordSearch.setVisibility(View.VISIBLE);
+                searchIcon.setVisibility(View.VISIBLE);
                 searchView.setVisibility(View.GONE);
             }
         });
@@ -107,6 +116,10 @@ public class RecordActivity extends BaseActivity implements RecordContract.View,
         super.onResume();
         if (mRecordPresenter != null) {
             mRecordPresenter.viewIsReady();
+            toolbarRecordings.setSubtitle(getResources().getString(R.string.all_recordings));
+            toolbarRecordings.setNavigationIcon(getResources().getDrawable(R.drawable.icon_back_white));
+            toolbarRecordings.setNavigationOnClickListener(v -> onBackPressed());
+            toolbarRecordings.setNavigationContentDescription(R.string.back_icon_description);
         }
         searchView.closeSearch();
     }
@@ -121,8 +134,8 @@ public class RecordActivity extends BaseActivity implements RecordContract.View,
 
     @Override
     public void initViewPager() {
+        recordViewPager.setPagingEnabled(false);
         recordViewPager.setAdapter(new RecordViewPagerAdapter(this, getSupportFragmentManager()));
-        recordTableLayout.setupWithViewPager(recordViewPager);
     }
 
     @Override
@@ -164,15 +177,47 @@ public class RecordActivity extends BaseActivity implements RecordContract.View,
     public void onBackPressed() {
         if (searchView.isSearchOpen()) {
             searchView.closeSearch();
-            recordSearch.setVisibility(View.VISIBLE);
+            searchIcon.setVisibility(View.VISIBLE);
         } else {
             super.onBackPressed();
         }
     }
 
-    @OnClick(R.id.recordSearch)
+    @OnClick(R.id.searchIcon)
     void onClickSearch() {
         searchView.setVisibility(View.VISIBLE);
         searchView.showSearch(false);
+    }
+
+    @OnClick(R.id.txtAllContainer)
+    void txtAllClick() {
+        configFilter(true, false, false);
+    }
+
+    @OnClick(R.id.txtSavedContainer)
+    void txtSavedClick() {
+        configFilter(false, true, false);
+    }
+
+    @OnClick(R.id.txtSendContainer)
+    void txtSendClick() {
+        configFilter(false, false, true);
+    }
+
+    private void configFilter(boolean txtAllClicked, boolean txtSavedClicked, boolean txtSendClicked) {
+        txtAll.setTextColor(txtAllClicked ? colorWhite : colorMain);
+        txtAll.setBackground(txtAllClicked ? pressedBackground : defaultBackground);
+        txtSaved.setTextColor(txtSavedClicked ? colorWhite : colorMain);
+        txtSaved.setBackground(txtSavedClicked ? pressedBackground : defaultBackground);
+        txtSend.setTextColor(txtSendClicked ? colorWhite : colorMain);
+        txtSend.setBackground(txtSendClicked ? pressedBackground : defaultBackground);
+
+        if (txtAllClicked) {
+            recordViewPager.setCurrentItem(0);
+        } else if (txtSavedClicked) {
+            recordViewPager.setCurrentItem(1);
+        } else if (txtSendClicked) {
+            recordViewPager.setCurrentItem(2);
+        }
     }
 }

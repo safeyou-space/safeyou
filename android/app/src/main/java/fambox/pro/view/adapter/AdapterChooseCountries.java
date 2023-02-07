@@ -1,6 +1,11 @@
 package fambox.pro.view.adapter;
 
+import static fambox.pro.Constants.BASE_URL;
+import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
+import static fambox.pro.Constants.Key.KEY_IS_DARK_MODE_ENABLED;
+
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,26 +22,21 @@ import java.util.Objects;
 
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
-import fambox.pro.network.CountryLanguageImageBody;
 import fambox.pro.network.model.CountriesLanguagesResponseBody;
 import fambox.pro.view.adapter.holder.ChooseCountriesHolder;
 
-import static fambox.pro.Constants.BASE_URL;
-import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
-
 public class AdapterChooseCountries extends RecyclerView.Adapter<ChooseCountriesHolder> {
 
-    private Context mContext;
-    private List<CountriesLanguagesResponseBody> mCountriesResponseBodyList;
+    private final Context mContext;
+    private final List<CountriesLanguagesResponseBody> mCountriesResponseBodyList;
+    private final boolean isSettings;
+    private final String currentCountryCode;
+
     private RadioButton lastCheckedRB = null;
     private TextView lastCheckedTV = null;
-    //    private int lastCheckedPos = 0;
-//    private int lastCheckedPosTV = 0;
     private boolean isFirst;
-    private boolean isSettings;
     private String countryCode;
     private String countryName;
-    private String currentCountryCode;
 
     public AdapterChooseCountries(Context context, List<CountriesLanguagesResponseBody> mCountriesResponseBodyList,
                                   boolean isSettings) {
@@ -61,7 +61,6 @@ public class AdapterChooseCountries extends RecyclerView.Adapter<ChooseCountries
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull ChooseCountriesHolder holder, int position) {
         if (mCountriesResponseBodyList.get(position).getImage() != null) {
@@ -75,6 +74,7 @@ public class AdapterChooseCountries extends RecyclerView.Adapter<ChooseCountries
         }
 
         holder.getCountryName().setText(mCountriesResponseBodyList.get(position).getName());
+        holder.getRadioButton().setContentDescription(mCountriesResponseBodyList.get(position).getName());
 
         if (position == 0 && !isSettings) {
             holder.getRadioButton().setChecked(true);
@@ -103,6 +103,14 @@ public class AdapterChooseCountries extends RecyclerView.Adapter<ChooseCountries
                     lastCheckedRB.setChecked(false);
                     if (isSettings) {
                         lastCheckedTV.setTextColor(mContext.getResources().getColor(R.color.black));
+                        boolean isDarkModeEnabled = SafeYouApp.getPreference().getBooleanValue(KEY_IS_DARK_MODE_ENABLED, false);
+                        int nightModeFlags =
+                                mContext.getResources().getConfiguration().uiMode &
+                                        Configuration.UI_MODE_NIGHT_MASK;
+                        if (isDarkModeEnabled || nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                            lastCheckedTV.setTextColor(mContext.getResources().getColor(R.color.white));
+
+                        }
                         holder.getCountryName().setTextColor(mContext.getResources().getColor(R.color.textPurpleColor));
                     }
                     holder.getRadioButton().setSelected(false);

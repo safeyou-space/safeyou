@@ -25,4 +25,7 @@ public class IconsResponse {
     @SerializedName("web_address")
     @Expose
     private String web_address;
+    @SerializedName("info")
+    @Expose
+    private String info;
 }

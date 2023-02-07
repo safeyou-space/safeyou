@@ -3,8 +3,6 @@ package fambox.pro.view;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.viewpager.widget.ViewPager;
-
 import fambox.pro.model.BaseModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.ProfileResponse;
@@ -32,10 +30,6 @@ public interface MainContract {
     interface Presenter extends MvpPresenter<MainContract.View> {
 
         void configPagesAppBar(int type);
-
-        void setViewPagerPosition(ViewPager pager);
-
-        void getProfile(String countryCode, String locale);
 
         void checkPin(Bundle bundle);
     }

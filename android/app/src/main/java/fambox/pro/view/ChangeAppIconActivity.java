@@ -44,7 +44,7 @@ public class ChangeAppIconActivity extends BaseActivity implements ChangeAppIcon
         ButterKnife.bind(this);
         addAppBar(null, false,
                 true, false,
-                getResources().getString(R.string.camouflage_icon), true);
+                getResources().getString(R.string.title_camouflage_icon), true);
         mChangeAppIconPresenter = new ChangeAppIconPresenter();
         mChangeAppIconPresenter.attachView(this);
         mChangeAppIconPresenter.viewIsReady();

@@ -1,7 +1,6 @@
 package fambox.pro.view.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,13 @@ import fambox.pro.R;
 import fambox.pro.network.model.RecordResponse;
 import fambox.pro.utils.Utils;
 import fambox.pro.view.adapter.holder.RecordsHolder;
-import fambox.pro.view.adapter.holder.model.RecordModel;
 
 public class RecordsAdapter extends RecyclerView.Adapter<RecordsHolder> {
-    private Context mContext;
-    private int mRecordType;
-    private List<RecordResponse> mRecordModels;
+    private final Context mContext;
+    private final int mRecordType;
+    private final List<RecordResponse> mRecordModels;
     private RecordHolderClick mRecordHolderClick;
-    private ArrayList<Integer> recordIds = new ArrayList<>();
+    private final ArrayList<Integer> recordIds = new ArrayList<>();
 
     public RecordsAdapter(@IntRange(from = 0, to = 2) int recordType, Context context, List<RecordResponse> mRecordModels) {
         this.mRecordType = recordType;
@@ -45,11 +43,12 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecordsHolder holder, int position) {
+        holder.itemView.setContentDescription(String.format(mContext.getString(R.string.recording_description), position + 1));
         holder.getRecTitle().setText(mRecordModels.get(position).getLocation());
         if (mRecordModels.get(position).getTime() != null) {
             String time = mContext.getResources()
-                    .getString(R.string.rec_time_time, mRecordModels.get(position).getTime()
-                            .substring(0, mRecordModels.get(position).getTime().lastIndexOf(":")));
+                    .getString(R.string.time_text_key) + mRecordModels.get(position).getTime()
+                    .substring(0, mRecordModels.get(position).getTime().lastIndexOf(":"));
             holder.getRecTime().setText(time);
         }
         holder.getRecData().setText(mRecordModels.get(position).getDate());

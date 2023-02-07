@@ -87,12 +87,12 @@ public class DualPinSecurityPresenter extends BasePresenter<DualPinSecurityContr
                 || fakePinToString.equals("")
                 || confirmFakePinToString.equals("")) {
             if (message != null) {
-                message.append(getView().getContext().getResources().getString(R.string.please_fill_in_all_fields));
+                message.append(getView().getContext().getResources().getString(R.string.fill_required_fields_text_key));
             }
             return false;
         } else if (Objects.equals(confirmRealPinToString, confirmFakePinToString)) {
             if (message != null) {
-                message.append(getView().getContext().getResources().getString(R.string.real_and_fake_dublicated));
+                message.append(getView().getContext().getResources().getString(R.string.real_pin_fake_pin_different));
             }
             return false;
         } else if (!Objects.equals(realPinToString, confirmRealPinToString)) {
@@ -103,7 +103,7 @@ public class DualPinSecurityPresenter extends BasePresenter<DualPinSecurityContr
         } else if (checkLength(realPinToString, confirmRealPinToString,
                 fakePinToString, confirmFakePinToString)) {
             if (message != null) {
-                message.append(getView().getContext().getResources().getString(R.string.pin_min_length));
+                message.append(getView().getContext().getResources().getString(R.string.pin_length_text_key));
             }
             return false;
         } else if (!Objects.equals(fakePinToString, confirmFakePinToString)) {

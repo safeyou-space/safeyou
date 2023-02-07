@@ -1,9 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
+    <style name="DarkTheme" parent="Theme.AppCompat.DayNight">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
+
         <item name="colorPrimary">@color/statusBarColorPurpleDark</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
         <item name="colorPrimaryDark">@color/statusBarColorPurpleDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--        <item name="windowActionBar">false</item>-->
@@ -18,7 +23,17 @@
         <item name="colorControlNormal">@color/hint_gray</item>
         <item name="colorControlActivated">@color/statusBarColorPurpleLight</item>
         <item name="colorControlHighlight">@color/statusBarColorPurpleDark</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
 
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_background</item>
     </style>
 
     <!--  dialog date picker style  -->
@@ -43,6 +58,12 @@
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
     </style>
 
+    <style name="FullScreenWhitStatusBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@color/statusBarColorPurpleDark</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+    </style>
     <style name="CommentActivityStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -122,6 +143,13 @@
         <item name="colorControlNormal">@color/statusBarColorPurpleDark</item>
         <item name="colorControlHighlight">@color/statusBarColorPurpleDark</item>
         <item name="colorControlActivated">@color/statusBarColorPurpleDark</item>
+    </style>
+
+    <!--Toolbar subtitle style-->
+    <style name="ToolbarSubtitleAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/hay_roboto_bold</item>
     </style>
 
 </resources>

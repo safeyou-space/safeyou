@@ -9,15 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import fambox.pro.R;
 import lombok.Getter;
 
 @Getter
 public class ChooseLanguageHolder extends RecyclerView.ViewHolder {
 
-//    @BindView(R.id.countryImage)
-//    CircleImageView countryImage;
     @BindView(R.id.languageName)
     TextView languageName;
     @BindView(R.id.radioButton)

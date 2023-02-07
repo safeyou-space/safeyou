@@ -1,11 +1,9 @@
 package fambox.pro.view.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -21,11 +19,12 @@ import fambox.pro.view.adapter.holder.CategoryTypesHolder;
 public class AdapterCategoryType extends RecyclerView.Adapter<CategoryTypesHolder> {
 
     public static final Long ALL = -111L;
-    private CategoryTypeClickListener mCategoryTypeClickListener;
-    private List<String> buttonNames = new ArrayList<>();
-    private List<Long> ides = new ArrayList<>();
+    private final CategoryTypeClickListener mCategoryTypeClickListener;
+    private final List<String> buttonNames = new ArrayList<>();
+    private final List<Long> ides = new ArrayList<>();
+    private final Context mContext;
+
     private ToggleButton lastCheckedToggleBTN = null;
-    private Context mContext;
 
     public AdapterCategoryType(Context context, Map<String, String> mCategoryServices,
                                CategoryTypeClickListener categoryTypeClickListener) {
@@ -36,7 +35,7 @@ public class AdapterCategoryType extends RecyclerView.Adapter<CategoryTypesHolde
             ides.add(Long.valueOf(id));
         }
         if (buttonNames.size() > 0) {
-            buttonNames.add(0, context.getResources().getString(R.string.all));
+            buttonNames.add(0, context.getResources().getString(R.string.title_all));
             ides.add(0, ALL);
         }
     }
@@ -52,16 +51,17 @@ public class AdapterCategoryType extends RecyclerView.Adapter<CategoryTypesHolde
     @Override
     public void onBindViewHolder(@NonNull CategoryTypesHolder holder, int position) {
 
-        holder.getTglCategoryType().setTextOn(buttonNames.get(position));
-        holder.getTglCategoryType().setTextOff(buttonNames.get(position));
-        holder.getTglCategoryType().setText(buttonNames.get(position));
-
+        if (buttonNames != null) {
+            holder.getTglCategoryType().setTextOn(buttonNames.get(position));
+            holder.getTglCategoryType().setTextOff(buttonNames.get(position));
+            holder.getTglCategoryType().setText(buttonNames.get(position));
+        }
         if (position == 0) {
             holder.getTglCategoryType().setChecked(true);
             holder.getTglCategoryType().setClickable(false);
             holder.getTglCategoryType().setTextColor(mContext.getResources().getColor(R.color.white));
         }
-        if (holder.getTglCategoryType().isChecked() ) {
+        if (holder.getTglCategoryType().isChecked()) {
             lastCheckedToggleBTN = holder.getTglCategoryType();
         }
         holder.getTglCategoryType().setOnClickListener(v -> {

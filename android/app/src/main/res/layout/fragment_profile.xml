@@ -25,31 +25,32 @@
                 android:id="@+id/containerEMGContacts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/otherContainerElementsColor"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/iconMyContacts"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_alignBottom="@id/txtMyEmergencyContacts"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
                     android:layout_marginStart="@dimen/_13sdp"
-                    android:layout_marginTop="@dimen/_13sdp"
-                    android:contentDescription="@string/app_name"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    app:tint="@color/new_main_icon_tint_color"
+                    android:contentDescription="@null"
                     android:src="@drawable/contacts_icon" />
 
                 <TextView
                     android:id="@+id/txtMyEmergencyContacts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/iconMyContacts"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_13sdp"
                     android:layout_toEndOf="@id/iconMyContacts"
                     android:fontFamily="@font/hay_roboto_regular"
-                    android:text="@string/emergency_contacts"
-                    android:textColor="@color/fewBlack"
-                    android:textSize="@dimen/_16ssp" />
+                    android:text="@string/emergency_contacts_title_key"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recViewMyContacts"
@@ -64,32 +65,33 @@
                 android:id="@+id/containerEMGServices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/white"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@color/otherContainerElementsColor"
                 app:layout_constraintTop_toBottomOf="@id/containerEMGContacts">
 
                 <ImageView
                     android:id="@+id/iconMyServices"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_alignBottom="@id/txtMyEmergencyServices"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
                     android:layout_marginStart="@dimen/_13sdp"
-                    android:layout_marginTop="@dimen/_13sdp"
-                    android:contentDescription="@string/app_name"
+                    android:layout_marginBottom="@dimen/_2sdp"
+                    app:tint="@color/new_main_icon_tint_color"
+                    android:contentDescription="@null"
                     android:src="@drawable/my_ngos_icon" />
 
                 <TextView
                     android:id="@+id/txtMyEmergencyServices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/iconMyServices"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_13sdp"
                     android:layout_toEndOf="@id/iconMyServices"
                     android:fontFamily="@font/hay_roboto_regular"
-                    android:text="@string/my_support"
-                    android:textColor="@color/fewBlack"
-                    android:textSize="@dimen/_16ssp" />
+                    android:text="@string/emergency_services_title"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recViewEmergencyServices"
@@ -106,31 +108,32 @@
                 android:id="@+id/containerEmergencyMassEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/white"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@color/otherContainerElementsColor"
                 android:minHeight="@dimen/_55sdp"
                 app:layout_constraintTop_toBottomOf="@id/containerEMGServices">
 
                 <ImageView
                     android:id="@+id/iconEmergencyMessage"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
                     android:layout_marginStart="@dimen/_13sdp"
-                    android:contentDescription="@string/app_name"
+                    android:contentDescription="@null"
                     android:src="@drawable/sos_message_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:tint="@color/new_main_icon_tint_color"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/txtEmergencyTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_13sdp"
                     android:fontFamily="@font/hay_roboto_regular"
                     android:text="@string/emergency_message"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@id/txtMassage"
                     app:layout_constraintStart_toEndOf="@id/iconEmergencyMessage"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -144,7 +147,7 @@
                     android:fontFamily="@font/hay_roboto_regular"
                     android:maxWidth="@dimen/_260sdp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/txtEmergencyTitle"
                     app:layout_constraintTop_toBottomOf="@id/txtEmergencyTitle" />
@@ -154,19 +157,21 @@
             <RelativeLayout
                 android:id="@+id/containerPolice"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_55sdp"
-                android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_55sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@color/otherContainerElementsColor"
                 app:layout_constraintTop_toBottomOf="@id/containerEmergencyMassEdit">
 
                 <ImageView
                     android:id="@+id/iconPolice"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/_13sdp"
-                    android:contentDescription="@string/app_name"
+                    android:contentDescription="@null"
                     android:src="@drawable/police_icon"
+                    app:tint="@color/new_main_icon_tint_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -177,74 +182,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_13sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:layout_toStartOf="@id/policeSwitch"
                     android:layout_toEndOf="@id/iconPolice"
                     android:fontFamily="@font/hay_roboto_regular"
-                    android:text="@string/police"
-                    android:textColor="@color/fewBlack"
-                    android:textSize="@dimen/_16ssp" />
+                    android:text="@string/police_title_key"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
                 <Switch
                     android:id="@+id/policeSwitch"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_10sdp"
+                    android:layout_width="52dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:padding="15dp"
+                    android:contentDescription="@string/police_title_key"
                     android:thumb="@drawable/switch_thumb"
                     android:track="@drawable/switch_track" />
 
             </RelativeLayout>
-
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:id="@+id/containerAboutUs"-->
-<!--                style="?android:attr/borderlessButtonStyle"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/_55sdp"-->
-<!--                android:layout_marginTop="@dimen/_1sdp"-->
-<!--                android:background="@drawable/ripple_effect_light_purple"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/containerPolice">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/iconAboutUs"-->
-<!--                    android:layout_width="@dimen/_18sdp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_marginStart="@dimen/_13sdp"-->
-<!--                    android:contentDescription="@string/app_name"-->
-<!--                    android:src="@drawable/new_info_icom"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/txtAboutUs"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="@dimen/_8sdp"-->
-<!--                    android:fontFamily="@font/hay_roboto_regular"-->
-<!--                    android:text="@string/about_us"-->
-<!--                    android:textColor="@color/fewBlack"-->
-<!--                    android:textSize="@dimen/_16ssp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/iconAboutUs"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-
-<!--                <ImageView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="@dimen/_17sdp"-->
-<!--                    android:contentDescription="@string/app_name"-->
-<!--                    android:src="@drawable/new_arrow_icon_purple"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

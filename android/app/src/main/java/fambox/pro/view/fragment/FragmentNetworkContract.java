@@ -10,7 +10,6 @@ import fambox.pro.model.BaseModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.ServicesResponseBody;
 import fambox.pro.network.model.ServicesSearchResponse;
-import fambox.pro.network.model.UnityNetworkResponse;
 import fambox.pro.presenter.basepresenter.MvpPresenter;
 import fambox.pro.presenter.basepresenter.MvpView;
 import okhttp3.ResponseBody;
@@ -41,13 +40,6 @@ public interface FragmentNetworkContract {
     }
 
     interface Presenter extends MvpPresenter<FragmentNetworkContract.View> {
-//        void configToggleButton(String countryCode, String locale, int viewId, boolean isChecked);
-
-//        void getNgo(String countryCode, String locale);
-
-//        void getLegalServices(String countryCode, String locale);
-
-//        void getVolunteers(String countryCode, String locale);
 
         void getServiceCategoryTypes(String countryCode, String locale, boolean isSendSms);
 
@@ -61,14 +53,6 @@ public interface FragmentNetworkContract {
     }
 
     interface Model extends BaseModel {
-        void getNgoServer(Context context, String countryCode, String locale,
-                          NetworkCallback<Response<List<UnityNetworkResponse>>> response);
-
-        void getLegalServiceServer(Context context, String countryCode, String locale,
-                                   NetworkCallback<Response<List<UnityNetworkResponse>>> response);
-
-        void getVolunteersServer(Context context, String countryCode, String locale,
-                                 NetworkCallback<Response<List<UnityNetworkResponse>>> response);
 
         void getServicesServer(Context context, String countryCode, String locale, boolean isSendSms,
                                NetworkCallback<Response<List<ServicesResponseBody>>> response);

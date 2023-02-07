@@ -1,45 +1,49 @@
 package fambox.pro;
 
+import static com.facebook.FacebookSdk.setAutoLogAppEventsEnabled;
+import static fambox.pro.Constants.Key.KEY_BIRTHDAY;
+import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
+import static fambox.pro.Constants.Key.KEY_IS_DARK_MODE_ENABLED;
+import static fambox.pro.utils.applanguage.AppLanguage.LANGUAGE_PREFERENCES_KAY;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.FirebaseApp;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.Calendar;
 
 import fambox.pro.network.APIService;
 import fambox.pro.network.ApiClient;
 import fambox.pro.network.SocketHandler;
+import fambox.pro.network.SocketHandlerPrivateChat;
 import fambox.pro.utils.SharedPreferenceUtils;
 import fambox.pro.utils.applanguage.AppLanguage;
 
-import static com.facebook.FacebookSdk.setAutoLogAppEventsEnabled;
-import static fambox.pro.Constants.Key.KEY_ACCESS_TOKEN;
-import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
-
-public class SafeYouApp extends Application implements Application.ActivityLifecycleCallbacks {
+public class SafeYouApp extends Application{
     @SuppressLint("StaticFieldLeak")
     private static Context mInstance;
     @SuppressLint("StaticFieldLeak")
     private static SharedPreferenceUtils preference;
-    private boolean onStoped = false;
-    private int activityReferences = 0;
-    private boolean isActivityChangingConfigurations = false;
     private static String countryCode;
     private static String locale;
+
+    private static APIService chatApi;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(this);
         mInstance = getApplicationContext();
         preference = SharedPreferenceUtils.getInstance(getContext());
         countryCode = preference.getStringValue(KEY_COUNTRY_CODE, "");
-        locale = getResources().getConfiguration().locale.getLanguage();
+        locale = LocaleHelper.getLanguage(getBaseContext());
+        configNightMode();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
@@ -48,8 +52,6 @@ public class SafeYouApp extends Application implements Application.ActivityLifec
         FacebookSdk.setAutoInitEnabled(true);
         FacebookSdk.fullyInitialize();
         FacebookSdk.setAdvertiserIDCollectionEnabled(true);
-
-
     }
 
     public static Context getContext() {
@@ -65,18 +67,51 @@ public class SafeYouApp extends Application implements Application.ActivityLifec
     }
 
     public static APIService getApiService(Context context) {
-        new AppLanguage(context).loadLocale();
-        return ApiClient.getAdapter(context, countryCode, locale);
+        AppLanguage.getInstance(context).loadLocale();
+        return ApiClient.getAdapter(context);
+    }
+
+    public static void initChatSocket(Context context, String socketId) {
+        chatApi = ApiClient.getChatAdapter(context, socketId,
+                getPreference().getStringValue(KEY_COUNTRY_CODE, ""));
+    }
+
+    public static APIService getChatApiService() {
+        return chatApi;
     }
 
     public SocketHandler getSocket() {
-        return SocketHandler.getInstance(getPreference().getStringValue(KEY_ACCESS_TOKEN, ""),
+        return SocketHandler.getInstance("",
+                getPreference().getStringValue(KEY_COUNTRY_CODE, ""));
+    }
+
+    public SocketHandlerPrivateChat getChatSocket(String accessToken) {
+        return SocketHandlerPrivateChat.getInstance(accessToken,
                 getPreference().getStringValue(KEY_COUNTRY_CODE, ""));
     }
 
     public static APIService getApiService() {
-        new AppLanguage(getContext()).loadLocale();
-        return ApiClient.getAdapter(getContext(), countryCode, locale);
+        AppLanguage.getInstance(getContext()).loadLocale();
+        return ApiClient.getAdapter(getContext());
+    }
+
+    public static boolean isMinorUser() {
+        String birthday = SafeYouApp.getPreference(getContext()).getStringValue(KEY_BIRTHDAY, "");
+        if (!birthday.isEmpty()) {
+            String[] birthDay = birthday.split("/");
+            if (birthDay.length == 3) {
+                int ageInt = getAge(Integer.parseInt(birthDay[2]),
+                        Integer.parseInt(birthDay[1]), Integer.parseInt(birthDay[0]));
+                return ageInt < 18;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base,
+                base.getSharedPreferences("locale", Activity.MODE_PRIVATE).getString(LANGUAGE_PREFERENCES_KAY, "en")));
     }
 
     public static SharedPreferenceUtils getPreference() {
@@ -87,53 +122,29 @@ public class SafeYouApp extends Application implements Application.ActivityLifec
         return SharedPreferenceUtils.getInstance(context);
     }
 
-    @Override
-    public void onActivityCreated(@NotNull Activity activity, Bundle savedInstanceState) {
-    }
-
-
-    @Override
-    public void onActivityResumed(@NotNull Activity activity) {
-    }
-
-    @Override
-    public void onActivityPaused(@NotNull Activity activity) {
-    }
-
-
-    @Override
-    public void onActivitySaveInstanceState(@NotNull Activity activity, @NotNull Bundle outState) {
-    }
-
-    @Override
-    public void onActivityDestroyed(@NotNull Activity activity) {
-    }
-
-    @Override
-    public void onActivityStarted(@NotNull Activity activity) {
-        if (++activityReferences == 1 && !isActivityChangingConfigurations) {
-            // App enters foreground
-            String preferenceRealPin = SafeYouApp.getPreference(activity)
-                    .getStringValue(Constants.Key.KEY_SHARED_REAL_PIN, "");
-            String preferenceFakePin = SafeYouApp.getPreference(activity)
-                    .getStringValue(Constants.Key.KEY_SHARED_FAKE_PIN, "");
-
-//
-//            if (!preferenceRealPin.equals("") || !preferenceFakePin.equals("") && onStoped){
-//                Intent intent = new Intent(this, PassKeypadActivity.class);
-//                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-//            }
-        }
-    }
-
-    @Override
-    public void onActivityStopped(Activity activity) {
-        isActivityChangingConfigurations = activity.isChangingConfigurations();
-        if (--activityReferences == 0 && !isActivityChangingConfigurations) {
-            // App enters background
-            onStoped = true;
+    private void configNightMode() {
+        boolean isDarkModeEnabled = SafeYouApp.getPreference().getBooleanValue(KEY_IS_DARK_MODE_ENABLED, false);
+        if (isDarkModeEnabled) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
 
         }
+    }
+
+    private static int getAge(int year, int month, int day) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, day);
+
+        Calendar dob = Calendar.getInstance();
+        dob.setTimeInMillis(c.getTimeInMillis());
+        Calendar today = Calendar.getInstance();
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)) {
+            age--;
+        }
+        return age;
     }
 }

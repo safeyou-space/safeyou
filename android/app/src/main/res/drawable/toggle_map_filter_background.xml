@@ -6,10 +6,8 @@
             android:visible="true"
             android:dither="true"
             android:useLevel="false">
-            <solid android:color="@color/statusBarColorPurpleDark"/>
+            <solid android:color="@color/new_main_icon_tint_color"/>
             <corners android:radius="@dimen/_20sdp"/>
-            <stroke android:color="@color/statusBarColorPurpleDark"
-                android:width="@dimen/_4sdp"/>
         </shape>
     </item>
     <item>
@@ -18,11 +16,8 @@
             android:visible="true"
             android:dither="true"
             android:useLevel="false">
-          <solid android:color="@color/transparent"/>
+          <solid android:color="@color/networkFilterBackground"/>
             <corners android:radius="@dimen/_20sdp"/>
-            <stroke
-                android:width="@dimen/_1sdp"
-                android:color="@color/statusBarColorPurpleDark"/>
         </shape>
     </item>
 </selector>

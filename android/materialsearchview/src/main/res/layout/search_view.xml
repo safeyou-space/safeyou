@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/search_layover_bg"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,8 +32,8 @@
                 android:hint="@string/search_hint"
                 android:imeOptions="actionSearch"
                 android:inputType="textNoSuggestions"
-                android:paddingLeft="@dimen/search_view_text_padding"
-                android:paddingRight="@dimen/search_view_text_padding"
+                android:paddingStart="@dimen/search_view_edit_text_padding"
+                android:paddingEnd="@dimen/search_view_edit_text_padding"
                 android:singleLine="true"
                 android:textColor="#212121"
                 android:textColorHint="#727272"
@@ -43,6 +43,7 @@
                 android:id="@+id/action_up_btn"
                 style="@style/MSV_ImageButton"
                 android:layout_centerVertical="true"
+                android:visibility="gone"
                 android:src="@drawable/ic_action_navigation_arrow_back"/>
 
             <ImageButton

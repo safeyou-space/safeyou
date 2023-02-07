@@ -19,8 +19,8 @@ import fambox.pro.SafeYouApp;
 
 public class ConfirmPinEditDialog extends Dialog {
 
-    private Context mContext;
-    private ConfirmEditListener mConfirmEditListener;
+    private final Context mContext;
+    private final ConfirmEditListener mConfirmEditListener;
 
     @BindView(R.id.txtTitle)
     TextView txtTitle;
@@ -78,7 +78,7 @@ public class ConfirmPinEditDialog extends Dialog {
         cancel();
     }
 
-    public interface ConfirmEditListener{
+    public interface ConfirmEditListener {
         void onConfirmEditListener();
     }
 }

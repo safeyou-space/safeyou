@@ -1,14 +1,20 @@
 package fambox.pro.presenter;
 
+import static fambox.pro.Constants.Key.KEY_BIRTHDAY;
+import static fambox.pro.Constants.Key.KEY_PASSWORD;
+import static fambox.pro.Constants.Key.KEY_USER_ID;
+import static fambox.pro.Constants.Key.KEY_USER_PHONE;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.net.HttpURLConnection;
 import java.util.Objects;
 
+import fambox.pro.Constants;
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.model.LoginWithBackModel;
@@ -21,11 +27,6 @@ import fambox.pro.utils.Utils;
 import fambox.pro.view.LoginWithBackContract;
 import retrofit2.Response;
 
-import static fambox.pro.Constants.Key.KEY_ACCESS_TOKEN;
-import static fambox.pro.Constants.Key.KEY_PASSWORD;
-import static fambox.pro.Constants.Key.KEY_REFRESH_TOKEN;
-import static fambox.pro.Constants.Key.KEY_USER_PHONE;
-
 public class LoginWithBackPresenter extends BasePresenter<LoginWithBackContract.View> implements LoginWithBackContract.Presenter {
 
     private LoginWithBackModel mLoginWithBackModel;
@@ -37,32 +38,36 @@ public class LoginWithBackPresenter extends BasePresenter<LoginWithBackContract.
 
     @Override
     public void loginRequest(String countryCode, String locale, String phoneNumber, Editable password) {
-//        String phoneNumberS = Utils.getEditableToString(phoneNumber);
         String passwordS = Utils.getEditableToString(password);
         if (phoneNumber.equals("") || passwordS.equals("")) {
             getView().showErrorMessage(getView().getContext().getResources().getString(R.string.empty_field));
         } else {
             if (!Connectivity.isConnected(getView().getContext())) {
-                getView().showErrorMessage(getView().getContext().getResources().getString(R.string.internet_connection));
+                getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
                 return;
             }
 
             getView().showProgress();
 
             // getting FCM device token
-            FirebaseInstanceId.getInstance().getInstanceId()
+            FirebaseMessaging.getInstance().getToken()
                     .addOnCompleteListener(task -> {
                         if (!task.isSuccessful()) {
                             Log.w("Device_token", "getInstanceId failed", task.getException());
                             return;
                         }
-                        String deviceToken = Objects.requireNonNull(task.getResult()).getToken();
-                        Log.i("Device_token", deviceToken);
+                        String deviceToken = Objects.requireNonNull(task.getResult());
                         LoginBody loginBody = new LoginBody();
                         loginBody.setPhone(phoneNumber);
                         loginBody.setPassword(passwordS);
-                        loginBody.setDeviceToken(deviceToken);
-                        loginBody.setDeviceType("android");
+                        boolean isNotificationEnabled = SafeYouApp.getPreference(getView().getContext())
+                                .getBooleanValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, true);
+                        if (isNotificationEnabled) {
+                            loginBody.setDeviceToken(deviceToken);
+                            loginBody.setDeviceType("android");
+                            SafeYouApp.getPreference(getView().getContext())
+                                    .setValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, true);
+                        }
                         mLoginWithBackModel.login(getView().getContext(), countryCode, locale,
                                 loginBody, new NetworkCallback<Response<LoginResponse>>() {
                                     @Override
@@ -75,10 +80,11 @@ public class LoginWithBackPresenter extends BasePresenter<LoginWithBackContract.
                                                     SafeYouApp.getPreference(getView().getContext())
                                                             .setValue(KEY_PASSWORD, passwordS);
                                                     SafeYouApp.getPreference(getView().getContext())
-                                                            .setValue(KEY_ACCESS_TOKEN, response.body().getAccessToken());
+                                                            .setValue(KEY_USER_ID, response.body().getId());
                                                     SafeYouApp.getPreference(getView().getContext())
-                                                            .setValue(KEY_REFRESH_TOKEN, response.body().getRefreshToken());
+                                                            .setValue(KEY_BIRTHDAY, response.body().getBirthday());
 
+                                                    Log.i("login", "onSuccess: ");
                                                     getView().goDualPinScreen();
                                                 }
                                             } else if (response.code() == HttpURLConnection.HTTP_ACCEPTED) {
@@ -95,7 +101,6 @@ public class LoginWithBackPresenter extends BasePresenter<LoginWithBackContract.
 
                                     @Override
                                     public void onError(Throwable error) {
-//                            getView().showErrorMessage(error.getMessage());
                                         getView().dismissProgress();
                                     }
                                 });

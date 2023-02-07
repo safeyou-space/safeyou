@@ -6,17 +6,16 @@ import android.os.Bundle;
 import java.util.List;
 
 import fambox.pro.model.BaseModel;
-import fambox.pro.network.model.chat.BaseNotificationResponse;
-import fambox.pro.network.model.chat.NotificationData;
 import fambox.pro.presenter.basepresenter.MvpPresenter;
 import fambox.pro.presenter.basepresenter.MvpView;
+import fambox.pro.privatechat.network.model.Notification;
 
 public interface NotificationContract {
 
     interface View extends MvpView {
         Application getApplication();
 
-        void initRecView(List<BaseNotificationResponse> notificationResponses);
+        void initRecView(List<Notification> notificationResponses);
 
         void startForumActivity(Bundle bundle);
 
@@ -24,7 +23,7 @@ public interface NotificationContract {
     }
 
     interface Presenter extends MvpPresenter<NotificationContract.View> {
-        void onClickReply(NotificationData notificationData);
+        void onClickReply(Notification notificationData);
     }
 
     interface Model extends BaseModel {

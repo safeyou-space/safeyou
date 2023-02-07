@@ -22,7 +22,7 @@
         android:gravity="center_vertical"
         android:maxWidth="@dimen/_200sdp"
         android:textColor="@color/gray"
-        android:textSize="@dimen/_10ssp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/txtContactName"
@@ -35,7 +35,7 @@
         android:gravity="center_vertical"
         android:maxWidth="@dimen/_180sdp"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13ssp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/txtContactClear"
@@ -48,20 +48,20 @@
         android:background="@drawable/ripple_effect_light_purple_services"
         android:fontFamily="@font/hay_roboto_regular"
         android:gravity="center"
-        android:text="@string/clear"
+        android:text="@string/clear_text_key"
         android:textAllCaps="false"
         android:textColor="@color/textPurpleColor"
-        android:textSize="@dimen/_12ssp" />
+        android:textSize="11sp" />
 
     <ImageView
         android:id="@+id/imgEditContact"
-        android:layout_width="@dimen/_23sdp"
-        android:layout_height="@dimen/_23sdp"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/_13sdp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/new_edit_icon_puple" />
+        android:contentDescription="@string/edit_key"
+        android:src="@drawable/edit_icon_purple" />
 
 
 </RelativeLayout>

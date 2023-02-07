@@ -17,7 +17,7 @@ import retrofit2.Response;
 
 public class VerificationModel implements VerificationContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void verificationRequest(Context context, String countryCode, String locale,
@@ -61,8 +61,8 @@ public class VerificationModel implements VerificationContract.Model {
 
     @Override
     public void resendVerificationCode(Context context, String countryCode, String locale,
-                                          VerifyPhoneResendBody verifyPhoneResendBody,
-                                          NetworkCallback<Response<Message>> response) {
+                                       VerifyPhoneResendBody verifyPhoneResendBody,
+                                       NetworkCallback<Response<Message>> response) {
         mCompositeDisposable.add(SafeYouApp.getApiService(context).resendVerificationCode(countryCode, locale, verifyPhoneResendBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

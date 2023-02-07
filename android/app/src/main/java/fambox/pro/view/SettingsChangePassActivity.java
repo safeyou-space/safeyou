@@ -30,7 +30,7 @@ public class SettingsChangePassActivity extends BaseActivity implements Settings
         super.onCreate(savedInstanceState);
         Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE_DARK);
         addAppBar(null, false, true,
-                false, getResources().getString(R.string.password), true);
+                false, getResources().getString(R.string.password_text_key), true);
         ButterKnife.bind(this);
         mSettingsChangePassPresenter = new SettingsChangePassPresenter();
         mSettingsChangePassPresenter.attachView(this);

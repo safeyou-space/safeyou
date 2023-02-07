@@ -7,6 +7,7 @@ import java.util.HashMap;
 import fambox.pro.SafeYouApp;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.Message;
+import fambox.pro.network.model.ProfileResponse;
 import fambox.pro.view.fragment.FragmentHelpContract;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -17,7 +18,7 @@ import retrofit2.Response;
 
 public class FragmentHelpModel implements FragmentHelpContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void sendSms(Context context, String countryCode, String locale, String longitude, String latitude, String location1,
@@ -51,6 +52,24 @@ public class FragmentHelpModel implements FragmentHelpContract.Model {
                 .subscribeWith(new DisposableSingleObserver<Response<ResponseBody>>() {
                     @Override
                     public void onSuccess(Response<ResponseBody> listResponse) {
+                        response.onSuccess(listResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        response.onError(e);
+                    }
+                }));
+    }
+
+    @Override
+    public void getProfile(Context context, String countryCode, String locale, NetworkCallback<Response<ProfileResponse>> response) {
+        mCompositeDisposable.add(SafeYouApp.getApiService(context).getProfile(countryCode, locale)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Response<ProfileResponse>>() {
+                    @Override
+                    public void onSuccess(Response<ProfileResponse> listResponse) {
                         response.onSuccess(listResponse);
                     }
 

@@ -4,273 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/otherContainerElementsColor"
     android:orientation="vertical"
     tools:context=".view.ChangeAppIconActivity">
-
-
-    <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="@dimen/_55sdp"-->
-    <!--            android:layout_marginTop="@dimen/_1sdp"-->
-    <!--            android:background="@color/white">-->
-
-    <!--            <ImageView-->
-    <!--                android:id="@+id/iconDualPin"-->
-    <!--                android:layout_width="@dimen/_18sdp"-->
-    <!--                android:layout_height="match_parent"-->
-    <!--                android:layout_marginStart="@dimen/_13sdp"-->
-    <!--                android:contentDescription="@string/app_name"-->
-    <!--                android:src="@drawable/pin_icon"-->
-    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--            <TextView-->
-    <!--                android:layout_width="wrap_content"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginStart="@dimen/_8sdp"-->
-    <!--                android:fontFamily="@font/hay_roboto_regular"-->
-    <!--                android:text="@string/add_a_new_dual_pin"-->
-    <!--                android:textColor="@color/fewBlack"-->
-    <!--                android:textSize="@dimen/_14ssp"-->
-    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--                app:layout_constraintStart_toEndOf="@id/iconDualPin"-->
-    <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--            <Switch-->
-    <!--                android:id="@+id/pinSwitch"-->
-    <!--                android:layout_width="@dimen/_40sdp"-->
-    <!--                android:layout_height="@dimen/_10sdp"-->
-    <!--                android:layout_marginEnd="@dimen/_18sdp"-->
-    <!--                android:thumb="@drawable/switch_thumb"-->
-    <!--                android:track="@drawable/switch_track"-->
-    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintTop_toTopOf="parent"-->
-    <!--                tools:ignore="UseSwitchCompatOrMaterialXml" />-->
-
-    <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content">-->
-
-    <!--            <LinearLayout-->
-    <!--                android:id="@+id/containerDualPin"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:orientation="vertical"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--                <LinearLayout-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginStart="@dimen/_26sdp"-->
-    <!--                    android:background="@color/white"-->
-    <!--                    android:orientation="vertical"-->
-    <!--                    android:padding="@dimen/_12sdp">-->
-
-    <!--                    <TextView-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:fontFamily="@font/hay_roboto_normal"-->
-    <!--                        android:gravity="center_vertical"-->
-    <!--                        android:text="@string/enter_real_pin_in_4_digits"-->
-    <!--                        android:textColor="@color/gray"-->
-    <!--                        android:textSize="@dimen/_12ssp"-->
-    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                        app:layout_constraintStart_toStartOf="parent" />-->
-
-    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-    <!--                        android:id="@+id/inputRealPin"-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="0dp"-->
-    <!--                        android:layout_weight="1"-->
-    <!--                        android:hint="@string/create_password"-->
-    <!--                        android:textColorHint="@color/hint_gray"-->
-    <!--                        app:hintAnimationEnabled="false"-->
-    <!--                        app:hintEnabled="false"-->
-    <!--                        app:passwordToggleEnabled="true"-->
-    <!--                        app:passwordToggleTint="@color/gray">-->
-
-    <!--                        <com.google.android.material.textfield.TextInputEditText-->
-    <!--                            android:id="@+id/edtRealPin"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:layout_weight="1"-->
-    <!--                            android:backgroundTint="@color/transparent"-->
-    <!--                            android:enabled="false"-->
-    <!--                            android:inputType="numberPassword"-->
-    <!--                            android:maxLength="4"-->
-    <!--                            android:maxLines="1" />-->
-
-    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-    <!--                </LinearLayout>-->
-
-    <!--                <LinearLayout-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginStart="@dimen/_26sdp"-->
-    <!--                    android:layout_marginTop="@dimen/_1sdp"-->
-    <!--                    android:background="@color/white"-->
-    <!--                    android:orientation="vertical"-->
-    <!--                    android:padding="@dimen/_12sdp">-->
-
-    <!--                    <TextView-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:fontFamily="@font/hay_roboto_normal"-->
-    <!--                        android:gravity="center_vertical"-->
-    <!--                        android:text="@string/confirm_real_pin"-->
-    <!--                        android:textColor="@color/gray"-->
-    <!--                        android:textSize="@dimen/_12ssp"-->
-    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                        app:layout_constraintStart_toStartOf="parent" />-->
-
-    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-    <!--                        android:id="@+id/inputConfirmRealPin"-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="0dp"-->
-    <!--                        android:layout_weight="1"-->
-    <!--                        android:hint="@string/create_password"-->
-    <!--                        android:textColorHint="@color/hint_gray"-->
-    <!--                        app:hintAnimationEnabled="false"-->
-    <!--                        app:hintEnabled="false"-->
-    <!--                        app:passwordToggleEnabled="true"-->
-    <!--                        app:passwordToggleTint="@color/gray">-->
-
-    <!--                        <com.google.android.material.textfield.TextInputEditText-->
-    <!--                            android:id="@+id/edtConfirmRealPin"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:layout_weight="1"-->
-    <!--                            android:backgroundTint="@color/transparent"-->
-    <!--                            android:enabled="false"-->
-    <!--                            android:inputType="numberPassword"-->
-    <!--                            android:maxLength="4"-->
-    <!--                            android:maxLines="1" />-->
-
-    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-    <!--                </LinearLayout>-->
-
-    <!--                <LinearLayout-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginStart="@dimen/_26sdp"-->
-    <!--                    android:layout_marginTop="@dimen/_1sdp"-->
-    <!--                    android:background="@color/white"-->
-    <!--                    android:orientation="vertical"-->
-    <!--                    android:padding="@dimen/_12sdp">-->
-
-    <!--                    <TextView-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:fontFamily="@font/hay_roboto_normal"-->
-    <!--                        android:gravity="center_vertical"-->
-    <!--                        android:text="@string/enter_fake_pin_in_4_digits"-->
-    <!--                        android:textColor="@color/gray"-->
-    <!--                        android:textSize="@dimen/_12ssp"-->
-    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                        app:layout_constraintStart_toStartOf="parent" />-->
-
-    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-    <!--                        android:id="@+id/inputFakePin"-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="0dp"-->
-    <!--                        android:layout_weight="1"-->
-    <!--                        android:hint="@string/create_password"-->
-    <!--                        android:textColorHint="@color/hint_gray"-->
-    <!--                        app:hintAnimationEnabled="false"-->
-    <!--                        app:hintEnabled="false"-->
-    <!--                        app:passwordToggleEnabled="true"-->
-    <!--                        app:passwordToggleTint="@color/gray">-->
-
-    <!--                        <com.google.android.material.textfield.TextInputEditText-->
-    <!--                            android:id="@+id/edtFakePin"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:layout_weight="1"-->
-    <!--                            android:backgroundTint="@color/transparent"-->
-    <!--                            android:enabled="false"-->
-    <!--                            android:inputType="numberPassword"-->
-    <!--                            android:maxLength="4"-->
-    <!--                            android:maxLines="1" />-->
-
-    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-    <!--                </LinearLayout>-->
-
-    <!--                <LinearLayout-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    android:layout_marginStart="@dimen/_26sdp"-->
-    <!--                    android:layout_marginTop="@dimen/_1sdp"-->
-    <!--                    android:background="@color/white"-->
-    <!--                    android:orientation="vertical"-->
-    <!--                    android:padding="@dimen/_12sdp">-->
-
-    <!--                    <TextView-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:fontFamily="@font/hay_roboto_normal"-->
-    <!--                        android:gravity="center_vertical"-->
-    <!--                        android:text="@string/confirm_fake_pin"-->
-    <!--                        android:textColor="@color/gray"-->
-    <!--                        android:textSize="@dimen/_12ssp"-->
-    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                        app:layout_constraintStart_toStartOf="parent" />-->
-
-    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-    <!--                        android:id="@+id/inputConfirmFakePin"-->
-    <!--                        android:layout_width="match_parent"-->
-    <!--                        android:layout_height="0dp"-->
-    <!--                        android:layout_weight="1"-->
-    <!--                        android:hint="@string/create_password"-->
-    <!--                        android:textColorHint="@color/hint_gray"-->
-    <!--                        app:hintAnimationEnabled="false"-->
-    <!--                        app:hintEnabled="false"-->
-    <!--                        app:passwordToggleEnabled="true"-->
-    <!--                        app:passwordToggleTint="@color/gray">-->
-
-    <!--                        <com.google.android.material.textfield.TextInputEditText-->
-    <!--                            android:id="@+id/edtConfirmFakePin"-->
-    <!--                            android:layout_width="match_parent"-->
-    <!--                            android:layout_height="match_parent"-->
-    <!--                            android:layout_weight="1"-->
-    <!--                            android:backgroundTint="@color/transparent"-->
-    <!--                            android:enabled="false"-->
-    <!--                            android:inputType="numberPassword"-->
-    <!--                            android:maxLength="4"-->
-    <!--                            android:maxLines="1" />-->
-
-    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-    <!--                </LinearLayout>-->
-
-    <!--            </LinearLayout>-->
-
-    <!--            <View-->
-    <!--                android:id="@+id/dualPinDisableView"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="0dp"-->
-    <!--                android:background="@color/transparent_white"-->
-    <!--                app:layout_constraintBottom_toBottomOf="@id/containerDualPin"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerCamouflageIcon"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_55sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_55sdp"
         android:layout_marginTop="@dimen/_1sdp"
-        android:background="@color/white"
+        android:background="@color/otherContainerElementsColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -279,8 +23,8 @@
             android:layout_width="@dimen/_18sdp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_13sdp"
-            android:contentDescription="@string/app_name"
             android:src="@drawable/dual_pin_pressed"
+            app:tint="@color/new_main_icon_tint_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -291,18 +35,20 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:fontFamily="@font/hay_roboto_regular"
             android:text="@string/choose_your_camouflage_icon"
-            android:textColor="@color/fewBlack"
-            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/camouflageSwitch"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/iconCamouflage"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.574" />
 
         <Switch
             android:id="@+id/camouflageSwitch"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_18sdp"
+            android:layout_width="52dp"
+            android:layout_height="48dp"
+            android:padding="15dp"
             android:thumb="@drawable/switch_thumb"
             android:track="@drawable/switch_track"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -338,22 +84,24 @@
                     android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center"
                     android:text="@string/art_gallery"
-                    android:textColor="@color/fewBlack"
-                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/hay_roboto_regular"
                     app:drawableStartCompat="@drawable/art_gallery_icon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioButton
                     android:id="@+id/artGalleryRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="center_vertical|end"
                     android:layout_marginEnd="@dimen/_18sdp"
                     android:enabled="false"
                     android:scaleX="1.5"
                     android:scaleY="1.5"
                     android:theme="@style/MyRadioButtonSettingsStyle"
+                    android:contentDescription="@string/art_gallery"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -374,22 +122,24 @@
                     android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center"
                     android:text="@string/gallery_editor"
-                    android:textColor="@color/fewBlack"
-                    android:textSize="@dimen/_14ssp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/hay_roboto_regular"
                     app:drawableStartCompat="@drawable/galler_editor_icon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioButton
                     android:id="@+id/galleryEditorRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="center_vertical|end"
                     android:layout_marginEnd="@dimen/_18sdp"
                     android:enabled="false"
                     android:scaleX="1.5"
                     android:scaleY="1.5"
                     android:theme="@style/MyRadioButtonSettingsStyle"
+                    android:contentDescription="@string/gallery_editor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -407,23 +157,25 @@
                     android:layout_marginStart="@dimen/_38sdp"
                     android:drawablePadding="@dimen/_10sdp"
                     android:gravity="center"
-                    android:text="@string/photo_editor"
-                    android:textColor="@color/fewBlack"
-                    android:textSize="@dimen/_14ssp"
+                    android:text="@string/visual_editor"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/hay_roboto_regular"
                     app:drawableStartCompat="@drawable/photo_editor_icon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioButton
                     android:id="@+id/photoEditorRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="center_vertical|end"
                     android:layout_marginEnd="@dimen/_18sdp"
                     android:enabled="false"
                     android:scaleX="1.5"
                     android:scaleY="1.5"
                     android:theme="@style/MyRadioButtonSettingsStyle"
+                    android:contentDescription="@string/visual_editor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -447,14 +199,16 @@
         android:id="@+id/btnSubmit"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_40sdp"
         android:layout_gravity="bottom"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_18sdp"
         android:background="@drawable/button_border_fill"
+        app:backgroundTint="@color/new_main_color"
         android:fontFamily="@font/hay_roboto_normal"
-        android:text="@string/save"
+        android:text="@string/save_key"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
@@ -464,7 +218,8 @@
         android:id="@+id/btnCancel"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_40sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:gravity="center"
         android:text="@string/cancel"

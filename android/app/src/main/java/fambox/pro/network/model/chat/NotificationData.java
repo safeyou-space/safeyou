@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

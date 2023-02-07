@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 import org.jetbrains.annotations.NotNull;
 
-public class RegistrationBody {
+import java.io.Serializable;
+
+public class RegistrationBody implements Serializable {
 
     @SerializedName("first_name")
     @Expose
@@ -19,7 +21,6 @@ public class RegistrationBody {
     @SerializedName("marital_status")
     @Expose
     private int marital_status;
-//    private String email;
     @SerializedName("phone")
     @Expose
     private String phone;
@@ -64,14 +65,6 @@ public class RegistrationBody {
     public void setMarital_status(int marital_status) {
         this.marital_status = marital_status;
     }
-
-    //    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
 
     public String getPhone() {
         return phone;

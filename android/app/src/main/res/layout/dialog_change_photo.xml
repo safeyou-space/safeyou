@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_250sdp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minWidth="@dimen/_250sdp"
     android:layout_gravity="center"
     android:background="@drawable/dialog_shadow"
     android:orientation="vertical">
 
 
-    <ImageButton
+    <ImageView
         android:id="@+id/cancelIcon"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:layout_margin="@dimen/_10sdp"
-        android:background="@drawable/icon_cancel_record_info_dialog"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="15dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/close_dialog_description"
+        android:src="@drawable/icon_cancel_record_info_dialog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/new_main_icon_tint_color" />
 
 
     <TextView
         android:id="@+id/txtTitle"
-        android:layout_width="@dimen/_200sdp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="@dimen/_200sdp"
         android:fontFamily="@font/hay_roboto_bold"
         android:gravity="center"
         android:text="@string/change_photo_title"
         android:textColor="@color/black"
-        android:textSize="@dimen/_16ssp"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/cancelIcon" />
+        app:layout_constraintTop_toBottomOf="@id/cancelIcon" />
 
     <TextView
         android:id="@+id/txtTitleDescription"
-        android:layout_width="@dimen/_150sdp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:minWidth="@dimen/_150sdp"
         android:layout_marginTop="@dimen/_3sdp"
-        android:fontFamily="@font/hay_roboto_light"
+        android:fontFamily="@font/hay_roboto_regular"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/_10ssp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtTitle" />
@@ -54,62 +59,65 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/gray" />
+            android:background="@color/devider_color" />
 
         <Button
             android:id="@+id/btnTakeNewPhoto"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_40sdp"
             android:background="@drawable/ripple_effect_transparent"
-            android:fontFamily="@font/hay_roboto_light"
+            android:fontFamily="@font/hay_roboto_regular"
             android:gravity="center"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:text="@string/take_new_photo"
+            android:text="@string/take_photo_title_key"
             android:textAllCaps="false"
-            android:textColor="@color/statusBarColorPurpleDark"
-            android:textSize="@dimen/_13ssp" />
+            android:textColor="@color/borderless_button_text_color"
+            android:textSize="17sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/gray" />
+            android:background="@color/devider_color" />
 
         <Button
             android:id="@+id/btnSelectFromGallery"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_40sdp"
             android:background="@drawable/ripple_effect_transparent"
-            android:fontFamily="@font/hay_roboto_light"
+            android:fontFamily="@font/hay_roboto_regular"
             android:gravity="center"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:text="@string/select_from_gallery"
+            android:text="@string/choose_from_gallery_title_key"
             android:textAllCaps="false"
-            android:textColor="@color/statusBarColorPurpleDark"
-            android:textSize="@dimen/_13ssp" />
+            android:textColor="@color/borderless_button_text_color"
+            android:textSize="17sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/gray" />
+            android:background="@color/devider_color" />
 
         <Button
             android:id="@+id/btnRemovePhoto"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/_40sdp"
             android:background="@drawable/ripple_effect_transparent"
-            android:fontFamily="@font/hay_roboto_bold"
+            android:fontFamily="@font/hay_roboto_regular"
             android:gravity="center"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-            android:text="@string/remove_photo"
+            android:text="@string/remove_photo_title_key"
             android:textAllCaps="false"
-            android:textColor="@color/statusBarColorPurpleDark"
-            android:textSize="@dimen/_13ssp" />
+            android:textColor="@color/borderless_button_text_color"
+            android:textSize="17sp" />
 
     </LinearLayout>
 

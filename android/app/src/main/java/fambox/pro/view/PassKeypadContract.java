@@ -1,10 +1,6 @@
 package fambox.pro.view;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import fambox.pro.presenter.basepresenter.MvpPresenter;
 import fambox.pro.presenter.basepresenter.MvpView;

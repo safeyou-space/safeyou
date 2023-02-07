@@ -27,7 +27,7 @@ public class LollipopFixedWebView extends WebView {
     }
 
     private static Context getFixedContext(Context context) {
-        if (Build.VERSION.SDK_INT >= 21 && Build.VERSION.SDK_INT < 23) // Android Lollipop 5.0 & 5.1
+        if (Build.VERSION.SDK_INT < 23) // Android Lollipop 5.0 & 5.1
             return context.createConfigurationContext(new Configuration());
         return context;
     }

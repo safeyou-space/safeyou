@@ -10,8 +10,7 @@ import androidx.annotation.Nullable;
 
 public class ContinuousLongClick implements View.OnTouchListener, View.OnLongClickListener {
     private final Handler handler;
-    private ContinuousLongClickListener mLongClickListener;
-    private boolean isLongPressed = false;
+    private final ContinuousLongClickListener mLongClickListener;
 
     public ContinuousLongClick(View view, @Nullable ContinuousLongClickListener longClickListener) {
         this.mLongClickListener = longClickListener;
@@ -25,7 +24,6 @@ public class ContinuousLongClick implements View.OnTouchListener, View.OnLongCli
     @Override
     public boolean onLongClick(final View view) {
         handler.post(() -> {
-            isLongPressed = true;
             if (mLongClickListener != null) {
                 mLongClickListener.onStartLongClick(view);
             }
@@ -37,11 +35,8 @@ public class ContinuousLongClick implements View.OnTouchListener, View.OnLongCli
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (isLongPressed) {
-                if (mLongClickListener != null) {
-                    mLongClickListener.onEndLongClick(v);
-                }
-                isLongPressed = false;
+            if (mLongClickListener != null) {
+                mLongClickListener.onEndLongClick(v);
             }
         }
         return false;

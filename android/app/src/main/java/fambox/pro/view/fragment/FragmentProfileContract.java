@@ -2,15 +2,13 @@ package fambox.pro.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.widget.EditText;
-
-import androidx.fragment.app.FragmentActivity;
+import android.widget.CompoundButton;
 
 import java.util.List;
 
 import fambox.pro.model.BaseModel;
 import fambox.pro.network.NetworkCallback;
+import fambox.pro.network.model.CheckPoliceResponseBody;
 import fambox.pro.network.model.EmergencyContactBody;
 import fambox.pro.network.model.EmergencyContactsResponse;
 import fambox.pro.network.model.Message;
@@ -32,21 +30,20 @@ public interface FragmentProfileContract {
 
         void setUpServiceRecView(List<ServicesResponseBody> list);
 
-        void goTermAndCondition(Bundle bundle);
-
         void showProgress();
 
         void dismissProgress();
 
         void pickContact(Intent data, int requestCode);
+
+        void configCheckPoliceSwitch(CompoundButton buttonView, boolean checked, boolean checkedFromUser,
+                                     String title, String description);
     }
 
     interface Presenter extends MvpPresenter<FragmentProfileContract.View> {
         void getProfile(String countryCode, String locale);
 
         void editProfile(String countryCode, String locale, String key, int value);
-
-        void clickTermAndCondition();
 
         void onPickContact(EmergencyContactsResponse emergencyContactsResponse);
 
@@ -60,8 +57,7 @@ public interface FragmentProfileContract {
 
         void deleteEmergencyService(String countryCode, String locale, ServicesResponseBody servicesResponseBody);
 
-        void configEditText(String countryCode, String locale, FragmentActivity context, EditText editText,
-                            boolean isChecked);
+        void getPolice(CompoundButton buttonView, boolean checked, boolean checkedFromUser);
     }
 
     interface Model extends BaseModel {
@@ -83,5 +79,8 @@ public interface FragmentProfileContract {
         void deleteEmergencyContact(Context context, String countryCode, String locale,
                                     long id,
                                     NetworkCallback<Response<Message>> response);
+
+        void getCheckPolice(Context context, String countryCode, String locale,
+                            NetworkCallback<Response<CheckPoliceResponseBody>> response);
     }
 }

@@ -13,7 +13,6 @@ public class ChatCurrentUser {
     @Expose
     private ChatCurrentUserData data;
 
-
     // Getter Methods
 
     public String getError() {

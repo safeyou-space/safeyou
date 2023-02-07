@@ -13,4 +13,7 @@
     <dimen name="title_top_margin_collapsed">64dp</dimen>
     <dimen name="subtitle_left_margin_collapsed">72dp</dimen>
     <dimen name="subtitle_top_margin_collapsed">88dp</dimen>
+    <dimen name="chip_text_size">14sp</dimen>
+    <dimen name="chip_corner_radius">6dp</dimen>
+    <dimen name="text_size">12sp</dimen>
 </resources>

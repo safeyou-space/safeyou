@@ -4,9 +4,6 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -42,6 +39,8 @@ public class HelpActivity extends BaseActivity implements HelpContract.View {
     ToggleButton btnNGO;
     @BindView(R.id.btnHelp)
     ToggleButton btnHelp;
+    @BindView(R.id.btnPrrivateMessage)
+    ToggleButton btnPrrivateMessage;
     @BindView(R.id.btnNextHelp)
     TextView btnNextHelp;
 
@@ -61,34 +60,22 @@ public class HelpActivity extends BaseActivity implements HelpContract.View {
         showInfoDialog = new ShowInfoDialog(this);
         showInfoDialog.setOnCancelListener(dialog -> {
             //do whatever you want the back key to do
-            configToggle(false, false, false, false, false);
+            configToggle(false, false, false, false, false, false);
         });
-//        if (!SafeYouApp.getPreference(this).getBooleanValue(KEY_LOG_IN_FIRST_TIME, false)) {
-//            configToggle(false, false, true, false, false);
-//            openDialog(Types.InfoDialogText.TEXT_HELP);
-//        }
-
         boolean isOpenedFromMenu = false;
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             isOpenedFromMenu = bundle.getBoolean("is_opened_from_menu");
         }
+
         addAppBar(null, false, true,
-                !isOpenedFromMenu, getResources().getString(R.string.login_help), false);
+                !isOpenedFromMenu, getResources().getString(R.string.title_tutorial), false);
 
         btnNextHelp.setVisibility(!isOpenedFromMenu ? View.VISIBLE : View.GONE);
 
         int helpImageSize = getResources().getDimensionPixelSize(R.dimen._30sdp);
 
-//        String dualPinText = getResources().getString(R.string.dual_pin);
-
-//        Spannable word = new SpannableString(dualPinText);
-//        word.setSpan(new RelativeSizeSpan(0.7f), !dualPinText.contains("\n")
-//                        ? 0 : dualPinText.indexOf("\n"), dualPinText.length(),
-//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        btnDualPin.setText(word);
-
-        Drawable helpDrawable = getDrawable(R.drawable.icon_tutorial_help);
+        Drawable helpDrawable = getDrawable(R.drawable.new_help_totorial_icon);
         if (helpDrawable != null) {
             helpDrawable.setBounds(0, 0, helpImageSize, helpImageSize);
             btnHelp.setCompoundDrawables(helpDrawable, null, null, null);
@@ -147,24 +134,18 @@ public class HelpActivity extends BaseActivity implements HelpContract.View {
         Window window = showInfoDialog.getWindow();
         window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-//        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         showInfoDialog.show();
-//        WindowManager.LayoutParams params = showInfoDialog.getWindow().getAttributes();
-//        params.x = (int) button.getX();
-//        params.y = (int) button.getY();
-//        params.gravity = Gravity.START | Gravity.END | Gravity.BOTTOM;
-//        showInfoDialog.getWindow().setAttributes(params);
         showInfoDialog.setTxtDescription(infoDialogText);
     }
 
 
-    @OnCheckedChanged({R.id.btnDualPin, R.id.btnInfo, R.id.btnForums, R.id.btnNGO, R.id.btnHelp})
+    @OnCheckedChanged({R.id.btnDualPin, R.id.btnInfo, R.id.btnForums, R.id.btnNGO, R.id.btnHelp, R.id.btnPrrivateMessage})
     void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
         mHelpPresenter.configToggleButton(button.getId(), checked);
     }
 
     @Override
-    public void configToggle(boolean dualPin, boolean info, boolean help, boolean forum, boolean ngo) {
+    public void configToggle(boolean dualPin, boolean info, boolean help, boolean forum, boolean ngo, boolean prvtMessage) {
         btnDualPin.setChecked(dualPin);
         btnDualPin.setElevation(mHelpPresenter.getElevation(dualPin));
 
@@ -179,6 +160,9 @@ public class HelpActivity extends BaseActivity implements HelpContract.View {
 
         btnHelp.setChecked(help);
         btnHelp.setElevation(mHelpPresenter.getElevation(help));
+
+        btnPrrivateMessage.setChecked(prvtMessage);
+        btnPrrivateMessage.setElevation(mHelpPresenter.getElevation(prvtMessage));
     }
 
     @Override

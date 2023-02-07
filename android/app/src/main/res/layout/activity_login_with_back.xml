@@ -20,11 +20,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/hay_roboto_normal"
+                android:fontFamily="@font/hay_roboto_regular"
                 android:gravity="center"
-                android:text="@string/log_in"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_26ssp"
+                android:text="@string/title_login"
+                android:textColor="@color/colorChooseCountryText"
+                android:textSize="34sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +33,8 @@
             <LinearLayout
                 android:id="@+id/containerLoginPass"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_200sdp"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
@@ -44,84 +45,71 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtLogIn">
 
-                <!--                <com.google.android.material.textfield.TextInputLayout-->
-                <!--                    android:id="@+id/textInputLayoutLogin"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:hint="@string/mobile_number"-->
-                <!--                    android:textColorHint="@color/hint_gray"-->
-                <!--                    app:hintAnimationEnabled="true"-->
-                <!--                    app:hintEnabled="true">-->
-
-                <!--                    <com.google.android.material.textfield.TextInputEditText-->
-                <!--                        android:id="@+id/edtLogin"-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_weight="1"-->
-                <!--                        android:ems="10"-->
-                <!--                        android:fontFamily="@font/hay_roboto_normal"-->
-                <!--                        android:imeOptions="actionNext"-->
-                <!--                        android:inputType="phone"-->
-                <!--                        android:maxLines="1"-->
-                <!--                        android:text="@string/phone_number_base_code"-->
-                <!--                        android:textColor="@color/white"-->
-                <!--                        android:textSize="@dimen/_16ssp" />-->
-                <!--                </com.google.android.material.textfield.TextInputLayout>-->
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal">
 
-                    <com.hbb20.CountryCodePicker
-                        android:id="@+id/countryPicker"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:gravity="bottom"
-                        app:ccpDialog_allowSearch="false"
-                        app:ccpDialog_backgroundColor="@color/colorAccent"
-                        app:ccpDialog_showCloseIcon="true"
-                        app:ccpDialog_textColor="@color/white"
-                        app:ccp_arrowSize="@dimen/_20sdp"
-                        app:ccp_autoDetectCountry="false"
-                        app:ccp_contentColor="@color/white"
-                        app:ccp_showFlag="false"
-                        app:ccp_showNameCode="false"
-                        app:ccp_textGravity="LEFT"
-                        app:ccp_textSize="@dimen/_16ssp" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayoutLogin"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/mobile_number"
-                        android:textColorHint="@color/hint_gray"
-                        app:hintAnimationEnabled="true"
-                        app:hintEnabled="true">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edtLogin"
+                        <com.hbb20.CountryCodePicker
+                            android:id="@+id/countryPicker"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:gravity="bottom"
+                            app:ccpDialog_allowSearch="false"
+                            app:ccpDialog_backgroundColor="@color/colorAccent"
+                            app:ccpDialog_showCloseIcon="true"
+                            app:ccpDialog_textColor="@color/colorChooseCountryText"
+                            app:ccp_arrowSize="@dimen/_20sdp"
+                            app:ccp_autoDetectCountry="true"
+                            app:ccp_contentColor="@color/colorChooseCountryText"
+                            app:ccp_showFlag="false"
+                            app:ccp_showNameCode="false"
+                            app:ccp_textGravity="LEFT"
+                            app:ccp_textSize="@dimen/_16ssp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txtInputLayoutMobile"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:ems="10"
-                            android:fontFamily="@font/hay_roboto_normal"
-                            android:imeOptions="actionNext"
-                            android:inputType="phone"
-                            android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_16ssp" />
+                            android:layout_height="wrap_content"
+                            android:hint="@string/mobile_number_text_key"
+                            android:textColorHint="@color/hint_gray"
+                            app:hintAnimationEnabled="true"
+                            app:hintEnabled="true">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtLogin"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:minHeight="@dimen/_40sdp"
+                                android:ems="10"
+                                android:fontFamily="@font/hay_roboto_regular"
+                                android:imeOptions="actionNext"
+                                android:inputType="phone"
+                                android:maxLines="1"
+                                android:textColor="@color/colorChooseCountryText"
+                                android:textSize="16sp" />
 
-                </LinearLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayoutPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:hint="@string/password"
+                    android:hint="@string/password_text_key"
                     android:textColorHint="@color/hint_gray"
                     app:hintAnimationEnabled="true"
                     app:hintEnabled="true">
@@ -134,7 +122,7 @@
                         android:ems="10"
                         android:fontFamily="@font/hay_roboto_normal"
                         android:inputType="textPassword"
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorChooseCountryText"
                         android:textSize="@dimen/_16ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -143,16 +131,17 @@
                 android:id="@+id/btnLoginWithBAck"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_40sdp"
                 android:layout_marginStart="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:background="@drawable/button_border"
-                android:fontFamily="@font/hay_roboto_normal"
-                android:text="@string/login"
-                android:textAllCaps="false"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:text="@string/title_login"
+                android:textAllCaps="true"
                 android:textColor="@color/textPurpleColor"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@id/containerForgotSwitch"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -161,7 +150,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerForgotSwitch"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_40sdp"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
@@ -177,9 +167,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/hay_roboto_normal"
-                    android:text="@string/forgot_password"
+                    android:text="@string/title_forgot_password"
                     android:textAllCaps="false"
-                    android:textColor="@color/forgetSwitchColor"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -189,18 +179,20 @@
                 android:id="@+id/btnSignUp"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/ripple_effect_transparent"
-                android:fontFamily="@font/hay_roboto_normal"
-                android:text="@string/sign_up"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:text="@string/title_signup"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/containerForgotSwitch" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

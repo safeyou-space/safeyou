@@ -14,7 +14,7 @@ import retrofit2.Response;
 
 public class MainModel implements MainContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void getProfile(Context context, String countryCode, String locale,

@@ -16,7 +16,7 @@
         android:paddingBottom="@dimen/_40sdp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.viewpager.widget.ViewPager
+        <fambox.pro.utils.SwipeDisabledViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -26,13 +26,6 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <ImageView
-        android:id="@+id/bottomNotificationIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/notification_bottom_icon"
-        android:visibility="invisible" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,34 +36,56 @@
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
+            android:layout_height="1dp"
+            android:layout_above="@id/bottomNavigationViewEx"
             android:background="@color/dividerColor" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:backgroundTint="@color/red"
-            android:contentDescription="@string/app_name"
-            android:theme="@style/fab"
-            app:borderWidth="@dimen/_3sdp"
-            app:elevation="9dp"
-            app:fabCustomSize="@dimen/_55sdp" />
-
-        <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationViewEx"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
+            android:background="@color/bottom_bar_background"
+            android:minHeight="@dimen/_49sdp"
+            app:elevation="0dp"
+            app:labelVisibilityMode="labeled"
+            app:itemIconSize="@dimen/_16sdp"
             app:itemIconTint="@color/selector_item_primary_color"
             app:itemTextColor="@color/selector_item_primary_color"
             app:menu="@menu/menu" />
 
+
+        <Button
+            android:id="@+id/fab"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@drawable/help_button_sheet_border"
+            android:fontFamily="@font/hay_roboto_bold"
+            android:minWidth="@dimen/_84sdp"
+            android:minHeight="@dimen/_84sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            app:elevation="0dp" />
+
     </RelativeLayout>
+    <ImageView
+        android:id="@+id/bottomNotificationIcon"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/forum_notification"
+        android:visibility="invisible" />
+    <ImageView
+        android:id="@+id/bottomPrivateNotificationIcon"
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/forum_notification"
+        android:visibility="invisible" />
 
     <View
         android:id="@+id/screenDimmer"
@@ -85,7 +100,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </RelativeLayout>

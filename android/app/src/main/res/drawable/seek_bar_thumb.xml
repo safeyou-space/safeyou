@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <solid android:color="#00000000" />
+    <solid android:color="@color/seekBarThumb" />
     <size
         android:width="@dimen/_15sdp"
         android:height="@dimen/_15sdp" />
     <stroke
         android:width="@dimen/_2sdp"
-        android:color="@color/statusBarColorPurpleDark" />
+        android:color="@color/seekBarProgress" />
 
 </shape>

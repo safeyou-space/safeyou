@@ -10,6 +10,7 @@ import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.SocialMediaBody;
 import fambox.pro.network.model.Message;
 import fambox.pro.network.model.ServicesResponseBody;
+import fambox.pro.network.model.forum.UserRateResponseBody;
 import fambox.pro.presenter.basepresenter.MvpPresenter;
 import fambox.pro.presenter.basepresenter.MvpView;
 import retrofit2.Response;
@@ -17,7 +18,8 @@ import retrofit2.Response;
 public interface NgoMapDetailContract {
 
     interface View extends MvpView {
-        void configUserData(String name, String location, List<SocialMediaBody> socialMediaBodyList);
+        void configUserData(String name, String location, List<SocialMediaBody> socialMediaBodyList, String imagePath,
+                            UserRateResponseBody userRate, int ratesCount, long serviceId);
 
         void configMapPosition(String name, String description, double latitude, double longitude);
 
@@ -26,6 +28,8 @@ public interface NgoMapDetailContract {
         void configAddToHelplineButtonVisibility(int visibility);
 
         void goToProfile();
+
+        void goToPrivateChat(Bundle bundle);
     }
 
     interface Presenter extends MvpPresenter<NgoMapDetailContract.View> {
@@ -47,6 +51,8 @@ public interface NgoMapDetailContract {
         void configAddToHelplineButton(boolean added);
 
         void configDetailActivity(ServicesResponseBody servicesResponseBody);
+
+        void goToPrivateMessage();
     }
 
     interface Model extends BaseModel {

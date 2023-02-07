@@ -1,54 +1,13 @@
 package fambox.pro.network;
 
-import java.util.HashMap;
-import java.util.List;
-
-import fambox.pro.network.model.ChangePasswordBody;
-import fambox.pro.network.model.ContentResponse;
-import fambox.pro.network.model.CountriesLanguagesResponseBody;
-import fambox.pro.network.model.CreateNewPasswordBody;
-import fambox.pro.network.model.DeviceConfigBody;
-import fambox.pro.network.model.EmergencyContactBody;
-import fambox.pro.network.model.ForgotVerifySmsResponse;
-import fambox.pro.network.model.LoginBody;
-import fambox.pro.network.model.LoginResponse;
-import fambox.pro.network.model.MarriedListResponse;
-import fambox.pro.network.model.Message;
-import fambox.pro.network.model.ProfileResponse;
-import fambox.pro.network.model.RecordResponse;
-import fambox.pro.network.model.RecordSearchResult;
-import fambox.pro.network.model.RefreshTokenResponse;
-import fambox.pro.network.model.RegistrationBody;
-import fambox.pro.network.model.ServicesResponseBody;
-import fambox.pro.network.model.ServicesSearchResponse;
-import fambox.pro.network.model.UnityNetworkResponse;
-import fambox.pro.network.model.VerifyPhoneBody;
-import fambox.pro.network.model.VerifyPhoneResendBody;
-import io.reactivex.Single;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Part;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
-
 import static fambox.pro.Constants.API_ADD_EMERGENCY_CONTACT;
 import static fambox.pro.Constants.API_ADD_EMERGENCY_SERVICE;
+import static fambox.pro.Constants.API_CHANGE_LANGUAGE;
 import static fambox.pro.Constants.API_CHANGE_PASSWORD;
 import static fambox.pro.Constants.API_CONSULTANT_REQUEST;
+import static fambox.pro.Constants.API_DELETE_ACCOUNT;
 import static fambox.pro.Constants.API_EDIT_DELETE_EMERGENCY_CONTACT;
 import static fambox.pro.Constants.API_EDIT_DELETE_EMERGENCY_SERVICE;
-import static fambox.pro.Constants.API_EDIT_EMERGENCY_SERVICE;
 import static fambox.pro.Constants.API_FORGOT_CREATE_PASSWORD;
 import static fambox.pro.Constants.API_FORGOT_PASSWORD;
 import static fambox.pro.Constants.API_FORGOT_PASSWORD_VERIFY_CODE;
@@ -82,8 +41,94 @@ import static fambox.pro.Constants.API_VERIFY_PHONE;
 import static fambox.pro.Constants.API_VERIFY_PHONE_RESEND;
 import static fambox.pro.Constants.API_VOLUNTEER;
 import static fambox.pro.Constants.COUNTRY_PATH;
+import static fambox.pro.Constants.DELETE_MESSAGE;
+import static fambox.pro.Constants.EDIT_MESSAGE;
+import static fambox.pro.Constants.GET_ALL_FORUMS;
+import static fambox.pro.Constants.GET_BLOCKED_USERS;
+import static fambox.pro.Constants.GET_CHECK_POLICE;
 import static fambox.pro.Constants.GET_CONSULTANT_CATEGORIES;
+import static fambox.pro.Constants.GET_FORUM_BY_ID;
+import static fambox.pro.Constants.GET_FORUM_COMMENTS;
+import static fambox.pro.Constants.GET_FORUM_FILTER_CATEGORIES;
+import static fambox.pro.Constants.GET_JOIN_ROOM;
+import static fambox.pro.Constants.GET_LEAVE_ROOM;
+import static fambox.pro.Constants.GET_MESSAGES;
+import static fambox.pro.Constants.GET_MESSAGES_FROM_NOTIFICATION;
+import static fambox.pro.Constants.GET_NOTIFICATIONS;
+import static fambox.pro.Constants.GET_PRIVATE_MESSAGES;
+import static fambox.pro.Constants.GET_REPORT_CATEGORIES;
+import static fambox.pro.Constants.GET_ROOM_MEMBERS;
+import static fambox.pro.Constants.GET_UNREAD_MESSAGES;
 import static fambox.pro.Constants.LOCALE_PHAT;
+import static fambox.pro.Constants.POST_BLOCK_USER;
+import static fambox.pro.Constants.POST_CREATE_ROOM;
+import static fambox.pro.Constants.POST_FORUM_RATE;
+import static fambox.pro.Constants.POST_NGO_RATE;
+import static fambox.pro.Constants.POST_REPORT;
+import static fambox.pro.Constants.POST_SEND_MESSAGES;
+import static fambox.pro.Constants.POST_UNBLOCK_USER;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import fambox.pro.network.model.BlockUserPostBody;
+import fambox.pro.network.model.ChangePasswordBody;
+import fambox.pro.network.model.CheckPoliceResponseBody;
+import fambox.pro.network.model.ContentResponse;
+import fambox.pro.network.model.CountriesLanguagesResponseBody;
+import fambox.pro.network.model.CreateNewPasswordBody;
+import fambox.pro.network.model.DeviceConfigBody;
+import fambox.pro.network.model.EmergencyContactBody;
+import fambox.pro.network.model.ForgotVerifySmsResponse;
+import fambox.pro.network.model.LoginBody;
+import fambox.pro.network.model.LoginResponse;
+import fambox.pro.network.model.MarriedListResponse;
+import fambox.pro.network.model.Message;
+import fambox.pro.network.model.ProfileResponse;
+import fambox.pro.network.model.RateForumBody;
+import fambox.pro.network.model.RateServiceBody;
+import fambox.pro.network.model.RecordResponse;
+import fambox.pro.network.model.RecordSearchResult;
+import fambox.pro.network.model.RefreshTokenResponse;
+import fambox.pro.network.model.RegistrationBody;
+import fambox.pro.network.model.ReportPostBody;
+import fambox.pro.network.model.ServicesResponseBody;
+import fambox.pro.network.model.ServicesSearchResponse;
+import fambox.pro.network.model.UnityNetworkResponse;
+import fambox.pro.network.model.VerifyPhoneBody;
+import fambox.pro.network.model.VerifyPhoneResendBody;
+import fambox.pro.network.model.chat.BasePrivateMessageModel;
+import fambox.pro.network.model.chat.BlockUserResponse;
+import fambox.pro.network.model.chat.PrivateMessageUnreadListResponse;
+import fambox.pro.network.model.chat.PrivateMessageUserListResponse;
+import fambox.pro.network.model.forum.ForumBase;
+import fambox.pro.network.model.forum.ForumResponseBody;
+import fambox.pro.privatechat.network.model.BaseModel;
+import fambox.pro.privatechat.network.model.BlockedUsers;
+import fambox.pro.privatechat.network.model.ChatMessage;
+import fambox.pro.privatechat.network.model.Notification;
+import fambox.pro.privatechat.network.model.Room;
+import fambox.pro.privatechat.network.model.User;
+import io.reactivex.Single;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIService {
 
@@ -101,6 +146,10 @@ public interface APIService {
     @POST(API_LOGOUT)
     Single<Response<Message>> logout(@Path(COUNTRY_PATH) String countryCode,
                                      @Path(LOCALE_PHAT) String language);
+
+    @DELETE(API_DELETE_ACCOUNT)
+    Single<Response<Message>> deleteAccount(@Path(COUNTRY_PATH) String countryCode,
+                                            @Path(LOCALE_PHAT) String language);
 
     @POST(API_REFRESH_TOKEN)
     Call<RefreshTokenResponse> refreshToken(@Path(COUNTRY_PATH) String countryCode,
@@ -150,6 +199,11 @@ public interface APIService {
     @GET(API_GET_LANGUAGES_BY_COUNTRY)
     Single<Response<List<CountriesLanguagesResponseBody>>> getLanguages(@Path(COUNTRY_PATH) String countryCode,
                                                                         @Path(LOCALE_PHAT) String locale);
+
+    /*-----------------------------Change language-----------------------------------*/
+    @GET(API_CHANGE_LANGUAGE)
+    Single<Response<ResponseBody>> changeLanguage(@Path(COUNTRY_PATH) String countryCode,
+                                                  @Path(LOCALE_PHAT) String locale);
 
     /*-----------------------------Profile-----------------------------------*/
     @GET(API_PROFILE)
@@ -224,7 +278,8 @@ public interface APIService {
     @GET(API_TERMS_AND_CONDITIONS)
     Single<Response<ContentResponse>> getContent(@Path(COUNTRY_PATH) String countryCode,
                                                  @Path(LOCALE_PHAT) String language,
-                                                 @Path("title") String title);
+                                                 @Path("title") String title,
+                                                 @Path("age") String age);
 
     /*-----------------------------NGO-----------------------------------*/
     @GET(API_NGO)
@@ -323,13 +378,6 @@ public interface APIService {
                                                                  @Path(LOCALE_PHAT) String locale,
                                                                  @Path("service_id") long id);
 
-    /*-----------------------------Edit emergency service by service id-----------------------------------*/
-    @GET(API_EDIT_EMERGENCY_SERVICE)
-    Single<Response<ServicesResponseBody>> editServiceByServiceId(@Path(COUNTRY_PATH) String countryCode,
-                                                                  @Path(LOCALE_PHAT) String locale,
-                                                                  @Path("service_id") long currentServiceId,
-                                                                  @Body HashMap<String, Integer> newServiceId);
-
     /*-----------------------------GET categories-----------------------------------*/
     @GET(API_GET_CATEGORY_TYPES)
     Single<Response<ResponseBody>> getCategoryTypes(@Path(COUNTRY_PATH) String countryCode,
@@ -353,9 +401,170 @@ public interface APIService {
                                                      @Path(LOCALE_PHAT) String language,
                                                      @Body Object consultantRequest);
 
+    /*-----------------------------DELETE consultant request----------------------------------*/
+    @DELETE(API_CONSULTANT_REQUEST)
+    Single<Response<ResponseBody>> cancelConsultantRequest(@Path(COUNTRY_PATH) String countryCode,
+                                                           @Path(LOCALE_PHAT) String language);
+
+    /*-----------------------------PUT consultant request----------------------------------*/
+    @PUT(API_CONSULTANT_REQUEST)
+    Single<Response<ResponseBody>> deactivateConsultantRequest(@Path(COUNTRY_PATH) String countryCode,
+                                                               @Path(LOCALE_PHAT) String language);
+
     /*-----------------------------GET consultant categories----------------------------------*/
     @GET(GET_CONSULTANT_CATEGORIES)
     Single<Response<HashMap<Integer, String>>> getConsultantCategories(@Path(COUNTRY_PATH) String countryCode,
                                                                        @Path(LOCALE_PHAT) String language);
+
+    /*-----------------------NEW INTEGRATIONS----------------------------*/
+
+    /*-----------------------------Private Message list-----------------------------------*/
+    @GET(GET_PRIVATE_MESSAGES)
+    Call<BasePrivateMessageModel<List<PrivateMessageUserListResponse>>> getPrivateMessageUserList();
+
+    /*-----------------------------Private Message list-----------------------------------*/
+    @GET(GET_UNREAD_MESSAGES)
+    Call<PrivateMessageUnreadListResponse> getUnreadMessageList(@Path("room_key") String roomKey);
+
+    /*-----------------------------Jon room-----------------------------------*/
+    // PRIVATE_CHAT_5_15
+    @GET(GET_JOIN_ROOM)
+    Call<BaseModel<Room>> joinRoom(@Path("room_key") String roomKey);
+
+    /*-----------------------------Create room-----------------------------------*/
+    @Multipart
+    @POST(POST_CREATE_ROOM)
+    Call<BaseModel<Room>> createRoom(@PartMap Map<String, RequestBody> body);
+
+    /*-----------------------------Leave room-----------------------------------*/
+    @GET(GET_LEAVE_ROOM)
+    Call<BaseModel<Room>> leaveRoom(@Path("room_key") String roomKey);
+
+    /*-----------------------------Room members list-----------------------------------*/
+    @GET(GET_ROOM_MEMBERS)
+    Call<BaseModel<List<User>>> getRoomMembers(@Path("room_key") String roomKey);
+
+    /*-----------------------------Get messages-----------------------------------*/
+    @GET(GET_MESSAGES)
+    Call<BaseModel<List<ChatMessage>>> getMessages(
+            @Path("room_key") String roomKey,
+            @Query("limit") int limit,
+            @Query("skip") int skip
+    );
+
+    /*-----------------------------Send Message-----------------------------------*/
+    @Multipart
+    @POST(POST_SEND_MESSAGES)
+    Call<BaseModel<ChatMessage>> sendMessage(
+            @Path("room_key") String roomKey,
+            @Part List<MultipartBody.Part> files,
+            @PartMap Map<String, RequestBody> body
+    );
+
+    /*-----------------------------Edit Message-----------------------------------*/
+    @Multipart
+    @POST(EDIT_MESSAGE)
+    Call<BaseModel<ChatMessage>> editMessage(
+            @Path("room_key") String roomKey,
+            @Path("message_id") long messageId,
+            @Part List<MultipartBody.Part> files,
+            @PartMap Map<String, RequestBody> body
+    );
+
+    @GET(GET_MESSAGES_FROM_NOTIFICATION)
+    Call<BaseModel<List<ChatMessage>>> getReplyFromNotification(
+            @Path("room_key") String roomKey,
+            @Path("message_id") long messageId);
+
+    /*-----------------------------Delete Message-----------------------------------*/
+    @POST(DELETE_MESSAGE)
+    Call<ResponseBody> deleteMessage(@Path("room_key") String roomKey,
+                                     @Path("message_id") long messageId);
+
+    /*-----------------------------Get forum filter categories----------------------*/
+    @GET(GET_FORUM_FILTER_CATEGORIES)
+    Single<Response<TreeMap<String, String>>> getForumFilterCategories(
+            @Path(COUNTRY_PATH) String countryCode,
+            @Path(LOCALE_PHAT) String language
+    );
+
+    /*-----------------------------Get all forums-----------------------------------*/
+    @GET(GET_ALL_FORUMS)
+    Single<Response<ForumBase>> getAllForums(
+            @Path(COUNTRY_PATH) String countryCode,
+            @Path(LOCALE_PHAT) String language,
+            @Query("page") int page,
+            @Query("_lang") String languageFilter,
+            @Query("_cat") String categoryFilter,
+            @Query("sorts") String categorySort
+    );
+
+    /*-----------------------------Get forum by id-----------------------------------*/
+    @GET(GET_FORUM_BY_ID)
+    Single<Response<ForumResponseBody>> getForumById(
+            @Path(COUNTRY_PATH) String countryCode,
+            @Path(LOCALE_PHAT) String language,
+            @Path("forum_id") long forumId,
+            @Query("device_type") String deviceType
+    );
+
+    /*-----------------------------Get forum comments-----------------------------------*/
+    @GET(GET_FORUM_COMMENTS)
+    Call<BaseModel<List<ChatMessage>>> getForumComments(
+            @Path("room_key") String roomKey,
+            @Query("limit") int limit,
+            @Query("skip") int skip
+    );
+
+    @GET(GET_NOTIFICATIONS)
+    Call<BaseModel<List<Notification>>> getNotifications();
+
+    @GET(GET_BLOCKED_USERS)
+    Call<BlockedUsers> getBlockedUsers();
+
+    /*-----------------------------Get report categories----------------------*/
+    @GET(GET_REPORT_CATEGORIES)
+    Single<Response<HashMap<String, String>>> getReportCategories(
+            @Path(COUNTRY_PATH) String countryCode,
+            @Path(LOCALE_PHAT) String language
+    );
+
+    /*-----------------------------report----------------------*/
+    @POST(POST_REPORT)
+    Single<Response<HashMap<String, String>>> postReport(
+            @Path(COUNTRY_PATH) String countryCode,
+            @Path(LOCALE_PHAT) String language,
+            @Body ReportPostBody reportPostBody);
+
+    /*-----------------------------report----------------------*/
+    @POST(POST_BLOCK_USER)
+    Call<BlockUserResponse> postBlockUser(
+            @Body BlockUserPostBody blockUserPostBody);
+
+    /*-----------------------------report----------------------*/
+    @POST(POST_UNBLOCK_USER)
+    Call<BlockUserResponse> postUnBlockUser(
+            @Body BlockUserPostBody blockUserPostBody);
+
+    /*-----------------------------forum rate----------------------*/
+    @POST(POST_FORUM_RATE)
+    Single<Response<HashMap<String, String>>> postForumRate(
+            @Path(COUNTRY_PATH) String countryCode,
+            @Path(LOCALE_PHAT) String language,
+            @Body RateForumBody rateBody);
+
+    /*-----------------------------NGO rate----------------------*/
+    @POST(POST_NGO_RATE)
+    Single<Response<HashMap<String, String>>> postNGORate(
+            @Path(COUNTRY_PATH) String countryCode,
+            @Path(LOCALE_PHAT) String language,
+            @Body RateServiceBody rateBody);
+
+    /*-----------------------------Get report categories----------------------*/
+    @GET(GET_CHECK_POLICE)
+    Single<Response<CheckPoliceResponseBody>> getPolice(
+            @Path(COUNTRY_PATH) String countryCode,
+            @Path(LOCALE_PHAT) String language
+    );
 }
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,12 +13,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.hbb20.CountryCodePicker;
 
-import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fambox.pro.BaseActivity;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.enums.Types;
 import fambox.pro.presenter.ForgotChangePassPresenter;
@@ -45,6 +43,7 @@ public class ForgotChangePassActivity extends BaseActivity implements ForgotChan
     Button btnRequestNewPass;
     @BindView(R.id.countryPicker)
     CountryCodePicker countryPicker;
+    private String countryCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,18 @@ public class ForgotChangePassActivity extends BaseActivity implements ForgotChan
         mForgotChangePassPresenter.viewIsReady();
         mForgotChangePassPresenter.initBundle(getIntent().getExtras());
         countryPicker.setCcpClickable(false);
-        countryPicker.setCountryForNameCode(Objects.equals(getCountryCode(), "geo") ? "GE" : "AM");
+        switch (getCountryCode()) {
+            case "geo":
+                countryCode = "GE";
+                break;
+            case "arm":
+                countryCode = "AM";
+                break;
+            case "irq":
+                countryCode = "IQ";
+                break;
+        }
+        countryPicker.setCountryForNameCode(countryCode);
         countryPicker.showArrow(false);
     }
 
@@ -100,11 +110,11 @@ public class ForgotChangePassActivity extends BaseActivity implements ForgotChan
     @OnClick(R.id.btnRequestNewPass)
     void requestNewPass() {
         if (textInputLayoutPassword.getVisibility() == View.VISIBLE) {
-            mForgotChangePassPresenter.changePasswordWithForgot(getCountryCode(), getLocale(), getPhoneNumber(), edtPassword.getText());
+            mForgotChangePassPresenter.changePasswordWithForgot(getCountryCode(), LocaleHelper.getLanguage(getContext()), getPhoneNumber(), edtPassword.getText());
         } else if (isPhone) {
-            mForgotChangePassPresenter.editPhoneNumber(getCountryCode(), getLocale(), getPhoneNumber());
+            mForgotChangePassPresenter.editPhoneNumber(getCountryCode(), LocaleHelper.getLanguage(getContext()), getPhoneNumber());
         } else {
-            mForgotChangePassPresenter.onClickNewPass(getCountryCode(), getLocale(), getPhoneNumber());
+            mForgotChangePassPresenter.onClickNewPass(getCountryCode(), LocaleHelper.getLanguage(getContext()), getPhoneNumber());
         }
     }
 
@@ -121,7 +131,7 @@ public class ForgotChangePassActivity extends BaseActivity implements ForgotChan
 
     @Override
     public void configView(String title, String createNewPassword, String confirmNewPassword) {
-        btnRequestNewPass.setText(getResources().getString(R.string.update_new_password));
+        btnRequestNewPass.setText(getResources().getString(R.string.update_password_title));
         textInputLayoutPassword.setVisibility(View.VISIBLE);
         countryPicker.setVisibility(View.GONE);
         txtForgetPass.setText(title);

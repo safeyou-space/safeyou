@@ -24,8 +24,6 @@ public interface VerificationContract {
 
         void setUpEditTextOTP();
 
-        void goDualPin();
-
         void goMainActivity();
 
         void goLoginPage();
@@ -75,10 +73,10 @@ public interface VerificationContract {
                                        NetworkCallback<Response<Message>> response);
 
         void resendVerificationCode(Context context,
-                                       String countryCode,
-                                       String locale,
-                                       VerifyPhoneResendBody verifyPhoneResendBody,
-                                       NetworkCallback<Response<Message>> response);
+                                    String countryCode,
+                                    String locale,
+                                    VerifyPhoneResendBody verifyPhoneResendBody,
+                                    NetworkCallback<Response<Message>> response);
 
         void verificationForgotRequest(Context context,
                                        String countryCode,

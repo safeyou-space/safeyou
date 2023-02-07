@@ -1,5 +1,7 @@
 package fambox.pro.view.fragment;
 
+import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -27,23 +30,26 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
+import fambox.pro.LocaleHelper;
 import fambox.pro.R;
+import fambox.pro.SafeYouApp;
 import fambox.pro.network.model.EmergencyContactsResponse;
 import fambox.pro.network.model.ServicesResponseBody;
 import fambox.pro.presenter.fragment.FragmentProfilePresenter;
+import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.SnackBar;
-import fambox.pro.view.MainActivity;
-import fambox.pro.view.TermsAndConditionsActivity;
+import fambox.pro.view.WebViewActivity;
 import fambox.pro.view.adapter.EmergencyContactAdapter;
 import fambox.pro.view.adapter.EmergencyServiceAdapter;
+import fambox.pro.view.dialog.EnablePoliceDialog;
 
 public class FragmentProfile extends BaseFragment implements FragmentProfileContract.View {
 
     private FragmentProfilePresenter mFragmentProfilePresenter;
     private FragmentActivity mContext;
-    private EmergencyContactAdapter mEmergencyContactAdapter;
-    private EmergencyServiceAdapter mEmergencyServiceAdapter;
     private ChangeMainPageListener mChangeMainPageListener;
+    private String countryCode = "arm";
+    private String language = "en";
 
     @BindView(R.id.txtPolice)
     TextView txtPolice;
@@ -59,7 +65,7 @@ public class FragmentProfile extends BaseFragment implements FragmentProfileCont
     LinearLayout profileLoading;
 
     @Override
-    protected View provideYourFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View fragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
@@ -71,8 +77,11 @@ public class FragmentProfile extends BaseFragment implements FragmentProfileCont
         mFragmentProfilePresenter.viewIsReady();
         if (getActivity() != null) {
             mContext = getActivity();
+            countryCode = SafeYouApp.getPreference(mContext)
+                    .getStringValue(KEY_COUNTRY_CODE, "arm");
         }
-        if (Objects.equals(((MainActivity) mContext).getCountryCode(), "geo")) {
+        language = LocaleHelper.getLanguage(getContext());
+        if (Objects.equals(countryCode, "geo")) {
             txtPolice.setText(getResources().getString(R.string.this_is_inform_the_police));
         }
     }
@@ -80,8 +89,7 @@ public class FragmentProfile extends BaseFragment implements FragmentProfileCont
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mFragmentProfilePresenter.getContactInPhone(((MainActivity) mContext).getCountryCode(),
-                ((MainActivity) mContext).getLocale(),
+        mFragmentProfilePresenter.getContactInPhone(countryCode, LocaleHelper.getLanguage(getContext()),
                 requestCode, resultCode, data);
     }
 
@@ -96,8 +104,7 @@ public class FragmentProfile extends BaseFragment implements FragmentProfileCont
     @Override
     public void onResume() {
         super.onResume();
-        mFragmentProfilePresenter.getProfile(((MainActivity) mContext).getCountryCode(),
-                ((MainActivity) mContext).getLocale());
+        mFragmentProfilePresenter.getProfile(countryCode, language);
     }
 
     @Override
@@ -117,27 +124,67 @@ public class FragmentProfile extends BaseFragment implements FragmentProfileCont
     }
 
     @OnCheckedChanged(R.id.policeSwitch)
-    void onGenderSelected(boolean checked) {
-        mFragmentProfilePresenter.editProfile(((MainActivity) mContext).getCountryCode(),
-                ((MainActivity) mContext).getLocale(),
-                "check_police", checked ? 1 : 0);
+    void onGenderSelected(CompoundButton buttonView, boolean checked) {
+        if (buttonView.isPressed()) {
+            if (!Connectivity.isConnected(mContext)) {
+                buttonView.setChecked(!checked);
+                showErrorMessage(getResources().getString(R.string.check_internet_connection_text_key));
+                return;
+            }
+        }
+
+        boolean checkedFromUser = buttonView.isPressed() && checked;
+        if (Objects.equals(SafeYouApp.getPreference(mContext)
+                .getStringValue(KEY_COUNTRY_CODE, ""), "geo")) {
+            mFragmentProfilePresenter.editProfile(countryCode,
+                    LocaleHelper.getLanguage(getContext()),
+                    "check_police", checked ? 1 : 0);
+            return;
+        }
+
+        mFragmentProfilePresenter.getPolice(buttonView, checked, checkedFromUser);
+        if (buttonView.isPressed() && !checked) {
+            mFragmentProfilePresenter.editProfile(countryCode,
+                    LocaleHelper.getLanguage(getContext()),
+                    "check_police", 0);
+        }
     }
 
-//    @OnClick(R.id.containerAboutUs)
-//    void onClickAboutUs() {
-//        mFragmentProfilePresenter.clickTermAndCondition();
-//    }
+    @Override
+    public void configCheckPoliceSwitch(CompoundButton buttonView, boolean checked,
+                                        boolean checkedFromUser, String title, String description) {
+        if (checkedFromUser) {
+            EnablePoliceDialog enablePoliceDialog = new EnablePoliceDialog(mContext, title, description);
+            enablePoliceDialog.setDialogClickListener((dialog, which) -> {
+                switch (which) {
+                    case EnablePoliceDialog.ENABLE:
+                        mFragmentProfilePresenter.editProfile(countryCode,
+                                LocaleHelper.getLanguage(getContext()),
+                                "check_police", 1);
+                        dialog.dismiss();
+                        break;
+                    case EnablePoliceDialog.DISABLE:
+                        mFragmentProfilePresenter.editProfile(countryCode,
+                                LocaleHelper.getLanguage(getContext()),
+                                "check_police", 0);
+                        policeSwitch.setChecked(false);
+                        dialog.dismiss();
+                        break;
+                }
+            });
+            enablePoliceDialog.show();
+        }
+    }
 
     @Override
     public void setUpEmergencyRecView(List<EmergencyContactsResponse> list) {
-        mEmergencyContactAdapter = new EmergencyContactAdapter(mContext);
+        EmergencyContactAdapter mEmergencyContactAdapter = new EmergencyContactAdapter(mContext);
         for (int i = 0; i < list.size(); i++)
             if (list.size() <= 3)
                 mEmergencyContactAdapter.addItem(list.get(i), i);
 
         mEmergencyContactAdapter.setEmergencyContactEditClick((emergencyContactsResponse, position)
-                -> mFragmentProfilePresenter.deleteEmergency(((MainActivity) mContext).getCountryCode(),
-                ((MainActivity) mContext).getLocale(),
+                -> mFragmentProfilePresenter.deleteEmergency(countryCode, LocaleHelper.getLanguage(getContext()),
                 emergencyContactsResponse.getId()));
 
         mEmergencyContactAdapter.setEmergencyContactItemClick((emergencyContactsResponse, position) ->
@@ -163,28 +210,22 @@ public class FragmentProfile extends BaseFragment implements FragmentProfileCont
 
     @Override
     public void setUpServiceRecView(List<ServicesResponseBody> list) {
-        mEmergencyServiceAdapter = new EmergencyServiceAdapter(mContext);
+        EmergencyServiceAdapter mEmergencyServiceAdapter = new EmergencyServiceAdapter(mContext);
         for (int i = 0; i < list.size(); i++)
             if (list.size() <= 3)
                 mEmergencyServiceAdapter.addItem(list.get(i), i);
         mEmergencyServiceAdapter.setEmergencyServiceEditClick((emergencyContactsResponse, position)
-                -> mFragmentProfilePresenter.deleteEmergencyService(((MainActivity) mContext).getCountryCode(),
-                ((MainActivity) mContext).getLocale(), emergencyContactsResponse));
+                -> mFragmentProfilePresenter.deleteEmergencyService(countryCode, LocaleHelper.getLanguage(getContext()), emergencyContactsResponse));
 
         mEmergencyServiceAdapter.setEmergencyServiceItemClick((emergencyContactsResponse, position) -> {
             if (mChangeMainPageListener != null) {
-                mChangeMainPageListener.onPageChange(3, emergencyContactsResponse.getUser_emergency_service_id(), true);
+                mChangeMainPageListener.onPageChange(1, emergencyContactsResponse.getUser_emergency_service_id(), true);
             }
         });
         LinearLayoutManager verticalLayoutManager =
                 new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
         recViewEmergencyServices.setLayoutManager(verticalLayoutManager);
         recViewEmergencyServices.setAdapter(mEmergencyServiceAdapter);
-    }
-
-    @Override
-    public void goTermAndCondition(Bundle bundle) {
-        nextActivity(mContext, TermsAndConditionsActivity.class, bundle);
     }
 
     @Override

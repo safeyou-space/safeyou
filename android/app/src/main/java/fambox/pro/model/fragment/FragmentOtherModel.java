@@ -17,7 +17,7 @@ import retrofit2.Response;
 
 public class FragmentOtherModel implements FragmentOtherContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void getProfile(Context context, String countryCode, String locale, NetworkCallback<Response<ProfileResponse>> response) {
@@ -63,6 +63,25 @@ public class FragmentOtherModel implements FragmentOtherContract.Model {
     public void logout(Context context, String countryCode, String locale,
                        NetworkCallback<Response<Message>> response) {
         mCompositeDisposable.add(SafeYouApp.getApiService(context).logout(countryCode, locale)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Response<Message>>() {
+                    @Override
+                    public void onSuccess(Response<Message> listResponse) {
+                        response.onSuccess(listResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        response.onError(e);
+                    }
+                }));
+    }
+
+    @Override
+    public void deleteAccount(Context context, String countryCode, String locale,
+                              NetworkCallback<Response<Message>> response) {
+        mCompositeDisposable.add(SafeYouApp.getApiService(context).deleteAccount(countryCode, locale)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Response<Message>>() {

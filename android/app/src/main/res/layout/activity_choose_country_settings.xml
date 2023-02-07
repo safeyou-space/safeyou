@@ -18,12 +18,14 @@
         android:id="@+id/containerNext"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_40sdp"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_18sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:background="@drawable/button_border_fill"
+        android:backgroundTint="@color/new_main_icon_tint_color"
         android:gravity="center">
 
         <TextView
@@ -33,7 +35,7 @@
             android:fontFamily="@font/hay_roboto_normal"
             android:gravity="center"
             android:maxLines="1"
-            android:text="@string/save"
+            android:text="@string/save_key"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp" />

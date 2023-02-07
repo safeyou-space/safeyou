@@ -17,26 +17,27 @@ import fambox.pro.view.adapter.holder.EmergencyContactHolder;
 
 public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyContactHolder> {
 
+    private final List<EmergencyContactsResponse> mEmergencyContactsResponses;
+    private final Context mContext;
+    private final EmergencyContactsResponse emergencyContactsResponse0;
+
     private EmergencyContactItemClick mEmergencyContactItemClick;
     private EmergencyContactItemClick mEmergencyContactEditClick;
-    private List<EmergencyContactsResponse> mEmergencyContactsResponses;
-    private Context mContext;
-    private EmergencyContactsResponse emergencyContactsResponse0;
-//    EmergencyContactsResponse emergencyContactsResponse1;
-//    EmergencyContactsResponse emergencyContactsResponse2;
+    EmergencyContactsResponse emergencyContactsResponse1;
+    EmergencyContactsResponse emergencyContactsResponse2;
 
     public EmergencyContactAdapter(Context context) {
         this.mContext = context;
         this.mEmergencyContactsResponses = new ArrayList<>();
         emergencyContactsResponse0 = new EmergencyContactsResponse();
-//        emergencyContactsResponse1 = new EmergencyContactsResponse();
-//        emergencyContactsResponse2 = new EmergencyContactsResponse();
+        emergencyContactsResponse1 = new EmergencyContactsResponse();
+        emergencyContactsResponse2 = new EmergencyContactsResponse();
         emergencyContactsResponse0.setName(context.getResources().getString(R.string.name_lastname));
-//        emergencyContactsResponse1.setName(context.getResources().getString(R.string.name_lastname));
-//        emergencyContactsResponse2.setName(context.getResources().getString(R.string.name_lastname));
+        emergencyContactsResponse1.setName(context.getResources().getString(R.string.name_lastname));
+        emergencyContactsResponse2.setName(context.getResources().getString(R.string.name_lastname));
         this.mEmergencyContactsResponses.add(emergencyContactsResponse0);
-//        this.mEmergencyContactsResponses.add(emergencyContactsResponse1);
-//        this.mEmergencyContactsResponses.add(emergencyContactsResponse2);
+        this.mEmergencyContactsResponses.add(emergencyContactsResponse1);
+        this.mEmergencyContactsResponses.add(emergencyContactsResponse2);
     }
 
     @NonNull
@@ -49,7 +50,7 @@ public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyConta
 
     @Override
     public void onBindViewHolder(@NonNull EmergencyContactHolder holder, int position) {
-        holder.getTxtContactTitle().setText(mContext.getResources().getString(R.string.emergency_contact,
+        holder.getTxtContactTitle().setText(mContext.getResources().getString(R.string.emergency_contact_title_key,
                 position + 1));
         holder.getTxtContactName().setText(mEmergencyContactsResponses.get(position).getName());
         if (mEmergencyContactsResponses.get(position).getId() != 0) {
@@ -82,18 +83,6 @@ public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyConta
             mEmergencyContactsResponses.set(position, item);
             if (mEmergencyContactsResponses.size() != 3) {
                 this.mEmergencyContactsResponses.add(emergencyContactsResponse0);
-            }
-            notifyDataSetChanged();
-        }
-    }
-
-    public void removeItem(Context context, EmergencyContactsResponse item, int position) {
-        if (mEmergencyContactsResponses != null) {
-            if (mEmergencyContactsResponses.remove(item)) {
-                EmergencyContactsResponse emergencyContactsResponse = new EmergencyContactsResponse();
-                String text = context.getResources().getString(R.string.emergency_contact, position + 1);
-                emergencyContactsResponse.setName(text);
-                mEmergencyContactsResponses.set(position, emergencyContactsResponse);
             }
             notifyDataSetChanged();
         }

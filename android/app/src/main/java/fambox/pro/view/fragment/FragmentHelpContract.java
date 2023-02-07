@@ -9,6 +9,7 @@ import fambox.pro.enums.Types;
 import fambox.pro.model.BaseModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.Message;
+import fambox.pro.network.model.ProfileResponse;
 import fambox.pro.presenter.basepresenter.MvpPresenter;
 import fambox.pro.presenter.basepresenter.MvpView;
 import okhttp3.ResponseBody;
@@ -34,8 +35,6 @@ public interface FragmentHelpContract {
 
         void setContainerCancelSend(int visibility);
 
-        void setAppBarTextChange();
-
         void startRecord();
 
         void stopRecord();
@@ -45,6 +44,9 @@ public interface FragmentHelpContract {
         void setUpPushButton();
 
         void setInfoDialogData(String text);
+
+        void setUpEmergencyButtons(boolean emergencyContacts, boolean emergencyServices,
+                                   boolean police, boolean records);
     }
 
     interface Presenter extends MvpPresenter<FragmentHelpContract.View> {
@@ -63,7 +65,7 @@ public interface FragmentHelpContract {
 
         void getAllServices(String countryCode, String locale);
 
-        void configSentCancelButtons();
+        void getProfile(String countryCode, String locale);
     }
 
     interface Model extends BaseModel {
@@ -73,5 +75,8 @@ public interface FragmentHelpContract {
 
         void getAllServicesName(Context context, String countryCode, String locale,
                                 NetworkCallback<Response<ResponseBody>> response);
+
+        void getProfile(Context context, String countryCode, String locale,
+                       NetworkCallback<Response<ProfileResponse>> response);
     }
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import fambox.pro.SafeYouApp;
 import fambox.pro.network.NetworkCallback;
+import fambox.pro.network.model.CheckPoliceResponseBody;
 import fambox.pro.network.model.EmergencyContactBody;
 import fambox.pro.network.model.Message;
 import fambox.pro.network.model.ProfileResponse;
@@ -18,7 +19,7 @@ import retrofit2.Response;
 
 public class FragmentProfileModel implements FragmentProfileContract.Model {
 
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     public void getProfile(Context context, String countryCode, String locale, NetworkCallback<Response<ProfileResponse>> response) {
@@ -111,6 +112,24 @@ public class FragmentProfileModel implements FragmentProfileContract.Model {
                 .subscribeWith(new DisposableSingleObserver<Response<Message>>() {
                     @Override
                     public void onSuccess(Response<Message> listResponse) {
+                        response.onSuccess(listResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        response.onError(e);
+                    }
+                }));
+    }
+
+    @Override
+    public void getCheckPolice(Context context, String countryCode, String locale, NetworkCallback<Response<CheckPoliceResponseBody>> response) {
+        mCompositeDisposable.add(SafeYouApp.getApiService(context).getPolice(countryCode, locale)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Response<CheckPoliceResponseBody>>() {
+                    @Override
+                    public void onSuccess(Response<CheckPoliceResponseBody> listResponse) {
                         response.onSuccess(listResponse);
                     }
 
