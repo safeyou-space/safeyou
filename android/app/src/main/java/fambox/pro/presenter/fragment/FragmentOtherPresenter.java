@@ -5,8 +5,6 @@ import static fambox.pro.Constants.Key.KEY_IS_ABOUT_US;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-
 import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +23,8 @@ import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.view.fragment.FragmentOtherContract;
+import me.pushy.sdk.Pushy;
+import me.pushy.sdk.util.exceptions.PushyException;
 import retrofit2.Response;
 
 public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.View>
@@ -213,42 +213,48 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
         getView().showProgress();
         SafeYouApp.getPreference(getView().getContext())
                 .setValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, checked);
-
-        // getting FCM device token
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                    if (getView() == null) {
+        new Thread(() -> {
+            try {
+                String deviceToken = Pushy.register(getView().getContext());
+                if (getView() == null) {
+                    return;
+                }
+                if (checked) {
+                    if (deviceToken.isEmpty()) {
+                        Log.w("Device_token", "getInstanceId failed");
+                        if (getView() != null) {
+                            getView().dismissProgress();
+                        }
                         return;
                     }
-                    if (checked) {
-                        if (!task.isSuccessful()) {
-                            Log.w("Device_token", "getInstanceId failed", task.getException());
-                            if (getView() != null) {
-                                getView().dismissProgress();
+                }
+
+                deviceToken = checked ? deviceToken : "";
+
+                mFragmentOtherModel.editProfile(getView().getAppContext(), countryCode, locale,
+                        "device_token", deviceToken, new NetworkCallback<Response<Message>>() {
+                            @Override
+                            public void onSuccess(Response<Message> response) {
+                                if (getView() != null) {
+                                    getView().dismissProgress();
+                                }
                             }
-                            return;
-                        }
-                    }
 
-                    String deviceToken = checked ? Objects.requireNonNull(task.getResult()) : "";
-
-                    mFragmentOtherModel.editProfile(getView().getAppContext(), countryCode, locale,
-                            "device_token", deviceToken, new NetworkCallback<Response<Message>>() {
-                                @Override
-                                public void onSuccess(Response<Message> response) {
-                                    if (getView() != null) {
-                                        getView().dismissProgress();
-                                    }
+                            @Override
+                            public void onError(Throwable error) {
+                                if (getView() != null) {
+                                    getView().dismissProgress();
                                 }
+                            }
+                        });
+            } catch (PushyException e) {
+                Log.w("Device_token", "getInstanceId failed", e);
+                if (getView() != null) {
+                    getView().dismissProgress();
+                }
+            }
+        }).start();
 
-                                @Override
-                                public void onError(Throwable error) {
-                                    if (getView() != null) {
-                                        getView().dismissProgress();
-                                    }
-                                }
-                            });
-                });
     }
 
     @Override

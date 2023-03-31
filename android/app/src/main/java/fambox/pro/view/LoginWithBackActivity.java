@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.FirebaseApp;
 import com.hbb20.CountryCodePicker;
 
 import java.util.Objects;
@@ -95,7 +94,6 @@ public class LoginWithBackActivity extends BaseActivity implements LoginWithBack
 
     @OnClick(R.id.btnLoginWithBAck)
     void loginWithBAck() {
-        FirebaseApp.initializeApp(getApplicationContext());
         mLoginWithBackPresenter.loginRequest(getCountryCode(), getLocale(), getPhoneNumber(), edtPassword.getText());
     }
 

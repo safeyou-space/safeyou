@@ -1,21 +1,16 @@
 package fambox.pro.view.fragment;
 
-import static fambox.pro.Constants.ANDROID_PACKAGE_NAME;
-import static fambox.pro.Constants.DOMAIN_URL;
-import static fambox.pro.Constants.IOS_APP_STORE_ID;
-import static fambox.pro.Constants.IOS_PACKAGE_NAME;
 import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
 import static fambox.pro.Constants.Key.KEY_IS_DARK_MODE_ENABLED;
-import static fambox.pro.Constants.SAFE_YOU_URL_STRING_FORMAT;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +29,6 @@ import androidx.webkit.WebSettingsCompat;
 import androidx.webkit.WebViewFeature;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.dynamiclinks.DynamicLink;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -49,6 +42,8 @@ import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.utils.LollipopFixedWebView;
 import fambox.pro.utils.Utils;
+import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.util.LinkProperties;
 
 public class FragmentForumDetail extends BaseFragment {
 
@@ -168,34 +163,32 @@ public class FragmentForumDetail extends BaseFragment {
                 try {
                     progressView.setVisibility(View.VISIBLE);
 
-                    FirebaseDynamicLinks.getInstance().createDynamicLink()
-                            .setLink(Uri.parse(String.format(Locale.getDefault(), SAFE_YOU_URL_STRING_FORMAT, forumId)))
-                            .setDomainUriPrefix(DOMAIN_URL)
-                            .setAndroidParameters(
-                                    new DynamicLink.AndroidParameters.Builder(ANDROID_PACKAGE_NAME)
-                                            .build())
-                            .setIosParameters(
-                                    new DynamicLink.IosParameters.Builder(IOS_PACKAGE_NAME)
-                                            .setAppStoreId(IOS_APP_STORE_ID)
-                                            .build())
-                            .setSocialMetaTagParameters(
-                                    new DynamicLink.SocialMetaTagParameters.Builder()
-                                            .setTitle(mContext.getString(R.string.access_safe_you_forum))
-                                            .build())
-                            .buildShortDynamicLink().addOnCompleteListener(task -> {
-                                progressView.setVisibility(View.GONE);
-                                if (!task.isSuccessful() || task.getResult().getShortLink() == null) {
-                                    return;
-                                }
-                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                                shareIntent.setType("text/plain");
-                                String shareMessage= "";
-                                shareMessage = task.getResult().getShortLink().toString();
-                                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                                startActivity(Intent.createChooser(shareIntent, mContext.getString(R.string.share)));
-                            });
+                    BranchUniversalObject buo = new BranchUniversalObject()
+                            .setCanonicalIdentifier(String.valueOf(forumId))
+                            .setTitle(getContext().getString(R.string.access_safe_you_forum))
+                            .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC);
 
-                } catch(Exception e) {
+                    LinkProperties lp = new LinkProperties()
+                            .setChannel("social")
+                            .setFeature("sharing");
+
+                    buo.generateShortUrl(getContext(), lp, (url, error) -> {
+                        if (error == null) {
+                            // Handle the generated short URL
+                            Log.d("BRANCHIO", "Generated URL: " + url);
+                            progressView.setVisibility(View.GONE);
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            shareIntent.setType("text/plain");
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, url);
+                            startActivity(Intent.createChooser(shareIntent, mContext.getString(R.string.share)));
+                        } else {
+                            // Handle the error
+                            Log.e("BRANCHIO", "Error generating URL: " + error.getMessage());
+                            progressView.setVisibility(View.GONE);
+                        }
+                    });
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
@@ -203,7 +196,7 @@ public class FragmentForumDetail extends BaseFragment {
             int nightModeFlags =
                     getContext().getResources().getConfiguration().uiMode &
                             Configuration.UI_MODE_NIGHT_MASK;
-            if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
                 WebSettingsCompat.setForceDark(webViewForumDescription.getSettings(),
                         (isDarkModeEnabled || nightModeFlags == Configuration.UI_MODE_NIGHT_YES) ? WebSettingsCompat.FORCE_DARK_ON : WebSettingsCompat.FORCE_DARK_AUTO);
             }

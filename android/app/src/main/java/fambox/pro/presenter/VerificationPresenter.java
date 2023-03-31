@@ -11,10 +11,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.net.HttpURLConnection;
-import java.util.Objects;
 
 import fambox.pro.Constants;
 import fambox.pro.R;
@@ -33,6 +31,8 @@ import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.view.VerificationContract;
+import me.pushy.sdk.Pushy;
+import me.pushy.sdk.util.exceptions.PushyException;
 import retrofit2.Response;
 
 public class VerificationPresenter extends BasePresenter<VerificationContract.View>
@@ -314,50 +314,53 @@ public class VerificationPresenter extends BasePresenter<VerificationContract.Vi
     }
 
     private void login(String countryCode, String locale) {
-        LoginBody loginBody = new LoginBody();
-        loginBody.setPhone(SafeYouApp.getPreference(getView().getContext())
-                .getStringValue(Constants.Key.KEY_USER_PHONE, ""));
-        loginBody.setPassword(SafeYouApp.getPreference(getView().getContext())
-                .getStringValue(Constants.Key.KEY_PASSWORD, ""));
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.w("Device_token", "getInstanceId failed", task.getException());
-                        return;
-                    }
-                    String deviceToken = Objects.requireNonNull(task.getResult());
-                    boolean isNotificationEnabled = SafeYouApp.getPreference(getView().getContext())
-                            .getBooleanValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, true);
-                    if (isNotificationEnabled) {
-                        loginBody.setDeviceToken(deviceToken);
-                        loginBody.setDeviceType("android");
-                        SafeYouApp.getPreference(getView().getContext())
-                                .setValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, true);
-                    }
-                    mDualPinModel.loginRequest(getView().getContext(), countryCode, locale, loginBody,
-                            new NetworkCallback<Response<LoginResponse>>() {
-                                @Override
-                                public void onSuccess(Response<LoginResponse> response) {
-                                    if (response.isSuccessful()) {
-                                        if (response.code() == HttpURLConnection.HTTP_OK) {
-                                            if (response.body() != null) {
-                                                SafeYouApp.getPreference(getView().getContext())
-                                                        .setValue(KEY_BIRTHDAY, response.body().getBirthday());
-                                                getView().goMainActivity();
-                                            }
+        new Thread(() -> {
+            LoginBody loginBody = new LoginBody();
+            loginBody.setPhone(SafeYouApp.getPreference(getView().getContext())
+                    .getStringValue(Constants.Key.KEY_USER_PHONE, ""));
+            loginBody.setPassword(SafeYouApp.getPreference(getView().getContext())
+                    .getStringValue(Constants.Key.KEY_PASSWORD, ""));
+            try {
+                String deviceToken = Pushy.register(getView().getContext());
+                if (deviceToken.isEmpty()) {
+                    Log.w("Device_token", "getInstanceId failed");
+                    return;
+                }
+                boolean isNotificationEnabled = SafeYouApp.getPreference(getView().getContext())
+                        .getBooleanValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, true);
+                if (isNotificationEnabled) {
+                    loginBody.setDeviceToken(deviceToken);
+                    loginBody.setDeviceType("android");
+                    SafeYouApp.getPreference(getView().getContext())
+                            .setValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, true);
+                }
+                mDualPinModel.loginRequest(getView().getContext(), countryCode, locale, loginBody,
+                        new NetworkCallback<Response<LoginResponse>>() {
+                            @Override
+                            public void onSuccess(Response<LoginResponse> response) {
+                                if (response.isSuccessful()) {
+                                    if (response.code() == HttpURLConnection.HTTP_OK) {
+                                        if (response.body() != null) {
+                                            SafeYouApp.getPreference(getView().getContext())
+                                                    .setValue(KEY_BIRTHDAY, response.body().getBirthday());
+                                            getView().goMainActivity();
                                         }
-                                    } else {
-                                        getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
-                                        getView().goLoginPage();
                                     }
+                                } else {
+                                    getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
+                                    getView().goLoginPage();
                                 }
+                            }
 
-                                @Override
-                                public void onError(Throwable error) {
-                                    getView().showErrorMessage(error.getMessage());
-                                }
-                            });
-                });
+                            @Override
+                            public void onError(Throwable error) {
+                                getView().showErrorMessage(error.getMessage());
+                            }
+                        });
+            } catch (PushyException e) {
+                Log.w("Device_token", "getInstanceId failed", e);
+            }
+        }).start();
     }
 
     @Override

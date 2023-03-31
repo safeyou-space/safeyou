@@ -6,7 +6,6 @@ import static fambox.pro.Constants.Key.KEY_SERVICE_TYPE;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -23,7 +22,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
 import java.util.List;
 import java.util.Objects;
@@ -45,6 +43,7 @@ import fambox.pro.view.fragment.FragmentHelp;
 import fambox.pro.view.fragment.FragmentNetwork;
 import fambox.pro.view.fragment.FragmentProfile;
 import fambox.pro.view.viewpager.MainViewPager;
+import io.branch.referral.Branch;
 import pro.fambox.materialsearchview.MaterialSearchView;
 
 public class MainActivity extends BaseActivity implements MainContract.View,
@@ -156,22 +155,22 @@ public class MainActivity extends BaseActivity implements MainContract.View,
 
         // TODO: chang
         SafeYouApp.getPreference().setValue(KEY_LOG_IN_FIRST_TIME, true);
+    }
 
-        FirebaseDynamicLinks.getInstance()
-                .getDynamicLink(getIntent())
-                .addOnSuccessListener(this, pendingDynamicLinkData -> {
-                    // Get deep link from result (may be null if no link is found)
-                    Uri deepLink;
-                    if (pendingDynamicLinkData != null) {
-                        deepLink = pendingDynamicLinkData.getLink();
-                        if (deepLink != null) {
-                            Intent intent = new Intent(MainActivity.this, ForumCommentActivity.class);
-                            intent.putExtra("forum_id", Long.parseLong(deepLink.getQueryParameter("forumId")));
-                            startActivity(intent);
-                        }
-                    }
-                })
-                .addOnFailureListener(this, e -> Log.e("TAG", "getDynamicLink:onFailure", e));
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Branch.sessionBuilder(this).withCallback((branchUniversalObject, linkProperties, error) -> {
+            if (error != null) {
+                Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.getMessage());
+            } else {
+                if (branchUniversalObject != null) {
+                    Intent intent = new Intent(MainActivity.this, ForumCommentActivity.class);
+                    intent.putExtra("forum_id", Long.parseLong(branchUniversalObject.getCanonicalIdentifier()));
+                    startActivity(intent);
+                }
+            }
+        }).withData(this.getIntent().getData()).init();
     }
 
     @Override

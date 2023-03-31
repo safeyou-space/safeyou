@@ -84,7 +84,8 @@ Use the Android Studio Build Variants button to choose between **production** an
 + RxJava
 + Socket IO
 + Google MAP, Location
-+ Firebase Core, FCM
++ Pushy
++ Branch.io
 
 
 
