@@ -26,7 +26,7 @@
 #import "NSString+HTML.h"
 
 @import SocketIO;
-@import Firebase;
+@import Branch;
 
 @interface ForumDetailsViewController () <UITextViewDelegate, UINavigationControllerDelegate, WKNavigationDelegate>
 
@@ -246,35 +246,23 @@
 
 - (void)generateDynamicLink
 {
-    NSString *linkStr = [NSString stringWithFormat:@"https://safeyou.space?forumId=%@", self.forumItemData.forumItemId];
+    NSString *linkStr = [NSString stringWithFormat:@"%@", self.forumItemData.forumItemId];
     NSURL *link = [[NSURL alloc] initWithString:linkStr];
     NSString *dynamicLinksDomainURIPrefix = @"https://safeyou.page.link";
-    FIRDynamicLinkComponents *linkBuilder = [[FIRDynamicLinkComponents alloc]
-                                             initWithLink:link
-                                             domainURIPrefix:dynamicLinksDomainURIPrefix];
     
-    NSString *bundleId = NSBundle.mainBundle.bundleIdentifier;
-    if (bundleId) {
-        linkBuilder.iOSParameters = [[FIRDynamicLinkIOSParameters alloc] initWithBundleID:bundleId];
-    }
-    linkBuilder.iOSParameters.appStoreID = @"1491665304";
     
-    linkBuilder.androidParameters = [[FIRDynamicLinkAndroidParameters alloc] initWithPackageName:@"fambox.pro"];
-    
-    linkBuilder.socialMetaTagParameters = [[FIRDynamicLinkSocialMetaTagParameters alloc] init];
-    linkBuilder.socialMetaTagParameters.title = LOC(@"access_safe_you_forum");
-    
-    [linkBuilder shortenWithCompletion:^(NSURL * _Nullable shortURL,
-                                         NSArray<NSString *> * _Nullable warnings,
-                                         NSError * _Nullable error) {
-        if (error || shortURL == nil) {
-            return;
-        }
-        [self shareAction:shortURL];
-    }];
+    BranchUniversalObject *universalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:linkStr]; universalObject.title = LOC(@"access_safe_you_forum");
+    BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
+    linkProperties.feature = @"share"; linkProperties.channel = @"social";
+    [universalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) { if (!error)
+    {
+        [self shareAction: url];
+        
+    } else {
+        NSLog(@"Error creating Branch URL: %@", error.localizedDescription); }}];
 }
 
-- (void)shareAction:(NSURL *)text
+- (void)shareAction:(NSString *)text
 {
     NSArray* sharedObjects=[NSArray arrayWithObjects:text,  nil];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:sharedObjects applicationActivities:nil];

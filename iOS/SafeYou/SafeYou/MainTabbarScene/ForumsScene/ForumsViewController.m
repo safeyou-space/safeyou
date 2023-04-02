@@ -95,9 +95,9 @@
     } else if ([self mainTabbarController].isFromNotificationsView) {
         NSString *forumId = [self.mainTabbarController.selectedNotificationData.notificationMessage.messageForumId stringValue];
         [self showForumDetailsByForumId:forumId];
-    } else if ([Settings sharedInstance].dynamicLinkUrl) {
-        NSString *forumId = [self getForumIdFromDynamicLink:[Settings sharedInstance].dynamicLinkUrl];
-        [Settings sharedInstance].dynamicLinkUrl = NULL;
+    } else if ([Settings sharedInstance].forumId) {
+        NSString *forumId = [Settings sharedInstance].forumId;
+        [Settings sharedInstance].forumId = NULL;
         [self showForumDetailsByForumId:forumId];
     }
 }
@@ -109,7 +109,7 @@
 
 - (BOOL)checkNotifications
 {
-    return [Settings sharedInstance].receivedRemoteNotification || [self mainTabbarController].isFromNotificationsView || [Settings sharedInstance].dynamicLinkUrl;
+    return [Settings sharedInstance].receivedRemoteNotification || [self mainTabbarController].isFromNotificationsView || [Settings sharedInstance].forumId;
 }
 
 

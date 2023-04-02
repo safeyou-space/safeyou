@@ -103,7 +103,7 @@
         if ([self.delegate respondsToSelector:@selector(startApplicationInitially)]) {
             [self.delegate startApplicationInitially];
         }
-        if ([Settings sharedInstance].updatedFcmToken && [Settings sharedInstance].updatedFcmToken.length != 0) {
+        if ([Settings sharedInstance].updatedDeviceToken && [Settings sharedInstance].updatedDeviceToken.length != 0) {
             [self saveFcmToken];
         }
     } failure:^(NSError *error) {
@@ -123,9 +123,9 @@
 
 - (void)saveFcmToken
 {
-    [self.profileDataService updateUserDataField:@"device_token" value:[Settings sharedInstance].updatedFcmToken withComplition:^(id response) {
-        [Settings sharedInstance].savedFcmToken = [Settings sharedInstance].updatedFcmToken;
-        [Settings sharedInstance].updatedFcmToken = nil;
+    [self.profileDataService updateUserDataField:@"device_token" value:[Settings sharedInstance].updatedDeviceToken withComplition:^(id response) {
+        [Settings sharedInstance].deviceToken = [Settings sharedInstance].updatedDeviceToken;
+        [Settings sharedInstance].updatedDeviceToken = nil;
     } failure:^(NSError *error) {
         // handle Error
     }];

@@ -10,8 +10,6 @@
 #import "Constants.h"
 #import "SelectDateField.h"
 #import "UIColor+SYColors.h"
-#import <UITextView+Placeholder/UITextView+Placeholder.h>
-
 
 @interface FormTableViewCell () <UITextFieldDelegate, DateFieldDelegate, UITextViewDelegate>
 
@@ -35,14 +33,11 @@
     self.formTextField.delegate = self;
     self.arrowImageView.hidden = YES;
     
-//    self.formTextField.layer.borderColor = [UIColor redColor].CGColor;
-//    self.formTextField.layer.borderWidth = 1.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
-    // Configure the view for the selected state
 }
 
 - (void)prepareForReuse
@@ -118,7 +113,6 @@
     if (fieldType == FormFieldTypeLargeText) {
         self.textViewTitleLabel.text = title;
         self.inputTextView.text = value;
-        self.inputTextView.placeholder = placeholder;
         self.inputTextView.delegate = self;
     } else {
         [self configureWithFieldType:fieldType dataType:fieldDataType title:title placeholder:placeholder value:value isRequired:isRequired];
@@ -292,9 +286,7 @@
     }
     
     if (textField.keyboardType == UIKeyboardTypeNumberPad || textField.keyboardType == UIKeyboardTypeDecimalPad) {
-        
-        NSString *textFieldText = textField.text;
-        
+                
         NSString *numberRegex = @"^[0-9]+$";
         NSPredicate *validationPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegex];
         

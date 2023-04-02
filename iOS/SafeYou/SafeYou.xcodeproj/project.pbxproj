@@ -332,13 +332,13 @@
 		529058FE2736A8E7003885E3 /* FiltersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 529058FD2736A8E7003885E3 /* FiltersView.m */; };
 		52E44BC22733533A00047547 /* FiltersCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E44BC12733533A00047547 /* FiltersCollectionViewFlowLayout.m */; };
 		52F3B5EA2731A95400B158FC /* FilterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F3B5E92731A95400B158FC /* FilterViewModel.m */; };
-		57338C9BB1998A5E10A33283 /* libPods-SafeYou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73AAA3BF028F427E9C1760A7 /* libPods-SafeYou.a */; };
 		6DBD3A4D2829550F0031A0A9 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBD3A4C2829550F0031A0A9 /* Helper.swift */; };
 		6DDCC777282DA725007125D6 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDCC776282DA725007125D6 /* TermsAndConditionsViewController.swift */; };
 		6DEB7B11288B369C0082D93F /* ReportView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DEB7B10288B369C0082D93F /* ReportView.storyboard */; };
 		6DEB7B14288B39500082D93F /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEB7B13288B39500082D93F /* ReportViewController.m */; };
 		6DEB7B18288B39E00082D93F /* ReportCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEB7B17288B39E00082D93F /* ReportCategoriesViewController.m */; };
 		6DFA9B1D2832F67D00A8CF1E /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFA9B1C2832F67D00A8CF1E /* PrivacyPolicyViewController.swift */; };
+		70553A915BE6DDDCA027800A /* Pods_SafeYou.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC61E930C3C94957FC51D2F2 /* Pods_SafeYou.framework */; };
 		C553806127F24BA200E9556E /* MessageOptionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C553806027F24BA200E9556E /* MessageOptionButton.m */; };
 		C5B9CD2227EFA2AA00415EC4 /* SendMessageFileDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B9CD2127EFA2AA00415EC4 /* SendMessageFileDataModel.m */; };
 		C5B9CD2627F0583E00415EC4 /* MessageOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B9CD2527F0583E00415EC4 /* MessageOptionsView.m */; };
@@ -983,7 +983,6 @@
 		6DF653A72899CFE3005CBD83 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6DF653A82899CFE3005CBD83 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6DFA9B1C2832F67D00A8CF1E /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
-		73AAA3BF028F427E9C1760A7 /* libPods-SafeYou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SafeYou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C553805F27F24BA200E9556E /* MessageOptionButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageOptionButton.h; sourceTree = "<group>"; };
 		C553806027F24BA200E9556E /* MessageOptionButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageOptionButton.m; sourceTree = "<group>"; };
 		C5B9CD2027EFA2AA00415EC4 /* SendMessageFileDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendMessageFileDataModel.h; sourceTree = "<group>"; };
@@ -1002,6 +1001,7 @@
 		C5F202EF2815CC15009B6F42 /* ReportCategoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportCategoryTableViewCell.xib; sourceTree = "<group>"; };
 		C5F48EC127EA58DA00A63B21 /* MessageFileDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageFileDataModel.h; sourceTree = "<group>"; };
 		C5F48EC227EA58DA00A63B21 /* MessageFileDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageFileDataModel.m; sourceTree = "<group>"; };
+		DC61E930C3C94957FC51D2F2 /* Pods_SafeYou.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SafeYou.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1011,7 +1011,7 @@
 			files = (
 				50C4B050233939B800BCDAC5 /* libmp3lame.a in Frameworks */,
 				50C4AEFE23375EEA00BCDAC5 /* WebKit.framework in Frameworks */,
-				57338C9BB1998A5E10A33283 /* libPods-SafeYou.a in Frameworks */,
+				70553A915BE6DDDCA027800A /* Pods_SafeYou.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3505,7 +3505,7 @@
 			isa = PBXGroup;
 			children = (
 				50C4AEFD23375EE900BCDAC5 /* WebKit.framework */,
-				73AAA3BF028F427E9C1760A7 /* libPods-SafeYou.a */,
+				DC61E930C3C94957FC51D2F2 /* Pods_SafeYou.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

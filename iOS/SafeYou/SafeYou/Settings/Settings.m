@@ -214,11 +214,11 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
     [defaults synchronize];
 }
 
-- (void)setSavedFcmToken:(NSString *)savedFcmToken
+- (void)setDeviceToken:(NSString *)savedFcmToken
 {
-    _savedFcmToken = savedFcmToken;
+    _deviceToken = savedFcmToken;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:_savedFcmToken forKey:kUserDefaultsSavedFcmToken];
+    [defaults setObject:_deviceToken forKey:kUserDefaultsSavedFcmToken];
     [defaults synchronize];
 }
 
@@ -383,7 +383,7 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
     LanguageDataModel *decodedLanguage = [NSKeyedUnarchiver unarchiveObjectWithData:encodedLanguageData];
     _selectedLanguage = decodedLanguage;
     
-    _savedFcmToken = [defaults objectForKey:kUserDefaultsSavedFcmToken];
+    _deviceToken = [defaults objectForKey:kUserDefaultsSavedFcmToken];
 }
 
 - (void)setIsLocationGranted:(BOOL)isLocationGranted

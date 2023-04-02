@@ -239,7 +239,7 @@
         if (notifyType == NotificationTypeNewForum || notifyType == NotificationTypeMessage) {
             self.selectedIndex = 0;
         }
-    } else if ([Settings sharedInstance].dynamicLinkUrl) {
+    } else if ([Settings sharedInstance].forumId) {
         self.selectedIndex = 0;
     }
 }
@@ -248,7 +248,7 @@
 
 - (void)handleDynamicLink
 {
-    if ([Settings sharedInstance].dynamicLinkUrl) {
+    if ([Settings sharedInstance].forumId) {
         self.selectedIndex = 0;
     }
 }

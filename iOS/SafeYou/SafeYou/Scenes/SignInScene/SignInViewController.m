@@ -130,7 +130,7 @@
         strongify(self);
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [appDelegate openApplication:YES];
-        if ([Settings sharedInstance].updatedFcmToken) {
+        if ([Settings sharedInstance].updatedDeviceToken) {
             [self saveFcmToken];
         }
     } failure:^(NSError *error) {
@@ -141,9 +141,9 @@
 // @TODO: Dublicate code, need refactor
 - (void)saveFcmToken
 {
-    [self.profileDataService updateUserDataField:@"device_token" value:[Settings sharedInstance].updatedFcmToken withComplition:^(id response) {
-        [Settings sharedInstance].savedFcmToken = [Settings sharedInstance].updatedFcmToken;
-        [Settings sharedInstance].updatedFcmToken = nil;
+    [self.profileDataService updateUserDataField:@"device_token" value:[Settings sharedInstance].updatedDeviceToken withComplition:^(id response) {
+        [Settings sharedInstance].deviceToken = [Settings sharedInstance].updatedDeviceToken;
+        [Settings sharedInstance].updatedDeviceToken = nil;
         
     } failure:^(NSError *error) {
         // handle Error

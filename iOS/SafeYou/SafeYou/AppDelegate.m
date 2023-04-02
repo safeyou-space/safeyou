@@ -17,17 +17,14 @@
 #import "PhotoGalleryViewController.h"
 #import "SocketIOManager.h"
 #import <GoogleMaps/GoogleMaps.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "UIColor+UIImage.h"
-#import "FBSDKCoreKit/FBSDKSettings.h"
 #import <Lokalise/Lokalise.h>
+#import <UserNotifications/UserNotifications.h>
 
-@import Firebase;
-@import FBSDKCoreKit;
+@import Pushy;
+@import Branch;
 
-
-
-@interface AppDelegate () <CLLocationManagerDelegate, FIRMessagingDelegate, UNUserNotificationCenterDelegate>
+@interface AppDelegate () <CLLocationManagerDelegate, UNUserNotificationCenterDelegate>
 
 @end
 
@@ -38,11 +35,40 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    Pushy* pushy = [[Pushy alloc]init:[UIApplication sharedApplication]];
     
     [Settings sharedInstance];
     [self accessUserLocation];
-    FBSDKSettings.sharedSettings.advertiserTrackingEnabled = YES;
     
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInternetConnectionAlert) name:NoInternetConnectionNotificationName object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommonNetworkError:) name:CommonNetworkErrorNotificationName object:nil];
+        [self handleReachability];
+        [GMSServices provideAPIKey:@"AIzaSyB0zzJQUGuIY2WpBqYyXlN-1_avfob4KY4"];
+        
+    [pushy register:^(NSError *error, NSString* deviceToken) {
+        if (error != nil) {
+            return NSLog (@"Registration failed: %@", error);
+        }
+        
+        [Settings sharedInstance].deviceToken = deviceToken;
+    }];
+    
+    [pushy setNotificationHandler:^(NSDictionary *data, void (^completionHandler)(UIBackgroundFetchResult)) {
+        NSLog(@"Received notification: %@", data);
+        
+        
+        completionHandler(UIBackgroundFetchResultNewData);
+    }];
+    
+    [Branch setUseTestBranchKey:YES];
+    [[Branch getInstance] initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandlerUsingBranchUniversalObject:^(BranchUniversalObject * _Nullable universalObject, BranchLinkProperties * _Nullable linkProperties, NSError * _Nullable error) {
+        [Settings sharedInstance].forumId = [universalObject canonicalIdentifier];
+    }];
+    
+    
+    [pushy toggleInAppBanner:true];
     
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInternetConnectionAlert) name:NoInternetConnectionNotificationName object:nil];
@@ -53,20 +79,11 @@
     
     _coordinator = [[ApplicationLaunchCoordinator alloc] initWithRouter:self rootVC:(LaunchViewController *)self.window.rootViewController];
     [self.coordinator start];
-    
-    [self authorizeForRemoteNotifications];
-    
-    [self configureFirebase];
-    
+            
     [self clearBadgeIconCount];
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]) {
         [Settings sharedInstance].receivedRemoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     }
-    
-    [FBSDKSettings setAdvertiserTrackingEnabled:YES];
-
-    [[FBSDKApplicationDelegate sharedInstance] application:application
-                             didFinishLaunchingWithOptions:launchOptions];
 
     
     [[Lokalise sharedObject] setProjectID:LOKALISE_PROJECT_ID token:LOKALISE_TOKEN];
@@ -75,34 +92,19 @@
     [Lokalise sharedObject].localizationType = LokaliseLocalizationPrerelease;
 #endif
     
+    [[BranchScene shared] initSessionWithLaunchOptions:launchOptions registerDeepLinkHandler:^(NSDictionary * _Nullable params, NSError * _Nullable error, UIScene * _Nullable scene) {
+        
+    }];
+    
     return YES;
 }
-
-
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-    FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
-    if (dynamicLink) {
-        [self handleDynamicLink:dynamicLink];
-        return YES;
-    }
-    
-    [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                   openURL:url
-                                                   options:options];
+    [[Branch getInstance] application:application openURL:url options:options];
     return YES;
-}
-
-- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts
-API_AVAILABLE(ios(13.0)) API_AVAILABLE(ios(13.0)){
-  UIOpenURLContext *context = URLContexts.allObjects.firstObject;
-  [FBSDKApplicationDelegate.sharedInstance application:UIApplication.sharedApplication
-                                               openURL:context.URL
-                                     sourceApplication:context.options.sourceApplication
-                                            annotation:context.options.annotation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -151,21 +153,9 @@ API_AVAILABLE(ios(13.0)) API_AVAILABLE(ios(13.0)){
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
-    BOOL handled = [[FIRDynamicLinks dynamicLinks] handleUniversalLink:userActivity.webpageURL
-                                                            completion:^(FIRDynamicLink * _Nullable dynamicLink,
-                                                                         NSError * _Nullable error) {
-        [self handleDynamicLink: dynamicLink];
-    }];
-    return handled;
-}
-
-- (void)handleDynamicLink:(FIRDynamicLink *)dynamicLink
-{
-    if (dynamicLink.url) {
-        [Settings sharedInstance].dynamicLinkUrl = dynamicLink.url;
-        [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationOpenedByDynamicLinkNotificationName
-                                                            object:nil];
-    }
+    [[Branch getInstance] continueUserActivity:userActivity];
+    
+    return YES;
 }
 
 #pragma mark - Appearence
@@ -318,11 +308,6 @@ didFailWithError:(NSError *)error
     }];
 }
 
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
-{
-    NSLog(@"Will present");
-}
-
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
 {
     NSDictionary *notUserInfo =  response.notification.request.content.userInfo;
@@ -330,59 +315,9 @@ didFailWithError:(NSError *)error
     
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    NSLog(@"sfsdf");
-}
-
-- (void)configureFirebase
-{
-    
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    [FIRMessaging messaging].APNSToken = deviceToken;
-}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-    NSLog(@"Failed Device token");
-}
-
-- (void)firebaseApplication:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-
-    NSLog(@"%@", userInfo);
-
-    completionHandler(UIBackgroundFetchResultNewData);
-
-    // handle remote notifications
-    if (application.applicationState != UIApplicationStateActive) {
-
-    } else {
-        [self handlePushNotification:userInfo];
-    }
-}
-
-- (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(NSString *)fcmToken
-{
-    // handle FCM token
-    if (![[Settings sharedInstance].savedFcmToken isEqualToString:fcmToken]) {
-        [Settings sharedInstance].updatedFcmToken = fcmToken;
-    }
-}
-
 - (void)clearBadgeIconCount
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
-
-#pragma mark - HandlePushNotification
-
-- (void)handlePushNotification:(NSDictionary *)userInfo
-{
-    
-}
-
 
 @end

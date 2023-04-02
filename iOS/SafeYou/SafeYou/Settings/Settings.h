@@ -54,11 +54,11 @@
 
 @property (nonatomic) NSString *baseAPIURL;
 
-@property (nonatomic) NSString *savedFcmToken;
-@property (nonatomic) NSString *updatedFcmToken;
+@property (nonatomic) NSString *deviceToken;
+@property (nonatomic) NSString *updatedDeviceToken;
 
 @property (nonatomic) NSDictionary *receivedRemoteNotification;
-@property (nonatomic) NSURL *dynamicLinkUrl;
+@property (nonatomic) NSString *forumId;
 
 - (BOOL)isLanguageRTL;
 

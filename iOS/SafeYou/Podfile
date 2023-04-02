@@ -1,4 +1,6 @@
 platform :ios, '10.0'
+use_modular_headers!
+use_frameworks!
 inhibit_all_warnings!
 
 
@@ -10,16 +12,11 @@ target 'SafeYou' do
   pod 'DZNEmptyDataSet'
   pod 'GoogleMaps'
   pod 'Socket.IO-Client-Swift' , '~> 15.2.0'
-  pod 'Firebase/Core'
-  pod 'Firebase/Database'
-  pod 'Firebase/Messaging'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Crashlytics'
-  pod 'FirebaseDynamicLinks'
   pod 'TTTAttributedLabel'
   pod 'UITextView+Placeholder'
-  pod 'FBSDKCoreKit'
   pod 'NYTPhotoViewer'
   pod 'Lokalise'
+  pod 'Pushy', '1.0.43'
+  pod 'Branch'
 
 end
