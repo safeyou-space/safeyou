@@ -19,12 +19,8 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "UIColor+UIImage.h"
 #import <Lokalise/Lokalise.h>
-#import <UserNotifications/UserNotifications.h>
 
-@import Pushy;
-@import Branch;
-
-@interface AppDelegate () <CLLocationManagerDelegate, UNUserNotificationCenterDelegate>
+@interface AppDelegate () <CLLocationManagerDelegate>
 
 @end
 
@@ -35,7 +31,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    Pushy* pushy = [[Pushy alloc]init:[UIApplication sharedApplication]];
     
     [Settings sharedInstance];
     [self accessUserLocation];
@@ -46,30 +41,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommonNetworkError:) name:CommonNetworkErrorNotificationName object:nil];
         [self handleReachability];
         [GMSServices provideAPIKey:@"AIzaSyB0zzJQUGuIY2WpBqYyXlN-1_avfob4KY4"];
-        
-    [pushy register:^(NSError *error, NSString* deviceToken) {
-        if (error != nil) {
-            return NSLog (@"Registration failed: %@", error);
-        }
-        
-        [Settings sharedInstance].deviceToken = deviceToken;
-    }];
-    
-    [pushy setNotificationHandler:^(NSDictionary *data, void (^completionHandler)(UIBackgroundFetchResult)) {
-        NSLog(@"Received notification: %@", data);
-        
-        
-        completionHandler(UIBackgroundFetchResultNewData);
-    }];
-    
-    [Branch setUseTestBranchKey:YES];
-    [[Branch getInstance] initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandlerUsingBranchUniversalObject:^(BranchUniversalObject * _Nullable universalObject, BranchLinkProperties * _Nullable linkProperties, NSError * _Nullable error) {
-        [Settings sharedInstance].forumId = [universalObject canonicalIdentifier];
-    }];
-    
-    
-    [pushy toggleInAppBanner:true];
-    
+
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInternetConnectionAlert) name:NoInternetConnectionNotificationName object:nil];
 
@@ -92,10 +64,6 @@
     [Lokalise sharedObject].localizationType = LokaliseLocalizationPrerelease;
 #endif
     
-    [[BranchScene shared] initSessionWithLaunchOptions:launchOptions registerDeepLinkHandler:^(NSDictionary * _Nullable params, NSError * _Nullable error, UIScene * _Nullable scene) {
-        
-    }];
-    
     return YES;
 }
 
@@ -103,7 +71,6 @@
             openURL:(NSURL *)url
             options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-    [[Branch getInstance] application:application openURL:url options:options];
     return YES;
 }
 
@@ -149,13 +116,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
-{
-    [[Branch getInstance] continueUserActivity:userActivity];
-    
-    return YES;
 }
 
 #pragma mark - Appearence
@@ -292,27 +252,6 @@
 didFailWithError:(NSError *)error
 {
     [Settings sharedInstance].isLocationGranted = NO;
-}
-
-- (void)authorizeForRemoteNotifications
-{
-    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-    UNAuthorizationOptions authOptions = UNAuthorizationOptionAlert |
-    UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
-    [[UNUserNotificationCenter currentNotificationCenter]
-     requestAuthorizationWithOptions:authOptions
-     completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (granted) {
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
-        }
-    }];
-}
-
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
-{
-    NSDictionary *notUserInfo =  response.notification.request.content.userInfo;
-    [Settings sharedInstance].receivedRemoteNotification = notUserInfo;
-    
 }
 
 - (void)clearBadgeIconCount

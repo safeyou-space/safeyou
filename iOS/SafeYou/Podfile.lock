@@ -14,11 +14,6 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Branch (1.43.2)
-  - CocoaMQTT (2.1.0):
-    - CocoaMQTT/Core (= 2.1.0)
-  - CocoaMQTT/Core (2.1.0):
-    - MqttCocoaAsyncSocket (~> 1.0.8)
   - DZNEmptyDataSet (1.8.1)
   - GoogleMaps (4.2.0):
     - GoogleMaps/Maps (= 4.2.0)
@@ -27,7 +22,6 @@ PODS:
     - GoogleMaps/Base
   - Lokalise (0.10.2)
   - MBProgressHUD (1.2.0)
-  - MqttCocoaAsyncSocket (1.0.8)
   - NYTPhotoViewer (5.0.5):
     - NYTPhotoViewer/AnimatedGifSupport (= 5.0.5)
     - NYTPhotoViewer/Core (= 5.0.5)
@@ -51,8 +45,6 @@ PODS:
   - PINRemoteImage/PINCache (3.0.3):
     - PINCache (~> 3.0.3)
     - PINRemoteImage/Core
-  - Pushy (1.0.43):
-    - CocoaMQTT (= 2.1.0)
   - SDWebImage (5.12.1):
     - SDWebImage/Core (= 5.12.1)
   - SDWebImage/Core (5.12.1)
@@ -64,13 +56,11 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
-  - Branch
   - DZNEmptyDataSet
   - GoogleMaps
   - Lokalise
   - MBProgressHUD
   - NYTPhotoViewer
-  - Pushy (= 1.0.43)
   - SDWebImage
   - Socket.IO-Client-Swift (~> 15.2.0)
   - TTTAttributedLabel
@@ -79,18 +69,14 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AFNetworking
-    - Branch
-    - CocoaMQTT
     - DZNEmptyDataSet
     - GoogleMaps
     - Lokalise
     - MBProgressHUD
-    - MqttCocoaAsyncSocket
     - NYTPhotoViewer
     - PINCache
     - PINOperation
     - PINRemoteImage
-    - Pushy
     - SDWebImage
     - Socket.IO-Client-Swift
     - Starscream
@@ -99,24 +85,20 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: cb604b1c2bded0871f5f61f5d53653739e841d6b
-  Branch: 4ac024cb3c29b0ef628048694db3c4cfa679beb0
-  CocoaMQTT: 43666585403f664bb55361189c03c54897060324
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   GoogleMaps: eb03e327edfd70b06de1e6e321653f73712df7ad
   Lokalise: 252c397887dfd9983331abffa90ab60cdb004e19
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  MqttCocoaAsyncSocket: 77d3b74f76228dd5a05d1f9526eab101d415b30c
   NYTPhotoViewer: 6f50ea92f265d54a350b39a7ab7a1b91ca487ff6
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
-  Pushy: ae1dafcff70d7f1dafc6a38376b8d9576defb0f0
   SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
   Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: 47e37082332bebbabb5902f99ea16ddfbdd4f784
+PODFILE CHECKSUM: 97cd983306c79c45ccd422940a40e1691e3e4185
 
 COCOAPODS: 1.11.2

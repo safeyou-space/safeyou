@@ -464,7 +464,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pk3-RR-zM7" customClass="SYDesignableLabel">
-                                                <rect key="frame" x="16" y="16" width="39.5" height="16"/>
+                                                <rect key="frame" x="16" y="14.5" width="39.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="HayRoboto-Bold" family="HayRoboto" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -640,7 +640,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kn-q5-sLP" customClass="SYDesignableButton">
-                                        <rect key="frame" x="264" y="13.5" width="134" height="32"/>
+                                        <rect key="frame" x="262" y="13.5" width="136" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="a3G-dL-JYD"/>
                                         </constraints>
@@ -696,7 +696,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afO-cN-uXY" customClass="SYDesignableLabel">
-                                                <rect key="frame" x="16" y="16" width="39.5" height="16"/>
+                                                <rect key="frame" x="16" y="14.5" width="39.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="HayRoboto-Bold" family="HayRoboto" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -933,10 +933,7 @@
                                                     <constraint firstAttribute="height" constant="25" id="noE-6g-Cbj"/>
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" image="send_icon"/>
-                                                <connections>
-                                                    <action selector="shareButtonAction:" destination="3Sc-JB-PS8" eventType="touchUpInside" id="bMG-Um-3SH"/>
-                                                </connections>
+                                                <buttonConfiguration key="configuration" style="plain"/>
                                             </button>
                                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JpF-YX-lOZ">
                                                 <rect key="frame" x="16" y="324.5" width="382" height="40"/>
@@ -1059,7 +1056,6 @@
                         <outlet property="forumContentWebView" destination="JpF-YX-lOZ" id="CB4-Kq-G6y"/>
                         <outlet property="forumShorDescriptionLabel" destination="ZIn-mq-Z6l" id="Cu4-L8-rmG"/>
                         <outlet property="forumTitleLabel" destination="QQF-HL-7rn" id="nUY-NZ-x2V"/>
-                        <outlet property="shareButton" destination="5TV-9R-Q03" id="dys-8a-596"/>
                         <outlet property="titleImageView" destination="pBd-Fb-MXH" id="Gb1-6B-Ofz"/>
                         <segue destination="Hge-ud-SZM" kind="show" identifier="showForumComments" id="E13-Ay-zbT"/>
                     </connections>
@@ -1511,13 +1507,13 @@
     </scenes>
     <designables>
         <designable name="0kn-q5-sLP">
-            <size key="intrinsicContentSize" width="134" height="14"/>
+            <size key="intrinsicContentSize" width="136" height="17"/>
         </designable>
         <designable name="3h3-IH-iJ2">
             <size key="intrinsicContentSize" width="16" height="16"/>
         </designable>
         <designable name="9W7-30-Jc8">
-            <size key="intrinsicContentSize" width="90" height="24"/>
+            <size key="intrinsicContentSize" width="90" height="26"/>
         </designable>
         <designable name="J3D-dn-tCI">
             <size key="intrinsicContentSize" width="87" height="22"/>
@@ -1526,13 +1522,13 @@
             <size key="intrinsicContentSize" width="93" height="15"/>
         </designable>
         <designable name="RoZ-4D-kel">
-            <size key="intrinsicContentSize" width="90" height="24"/>
+            <size key="intrinsicContentSize" width="90" height="26"/>
         </designable>
         <designable name="UhL-43-7eC">
             <size key="intrinsicContentSize" width="16" height="16"/>
         </designable>
         <designable name="Wo2-IG-Dhb">
-            <size key="intrinsicContentSize" width="124" height="14"/>
+            <size key="intrinsicContentSize" width="124" height="17"/>
         </designable>
         <designable name="Xyx-Ch-u4b">
             <size key="intrinsicContentSize" width="16" height="16"/>
@@ -1555,7 +1551,6 @@
         <image name="icon_remove_photo" width="16" height="16"/>
         <image name="icon_select_photo" width="16" height="16"/>
         <image name="icon_take_photo" width="16" height="16"/>
-        <image name="send_icon" width="21" height="17.5"/>
         <image name="send_message" width="24" height="24"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

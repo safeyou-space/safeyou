@@ -22,6 +22,5 @@
 @property (nonatomic, readonly) ApplicationLaunchCoordinator *coordinator;
 @property (nonatomic) CLLocationManager *locationManager;
 
-
 @end
 

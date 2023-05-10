@@ -26,7 +26,6 @@
 #import "NSString+HTML.h"
 
 @import SocketIO;
-@import Branch;
 
 @interface ForumDetailsViewController () <UITextViewDelegate, UINavigationControllerDelegate, WKNavigationDelegate>
 
@@ -38,8 +37,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *forumShorDescriptionLabel;
 @property (weak, nonatomic) IBOutlet WKWebView *forumContentWebView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *forumContentHeightConstraint;
-@property (weak, nonatomic) IBOutlet UIButton *shareButton;
-
 
 - (IBAction)commentButtonAction:(UIButton *)sender;
 - (IBAction)commenctCountButtonAction:(UIButton *)sender;
@@ -73,9 +70,7 @@
     [self enableKeyboardNotifications];
     
     self.titleImageView.clipsToBounds = YES;
-    
-    [self configureShareButton];
-    
+        
     [self configureWebView];
     
     [self loadForumDetailsById: self.forumItemId];
@@ -165,10 +160,6 @@
     [self performSegueWithIdentifier:@"showForumComments" sender:@(YES)];
 }
 
-- (IBAction)shareButtonAction:(UIButton *)sender {
-    [self generateDynamicLink];
-}
-
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -216,13 +207,6 @@
     self.forumContentWebView.scrollView.bounces = NO;
 }
 
-- (void)configureShareButton
-{
-    UIImage *shareImage = [[UIImage imageNamed:@"send_icon_white"] imageWithTintColor: UIColor.mainTintColor1];
-    [self.shareButton setImage:shareImage forState:UIControlStateNormal];
-    [self.shareButton setTitle:@"" forState:UIControlStateNormal];
-}
-
 - (void)configureWithForumData:(ForumItemDataModel *)forumItemData
 {
     self.title = forumItemData.title;
@@ -240,34 +224,6 @@
     [self.forumContentWebView loadHTMLString:htmlContent baseURL:nil];
     
     [self updateCommentsCount:forumItemData.commentsCount viewsCount:forumItemData.viewsCount];
-}
-
-#pragma mark - Share forum configs
-
-- (void)generateDynamicLink
-{
-    NSString *linkStr = [NSString stringWithFormat:@"%@", self.forumItemData.forumItemId];
-    NSURL *link = [[NSURL alloc] initWithString:linkStr];
-    NSString *dynamicLinksDomainURIPrefix = @"https://safeyou.page.link";
-    
-    
-    BranchUniversalObject *universalObject = [[BranchUniversalObject alloc] initWithCanonicalIdentifier:linkStr]; universalObject.title = LOC(@"access_safe_you_forum");
-    BranchLinkProperties *linkProperties = [[BranchLinkProperties alloc] init];
-    linkProperties.feature = @"share"; linkProperties.channel = @"social";
-    [universalObject getShortUrlWithLinkProperties:linkProperties andCallback:^(NSString *url, NSError *error) { if (!error)
-    {
-        [self shareAction: url];
-        
-    } else {
-        NSLog(@"Error creating Branch URL: %@", error.localizedDescription); }}];
-}
-
-- (void)shareAction:(NSString *)text
-{
-    NSArray* sharedObjects=[NSArray arrayWithObjects:text,  nil];
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:sharedObjects applicationActivities:nil];
-    activityViewController.popoverPresentationController.sourceView = self.view;
-    [self presentViewController:activityViewController animated:YES completion:nil];
 }
 
 @end

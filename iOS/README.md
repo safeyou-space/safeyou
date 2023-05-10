@@ -18,8 +18,6 @@
 
  * Configuration:
 	Setup developer and/or distribution Certificates from Apple Developer Account
-	Setup Push Notifications certificates in Apple Developer Account
-	Setup Firebase in Firebase console (Which will be associated with current owner)
 
  * Troubleshooting:
 	Make sure that API URLs (defined in Constants.h file) and SocketIO URLs (Defined in Settings.m depending user selected Country) are available

@@ -16,7 +16,5 @@ target 'SafeYou' do
   pod 'UITextView+Placeholder'
   pod 'NYTPhotoViewer'
   pod 'Lokalise'
-  pod 'Pushy', '1.0.43'
-  pod 'Branch'
 
 end
