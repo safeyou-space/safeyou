@@ -42,8 +42,6 @@ import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.utils.LollipopFixedWebView;
 import fambox.pro.utils.Utils;
-import io.branch.indexing.BranchUniversalObject;
-import io.branch.referral.util.LinkProperties;
 
 public class FragmentForumDetail extends BaseFragment {
 
@@ -70,8 +68,6 @@ public class FragmentForumDetail extends BaseFragment {
     TextView rateCount;
     @BindView(R.id.rateIcon)
     ImageView rateIcon;
-    @BindView(R.id.forumShare)
-    ImageView forumShare;
     @BindView(R.id.progressView)
     LinearLayout progressView;
     private String countryCode = "arm";
@@ -159,39 +155,6 @@ public class FragmentForumDetail extends BaseFragment {
                     onClick(view, 2);
                 });
             }
-            forumShare.setOnClickListener(view -> {
-                try {
-                    progressView.setVisibility(View.VISIBLE);
-
-                    BranchUniversalObject buo = new BranchUniversalObject()
-                            .setCanonicalIdentifier(String.valueOf(forumId))
-                            .setTitle(getContext().getString(R.string.access_safe_you_forum))
-                            .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC);
-
-                    LinkProperties lp = new LinkProperties()
-                            .setChannel("social")
-                            .setFeature("sharing");
-
-                    buo.generateShortUrl(getContext(), lp, (url, error) -> {
-                        if (error == null) {
-                            // Handle the generated short URL
-                            Log.d("BRANCHIO", "Generated URL: " + url);
-                            progressView.setVisibility(View.GONE);
-                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                            shareIntent.setType("text/plain");
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, url);
-                            startActivity(Intent.createChooser(shareIntent, mContext.getString(R.string.share)));
-                        } else {
-                            // Handle the error
-                            Log.e("BRANCHIO", "Error generating URL: " + error.getMessage());
-                            progressView.setVisibility(View.GONE);
-                        }
-                    });
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
             boolean isDarkModeEnabled = SafeYouApp.getPreference().getBooleanValue(KEY_IS_DARK_MODE_ENABLED, false);
             int nightModeFlags =
                     getContext().getResources().getConfiguration().uiMode &

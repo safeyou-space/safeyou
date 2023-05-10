@@ -24,7 +24,6 @@ import fambox.pro.network.SocketHandler;
 import fambox.pro.network.SocketHandlerPrivateChat;
 import fambox.pro.utils.SharedPreferenceUtils;
 import fambox.pro.utils.applanguage.AppLanguage;
-import io.branch.referral.Branch;
 
 public class SafeYouApp extends Application{
     @SuppressLint("StaticFieldLeak")
@@ -53,8 +52,6 @@ public class SafeYouApp extends Application{
         FacebookSdk.fullyInitialize();
         FacebookSdk.setAdvertiserIDCollectionEnabled(true);
 
-        // Branch object initialization
-        Branch.getAutoInstance(this);
     }
 
     public static Context getContext() {

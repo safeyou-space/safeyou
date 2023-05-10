@@ -61,9 +61,6 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
     private FragmentProfile.ChangeMainPageListener mChangeMainPageListener;
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    @BindView(R.id.pinSwitchNotification)
-    Switch pinSwitchNotification;
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
     @BindView(R.id.switchDarkMode)
     Switch switchDarkMode;
 
@@ -128,15 +125,6 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
         super.onDestroyView();
         if (mFragmentOtherPresenter != null) {
             mFragmentOtherPresenter.destroy();
-        }
-    }
-
-    @OnCheckedChanged(R.id.pinSwitchNotification)
-    void onRadioButtonCheckChanged(CompoundButton button, boolean checked) {
-        if (button.getId() == R.id.pinSwitchNotification) {
-            String countryCode = SafeYouApp.getPreference().getStringValue(KEY_COUNTRY_CODE, "");
-            mFragmentOtherPresenter.checkNotificationStatus(checked, countryCode,
-                    LocaleHelper.getLanguage(getContext()));
         }
     }
 
@@ -328,11 +316,6 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
     @Override
     public void dismissProgress() {
         otherLoading.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void configNotificationSwitch(boolean checked) {
-        pinSwitchNotification.setChecked(checked);
     }
 
     @Override

@@ -32,7 +32,7 @@ After registration, a **tutorial** page is shown to the users explaining each fu
 
 **Consultancy Request:** The App also provides possibility to upgrade the ordinary user profile status to a verified consultant, by undergoing a procedure of submitting consultancy request in the Profile section of the App.
 
-**Notifications:** The App provides in App notifications for forum discussions, it also has a function of push notifications, which can be enabled or disabled by the users from the menu of the App.
+**Notifications:** The App provides in App notifications for forum discussions.
 
 --------------------------------------------------------------------------------------------------------------------------------
 
@@ -87,7 +87,6 @@ Use the Android Studio Build Variants button to choose between **production** an
 + RxJava
 + Socket IO
 + Google MAP, Location
-+ Firebase Core, FCM
 
 --------------------------------------------------------------------------------------------------------------------------------
 
@@ -110,8 +109,6 @@ Use the Android Studio Build Variants button to choose between **production** an
 
  * Configuration:
 	Setup developer and/or distribution Certificates from Apple Developer Account
-	Setup Push Notifications certificates in Apple Developer Account
-	Setup Firebase in Firebase console (Which will be associated with current owner)
 
  * Troubleshooting:
 	Make sure that API URLs (defined in Constants.h file) and SocketIO URLs (Defined in Settings.m depending user selected Country) are available
@@ -135,7 +132,6 @@ Configuration:
   "APP.PORT": 3000,                                                 // App port
   "APP.DEBUG": true,                                                // App debugging
   "SOCKET_HOST_FOR_TEST": "https://127.0.0.1:3000",                 // Page for testing socket functionality
-  "APP_FIREBASE.DB_URL": "https://<your_app>.firebaseio.com",       // Firebase Service link for notifications
   "DB.HOST": "127.0.0.1",                                           // MySql - host
   "DB.PORT": 3306,                                                  // MySql - port
   "DB.DATABASE": "arm_safe_you_dev",                                // MySql - database name 
@@ -176,9 +172,6 @@ http://127.0.0.1:3000/api/profile/:user_id/refresh/:secret_key
 
 // For update socket profile info.
 http://127.0.0.1:3000/api/profile/:user_id/refresh/:secret_key
-
-// For send forum notification in all sockets.
-http://127.0.0.1:3000/api/forum/:forum_id/:secret_key
 
 // For update forums in all sockets.
 http://127.0.0.1:3000/api/forum/:forum_id/refresh/:is_create/:secret_key
@@ -433,45 +426,6 @@ ws://127.0.0.1:11080?key=eyJ0eXE5Zjk0MjZjZWYjJjMzI2MWYjk5ZDY0NjVkZDcxMzQwYjQ5In0
     ]
 }
 ```
-***
-##    8) Get notifications:
-- To send a request to get notifications, you need to send this emitter "**SafeYOU_V4##NOTIFICATION**".
-```json5
-// Parameters(JSON): 
-{ }
-```
-- To send a request to read notification, you need to send this emitter "**SafeYOU_V4##READ_NOTIFICATION**" with parameters.
-```json5
-// Parameters(JSON): 
-{
-  "key": "user_1_2_300" // notification key is "user_${reply_user_id}_${user_id}_${comment.insertId}"
-}
-```
-- To get the notifications you need to add this event "**SafeYOU_V4##NOTIFICATION#RESULT**".
-```json5
-// Result of response(JSON):
-{
-    "error": null,
-    "data": [
-        {
-            "id": 1,
-            "forum_id": 1,
-            "reply_id": 2,
-            "user_id": 3,
-            "user_type": "ngo",
-            "level": 1,
-            "name": "<TEXT...>",
-            "image_path": "<IMAGE_PATH>",
-            "isReaded": 0,
-            "key": "user_1_2_300",
-            "created_at": "2021-01-18T13:16:44.000Z",
-        }
-    ]
-}
-```
-***
-
---------------------------------------------------------------------------------------------------------------------------------
 
 #Administration Panel
 ## Installation

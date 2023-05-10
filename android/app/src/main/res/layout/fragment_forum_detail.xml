@@ -49,21 +49,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:visibility="gone" />
-                <ImageView
-                    android:id="@+id/forumShare"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_23sdp"
-                    android:contentDescription="@string/com_facebook_share_button_text"
-                    android:padding="@dimen/_2sdp"
-                    android:src="@drawable/rec_share_icon"
-                    app:tint="@color/new_main_icon_tint_color"
-                    android:visibility="visible"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <TextView

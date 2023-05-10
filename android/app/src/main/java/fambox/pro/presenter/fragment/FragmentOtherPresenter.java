@@ -23,8 +23,6 @@ import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.view.fragment.FragmentOtherContract;
-import me.pushy.sdk.Pushy;
-import me.pushy.sdk.util.exceptions.PushyException;
 import retrofit2.Response;
 
 public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.View>
@@ -38,7 +36,6 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
         mFragmentOtherModel = new FragmentOtherModel();
         mChooseAppLanguageModel = new ChooseAppLanguageModel();
 
-        checkIsNotificationEnabled();
         checkIsDarkModeEnabled();
     }
 
@@ -195,66 +192,10 @@ public class FragmentOtherPresenter extends BasePresenter<FragmentOtherContract.
     }
 
     @Override
-    public void checkIsNotificationEnabled() {
-        boolean isNotificationEnabled = SafeYouApp.getPreference(getView().getContext())
-                .getBooleanValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, false);
-        getView().configNotificationSwitch(isNotificationEnabled);
-    }
-
-    @Override
     public void checkIsDarkModeEnabled() {
         boolean isNotificationEnabled = SafeYouApp.getPreference(getView().getContext())
                 .getBooleanValue(Constants.Key.KEY_IS_DARK_MODE_ENABLED, false);
         getView().configDarkModeSwitch(isNotificationEnabled);
-    }
-
-    @Override
-    public void checkNotificationStatus(boolean checked, String countryCode, String locale) {
-        getView().showProgress();
-        SafeYouApp.getPreference(getView().getContext())
-                .setValue(Constants.Key.KEY_IS_NOTIFICATION_ENABLED, checked);
-        new Thread(() -> {
-            try {
-                String deviceToken = Pushy.register(getView().getContext());
-                if (getView() == null) {
-                    return;
-                }
-                if (checked) {
-                    if (deviceToken.isEmpty()) {
-                        Log.w("Device_token", "getInstanceId failed");
-                        if (getView() != null) {
-                            getView().dismissProgress();
-                        }
-                        return;
-                    }
-                }
-
-                deviceToken = checked ? deviceToken : "";
-
-                mFragmentOtherModel.editProfile(getView().getAppContext(), countryCode, locale,
-                        "device_token", deviceToken, new NetworkCallback<Response<Message>>() {
-                            @Override
-                            public void onSuccess(Response<Message> response) {
-                                if (getView() != null) {
-                                    getView().dismissProgress();
-                                }
-                            }
-
-                            @Override
-                            public void onError(Throwable error) {
-                                if (getView() != null) {
-                                    getView().dismissProgress();
-                                }
-                            }
-                        });
-            } catch (PushyException e) {
-                Log.w("Device_token", "getInstanceId failed", e);
-                if (getView() != null) {
-                    getView().dismissProgress();
-                }
-            }
-        }).start();
-
     }
 
     @Override

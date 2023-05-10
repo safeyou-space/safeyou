@@ -27,8 +27,6 @@ public interface FragmentOtherContract {
 
         void dismissProgress();
 
-        void configNotificationSwitch(boolean checked);
-
         void configDarkModeSwitch(boolean checked);
 
         void logout();
@@ -47,11 +45,8 @@ public interface FragmentOtherContract {
 
         void clickAboutUs();
 
-        void checkIsNotificationEnabled();
-
         void checkIsDarkModeEnabled();
 
-        void checkNotificationStatus(boolean checked, String countryCode, String locale);
     }
 
     interface Model extends BaseModel {

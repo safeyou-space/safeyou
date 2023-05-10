@@ -315,51 +315,6 @@
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@color/otherContainerElementsColor">
-
-                <ImageView
-                    android:id="@+id/iconNotification"
-                    android:layout_width="@dimen/_16sdp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/_13sdp"
-                    android:src="@drawable/notification_icon_new"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/new_main_icon_tint_color" />
-
-                <TextView
-                    android:id="@+id/txtNotification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_14sdp"
-                    android:fontFamily="@font/hay_roboto_regular"
-                    android:text="@string/notifications_title_key"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iconNotification"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Switch
-                    android:id="@+id/pinSwitchNotification"
-                    android:layout_width="52dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:thumb="@drawable/switch_thumb"
-                    android:track="@drawable/switch_track"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
-                android:layout_marginTop="@dimen/_1sdp"
                 android:visibility="visible"
                 android:background="@color/otherContainerElementsColor">
 

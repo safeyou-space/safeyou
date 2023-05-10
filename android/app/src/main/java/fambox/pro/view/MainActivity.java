@@ -43,7 +43,6 @@ import fambox.pro.view.fragment.FragmentHelp;
 import fambox.pro.view.fragment.FragmentNetwork;
 import fambox.pro.view.fragment.FragmentProfile;
 import fambox.pro.view.viewpager.MainViewPager;
-import io.branch.referral.Branch;
 import pro.fambox.materialsearchview.MaterialSearchView;
 
 public class MainActivity extends BaseActivity implements MainContract.View,
@@ -155,22 +154,6 @@ public class MainActivity extends BaseActivity implements MainContract.View,
 
         // TODO: chang
         SafeYouApp.getPreference().setValue(KEY_LOG_IN_FIRST_TIME, true);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Branch.sessionBuilder(this).withCallback((branchUniversalObject, linkProperties, error) -> {
-            if (error != null) {
-                Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.getMessage());
-            } else {
-                if (branchUniversalObject != null) {
-                    Intent intent = new Intent(MainActivity.this, ForumCommentActivity.class);
-                    intent.putExtra("forum_id", Long.parseLong(branchUniversalObject.getCanonicalIdentifier()));
-                    startActivity(intent);
-                }
-            }
-        }).withData(this.getIntent().getData()).init();
     }
 
     @Override
