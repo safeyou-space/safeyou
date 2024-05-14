@@ -1075,6 +1075,9 @@ public class MentionsEditText extends AppCompatEditText implements TokenSource {
                 mIsWatchingText = true;
             }
         } else {
+            if (mExternalTextWatchers == null) {
+                mExternalTextWatchers = new ArrayList<>();
+            }
             mExternalTextWatchers.add(watcher);
         }
     }

@@ -30,17 +30,17 @@ public class RegistrationPresenter extends BasePresenter<RegistrationContract.Vi
 
         if (firstNameS.equals("") || lastNameS.equals("")
                 || phone.equals("") || birthdayS.equals("")
-                || passwordS.equals("") || confirmPasswordS.equals("")) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.empty_field));
+                || passwordS.equals("") || confirmPasswordS.equals("") || nicknameS.equals("")) {
+            getView().showErrorMessage(getView().getContext().getString(R.string.fill_required_fields_text_key));
         } else if (!Objects.equals(nicknameS, "") && nicknameS.length() < 2) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.min_length_2));
+            getView().showErrorMessage(getView().getContext().getString(R.string.min_length_2));
         } else if ((passwordS.length() < 8) || (confirmPasswordS.length() < 8)) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.please_enter_valid_password_message_key));
+            getView().showErrorMessage(getView().getContext().getString(R.string.please_enter_valid_password_message_key));
         } else if (!passwordS.equals(confirmPasswordS)) {
-            getView().showErrorMessage(getView().getContext().getResources().getString(R.string.passwords_not_match_text_key));
+            getView().showErrorMessage(getView().getContext().getString(R.string.passwords_not_match_text_key));
         } else {
             if (!Connectivity.isConnected(getView().getContext())) {
-                getView().showErrorMessage(getView().getContext().getResources().getString(R.string.check_internet_connection_text_key));
+                getView().showErrorMessage(getView().getContext().getString(R.string.check_internet_connection_text_key));
                 return;
             }
             RegistrationBody registrationBody = new RegistrationBody();
@@ -49,7 +49,12 @@ public class RegistrationPresenter extends BasePresenter<RegistrationContract.Vi
             if (!Objects.equals(nicknameS, "")) {
                 registrationBody.setNickname(nicknameS);
             }
-            registrationBody.setMarital_status(marred);
+            if (marred != -10) {
+                registrationBody.setMarital_status(marred);
+            } else {
+                registrationBody.setMarital_status(null);
+
+            }
             registrationBody.setPhone(phone);
             registrationBody.setBirthday(birthdayS);
             registrationBody.setPassword(passwordS);

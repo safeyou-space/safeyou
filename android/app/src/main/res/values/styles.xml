@@ -44,6 +44,14 @@
         </item>
     </style>
 
+    <!--  dialog date picker style  -->
+    <style name="NumberPickerForChildCountStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColorPrimary">@color/lightBlack</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">@color/sort_by_icon_background
+        </item>
+    </style>
+
     <style name="MyActionBar" parent="Widget.AppCompat.Toolbar">
         <item name="contentInsetStart">0dp</item>
         <item name="contentInsetEnd">0dp</item>
@@ -54,7 +62,6 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@drawable/splash_background_first</item>
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
     </style>
 
@@ -150,6 +157,10 @@
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/hay_roboto_bold</item>
+    </style>
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textSize">10sp</item>
+        <item name="height">10dp</item>
     </style>
 
 </resources>

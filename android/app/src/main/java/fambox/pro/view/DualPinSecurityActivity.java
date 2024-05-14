@@ -19,6 +19,7 @@ import fambox.pro.Constants;
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.presenter.DualPinSecurityPresenter;
+import fambox.pro.utils.KeyboardUtils;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.view.dialog.SecurityQuestionDialog;
 
@@ -57,6 +58,10 @@ public class DualPinSecurityActivity extends BaseActivity implements DualPinSecu
         pinSwitchTitle.setText(isDualPinEnabled ? getResources().getString(R.string.edit_deactivate_dual_pin)
                 : getResources().getString(R.string.add_dual_pin_title_key));
         pinSwitch.setChecked(isDualPinEnabled);
+        edtRealPin.setFocusable(false);
+        edtConfirmRealPin.setFocusable(false);
+        edtFakePin.setFocusable(false);
+        edtConfirmFakePin.setFocusable(false);
     }
 
     @Override
@@ -120,10 +125,21 @@ public class DualPinSecurityActivity extends BaseActivity implements DualPinSecu
     @OnCheckedChanged(R.id.pinSwitch)
     void switchDualPin(CompoundButton button, boolean checked) {
         dualPinDisableView.setVisibility(checked ? View.GONE : View.VISIBLE);
+        KeyboardUtils.hideKeyboard(this);
         edtRealPin.setEnabled(checked);
         edtConfirmRealPin.setEnabled(checked);
         edtFakePin.setEnabled(checked);
         edtConfirmFakePin.setEnabled(checked);
+        edtRealPin.setFocusableInTouchMode(checked);
+        edtConfirmRealPin.setFocusableInTouchMode(checked);
+        edtFakePin.setFocusableInTouchMode(checked);
+        edtConfirmFakePin.setFocusableInTouchMode(checked);
+        if (!checked) {
+            edtRealPin.setFocusable(false);
+            edtConfirmRealPin.setFocusable(false);
+            edtFakePin.setFocusable(false);
+            edtConfirmFakePin.setFocusable(false);
+        }
     }
 
     @Override

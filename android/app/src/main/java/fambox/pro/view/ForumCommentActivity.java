@@ -89,14 +89,14 @@ public class ForumCommentActivity extends BaseActivity implements ForumCommentCo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE_DARK);
-        addAppBar(getResources().getString(R.string.forums_title_key), false, true, false, null, true);
+        addAppBar(getString(R.string.forums_title_key), false, true, false, null, true);
         ButterKnife.bind(this);
         mForumCommentPresenter = new ForumCommentPresenter();
         mForumCommentPresenter.attachView(this);
         mForumCommentPresenter.checkPin(getIntent().getExtras());
         mForumCommentPresenter.viewIsReady();
-        mTitle = getResources().getString(R.string.forums_title_key);
-
+        mTitle = getString(R.string.forums_title_key);
+        edtComment.getInputEditText().setHint(getString(R.string.type_a_comment));
         edtComment.getInputEditText().setTokenizer(new WordTokenizer(new WordTokenizerConfig.Builder().build()));
         edtComment.setRecordAudioButtonVisibility(false);
         edtComment.setInputListener(input -> {
@@ -266,11 +266,10 @@ public class ForumCommentActivity extends BaseActivity implements ForumCommentCo
             @Override
             public void onClickBlockUser(Comments comments) {
                 AlertDialog.Builder ad = new AlertDialog.Builder(getContext());
-                ad.setMessage(getResources().getString(R.string.want_block_user_text_key));
-                ad.setPositiveButton(getResources().getString(R.string.confirm), (dialogInterface, i) -> {
-                    mForumCommentPresenter.onClickBlockUser(comments);
-                });
-                ad.setNegativeButton(getResources().getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.dismiss());
+                ad.setMessage(getString(R.string.want_block_user_text_key));
+                ad.setPositiveButton(getString(R.string.confirm), (dialogInterface, i)
+                        -> mForumCommentPresenter.onClickBlockUser(comments));
+                ad.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> dialogInterface.dismiss());
                 ad.create().show();
             }
 
@@ -379,6 +378,9 @@ public class ForumCommentActivity extends BaseActivity implements ForumCommentCo
             recViewComments.setVisibility(View.VISIBLE);
             viewMoreContainer.setVisibility(View.GONE);
             mFragmentMoreComment = null;
+            forumDetailContainer.setVisibility(View.VISIBLE);
+            containerForumComments.setVisibility(View.GONE);
+            setDefaultTitle(getString(R.string.forums_title_key));
         } else if (ratingContainer.getVisibility() == View.VISIBLE) {
             if (mForumCommentPresenter != null && isRated) {
                 mForumCommentPresenter.initBundle(getIntent().getExtras(), getLocale());
@@ -386,11 +388,11 @@ public class ForumCommentActivity extends BaseActivity implements ForumCommentCo
             forumDetailContainer.setVisibility(View.VISIBLE);
             containerForumComments.setVisibility(View.GONE);
             ratingContainer.setVisibility(View.GONE);
-            setDefaultTitle(getResources().getString(R.string.forums_title_key));
+            setDefaultTitle(getString(R.string.forums_title_key));
         } else if (forumDetailContainer.getVisibility() == View.GONE) {
             forumDetailContainer.setVisibility(View.VISIBLE);
             containerForumComments.setVisibility(View.GONE);
-            setDefaultTitle(getResources().getString(R.string.forums_title_key));
+            setDefaultTitle(getString(R.string.forums_title_key));
         } else {
             isFromBack = true;
             mForumCommentPresenter.leaveRoom();
@@ -517,7 +519,7 @@ public class ForumCommentActivity extends BaseActivity implements ForumCommentCo
                 KeyboardUtils.hideKeyboard(ForumCommentActivity.this);
                 break;
             case 2:
-                setDefaultTitle(getResources().getString(R.string.my_review));
+                setDefaultTitle(getString(R.string.my_review));
                 forumDetailContainer.setVisibility(View.GONE);
                 containerForumComments.setVisibility(View.GONE);
                 ratingContainer.setVisibility(View.VISIBLE);
@@ -527,7 +529,7 @@ public class ForumCommentActivity extends BaseActivity implements ForumCommentCo
                 forumDetailContainer.setVisibility(View.VISIBLE);
                 containerForumComments.setVisibility(View.GONE);
                 ratingContainer.setVisibility(View.GONE);
-                setDefaultTitle(getResources().getString(R.string.forums_title_key));
+                setDefaultTitle(getString(R.string.forums_title_key));
                 break;
         }
     }
@@ -537,7 +539,9 @@ public class ForumCommentActivity extends BaseActivity implements ForumCommentCo
      */
     @Override
     public void onClickBack() {
-        onBackPressed();
+        recViewComments.setVisibility(View.VISIBLE);
+        viewMoreContainer.setVisibility(View.GONE);
+        mFragmentMoreComment = null;
     }
 
     @Override

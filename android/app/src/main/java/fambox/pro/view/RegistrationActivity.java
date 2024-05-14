@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,7 +31,7 @@ import fambox.pro.utils.Utils;
 public class RegistrationActivity extends BaseActivity implements RegistrationContract.View {
 
     private RegistrationPresenter mRegistrationPresenter;
-    private int marred = -1;
+    private int marred = -10;
     private String countryCode;
 
     @BindView(R.id.edtFirstName)
@@ -45,6 +44,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     TextInputLayout txtInputLayoutDateOfBirth;
     @BindView(R.id.txtInputLayoutMobile)
     TextInputLayout txtInputLayoutMobile;
+    @BindView(R.id.txtInputLayoutNickname)
+    TextInputLayout txtInputLayoutNickname;
     @BindView(R.id.txtInputTextConfirmPass)
     TextInputLayout txtInputTextConfirmPass;
     @BindView(R.id.txtInputTextPass)
@@ -54,7 +55,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     @BindView(R.id.edtMobile)
     TextInputEditText edtMobile;
     @BindView(R.id.edtMarital)
-    TextView edtMarital;
+    TextInputEditText edtMarital;
     @BindView(R.id.edtPass)
     TextInputEditText edtPass;
     @BindView(R.id.edtConfirmPass)
@@ -72,15 +73,23 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         mRegistrationPresenter.viewIsReady();
         addAppBar(null, true, true,
                 false, null, false);
+        int maxPhoneNumber = 9;
         switch (getCountryCode()) {
             case "geo":
                 countryCode = "GE";
+                maxPhoneNumber = 10;
                 break;
             case "arm":
                 countryCode = "AM";
+                maxPhoneNumber = 8;
                 break;
             case "irq":
                 countryCode = "IQ";
+                maxPhoneNumber = 10;
+                break;
+            case "zwe":
+                countryCode = "ZW";
+                maxPhoneNumber = 9;
                 break;
         }
 
@@ -115,7 +124,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         }
     }
 
-    @OnClick(R.id.containerMarital)
+    @OnClick(R.id.edtMarital)
     void maritalClick() {
         Intent i = new Intent(this, MaritalStatusActivity.class);
         Bundle bundle = new Bundle();
@@ -197,7 +206,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         if (number.isEmpty()) {
             return "";
         } else {
-            countryPicker.registerCarrierNumberEditText(edtMobile);
             return countryPicker.getFullNumberWithPlus();
         }
     }

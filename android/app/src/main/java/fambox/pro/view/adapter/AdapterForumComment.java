@@ -143,6 +143,7 @@ public class AdapterForumComment extends RecyclerView.Adapter<CommentHolder> {
                 break;
             case 4:
                 holder.getImgCommentUserBadge().setVisibility(View.VISIBLE);
+                holder.getTxtCommentUserPosition().setVisibility(View.VISIBLE);
                 break;
             case 5:
                 holder.getTxtCommentUserPosition().setVisibility(View.GONE);
@@ -430,6 +431,11 @@ public class AdapterForumComment extends RecyclerView.Adapter<CommentHolder> {
             popup.getMenu().getItem(4).setVisible(false);
 
         }
+        popup.getMenu().getItem(0).setTitle(mContext.getString(R.string.report));
+        popup.getMenu().getItem(1).setTitle(mContext.getString(R.string.edit_key));
+        popup.getMenu().getItem(2).setTitle(mContext.getString(R.string.delete_key));
+        popup.getMenu().getItem(3).setTitle(mContext.getString(R.string.copy));
+        popup.getMenu().getItem(4).setTitle(mContext.getString(R.string.block_user));
         popup.show();
     }
 

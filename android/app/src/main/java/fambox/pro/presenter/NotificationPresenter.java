@@ -43,6 +43,11 @@ public class NotificationPresenter extends BasePresenter<NotificationContract.Vi
                 mSocket.emit("signal", 18, keyObject);
                 mSocket.emit("signal", 19, new JSONObject());
             }
+
+            if (notificationData.getNotify_type() == 10) {
+                return;
+            }
+
             ChatMessage message = notificationData.getNotify_body();
             Bundle bundle = new Bundle();
             bundle.putLong("reply_id", notificationData.getNotify_id());

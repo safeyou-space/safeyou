@@ -40,6 +40,7 @@ import fambox.pro.privatechat.view.chatadapter.OutgoingReplyMessageViewHolder
 import fambox.pro.privatechat.view.chatadapter.OutgoingVoiceMessageViewHolder
 import io.socket.emitter.Emitter
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -193,13 +194,13 @@ class ChatViewModel : AbstractViewModel(), MessageHolders.ContentChecker<ChatVie
     }
 
     private fun createRoom(roomName: String, roomType: Int, roomMember: String) {
-        val createdRoomType = RequestBody.create(MediaType.parse("text/plain"), roomType.toString())
+        val createdRoomType = RequestBody.create("text/plain".toMediaTypeOrNull(), roomType.toString())
         val createdRoomImage = RequestBody.create(
-            MediaType.parse("text/plain"),
+            "text/plain".toMediaTypeOrNull(),
             fambox.pro.Constants.BASE_SOCKET_URL + "/static/admin.png"
         )
-        val createdRoomName = RequestBody.create(MediaType.parse("text/plain"), roomName)
-        val createdRoomMember = RequestBody.create(MediaType.parse("text/plain"), roomMember)
+        val createdRoomName = RequestBody.create("text/plain".toMediaTypeOrNull(), roomName)
+        val createdRoomMember = RequestBody.create("text/plain".toMediaTypeOrNull(), roomMember)
 
         val body = HashMap<String, RequestBody>()
         body["room_type"] = createdRoomType
@@ -303,9 +304,9 @@ class ChatViewModel : AbstractViewModel(), MessageHolders.ContentChecker<ChatVie
     }
 
     fun sendTextMessage(message: String, userMention: String, replyMessageId: String) {
-        val messageType = RequestBody.create(MediaType.parse("text/plain"), "1")
-        val messageContent = RequestBody.create(MediaType.parse("text/plain"), message)
-        val userMentionBody = RequestBody.create(MediaType.parse("text/plain"), userMention)
+        val messageType = RequestBody.create("text/plain".toMediaTypeOrNull(), "1")
+        val messageContent = RequestBody.create("text/plain".toMediaTypeOrNull(), message)
+        val userMentionBody = RequestBody.create("text/plain".toMediaTypeOrNull(), userMention)
         val files = mutableListOf<MultipartBody.Part>()
 
         val body = HashMap<String, RequestBody>()
@@ -313,7 +314,7 @@ class ChatViewModel : AbstractViewModel(), MessageHolders.ContentChecker<ChatVie
         body["message_content"] = messageContent
         body["message_mention_options"] = userMentionBody
         if (replyMessageId.isNotEmpty()) {
-            val replyMessage = RequestBody.create(MediaType.parse("text/plain"), replyMessageId)
+            val replyMessage = RequestBody.create("text/plain".toMediaTypeOrNull(), replyMessageId)
             body["message_replies[0]"] = replyMessage
         }
 
@@ -331,7 +332,7 @@ class ChatViewModel : AbstractViewModel(), MessageHolders.ContentChecker<ChatVie
     }
 
     fun sendFileMessage(selectedFiles: List<File>, fileType: Int) {
-        val messageType = RequestBody.create(MediaType.parse("text/plain"), "$fileType")
+        val messageType = RequestBody.create("text/plain".toMediaTypeOrNull(), "$fileType")
         val files = mutableListOf<MultipartBody.Part>()
 
         for (file in selectedFiles) {
@@ -339,7 +340,7 @@ class ChatViewModel : AbstractViewModel(), MessageHolders.ContentChecker<ChatVie
             val mimeType: String = connection.contentType
 
             val propertyFile: RequestBody = RequestBody.create(
-                MediaType.parse(mimeType),
+                mimeType.toMediaTypeOrNull(),
                 file
             )
 
@@ -578,7 +579,7 @@ class ChatViewModel : AbstractViewModel(), MessageHolders.ContentChecker<ChatVie
 
     class Message internal constructor(
         private val id: Long,
-        text: String,
+        text: String?,
         spans: List<ISpan>,
         messageState: Int,
         date: String,
@@ -586,7 +587,7 @@ class ChatViewModel : AbstractViewModel(), MessageHolders.ContentChecker<ChatVie
         mentionClick: IMentionClickListener
     ) : MessageContentType.Image,
         MessageContentType {
-        private val text: String
+        private val text: String?
         private var messageState: Int
         private var spans: List<ISpan>
         private val date: String

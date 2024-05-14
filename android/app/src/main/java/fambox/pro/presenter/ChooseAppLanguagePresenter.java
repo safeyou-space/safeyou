@@ -56,8 +56,7 @@ public class ChooseAppLanguagePresenter extends BasePresenter<ChooseAppLanguageC
         if (Connectivity.isConnected(getView().getContext())) {
             getLanguages(this.countryCode);
         } else {
-            getView().showErrorMessage(getView().getContext().getResources()
-                    .getString(R.string.check_internet_connection_text_key));
+            getView().showErrorMessage(getView().getContext().getString(R.string.check_internet_connection_text_key));
         }
     }
 
@@ -87,6 +86,7 @@ public class ChooseAppLanguagePresenter extends BasePresenter<ChooseAppLanguageC
         } else if (!Objects.equals(countryCodeBundle, "")) {
             getView().openSaveCountryDialog();
         } else if (isCountryChanged) {
+            mAppLanguage.changeLang(code);
             getView().changeActivity(LoginWithBackActivity.class, false);
         } else {
             mAppLanguage.changeLang(code);

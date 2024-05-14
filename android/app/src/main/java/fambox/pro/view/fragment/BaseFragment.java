@@ -1,9 +1,11 @@
 package fambox.pro.view.fragment;
 
+import static fambox.pro.Constants.CLOSED_ERROR_MESSAGE;
+import static fambox.pro.Constants.UNABLE_TO_RESOLVE_HOST_MESSAGE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import org.jetbrains.annotations.NotNull;
 
+import fambox.pro.R;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.view.dialog.LoadingDialog;
 
@@ -54,6 +57,11 @@ public abstract class BaseFragment extends Fragment {
         startActivity(intent);
     }
 
+    public void nextActivity(Context context, Class<?> clazz, int resultCode) {
+        Intent intent = new Intent(context, clazz);
+        startActivityForResult(intent, resultCode);
+    }
+
     public void nextActivity(Context context, Class<?> clazz, Bundle extra) {
         Intent intent = new Intent(context, clazz);
         intent.putExtras(extra);
@@ -61,35 +69,14 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void message(String message, SnackBar.SBType type) {
+        if (message.contains(UNABLE_TO_RESOLVE_HOST_MESSAGE)) {
+            message = getString(R.string.check_internet_connection_text_key);
+        } else if (message.contains(CLOSED_ERROR_MESSAGE)) {
+            return;
+        }
         SnackBar.make(mContext,
                 mContext.findViewById(android.R.id.content),
                 type,
                 message).show();
-    }
-
-    public void showProgressBase() {
-        if (mLoadingDialog != null) {
-            mLoadingDialog.dismiss();
-            mLoadingDialog = null;
-        }
-        mLoadingDialog = new LoadingDialog(mContext);
-        mLoadingDialog.setOnKeyListener((arg0, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                mContext.onBackPressed();
-                dismissProgressBase();
-            }
-            return true;
-        });
-        if (!mLoadingDialog.isShowing()) {
-            mLoadingDialog.show();
-        }
-    }
-
-    public void dismissProgressBase() {
-        if (mLoadingDialog != null) {
-            if (mLoadingDialog.isShowing()) {
-                mLoadingDialog.dismiss();
-            }
-        }
     }
 }

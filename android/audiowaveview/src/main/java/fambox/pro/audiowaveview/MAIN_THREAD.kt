@@ -44,7 +44,7 @@ object Sampler {
         sampledPerChunk += 1
         sumPerChunk += data[index].abs
       } else {
-        targetSized[prevDataIndex] = (sumPerChunk / sampledPerChunk).toByte()
+        targetSized[prevDataIndex] = (sumPerChunk / sampledPerChunk).toInt().toByte()
 
         sumPerChunk = 0F
         sampledPerChunk = 0F

@@ -14,6 +14,7 @@ public class Types {
     @TargetApi(Build.VERSION_CODES.M)
     public enum StatusBarConfigType {
         CLOCK_BLACK_STATUS_BAR_WHITE(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR, R.color.statusBarColorWhite),
+        CLOCK_BLACK_STATUS_BAR_WHITE_OTHER(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR, R.color.login_page_background),
         CLOCK_BLACK_STATUS_BAR_PURPLE_LIGHT(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR, R.color.statusBarColorPurpleLight),
         CLOCK_WHITE_STATUS_BAR_PURPLE(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY, R.color.statusBarColorPurple),
         CLOCK_WHITE_STATUS_BAR_PURPLE_DARK(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY, R.color.toolbar_background),

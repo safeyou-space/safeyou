@@ -2,7 +2,6 @@ package fambox.pro.view.fragment;
 
 import static fambox.pro.Constants.BASE_URL;
 import static fambox.pro.Constants.Key.KEY_CHANGE_LANGUAGE;
-import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
 import static fambox.pro.Constants.Key.KEY_IS_DARK_MODE_ENABLED;
 
 import android.annotation.SuppressLint;
@@ -34,7 +33,6 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import fambox.pro.BaseActivity;
 import fambox.pro.Constants;
-import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
 import fambox.pro.presenter.fragment.FragmentOtherPresenter;
@@ -51,6 +49,7 @@ import fambox.pro.view.LoginWithBackActivity;
 import fambox.pro.view.MainActivity;
 import fambox.pro.view.RecordActivity;
 import fambox.pro.view.SecurityLoginActivity;
+import fambox.pro.view.SurveyListActivity;
 import fambox.pro.view.WebViewActivity;
 import fambox.pro.view.dialog.DeleteAccountDialog;
 
@@ -60,6 +59,9 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
     private FragmentActivity mContext;
     private FragmentProfile.ChangeMainPageListener mChangeMainPageListener;
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    @BindView(R.id.pinSwitchNotification)
+    Switch pinSwitchNotification;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     @BindView(R.id.switchDarkMode)
     Switch switchDarkMode;
@@ -154,12 +156,16 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
 
     @OnClick(R.id.containerRecords)
     void onClickRecList() {
-        startActivity(new Intent(getActivity(), RecordActivity.class));
+        nextActivity(getActivity(), RecordActivity.class);
     }
 
     @OnClick(R.id.containerEmergencyContacts)
     void onClickEmergencyContact() {
-        startActivityForResult(new Intent(getActivity(), EmergencyContactActivity.class), 1212);
+        nextActivity(getActivity(), EmergencyContactActivity.class, 1212);
+    }
+    @OnClick(R.id.containerOpenSurveys)
+    void onClickOpenSurveys() {
+        nextActivity(getActivity(), SurveyListActivity.class);
     }
 
     @OnClick(R.id.containerConsultant)
@@ -218,16 +224,16 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
         String text;
         int visibility;
         if (status == 0) {
-            text = getResources().getString(R.string.pending);
+            text = getString(R.string.pending);
             visibility = View.VISIBLE;
         } else if (status == 1) {
-            text = getResources().getString(R.string.approved);
+            text = getString(R.string.approved);
             visibility = View.VISIBLE;
         } else if (status == 2) {
-            text = getResources().getString(R.string.declined);
+            text = getString(R.string.declined);
             visibility = View.VISIBLE;
         } else {
-            text = getResources().getString(R.string.become_consultant_title);
+            text = getString(R.string.become_consultant_title);
             visibility = View.GONE;
         }
         becomeConsultant.setVisibility(visibility);
@@ -251,12 +257,12 @@ public class FragmentOther extends BaseFragment implements FragmentOtherContract
     @OnClick(R.id.containerLogOut)
     void onClickLogout() {
         AlertDialog.Builder ad = new AlertDialog.Builder(mContext);
-        ad.setTitle(R.string.log_out_title_key);
-        ad.setMessage(R.string.want_logout_text_key);
-        ad.setPositiveButton(R.string.yes, (dialogInterface, i) ->
+        ad.setTitle(getString(R.string.log_out_title_key));
+        ad.setMessage(getString(R.string.want_logout_text_key));
+        ad.setPositiveButton(getString(R.string.yes), (dialogInterface, i) ->
                 mFragmentOtherPresenter.logout(((MainActivity) mContext).getCountryCode(),
-                ((MainActivity) mContext).getLocale()));
-        ad.setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.dismiss());
+                        ((MainActivity) mContext).getLocale()));
+        ad.setNegativeButton(getString(R.string.no), (dialogInterface, i) -> dialogInterface.dismiss());
         ad.create().show();
     }
 

@@ -2,6 +2,7 @@ package fambox.pro.network.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
 import java.util.List;
 
 import lombok.Data;
@@ -25,8 +26,6 @@ public class ProfileResponse {
     private String phone;
     @SerializedName("location")
     private String location;
-    //    @SerializedName("emergency_message")
-//    private String emergency_message;
     @SerializedName("is_verifying_otp")
     private int is_verifying_otp;
     @SerializedName("check_police")
@@ -47,4 +46,16 @@ public class ProfileResponse {
     private List<ServicesResponseBody> emergencyServices;
     @SerializedName("consultant_request")
     private List<ConsultantRequestResponse> consultantRequest;
+    @SerializedName("filled_percent")
+    private Double filledPercent;
+    @SerializedName("profile_questions_answers")
+    private HashMap<String, ProfileQuestionAnswer> profileQuestionsAnswers;
+
+    public HashMap<String, ProfileQuestionAnswer> getProfileQuestionsAnswers() {
+        return profileQuestionsAnswers;
+    }
+
+    public Double getFilledPercent() {
+        return filledPercent;
+    }
 }

@@ -1,20 +1,14 @@
 package fambox.pro;
 
-import static com.facebook.FacebookSdk.setAutoLogAppEventsEnabled;
 import static fambox.pro.Constants.Key.KEY_BIRTHDAY;
 import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
 import static fambox.pro.Constants.Key.KEY_IS_DARK_MODE_ENABLED;
-import static fambox.pro.utils.applanguage.AppLanguage.LANGUAGE_PREFERENCES_KAY;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
 import androidx.appcompat.app.AppCompatDelegate;
-
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 import java.util.Calendar;
 
@@ -25,7 +19,7 @@ import fambox.pro.network.SocketHandlerPrivateChat;
 import fambox.pro.utils.SharedPreferenceUtils;
 import fambox.pro.utils.applanguage.AppLanguage;
 
-public class SafeYouApp extends Application{
+public class SafeYouApp extends Application {
     @SuppressLint("StaticFieldLeak")
     private static Context mInstance;
     @SuppressLint("StaticFieldLeak")
@@ -43,14 +37,6 @@ public class SafeYouApp extends Application{
         countryCode = preference.getStringValue(KEY_COUNTRY_CODE, "");
         locale = LocaleHelper.getLanguage(getBaseContext());
         configNightMode();
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-        setAutoLogAppEventsEnabled(true);
-
-        FacebookSdk.setAutoInitEnabled(true);
-        FacebookSdk.fullyInitialize();
-        FacebookSdk.setAdvertiserIDCollectionEnabled(true);
 
     }
 
@@ -106,12 +92,6 @@ public class SafeYouApp extends Application{
             }
         }
         return false;
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(LocaleHelper.onAttach(base,
-                base.getSharedPreferences("locale", Activity.MODE_PRIVATE).getString(LANGUAGE_PREFERENCES_KAY, "en")));
     }
 
     public static SharedPreferenceUtils getPreference() {

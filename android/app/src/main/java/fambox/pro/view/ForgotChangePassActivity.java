@@ -3,7 +3,9 @@ package fambox.pro.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +23,7 @@ import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.enums.Types;
 import fambox.pro.presenter.ForgotChangePassPresenter;
+import fambox.pro.utils.EditableUtils;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.utils.Utils;
 
@@ -44,6 +47,7 @@ public class ForgotChangePassActivity extends BaseActivity implements ForgotChan
     @BindView(R.id.countryPicker)
     CountryCodePicker countryPicker;
     private String countryCode;
+    private TextWatcher changeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,24 +55,60 @@ public class ForgotChangePassActivity extends BaseActivity implements ForgotChan
         Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE);
         addAppBar(null, true, true, false, null, false);
         ButterKnife.bind(this);
+        btnRequestNewPass.setText(getString(R.string.title_request_new_password));
+        txtForgetPass.setText(getString(R.string.title_forgot_password));
         mForgotChangePassPresenter = new ForgotChangePassPresenter();
         mForgotChangePassPresenter.attachView(this);
         mForgotChangePassPresenter.viewIsReady();
-        mForgotChangePassPresenter.initBundle(getIntent().getExtras());
         countryPicker.setCcpClickable(false);
+        int maxPhoneNumber = 9;
         switch (getCountryCode()) {
             case "geo":
                 countryCode = "GE";
+                maxPhoneNumber = 10;
                 break;
             case "arm":
                 countryCode = "AM";
+                maxPhoneNumber = 8;
                 break;
             case "irq":
                 countryCode = "IQ";
+                maxPhoneNumber = 10;
+                break;
+            case "zwe":
+                countryCode = "ZW";
+                maxPhoneNumber = 9;
                 break;
         }
         countryPicker.setCountryForNameCode(countryCode);
         countryPicker.showArrow(false);
+
+        int finalMaxPhoneNumber = maxPhoneNumber;
+        countryPicker.registerCarrierNumberEditText(edtLogin);
+        changeListener = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int length = EditableUtils.getCharacterCountWithoutSpaces(editable);
+                if (length > finalMaxPhoneNumber) {
+                    int selectionEnd = edtLogin.getSelectionEnd();
+                    int selectionStart = edtLogin.getSelectionStart();
+                    editable.delete(selectionStart - (length - finalMaxPhoneNumber), selectionEnd);
+                    countryPicker.registerCarrierNumberEditText(edtLogin);
+                }
+
+            }
+        };
+        mForgotChangePassPresenter.initBundle(getIntent().getExtras());
     }
 
     @Override
@@ -131,7 +171,7 @@ public class ForgotChangePassActivity extends BaseActivity implements ForgotChan
 
     @Override
     public void configView(String title, String createNewPassword, String confirmNewPassword) {
-        btnRequestNewPass.setText(getResources().getString(R.string.update_password_title));
+        btnRequestNewPass.setText(getString(R.string.update_password_title));
         textInputLayoutPassword.setVisibility(View.VISIBLE);
         countryPicker.setVisibility(View.GONE);
         txtForgetPass.setText(title);
@@ -140,6 +180,8 @@ public class ForgotChangePassActivity extends BaseActivity implements ForgotChan
         edtLogin.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         edtLogin.setTransformationMethod(PasswordTransformationMethod.getInstance());
         edtLogin.setText("");
+        edtLogin.removeTextChangedListener(changeListener);
+        countryPicker.deregisterCarrierNumberEditText();
     }
 
 
@@ -157,7 +199,6 @@ public class ForgotChangePassActivity extends BaseActivity implements ForgotChan
         } else if (countryPicker.getVisibility() == View.GONE) {
             return number;
         } else {
-            countryPicker.registerCarrierNumberEditText(edtLogin);
             return countryPicker.getFullNumberWithPlus();
         }
     }

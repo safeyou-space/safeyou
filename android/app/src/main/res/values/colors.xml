@@ -98,6 +98,18 @@
     <color name="read_more_color">#000000</color>
     <color name="rate_count_color">#E37D93</color>
 
+    <color name="divider_color">#F8DEE4</color>
+
+
+    <color name="profile_progress_color">#F1BEC9</color>
+    <color name="profile_progress_fill_color">#DC5D78</color>
+
+    <color name="question_progress_color">#F4EBF2</color>
+    <color name="question_progress_fill_color">#AE6598</color>
+    <color name="question_item_background_color">#A6FBEFF2</color>
+    <color name="button_border_disabled">#F0BCC7</color>
+    <color name="thanks_text_color">#9A3F7F</color>
+
 
 
 

@@ -75,7 +75,7 @@ public class Utils {
     }
 
     public static String timeUTC(String time, String locale) {
-        return timeUTC(time, locale, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "MMM d, HH:mm");
+        return timeUTC(time, locale, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "dd/MM/YY, HH:mm");
     }
 
     public static String chatReplyTime(String time) {

@@ -1,6 +1,8 @@
 package fambox.pro;
 
 
+import static fambox.pro.Constants.CLOSED_ERROR_MESSAGE;
+import static fambox.pro.Constants.UNABLE_TO_RESOLVE_HOST_MESSAGE;
 import static fambox.pro.Constants.Key.KEY_COUNTRY_CHANGED;
 import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
 import static fambox.pro.Constants.Key.KEY_PASSWORD;
@@ -13,15 +15,18 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +35,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import fambox.pro.network.ApiClient;
+import fambox.pro.utils.KeyboardUtils;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.utils.applanguage.AppLanguage;
 import fambox.pro.view.ChooseAppLanguageActivity;
@@ -41,14 +47,23 @@ import fambox.pro.view.HelpActivity;
 import fambox.pro.view.LoginPageActivity;
 import fambox.pro.view.LoginWithBackActivity;
 import fambox.pro.view.MainActivity;
+import fambox.pro.view.NgoMapDetailActivity;
 import fambox.pro.view.NotificationActivity;
+import fambox.pro.view.PassKeypadActivity;
+import fambox.pro.view.RecordActivity;
+import fambox.pro.view.RecordDetailsActivity;
 import fambox.pro.view.SplashActivity;
+import fambox.pro.view.SurveyListActivity;
+import fambox.pro.view.dialog.ChangeChildCountDialog;
 import fambox.pro.view.dialog.InfoDialog;
+import fambox.pro.view.dialog.SurveyNotificationDialog;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import q.rorbin.badgeview.QBadgeView;
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    private static boolean isSurveyPopupOpened = false;
 
     private Toolbar toolbar;
     private Socket mSocket;
@@ -92,7 +107,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LocaleHelper.onAttach(newBase, newBase.getSharedPreferences("locale", Activity.MODE_PRIVATE).getString(LANGUAGE_PREFERENCES_KAY, "en")));
     }
-    public  void adjustFontScale(Configuration configuration, float scale) {
+
+    public void adjustFontScale(Configuration configuration, float scale) {
 
         configuration.fontScale = scale;
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -102,6 +118,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(configuration, metrics);
 
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         AppLanguage.getInstance(this).loadLocale();
@@ -119,7 +136,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (!mSocket.isActive()) {
                 mSocket.connect();
             }
-            adjustFontScale( getResources().getConfiguration(),1.0f);
+            adjustFontScale(getResources().getConfiguration(), 1.0f);
         }
 
         boolean isNotificationEnabled = SafeYouApp.getPreference(this)
@@ -127,6 +144,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (isNotificationEnabled) {
             notificationCount();
         }
+        openSurveyDialog(false);
     }
 
     @Override
@@ -152,10 +170,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.toolbar);
 
         View mActionBar = getSupportActionBar().getCustomView();
+
         toolbar = mActionBar.findViewById(R.id.toolbarBase);
         toolbar.setTitle(toolbarDefaultTitle);
         // find views
         Button nextButton = mActionBar.findViewById(R.id.btnNextToolbar);
+        TextView networkSearch = mActionBar.findViewById(R.id.networkSearch);
+        networkSearch.setHint(R.string.search);
+        nextButton.setText(R.string.next_key);
         ImageView notificationImage = mActionBar.findViewById(R.id.notificationView);
         notificationImage.setOnClickListener(v -> {
             nextActivity(BaseActivity.this, NotificationActivity.class);
@@ -175,13 +197,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         if (backEnable) {
-            toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.icon_back_white));
-            if (toolbar.getNavigationIcon() != null) {
-                toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
+            if (BaseActivity.this instanceof LoginPageActivity) {
+                toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.icon_back_comment));
+            } else {
+                toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.icon_back_white));
+                if (toolbar.getNavigationIcon() != null) {
+                    toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
+                }
             }
 
             toolbar.setNavigationContentDescription(R.string.back_icon_description);
             toolbar.setNavigationOnClickListener(v -> {
+                        KeyboardUtils.hideKeyboard(this);
                         if (BaseActivity.this instanceof DualPinActivity) {
                             ((DualPinActivity) BaseActivity.this).backCanceledIntent();
                         } else if (BaseActivity.this instanceof LoginWithBackActivity && isChangedCountry()) {
@@ -211,12 +238,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (notificationEnable) {
             notificationImage.setVisibility(View.VISIBLE);
             mQBadgeView = new QBadgeView(getApplicationContext());
-            notificationImage.post(() -> mQBadgeView.bindTarget(toolbar)
+            notificationImage.post(() -> mQBadgeView.bindTarget(notificationImage)
                     .setShowShadow(false)
-                    .setGravityOffset(notificationImage.getPivotX()
-                                    + 10,
-                            notificationImage.getPivotY()
-                                    + 5, false)
+                    .setBadgeGravity(Gravity.END | Gravity.BOTTOM)
                     .setBadgeBackgroundColor(getResources().getColor(R.color.white))
                     .setBadgeTextColor(getResources().getColor(R.color.textPurpleColor))
                     .setBadgeTextSize(getResources().getDimensionPixelOffset(R.dimen._3ssp), true)
@@ -259,6 +283,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void nextActivity(Intent intent, int resultCode) {
+        startActivityForResult(intent, resultCode);
+    }
+
     public void nextActivity(Context context, Class<?> clazz, Bundle extra) {
         Intent intent = new Intent(context, clazz);
         intent.putExtras(extra);
@@ -279,6 +307,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void message(String message, SnackBar.SBType type) {
+        if (message.contains(UNABLE_TO_RESOLVE_HOST_MESSAGE)) {
+            message = getResources().getString(R.string.check_internet_connection_text_key);
+        } else if (message.contains(CLOSED_ERROR_MESSAGE)) {
+            return;
+        }
         SnackBar.make(this,
                 findViewById(android.R.id.content),
                 type,
@@ -301,6 +334,43 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void openSurveyDialog(boolean isForcedShow) {
+        if (isSurveyPopupOpened) {
+            return;
+        }
+        boolean isOpened = SafeYouApp.getPreference()
+                .getBooleanValue(Constants.Key.KEY_IS_SURVEY_NOTIFICATION_POPUP_OPENED, false);
+        if (isOpened) {
+            return;
+        }
+        if (!isForcedShow) {
+            if (SafeYouApp.getPreference()
+                    .getStringValue("", "").isEmpty()
+                    || BaseActivity.this instanceof SplashActivity
+                    || BaseActivity.this instanceof EmergencyContactActivity
+                    || BaseActivity.this instanceof MainActivity
+                    || BaseActivity.this instanceof RecordActivity
+                    || BaseActivity.this instanceof RecordDetailsActivity
+                    || BaseActivity.this instanceof PassKeypadActivity
+                    || BaseActivity.this instanceof NgoMapDetailActivity) {
+                return;
+            }
+        }
+        isSurveyPopupOpened = true;
+        SurveyNotificationDialog surveyNotificationDialog = new SurveyNotificationDialog(this);
+        surveyNotificationDialog.setDialogClickListener((dialogInterface, which) -> {
+            if (which == ChangeChildCountDialog.CLICK_CLOSE) {
+                dialogInterface.dismiss();
+            } else {
+                dialogInterface.dismiss();
+                nextActivity(BaseActivity.this, SurveyListActivity.class);
+
+            }
+
+        });
+        surveyNotificationDialog.show();
+    }
+
     private void openDialog() {
         ApiClient.setmOpenInfoDialogListener((errorCode, text) -> runOnUiThread(() -> {
             if (BaseActivity.this instanceof SplashActivity) {
@@ -313,6 +383,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                 if (errorCode == 422) {
                     message = getString(R.string.error_message_emergency_contact);
                 }
+            }
+            if (errorCode >= 500) {
+                message = getString(R.string.something_went_wrong_text_key);
             }
             infoDialog.setContent(title, message);
             infoDialog.setOnDismissListener(dialog -> {

@@ -7,7 +7,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -38,9 +37,7 @@ public class AdapterNotification extends RecyclerView.Adapter<NotificationHolder
     @NonNull
     @Override
     public NotificationHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_notification, parent, false);
-        return new NotificationHolder(itemView);
+        return new NotificationHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_notification, parent, false));
     }
 
     @Override
@@ -82,7 +79,7 @@ public class AdapterNotification extends RecyclerView.Adapter<NotificationHolder
                         .into(holder.getNotificationUserImage());
 
                 Spannable word = new SpannableString(user.getUser_username()
-                        + " " + mContext.getResources().getString(R.string.replied_to_your_comment));
+                        + " " + mContext.getString(R.string.replied_to_your_comment));
                 word.setSpan(new StyleSpan(Typeface.BOLD), 0, user.getUser_username().length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 

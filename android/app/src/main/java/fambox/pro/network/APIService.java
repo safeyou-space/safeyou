@@ -5,6 +5,7 @@ import static fambox.pro.Constants.API_ADD_EMERGENCY_SERVICE;
 import static fambox.pro.Constants.API_CHANGE_LANGUAGE;
 import static fambox.pro.Constants.API_CHANGE_PASSWORD;
 import static fambox.pro.Constants.API_CONSULTANT_REQUEST;
+import static fambox.pro.Constants.API_CREATE_SURVEY_ANSWER;
 import static fambox.pro.Constants.API_DELETE_ACCOUNT;
 import static fambox.pro.Constants.API_EDIT_DELETE_EMERGENCY_CONTACT;
 import static fambox.pro.Constants.API_EDIT_DELETE_EMERGENCY_SERVICE;
@@ -26,6 +27,8 @@ import static fambox.pro.Constants.API_LOGIN;
 import static fambox.pro.Constants.API_LOGOUT;
 import static fambox.pro.Constants.API_NGO;
 import static fambox.pro.Constants.API_PROFILE;
+import static fambox.pro.Constants.API_PROFILE_FIND_TOWN_CITY;
+import static fambox.pro.Constants.API_PROFILE_QUESTIONS;
 import static fambox.pro.Constants.API_PROFILE_SINGLE;
 import static fambox.pro.Constants.API_RECORD;
 import static fambox.pro.Constants.API_REFRESH_TOKEN;
@@ -35,6 +38,8 @@ import static fambox.pro.Constants.API_RESEND_VERIFICATION_CODE;
 import static fambox.pro.Constants.API_SEND_HELP_SMS;
 import static fambox.pro.Constants.API_SEND_RECORD;
 import static fambox.pro.Constants.API_SERVICES;
+import static fambox.pro.Constants.API_SURVEY_BY_ID;
+import static fambox.pro.Constants.API_SURVEY_LIST;
 import static fambox.pro.Constants.API_TERMS_AND_CONDITIONS;
 import static fambox.pro.Constants.API_VERIFY_CHANGED_PHONE_NUMBER;
 import static fambox.pro.Constants.API_VERIFY_PHONE;
@@ -81,11 +86,13 @@ import fambox.pro.network.model.CountriesLanguagesResponseBody;
 import fambox.pro.network.model.CreateNewPasswordBody;
 import fambox.pro.network.model.DeviceConfigBody;
 import fambox.pro.network.model.EmergencyContactBody;
+import fambox.pro.network.model.ProfileQuestionOption;
 import fambox.pro.network.model.ForgotVerifySmsResponse;
 import fambox.pro.network.model.LoginBody;
 import fambox.pro.network.model.LoginResponse;
 import fambox.pro.network.model.MarriedListResponse;
 import fambox.pro.network.model.Message;
+import fambox.pro.network.model.ProfileQuestionsResponse;
 import fambox.pro.network.model.ProfileResponse;
 import fambox.pro.network.model.RateForumBody;
 import fambox.pro.network.model.RateServiceBody;
@@ -96,6 +103,8 @@ import fambox.pro.network.model.RegistrationBody;
 import fambox.pro.network.model.ReportPostBody;
 import fambox.pro.network.model.ServicesResponseBody;
 import fambox.pro.network.model.ServicesSearchResponse;
+import fambox.pro.network.model.SurveyListResponse;
+import fambox.pro.network.model.Surveys;
 import fambox.pro.network.model.UnityNetworkResponse;
 import fambox.pro.network.model.VerifyPhoneBody;
 import fambox.pro.network.model.VerifyPhoneResendBody;
@@ -209,6 +218,38 @@ public interface APIService {
     @GET(API_PROFILE)
     Single<Response<ProfileResponse>> getProfile(@Path(COUNTRY_PATH) String countryCode,
                                                  @Path(LOCALE_PHAT) String language);
+
+    //    @DELETE("/api/{country_code}/{language}/profile/delete_answer_question?answer_id=92")
+//    Single<Response<List<ProfileQuestionsResponse>>> getProfileQuestions(@Path(COUNTRY_PATH) String countryCode,
+//                                                                         @Path(LOCALE_PHAT) String language);
+    @GET(API_SURVEY_LIST)
+    Single<Response<SurveyListResponse>> getSurveyList(@Path(COUNTRY_PATH) String countryCode,
+                                                       @Path(LOCALE_PHAT) String language,
+                                                       @Query("page") int page);
+
+    @GET(API_SURVEY_BY_ID)
+    Single<Response<Surveys>> getSurveyById(@Path(COUNTRY_PATH) String countryCode,
+                                            @Path(LOCALE_PHAT) String language,
+                                            @Path("surveyId") long surveyId);
+
+    @POST(API_CREATE_SURVEY_ANSWER)
+    Single<Response<Message>> createSurveyAnswer(@Path(COUNTRY_PATH) String countryCode,
+                                                 @Path(LOCALE_PHAT) String language,
+                                                 @Body HashMap<String, Object> data);
+
+    @GET(API_PROFILE_QUESTIONS)
+    Single<Response<List<ProfileQuestionsResponse>>> getProfileQuestions(@Path(COUNTRY_PATH) String countryCode,
+                                                                         @Path(LOCALE_PHAT) String language);
+
+    @GET(API_PROFILE_QUESTIONS)
+    Single<Response<List<ProfileQuestionsResponse>>> getQuestionOptions(@Path(COUNTRY_PATH) String countryCode,
+                                                                        @Path(LOCALE_PHAT) String language,
+                                                                        @Query("question_id") long questionId);
+
+    @GET(API_PROFILE_FIND_TOWN_CITY)
+    Single<Response<List<ProfileQuestionOption>>> findTownOrCity(@Path(COUNTRY_PATH) String countryCode,
+                                                                 @Path(LOCALE_PHAT) String language,
+                                                                 @Query("keyword") String keyword);
 
     @GET(API_PROFILE_SINGLE)
     Single<Response<ResponseBody>> getProfileSingle(@Path(COUNTRY_PATH) String countryCode,

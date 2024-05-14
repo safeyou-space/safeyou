@@ -3,6 +3,7 @@ package fambox.pro.network;
 import static fambox.pro.Constants.BASE_SOCKET_URL;
 import static fambox.pro.Constants.BASE_SOCKET_URL_GEO;
 import static fambox.pro.Constants.BASE_SOCKET_URL_IRQ;
+import static fambox.pro.Constants.BASE_SOCKET_URL_ZWE;
 import static fambox.pro.Constants.BASE_URL;
 
 import android.content.Context;
@@ -133,6 +134,9 @@ public class ApiClient {
                 break;
             case "irq":
                 url = BASE_SOCKET_URL_IRQ;
+                break;
+            case "zwe":
+                url = BASE_SOCKET_URL_ZWE;
                 break;
         }
 

@@ -1,0 +1,14 @@
+<!-- res/anim/slide_in_animation.xml -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate
+        android:fromXDelta="150%"
+        android:toXDelta="0%"
+        android:duration="1500" />
+    <rotate
+        android:fromDegrees="20"
+        android:toDegrees="0"
+        android:pivotX="0%"
+        android:pivotY="0%"
+        android:duration="1500" />
+</set>

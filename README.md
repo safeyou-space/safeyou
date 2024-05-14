@@ -49,14 +49,14 @@ git clone
 ```
 # Build Config
 ```bash
-compileSdkVersion 30
-    buildToolsVersion '29.0.3'
+compileSdkVersion 33
+    buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId "fambox.pro"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 16
-        versionName "2.2.3"
+        targetSdkVersion 33
+        versionCode 49
+        versionName "2.6.0"
     }...
 ```
 # Java Version
@@ -69,7 +69,7 @@ compileOptions {
 # Kotlin Version
 ```bash
 buildscript {
-    ext.kotlin_version = '1.4.20'
+    ext.kotlin_version = '1.8.0'
     repositories {
       ........
     }
@@ -79,7 +79,7 @@ buildscript {
 + localhost:3000/forum/readme
 
 # Build variants
-Use the Android Studio Build Variants button to choose between **production** and **staging** flavors combined with debug and release build types
+Use the Android Studio Build Variants button to choose between **production**, **staging** and **dev** flavors combined with debug and release build types
 
 # Used technologies
 + REST API

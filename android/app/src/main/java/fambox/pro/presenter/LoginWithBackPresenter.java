@@ -65,7 +65,6 @@ public class LoginWithBackPresenter extends BasePresenter<LoginWithBackContract.
                                                     .setValue(KEY_USER_ID, response.body().getId());
                                             SafeYouApp.getPreference(getView().getContext())
                                                     .setValue(KEY_BIRTHDAY, response.body().getBirthday());
-
                                             Log.i("login", "onSuccess: ");
                                             getView().goDualPinScreen();
                                         }

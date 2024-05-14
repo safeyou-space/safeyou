@@ -20,7 +20,7 @@ public class RegistrationBody implements Serializable {
     private String nickname;
     @SerializedName("marital_status")
     @Expose
-    private int marital_status;
+    private Integer marital_status;
     @SerializedName("phone")
     @Expose
     private String phone;
@@ -62,7 +62,7 @@ public class RegistrationBody implements Serializable {
         return marital_status;
     }
 
-    public void setMarital_status(int marital_status) {
+    public void setMarital_status(Integer marital_status) {
         this.marital_status = marital_status;
     }
 

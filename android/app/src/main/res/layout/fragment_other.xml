@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -36,8 +35,8 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconEditProfile"
@@ -80,9 +79,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconConsultant"
@@ -138,9 +137,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconRecords"
@@ -182,9 +181,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconEmergencyContacts"
@@ -221,15 +220,59 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerOpenSurveys"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
+
+                <ImageView
+                    android:id="@+id/iconOpenSurveys"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:src="@drawable/icon_survay"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/new_main_icon_tint_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_14sdp"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:text='@string/open_surveys_key'
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iconOpenSurveys"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:src="@drawable/new_arrow_icon_purple"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/new_main_icon_tint_color" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/containerDualPin"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconDualPin"
@@ -271,9 +314,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconBlockUser"
@@ -313,10 +356,55 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:visibility="visible"
-                android:background="@color/otherContainerElementsColor">
+                android:background="@color/otherContainerElementsColor"
+                android:minHeight="@dimen/_45sdp">
+
+                <ImageView
+                    android:id="@+id/iconNotification"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:src="@drawable/notification_icon_new"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/new_main_icon_tint_color" />
+
+                <TextView
+                    android:id="@+id/txtNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_14sdp"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:text='@string/notifications_title_key'
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iconNotification"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Switch
+                    android:id="@+id/pinSwitchNotification"
+                    android:layout_width="52dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:thumb="@drawable/switch_thumb"
+                    android:track="@drawable/switch_track"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@color/otherContainerElementsColor"
+                android:minHeight="@dimen/_45sdp"
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/iconDarkMode"
@@ -361,9 +449,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iconCountry"
@@ -419,9 +507,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconLanguage"
@@ -479,9 +567,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconTutorial"
@@ -523,9 +611,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconLegal"
@@ -567,9 +655,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconAboutUs"
@@ -611,9 +699,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconLogOut"
@@ -646,9 +734,9 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:background="@drawable/ripple_effect_light_purple">
+                android:background="@drawable/ripple_effect_light_purple"
+                android:minHeight="@dimen/_45sdp">
 
                 <ImageView
                     android:id="@+id/iconDeleteAccount"

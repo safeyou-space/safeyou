@@ -3,6 +3,7 @@ package fambox.pro.network;
 import static fambox.pro.Constants.BASE_SOCKET_URL;
 import static fambox.pro.Constants.BASE_SOCKET_URL_GEO;
 import static fambox.pro.Constants.BASE_SOCKET_URL_IRQ;
+import static fambox.pro.Constants.BASE_SOCKET_URL_ZWE;
 
 import android.util.Log;
 
@@ -22,6 +23,7 @@ public class SocketHandler {
     private static final String URI = BASE_SOCKET_URL;
     private static final String URI_GEO = BASE_SOCKET_URL_GEO;
     private static final String URI_IRQ = BASE_SOCKET_URL_IRQ;
+    private static final String URI_ZWE = BASE_SOCKET_URL_ZWE;
     private static final int RECONNECTION_ATTEMPT = 10;
     private static final int RECONNECTION_DELAY = 1000;
     private Socket mSocket;
@@ -58,6 +60,8 @@ public class SocketHandler {
                 mSocket = IO.socket(URI_IRQ, options);
             } else if (Objects.equals(countryCode, "geo")) {
                 mSocket = IO.socket(URI_GEO, options);
+            } else if (Objects.equals(countryCode, "zwe")) {
+                mSocket = IO.socket(URI_ZWE, options);
             } else {
                 mSocket = IO.socket(URI, options);
             }

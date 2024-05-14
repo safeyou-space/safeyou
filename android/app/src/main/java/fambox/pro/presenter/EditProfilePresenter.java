@@ -13,13 +13,16 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;
 import java.net.HttpURLConnection;
+import java.util.List;
 import java.util.Objects;
 
 import fambox.pro.R;
 import fambox.pro.model.EditProfileModel;
+import fambox.pro.model.ProfileQuestionsModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.ProgressRequestBodyObservable;
 import fambox.pro.network.model.Message;
+import fambox.pro.network.model.ProfileQuestionsResponse;
 import fambox.pro.network.model.ProfileResponse;
 import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.Connectivity;
@@ -38,10 +41,12 @@ public class EditProfilePresenter extends
     private boolean isTextChanged = false;
 
     private EditProfileModel mEditProfileModel;
+    private ProfileQuestionsModel mProfileQuestionsModel;
 
     @Override
     public void viewIsReady() {
         mEditProfileModel = new EditProfileModel();
+        mProfileQuestionsModel = new ProfileQuestionsModel();
         getView().showProgress();
     }
 
@@ -141,18 +146,23 @@ public class EditProfilePresenter extends
         });
 
         if (!isChecked && isTextChanged) {
+            String text;
             switch (viewId) {
                 case R.id.btnEditFirstName:
-                    editProfile(countryCode, locale, "first_name", Utils.getEditableToString(editText.getText()));
+                    text = Utils.getEditableToString(editText.getText());
+                    editProfile(countryCode, locale, "first_name", text);
                     break;
                 case R.id.btnEditSurname:
-                    editProfile(countryCode, locale, "last_name", Utils.getEditableToString(editText.getText()));
-                    break;
-                case R.id.btnEditLocation:
-                    editProfile(countryCode, locale, "location", Utils.getEditableToString(editText.getText()));
+                    text = Utils.getEditableToString(editText.getText());
+                    editProfile(countryCode, locale, "last_name", text);
                     break;
                 case R.id.btnChangeNickName:
-                    editProfile(countryCode, locale, "nickname", Utils.getEditableToString(editText.getText()));
+                    text = Utils.getEditableToString(editText.getText());
+                    if (text.length() <= 1) {
+                        getView().showNicknameError(getView().getContext().getString(R.string.min_length_2));
+                        return;
+                    }
+                    editProfile(countryCode, locale, "nickname", text);
                     break;
             }
         }
@@ -224,10 +234,36 @@ public class EditProfilePresenter extends
     }
 
     @Override
+    public void getQuestionById(String countryCode, String locale, long questionId, long answerId, String questionTitle) {
+        if (!Connectivity.isConnected(getView().getContext())) {
+            getView().showErrorMessage(getView().getContext().getString(R.string.check_internet_connection_text_key));
+            return;
+        }
+        mEditProfileModel.getProfileQuestions(getView().getContext(), countryCode, locale, questionId,
+                new NetworkCallback<Response<List<ProfileQuestionsResponse>>>() {
+                    @Override
+                    public void onSuccess(Response<List<ProfileQuestionsResponse>> response) {
+                        if (response.isSuccessful()) {
+                            if (response.code() == HttpURLConnection.HTTP_OK) {
+                                getView().showSingleQuestion(response.body(), answerId, questionTitle);
+                            }
+                        } else {
+                            getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        getView().showErrorMessage(error.getMessage());
+
+                    }
+                });
+    }
+
+    @Override
     public void getProfile(String countryCode, String locale) {
         if (!Connectivity.isConnected(getView().getContext())) {
-            getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.check_internet_connection_text_key));
+            getView().showErrorMessage(getView().getContext().getString(R.string.check_internet_connection_text_key));
             return;
         }
 
@@ -244,13 +280,14 @@ public class EditProfilePresenter extends
                                     getView().setUserId(response.body().getUid());
                                     getView().setMaritalStatus(response.body().getMarital_status());
                                     getView().setMobilePhone(response.body().getPhone());
-                                    getView().setLocation(response.body().getLocation());
                                     getView().setNickname(response.body().getNickname());
+                                    getView().setProfileAnswers(response.body().getProfileQuestionsAnswers());
                                     if (response.body().getImage() != null) {
                                         getView().setImage(BASE_URL.concat(response.body().getImage().getUrl()));
                                     } else {
                                         getView().setImage("");
                                     }
+                                    getView().updateQuestions(response.body().getFilledPercent());
 
                                 }
                             }
@@ -268,5 +305,38 @@ public class EditProfilePresenter extends
                         getView().dismissProgress();
                     }
                 });
+    }
+
+    @Override
+    public void editChildCount(String countryCode, String locale, long questionId,
+                               String questionType,
+                               long questionOptionId) {
+        if (!Connectivity.isConnected(getView().getContext())) {
+            getView().showErrorMessage(getView().getContext().getString(R.string.check_internet_connection_text_key));
+            return;
+        }
+        getView().showProgress();
+        mProfileQuestionsModel.editProfile(getView().getContext(), countryCode, locale, questionId, questionType, questionOptionId,
+                new NetworkCallback<Response<Message>>() {
+                    @Override
+                    public void onSuccess(Response<Message> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                getView().childCountSuccessfullyUpdated();
+                            }
+                        }
+                        if (getView() != null) {
+                            getView().dismissProgress();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        if (getView() != null) {
+                            getView().dismissProgress();
+                        }
+                    }
+                });
+
     }
 }

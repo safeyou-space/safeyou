@@ -3,10 +3,12 @@ package fambox.pro.model;
 import android.content.Context;
 
 import java.util.HashMap;
+import java.util.List;
 
 import fambox.pro.SafeYouApp;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.Message;
+import fambox.pro.network.model.ProfileQuestionsResponse;
 import fambox.pro.network.model.ProfileResponse;
 import fambox.pro.view.EditProfileContract;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,6 +36,24 @@ public class EditProfileModel implements EditProfileContract.Model {
                 .subscribeWith(new DisposableSingleObserver<Response<Message>>() {
                     @Override
                     public void onSuccess(Response<Message> listResponse) {
+                        response.onSuccess(listResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        response.onError(e);
+                    }
+                }));
+    }
+
+    @Override
+    public void getProfileQuestions(Context context, String countryCode, String locale, long questionId, NetworkCallback<Response<List<ProfileQuestionsResponse>>> response) {
+        mCompositeDisposable.add(SafeYouApp.getApiService(context).getQuestionOptions(countryCode, locale, questionId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Response<List<ProfileQuestionsResponse>>>() {
+                    @Override
+                    public void onSuccess(Response<List<ProfileQuestionsResponse>> listResponse) {
                         response.onSuccess(listResponse);
                     }
 

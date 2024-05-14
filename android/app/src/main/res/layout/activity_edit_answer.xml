@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragmentsBackgroundColors"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerSearch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="19dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/questionSearch"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@drawable/questions_search_bg"
+            android:drawablePadding="@dimen/_5sdp"
+            android:focusable="auto"
+            android:gravity="center_vertical"
+            android:hint='@string/search'
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/check_icon_color"
+            android:textColorHint="@color/check_icon_color"
+            android:textSize="12sp"
+            android:visibility="visible"
+            app:drawableEndCompat="@drawable/search"
+            app:drawableTint="@color/check_icon_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recAnswerList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonsContainer"
+        app:layout_constraintTop_toBottomOf="@+id/containerSearch" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/buttonsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnContinue"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/question_button_bg"
+            android:enabled="false"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:minWidth="@dimen/_240sdp"
+            android:minHeight="50dp"
+            android:text='@string/save_key'
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnSkip"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:gravity="center"
+            android:minWidth="@dimen/_240sdp"
+            android:minHeight="50dp"
+            android:text='@string/cancel'
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:backgroundTint="@color/new_main_color" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <include layout="@layout/loading_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

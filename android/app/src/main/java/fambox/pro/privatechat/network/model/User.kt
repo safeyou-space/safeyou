@@ -53,8 +53,8 @@ data class User(
         return 0
     }
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest!!.writeLong(user_id)
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeLong(user_id)
         dest.writeString(user_username)
         dest.writeString(user_image)
         dest.writeString(user_role_label)

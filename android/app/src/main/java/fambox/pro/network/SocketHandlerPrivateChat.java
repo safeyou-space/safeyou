@@ -3,13 +3,12 @@ package fambox.pro.network;
 import static fambox.pro.Constants.BASE_SOCKET_URL;
 import static fambox.pro.Constants.BASE_SOCKET_URL_GEO;
 import static fambox.pro.Constants.BASE_SOCKET_URL_IRQ;
+import static fambox.pro.Constants.BASE_SOCKET_URL_ZWE;
 
 import android.os.Handler;
 import android.util.Log;
 
 import java.net.URISyntaxException;
-import java.util.Arrays;
-
 import javax.net.ssl.HostnameVerifier;
 
 import io.socket.client.IO;
@@ -24,14 +23,17 @@ public class SocketHandlerPrivateChat {
     private static final String URI = BASE_SOCKET_URL;
     private static final String URI_GEO = BASE_SOCKET_URL_GEO;
     private static final String URI_IRQ = BASE_SOCKET_URL_IRQ;
+    private static final String URI_ZWE = BASE_SOCKET_URL_ZWE;
     private static final int RECONNECTION_ATTEMPT = 10;
     private static final int RECONNECTION_DELAY = 1000;
     private Socket mSocket;
+    private String accessToken = "";
 
     public static SocketHandlerPrivateChat getInstance(String accessToken, String countryCode) {
         synchronized (monitor) {
-            if (instance == null) {
+            if (instance == null || !instance.accessToken.equals(accessToken)) {
                 instance = new SocketHandlerPrivateChat(accessToken, countryCode);
+                instance.accessToken = accessToken;
             }
             return instance;
         }
@@ -68,6 +70,9 @@ public class SocketHandlerPrivateChat {
                 case "irq":
                     url = URI_IRQ;
                     break;
+                case "zwe":
+                    url = URI_ZWE;
+                    break;
             }
             Log.i(TAG, "SocketHandlerPrivateChat: " + url);
             Log.i(TAG, "SocketHandlerPrivateChat: " + options.query);
@@ -92,7 +97,6 @@ public class SocketHandlerPrivateChat {
     }
 
     public void emit(String event, Object... args) {
-        Log.i(TAG, "emit: " + " event >> " + event + " value >> " + Arrays.toString(args));
         if (mSocket != null && isConnected()) {
             mSocket.emit(event, args);
         } else {

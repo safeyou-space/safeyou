@@ -18,7 +18,7 @@ data class ChatMessage(
     val message_room_key: String,
     val message_created_at: String,
     val message_updated_at: String,
-    val message_hidden: Boolean,
+    val message_hiden: Boolean,
 
     val id: Int,
     val title: String,

@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -29,9 +32,40 @@ import retrofit2.Response;
 public class SplashActivity extends BaseActivity {
     private String mPreferenceRealPin;
 
+    private boolean isAnimationFinished = false;
+    private Class<?> nextActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ImageView splashImageView = findViewById(R.id.splashImage);
+
+        // Load the animation
+        Animation slideInAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_animation);
+        slideInAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // Animation started
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                isAnimationFinished = true;
+                if (nextActivity != null) {
+                    nextActivity(SplashActivity.this, nextActivity);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // Animation repeated
+            }
+        });
+        splashImageView.startAnimation(slideInAnimation);
+
+
         mPreferenceRealPin =
                 SafeYouApp.getPreference(this).getStringValue(Constants.Key.KEY_SHARED_REAL_PIN, "");
         if (isMyServiceRunning()) {
@@ -46,20 +80,24 @@ public class SplashActivity extends BaseActivity {
         boolean isFirst = SafeYouApp.getPreference().getBooleanValue(KEY_LOG_IN_FIRST_TIME, false);
         if (Connectivity.isConnected(this)) {
             if (!isFirst) {
-                nextActivity(this, ChooseCountryActivity.class);
-                finish();
+                if (isAnimationFinished) {
+                    nextActivity(this, ChooseCountryActivity.class);
+                    finish();
+                } else {
+                    nextActivity = ChooseCountryActivity.class;
+                }
             } else {
                 checkIsLogined();
             }
         } else {
-            message(getResources().getString(R.string.check_internet_connection_text_key), SnackBar.SBType.ERROR);
+            message(getString(R.string.check_internet_connection_text_key), SnackBar.SBType.ERROR);
             new Handler().postDelayed(this::finish, 3000);
         }
     }
 
     @Override
     protected int getLayout() {
-        return 0;
+        return R.layout.activity_splash;
     }
 
     private void checkIsLogined() {
@@ -74,21 +112,33 @@ public class SplashActivity extends BaseActivity {
                             RefreshTokenResponse tokenResponse = response.body();
                             if (tokenResponse != null) {
                                 SafeYouApp.getApiService();
-
-                                if (!Objects.equals(mPreferenceRealPin, "")) {
-                                    nextActivity(SplashActivity.this, PassKeypadActivity.class);
-                                } else if (Objects.equals(mPreferenceRealPin, "")) {
-                                    nextActivity(SplashActivity.this, MainActivity.class);
+                                if (isAnimationFinished) {
+                                    if (!Objects.equals(mPreferenceRealPin, "")) {
+                                        nextActivity(SplashActivity.this, PassKeypadActivity.class);
+                                    } else if (Objects.equals(mPreferenceRealPin, "")) {
+                                        nextActivity(SplashActivity.this, MainActivity.class);
+                                    }
+                                    finish();
+                                } else {
+                                    if (!Objects.equals(mPreferenceRealPin, "")) {
+                                        nextActivity = PassKeypadActivity.class;
+                                    } else if (Objects.equals(mPreferenceRealPin, "")) {
+                                        nextActivity = MainActivity.class;
+                                    }
                                 }
-                                finish();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<RefreshTokenResponse> call, @NonNull Throwable t) {
-                        nextActivity(SplashActivity.this, LoginWithBackActivity.class);
-                        finish();
+                        if (isAnimationFinished) {
+                            nextActivity(SplashActivity.this, LoginWithBackActivity.class);
+                            finish();
+                        } else {
+                            nextActivity = LoginWithBackActivity.class;
+                        }
+
                     }
                 });
     }

@@ -4,17 +4,12 @@ public interface Constants {
 
     String LOCALE_PHAT = "language";
     String COUNTRY_PATH = "country_code";
-    String API_KEY_ANDROID = "**********";
-    String SAFE_YOU_URL_STRING_FORMAT = "https://safeyou.space?forumId=%d";
-    String DOMAIN_URL = "https://safeyou.page.link";
-    String ANDROID_PACKAGE_NAME = "fambox.pro";
-    String IOS_PACKAGE_NAME = "**********";
-    String IOS_APP_STORE_ID = "**********";
 
-    String BASE_URL = "https://dashboard.safeyou.space:88";
-    String BASE_SOCKET_URL = "https://dashboard.safeyou.space:1998";
-    String BASE_SOCKET_URL_IRQ = "https://dashboard.safeyou.space:1996";
-    String BASE_SOCKET_URL_GEO = "https://dashboard.safeyou.space:1997";
+    String BASE_URL = BuildConfig.BASE_URL;
+    String BASE_SOCKET_URL = BuildConfig.BASE_SOCKET_URL;
+    String BASE_SOCKET_URL_GEO = BuildConfig.BASE_SOCKET_URL_GEO;
+    String BASE_SOCKET_URL_IRQ = BuildConfig.BASE_SOCKET_URL_IRQ;
+    String BASE_SOCKET_URL_ZWE = BuildConfig.BASE_SOCKET_URL_ZWE;
 
     String API_REGISTRATION = "/api/{country_code}/{language}/registration";
     String API_LOGIN = "/api/{country_code}/{language}/login";
@@ -22,6 +17,11 @@ public interface Constants {
     String API_DELETE_ACCOUNT = "/api/{country_code}/{language}/profile/delete";
     String API_REFRESH_TOKEN = "/api/{country_code}/{language}/refresh";
     String API_PROFILE = "/api/{country_code}/{language}/profile";
+    String API_PROFILE_QUESTIONS = "/api/{country_code}/{language}/profile/questions";
+    String API_SURVEY_LIST = "/api/{country_code}/{language}/surveys/published";
+    String API_SURVEY_BY_ID = "/api/{country_code}/{language}/survey/{surveyId}";
+    String API_CREATE_SURVEY_ANSWER = "/api/{country_code}/{language}/survey/user/answer";
+    String API_PROFILE_FIND_TOWN_CITY = "/api/{country_code}/{language}/profile/find_town_city";
     String API_GET_SERVICES_NAME = "/api/{country_code}/{language}/profile/emergency_contacts";
     String API_PROFILE_SINGLE = "/api/{country_code}/{language}/profile/{field_name}";
     String API_ADD_EMERGENCY_CONTACT = "/api/{country_code}/{language}/profile/emergency_contact";
@@ -91,6 +91,8 @@ public interface Constants {
     String POST_NGO_RATE = "/api/{country_code}/{language}/rate/service";
 
     int NOTIFICATION_ID_FOREGROUND_SERVICE = 8466503;
+    String UNABLE_TO_RESOLVE_HOST_MESSAGE = "Unable to resolve host";
+    String CLOSED_ERROR_MESSAGE = "closed";
 
     interface Key {
         String KEY_USER_ID = "user_id";
@@ -133,5 +135,26 @@ public interface Constants {
         String KEY_IS_ART_GALLERY_ENABLED = "key_is_art_gallery_enabled";
         String KEY_IS_GALLERY_EDIT_ENABLED = "key_is_gallery_edit_enabled";
         String KEY_IS_PHOTO_EDITOR_ENABLED = "key_is_photo_editor_enabled";
+
+        String KEY_IS_SURVEY_NOTIFICATION_POPUP_OPENED = "key_is_survey_notification_popup_opened";
+
+        String KEY_QUESTION_ID = "KEY_QUESTION_ID";
+        String KEY_ANSWER_ID = "KEY_ANSWER_ID";
+
+        String KEY_QUESTION_TYPE = "KEY_QUESTION_TYPE";
+        String KEY_QUESTION_TITLE = "KEY_QUESTION_TITLE";
+
+
+        String KEY_SETTLEMENT_TYPE = "settlement";
+        String KEY_CITY_VILLAGE_TYPE = "city_village";
+        String KEY_PROVINCE_TYPE = "province";
+        String KEY_BASIC_TYPE = "basic";
+        String KEY_TEXT_ANSWER_TYPE = "text_answer";
+        String KEY_RATING_TYPE = "rating";
+        String KEY_RATING_STAR_TYPE = "rating_star";
+        String KEY_RATING_SMILE_FACE_TYPE = "rating_smiley_face";
+        String KEY_CURRENT_OCCUPATION_TYPE = "current_occupation";
+        String KEY_DO_YOU_HAVE_CHILDREN_TYPE = "do_you_have_children";
+
     }
 }

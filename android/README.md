@@ -18,9 +18,7 @@ After registration, a **tutorial** page is shown to the users explaining each fu
 #### App features
 **Choosing Emergency Contacts:** In the **Support section** users can select up to three personal contacts, three support contacts from the service provider organizations listed the Network section of the App, as well as enable the Police contact function.
 
-**Help Function:** By pressing and holding the green button for three seconds the App will simultaneously send a free alert SMS with the user’s geo-location to up to 7 previously chosen contacts.
-
-**Audio Recording:** Pressing and holding the green button for three seconds also enables the audio recording function for one minute. The audio record is kept in the recordings’ library and can be sent to service providers and the police or deleted at any time.
+**Help Function:** By pressing and holding the green button for three seconds the App will simultaneously send a free alert SMS with the user library and can be sent to service providers and the police or deleted at any time.
 
 **Network:** In the **Network section** of the app the users can find relevant information, such as contact details, hotlines, mapped location, website and social media links on nearby women's rights NGOs, governmental organizations, and individual specialists, supporting women in different ways. 
 
@@ -47,37 +45,37 @@ git clone
 ```
 # Build Config
 ```bash
-compileSdkVersion 30
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 33
+    buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId "fambox.pro"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 16
-        versionName "2.2.3"
-    }...
+        targetSdkVersion 33
+        versionCode 49
+        versionName "2.6.0"
+   }...
 ```
 # Java Version
 ```bash
 compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }...
+       sourceCompatibility JavaVersion.VERSION_1_8
+       targetCompatibility JavaVersion.VERSION_1_8
+   }...
 ```
 # Kotlin Version
 ```bash
 buildscript {
-    ext.kotlin_version = '1.4.20'
-    repositories {
-      ........
-    }
+   ext.kotlin_version = '1.8.0'
+   repositories {
+     ........
+   }
 }
 ```
 # Connecting Socket 
 + https://safeyou.space:3000/forum/readme
 
 # Build variants
-Use the Android Studio Build Variants button to choose between **production** and **staging** flavors combined with debug and release build types
+Use the Android Studio Build Variants button to choose between **production**, **staging** and **dev** flavors combined with debug and release build types
 
 # Used technologies
 + REST API

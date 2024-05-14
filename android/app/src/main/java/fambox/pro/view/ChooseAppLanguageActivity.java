@@ -76,8 +76,12 @@ public class ChooseAppLanguageActivity extends BaseActivity implements ChooseApp
                 getLocale(), isChangeLanguage);
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        if (!isChangeLanguage) {
+            linearLayoutManager.setStackFromEnd(true);
+        }
         recViewLanguages.setLayoutManager(linearLayoutManager);
         recViewLanguages.setAdapter(adapterChooseLanguages);
+        recViewLanguages.smoothScrollToPosition(0);
     }
 
     @OnClick(R.id.containerNext)

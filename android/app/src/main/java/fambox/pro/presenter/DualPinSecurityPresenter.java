@@ -87,28 +87,34 @@ public class DualPinSecurityPresenter extends BasePresenter<DualPinSecurityContr
                 || fakePinToString.equals("")
                 || confirmFakePinToString.equals("")) {
             if (message != null) {
-                message.append(getView().getContext().getResources().getString(R.string.fill_required_fields_text_key));
+                message.append(getView().getContext().getString(R.string.fill_required_fields_text_key));
+            }
+            return false;
+
+        } else if (realPinToString.length() < 4 || confirmRealPinToString.length() < 4 || fakePinToString.length() < 4 || confirmFakePinToString.length() < 4) {
+            if (message != null) {
+                message.append(getView().getContext().getString(R.string.pin_length_text_key));
             }
             return false;
         } else if (Objects.equals(confirmRealPinToString, confirmFakePinToString)) {
             if (message != null) {
-                message.append(getView().getContext().getResources().getString(R.string.real_pin_fake_pin_different));
+                message.append(getView().getContext().getString(R.string.real_pin_fake_pin_different));
             }
             return false;
         } else if (!Objects.equals(realPinToString, confirmRealPinToString)) {
             if (message != null) {
-                message.append(getView().getContext().getResources().getString(R.string.real_pin_and_conform_real_not_match));
+                message.append(getView().getContext().getString(R.string.real_pin_and_conform_real_not_match));
             }
             return false;
         } else if (checkLength(realPinToString, confirmRealPinToString,
                 fakePinToString, confirmFakePinToString)) {
             if (message != null) {
-                message.append(getView().getContext().getResources().getString(R.string.pin_length_text_key));
+                message.append(getView().getContext().getString(R.string.pin_length_text_key));
             }
             return false;
         } else if (!Objects.equals(fakePinToString, confirmFakePinToString)) {
             if (message != null) {
-                message.append(getView().getContext().getResources().getString(R.string.fake_and_fake_confirm_not_match));
+                message.append(getView().getContext().getString(R.string.fake_and_fake_confirm_not_match));
             }
             return false;
         }

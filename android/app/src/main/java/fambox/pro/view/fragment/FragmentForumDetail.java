@@ -4,13 +4,11 @@ import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE;
 import static fambox.pro.Constants.Key.KEY_IS_DARK_MODE_ENABLED;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

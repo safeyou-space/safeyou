@@ -315,8 +315,7 @@ public class ForumCommentPresenter extends BasePresenter<ForumCommentContract.Vi
         if (bundle != null) {
             getView().showProgress();
             mForumId = bundle.getLong("forum_id");
-
-            if (bundle.getInt("notification_type") == 2 && bundle.getBoolean("is_opened_from_notification")) {
+            if (bundle.getLong("notification_type") == 2 && bundle.getBoolean("is_opened_from_notification")) {
                 String roomKey = bundle.getString("room_key");
                 long messageParentId = bundle.getLong("message_parent_id");
                 long messageId = bundle.getLong("message_id");
@@ -505,7 +504,9 @@ public class ForumCommentPresenter extends BasePresenter<ForumCommentContract.Vi
         comment.setForumId(mForumId);
         comment.setRoomKey(roomKey);
         comment.setId(incomingData.getInt("message_id"));
-        comment.setMessage(incomingData.getString("message_content"));
+        if (!incomingData.isNull("message_content")) {
+            comment.setMessage(incomingData.getString("message_content"));
+        }
         comment.setCreated_at(incomingData.getString("message_created_at"));
         if (incomingData.has("message_replied_message_id")) {
             int repliedMessageId = incomingData.getInt("message_replied_message_id");
@@ -529,7 +530,9 @@ public class ForumCommentPresenter extends BasePresenter<ForumCommentContract.Vi
         if (incomingData.has("message_send_by")) {
             JSONObject sendBy = incomingData.getJSONObject("message_send_by");
             comment.setUser_type_id(sendBy.getInt("user_role"));
-            comment.setUser_type(sendBy.getJSONObject("user_profession").getString(LocaleHelper.getLanguage(getView().getContext())));
+            if (!sendBy.isNull("user_profession")) {
+                comment.setUser_type(sendBy.getJSONObject("user_profession").getString(LocaleHelper.getLanguage(getView().getContext())));
+            }
             comment.setName(sendBy.getString("user_username"));
             comment.setImage_path(sendBy.getString("user_image"));
             comment.setMy(sendBy.getInt("user_id") ==
@@ -547,7 +550,7 @@ public class ForumCommentPresenter extends BasePresenter<ForumCommentContract.Vi
                 Comments forumComment = new Comments();
                 forumComment.setForumId(mForumId);
                 forumComment.setId(chatMessage.getMessage_id());
-                forumComment.setHidden(chatMessage.getMessage_hidden());
+                forumComment.setHidden(chatMessage.getMessage_hiden());
                 forumComment.setMessage(chatMessage.getMessage_content());
                 forumComment.setUser_type_id(chatMessage.getMessage_send_by().getUser_role());
                 if (chatMessage.getMessage_send_by().getUser_profession() != null) {
@@ -572,7 +575,7 @@ public class ForumCommentPresenter extends BasePresenter<ForumCommentContract.Vi
                 for (ChatMessage messageReply : chatMessage.getMessage_replies()) {
                     Comments forumCommentReply = new Comments();
                     forumCommentReply.setForumId(mForumId);
-                    forumCommentReply.setHidden(messageReply.getMessage_hidden());
+                    forumCommentReply.setHidden(messageReply.getMessage_hiden());
                     forumCommentReply.setId(messageReply.getMessage_id());
                     forumCommentReply.setName(messageReply.getMessage_send_by().getUser_username());
                     forumCommentReply.setMessage(messageReply.getMessage_content());

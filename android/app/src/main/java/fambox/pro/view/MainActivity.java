@@ -5,9 +5,7 @@ import static fambox.pro.Constants.Key.KEY_SERVICE_ID;
 import static fambox.pro.Constants.Key.KEY_SERVICE_TYPE;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +17,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.facebook.appevents.AppEventsConstants;
-import com.facebook.appevents.AppEventsLogger;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
@@ -150,8 +146,6 @@ public class MainActivity extends BaseActivity implements MainContract.View,
 
         searchView.setSubmitOnClick(true);
 
-        logSentFriendRequestEvent();
-
         // TODO: chang
         SafeYouApp.getPreference().setValue(KEY_LOG_IN_FIRST_TIME, true);
     }
@@ -160,23 +154,6 @@ public class MainActivity extends BaseActivity implements MainContract.View,
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         viewPager.setCurrentItem(1);
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * This function assumes logger is an instance of AppEventsLogger and has been
-     * created using AppEventsLogger.newLogger() call.
-     */
-    public void logSentFriendRequestEvent() {
-        AppEventsLogger logger = AppEventsLogger.newLogger(this);
-
-        Bundle params = new Bundle();
-        params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, "USD");
-        params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, "product");
-        params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_ID, "HDFU-8452");
-
-        logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_CART,
-                54.23,
-                params);
     }
 
     @Override
@@ -277,6 +254,9 @@ public class MainActivity extends BaseActivity implements MainContract.View,
 
             @Override
             public void onPageSelected(int position) {
+                if (position != 2 && position != 1) {
+                    openSurveyDialog(true);
+                }
                 mMainPresenter.configPagesAppBar(position);
             }
 

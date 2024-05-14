@@ -26,9 +26,6 @@
         google_maps_key
     </string>
 
-    <string name="facebook_app_id" translatable="false">**********</string>
-    <string name="fb_login_protocol_scheme" translatable="false">**********</string>
-
     <string name="ngos_title_key_pressed"><font fgcolor='#9834B7'>Network</font></string>
     <string name="forums_title_key_pressed"><font fgcolor='#9834B7'>Forums</font></string>
     <string name="help_pressed"><font fgcolor='#9834B7'>HELP</font></string>
@@ -376,6 +373,36 @@
     <string name="access_safe_you_forum">Access Safe YOU forums</string>
     <string name="share">Share</string>
 
+    <string name="city_village">City/Town</string>
+    <string name="current_occupation">Current occupation</string>
+    <string name="region">Region</string>
+    <string name="not_specified_text_key">Not Specified</string>
+    <string name="profile_completeness">Profile completeness</string>
+    <string name="profile_completeness_description">Complete your profile to help us serve you better</string>
+    <string name="skip_key">Skip</string>
+    <string name="complete_profile_title">Thank you for completing your profile!</string>
+    <string name="back_to_profile_key">Back to Profile</string>
+    <string name="select_key">Select</string>
+    <string name="specify_settlement_type_title_key">Specify settlement type</string>
+    <string name="specify_settlement_type_title2_key">Specify settlement type</string>
+    <string name="complete_key">Complete</string>
+    <string name="previous_key">Previous</string>
+    <string name="profile_completed_description">Thank you for completing your profile. This information will enable us to assist you more effectively.</string>
+    <string name="remind_me_later">Remind me later</string>
+    <string name="profile_complete_key">Complete profile</string>
+    <string name="open_surveys_key">Open Surveys</string>
+    <string name="survey_completed_description">Thank you for taking our survey.</string>
+    <string name="back_to_surveys_key">Back to Surveys</string>
+    <string name="long_text_answer_hint">Long text answer</string>
+    <string name="short_text_answer_hint">Short text answer</string>
+    <string name="close_survey_title_key">Are you sure you would like to end the survey</string>
+    <string name="close_survey_description_key">If you choose to stop now, your responses will be permanently lost. To finish the survey and preserve your input, please select \'Cancel\'.</string>
+    <string name="take_survey_key">Take Survey</string>
+    <string name="take_quiz_key">Take Quiz</string>
+    <string name="see_result_key">View Result</string>
+    <string name="empty_surveys_key">No surveys available yet</string>
+    <string name="survey_notification_popup_title">Explore Our New Survey Tool</string>
+    <string name="survey_notification_popup_description">Try our new survey tool to help us understand and meet your needs better. Your opinion matters!</string>
 
 
 

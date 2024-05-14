@@ -6,9 +6,14 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.HashMap;
+import java.util.List;
+
 import fambox.pro.model.BaseModel;
 import fambox.pro.network.NetworkCallback;
 import fambox.pro.network.model.Message;
+import fambox.pro.network.model.ProfileQuestionAnswer;
+import fambox.pro.network.model.ProfileQuestionsResponse;
 import fambox.pro.network.model.ProfileResponse;
 import fambox.pro.presenter.basepresenter.MvpPresenter;
 import fambox.pro.presenter.basepresenter.MvpView;
@@ -31,8 +36,6 @@ public interface EditProfileContract {
 
         void setMobilePhone(String text);
 
-        void setLocation(String text);
-
         void initDialog();
 
         void setNickname(String nickname);
@@ -44,9 +47,21 @@ public interface EditProfileContract {
         void showProgress();
 
         void dismissProgress();
+
+        void showNicknameError(String message);
+
+        void updateQuestions(Double filledPercent);
+
+        void setProfileAnswers(HashMap<String, ProfileQuestionAnswer> profileQuestionsAnswers);
+
+        void showSingleQuestion(List<ProfileQuestionsResponse> profileQuestionsResponses, long answerId, String questionTitle);
+
+        void childCountSuccessfullyUpdated();
     }
 
     interface Presenter extends MvpPresenter<EditProfileContract.View> {
+        void getQuestionById(String countryCode, String locale, long questionId, long answerId, String questionTitle);
+
         void getProfile(String countryCode, String locale);
 
         void editProfileDetail(String countryCode, String locale, String imagePath);
@@ -57,11 +72,17 @@ public interface EditProfileContract {
 
         void removeProfileImage(String countryCode, String locale);
 
+        void editChildCount(String countryCode, String locale, long questionId,
+                            String questionType,
+                            long questionOptionId);
+
     }
 
     interface Model extends BaseModel {
         void getProfile(Context context, String countryCode, String locale,
                         NetworkCallback<Response<ProfileResponse>> response);
+
+        void getProfileQuestions(Context context, String countryCode, String locale, long questionId, NetworkCallback<Response<List<ProfileQuestionsResponse>>> response);
 
         void editPhotoNickname(Context context, String countryCode, String locale,
                                MultipartBody.Part image,

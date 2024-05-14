@@ -73,7 +73,7 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
         this.mOldServiceId = serviceId;
         this.isAddedFromProfile = isAddedFromProfile;
         this.isSendSms = isSendSms;
-        onResume();
+        refresh();
     }
 
     @Override
@@ -102,6 +102,11 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
         ((MainActivity) mContext).setTransferSearchTextListener(text
                 -> mFragmentNetworkPresenter.search(((MainActivity) mContext).getCountryCode(),
                 LocaleHelper.getLanguage(getContext()), text));
+
+        mFragmentNetworkPresenter.getServices(((MainActivity) mContext).getCountryCode(),
+                LocaleHelper.getLanguage(getContext()), isSendSms);
+        mFragmentNetworkPresenter.getServiceCategoryTypes(((MainActivity) mContext).getCountryCode(),
+                LocaleHelper.getLanguage(getContext()), isSendSms);
     }
 
     @Override
@@ -129,9 +134,6 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
                     .zoom(6.5f)
                     .build();
             mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        } else {
-            if (getActivity() != null)
-                showErrorMessage(getActivity().getResources().getString(R.string.your_map_not_ready));
         }
     }
 
@@ -143,9 +145,7 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void refresh() {
         mFragmentNetworkPresenter.getServices(((MainActivity) mContext).getCountryCode(),
                 LocaleHelper.getLanguage(getContext()), isSendSms);
         mFragmentNetworkPresenter.getServiceCategoryTypes(((MainActivity) mContext).getCountryCode(),
@@ -154,7 +154,7 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
 
     public void setSendSms(boolean sendSms) {
         isSendSms = sendSms;
-        onResume();
+        refresh();
     }
 
     @Override
@@ -165,9 +165,6 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
                     .position(position)
                     .snippet(description)
                     .title(title));
-        } else {
-            if (getActivity() != null)
-                showErrorMessage(getActivity().getResources().getString(R.string.your_map_not_ready));
         }
     }
 
@@ -175,9 +172,6 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
     public void clearMarkersOnMap() {
         if (mMap != null) {
             mMap.clear();
-        } else {
-            if (getActivity() != null)
-                showErrorMessage(getActivity().getResources().getString(R.string.your_map_not_ready));
         }
     }
 

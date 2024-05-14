@@ -2,6 +2,8 @@ package fambox.pro.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -16,6 +18,7 @@ import fambox.pro.BaseActivity;
 import fambox.pro.R;
 import fambox.pro.enums.Types;
 import fambox.pro.presenter.LoginWithBackPresenter;
+import fambox.pro.utils.EditableUtils;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.utils.Utils;
 
@@ -44,20 +47,53 @@ public class LoginWithBackActivity extends BaseActivity implements LoginWithBack
         mLoginWithBackPresenter.attachView(this);
         mLoginWithBackPresenter.viewIsReady();
         edtLogin.setSelection(Objects.requireNonNull(edtLogin.getText()).length());
+        int maxPhoneNumber = 9;
         switch (getCountryCode()) {
             case "geo":
                 countryCode = "GE";
+                maxPhoneNumber = 10;
                 break;
             case "arm":
                 countryCode = "AM";
+                maxPhoneNumber = 8;
                 break;
             case "irq":
                 countryCode = "IQ";
+                maxPhoneNumber = 10;
+                break;
+            case "zwe":
+                countryCode = "ZW";
+                maxPhoneNumber = 9;
                 break;
         }
         countryPicker.setCcpClickable(false);
         countryPicker.setCountryForNameCode(countryCode);
         countryPicker.showArrow(false);
+        int finalMaxPhoneNumber = maxPhoneNumber;
+        countryPicker.registerCarrierNumberEditText(edtLogin);
+        edtLogin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int length = EditableUtils.getCharacterCountWithoutSpaces(editable);
+                if (length > finalMaxPhoneNumber) {
+                    int selectionEnd = edtLogin.getSelectionEnd();
+                    int selectionStart = edtLogin.getSelectionStart();
+                    editable.delete(selectionStart - (length - finalMaxPhoneNumber), selectionEnd);
+                    countryPicker.registerCarrierNumberEditText(edtLogin);
+                }
+
+            }
+        });
 
     }
 
@@ -102,7 +138,6 @@ public class LoginWithBackActivity extends BaseActivity implements LoginWithBack
         if (number.isEmpty()) {
             return "";
         } else {
-            countryPicker.registerCarrierNumberEditText(edtLogin);
             return countryPicker.getFullNumberWithPlus();
         }
     }

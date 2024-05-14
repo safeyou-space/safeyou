@@ -15,4 +15,7 @@ public class UserRateResponseBody {
     @SerializedName("comment")
     private String comment;
 
+    public int getRate() {
+        return rate;
+    }
 }

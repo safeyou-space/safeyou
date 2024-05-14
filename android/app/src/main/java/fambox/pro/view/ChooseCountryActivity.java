@@ -6,7 +6,9 @@ import static fambox.pro.Constants.Key.KEY_COUNTRY_CODE_BUNDLE;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +32,15 @@ public class ChooseCountryActivity extends BaseActivity implements ChooseCountry
     private boolean isChangeCountry;
     @BindView(R.id.recViewCountries)
     RecyclerView recViewCountries;
+    @BindView(R.id.txtChooseYourCountry)
+    @Nullable
+    TextView txtChooseYourCountry;
+    @BindView(R.id.txtCountryDescription)
+    @Nullable
+    TextView txtCountryDescription;
+    @BindView(R.id.txtNext)
+    @Nullable
+    TextView txtNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +57,9 @@ public class ChooseCountryActivity extends BaseActivity implements ChooseCountry
             Utils.setStatusBarColor(this, Types.StatusBarConfigType.CLOCK_WHITE_STATUS_BAR_PURPLE);
             addAppBar(null, true,
                     false, true, null, false);
+            txtNext.setText(R.string.next_key);
+            txtCountryDescription.setText(R.string.which_country_to_browse_in);
+            txtChooseYourCountry.setText(R.string.choose_your_country);
         }
     }
 
