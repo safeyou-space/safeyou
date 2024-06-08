@@ -1,6 +1,5 @@
 # Safe YOU
-### Safe YOU
-[](https://play.google.com/store/apps/details?id=fambox.pro)
+### Safe YOU(https://play.google.com/store/apps/details?id=fambox.pro)
 
 # Offered By
 Impact Innovations Institute LLC
