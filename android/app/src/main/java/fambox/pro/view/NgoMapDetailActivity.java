@@ -19,13 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.libraries.maps.CameraUpdateFactory;
-import com.google.android.libraries.maps.GoogleMap;
-import com.google.android.libraries.maps.OnMapReadyCallback;
-import com.google.android.libraries.maps.model.CameraPosition;
-import com.google.android.libraries.maps.model.LatLng;
-import com.google.android.libraries.maps.model.Marker;
-import com.google.android.libraries.maps.model.MarkerOptions;
+
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import fambox.pro.BaseActivity;
+import fambox.pro.BuildConfig;
 import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
@@ -46,10 +46,8 @@ import fambox.pro.privatechat.view.ChatActivity;
 import fambox.pro.utils.SnackBar;
 import fambox.pro.view.adapter.SocialMediaAdapter;
 import fambox.pro.view.fragment.FragmentRatingBar;
-import fambox.pro.view.fragment.map.MySupportMapFragment;
 
-public class NgoMapDetailActivity extends BaseActivity implements NgoMapDetailContract.View,
-        OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class NgoMapDetailActivity extends BaseActivity implements NgoMapDetailContract.View {
 
     private NgoMapDetailPresenter mNgoMapDetailPresenter;
 
@@ -67,8 +65,9 @@ public class NgoMapDetailActivity extends BaseActivity implements NgoMapDetailCo
     // TODO: check button visibility for private message
     @BindView(R.id.imgBtnPrivateMessage)
     ImageButton imgBtnPrivateMessage;
+    @BindView(R.id.map)
+    MapView map;
 
-    private GoogleMap gMap;
     @BindView(R.id.nestedScrollView)
     NestedScrollView scrollView;
     @BindView(R.id.rate_bar_layout)
@@ -95,12 +94,6 @@ public class NgoMapDetailActivity extends BaseActivity implements NgoMapDetailCo
         mNgoMapDetailPresenter.viewIsReady();
         mNgoMapDetailPresenter.initBundle(getIntent().getExtras(), getCountryCode(), getLocale());
         scrollView.fullScroll(View.FOCUS_UP);
-        MySupportMapFragment mMapFragment = (MySupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        if (mMapFragment != null)
-            mMapFragment.setListener(() -> scrollView.requestDisallowInterceptTouchEvent(true));
-        if (mMapFragment != null) {
-            mMapFragment.getMapAsync(this);
-        }
         if (SafeYouApp.isMinorUser() &&
                 (getIntent().getLongExtra(KEY_SERVICE_ID, 0) != 4 && getIntent().getLongExtra(KEY_SERVICE_ID, 0) != 2)) {
             imgBtnPrivateMessage.setVisibility(View.GONE);
@@ -110,17 +103,6 @@ public class NgoMapDetailActivity extends BaseActivity implements NgoMapDetailCo
     @Override
     protected int getLayout() {
         return R.layout.activity_ngo_map_detail;
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        return false;
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        gMap = googleMap;
-        gMap.setOnMarkerClickListener(this);
     }
 
     @Override
@@ -193,19 +175,36 @@ public class NgoMapDetailActivity extends BaseActivity implements NgoMapDetailCo
 
     @Override
     public void configMapPosition(String name, String description, double latitude, double longitude) {
-        if (gMap != null) {
-            LatLng position = new LatLng(latitude, longitude);
-            gMap.addMarker(new MarkerOptions()
-                    .position(position)
-                    .snippet(description)
-                    .title(name));
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(position)
-                    .zoom(15f)
-                    .build();
-            gMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if (map != null) {
+            Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+            map.setTileSource(TileSourceFactory.MAPNIK);
+            map.setMultiTouchControls(true);
+            org.osmdroid.views.overlay.Marker marker = new Marker(map);
+            GeoPoint point = new GeoPoint(latitude, longitude);
+            marker.setPosition(point);
+            marker.setTitle(name);
+            marker.setSubDescription(description);
+            map.getOverlays().add(marker);
+            map.getController().setZoom(15.0);
+            map.getController().setCenter(point);
         } else {
             showErrorMessage(getResources().getString(R.string.map_not_ready));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (map != null) {
+            map.onResume();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (map != null) {
+            map.onPause();
         }
     }
 

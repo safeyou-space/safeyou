@@ -37,9 +37,8 @@
             </androidx.cardview.widget.CardView>
 
 
-            <androidx.fragment.app.FragmentContainerView
+            <org.osmdroid.views.MapView
                 android:id="@+id/map"
-                android:name="fambox.pro.view.fragment.map.MySupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
                 tools:context=".view.fragment.FragmentNetwork" />

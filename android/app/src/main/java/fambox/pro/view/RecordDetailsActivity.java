@@ -14,20 +14,18 @@ import android.widget.ToggleButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.libraries.maps.CameraUpdateFactory;
-import com.google.android.libraries.maps.GoogleMap;
-import com.google.android.libraries.maps.OnMapReadyCallback;
-import com.google.android.libraries.maps.SupportMapFragment;
-import com.google.android.libraries.maps.model.CameraPosition;
-import com.google.android.libraries.maps.model.LatLng;
-import com.google.android.libraries.maps.model.Marker;
-import com.google.android.libraries.maps.model.MarkerOptions;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import fambox.pro.BaseActivity;
+import fambox.pro.BuildConfig;
 import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.audiowaveview.AudioWaveView;
@@ -39,8 +37,7 @@ import fambox.pro.utils.SnackBar;
 import fambox.pro.utils.Utils;
 import fambox.pro.view.dialog.RecordInfoDialog;
 
-public class RecordDetailsActivity extends BaseActivity implements RecordDetailsContract.View,
-        OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class RecordDetailsActivity extends BaseActivity implements RecordDetailsContract.View {
 
     @BindView(R.id.audioWaveView)
     AudioWaveView waveView;
@@ -68,9 +65,10 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
     TextView recData;
     @BindView(R.id.recDuration)
     TextView recDuration;
+    @BindView(R.id.map)
+    MapView map;
 
     private RecordDetailsPresenter mRecordDetailsPresenter;
-    private GoogleMap gMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +84,6 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
         mRecordDetailsPresenter.setUpMediaVolume(this, seekBarVolume);
         mRecordDetailsPresenter.initBundle(getIntent().getExtras(), getCountryCode(), getLocale());
 
-        SupportMapFragment mMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        if (mMapFragment != null) {
-            mMapFragment.getMapAsync(this);
-        }
     }
 
     @Override
@@ -100,10 +94,21 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
     @Override
     protected void onResume() {
         super.onResume();
+        if (map != null) {
+            map.onResume();
+        }
         showProgress();
         if (mRecordDetailsPresenter != null) {
             mRecordDetailsPresenter.viewIsReady();
             mRecordDetailsPresenter.setUpWaveView(waveView);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (map != null) {
+            map.onPause();
         }
     }
 
@@ -238,16 +243,17 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
 
     @Override
     public void configMapPosition(String name, double latitude, double longitude) {
-        if (gMap != null) {
-            LatLng position = new LatLng(latitude, longitude);
-            gMap.addMarker(new MarkerOptions()
-                    .position(position)
-                    .title(name));
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(position)
-                    .zoom(15f)
-                    .build();
-            gMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if (map != null) {
+            Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+            map.setTileSource(TileSourceFactory.MAPNIK);
+            map.setMultiTouchControls(true);
+            Marker marker = new Marker(map);
+            GeoPoint point = new GeoPoint(latitude, longitude);
+            marker.setPosition(point);
+            marker.setTitle(name);
+            map.getOverlays().add(marker);
+            map.getController().setZoom(18.0);
+            map.getController().setCenter(point);
         } else {
             showErrorMessage(getResources().getString(R.string.map_not_ready));
         }
@@ -298,17 +304,17 @@ public class RecordDetailsActivity extends BaseActivity implements RecordDetails
         }
     }
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        return false;
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        gMap = googleMap;
-        gMap.setOnMarkerClickListener(this);
-        mRecordDetailsPresenter.googleMapReady();
-    }
+//    @Override
+//    public boolean onMarkerClick(Marker marker) {
+//        return false;
+//    }
+//
+//    @Override
+//    public void onMapReady(GoogleMap googleMap) {
+//        map = googleMap;
+//        map.setOnMarkerClickListener(this);
+//        mRecordDetailsPresenter.googleMapReady();
+//    }
 
     @OnClick(R.id.prev)
     void onClickPreviews() {

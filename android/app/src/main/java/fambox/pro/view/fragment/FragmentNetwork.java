@@ -21,13 +21,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.libraries.maps.CameraUpdateFactory;
-import com.google.android.libraries.maps.GoogleMap;
-import com.google.android.libraries.maps.OnMapReadyCallback;
-import com.google.android.libraries.maps.model.CameraPosition;
-import com.google.android.libraries.maps.model.LatLng;
-import com.google.android.libraries.maps.model.Marker;
-import com.google.android.libraries.maps.model.MarkerOptions;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
 
 import java.util.List;
 import java.util.Map;
@@ -35,6 +32,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fambox.pro.BaseActivity;
+import fambox.pro.BuildConfig;
 import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.network.model.ServicesResponseBody;
@@ -46,13 +44,10 @@ import fambox.pro.view.MainActivity;
 import fambox.pro.view.NgoMapDetailActivity;
 import fambox.pro.view.adapter.AdapterCategoryType;
 import fambox.pro.view.adapter.MapNGOsAdapter;
-import fambox.pro.view.fragment.map.MySupportMapFragment;
 
-public class FragmentNetwork extends BaseFragment implements FragmentNetworkContract.View,
-        OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class FragmentNetwork extends BaseFragment implements FragmentNetworkContract.View {
 
     private FragmentNetworkPresenter mFragmentNetworkPresenter;
-    private GoogleMap mMap;
     private FragmentActivity mContext;
     private TransferDataListener mTransferDataListener;
     private boolean isAddedFromProfile = false;
@@ -67,6 +62,8 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
     RecyclerView rvNetworkCategory;
     @BindView(R.id.networkLoading)
     LinearLayout networkLoading;
+    @BindView(R.id.map)
+    MapView map;
 
     public void setServiceId(long serviceId, boolean isAddedFromProfile, boolean isSendSms) {
         showProgress();
@@ -92,13 +89,6 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
         mFragmentNetworkPresenter.attachView(this);
         mFragmentNetworkPresenter.viewIsReady();
         scrollView.fullScroll(View.FOCUS_UP);
-        MySupportMapFragment mMapFragment = (MySupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mMapFragment != null)
-            mMapFragment.setListener(() -> scrollView.requestDisallowInterceptTouchEvent(true));
-        if (mMapFragment != null) {
-            mMapFragment.getMapAsync(this);
-        }
-
         ((MainActivity) mContext).setTransferSearchTextListener(text
                 -> mFragmentNetworkPresenter.search(((MainActivity) mContext).getCountryCode(),
                 LocaleHelper.getLanguage(getContext()), text));
@@ -107,33 +97,48 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
                 LocaleHelper.getLanguage(getContext()), isSendSms);
         mFragmentNetworkPresenter.getServiceCategoryTypes(((MainActivity) mContext).getCountryCode(),
                 LocaleHelper.getLanguage(getContext()), isSendSms);
+
+        configMap();
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        if (googleMap != null) {
-            mMap = googleMap;
-            mMap.setOnMarkerClickListener(this);
+    public void onResume() {
+        super.onResume();
+        if (map != null) {
+            map.onResume();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (map != null) {
+            map.onPause();
+        }
+    }
+
+    public void configMap() {
+        if (map != null) {
             String countryCode = ((BaseActivity) mContext).getCountryCode();
-            LatLng location = new LatLng(40.0691, 45.0382);
+            GeoPoint point = new GeoPoint(40.0691, 45.0382);
             if (countryCode != null) {
                 switch (countryCode) {
                     case "arm":
-                        location = new LatLng(40.0691, 45.0382);
+                        point = new GeoPoint(40.0691, 45.0382);
                         break;
                     case "geo":
-                        location = new LatLng(42.3154, 43.3569);
+                        point = new GeoPoint(42.3154, 43.3569);
                         break;
                     case "irq":
-                        location = new LatLng(36.2209, 43.6848);
+                        point = new GeoPoint(36.2209, 43.6848);
                         break;
                 }
             }
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(location)
-                    .zoom(6.5f)
-                    .build();
-            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+            map.setTileSource(TileSourceFactory.MAPNIK);
+            map.setMultiTouchControls(true);
+            map.getController().setZoom(6.5);
+            map.getController().setCenter(point);
         }
     }
 
@@ -159,19 +164,20 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
 
     @Override
     public void addMarkersOnMap(String title, String description, double latitude, double longitude) {
-        LatLng position = new LatLng(latitude, longitude);
-        if (mMap != null) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(position)
-                    .snippet(description)
-                    .title(title));
+        if (map != null) {
+            GeoPoint point = new GeoPoint(latitude, longitude);
+            org.osmdroid.views.overlay.Marker marker = new org.osmdroid.views.overlay.Marker(map);
+            marker.setPosition(point);
+            marker.setTitle(title);
+            marker.setSubDescription(description);
+            map.getOverlays().add(marker);
         }
     }
 
     @Override
     public void clearMarkersOnMap() {
-        if (mMap != null) {
-            mMap.clear();
+        if (map != null) {
+            map.getOverlays().clear();
         }
     }
 
@@ -251,13 +257,6 @@ public class FragmentNetwork extends BaseFragment implements FragmentNetworkCont
             }
         }
     }
-
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        return false;
-    }
-
 
     @Override
     public void setSearchResult(List<ServicesSearchResponse> responses) {

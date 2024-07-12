@@ -82,5 +82,5 @@ Use the Android Studio Build Variants button to choose between **production**, *
 + Retrofit2 
 + RxJava
 + Socket IO
-+ Google MAP, Location
++ Open Street MAP, Location
 

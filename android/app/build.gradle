@@ -2,8 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
-    id 'com.google.gms.google-services'
-    id 'com.google.android.libraries.mapsplatform.v3-beta-migration' version '0.1.0'
 }
 
 
@@ -136,13 +134,8 @@ dependencies {
     // loading dialog
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
-
-    implementation 'com.google.android.libraries.maps:maps:3.1.0-beta'
-
-    // If you are using Places, add all of the dependencies below
-    implementation name:'places-maps-sdk-3.1.0-beta', ext:'aar'
-    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
-    implementation 'com.google.auto.value:auto-value-annotations:1.8.1'
+    //Open Street Map
+    implementation 'org.osmdroid:osmdroid-android:6.1.10'
 
     // image piker
     implementation 'com.github.maayyaannkk:ImagePicker:1.2.5'

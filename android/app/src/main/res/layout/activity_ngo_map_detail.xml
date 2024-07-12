@@ -117,9 +117,8 @@
                 app:cardBackgroundColor="@color/statusBarColorPurpleLanguage"
                 app:cardCornerRadius="15dp">
 
-                <fragment
+                <org.osmdroid.views.MapView
                     android:id="@+id/map"
-                    android:name="fambox.pro.view.fragment.map.MySupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="325dp"
                     tools:context=".view.NgoMapDetailActivity" />
