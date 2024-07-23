@@ -32,8 +32,6 @@ const hEvents = require('./libs/eventsHandler');
 const hAuthorization = require('./libs/authorizationHandler');
 const app = express();
 const morgan = require('morgan');
-global['admin'] = require('firebase-admin');
-global['redis_db'] = require('./libs/redis_db');
 let http;
 if (args['ssl_key'] && args['ssl_crt']) {
     http = require('https').createServer( {
@@ -44,16 +42,8 @@ if (args['ssl_key'] && args['ssl_crt']) {
     http = require('http').createServer(app);
 }
 const serviceAccount = require("./configs/serviceAccountKey.json");
-redis_db.c.on('error', function (error) {
-    return console.error("(%s) [Redis] Connection error: ",
-        dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss'), error['message'] ? error['message'] : error);
-});
-redis_db.c.on('connect', function (err) {
-    if (err) {
-        return console.error("(%s) [Redis] Connection error: ",
-            dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss'), err.message);
-    }
-    console.info("(%s) [Redis] Successfully connected.", dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss'));
+
+    console.info("(%s)  Successfully connected.", dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss'));
     const io = require('socket.io')(http);
     morgan.token('port', function getId(req) {
         return req.socket['_peername'].port;
@@ -66,7 +56,6 @@ redis_db.c.on('connect', function (err) {
     app.use(json({type: 'application/vnd.api+json'}));
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
-        databaseURL: cfg['cfg.APP_FIREBASE.DB_URL']
     })
     hDatabase.init();
 
@@ -94,4 +83,3 @@ redis_db.c.on('connect', function (err) {
             dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss'),
             cfg['APP.HOST'], cfg['APP.PORT'], cfg['APP.HOST'], cfg['APP.PORT']);
     });
-});

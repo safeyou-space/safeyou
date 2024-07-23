@@ -118,7 +118,6 @@ Use the Android Studio Build Variants button to choose between **production**, *
 What is used:
 ======
 - ***MySql (^5.7)*** - For saving forums, comments, users, etc...
-- ***Redis*** - For saving notifications.
 - ***Node.JS (Socket.IO ^2)*** - For Android/IOS/WEB etc...
 - ***Node.JS (Express ^4.13.4)*** - For backend.
 
@@ -135,10 +134,7 @@ Configuration:
   "DB.PORT": 3306,                                                  // MySql - port
   "DB.DATABASE": "arm_safe_you_dev",                                // MySql - database name 
   "DB.USERNAME": "safeyou",                                         // MySql - database username
-  "DB.PASSWORD": "qwertyQWERTY123!@#",                              // MySql - database password
-  "REDIS.HOST": "127.0.0.1",                                        // Redis - host
-  "REDIS.PORT": 6379,                                               // Redis - port
-  "REDIS.EXPIRE": 864000,                                           // Redis - notification retention period
+  "DB.PASSWORD": "qwertyQWERTY123!@#",                              // MySql - database password 	
   "APP.API_KEY": "C2359A8C1DA7DFA54437C40D57A44BCC",                // access key to express routes for requests
   "APP.ROUTES_AUTH": [
     {

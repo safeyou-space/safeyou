@@ -342,7 +342,7 @@ module.exports = {
                                         } else {
                                             if (result3.length === 1) {
                                                 if (reply_user_id != null) {
-                                                    let redis_data = {
+                                                    let msg_data = {
                                                         "id": result.insertId,
                                                         "forum_id": forum_id,
                                                         "reply_id": reply_id,
@@ -355,9 +355,7 @@ module.exports = {
                                                         "key": `user_${reply_user_id}_${user_id}_${result.insertId}`,
                                                         "created_at": now.toISOString()
                                                     };
-                                                    redis_db.set(`user_${reply_user_id}_${user_id}_${result.insertId}`, cfg['REDIS.EXPIRE'], redis_data);
-                                                    this.sendNotifications(io, reply_user_id, redis_data);
-                                                    this.sendFireBaseNotifications(reply_user_id, redis_data);
+                                                    this.sendNotifications(io, reply_user_id, msg_data);
 
                                                     let clients1 = helper.getClientByUserID(io, reply_user_id);
                                                     for (const socket1 of clients1) {
@@ -542,89 +540,24 @@ module.exports = {
     read_notification: function (io, socket, params, sendToClient) {
         let key = params.key;
         if (key !== undefined) {
-            redis_db.get(key, function (err, result) {
-                result['isReaded'] = 1;
-                redis_db.set(key, null, result);
-                sendToClient({
-                    error: err == null ? null : 'error',
-                    data: err == null ? result : null,
-                });
+            result['isReaded'] = 1
+            sendToClient({
+                error: null,
+                data: result,
             });
         }
     },
 
-    sendNotifications: function (io, reply_user_id, redis_data) {
+    sendNotifications: function (io, reply_user_id, msg_data) {
         let clients = helper.getClientByUserID(io, reply_user_id);
         for (const socket of clients) {
-            if (redis_data) {
+            if (msg_data) {
                 io.to(socket.id).emit(`${cfg['APP.NAME']}#${cfg['APP.EVENTS']['notification']['resultName']}`, {
                     error: null,
-                    data: redis_data,
-                });
-            } else {
-                redis_db.get(`user_${reply_user_id}_*_*`, function (err, result) {
-                    io.to(socket.id).emit(`${cfg['APP.NAME']}#${cfg['APP.EVENTS']['notification']['resultName']}`, {
-                        error: err == null ? null : 'error',
-                        data: err == null ? result : null,
-                    });
+                    data: msg_data,
                 });
             }
         }
-    },
-
-    sendFireBaseNotifications: function (reply_user_id, redis_data) {
-        mysql.query(this.SQL_GET_DEVICE_TOKEN_BY_ID, {"U_ID": reply_user_id}, (err, result) => {
-            if (err) {
-                console.log(err)
-            } else {
-                if (result.length !== 0) {
-                    for (let p in redis_data) {
-                        if (redis_data.hasOwnProperty(p)) {
-                            redis_data[p] = redis_data[p].toString();
-                        }
-                    }
-
-                    let message;
-                    if (result[0].device_type === 1) { // ANDROID
-                        redis_data["notification_type"] = "message";
-                        redis_data["text_arm"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].text_arm
-                        redis_data["text_geo"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].text_geo
-                        redis_data["text_en"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].text_en
-                        redis_data["title_arm"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].title_arm
-                        redis_data["title_geo"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].title_geo
-                        redis_data["title_en"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].title_en
-                        message = {
-                            data: redis_data,
-                            token: result[0]['device_token']
-                        };
-                    } else { // IOS
-                        redis_data["notification_type"] = "message";
-                        redis_data["text_arm"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].text_arm
-                        redis_data["text_geo"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].text_geo
-                        redis_data["text_en"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].text_en
-                        redis_data["title_arm"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].title_arm
-                        redis_data["title_geo"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].title_geo
-                        redis_data["title_en"] = cfg['APP.MESSAGES_LABELS']['message_notifications'].title_en
-                        message = {
-                            notification: {
-                                title: cfg['APP.MESSAGES_LABELS']['forum_push_notification']['title'][result[0]['language_id']],
-                                body: cfg['APP.MESSAGES_LABELS']['forum_push_notification']['body'][result[0]['language_id']]
-                            },
-                            data: redis_data,
-                            token: result[0]['device_token']
-                        };
-                    }
-
-                    admin.messaging().send(message)
-                        .then((response) => {
-                            console.log('Successfully sent message:', response);
-                        })
-                        .catch((error) => {
-                            console.log('Error sending message:', error);
-                        });
-                }
-            }
-        });
     },
 
     get_total_new_comments_count: function (io, socket, params, sendToClient) {

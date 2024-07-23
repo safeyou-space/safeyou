@@ -318,24 +318,6 @@ module.exports = {
                                             }
                                         });
 
-                                        try {
-                                            redis_db.get(`user_*_${socket['user_id']}_*`, function (err, result) {
-                                                result['name'] = socket['name'],
-                                                    result['user_type'] = socket['user_type'],
-                                                    redis_db.set(result['key'], null, result);
-                                                for (const socket2 of helper.getClientByUserID(io, result['reply_user_id'])) {
-                                                    io.to(socket2.id).emit(`${cfg['APP.NAME']}#${cfg['APP.EVENTS']['notification']['resultName']}`, {
-                                                        error: err == null ? null : 'error',
-                                                        data: err == null ? result : null,
-                                                    });
-                                                }
-                                            });
-                                        } catch (error) {
-                                            console.log('redis error:', error.message);
-                                            return res.status(500).send({
-                                                message: 'redis error'
-                                            });
-                                        }
                                     }
                                 }
                                 return res.status(200).send({

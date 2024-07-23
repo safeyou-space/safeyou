@@ -10,7 +10,6 @@
     "en": 1,
     "ka": 2
   },
-  "APP_FIREBASE.DB_URL": "https://*************.firebaseio.com",
   "SQL_PARAMS.SERVICES_TYPES": {
     "0": {
       "name": "Super Admin",
@@ -47,9 +46,6 @@
   "DB.DATABASE": "*************",
   "DB.USERNAME": "*************",
   "DB.PASSWORD": "*************",
-  "REDIS.HOST": "127.0.0.1",
-  "REDIS.PORT": 6381,
-  "REDIS.EXPIRE": 864000,
   "APP.API_KEY": "********************************",
   "APP.ROUTES_AUTH": [
     {
