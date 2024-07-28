@@ -21,11 +21,6 @@ PODS:
     - FBAEMKit (= 12.0.2)
     - FBSDKCoreKit_Basics (= 12.0.2)
   - FBSDKCoreKit_Basics (12.0.2)
-  - GoogleMaps (4.2.0):
-    - GoogleMaps/Maps (= 4.2.0)
-  - GoogleMaps/Base (4.2.0)
-  - GoogleMaps/Maps (4.2.0):
-    - GoogleMaps/Base
   - Lokalise (0.10.2)
   - MBProgressHUD (1.2.0)
   - NYTPhotoViewer (5.0.5):
@@ -64,7 +59,6 @@ DEPENDENCIES:
   - AFNetworking (~> 4.0)
   - DZNEmptyDataSet
   - FBSDKCoreKit
-  - GoogleMaps
   - Lokalise
   - MBProgressHUD
   - NYTPhotoViewer
@@ -80,7 +74,6 @@ SPEC REPOS:
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
-    - GoogleMaps
     - Lokalise
     - MBProgressHUD
     - NYTPhotoViewer
@@ -99,7 +92,6 @@ SPEC CHECKSUMS:
   FBAEMKit: c6b8ddf8371640fcd1a3b844d0f8884c8f334cea
   FBSDKCoreKit: 506c0fd1c09a3075f62be8fa36bdd921c563daa9
   FBSDKCoreKit_Basics: c0701d1634c944d60dd3c6361d66dbd0e707a456
-  GoogleMaps: eb03e327edfd70b06de1e6e321653f73712df7ad
   Lokalise: 252c397887dfd9983331abffa90ab60cdb004e19
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   NYTPhotoViewer: 6f50ea92f265d54a350b39a7ab7a1b91ca487ff6
@@ -112,6 +104,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: 8d4c9c3f018b3a9c058c8c223a9d08c0d1483f64
+PODFILE CHECKSUM: e93c5957e9bdd46eebaf958f181f561ceb61fb0d
 
 COCOAPODS: 1.15.2

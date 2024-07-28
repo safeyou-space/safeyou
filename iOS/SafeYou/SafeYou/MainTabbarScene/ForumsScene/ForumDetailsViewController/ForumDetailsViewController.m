@@ -30,7 +30,6 @@
 #import "ForumNotificationsManager.h"
 
 @import SocketIO;
-@import Firebase;
 
 @interface ForumDetailsViewController () <UITextViewDelegate, UINavigationControllerDelegate, WKNavigationDelegate>
 
@@ -299,32 +298,7 @@
 
 - (void)generateDynamicLink
 {
-    NSString *linkStr = [NSString stringWithFormat:@"https://safeyou.space?forumId=%@", self.forumItemData.forumItemId];
-    NSURL *link = [[NSURL alloc] initWithString:linkStr];
-    NSString *dynamicLinksDomainURIPrefix = @"https://safeyou.page.link";
-    FIRDynamicLinkComponents *linkBuilder = [[FIRDynamicLinkComponents alloc]
-                                             initWithLink:link
-                                             domainURIPrefix:dynamicLinksDomainURIPrefix];
-    
-    NSString *bundleId = NSBundle.mainBundle.bundleIdentifier;
-    if (bundleId) {
-        linkBuilder.iOSParameters = [[FIRDynamicLinkIOSParameters alloc] initWithBundleID:bundleId];
-    }
-    linkBuilder.iOSParameters.appStoreID = @"1491665304";
-    
-    linkBuilder.androidParameters = [[FIRDynamicLinkAndroidParameters alloc] initWithPackageName:@"fambox.pro"];
-    
-    linkBuilder.socialMetaTagParameters = [[FIRDynamicLinkSocialMetaTagParameters alloc] init];
-    linkBuilder.socialMetaTagParameters.title = LOC(@"access_safe_you_forum");
-    
-    [linkBuilder shortenWithCompletion:^(NSURL * _Nullable shortURL,
-                                         NSArray<NSString *> * _Nullable warnings,
-                                         NSError * _Nullable error) {
-        if (error || shortURL == nil) {
-            return;
-        }
-        [self shareAction:shortURL];
-    }];
+    // @TODO: Generate dynamic link with app AppStoreID
 }
 
 - (void)shareAction:(NSURL *)text

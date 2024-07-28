@@ -8,7 +8,6 @@ target 'SafeYou' do
   pod 'MBProgressHUD'
   pod 'SDWebImage'    #, '~>3.8'
   pod 'DZNEmptyDataSet'
-  pod 'GoogleMaps'
   pod 'Socket.IO-Client-Swift' , '~> 15.2.0'
   pod 'TTTAttributedLabel'
   pod 'UITextView+Placeholder'

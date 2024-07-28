@@ -12,7 +12,6 @@
 #import "EmergencyServicesListDataModel.h"
 #import "NetworkItemTableViewCell.h"
 #import "NGODetailsViewController.h"
-#import <GoogleMaps/GoogleMaps.h>
 #import <MapKit/MapKit.h>
 #import "ServiceSearchResult.h"
 #import <MessageUI/MessageUI.h>
@@ -36,7 +35,7 @@ typedef NS_ENUM(NSUInteger, FilterType) {
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIStackView *categoriesStackView;
 @property (weak, nonatomic) IBOutlet UIView *mapContainerView;
-@property (weak, nonatomic) IBOutlet GMSMapView *gMapView;
+@property (weak, nonatomic) IBOutlet MKMapView *mkMapView;
 
 @property (nonatomic) BOOL isSearchActive;
 @property (nonatomic) UISearchBar *searchBar;
@@ -230,25 +229,14 @@ typedef NS_ENUM(NSUInteger, FilterType) {
     for (EmergencyServiceDataModel *serviceData in self.dataSource) {
         CGFloat latitude = [serviceData.latitude floatValue];
         CGFloat longitude = [serviceData.longitude floatValue];
-        GMSMarker *marker = [[GMSMarker alloc] init];
-        marker.snippet = serviceData.serviceType;
-        marker.position = CLLocationCoordinate2DMake(latitude,longitude);
-        marker.map = self.gMapView;
+        MKPointAnnotation *marker = [[MKPointAnnotation alloc] init];
+        marker.title = serviceData.serviceType;
+        marker.coordinate = CLLocationCoordinate2DMake(latitude,longitude);
         [markers addObject:marker];
     }
-    
-    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
-    for (GMSMarker *marker in markers) {
-        bounds = [bounds includingCoordinate:marker.position];
-    }
-    
-    if (markers.count == 1) {
-        EmergencyServiceDataModel *serviceData = self.dataSource.firstObject;
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:[serviceData.latitude floatValue] longitude:[serviceData.longitude floatValue] zoom:9];
-        [self.gMapView setCamera:camera];
-    } else {
-        [self.gMapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
-    }
+    [self.mkMapView addAnnotations:markers];
+
+    [self.mkMapView showAnnotations:markers animated:YES];
 }
 
 #pragma mark - Fetch Data From API

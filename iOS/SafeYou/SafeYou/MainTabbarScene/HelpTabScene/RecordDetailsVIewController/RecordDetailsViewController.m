@@ -10,8 +10,8 @@
 #import "RecordListItemDataModel.h"
 #import "RecordsService.h"
 #import <AVKit/AVKit.h>
+#import <MapKit/MapKit.h>
 #import "CCAudioPlayer.h"
-#import <GoogleMaps/GoogleMaps.h>
 #import "SYViewController+StyledAlerts.h"
 #import "MainTabbarController.h"
 
@@ -20,7 +20,7 @@
 @interface RecordDetailsViewController () <AVAudioPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
-@property (weak, nonatomic) IBOutlet GMSMapView *gMapView;
+@property (weak, nonatomic) IBOutlet MKMapView *mkMapView;
 @property (weak, nonatomic) IBOutlet SYDesignableLabel *recordNameLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableLabel *recordTimerLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableLabel *recordDateLabel;
@@ -94,15 +94,10 @@
 {
     CGFloat latitude = [self.currentRecord.latitude floatValue];
     CGFloat longitude = [self.currentRecord.longitude floatValue];
-    
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:latitude
-                                                            longitude:longitude
-                                                                 zoom:9];
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(latitude,longitude);
-    marker.map = self.gMapView;
-    
-    [self.gMapView setCamera:camera];
+
+    MKPointAnnotation *marker = [[MKPointAnnotation alloc] init];
+    marker.coordinate = CLLocationCoordinate2DMake(latitude,longitude);
+    [self.mkMapView showAnnotations:@[marker] animated:YES];
 }
 
 #pragma mark - Player

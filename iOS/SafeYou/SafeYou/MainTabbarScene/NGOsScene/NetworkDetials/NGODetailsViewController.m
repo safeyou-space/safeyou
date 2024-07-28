@@ -9,7 +9,7 @@
 #import "NGODetailsViewController.h"
 #import "EmergencyServiceDataModel.h"
 #import "UserDataModel.h"
-#import <GoogleMaps/GoogleMaps.h>
+#import <MapKit/MapKit.h>
 #import "NGODetailsContactCell.h"
 #import "EmergencyServicesApi.h"
 #import "NGOContactViewModel.h"
@@ -29,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIView *serviceNameContainerView;
 @property (weak, nonatomic) IBOutlet SYCorneredButton *addToHelpLineButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet GMSMapView *gMapView;
+@property (weak, nonatomic) IBOutlet MKMapView *mkMapView;
 
 - (IBAction)addToHelpLineButtonPressed:(UIButton *)sender;
 
@@ -76,16 +76,12 @@
 {
     CGFloat latitude = [self.serviceData.latitude floatValue];
     CGFloat longitude = [self.serviceData.longitude floatValue];
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.snippet = self.serviceData.serviceType;
-    marker.position = CLLocationCoordinate2DMake(latitude,longitude);
-    marker.map = self.gMapView;
+    MKPointAnnotation *marker = [[MKPointAnnotation alloc] init];
+    marker.title = self.serviceData.serviceType;
+    marker.coordinate = CLLocationCoordinate2DMake(latitude,longitude);
+    [self.mkMapView addAnnotation:marker];
     
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:latitude
-    longitude:longitude
-         zoom:9];
-    
-    [self.gMapView setCamera:camera];
+    [self.mkMapView showAnnotations:@[marker] animated:YES];
 }
 
 #pragma mark -

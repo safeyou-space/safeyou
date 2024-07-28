@@ -7,7 +7,6 @@
 //
 
 #import "Settings.h"
-#import <GoogleMaps/GMSGeocoder.h>
 #import "RegionalOptionDataModel.h"
 #import <Lokalise/Lokalise.h>
 
@@ -86,29 +85,12 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 - (void)saveUserAddress
 {
-    GMSGeocoder *geocoder = [GMSGeocoder geocoder];
-    
-    [geocoder reverseGeocodeCoordinate:self.userLocation.coordinate completionHandler:^(GMSReverseGeocodeResponse * response, NSError * error) {
-        if (!error) {
-            GMSAddress *userAddress = response.firstResult;
-            NSMutableString *userLocation = [[NSMutableString alloc] init];
-            
-            if (userAddress.lines && userAddress.lines.count > 0) {
-                self.userLocationName = userAddress.lines.firstObject;
-            } else {
-                if (userAddress.locality) {
-                    [userLocation appendString:userAddress.locality];
-                }
-                if (userAddress.subLocality) {
-                    if (userLocation.length > 0) {
-                        [userLocation appendString:[NSString stringWithFormat:@" %@", userAddress.subLocality]];
-                    }
-                }
-                if (userLocation.length > 0) {
-                    self.userLocationName = userLocation;
-                }
-            }
-        }
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+
+    [geocoder reverseGeocodeLocation:self.userLocation completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        CLPlacemark *userPlaceMark = placemarks.firstObject;
+        self.userLocationName = userPlaceMark.name;
+
     }];
 }
 

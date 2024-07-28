@@ -16,18 +16,17 @@
 #import <AFNetworking.h>
 #import "PhotoGalleryViewController.h"
 #import "SocketIOManager.h"
-#import <GoogleMaps/GoogleMaps.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "UIColor+UIImage.h"
 #import "FBSDKCoreKit/FBSDKSettings.h"
 #import <Lokalise/Lokalise.h>
+#import <UserNotifications/UserNotifications.h>
 
-@import Firebase;
 @import FBSDKCoreKit;
 
 
 
-@interface AppDelegate () <CLLocationManagerDelegate, FIRMessagingDelegate, UNUserNotificationCenterDelegate>
+@interface AppDelegate () <CLLocationManagerDelegate, UNUserNotificationCenterDelegate>
 
 @end
 
@@ -49,7 +48,6 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommonNetworkError:) name:CommonNetworkErrorNotificationName object:nil];
     [self handleReachability];
-    [GMSServices provideAPIKey:@"AIzaSyB0zzJQUGuIY2WpBqYyXlN-1_avfob4KY4"];
     
     _coordinator = [[ApplicationLaunchCoordinator alloc] initWithRouter:self rootVC:(LaunchViewController *)self.window.rootViewController];
     [self.coordinator start];
@@ -85,15 +83,6 @@
             openURL:(NSURL *)url
             options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
-    FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
-    if (dynamicLink) {
-        [self handleDynamicLink:dynamicLink];
-        return YES;
-    }
-    
-    [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                   openURL:url
-                                                   options:options];
     return YES;
 }
 
@@ -150,24 +139,6 @@ API_AVAILABLE(ios(13.0)) API_AVAILABLE(ios(13.0)){
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
-{
-    BOOL handled = [[FIRDynamicLinks dynamicLinks] handleUniversalLink:userActivity.webpageURL
-                                                            completion:^(FIRDynamicLink * _Nullable dynamicLink,
-                                                                         NSError * _Nullable error) {
-        [self handleDynamicLink: dynamicLink];
-    }];
-    return handled;
-}
-
-- (void)handleDynamicLink:(FIRDynamicLink *)dynamicLink
-{
-    if (dynamicLink.url) {
-        [Settings sharedInstance].dynamicLinkUrl = dynamicLink.url;
-        [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationOpenedByDynamicLinkNotificationName
-                                                            object:nil];
-    }
-}
 
 #pragma mark - Appearence
 
@@ -340,13 +311,11 @@ didFailWithError:(NSError *)error
 
 - (void)configureFirebase
 {
-    [FIRApp configure];
-    [FIRMessaging messaging].delegate = self;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [FIRMessaging messaging].APNSToken = deviceToken;
+    
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -365,14 +334,6 @@ didFailWithError:(NSError *)error
 
     } else {
         [self handlePushNotification:userInfo];
-    }
-}
-
-- (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(NSString *)fcmToken
-{
-    // handle FCM token
-    if (![[Settings sharedInstance].savedFcmToken isEqualToString:fcmToken]) {
-        [Settings sharedInstance].updatedFcmToken = fcmToken;
     }
 }
 
