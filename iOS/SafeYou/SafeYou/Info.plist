@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Safe YOU</string>
+	<string>Safe YOU $(APP_NAME_SUFFIX)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
@@ -68,7 +68,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.eif.safeyou</string>
-				<string>safeyou</string>
 			</array>
 		</dict>
 	</array>
@@ -115,22 +114,25 @@
 	<string>SafeYou wants to use your microphone</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>HayRoboto-Thin.ttf</string>
-		<string>HayRoboto-Bold.ttf</string>
-		<string>HayRoboto-ThinItalic.ttf</string>
-		<string>HayRoboto-BoldItalic.ttf</string>
-		<string>HayRoboto-Regular.ttf</string>
-		<string>HayRoboto-Light.ttf</string>
-		<string>HayRoboto-Medium.ttf</string>
-		<string>HayRoboto-Black.ttf</string>
-		<string>HayRoboto-LightItalic.ttf</string>
-		<string>HayRoboto-Italic.ttf</string>
-		<string>HayRoboto-Normal.ttf</string>
-		<string>HayRoboto-MediumItalic.ttf</string>
-		<string>HayRoboto-BlackItalic.ttf</string>
+		<string>OpenSans-ExtraBold.ttf</string>
+		<string>OpenSans-ExtraBoldItalic.ttf</string>
+		<string>OpenSans-SemiBold.ttf</string>
+		<string>OpenSans-SemiBoldItalic.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-BoldItalic.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-Light.ttf</string>
+		<string>OpenSans-Medium.ttf</string>
+		<string>OpenSans-LightItalic.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>OpenSans-MediumItalic.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string></string>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchViewController</string>
 	<key>UIRequiredDeviceCapabilities</key>

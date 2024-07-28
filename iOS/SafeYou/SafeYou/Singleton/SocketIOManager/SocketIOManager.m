@@ -86,16 +86,19 @@
             self->_chatOnlineUser = chatProfileData;
         }
         
-        if ([data[0] integerValue] == SocketIOSignalMessageINSERT) { // SIGNAL_PROFILE = 0
+        if ([data[0] integerValue] == SocketIOSignalMessageINSERT) {
             NSDictionary *receivedDataDict = data[1];
             NSDictionary *messageDict = receivedDataDict[@"data"];
             ChatMessageDataModel *messageData = [ChatMessageDataModel modelObjectWithDictionary:messageDict];
             if ([self.delegate respondsToSelector:@selector(socketIOManager:didInsertMessage:)]) {
                 [self.delegate socketIOManager:self didInsertMessage:messageData];
+            } else if (self.receivePrivateMessageBlock && !messageData.isOwner && messageData.roomKey &&
+                messageData.messageId && [messageData.roomKey containsString:@"PRIVATE_CHAT"]) {
+                self.receivePrivateMessageBlock(messageData.roomKey, messageData.messageId);
             }
         }
         
-        if ([data[0] integerValue] == SocketIOSignalNotificationReceived) { // SIGNAL_PROFILE = 0
+        if ([data[0] integerValue] == SocketIOSignalNotificationReceived) {
             NSDictionary *receivedDataDict = data[1];
             NSDictionary *notificationDict = receivedDataDict[@"data"];
             if (notificationDict) {
@@ -105,13 +108,13 @@
             }
         }
         
-        if ([data[0] integerValue] == SocketIOSignalNotificationReceived) { // SIGNAL_PROFILE = 0
+        if ([data[0] integerValue] == SocketIOSignalNotificationsCount) {
             NSDictionary *receivedDataDict = data[1];
-            NSNumber *notificationsCount = receivedDataDict[@"data"];
-            if (self.notificationsCountUpdateBlock) {
+            NSDictionary *notificationDict = receivedDataDict[@"data"];
+            if (notificationDict && notificationDict[@"notify_read_0_count"] && self.notificationsCountUpdateBlock) {
+                NSNumber *notificationsCount = notificationDict[@"notify_read_0_count"];
                 self.notificationsCountUpdateBlock(notificationsCount);
             }
-            
         }
         
         if ([data[0] integerValue] == SocketIOSignalCommentCount) {
@@ -119,8 +122,14 @@
             NSDictionary *receivedDataDict = data[1];
             if ([receivedDataDict[@"error"] integerValue] == 0) {
                 NSDictionary *receivedUpdateDict = receivedDataDict[@"data"];
-                if (self.didReceiveUpdateBlock) {
-                    self.didReceiveUpdateBlock(receivedUpdateDict);
+                if (self.didReceiveCommentsCount) {
+                    NSInteger commentsCount = [receivedUpdateDict[@"messages_count"] integerValue];
+                    self.didReceiveCommentsCount(commentsCount);
+                }
+                if (self.didReceiveCommentsCountForList) {
+                    NSInteger commentsCount = [receivedUpdateDict[@"messages_count"] integerValue];
+                    NSNumber *forumId = receivedUpdateDict[@"forum_id"];
+                    self.didReceiveCommentsCountForList(commentsCount, forumId);
                 }
             }
         }

@@ -79,7 +79,7 @@ typedef NS_ENUM(NSUInteger, FilterType) {
     [super viewDidLoad];
     self.emergnenscyServicesApi = [[EmergencyServicesApi alloc] initWithEmergency:self.isFromMyProfil];
     // Do any additional setup after loading the view.
-    
+
     UINib *networkItemCellNib = [UINib nibWithNibName:@"NetworkItemTableViewCell" bundle:nil];
     [self.tableView registerNib:networkItemCellNib forCellReuseIdentifier:@"NetworkItemTableViewCell"];
     self.tableView.separatorColor = [UIColor mainTintColor1];
@@ -101,11 +101,11 @@ typedef NS_ENUM(NSUInteger, FilterType) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
     [self showNotificationsBarButtonitem:NO];
     if (self.isFromMyProfil) {
-        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(close:)];
-        leftBarButtonItem.tintColor = [UIColor whiteColor];
+        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(close:)];
+        leftBarButtonItem.tintColor = [UIColor purpleColor];
         self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     }
 }
@@ -114,16 +114,19 @@ typedef NS_ENUM(NSUInteger, FilterType) {
 #pragma mark - Configure View Elements
 - (void)configureSearchBar
 {
+    UIColor *purpleColor = [UIColor purpleColor1];
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-    self.searchBar.showsCancelButton = (self.navigationController.presentingViewController !=nil);
     self.searchBar.delegate = self;
     self.searchBar.layer.cornerRadius = 15.0;
     self.searchBar.clipsToBounds = YES;
-    self.searchBar.tintColor = [UIColor whiteColor];
-    self.searchBar.searchTextField.backgroundColor = [UIColor mainTintColor3];
-    self.searchBar.searchTextField.textColor = [UIColor whiteColor];
-    self.searchBar.searchTextField.leftView.tintColor = [UIColor whiteColor];
-    [self.searchBar setImage:[UIImage imageNamed:@"close_icon"] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
+    self.searchBar.tintColor = purpleColor;
+    self.searchBar.searchTextField.backgroundColor = [UIColor whiteColor];
+    self.searchBar.searchTextField.textColor = purpleColor;
+    self.searchBar.searchTextField.leftView.tintColor = purpleColor;
+    self.searchBar.searchTextField.layer.borderColor = purpleColor.CGColor;
+    self.searchBar.searchTextField.layer.borderWidth = 1.0;
+    self.searchBar.searchTextField.layer.cornerRadius = 15.0;
+    [self.searchBar setImage:[[UIImage imageNamed:@"close_icon"] imageWithTintColor:purpleColor] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     self.navigationItem.titleView = self.searchBar;
 }
 
@@ -132,13 +135,15 @@ typedef NS_ENUM(NSUInteger, FilterType) {
     [self clearCategoryStackView];
     UIEdgeInsets buttonInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     SYCorneredButton *allCategoriesButton = [[SYCorneredButton alloc] init];
-    allCategoriesButton.titleColorType = SYColorTypeMain1;
-    allCategoriesButton.borderColorType = SYColorTypeMain1;
-    allCategoriesButton.borderWidth = 1.0;
+    allCategoriesButton.titleColorType = SYColorTypeOtherAccent;
+    allCategoriesButton.titleColorTypeAlpha = 1.0;
+    allCategoriesButton.backgroundColorType = SYColorTypeMain1;
+    allCategoriesButton.backgroundColorAlpha = 1.0;
     allCategoriesButton.contentEdgeInsets = buttonInsets;
     [allCategoriesButton.heightAnchor constraintEqualToConstant:40].active = true;
     [allCategoriesButton.widthAnchor constraintGreaterThanOrEqualToConstant:40].active = true;
     [allCategoriesButton setTitle:LOC(@"title_all") forState:UIControlStateNormal];
+    allCategoriesButton.titleLabel.font = [UIFont semiBoldFontOfSize:12];
     [allCategoriesButton addTarget:self action:@selector(categorybuttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.categoriesButtonsArray addObject:allCategoriesButton];
     [self.categoriesStackView addArrangedSubview:allCategoriesButton];
@@ -146,10 +151,12 @@ typedef NS_ENUM(NSUInteger, FilterType) {
     for (ServiceCategoryDataModel *categoryData in self.serviceCategoriesList) {
         SYCorneredButton *categoryButton = [[SYCorneredButton alloc] init];
         categoryButton.contentEdgeInsets = buttonInsets;
-        categoryButton.borderWidth = 1.0;
         [categoryButton setTitle:categoryData.categoryName forState:UIControlStateNormal];
-        categoryButton.titleColorType = SYColorTypeMain1;
-        categoryButton.borderColorType = SYColorTypeMain1;
+        categoryButton.titleColorType = SYColorTypeOtherAccent;
+        categoryButton.titleColorTypeAlpha = 1.0;
+        categoryButton.backgroundColorType = SYColorTypeOtherGray;
+        categoryButton.backgroundColorAlpha = 1.0;
+        categoryButton.titleLabel.font = [UIFont semiBoldFontOfSize:12];
         [categoryButton sizeToFit];
         [self.categoriesStackView addArrangedSubview:categoryButton];
         [categoryButton addTarget:self action:@selector(categorybuttonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -315,19 +322,6 @@ typedef NS_ENUM(NSUInteger, FilterType) {
     EmergencyServiceDataModel *selectedData = self.dataSource[indexPath.row];
     NSString *email = selectedData.email;
     [self showShareItems];
-    return;
-    
-    if([MFMailComposeViewController canSendMail]) {
-        MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
-        mailCont.mailComposeDelegate = self;
-
-        [mailCont setSubject:@"Help Me"];
-        [mailCont setToRecipients:[NSArray arrayWithObject:email]];
-        [mailCont setMessageBody:[Settings sharedInstance].onlineUser.emergencyMessage isHTML:NO];
-        [self presentViewController:mailCont animated:YES completion:nil];
-    } else {
-        [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:LOC(@"no_mail_account_registered") cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
-    }
 }
 
 - (void)networkItemCellDidPressPrivateChat:(NetworkItemTableViewCell *)cell
@@ -335,7 +329,8 @@ typedef NS_ENUM(NSUInteger, FilterType) {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     EmergencyServiceDataModel *selectedData = self.dataSource[indexPath.row];
     ChatUserDataModel *chatUser = [[ChatUserDataModel alloc] init];
-    chatUser.userId = @([selectedData.serviceId integerValue]);
+    chatUser.userId = @([selectedData.userId integerValue]);
+    chatUser.ngoName = selectedData.name;
     [self startChatWithUser:chatUser];
 }
 
@@ -394,27 +389,29 @@ typedef NS_ENUM(NSUInteger, FilterType) {
 }
 
 - (void)categorybuttonAction:(SYCorneredButton *)sender {
-    NSLog(@"Button pressed");
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
     self.isSearchActive = NO;
     
     for (SYCorneredButton *filterButton in self.categoriesButtonsArray) {
-        [filterButton setSelected:NO];
+        filterButton.titleColorType = SYColorTypeOtherAccent;
+        filterButton.titleColorTypeAlpha = 1.0;
+        filterButton.backgroundColorType = SYColorTypeOtherGray;
+        filterButton.backgroundColorAlpha = 1.0;
+        filterButton.titleLabel.font = [UIFont semiBoldFontOfSize:12];
     }
-    [sender setSelected:YES];
+    sender.titleColorType = SYColorTypeOtherAccent;
+    sender.backgroundColorType = SYColorTypeMain1;
     
     NSInteger selectedButtonIndex = [self.categoriesButtonsArray indexOfObject:sender];
     
     if (selectedButtonIndex == 0) {
         // handle all action
-        NSLog(@"All categories selected");
         self.dataSource = self.originalDataSource;
         self.selectedCategoryId = @"";
     } else {
         --selectedButtonIndex;
         ServiceCategoryDataModel *selectedCategory = [self.serviceCategoriesList objectAtIndex:selectedButtonIndex];
-        NSLog(@"SelectedCategory %@", selectedCategory);
         self.selectedCategoryId = selectedCategory.categoryId;
         self.dataSource = [self.allServicesListDataModel servicesForcategoryId:selectedCategory.categoryId];
     }
@@ -449,22 +446,12 @@ typedef NS_ENUM(NSUInteger, FilterType) {
 
 - (void)startChatWithUser:(ChatUserDataModel *)chatUserData
 {
-    [self showLoader];
-    weakify(self);
-    [self.socketAPIService joinToPrivateRoomWithUser:chatUserData success:^(RoomDataModel * roomData) {
-        strongify(self);
-        [self hideLoader];
-        [self showPrivateChatView:roomData];
-        
-    } failure:^(NSError * _Nonnull error) {
-        strongify(self);
-        [self hideLoader];
-    }];
+        [self showPrivateChatView:chatUserData];
 }
 
-- (void)showPrivateChatView:(RoomDataModel *)roomData
+- (void)showPrivateChatView:(ChatUserDataModel *)chatUserData
 {
-    [self performSegueWithIdentifier:@"showPrivateChatFromNetworkListView" sender:roomData];
+    [self performSegueWithIdentifier:@"showPrivateChatFromNetworkListView" sender:chatUserData];
 }
 
 #pragma mark - Select Service
@@ -593,7 +580,7 @@ typedef NS_ENUM(NSUInteger, FilterType) {
     
     if ([segue.identifier isEqualToString:@"showPrivateChatFromNetworkListView"]) {
         PrivateChatRoomViewController *destinationVC = segue.destinationViewController;
-        destinationVC.roomData = sender;
+        destinationVC.chatData = sender;
     }
 }
 

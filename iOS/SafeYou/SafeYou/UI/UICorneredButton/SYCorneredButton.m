@@ -14,28 +14,17 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
+    self.enabled = self.enabled;
     [self configureConrners];
-    [self configureStates];
 }
 
-//- (instancetype)init
-//{
-//    self = [super init];
-//    if (self) {
-//        [self configureConrners];
-//        [self configureStates];
-//    }
-//    return self;
-//}
 
 - (void)setNeedsDisplay
 {
     [super setNeedsDisplay];
-    
-    
+    CGFloat pointSize = self.titleLabel.font.pointSize;
+    self.titleLabel.font = [UIFont boldFontOfSize:pointSize];
     [self configureConrners];
-    [self configureStates];
 }
 
 
@@ -44,7 +33,6 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [self configureConrners];
     [self.titleLabel sizeToFit];
 }
 
@@ -60,31 +48,56 @@
     return image;
 }
 
+- (void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+    CGFloat fontSize = 16.0;
+    if (highlighted) {
+        self.layer.borderColor = [UIColor mainTintColor3].CGColor;
+        self.layer.borderWidth = 2.0;
+        fontSize = 14.0;
+    } else {
+        self.layer.borderColor = [UIColor clearColor].CGColor;
+        self.layer.borderWidth = 0.0;
+        fontSize = 16.0;
+    }
+    self.titleLabel.font = [UIFont boldFontOfSize:fontSize];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+    [super setEnabled:enabled];
+    CGFloat fontSize = 16.0;
+    if (enabled) {
+        [self configureNormalState];
+    } else {
+        [self configureDisabledState];
+    }
+    self.titleLabel.font = [UIFont boldFontOfSize:fontSize];
+}
+
 #pragma mark - Customize
 
-- (void)configureStates
+- (void)configureNormalState
 {
-    UIImage *tintImage = [self imageWithColor:[UIColor mainTintColor1] size:CGSizeMake(1, 1)];
-    UIImage *whiteImage = [self imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 1)];
-    [self setTitleColor:[UIColor mainTintColor1] forState:UIControlStateNormal];
-    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    
-    self.layer.masksToBounds = YES;
-    
-    [self setBackgroundImage:whiteImage forState:UIControlStateNormal];
-    [self setBackgroundImage:tintImage forState:UIControlStateSelected];
-    
-    UIImage *tintImageHighlighted = [self imageWithColor:[UIColor mainTintColor2] size:CGSizeMake(1, 1)];
-    [self setBackgroundImage:tintImageHighlighted forState:UIControlStateHighlighted];
+    [self setTitleColor:[UIColor purpleColor1] forState:UIControlStateNormal];
+    self.backgroundColorType = SYColorTypeMain1;
+}
+
+- (void)configureDisabledState
+{
+    self.backgroundColorType = SYColorTypeOtherGray;
+    self.titleLabel.textColor = [UIColor lightGrayColor];
 }
 
 - (void)configureConrners
 {
-    [self setTitleColor:[UIColor mainTintColor1] forState:UIControlStateNormal];
-    self.layer.borderColor = [UIColor mainTintColor1].CGColor;
-    self.layer.borderWidth = self.borderWidth;
-    self.layer.cornerRadius = self.frame.size.height/2;
+    [self setImage:nil forState:UIControlStateNormal];
+    self.layer.borderWidth = 0;
+    self.layer.borderColor = [UIColor clearColor].CGColor;
+    [self setTitleColor:[UIColor purpleColor1] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    self.layer.cornerRadius = 8;
 }
 
 @end

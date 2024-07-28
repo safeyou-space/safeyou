@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isSecureField;
 @property (nonatomic) FieldAccessoryType accessoryType;
 @property (nonatomic) NSString *actionString;
-@property (nonatomic) BOOL isStateOn;; // if type is FieldAccessoryTypeSwitch
+@property (nonatomic) BOOL isStateOn; // if type is FieldAccessoryTypeSwitch
+@property (nonatomic) NSArray *optionsArray;
 
 
 @end

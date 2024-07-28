@@ -14,8 +14,9 @@
 @interface NGOAvatarTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *logoImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *titleLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableButton *chatButton;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *reviewButton;
 
 - (IBAction)chatButtonAction:(SYDesignableButton *)sender;
 
@@ -28,6 +29,13 @@
     [self showUserAvatar:viewModel.logoURL];
     self.titleLabel.text = viewModel.title;
     self.chatButton.hidden = hideChatButton;
+    [self.reviewButton setTintColor:[UIColor mainTintColor1]];
+    if (viewModel.rating > 0) {
+        [self.reviewButton setImage:[UIImage systemImageNamed:@"star.fill"] forState:UIControlStateNormal];
+        [self.reviewButton setTitle:[NSString stringWithFormat: @" %@/5", @(viewModel.rating)] forState:UIControlStateNormal];
+    } else {
+        [self.reviewButton setTitle:@"" forState:UIControlStateNormal];
+    }
 }
 
 - (void)showUserAvatar:(NSURL *)url
@@ -41,4 +49,11 @@
         [self.delegate ngoAvatarCellDidPressPrivateChat];
     }
 }
+
+- (IBAction)reviewButtonAction:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(ngoAvatarCellDidPressReviewButton)]) {
+        [self.delegate ngoAvatarCellDidPressReviewButton];
+    }
+}
+
 @end

@@ -17,10 +17,17 @@
 #import "PhotoGalleryViewController.h"
 #import "SocketIOManager.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "UIColor+UIImage.h"
+#import "FBSDKCoreKit/FBSDKSettings.h"
 #import <Lokalise/Lokalise.h>
 
-@interface AppDelegate () <CLLocationManagerDelegate>
+@import Firebase;
+@import FBSDKCoreKit;
+
+
+
+@interface AppDelegate () <CLLocationManagerDelegate, FIRMessagingDelegate, UNUserNotificationCenterDelegate>
 
 @end
 
@@ -34,14 +41,9 @@
     
     [Settings sharedInstance];
     [self accessUserLocation];
+    FBSDKSettings.sharedSettings.advertiserTrackingEnabled = YES;
     
-    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInternetConnectionAlert) name:NoInternetConnectionNotificationName object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommonNetworkError:) name:CommonNetworkErrorNotificationName object:nil];
-        [self handleReachability];
-        [GMSServices provideAPIKey:@"AIzaSyB0zzJQUGuIY2WpBqYyXlN-1_avfob4KY4"];
-
+    
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInternetConnectionAlert) name:NoInternetConnectionNotificationName object:nil];
 
@@ -51,11 +53,21 @@
     
     _coordinator = [[ApplicationLaunchCoordinator alloc] initWithRouter:self rootVC:(LaunchViewController *)self.window.rootViewController];
     [self.coordinator start];
-            
+    
+    [self authorizeForRemoteNotifications];
+    
+    [self configureFirebase];
+    
     [self clearBadgeIconCount];
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]) {
-        [Settings sharedInstance].receivedRemoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        NSDictionary *notUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        [Settings sharedInstance].receivedRemoteNotification = [[RemoteNotification alloc] initWithDictionary:notUserInfo];
     }
+    
+    [[FBSDKSettings sharedSettings] setAdvertiserTrackingEnabled:YES];
+
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
 
     
     [[Lokalise sharedObject] setProjectID:LOKALISE_PROJECT_ID token:LOKALISE_TOKEN];
@@ -67,11 +79,31 @@
     return YES;
 }
 
+
+
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
+    FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
+    if (dynamicLink) {
+        [self handleDynamicLink:dynamicLink];
+        return YES;
+    }
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                   openURL:url
+                                                   options:options];
     return YES;
+}
+
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts
+API_AVAILABLE(ios(13.0)) API_AVAILABLE(ios(13.0)){
+  UIOpenURLContext *context = URLContexts.allObjects.firstObject;
+  [FBSDKApplicationDelegate.sharedInstance application:UIApplication.sharedApplication
+                                               openURL:context.URL
+                                     sourceApplication:context.options.sourceApplication
+                                            annotation:context.options.annotation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -118,6 +150,25 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+    BOOL handled = [[FIRDynamicLinks dynamicLinks] handleUniversalLink:userActivity.webpageURL
+                                                            completion:^(FIRDynamicLink * _Nullable dynamicLink,
+                                                                         NSError * _Nullable error) {
+        [self handleDynamicLink: dynamicLink];
+    }];
+    return handled;
+}
+
+- (void)handleDynamicLink:(FIRDynamicLink *)dynamicLink
+{
+    if (dynamicLink.url) {
+        [Settings sharedInstance].dynamicLinkUrl = dynamicLink.url;
+        [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationOpenedByDynamicLinkNotificationName
+                                                            object:nil];
+    }
+}
+
 #pragma mark - Appearence
 
 - (void)configureNavibationBar
@@ -125,10 +176,10 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
     [appearance configureWithOpaqueBackground];
-    appearance.backgroundColor = [UIColor mainTintColor1];
+    appearance.backgroundColor = [UIColor whiteColor];
     [appearance setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor whiteColor],
-       NSFontAttributeName:[UIFont fontWithName:@"HayRoboto-regular" size:18]}];
+     @{NSForegroundColorAttributeName:[UIColor purpleColor1],
+       NSFontAttributeName:[UIFont boldFontOfSize:16]}];
     [UINavigationBar appearance].standardAppearance = appearance;
     [UINavigationBar appearance].scrollEdgeAppearance = [UINavigationBar appearance].standardAppearance;
 }
@@ -254,9 +305,88 @@ didFailWithError:(NSError *)error
     [Settings sharedInstance].isLocationGranted = NO;
 }
 
+- (void)authorizeForRemoteNotifications
+{
+    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+    UNAuthorizationOptions authOptions = UNAuthorizationOptionAlert |
+    UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
+    [[UNUserNotificationCenter currentNotificationCenter]
+     requestAuthorizationWithOptions:authOptions
+     completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            });
+        }
+    }];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
+{
+    NSLog(@"Will present");
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
+{
+    NSDictionary *notUserInfo =  response.notification.request.content.userInfo;
+    [Settings sharedInstance].receivedRemoteNotification = [[RemoteNotification alloc] initWithDictionary:notUserInfo];
+    
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSLog(@"sfsdf");
+}
+
+- (void)configureFirebase
+{
+    [FIRApp configure];
+    [FIRMessaging messaging].delegate = self;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [FIRMessaging messaging].APNSToken = deviceToken;
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"Failed Device token");
+}
+
+- (void)firebaseApplication:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+
+    NSLog(@"%@", userInfo);
+
+    completionHandler(UIBackgroundFetchResultNewData);
+
+    // handle remote notifications
+    if (application.applicationState != UIApplicationStateActive) {
+
+    } else {
+        [self handlePushNotification:userInfo];
+    }
+}
+
+- (void)messaging:(FIRMessaging *)messaging didReceiveRegistrationToken:(NSString *)fcmToken
+{
+    // handle FCM token
+    if (![[Settings sharedInstance].savedFcmToken isEqualToString:fcmToken]) {
+        [Settings sharedInstance].updatedFcmToken = fcmToken;
+    }
+}
+
 - (void)clearBadgeIconCount
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
+
+#pragma mark - HandlePushNotification
+
+- (void)handlePushNotification:(NSDictionary *)userInfo
+{
+    
+}
+
 
 @end

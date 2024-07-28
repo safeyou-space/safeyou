@@ -14,7 +14,7 @@
 - (void)getConsultantCategoriesWithComplition:(void(^)(NSArray <ConsultantExpertiseFieldDataModel *> *))complition failure:(void(^)(NSError *error))failure
 {
     NSString *endPoint = @"consultant_categories";
-    [self.networkManager GET:endPoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:endPoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSArray *categoriesList = [ConsultantExpertiseFieldDataModel catgoriesFromDictionary:responseObject];
         if (complition) {
             complition(categoriesList);
@@ -30,7 +30,7 @@
 {
     NSString *endPoint = @"profile/consultant_request";
     
-    [self.networkManager POST:endPoint parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager POST:endPoint parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -45,7 +45,7 @@
 - (void)deactivateConsultantWithComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
     NSString *endPoint = @"profile/consultant_request";
-    [self.networkManager PUT:endPoint parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager PUT:endPoint parameters:nil headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -59,7 +59,7 @@
 - (void)cancelConsultantRequestWithComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
     NSString *endPoint = @"profile/consultant_request";
-    [self.networkManager DELETE:endPoint parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager DELETE:endPoint parameters:nil headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }

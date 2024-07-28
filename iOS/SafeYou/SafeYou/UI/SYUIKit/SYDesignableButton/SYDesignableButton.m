@@ -93,12 +93,12 @@
         
     } else {
         if (self.currentImage) {
-            UIColor *imageColor = [UIColor colorWithSYColor:self.selectedImageColorType alpha:1.0];
+            UIColor *imageColor = [UIColor colorWithSYColor:selectedImageColorType alpha:1.0];
             [self setTintColor:imageColor];
             self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         }
         if(self.imageView.image) {
-            UIColor *imageColor = [UIColor colorWithSYColor:self.selectedImageColorType alpha:1.0];
+            UIColor *imageColor = [UIColor colorWithSYColor:selectedImageColorType alpha:1.0];
             [self setTintColor:imageColor];
             self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         }

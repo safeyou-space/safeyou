@@ -13,7 +13,7 @@
 #import "RecordDataModel.h"
 #import "EmergencyServiceDataModel.h"
 #import "UserConsultantRequestDataModel.h"
-
+#import "ProfileQuestionsAnswersDataModel.h"
 
 NSString *const kUserClassIsVerifyingOtp = @"is_verifying_otp";
 NSString *const kUserClassEmergencyContacts = @"emergency_contacts";
@@ -33,6 +33,8 @@ NSString *const kUserClassEmail = @"email";
 NSString *const kUserClassIsAdmin = @"is_admin";
 NSString *const kUserClassPhone = @"phone";
 NSString *const kUserClassRole = @"role";
+NSString *const kUserClassUId = @"uid";
+NSString *const kUserClassLocation = @"location";
 NSString *const kUserClassCreatedAt = @"created_at";
 NSString *const kUserClassFirstName = @"first_name";
 NSString *const kUserClassUserId = @"id";
@@ -40,6 +42,8 @@ NSString *const kUserClassMaritalStatus = @"marital_status";
 NSString *const kUserClassHelpMessage = @"help_message";
 NSString *const kUserClassIsConsultant = @"is_consultant";
 NSString *const kUserClassConsultantRequest = @"consultant_request";
+NSString *const kUserProfileQuestions = @"profile_questions_answers";
+NSString *const kUserClassFilledPercent = @"filled_percent";
 
 @interface UserDataModel ()
 
@@ -66,9 +70,13 @@ NSString *const kUserClassConsultantRequest = @"consultant_request";
 @synthesize isAdmin = _isAdmin;
 @synthesize phone = _phone;
 @synthesize role = _role;
+@synthesize uId = _uId;
+@synthesize location = _location;
 @synthesize createdAt = _createdAt;
 @synthesize firstName = _firstName;
 @synthesize userId = _userId;
+@synthesize profileQuestionsAnswers = _profileQuestionsAnswers;
+@synthesize filledPercent = _filledPercent;
 
 #pragma mark - Functionality
 
@@ -164,7 +172,6 @@ NSString *const kUserClassConsultantRequest = @"consultant_request";
         self.imageId = [self objectOrNilForKey:kUserClassImageId fromDictionary:dict];
         self.checkPolice = [[self objectOrNilForKey:kUserClassCheckPolice fromDictionary:dict] boolValue];
         self.emergencyMessage = [self objectOrNilForKey:kUserClassEmergencyMessage fromDictionary:dict];
-        self.records = [RecordDataModel modelObjectWithDictionary:[dict objectForKey:kUserClassRecords]];
         self.email = [self objectOrNilForKey:kUserClassEmail fromDictionary:dict];
         self.isAdmin = [[self objectOrNilForKey:kUserClassIsAdmin fromDictionary:dict] boolValue];
         self.phone = [self objectOrNilForKey:kUserClassPhone fromDictionary:dict];
@@ -172,7 +179,13 @@ NSString *const kUserClassConsultantRequest = @"consultant_request";
         self.createdAt = [self objectOrNilForKey:kUserClassCreatedAt fromDictionary:dict];
         self.firstName = [self objectOrNilForKey:kUserClassFirstName fromDictionary:dict];
         self.userId = [self objectOrNilForKey:kUserClassUserId fromDictionary:dict];
+        self.uId = [self objectOrNilForKey:kUserClassUId fromDictionary:dict];
+        self.location = [self objectOrNilForKey:kUserClassLocation fromDictionary:dict];
         self.helpMessagData = [HelpMessageDataModel modelObjectWithDictionary:[self objectOrNilForKey:kUserClassHelpMessage fromDictionary:dict]];
+        self.profileQuestionsAnswers = [ProfileQuestionsAnswersDataModel modelObjectWithDictionary:[self objectOrNilForKey:kUserProfileQuestions fromDictionary:dict]];
+        self.filledPercent = [self objectOrNilForKey:kUserClassFilledPercent fromDictionary:dict];
+//        self.profileQuestionsAnswers = [ProfileQuestionsAnswersDataModel alloc];
+//        self.profileQuestionsAnswers.answers = [self objectOrNilForKey:kUserProfileQuestions fromDictionary:dict];
         
         self.isConsultant = NO;
         boolObjectOrNilForKey(self.isConsultant, dict, kUserClassIsConsultant)
@@ -185,8 +198,9 @@ NSString *const kUserClassConsultantRequest = @"consultant_request";
             self.currentConsultantRequest = nil;
         }
         
-        
-        
+        NSArray *recordsData = dict[kUserClassRecords];
+        NSDictionary *recorssDict = recordsData.firstObject;
+        self.records = [RecordDataModel modelObjectWithDictionary:recorssDict];
     }
     
     return self;
@@ -234,9 +248,13 @@ NSString *const kUserClassConsultantRequest = @"consultant_request";
     [mutableDict setValue:[NSNumber numberWithBool:self.isAdmin] forKey:kUserClassIsAdmin];
     [mutableDict setValue:self.phone forKey:kUserClassPhone];
     [mutableDict setValue:self.role forKey:kUserClassRole];
+    [mutableDict setValue:self.uId forKey:kUserClassUId];
+    [mutableDict setValue:self.location forKey:kUserClassLocation];
     [mutableDict setValue:self.createdAt forKey:kUserClassCreatedAt];
     [mutableDict setValue:self.firstName forKey:kUserClassFirstName];
     [mutableDict setValue:self.userId forKey:kUserClassUserId];
+    [mutableDict setValue:self.filledPercent forKey:kUserClassFilledPercent];
+    [mutableDict setValue:self.profileQuestionsAnswers forKey:kUserProfileQuestions];
     
     return [NSDictionary dictionaryWithDictionary:mutableDict];
 }
@@ -274,9 +292,13 @@ NSString *const kUserClassConsultantRequest = @"consultant_request";
     self.isAdmin = [aDecoder decodeBoolForKey:kUserClassIsAdmin];
     self.phone = [aDecoder decodeObjectForKey:kUserClassPhone];
     self.role = [aDecoder decodeObjectForKey:kUserClassRole];
+    self.uId = [aDecoder decodeObjectForKey:kUserClassUId];
+    self.location = [aDecoder decodeObjectForKey:kUserClassLocation];
     self.createdAt = [aDecoder decodeObjectForKey:kUserClassCreatedAt];
     self.firstName = [aDecoder decodeObjectForKey:kUserClassFirstName];
     self.userId = [aDecoder decodeObjectForKey:kUserClassUserId];
+    self.filledPercent = [aDecoder decodeObjectForKey:kUserClassFilledPercent];
+    self.profileQuestionsAnswers = [aDecoder decodeObjectForKey:kUserProfileQuestions];
     return self;
 }
 
@@ -300,9 +322,13 @@ NSString *const kUserClassConsultantRequest = @"consultant_request";
     [aCoder encodeBool:_isAdmin forKey:kUserClassIsAdmin];
     [aCoder encodeObject:_phone forKey:kUserClassPhone];
     [aCoder encodeObject:_role forKey:kUserClassRole];
+    [aCoder encodeObject:_uId forKey:kUserClassUId];
+    [aCoder encodeObject:_location forKey:kUserClassLocation];
     [aCoder encodeObject:_createdAt forKey:kUserClassCreatedAt];
     [aCoder encodeObject:_firstName forKey:kUserClassFirstName];
     [aCoder encodeObject:_userId forKey:kUserClassUserId];
+    [aCoder encodeObject:_filledPercent forKey:kUserClassFilledPercent];
+    [aCoder encodeObject:_profileQuestionsAnswers forKey:kUserProfileQuestions];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -331,7 +357,9 @@ NSString *const kUserClassConsultantRequest = @"consultant_request";
         copy.role = [self.role copyWithZone:zone];
         copy.createdAt = [self.createdAt copyWithZone:zone];
         copy.firstName = [self.firstName copyWithZone:zone];
+        copy.filledPercent = [self.filledPercent copyWithZone:zone];
         copy.userId = self.userId;
+        copy.profileQuestionsAnswers = [self.profileQuestionsAnswers copyWithZone:zone];
     }
     
     return copy;

@@ -10,6 +10,7 @@
 #import "ChooseOptionsTableViewCell.h"
 #import "ChooseOptionsHeaderView.h"
 #import "ChooseOptionCustomInputCell.h"
+#import "MainTabbarController.h"
 
 @interface ChooseOptionsViewControllerWithConfirm () <ChooseOptionCustomInputCellDelegate>
 
@@ -54,6 +55,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[self mainTabbarController] hideTabbar:YES];
     [self updateLocalizations];
     [_optionsTableView reloadData];
     [self configureNavigationBar];
@@ -234,7 +236,7 @@
             self.customInputSelectionblock(self.customOptionValue);
         }
     } else {
-        if (self.selectedOptionName.length) {
+        if (self.selectedOptionName.length && [self.optionsArray containsObject:self.selectedOptionName]) {
             NSInteger selectedIndex = [self.optionsArray indexOfObject:self.selectedOptionName];
             if (self.selectionBlock) {
                 self.selectionBlock(selectedIndex);

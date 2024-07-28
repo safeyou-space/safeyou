@@ -3,45 +3,20 @@
     {
       "filename" : "left_wing.png",
       "idiom" : "universal",
-      "language-direction" : "left-to-right",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "right_wing.png",
-      "idiom" : "universal",
-      "language-direction" : "right-to-left",
       "scale" : "1x"
     },
     {
       "filename" : "left_wing@2x.png",
       "idiom" : "universal",
-      "language-direction" : "left-to-right",
       "scale" : "2x"
     },
     {
-      "filename" : "right_wing@2x.png",
       "idiom" : "universal",
-      "language-direction" : "right-to-left",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "left_wing@3x.png",
-      "idiom" : "universal",
-      "language-direction" : "left-to-right",
-      "scale" : "3x"
-    },
-    {
-      "filename" : "right_wing@3x.png",
-      "idiom" : "universal",
-      "language-direction" : "right-to-left",
       "scale" : "3x"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "localizable" : true
   }
 }

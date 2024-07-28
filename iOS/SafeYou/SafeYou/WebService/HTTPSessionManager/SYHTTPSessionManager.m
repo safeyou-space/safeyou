@@ -140,11 +140,13 @@
 - (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
                                        URLString:(NSString *)URLString
                                       parameters:(id)parameters
-                                  uploadProgress:(nullable void (^)(NSProgress *uploadProgress)) uploadProgress
-                                downloadProgress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
-                                         success:(void (^)(NSURLSessionDataTask *, id))success
-                                         failure:(void (^)(NSURLSessionDataTask *, NSError *))failure
+                                         headers:(NSDictionary<NSString *,NSString *> *)headers
+                                  uploadProgress:(void (^)(NSProgress * _Nonnull))uploadProgress
+                                downloadProgress:(void (^)(NSProgress * _Nonnull))downloadProgress
+                                         success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
+                                         failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure
 {
+
     NSError *serializationError = nil;
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:method URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:&serializationError];
     if (serializationError) {
@@ -153,10 +155,10 @@
                 failure(nil, serializationError);
             });
         }
-        
+
         return nil;
     }
-    
+
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self dataTaskWithRequest:request
                           uploadProgress:uploadProgress
@@ -167,7 +169,7 @@
                                    if (responseObject) {
                                        NSInteger statusCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
                                        error = [[NSError alloc] initWithDomain:error.domain code:statusCode userInfo:responseObject];
-                                       if (statusCode != 401 && statusCode != 400 && statusCode != 422) {
+                                       if (statusCode != 401 && statusCode != 400 && statusCode != 422 && ![request.URL.path containsString:@"check_phone"]) {
                                            id errorMessage = responseObject[@"message"];
                                            if (errorMessage && ((NSString *)errorMessage).length > 0) {
                                                if (!responseObject[@"errors"] && [errorMessage isKindOfClass:[NSString class]]) {
@@ -184,7 +186,7 @@
                                }
                            }
                        }];
-    
+
     return dataTask;
 }
 

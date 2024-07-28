@@ -13,6 +13,7 @@
 #import "CCAudioPlayer.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "SYViewController+StyledAlerts.h"
+#import "MainTabbarController.h"
 
 #define kUseBlockAPIToTrackPlayerStatus     1
 
@@ -24,12 +25,12 @@
 @property (weak, nonatomic) IBOutlet SYDesignableLabel *recordTimerLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableLabel *recordDateLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableLabel *recordDurationLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *currentProgress;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *durationLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoButton *deleteButton;
-@property (weak, nonatomic) IBOutlet UIButton *sendButton;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *currentProgress;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *durationLabel;
+@property (weak, nonatomic) IBOutlet SYRegularButtonButton *deleteButton;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
-@property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *previousButton;
 
 - (IBAction)nextButtonAction:(id)sender;
@@ -65,10 +66,13 @@
     self.progressBar.progress = 0.0;
     self.extendedLayoutIncludesOpaqueBars = YES;
     [self _resetStreamer];
-    
-    
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[self mainTabbarController] hideTabbar:YES];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -121,6 +125,7 @@
             self.sendButton.enabled = YES;
             [self.sendButton setImage:[UIImage imageNamed:@"send_icon"] forState:UIControlStateNormal];
         }
+        self.sendButton.imageColorType = SYColorTypeOtherAccent;
         self.recordNameLabel.text = self.currentRecord.location;
         NSString *timeString = LOC(@"time_text_key");
         self.recordTimerLabel.text = [NSString stringWithFormat:@"%@ %@",timeString, self.currentRecord.time];
@@ -151,14 +156,16 @@
             strongify(self)
             if (playerState == CCAudioPlayerStatePlaying) {
                 [self hideLoader];
-                [self.playButton setImage:[UIImage imageNamed:@"pause_icon"] forState:UIControlStateNormal];
+                [self.playButton setImage:[[UIImage imageNamed:@"pause_icon_chat"] imageWithTintColor:UIColor.whiteColor] forState:UIControlStateNormal];
+                self.playButton.imageColorType = SYColorTypeWhite;
                 if (!self.isPlayingFromButton) {
                     [self.audioPlayer pause];
                 }
             }
             if (playerState == CCAudioPlayerStateStopped) {
                 [self hideLoader];
-                [self.playButton setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
+                [self.playButton setImage:[[UIImage imageNamed:@"play_icon_chat"] imageWithTintColor:UIColor.whiteColor] forState:UIControlStateNormal];
+                self.playButton.imageColorType = SYColorTypeWhite;
                 self.progressBar.progress = 1.0;
             }
             
@@ -167,7 +174,7 @@
                 [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:LOC(@"something_went_wrong_text_key") cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
             }
             if (playerState == CCAudioPlayerStatePaused) {
-                [self.playButton setImage:[UIImage imageNamed:@"play_icon"] forState:UIControlStateNormal];
+                [self.playButton setImage:[[UIImage imageNamed:@"play_icon_chat"] imageWithTintColor:UIColor.whiteColor] forState:UIControlStateNormal];
             }
         }];
         
@@ -206,16 +213,7 @@
 
 - (IBAction)deleteButtonAction:(id)sender
 {
-    weakify(self)
-    [self showLoader];
-    [self.recordsService deleteRecord:[NSString stringWithFormat:@"%@",self.currentRecord.recordId] complition:^(id  _Nonnull response) {
-        strongify(self);
-        [self hideLoader];
-        [self.navigationController popViewControllerAnimated:YES];
-    } failure:^(NSError * _Nonnull error) {
-        [self hideLoader];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
+    [self handleDeleteAlert];
 }
 
 - (IBAction)sendButtonAction:(id)sender
@@ -233,11 +231,16 @@
         [self showReocrdSentAlert:self.currentRecord.location recordDate:self.currentRecord.createdAt];
         self.sendButton.enabled = NO;
         [self.sendButton setImage:[UIImage imageNamed:@"send_inactive"] forState:UIControlStateNormal];
+        self.sendButton.imageColorType = SYColorTypeOtherAccent;
     } failure:^(NSError * _Nonnull error) {
         strongify(self);
         [self hideLoader];
         [self handleSendingError:error];
     }];
+}
+
+- (IBAction)volumeControl:(UISlider *)sender {
+    self.audioPlayer.volume = sender.value;
 }
 
 - (void)handleSendingError:(NSError *)error
@@ -247,8 +250,25 @@
     [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:message cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
 }
 
-- (IBAction)volumeControl:(UISlider *)sender {
-    self.audioPlayer.volume = sender.value;
+- (void)handleDeleteAlert
+{
+    [self showAlertViewWithTitle:LOC(@"do_you_wont_delete_record") withMessage:nil cancelButtonTitle:LOC(@"no") okButtonTitle:LOC(@"yes") cancelAction:nil okAction:^{
+        [self deleteRecord];
+    }];
+}
+
+- (void)deleteRecord
+{
+    weakify(self)
+    [self showLoader];
+    [self.recordsService deleteRecord:[NSString stringWithFormat:@"%@",self.currentRecord.recordId] complition:^(id  _Nonnull response) {
+        strongify(self);
+        [self hideLoader];
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSError * _Nonnull error) {
+        [self hideLoader];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 @end

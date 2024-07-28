@@ -17,7 +17,7 @@
 @property (nonatomic) NSString *title;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *titleLabel;
 @property (weak, nonatomic) IBOutlet SYRadioButton *radioButton;
 @property (weak, nonatomic) IBOutlet UIButton *actionButton;
 
@@ -101,11 +101,6 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
     _highlighted = highlighted;
-    if (_highlighted) {
-        self.contentView.backgroundColorAlpha = 0.3;
-    } else {
-        self.contentView.backgroundColorAlpha = 0.12;
-    }
 }
 
 #pragma mark - Actions

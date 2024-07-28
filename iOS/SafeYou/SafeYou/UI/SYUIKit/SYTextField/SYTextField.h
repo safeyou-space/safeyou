@@ -6,7 +6,7 @@
 //  Copyright © 2019 Garnik Simonyan. All rights reserved.
 //
 
-#import "SYDesignableTextField.h"
+#import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, SYTextFieldType) {
     LTFT_DefaultType,
@@ -21,7 +21,14 @@ typedef NS_ENUM(NSInteger, SYTextFieldType) {
 
 IB_DESIGNABLE
 
-@interface SYTextField : SYDesignableTextField
+@interface SYTextField : UITextField
+
+@property (nonatomic) IBInspectable CGFloat cornerRadius;
+@property (nonatomic) IBInspectable NSInteger borderColorType;
+@property (nonatomic) IBInspectable CGFloat borderWidth;
+@property (nonatomic) IBInspectable NSInteger placeholderColorType;
+@property (nonatomic) IBInspectable CGFloat placeholderColorAlpha;
+
 @property (nonatomic, assign) SYTextFieldType fieldType;
 
 #pragma mark - Instance Methods

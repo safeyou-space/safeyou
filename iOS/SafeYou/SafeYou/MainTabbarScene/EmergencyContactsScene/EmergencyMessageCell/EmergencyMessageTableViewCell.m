@@ -11,8 +11,8 @@
 
 @interface EmergencyMessageTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *titleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *valueLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *valueLabel;
 
 @end
 

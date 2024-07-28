@@ -7,7 +7,7 @@
 //
 
 #import "BaseDataModel.h"
-@class ImageDataModel;
+@class ImageDataModel, ReviewDataModel;
 
 @interface ForumItemDataModel : BaseDataModel
 
@@ -26,9 +26,16 @@
 @property (nonatomic, assign) NSInteger newMessagesCount;
 @property (nonatomic, strong) ImageDataModel *imageData;
 @property (nonatomic, strong) NSString *author;
+@property (nonatomic, assign) NSInteger ratesCount;
+@property (nonatomic, assign) double rate;
+@property (nonatomic, strong) ReviewDataModel *reviewData;
 
 @property (nonatomic, strong) NSURL *imageURL;
 
 @property (nonatomic) NSString *formattedCreatedAt;
+
+// viewModel
+
+@property (nonatomic, strong) NSString *descriptionAttributedText;
 
 @end

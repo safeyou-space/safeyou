@@ -11,10 +11,10 @@
 
 @interface ChooseToAddOrSkipPinViewController ()
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *titleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *secondaryTitleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoButton *addDualPinButton;
-@property (weak, nonatomic) IBOutlet HyRobotoButton *continueWithoutPinButton;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *secondaryTitleLabel;
+@property (weak, nonatomic) IBOutlet SYRegularButtonButton *addDualPinButton;
+@property (weak, nonatomic) IBOutlet SYRegularButtonButton *continueWithoutPinButton;
 
 - (IBAction)addDualPinButtonAction:(UIButton *)sender;
 - (IBAction)continueWithoutPinButtonAction:(UIButton *)sender;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,14 +36,14 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Armenia" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kis-nT-ILV" customClass="HyRobotoLabelRegular">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Armenia" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kis-nT-ILV" customClass="SYLabelRegular">
                             <rect key="frame" x="35" y="0.0" width="60.5" height="22"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                    <integer key="value" value="9"/>
+                                    <integer key="value" value="6"/>
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
                                     <real key="value" value="1"/>
@@ -61,19 +61,19 @@
                         <constraint firstAttribute="width" constant="24" id="6zj-bD-aQq"/>
                         <constraint firstAttribute="height" constant="24" id="fgF-ui-ZDI"/>
                     </constraints>
-                    <state key="normal" image="redio_button_empty"/>
+                    <state key="normal" image="radion_button_pink_empty"/>
                     <state key="selected" image="radio_button_selected"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
-                            <integer key="value" value="1"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="selectedImageColorType">
-                            <integer key="value" value="1"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQb-Gh-MSb" customClass="SYDesignableButton">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="16"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="10"/>
@@ -107,7 +107,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                    <real key="value" value="10"/>
+                    <real key="value" value="8"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                    <integer key="value" value="17"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                    <real key="value" value="1"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="137.68115942028987" y="136.60714285714286"/>
@@ -127,6 +133,6 @@
     <resources>
         <image name="flag-armenia" width="22" height="22"/>
         <image name="radio_button_selected" width="25" height="25"/>
-        <image name="redio_button_empty" width="16" height="16"/>
+        <image name="radion_button_pink_empty" width="16" height="16"/>
     </resources>
 </document>

@@ -43,7 +43,7 @@
             [alertController addAction:okAction];
         }
         
-        alertController.view.tintColor = [UIColor mainTintColor1];
+        alertController.view.tintColor = [UIColor purpleColor2];
         [self presentViewController:alertController animated:YES completion:nil];
         
         return alertController;

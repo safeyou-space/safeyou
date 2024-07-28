@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *actionString;
 @property (nonatomic) BOOL isSegue;
 @property (nonatomic) BOOL showClearButton;
+@property (nonatomic) BOOL showEditButton;
 @property (nonatomic) NSString *iconImageName;
 
 @property (nonatomic) id dataModel;

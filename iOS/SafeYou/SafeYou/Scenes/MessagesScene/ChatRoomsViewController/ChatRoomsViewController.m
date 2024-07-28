@@ -14,12 +14,14 @@
 #import "PrivateChatRoomViewController.h"
 #import "MainTabbarController.h"
 #import "RoomDataModel.h"
+#import "DialogViewController.h"
 
-@interface ChatRoomsViewController () <UITableViewDelegate, UITableViewDataSource, SocketIOManagerDelegate>
+@interface ChatRoomsViewController () <UITableViewDelegate, UITableViewDataSource, SocketIOManagerDelegate, DialogViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) SocketIOAPIService *socketAPIService;
 @property (nonatomic) NSArray *roomsList;
+@property (nonatomic) NSString *errorString;
 
 @end
 
@@ -38,12 +40,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.errorString = LOC(@"check_internet_connection_text_key");
+    [self configureOpenSurveyActionDialog];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
     [self getPrivateRooms];
 }
 
@@ -61,6 +65,7 @@
         [self listenSocketIOManagerUpdates];
     } failure:^(NSError * _Nonnull error) {
         [self hideLoader];
+        [self showFormErrorAlert];
     }];
 }
 
@@ -69,6 +74,14 @@
 - (void)updateLocalizations
 {
     self.title = LOC(@"messages");
+}
+
+#pragma mark - Functionality
+
+- (void)showFormErrorAlert
+{
+    [self showAlertViewWithTitle:LOC(@"error_text_key")
+                     withMessage:self.errorString cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
 }
 
 #pragma mark - UItableViewDataSource
@@ -123,6 +136,29 @@
     if ([segue.identifier isEqualToString:@"showChatView"]) {
         PrivateChatRoomViewController *destinationVC = segue.destinationViewController;
         destinationVC.roomData = sender;
+    }
+}
+
+#pragma mark - Confirm Survay Action Dialog
+
+- (void)configureOpenSurveyActionDialog
+{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:IS_OPEN_SURVEY_NOTIFICATION_SHOWN] && ![Settings sharedInstance].isOpenSurveyPopupShown) {
+        [[Settings sharedInstance] setOpenSurveyPopupShown:YES];
+        DialogViewController *surveyActionDialogView = [DialogViewController instansiateDialogViewWithType:DialogViewTypeSurveyAction title:LOC(@"survey_notification_popup_title") message:LOC(@"survey_notification_popup_description")];
+        surveyActionDialogView.delegate = self;
+        surveyActionDialogView.showCancelButton = YES;
+        surveyActionDialogView.continueButtonText = LOC(@"take_survey_key");
+        [self addChildViewController:surveyActionDialogView onView:self.view];
+    }
+}
+
+#pragma mark - DialogViewDelegate
+
+- (void)dialogViewDidPressActionButton:(DialogViewController *)dialogView
+{
+    if (dialogView.actionType == DialogViewTypeSurveyAction) {
+        [self performSegueWithIdentifier:OPEN_SURVEY_STORYBOARD_SEGUE sender:nil];
     }
 }
 

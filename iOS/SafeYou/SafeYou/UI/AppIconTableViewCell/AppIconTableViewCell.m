@@ -13,7 +13,8 @@
 @interface AppIconTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *titleLabel;
+@property (weak, nonatomic) IBOutlet UIView *transparrentView;
 @property (weak, nonatomic) IBOutlet SYRadioButton *radioButton;
 
 @end
@@ -27,9 +28,10 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    self.transparrentView.hidden = self.userInteractionEnabled;
 
     if (selected || self.viewData.isSelected) {
-        self.titleLabel.textColorType = SYColorTypeMain1;
+        self.titleLabel.textColorType = SYColorTypeOtherAccent;
         [self.radioButton setImage:[UIImage imageNamed:@"radio_button_pink_selected"] forState:UIControlStateNormal];
     } else {
         self.titleLabel.textColorType = SYColorTypeBlack;
@@ -44,6 +46,7 @@
     [self setSelected:_viewData.isSelected];
     self.iconImageView.image = [UIImage imageNamed:viewData.iconImageName];
     self.titleLabel.text = viewData.optionTitle;
+    self.transparrentView.hidden = self.userInteractionEnabled;
 }
 
 @end

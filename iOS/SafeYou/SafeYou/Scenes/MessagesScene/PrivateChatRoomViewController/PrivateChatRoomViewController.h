@@ -8,14 +8,17 @@
 
 
 #import "SYViewController.h"
+#import "ChatUserDataModel.h"
 
-@class SocketIOClient, RoomDataModel, ChatMessageDataModel;
+@class SocketIOClient, RoomDataModel, ChatUserDataModel, ChatMessageDataModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PrivateChatRoomViewController : SYViewController
 
+@property (nonatomic) NSString *roomKey;
 @property (nonatomic) RoomDataModel *roomData;
+@property (nonatomic) ChatUserDataModel *chatData;
 
 @property (nonatomic) BOOL isForComposing;
 

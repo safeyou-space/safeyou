@@ -46,7 +46,7 @@
     NSString *apiURL = [Settings sharedInstance].socketAPIURL;
     NSString *endppoint = [NSString stringWithFormat:@"/api/rooms/%@/join", roomId];
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager GET:endppoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [networkManager GET:endppoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *roomDict = responseObject[@"data"];
         RoomDataModel *roomData = [RoomDataModel modelObjectWithDictionary:roomDict];
         if (success) {
@@ -65,7 +65,7 @@
     NSString *apiURL = [Settings sharedInstance].socketAPIURL;
     NSString *endppoint = [NSString stringWithFormat:@"/api/rooms/%@/leave", roomId];
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager GET:endppoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [networkManager GET:endppoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *roomDict = responseObject[@"data"];
         if (![roomDict isKindOfClass:[NSDictionary class]]) {
             if (success) {
@@ -97,7 +97,7 @@
     NSString *apiURL = [Settings sharedInstance].socketAPIURL;
     NSString *endppoint = [NSString stringWithFormat:@"/api/rooms/%@/messages/list?limit=10&skip=%d", roomKey, skip];
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager GET:endppoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [networkManager GET:endppoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *receivedDataDict = responseObject[@"data"];
         NSArray *receivedMessages = [self messagesFromDict:receivedDataDict];
         if (success) {
@@ -122,7 +122,7 @@
     NSString *apiURL = [Settings sharedInstance].socketAPIURL;
     NSString *endpoint = [NSString stringWithFormat:@"/api/rooms/%@/messages/send", roomKey];
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager POST:endpoint parameters:sendMessageFile.messageParameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [networkManager POST:endpoint parameters:sendMessageFile.messageParameters headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         for (NSString *key in sendMessageFile.messageFormDataParameters.allKeys) {
             id value = sendMessageFile.messageFormDataParameters[key];
             if([key containsString:@"message_files"]) {
@@ -154,7 +154,7 @@
     NSString *apiURL = [Settings sharedInstance].socketAPIURL;
     NSString *endpoint = [NSString stringWithFormat:@"/api/rooms/%@/messages/%@/update", roomKey, messageId];
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager POST:endpoint parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [networkManager POST:endpoint parameters:nil headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         for (NSString *key in sendMessageFile.messageParameters.allKeys) {
             id value = sendMessageFile.messageParameters[key];
             if([key containsString:@"message_files"]) {
@@ -188,7 +188,7 @@
     NSString *apiURL = [Settings sharedInstance].socketAPIURL;
     NSString *endpoint = [NSString stringWithFormat:@"/api/rooms/%@/messages/%@/delete", roomKey, messageId];
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager POST:endpoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [networkManager POST:endpoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(YES);
         }
@@ -207,7 +207,7 @@
     // TODO - add report user endpoint
     NSString *endpoint = [NSString stringWithFormat:@"/api/rooms/%@/messages/", userId];
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager POST:endpoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [networkManager POST:endpoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
             success(YES);
         }
@@ -231,7 +231,7 @@
 //    NSString *endpoint = [NSString stringWithFormat:@"api/friends/list"];
     NSDictionary *params = @{@"type": @(roomType)};
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager GET:endpoint parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [networkManager GET:endpoint parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *roomsDict = responseObject[@"data"];
         NSArray *roomsList = [self roomsFromDict:roomsDict];
         
@@ -260,7 +260,7 @@
                              @"room_image": @"image_name"};
     
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager POST:endpoint parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [networkManager POST:endpoint parameters:nil headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         for (NSString *key in params.allKeys) {
             id value = params[key];
             NSData *data = [value dataUsingEncoding:NSUTF8StringEncoding];
@@ -284,19 +284,15 @@
     NSString *apiURL = [Settings sharedInstance].socketAPIURL;
     NSString *endppoint = [NSString stringWithFormat:@"/api/rooms/%@/join", roomKey];
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager GET:endppoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [networkManager GET:endppoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *roomDict = responseObject[@"data"];
         RoomDataModel *roomData = [RoomDataModel modelObjectWithDictionary:roomDict];
         if (success) {
             success(roomData);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (error.code == 404) {
-            [self createRoomWithUser:userData success:success failure:failure];
-        } else {
-            if (failure) {
-                failure(error);
-            }
+        if (failure) {
+            failure(error);
         }
     }];
 }
@@ -306,10 +302,36 @@
     NSString *endpoint = @"api/notifications";
     NSString *apiURL = [Settings sharedInstance].socketAPIURL;
     SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
-    [networkManager GET:endpoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+    [networkManager GET:endpoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+
         if (success) {
             success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+- (void)getRoomUnreadMessages:(NSString *)roomKey success:(void(^)(NSArray <NSNumber *> *unreadMessageIds))success failure:(void(^)(NSError *error))failure
+{
+    NSString *apiURL = [Settings sharedInstance].socketAPIURL;
+    NSString *endppoint = [NSString stringWithFormat:@"/api/rooms/%@/unread/messages", roomKey];
+    SYHTTPSessionManager *networkManager = [self networkManagerWithUrl:apiURL];
+    [networkManager GET:endppoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *receivedDataDict = responseObject[@"data"];
+        NSMutableArray *unreadMessages = [NSMutableArray array];
+        if (receivedDataDict.count > 0) {
+            NSArray *receivedMessages = [self messagesFromDict:receivedDataDict];
+            for (ChatMessageDataModel *message in receivedMessages) {
+                if (message.messageId) {
+                    [unreadMessages addObject:message.messageId];
+                }
+            }
+        }
+        if (success) {
+            success(unreadMessages);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {

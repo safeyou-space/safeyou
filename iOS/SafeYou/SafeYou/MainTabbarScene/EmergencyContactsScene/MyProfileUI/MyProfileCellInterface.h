@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configureCellWithTitle:(NSString *)title;
 - (void)configureCellWithViewModelData:(id)viewData;
+- (void)showReportIcon:(BOOL)hidden;
 - (BOOL)becomeFirstResponder;
 
 @property (nonatomic, weak) id delegate;

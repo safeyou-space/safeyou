@@ -8,6 +8,7 @@
 #import "BaseDataModel.h"
 
 @class ImageDataModel;
+@class ProfileQuestionsAnswersDataModel;
 
 @interface UserDetail : BaseDataModel
 
@@ -30,7 +31,6 @@
 @property (nonatomic, strong) NSString *isAdmin;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *emergencyMessage;
-
-
+@property (nonatomic, strong) ProfileQuestionsAnswersDataModel *profileQuestionsAnswers;
 
 @end

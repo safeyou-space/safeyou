@@ -8,27 +8,29 @@
 
 #import "VerifyPhoneNumberViewController.h"
 #import "SYAuthenticationService.h"
-#import "NewPasswordViewController.h"
+#import "CreatePasswordViewController.h"
+#import "MainTabbarController.h"
 #import "ApplicationLaunchCoordinator.h"
 #import "SYProfileService.h"
 #import "UITextField+UITextField_NumberPad.h"
 #import "AppDelegate.h"
+#import "SafeYou-Swift.h"
+#import "SignInPasswordViewController.h"
 
-@interface VerifyPhoneNumberViewController () <UITextFieldDelegate>
+@interface VerifyPhoneNumberViewController () <UITextFieldDelegate, DigitInputViewDelegate>
 
 {
     int currSeconds;
 }
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *titleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *infoTextLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *enterOTPTitleLabel;
-@property (weak, nonatomic) IBOutlet UITextField *inputOTPTextField;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *resendPasswordTimerLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoButton *resendButton;
-@property (weak, nonatomic) IBOutlet HyRobotoButton *nextButton;
-@property (weak, nonatomic) IBOutlet UIScrollView *contentScrolView;
+@property (weak, nonatomic) IBOutlet SYLabelBold *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *infoTextLabel;
+@property (weak, nonatomic) IBOutlet UIView *digitInputContainerView;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *resendPasswordTimerLabel;
+@property (weak, nonatomic) IBOutlet SYRegularButtonButton *resendButton;
+@property (weak, nonatomic) IBOutlet SYCorneredButton *nextButton;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *startEditingTap;
+@property (weak, nonatomic) IBOutlet SYDesignableBarButtonItem *backButtonItem;
 
 - (IBAction)resendButtonPressed:(UIButton *)sender;
 - (IBAction)nextButtonPressed:(UIButton *)sender;
@@ -42,6 +44,7 @@
 @property (nonatomic) SYAuthenticationService *verifyNumberService;
 @property (nonatomic) SYProfileService *profileDataService;
 
+@property (nonatomic) DigitInputView *digitInputView;
 
 
 @end
@@ -59,13 +62,12 @@
     return self;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.inputOTPTextField.delegate = self;
+    [self configureDigitInputView];
     [self enableKeyboardNotifications];
-    [self configureGradientBackground];
-    [self.inputOTPTextField createNumberTextFieldInputAccessoryView];
     [self disableNextButton];
     [self start];
 }
@@ -73,12 +75,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self showNotificationsBarButtonitem:NO];
+    [[self mainTabbarController] hideTabbar:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.inputOTPTextField becomeFirstResponder];
+    [self.digitInputView becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -91,6 +95,7 @@
 
 - (void)enableResendButton
 {
+    self.resendButton.hidden = NO;
     self.resendButton.enabled = YES;
     self.resendButton.backgroundColorAlpha = 1.0;
     self.resendButton.titleColorTypeAlpha = 1.0;
@@ -98,6 +103,7 @@
 
 - (void)disableResendButton
 {
+    self.resendButton.hidden = YES;
     self.resendButton.enabled = NO;
     self.resendButton.backgroundColorAlpha = 0.8;
     self.resendButton.titleColorTypeAlpha = 0.7;
@@ -108,34 +114,25 @@
 - (void)enableNextButton
 {
     self.nextButton.enabled = YES;
-    self.nextButton.backgroundColorAlpha = 1.0;
-    self.nextButton.titleColorTypeAlpha = 1.0;
 }
 
 - (void)disableNextButton
 {
     self.nextButton.enabled = NO;
-    self.nextButton.backgroundColorAlpha = 0.8;
-    self.nextButton.titleColorTypeAlpha = 0.7;
 }
 
-#pragma mark - UITaxtFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+#pragma mark - DigitViewDelegate
+
+- (void)digitsDidChangeWithDigitInputView:(DigitInputView *)digitInputView
 {
-    [textField resignFirstResponder];
-    return YES;
+
 }
 
-- (void)textFieldDidChangeSelection:(UITextField *)textField
+- (void)digitsDidFinishWithDigitInputView:(DigitInputView *)digitInputView
 {
-    if (self.inputOTPTextField == textField) {
-        if (textField.text.length > 0) {
-            [self enableNextButton];
-        } else {
-            [self disableNextButton];
-        }
-    }
+    self.nextButton.enabled = YES;
+    self.insertedCode = digitInputView.text;
 }
 
 #pragma mark - Timer
@@ -166,15 +163,43 @@
     self.infoTextLabel.text = [NSString stringWithFormat:LOC(@"otp_info_text_key"), self.phoneNumber];
     [self.nextButton setTitle:LOC(@"next_key") forState:UIControlStateNormal];
     [self.resendButton setTitle:LOC(@"resend_title_key") forState:UIControlStateNormal];
+    self.backButtonItem.title = LOC(@"back");
 }
 
 #pragma mark - Customize views
 
+- (void)configureDigitInputView
+{
+    self.digitInputView = [[DigitInputView alloc] initWithFrame:self.digitInputContainerView.bounds];
+    
+    self.digitInputView.delegate = self;
+    self.digitInputView.numberOfDigits = 6;
+    self.digitInputView.borderColor = [UIColor purpleColor4];
+    self.digitInputView.textColor = [UIColor purpleColor2];
+    self.digitInputView.acceptableCharacters = @"0123456789";
+    self.digitInputView.keyboardType = UIKeyboardTypeDecimalPad;
+    self.digitInputView.font = [UIFont semiBoldFontOfSize:20.0];
 
-// @FIXME: Dublicate code need refactor
-- (void)configureGradientBackground {
-    self.view.backgroundColor = [UIColor mainTintColor2];
+    // if you wanna use layout constraints
+    self.digitInputView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [self.digitInputContainerView addSubview:self.digitInputView];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [self.digitInputView.topAnchor constraintEqualToAnchor:self.digitInputContainerView.topAnchor constant:0.0],
+        [self.digitInputView.leadingAnchor constraintEqualToAnchor:self.digitInputContainerView.leadingAnchor constant:0.0],
+        [self.digitInputView.trailingAnchor constraintEqualToAnchor:self.digitInputContainerView.trailingAnchor constant:0.0],
+        [self.digitInputView.bottomAnchor constraintEqualToAnchor:self.digitInputContainerView.bottomAnchor constant:0.0],
+    ]];
 }
+
+
+#pragma mark - Actions
+
+- (IBAction)backButtonAction:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (IBAction)resendButtonPressed:(UIButton *)sender {
     // do resend staff
@@ -182,14 +207,13 @@
 }
 
 - (IBAction)nextButtonPressed:(UIButton *)sender {
-    self.insertedCode = self.inputOTPTextField.text;
     if (self.isFromForgotPasswordView) {
         [self showLoader];
         weakify(self);
         [self.verifyNumberService verifyForgotPasswordPhoneNumber:self.phoneNumber withCode:self.insertedCode withComplition:^(id  _Nonnull response) {
             [self hideLoader];
             NSString *token = response[@"token"];
-            [self performSegueWithIdentifier:@"showNewPasswordViewFromVerifyNumber" sender:token];
+            [self performSegueWithIdentifier:@"showCreatePasswordView" sender:token];
         } failure:^(NSError * _Nonnull error) {
             strongify(self);
             [self hideLoader];
@@ -204,7 +228,11 @@
             strongify(self);
             [self hideLoader];
             // show create dual pin
-            [self loginRegisteredUser];
+            if (self.isSignInFlow) {
+                [self performSegueWithIdentifier:@"showEnterPasswordView" sender:nil];
+            } else {
+                [self loginRegisteredUser];
+            }
             
         } failure:^(NSError * _Nonnull error) {
             strongify(self);
@@ -247,9 +275,6 @@
     [self.view endEditing:YES];
 }
 
-- (IBAction)startEditingTapAction:(UITapGestureRecognizer *)sender {
-    [self.inputOTPTextField becomeFirstResponder];
-}
 
 #pragma mark - Edit Phone number flow
 
@@ -305,28 +330,12 @@
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    self.contentScrolView.contentInset = contentInsets;
-    self.contentScrolView.scrollIndicatorInsets = contentInsets;    
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    self.contentScrolView.contentInset = contentInsets;
-    self.contentScrolView.scrollIndicatorInsets = contentInsets;
-}
-
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"showNewPasswordViewFromVerifyNumber"]) {
-        NewPasswordViewController *destination = segue.destinationViewController;
-        destination.token = (NSString *)sender;
-        destination.recoveredPhoneNumber = self.phoneNumber;
-    }
 }
 
 #pragma mark - Error Handling
@@ -347,6 +356,25 @@
         }
     }
     [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:message cancelButtonTitle:nil okButtonTitle:LOC(@"ok") cancelAction:nil okAction:nil];
+}
+
+
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showCreatePasswordView"]) {
+        NSString *token = (NSString *)sender;
+        CreatePasswordViewController *destinationVC = segue.destinationViewController;
+        destinationVC.isRecoverFlow = YES;
+        destinationVC.recoveryToken = token;
+        destinationVC.phoneNumber = self.phoneNumber;
+    }
+
+    if ([segue.identifier isEqualToString:@"showEnterPasswordView"]) {
+        SignInPasswordViewController *destinationVC = (SignInPasswordViewController *)segue.destinationViewController;
+        destinationVC.phoneNumber = self.phoneNumber;
+
+    }
 }
 
 @end

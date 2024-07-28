@@ -13,9 +13,9 @@
 @interface NotificationTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *userNameLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *userActionLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *userDateLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *userNameLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *userActionLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *userDateLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableView *designableContentView;
 
 @end
@@ -51,12 +51,44 @@
 - (void)configureNotificationData:(NotificationData *)notificationData
 {
     self.notificationData = notificationData;
+    self.designableContentView.backgroundColorAlpha = 0;
+    
+    if (notificationData.notifyRead == 0) {
+        [self.userNameLabel setFont:[UIFont fontWithName:@"HayRoboto-Bold" size:self.userNameLabel.font.pointSize]];
+    }
+
+    if (notificationData.notifyType == NotificationTypeNewForum) {
+        [self configureNewForum:notificationData];
+    } else if (notificationData.notifyType == NotificationTypeDashboardMessage) {
+        [self configureDashboardMessage:notificationData];
+    } else {
+        [self configureNewMessage:notificationData];
+    }
+}
+
+- (void)configureNewMessage:(NotificationData *)notificationData
+{
     NSURL *imageUrl = [NSURL URLWithString:notificationData.notificationMessage.user.userImage];
     [self.avatarImageView sd_setImageWithURL:imageUrl];
-    self.userNameLabel.text = self.notificationData.notificationMessage.user.userUsername ? self.notificationData.notificationMessage.user.userUsername :self.notificationData.notificationMessage.user.userNgoName;
+    self.userNameLabel.text = notificationData.notificationMessage.user.userUsername ? notificationData.notificationMessage.user.userUsername : notificationData.notificationMessage.user.userNgoName;
     self.userActionLabel.text = LOC(@"replied_to_your_comment");
-    self.designableContentView.backgroundColorAlpha = 0;
     self.userDateLabel.text = notificationData.notificationMessage.formattedUpdatedDate;
+}
+
+- (void)configureNewForum:(NotificationData *)notificationData
+{
+    NSURL *imageUrl = [NSURL URLWithString:notificationData.forumData.imageUrl];
+    [self.avatarImageView sd_setImageWithURL:imageUrl];
+    self.userNameLabel.text = notificationData.forumData.title;
+    self.userActionLabel.text = LOC(@"forum_was_created");
+    self.userDateLabel.text = notificationData.forumData.formattedCreatedDate;
+}
+
+- (void)configureDashboardMessage:(NotificationData *)notificationData
+{
+    self.userNameLabel.text = notificationData.notifyTitle;
+    self.userActionLabel.text = notificationData.notificationDashboardMessage.message;
+    self.userDateLabel.text = notificationData.formattedCreatedDate;
 }
 
 @end

@@ -29,6 +29,7 @@
 #import "LanguagesListViewController.h"
 #import "ChangePinViewController.h"
 #import "WebContentViewController.h"
+#import "MainTabbarController.h"
 
 @interface SecurityViewController () <UITableViewDelegate, UITableViewDataSource, TableViewCellActionDelegate, SwitchActionTableViewCellDelegate, DialogViewDelegate, CreateDualPinViewDelegate, MoreViewTableViewCellDelegate, CountryListViewDelegate, LanguagesListViewDelegate>
 
@@ -95,7 +96,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [[self mainTabbarController] hideTabbar:YES];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
     [self.tableView reloadData];
 }
 
@@ -206,7 +208,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        HyRobotoLabelBold *titleLabel = [[HyRobotoLabelBold alloc] init];
+        SYLabelBold *titleLabel = [[SYLabelBold alloc] init];
         titleLabel.textColorType = SYColorTypeBlack;
         titleLabel.textColorAlpha = 1.0;
         titleLabel.frame = CGRectMake(20, 8, 320, 20);

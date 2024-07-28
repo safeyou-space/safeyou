@@ -17,8 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startListeningForNotifications;
 - (NSInteger)unreadNotificationsCount;
-- (NSArray *)allNotifications;
-- (void)readNotification:(NotificationData *)notificationData;
+- (void)readNotification:(NSNumber *)notifyId;
 - (void)resetBadgeCount;
 
 @end

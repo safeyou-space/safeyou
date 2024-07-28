@@ -13,14 +13,19 @@
 #import "SocketIOManager.h"
 #import "ForumNotificationsManager.h"
 #import "ForumsViewController.h"
+#import "HelpTabbarItemViewController.h"
 #import "AppDelegate.h"
+#import "RoomDataModel.h"
+#import "SocketIOAPIService.h"
 
 
 @interface MainTabbarController () <UITabBarControllerDelegate>
 
-@property (nonatomic) UIButton *centerButton;
+@property (nonatomic) SYDesignableButton *centerButton;
 @property (nonatomic) SYDesignableImageView *forumActivitiIcon;
+@property (nonatomic) HelpTabbarItemViewController *helpTabBarController;
 @property (nonatomic) NSInteger forumActivityCount;
+@property (nonatomic) SocketIOAPIService *socketAPIService;
 
 @end
 
@@ -30,6 +35,8 @@
     [super viewDidLoad];
     [SocketIOManager sharedInstance];
     [ForumNotificationsManager sharedInstance];
+    self.socketAPIService = [[SocketIOAPIService alloc] init];
+    [Settings sharedInstance].unreadPrivateMessages = [[NSMutableDictionary alloc] init];
     self.selectedIndex = 2;
     self.delegate = self;
     // Do any additional setup after loading the view.
@@ -46,6 +53,7 @@
     [super viewWillAppear:animated];
     [self updateLocalizations];
     [self.tabBar setTintColor:[UIColor mainTintColor1]];
+    [self.tabBar setUnselectedItemTintColor:[UIColor purpleColor1]];
     self.tabBar.backgroundColor = [UIColor whiteColor];
     self.tabBar.opaque = YES;
 }
@@ -104,6 +112,8 @@
 {
     [self listenForForumActivites];
     [[ForumNotificationsManager sharedInstance] startListeningForNotifications];
+    [self getUnreadMessages];
+    [self listenForPrivateMessagesUpdate];
 }
     
 #pragma mark - Custom View
@@ -126,28 +136,34 @@
 
 - (void)configureHelpButton
 {
-    CGFloat buttonSize = 75;
+    CGFloat buttonSize = 130;
     self.centerButton = [[SYDesignableButton alloc] initWithFrame:CGRectMake(0, 0, buttonSize, buttonSize)];
     NSString *imageName = @"help_button_empty";
-    UIImage *localizedImage = [UIImage imageNamed:imageName];
+    UIImage *localizedImage = [[UIImage imageNamed:imageName] imageWithTintColor:UIColor.mainTintColor1];
     
     [self.centerButton setBackgroundImage:localizedImage forState:UIControlStateNormal];// setImage:localizedImage forState:UIControlStateNormal];
     
-    self.centerButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    
+    UIFont *font = [UIFont extraBoldFontOfSize:18];
+    [self.centerButton.titleLabel setFont:[[[UIFontMetrics alloc] initForTextStyle:UIFontTextStyleBody] scaledFontForFont:font]];
+    self.centerButton.titleLabel.adjustsFontForContentSizeCategory = YES;
+    self.centerButton.titleColorType = SYColorTypeOtherAccent;
+    self.centerButton.titleColorTypeAlpha = 1.0;
+
     [self.centerButton setTitle:LOC(@"help_title_key").uppercaseString forState:UIControlStateNormal];
         
     UIWindow *window = APP_DELEGATE.window;
     CGFloat bottomPadding = window.safeAreaInsets.bottom;
     
     CGRect centerButtonFrame = self.centerButton.frame;
-    centerButtonFrame.origin.y = (self.tabBar.frame.origin.y - 30 - bottomPadding);
+    centerButtonFrame.origin.y = (self.tabBar.frame.origin.y - 60 - bottomPadding);
     centerButtonFrame.origin.x = self.view.bounds.size.width/2 - centerButtonFrame.size.width/2;
     
     self.centerButton.frame = centerButtonFrame;
     
-    [self.centerButton addTarget:self action:@selector(helpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.centerButton addTarget:self action:@selector(helpButtonPressedUp:) forControlEvents:UIControlEventTouchUpInside];
+    [self.centerButton addTarget:self action:@selector(helpButtonPressedUp:) forControlEvents:UIControlEventTouchUpOutside];
+    [self.centerButton addTarget:self action:@selector(helpButtonPressedDown:) forControlEvents:UIControlEventTouchDown];
+
     [self.view addSubview:self.centerButton];
     
     [self.view layoutIfNeeded];
@@ -156,6 +172,7 @@
 - (void)hideCenterButton:(BOOL)hide
 {
     self.centerButton.hidden = hide;
+    [self.view bringSubviewToFront:self.centerButton];
 }
 
 - (void)hideTabbar:(BOOL)hide
@@ -195,14 +212,35 @@
     [[self.tabBar.items objectAtIndex:1] setTitle:LOC(@"network_title")];
     [[self.tabBar.items objectAtIndex:3] setTitle:LOC(@"messages")];
     [[self.tabBar.items objectAtIndex:4] setTitle:LOC(@"title_menu")];
+    
+    
+    [self.tabBar.items objectAtIndex:2].isAccessibilityElement = NO;
 }
 
 #pragma mark - Actions
 
-- (void)helpButtonPressed:(UIButton *)sender
+- (void)helpButtonPressedDown:(UIButton *)sender
 {
+    //start recording
     self.selectedIndex = 2;
-    [((UINavigationController *)self.selectedViewController) popToRootViewControllerAnimated:YES];
+    
+    if (self) {
+        for (UIViewController *childViewController in self.viewControllers) {
+            if ([childViewController isKindOfClass:[UINavigationController class]]) {
+                UINavigationController *navController = (UINavigationController *)childViewController;
+                if ([navController.topViewController isKindOfClass:[HelpTabbarItemViewController class]]) {
+                    self.helpTabBarController = navController.topViewController;
+                    [self.helpTabBarController helpTabBarButtonPressed];
+                }
+            }
+        }
+    }
+}
+
+- (void)helpButtonPressedUp:(UIButton *)sender
+{
+    // stop reqording
+    [self.helpTabBarController helpTabBarButtonPressedUp];
 }
 
 #pragma mark - UItabbarController Delegate
@@ -235,11 +273,13 @@
 - (void)checkReceivedNotification
 {
     if ([Settings sharedInstance].receivedRemoteNotification) {
-        RemoteNotificationType notifyType = [[Settings sharedInstance].receivedRemoteNotification[@"notify_type"] integerValue];
+        RemoteNotificationType notifyType = [Settings sharedInstance].receivedRemoteNotification.notifyType;
         if (notifyType == NotificationTypeNewForum || notifyType == NotificationTypeMessage) {
             self.selectedIndex = 0;
+        } else {
+            [Settings sharedInstance].receivedRemoteNotification = nil;
         }
-    } else if ([Settings sharedInstance].forumId) {
+    } else if ([Settings sharedInstance].dynamicLinkUrl) {
         self.selectedIndex = 0;
     }
 }
@@ -248,9 +288,59 @@
 
 - (void)handleDynamicLink
 {
-    if ([Settings sharedInstance].forumId) {
+    if ([Settings sharedInstance].dynamicLinkUrl) {
         self.selectedIndex = 0;
     }
+}
+
+#pragma mark - Get unread messages
+
+- (void)getUnreadMessages
+{
+    weakify(self);
+    [self.socketAPIService getRoomsForType:RoomTypePrivateOnToOne success:^(NSArray <RoomDataModel *> * _Nonnull roomsList) {
+        strongify(self);
+        NSArray *rooms = roomsList;
+        for (RoomDataModel *room in rooms) {
+            weakify(self);
+            [self.socketAPIService getRoomUnreadMessages:room.roomKey success:^(NSArray<NSNumber *> * _Nonnull unreadMessageIds) {
+                strongify(self);
+                if (unreadMessageIds.count > 0) {
+                    [self setPrivateMessageBadge];
+                    [Settings sharedInstance].unreadPrivateMessages[room.roomKey] = unreadMessageIds;
+                }
+            } failure:^(NSError * _Nonnull error) {
+                NSLog(@"Error when getting unread nessages ");
+            }];
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"Error when getting rooms");
+    }];
+}
+
+- (void)listenForPrivateMessagesUpdate
+{
+    weakify(self);
+    [SocketIOManager sharedInstance].receivePrivateMessageBlock = ^(NSString * _Nonnull roomKey, NSNumber * _Nonnull messageId) {
+        strongify(self);
+        NSLog(@"Received new message with key: %@", roomKey);
+        NSMutableDictionary *unreadPrivateMessages = [Settings sharedInstance].unreadPrivateMessages;
+        NSMutableArray *unreadMessages = [unreadPrivateMessages objectForKey:roomKey];
+        if (unreadMessages == nil) {
+            unreadMessages = [NSMutableArray arrayWithObject:messageId];
+            [self setPrivateMessageBadge];
+        } else {
+            [unreadMessages addObject:messageId];
+        }
+        [unreadPrivateMessages setObject:unreadMessages forKey:roomKey];
+        [Settings sharedInstance].unreadPrivateMessages = unreadPrivateMessages;
+    };
+}
+
+- (void)setPrivateMessageBadge
+{
+    [[self.tabBar.items objectAtIndex:3] setBadgeColor:[UIColor mainTintColor1]];
+    [[self.tabBar.items objectAtIndex:3] setBadgeValue:@""];
 }
 
 @end

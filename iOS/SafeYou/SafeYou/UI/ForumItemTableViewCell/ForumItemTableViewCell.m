@@ -18,13 +18,15 @@
 
 @property (weak, nonatomic) IBOutlet SYDesignableView *shadowedContentView;
 @property (weak, nonatomic) IBOutlet SYDesignableView *recentActivityView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *recentActivityLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *recentActivityLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *titleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *dateLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *contentLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *moreInfoLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *activityLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *dateLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *contentLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *moreInfoLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *activityLabel;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *commentCountButton;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *viewCountButton;
 
 @property (strong, nonatomic) IBOutletCollection(SYDesignableImageView) NSArray *avatarsCollection;
 @property (weak, nonatomic) IBOutlet UIView *avatarsContainerView;
@@ -33,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *secondAvatarImageView;
 @property (weak, nonatomic) IBOutlet SYDesignableView *thirdAvatarView;
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *thirdAvatarImageView;
+@property (weak, nonatomic) IBOutlet UIStackView *ratingStackView;
+@property (weak, nonatomic) IBOutlet SYDesignableLabel *currentRate;
+@property (weak, nonatomic) IBOutlet SYDesignableLabel *ratesCountLabel;
 
 @end
 
@@ -58,6 +63,9 @@
     
     self.thirdAvatarView.layer.cornerRadius = self.thirdAvatarView.frame.size.width/2;
     self.thirdAvatarImageView.layer.cornerRadius = self.thirdAvatarImageView.frame.size.width/2;
+    
+    [self.ratingStackView setBackgroundColor:UIColor.mainTintColor5];
+    self.ratingStackView.layer.cornerRadius = 12;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -80,30 +88,21 @@
     }
     self.titleLabel.text = forumItem.title;
     self.dateLabel.text = [NSString stringWithFormat:@"%@ | %@", forumItem.author, forumItem.formattedCreatedAt];
-    [self configureContent:forumItem.shortDescription];
+    self.contentLabel.attributedText = forumItem.descriptionAttributedText;
     self.moreInfoLabel.text = LOC(@"more_info_text_key");
     
     [self.titleImageView sd_setImageWithURL:forumItem.imageData.imageFullURL];
     
-    [self updateComments:forumItem.commentsCount andViewsCount:forumItem.viewsCount];
-    // Hide views count bug from backend
-//    self.activityLabel.text = [NSString stringWithFormat:@"%@" , commentsCountText];
+    NSString *commentCount = [NSString stringWithFormat: @"   %ld", forumItem.commentsCount];
+    [self.commentCountButton setTitle:commentCount forState:UIControlStateNormal];
+    
+    NSString *viewCount = [NSString stringWithFormat: @"   %ld", forumItem.viewsCount];
+    [self.viewCountButton setTitle:viewCount forState:UIControlStateNormal];
+    
+    self.currentRate.text = [NSString stringWithFormat:@"%@", @(forumItem.rate)];
+    self.ratesCountLabel.text = [NSString stringWithFormat: @"(%@ %@)", LOC(@"forum_reviews_count"), @(forumItem.ratesCount)];
     
     [self configureCommentedUsersSection:forumItem];
-}
-
-- (void)updateComments:(NSInteger)commentsCount andViewsCount:(NSInteger)viewsCount
-{
-    NSString *commentsCountText = [NSString stringWithFormat:LOC(@"count_comments"), @(commentsCount)];
-    NSString *viewsCountText = [NSString stringWithFormat:LOC(@"count_views"), @(viewsCount)];
-    self.activityLabel.text = [NSString stringWithFormat:@"%@ | %@", viewsCountText, commentsCountText];
-}
-
-- (void)configureContent:(NSString *)htmlString
-{
-    NSMutableAttributedString *mAttrString = [[NSString attributedStringFromHTML:htmlString] mutableCopy];
-    [mAttrString addAttribute:NSFontAttributeName value:[UIFont hyRobotoFontRegularOfSize:18] range:NSMakeRange(0, mAttrString.length)];
-    self.contentLabel.attributedText = mAttrString;
 }
 
 - (void)configureCommentedUsersSection:(ForumItemDataModel *)forumitem

@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ForumItemTableViewCell : UITableViewCell
 
 - (void)configureWithForumItem:(ForumItemDataModel *)forumItem;
-- (void)updateComments:(NSInteger)commentsCount andViewsCount:(NSInteger)viewsCount;
 
 @end
 

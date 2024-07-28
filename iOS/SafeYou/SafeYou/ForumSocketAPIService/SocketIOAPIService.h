@@ -98,6 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getUserNotificationsSuccess:(void (^)(id response))success failure:(void (^)(NSError *error))failure;
 
+- (void)getRoomUnreadMessages:(NSString *)roomKey success:(void(^)(NSArray <NSNumber *> *unreadMessageIds))success failure:(void(^)(NSError *error))failure;
 
 @end
 

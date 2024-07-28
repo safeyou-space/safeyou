@@ -11,9 +11,9 @@
 
 @interface EmergencyContactTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *titleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *valueLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoButton *clearbutton;
+@property (weak, nonatomic) IBOutlet SYLabelLight *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *valueLabel;
+@property (weak, nonatomic) IBOutlet SYRegularButtonButton *clearbutton;
 @property (weak, nonatomic) IBOutlet SYDesignableButton *editButton;
 
 - (IBAction)clearButtonAction:(UIButton *)sender;
@@ -30,13 +30,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    [self.clearbutton setTitle:LOC(@"clear_text_key") forState:UIControlStateNormal];
 }
 
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    [self.clearbutton setTitle:LOC(@"clear_text_key") forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -49,8 +47,12 @@
 {
     self.fieldData = viewData;
     self.clearbutton.hidden = !viewData.showClearButton;
+    self.editButton.hidden = !viewData.showEditButton;
     self.titleLabel.text = viewData.fieldTitle;
     self.valueLabel.text = viewData.fieldValue;
+    NSString *editImageName = viewData.showClearButton ? @"edit_button" : @"icon-plus";
+    [self.editButton setImage:[[UIImage imageNamed:editImageName] imageWithTintColor:UIColor.mainTintColor1] forState:UIControlStateNormal];
+    self.editButton.imageColorType = SYColorTypeMain1;
 }
 
 #pragma mark - Actions

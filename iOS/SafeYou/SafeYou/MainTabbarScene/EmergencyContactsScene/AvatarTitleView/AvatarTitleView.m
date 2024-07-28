@@ -11,7 +11,7 @@
 
 @interface AvatarTitleView()
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *titleLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *avatarImageView;
 
 @end

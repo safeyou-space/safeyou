@@ -9,12 +9,14 @@
 import UIKit
 
 class TermsAndConditionsViewController: SYViewController, TTTAttributedLabelDelegate {
-    @IBOutlet weak var termsAndConditionsLabel: UILabel!
+
+    @IBOutlet weak var mainTitleLabel: SYLabelBold!
+    @IBOutlet weak var termsAndConditionsLabel: SYLabelBold!
     @IBOutlet weak var checkBoxButton: SYDesignableCheckBoxButton!
     @IBOutlet weak var submitButton: SYDesignableButton!
     @IBOutlet weak var agreementView: UIView!
-    @IBOutlet weak var agreementTextLabel: SYDesignableAttributedLabel!
-    
+    @IBOutlet weak var agreementTextLabel: SYLabelBold!
+
     var registrationService: SYAuthenticationService?
     var htmlContent: String?
     var registrationDataDict: [AnyHashable: Any]?
@@ -32,8 +34,6 @@ class TermsAndConditionsViewController: SYViewController, TTTAttributedLabelDele
                 contentType = SYRemotContentType.termsAndConditionsForMinors
             }
         }
-        
-        self.agreementTextLabel.activeLinkAttributes = nil
 
         self.configureNavigationBar()
         self.showLoader()
@@ -48,8 +48,36 @@ class TermsAndConditionsViewController: SYViewController, TTTAttributedLabelDele
         })
     }
 
+    // MARK - Localizations
+
+    override func updateLocalizations() {
+        self.mainTitleLabel.text = Utilities.fetchTranslation(forKey: "terms_and_conditions")
+    }
+
+    // MARK - Actions
+
+    @IBAction func checkBoxButtonAction(_ sender: SYDesignableCheckBoxButton) {
+        submitButton.isEnabled = checkBoxButton.isSelected
+    }
+
+    @IBAction func submitButtonAction(_ sender: SYDesignableButton) {
+        if let registrationData = registrationDataDict {
+            self.showLoader()
+            self.registrationService?.registerUser(withData: registrationData, withComplition: { _ in
+                self.hideLoader()
+                self.performSegue(withIdentifier: "showVerificationView", sender: self)
+            }, failure: { error in
+                self.hideLoader()
+                self.handleRegistrationError(error: error)
+            })
+        }
+    }
+
+    @IBAction func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+
 // MARK: - Navigation
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          if segue.identifier == "showVerificationView" {
              if let destinationVC = segue.destination as? VerifyPhoneNumberViewController {
@@ -63,56 +91,8 @@ class TermsAndConditionsViewController: SYViewController, TTTAttributedLabelDele
          }
      }
 
-    @IBAction func checkBoxButtonAction(_ sender: SYDesignableCheckBoxButton) {
-        if checkBoxButton.isSelected {
-            submitButton.isEnabled = true
-            submitButton.backgroundColorType = Int(SYColorType.colorTypeMain1.rawValue)
-            submitButton.borderColorType = Int(SYColorType.colorTypeMain1.rawValue)
-            submitButton.titleColorType = Int(SYColorType.colorTypeWhite.rawValue)
-        } else {
-            submitButton.isEnabled = false
-            submitButton.backgroundColorType = Int(SYColorType.colorTypeOtherGray.rawValue)
-            submitButton.borderColorType = Int(SYColorType.colorTypeOtherGray.rawValue)
-            submitButton.titleColorType = Int(SYColorType.colorTypeDarkGray.rawValue)
-        }
-    }
-
-    @IBAction func submitButtonAction(_ sender: SYDesignableButton) {
-        if let registrationData = registrationDataDict {
-            self.showLoader()
-            self.registrationService?.registerUser(withData: registrationData, withComplition: { _ in
-                self.hideLoader()
-                print("Registered")
-                self.performSegue(withIdentifier: "showVerificationView", sender: self)
-            }, failure: { error in
-                self.hideLoader()
-                print("Registraion error \(error.localizedDescription)")
-                self.handleRegistrationError(error: error)
-            })
-        }
-    }
-
-    func configureNavigationBar() {
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-        navBarAppearance.backgroundColor = UIColor.mainTintColor2()
-        
-        self.navigationController?.navigationBar.standardAppearance = navBarAppearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        
-        let leftItem = UIBarButtonItem(image: UIImage(named: "arrow_left_icon"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(closePresentedView))
-        self.navigationItem.leftBarButtonItem = leftItem
-        
-        if let navigationBar = self.navigationController?.navigationBar {
-            let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: navigationBar.frame.width, height: navigationBar.frame.height))
-            lbNavTitle.textColor = .white
-            lbNavTitle.textAlignment = .left
-            lbNavTitle.text = Utilities.fetchTranslation(forKey: "terms_and_conditions")
-            self.navigationItem.titleView = lbNavTitle
-        }
-    }
-    
-    func configureAgreementView() {
+    // MARK Private
+    private func configureAgreementView() {
         agreementView.isHidden = false
         let agreementText = Utilities.fetchTranslation(forKey: "terms_and_conditions_agreement_text")
         let privacyPolicy = Utilities.fetchTranslation(forKey: "privacy_policy_txt").lowercased()
@@ -120,14 +100,15 @@ class TermsAndConditionsViewController: SYViewController, TTTAttributedLabelDele
         self.agreementTextLabel.text = agreementText
         guard let range = agreementText.range(of: privacyPolicy) else { return }
         let urlRange = NSRange(range, in: agreementText)
-        self.agreementTextLabel.addLink(to: URL(string: "https://www.google.com/"), with: urlRange)
-        self.agreementTextLabel.delegate = self
+//        self.agreementTextLabel.addLink(to: URL(string: "https://www.google.com/"), with: urlRange)
+//        self.agreementTextLabel.delegate = self
         
         let submitButtonTitle = Utilities.fetchTranslation(forKey: "submit_title_key")
         submitButton.setTitle(submitButtonTitle.uppercased(), for: UIControl.State.normal)
     }
     
-    
+
+    // MARK - TTTAttributedLableDelegate
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         if (label == self.agreementTextLabel) {
             self.performSegue(withIdentifier: "showPrivacyPolicyView", sender: self)

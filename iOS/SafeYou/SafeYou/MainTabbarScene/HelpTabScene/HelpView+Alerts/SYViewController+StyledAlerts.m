@@ -24,10 +24,10 @@
     [title appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
     
     [title addAttribute:NSFontAttributeName
-                  value:[UIFont hyRobotoFontBoldOfSize:20.0]
+                  value:[UIFont boldFontOfSize:20.0]
                   range:NSMakeRange(0, title.length)];
     [title addAttribute:NSForegroundColorAttributeName
-                  value:[UIColor mainTintColor1]
+                  value:[UIColor blackColor]
                   range:NSMakeRange(0, title.length)];
     
 
@@ -35,10 +35,10 @@
         
     NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:messageString];
     [attributedMessage addAttribute:NSFontAttributeName
-                              value:[UIFont hyRobotoFontRegularOfSize:16.0]
+                              value:[UIFont regularFontOfSize:16.0]
                               range:NSMakeRange(0, attributedMessage.length)];
     
-    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor mainTintColor1] range:NSMakeRange(0, attributedMessage.length)];
+    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedMessage.length)];
     
     UserDataModel *onlineUser = [Settings sharedInstance].onlineUser;
     
@@ -69,8 +69,8 @@
     NSMutableAttributedString *contactsAttrString;
     if (contactsString) {
         contactsAttrString = [[NSMutableAttributedString alloc] initWithString:contactsString];
-        [contactsAttrString addAttributes:@{NSForegroundColorAttributeName: [UIColor mainTintColor1],
-                                           NSFontAttributeName:[UIFont hyRobotoFontBoldOfSize:16.0]
+        [contactsAttrString addAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor],
+                                           NSFontAttributeName:[UIFont boldFontOfSize:16.0]
         } range:NSMakeRange(0, contactsString.length)];
     }
     
@@ -84,7 +84,49 @@
     UIAlertAction *button = [UIAlertAction actionWithTitle:LOC(@"ok")
                                             style:UIAlertActionStyleCancel
                                             handler:nil];
-    alertVC.view.tintColor = [UIColor mainTintColor1];
+    alertVC.view.tintColor = [UIColor purpleColor1];
+    [alertVC addAction:button];
+    [self presentViewController:alertVC animated:YES completion:nil];
+}
+
+- (void)showUpdateApplicationAlert
+{
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+
+    NSString *titleString = LOC(@"Update Required");
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:titleString];
+    [title appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+
+    [title addAttribute:NSFontAttributeName
+                  value:[UIFont boldFontOfSize:20.0]
+                  range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSForegroundColorAttributeName
+                  value:[UIColor blackColor]
+                  range:NSMakeRange(0, title.length)];
+
+
+    NSString *messageString = LOC(@"Your App version is no longer supported. You're missing on new features and critical fixes. Please update today.");
+
+    NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:messageString];
+    [attributedMessage addAttribute:NSFontAttributeName
+                              value:[UIFont regularFontOfSize:16.0]
+                              range:NSMakeRange(0, attributedMessage.length)];
+
+    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedMessage.length)];
+
+
+    [alertVC setValue:title forKey:@"attributedTitle"];
+    [alertVC setValue:attributedMessage forKey:@"attributedMessage"];
+
+    UIAlertAction *button = [UIAlertAction actionWithTitle:LOC(@"Update App ")
+                                            style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+        // open Safe You AppStore page
+        NSURL *appURL = [NSURL URLWithString:@"https://apps.apple.com/am/app/safe-you/id1491665304"];
+        [[UIApplication sharedApplication] openURL:appURL options:@{} completionHandler:nil];
+
+    }];
+    alertVC.view.tintColor = [UIColor purpleColor1];
     [alertVC addAction:button];
     [self presentViewController:alertVC animated:YES completion:nil];
 }
@@ -99,10 +141,10 @@
     [attrTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
     
     [attrTitle addAttribute:NSFontAttributeName
-                  value:[UIFont hyRobotoFontBoldOfSize:20.0]
+                  value:[UIFont boldFontOfSize:20.0]
                   range:NSMakeRange(0, attrTitle.length)];
     [attrTitle addAttribute:NSForegroundColorAttributeName
-                  value:[UIColor mainTintColor1]
+                  value:[UIColor blackColor]
                   range:NSMakeRange(0, attrTitle.length)];
     
     NSDate *currentDate = [NSDate date];
@@ -117,10 +159,10 @@
         
     NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:messageString];
     [attributedMessage addAttribute:NSFontAttributeName
-                              value:[UIFont hyRobotoFontRegularOfSize:16.0]
+                              value:[UIFont regularFontOfSize:16.0]
                               range:NSMakeRange(0, attributedMessage.length)];
     
-    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor mainTintColor1] range:NSMakeRange(0, attributedMessage.length)];
+    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedMessage.length)];
     
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     [alertVC setValue:attributedMessage forKey:@"attributedMessage"];
@@ -128,7 +170,7 @@
     UIAlertAction *button = [UIAlertAction actionWithTitle:LOC(@"close_key")
                                             style:UIAlertActionStyleCancel
                                             handler:nil];
-    alertVC.view.tintColor = [UIColor mainTintColor1];
+    alertVC.view.tintColor = [UIColor purpleColor1];
     [alertVC addAction:button];
     [self presentViewController:alertVC animated:YES completion:nil];
 }
@@ -141,26 +183,26 @@
     [attrTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
     
     [attrTitle addAttribute:NSFontAttributeName
-                  value:[UIFont hyRobotoFontBoldOfSize:20.0]
+                  value:[UIFont boldFontOfSize:20.0]
                   range:NSMakeRange(0, attrTitle.length)];
     [attrTitle addAttribute:NSForegroundColorAttributeName
-                  value:[UIColor mainTintColor1]
+                  value:[UIColor blackColor]
                   range:NSMakeRange(0, attrTitle.length)];
     
         
     NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:message];
     [attributedMessage addAttribute:NSFontAttributeName
-                              value:[UIFont hyRobotoFontRegularOfSize:16.0]
+                              value:[UIFont regularFontOfSize:16.0]
                               range:NSMakeRange(0, attributedMessage.length)];
     
-    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor mainTintColor1] range:NSMakeRange(0, attributedMessage.length)];
+    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedMessage.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     [alertVC setValue:attributedMessage forKey:@"attributedMessage"];
     
     UIAlertAction *button = [UIAlertAction actionWithTitle:LOC(@"close_key")
                                             style:UIAlertActionStyleCancel
                                             handler:nil];
-    alertVC.view.tintColor = [UIColor mainTintColor1];
+    alertVC.view.tintColor = [UIColor purpleColor1];
     [alertVC addAction:button];
     [self presentViewController:alertVC animated:YES completion:nil];
 }
@@ -174,10 +216,10 @@
     [attrTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
     
     [attrTitle addAttribute:NSFontAttributeName
-                  value:[UIFont hyRobotoFontBoldOfSize:20.0]
+                  value:[UIFont boldFontOfSize:20.0]
                   range:NSMakeRange(0, attrTitle.length)];
     [attrTitle addAttribute:NSForegroundColorAttributeName
-                  value:[UIColor mainTintColor1]
+                  value:[UIColor blackColor]
                   range:NSMakeRange(0, attrTitle.length)];
     
     NSDate *currentDate = [NSDate date];
@@ -192,17 +234,17 @@
         
     NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:messageString];
     [attributedMessage addAttribute:NSFontAttributeName
-                              value:[UIFont hyRobotoFontRegularOfSize:16.0]
+                              value:[UIFont regularFontOfSize:16.0]
                               range:NSMakeRange(0, attributedMessage.length)];
     
-    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor mainTintColor1] range:NSMakeRange(0, attributedMessage.length)];
+    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedMessage.length)];
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     [alertVC setValue:attributedMessage forKey:@"attributedMessage"];
     
     UIAlertAction *button = [UIAlertAction actionWithTitle:LOC(@"close_key")
                                             style:UIAlertActionStyleCancel
                                             handler:nil];
-    alertVC.view.tintColor = [UIColor mainTintColor1];
+    alertVC.view.tintColor = [UIColor purpleColor1];
     [alertVC addAction:button];
     [self presentViewController:alertVC animated:YES completion:nil];
 }
@@ -216,20 +258,20 @@
     [attrTitle appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
     
     [attrTitle addAttribute:NSFontAttributeName
-                  value:[UIFont hyRobotoFontBoldOfSize:20.0]
+                  value:[UIFont boldFontOfSize:20.0]
                   range:NSMakeRange(0, attrTitle.length)];
     [attrTitle addAttribute:NSForegroundColorAttributeName
-                  value:[UIColor mainTintColor1]
+                  value:[UIColor blackColor]
                   range:NSMakeRange(0, attrTitle.length)];
 
     NSString *messageString = [NSString stringWithFormat:@"%@ \n %@", recordName, recordDate];;
         
     NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:messageString];
     [attributedMessage addAttribute:NSFontAttributeName
-                              value:[UIFont hyRobotoFontRegularOfSize:16.0]
+                              value:[UIFont regularFontOfSize:16.0]
                               range:NSMakeRange(0, attributedMessage.length)];
     
-    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor mainTintColor1] range:NSMakeRange(0, attributedMessage.length)];
+    [attributedMessage addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, attributedMessage.length)];
     
     [alertVC setValue:attrTitle forKey:@"attributedTitle"];
     [alertVC setValue:attributedMessage forKey:@"attributedMessage"];
@@ -237,7 +279,7 @@
     UIAlertAction *button = [UIAlertAction actionWithTitle:LOC(@"close_key")
                                             style:UIAlertActionStyleCancel
                                             handler:nil];
-    alertVC.view.tintColor = [UIColor mainTintColor1];
+    alertVC.view.tintColor = [UIColor purpleColor1];
     [alertVC addAction:button];
     [self presentViewController:alertVC animated:YES completion:nil];
 }

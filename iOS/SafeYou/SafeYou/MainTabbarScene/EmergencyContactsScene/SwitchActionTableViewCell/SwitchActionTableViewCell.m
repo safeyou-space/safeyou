@@ -52,7 +52,7 @@
     self.titleLabel.text = viewData.fieldTitle;
     if (viewData.iconImageName.length) {
         self.iconImageView.hidden = NO;
-        self.iconImageView.image = [UIImage imageNamed:viewData.iconImageName];
+        self.iconImageView.image = [[UIImage imageNamed:viewData.iconImageName] imageWithTintColor:UIColor.mainTintColor1];
     } else {
         self.iconImageView.hidden = YES;
     }

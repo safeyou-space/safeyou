@@ -24,7 +24,7 @@
                              @"location": userlocation
     };
         
-    [self.networkManager POST:@"sent/help_sms" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager POST:@"sent/help_sms" parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }

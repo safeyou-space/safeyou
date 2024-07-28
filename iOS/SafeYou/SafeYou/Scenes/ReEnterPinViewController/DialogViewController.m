@@ -7,20 +7,26 @@
 //
 
 #import "DialogViewController.h"
+#import "SYProfileService.h"
 
-@interface DialogViewController () <UITextFieldDelegate>
+@interface DialogViewController () <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
-@property (weak, nonatomic) IBOutlet SYCorneredButton *closeButton;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *titleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *hintTextLabel;
-@property (weak, nonatomic) IBOutlet SYDesignableTextField *pinTextField;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *closeButton;
+@property (weak, nonatomic) IBOutlet SYLabelBold *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *hintTextLabel;
+@property (weak, nonatomic) IBOutlet SYRegualrTextField *pinTextField;
 @property (weak, nonatomic) IBOutlet SYSemiRoundedView *contentView;
-@property (weak, nonatomic) IBOutlet SYDesignableButton *acceptButton;
+@property (weak, nonatomic) IBOutlet SYCorneredButton *acceptButton;
 @property (weak, nonatomic) IBOutlet SYDesignableButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 - (IBAction)closeButtonAction:(UIButton *)sender;
 - (IBAction)acceptButtonAction:(UIButton *)sender;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewPositionConstraint;
+@property (nonatomic, strong) NSArray *pickerData;
+@property (nonatomic) SYProfileService *profileService;
+
 
 @end
 
@@ -32,6 +38,8 @@
     NSString *viewControllerId;
     if (type == DialogViewTypeCreatePin || type == DialogViewTypeEditPin) {
         viewControllerId = @"DialogViewControllerTextField";
+    } else if (type == DialogViewTypeCountPicker) {
+        viewControllerId = @"DialogViewControllerPickerView";
     } else {
         viewControllerId = @"DialogViewControllerActionButton";
     }
@@ -47,6 +55,8 @@
     NSString *viewControllerId;
     if (type == DialogViewTypeCreatePin || type == DialogViewTypeEditPin) {
         viewControllerId = @"DialogViewControllerTextField";
+    } else if (type == DialogViewTypeCountPicker) {
+        viewControllerId = @"DialogViewControllerPickerView";
     } else {
         viewControllerId = @"DialogViewControllerActionButton";
     }
@@ -58,14 +68,51 @@
     return dialogView;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.profileService = [[SYProfileService alloc] init];
+    }
+    
+    return self;
+}
+
 #pragma mark - LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.view setBackgroundColor:[[UIColor navyBlueColor] colorWithAlphaComponent:0.9]];
+    self.pickedElement =  self.pickerElementsArray[0];
+    NSArray *options = [NSArray array];
+    NSMutableArray *optionsArray = [NSMutableArray arrayWithArray:options];
+    for (NSInteger i = 0; i < _pickerElementsArray.count; i++) {
+        
+        id object = _pickerElementsArray[i];
+        if ([object isKindOfClass:[ProfileQuestionsOption class]]) {
+            ProfileQuestionsOption *option = (ProfileQuestionsOption *)object;
+            NSString *name = option.name;
+            [optionsArray addObject:name];
+        } else {
+            NSLog(@"Object is not of the expected type");
+        }
+    }
+    self.pickerData = optionsArray;
+    self.pickerView.translatesAutoresizingMaskIntoConstraints = NO;
     self.pinTextField.keyboardType = self.keyboardType;
     [self enableKeyboardNotifications];
     [self.pinTextField becomeFirstResponder];
     self.cancelButton.hidden = !self.showCancelButton;
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    [[pickerView.subviews objectAtIndex:0] setBackgroundColor:[UIColor clearColor]];
+    [[pickerView.subviews objectAtIndex:1] setBackgroundColor:[UIColor clearColor]];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, pickerView.frame.size.width, 44)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = [_pickerData objectAtIndex:row];
+    
+    return label;
 }
 
 #pragma mark - Translations
@@ -186,6 +233,26 @@
     if ([self.delegate respondsToSelector:@selector(dialogViewDidPressActionButton:)]) {
         [self.delegate dialogViewDidPressActionButton:self];
     }
+}
+
+#pragma mark - UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(nonnull UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.pickerData.count;
+}
+
+#pragma mark - UIPickerViewDelegate
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.pickerData[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    self.pickedElement =  self.pickerElementsArray[row];
 }
 
 @end

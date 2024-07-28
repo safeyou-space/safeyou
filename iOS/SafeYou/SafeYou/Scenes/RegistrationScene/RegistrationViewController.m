@@ -19,6 +19,7 @@
 #import "MoreViewTableViewCell.h"
 #import "SettingsViewFieldViewModel.h"
 #import "SafeYou-Swift.h"
+#import "NicknameService.h"
 
 @interface RegistrationViewController () <FormTableViewCellDelegate, MoreViewTableViewCellDelegate>
 
@@ -30,8 +31,6 @@
 @property (nonatomic) SYAuthenticationService *registrationService;
 @property (nonatomic) NSArray *maritalStatusList;
 
-@property (nonatomic, strong) RegistrationDataModel *registrationData;
-
 - (IBAction)confirmButtonAction:(id)sender;
 
 // members
@@ -39,10 +38,9 @@
 @property (nonatomic, weak) FormDataModel *lastNameField;
 @property (nonatomic, weak) FormDataModel *nickNameField;
 @property (nonatomic, weak) FormDataModel *birthDateField;
-@property (nonatomic, weak) FormDataModel *mobileNumberField;
 @property (nonatomic, weak) FormDataModel *maritalStatusField;
-@property (nonatomic, weak) FormDataModel *passwordField;
-@property (nonatomic, weak) FormDataModel *confirmPasswordField;
+
+@property (nonatomic) NicknameService *nicknameService;
 
 @end
 
@@ -56,6 +54,7 @@
     
     if (self) {
         self.registrationService = [[SYAuthenticationService alloc] init];
+        self.nicknameService = [[NicknameService alloc] init];
         [self configureFormDataSource];
     }
     
@@ -71,13 +70,11 @@
     
     [self fetchMeritalStatusData];
     
-    self.tableView.estimatedRowHeight = 44.0;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
+
+
+//    self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionFooterHeight = 0.1;
     self.title = @" ";
-    
-    self.registrationData = [[RegistrationDataModel alloc] init];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -93,7 +90,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self configureGradientBackground];
     [self configureNavigationBar];
 }
 
@@ -147,9 +143,13 @@
 
 #pragma mark - Functionality
 
-- (void)showFormErrorAlert
+- (void)showFormErrorAlert:(nullable NSString *)message
 {
-    [self showAlertViewWithTitle:LOC(@"error_text_key")
+    NSString *alertMessage = LOC(@"error_text_key");
+    if (message != nil) {
+        alertMessage = message;
+    }
+    [self showAlertViewWithTitle:alertMessage
                      withMessage:self.errorString cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
 }
 
@@ -172,26 +172,44 @@
 
 - (void)showSelectMaritalStatus:(NSIndexPath *)indexPath
 {
-    weakify(self)
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@""
+                                                                         message:nil
+                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+    NSMutableAttributedString *titleText = [[NSMutableAttributedString alloc] initWithString:LOC(@"marital_status_text_key")];
+    [titleText addAttribute:NSForegroundColorAttributeName
+                      value:[UIColor blackColor] // Change text color as needed
+                      range:NSMakeRange(0, [titleText length])];
+    [actionSheet setValue:titleText forKey:@"attributedTitle"];
+
+
+    // Add options/actions
+    FormDataModel *selectedField = [self fieldForIndexpath:indexPath];
     NSArray <NSNumber *>*statusValues = [self.maritalStatusList valueForKeyPath:@"maritalStatusType"];
     NSArray *statusNamesArray = [self.maritalStatusList valueForKeyPath:@"localizedName"];
-    
-    __block FormDataModel *selectedField = [self fieldForIndexpath:indexPath];
-    
-    
-    NSString *selectedOptionName = selectedField.fieldDisplayValue;
-    ChooseOptionsViewController *chooseOptionController = [ChooseOptionsViewController instantiateChooseOptionController];
-    chooseOptionController.optionsArray = [statusNamesArray mutableCopy];
-    chooseOptionController.optionTitle = LOC(@"select_marital_status_text_key");
-    chooseOptionController.selectedOptionName = selectedOptionName;
-    chooseOptionController.chooseOptionType = SYChooseOptionTypeRadio;
-    chooseOptionController.selectionBlock = ^(NSInteger selectedIndex) {
-         strongify(self)
-        selectedField.fieldDisplayValue = statusNamesArray[selectedIndex];
-        self.registrationData.maritalStatus = statusValues[selectedIndex];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    };
-    [self.navigationController pushViewController:chooseOptionController animated:YES];
+    for (int i = 0; i < statusNamesArray.count; ++i) {
+        UIAlertAction *option = [UIAlertAction actionWithTitle:statusNamesArray[i]
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+            selectedField.fieldDisplayValue = statusNamesArray[i];
+            self.registrationData.maritalStatus = statusValues[i];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }];
+
+        [option setValue:[UIColor blackColor] forKey:@"titleTextColor"];
+        [actionSheet addAction:option];
+    }
+
+    actionSheet.view.tintColor = [UIColor purpleColor1];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:LOC(@"cancel")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             // Handle cancel action
+                                                         }];
+    [actionSheet addAction:cancelAction];
+
+    // Present the action sheet
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 // @FIXME: Dublicate code need refactor
@@ -226,30 +244,20 @@
     FormDataModel *lastNameField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeText dataType:FormFieldDataTypeText title:LOC(@"last_name_title_key") placeholder:LOC(@"last_name_title_key") value:@"" isRequired:YES];
     self.lastNameField = lastNameField;
     
-    FormDataModel *nickNameField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeText dataType:FormFieldDataTypeText title:@"nick_name_title_key" placeholder:LOC(@"nickname_placeholder") value:@"" isRequired:NO];
+    FormDataModel *nickNameField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeText dataType:FormFieldDataTypeText title:LOC(@"nick_name_title_key") placeholder:LOC(@"nickname_placeholder") value:@"" isRequired:NO];
     self.nickNameField = nickNameField;
     
     FormDataModel *birthDateField = [[FormDataModel alloc] initWithFieldType:FormFieldTypePicker dataType:FormFieldDataTypeText title:LOC(@"birth_date_title_key") placeholder:LOC(@"birth_date_title_key") value:@"" isRequired:YES];
     
     self.birthDateField = birthDateField;
-    
-    FormDataModel *phoneNumberField = [[FormDataModel alloc] initWithFieldType:FormFieldTypePhoneNumber dataType:FormFieldDataTypePhoneNumber title:LOC(@"mobile_number_text_key") placeholder:LOC(@"mobile_number_text_key") value:@"" isRequired:YES];
-    phoneNumberField.fieldDisplayValue = [[Settings sharedInstance] countryPhoneCode];
-    
-    self.mobileNumberField = phoneNumberField;
+
     
     FormDataModel *maritalStatusField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeChooseOption dataType:FormFieldDataTypeChooseOption title:LOC(@"marital_status_text_key") placeholder:LOC(@"marital_status_text_key") value:@"" isRequired:NO];
     
     self.maritalStatusField = maritalStatusField;
+
     
-    FormDataModel *passwordField = [[FormDataModel alloc] initWithFieldType:FormFieldTypePassword dataType:FormFieldDataTypePassword title:LOC(@"password_text_key") placeholder:LOC(@"password_text_key") value:@"" isRequired:YES];
-    self.passwordField = passwordField;
-    
-    FormDataModel *confirmPasswordField = [[FormDataModel alloc] initWithFieldType:FormFieldTypePassword dataType:FormFieldDataTypePasswordConfirm title:@"confirm_password_text_key" placeholder:LOC(@"confirm_password_text_key") value:@"" isRequired:YES];
-    self.confirmPasswordField = confirmPasswordField;
-    
-    
-    self.dataSource =  @[firstNameField, lastNameField, nickNameField, birthDateField, phoneNumberField, maritalStatusField, passwordField, confirmPasswordField];
+    self.dataSource =  @[firstNameField, lastNameField, nickNameField, birthDateField, maritalStatusField];
     
     [self reloadDataSource];
 }
@@ -275,7 +283,8 @@
 
 - (void)updateLocalizations
 {
-    self.titleLabel.text = LOC(@"title_signup");
+    self.mainTitleLabel.text = LOC(@"account_details_text");
+    self.secondaryTitleLabel.text = LOC(@"provide_your_information_text");
     [self.confirmButton setTitle:[self saveButtonTitle] forState:UIControlStateNormal];
     [self reloadDataSource];
 }
@@ -367,9 +376,6 @@
     self.registrationData.lastName  = self.lastNameField.fieldValue;
     self.registrationData.nickname  = self.nickNameField.fieldValue;
     self.registrationData.birthDay  = self.birthDateField.fieldValue;
-    self.registrationData.phoneNumber  = self.mobileNumberField.fieldValue;
-    self.registrationData.password  = self.passwordField.fieldValue;
-    self.registrationData.confirmPassword  = self.confirmPasswordField.fieldValue;
 
     [self performSegueWithIdentifier:@"showTermsAndConditionsView" sender: self];
 }
@@ -398,11 +404,31 @@
 
 - (IBAction)confirmButtonAction:(UIButton *)sender
 {
+    [self showLoader];
+    weakify(self);
     if ([self isFormCompleted]) {
-        [self submitForm];
+        [self.nicknameService checkNickname:self.nickNameField.fieldValue success:^(id  _Nonnull response) {
+            strongify(self);
+            [self hideLoader];
+            [self submitForm];
+        } failure:^(NSError * _Nonnull error) {
+            strongify(self);
+            [self hideLoader];
+            if (error.userInfo[@"message"]) {
+                [self showFormErrorAlert:error.userInfo[@"message"]];
+            } else {
+                [self showFormErrorAlert:LOC(@"something_went_wrong_text_key")];
+            }
+        }];
     } else {
-        [self showFormErrorAlert];
+        [self showFormErrorAlert:nil];
     }
+
+
+}
+
+- (IBAction)backButtonAction:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Verify form complition
@@ -419,17 +445,19 @@
 {
     for (FormDataModel *formItem in sectionData) {
         if (formItem.validationRegex && formItem.validationRegex.length > 0) {
+            
             return [formItem isValidWithRegex];
         }
         if (formItem.isRequired && !formItem.fieldValue.length) {
-            self.errorString = LOC(@"fill_required_fields_text_key");
+            self.errorString = LOC(@"empty_field");
             return NO;
         }
     }
-    if (![self.passwordField.fieldValue isEqualToString:self.confirmPasswordField.fieldValue]) {
-        self.errorString = LOC(@"passwords_not_match_text_key");
+    if (self.nickNameField.fieldValue.length  > 0 && self.nickNameField.fieldValue.length < 2) {
+        self.errorString = LOC(@"min_length_2");
         return NO;
     }
+
     return YES;
 }
 
@@ -453,12 +481,6 @@
 {
     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:formCell];
     FormDataModel *currentField = self.dataSource[cellIndexPath.row];
-    if (currentField == self.mobileNumberField) {
-        NSString *newString = [currentField.fieldDisplayValue stringByReplacingCharactersInRange:range withString:string];
-        if (![newString hasPrefix:[Settings sharedInstance].countryPhoneCode]) {
-            return NO;
-        }
-    }
     
     return YES;
 }
@@ -479,6 +501,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80.0;
 }
 
 #pragma mark - Getter

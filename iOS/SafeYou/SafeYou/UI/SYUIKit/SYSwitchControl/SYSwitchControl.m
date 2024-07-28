@@ -34,6 +34,10 @@
     [self addTarget:self action:@selector(switchStateChanged:) forControlEvents:UIControlEventValueChanged];
     
     [self initialViewData];
+    self.backgroundColor = [UIColor whiteColor];
+    self.layer.masksToBounds = YES;
+    self.layer.borderWidth = 1;
+    self.subviews[0].subviews[0].backgroundColor = [UIColor whiteColor];
 }
 
 - (void)initialViewData
@@ -73,18 +77,7 @@
 
 - (void)configureBackgroundColor
 {
-    NSInteger backgroundColorType = _backgroundColorType;
-    
-    if(backgroundColorType < SYColorTypeNone || backgroundColorType > SYColorTypeLast) {
-        self.backgroundColor = [UIColor clearColor];
-    } else {
-        UIColor *backgroundColor = [UIColor colorWithSYColor:self.backgroundColorType alpha:1.0];
-        if(_backgroundColorAlpha == 1 || _backgroundColorAlpha == -1) {
-            self.backgroundColor = backgroundColor;
-        } else {
-            self.backgroundColor = [UIColor getColor:backgroundColor withAlpha:_backgroundColorAlpha];
-        }
-    }
+    self.tintColor = [UIColor whiteColor];
 }
 
 - (void)setTintColorType:(NSInteger)tintColorType
@@ -101,19 +94,7 @@
 
 - (void)configureTintColor
 {
-    
-    NSInteger tintColorType = _tintColorType;
-    
-    if(tintColorType < SYColorTypeNone || tintColorType > SYColorTypeLast) {
-        self.tintColor = [UIColor clearColor];
-    } else {
-        UIColor *tintColor = [UIColor colorWithSYColor:self.tintColorType alpha:1.0];
-        if(_tintColorAlpha == 1 || self.tintColorAlpha == -1) {
-            self.tintColor = tintColor;
-        } else {
-            self.tintColor = [UIColor getColor:tintColor withAlpha:_tintColorAlpha];
-        }
-    }
+    self.tintColor = [UIColor whiteColor];
 }
 
 - (void)setOnTintColorType:(NSInteger)onTintColorType
@@ -128,26 +109,9 @@
     [self configureOnTintColor];
 }
 
--(void)configureOnThumbTintColor
-{
-    
-}
-
 - (void)configureOnTintColor
 {
-    
-    NSInteger onTintColorType = _onTintColorType;
-    
-    if(onTintColorType < SYColorTypeNone || onTintColorType > SYColorTypeLast) {
-        self.tintColor = [UIColor clearColor];
-    } else {
-        UIColor *onTintColor = [UIColor colorWithSYColor:_onTintColorType alpha:1.0];
-        if(_onTintColoAlpha == 1 || _onTintColoAlpha == -1) {
-            self.onTintColor = onTintColor;
-        } else {
-            self.onTintColor = [UIColor getColor:onTintColor withAlpha:_onTintColoAlpha];
-        }
-    }
+    self.onTintColor = [UIColor whiteColor];
 }
 
 - (void)setOnThumbTintColorType:(NSInteger)onThumbTintColorType
@@ -176,32 +140,15 @@
 
 - (void)configThumbOnOffTintColor
 {
-    UIColor *thumbTintColor;
-    
-    if(self.isOn) {
-        if(self.onThumbTintColorType < SYColorTypeNone || self.onThumbTintColorType > SYColorTypeLast) {
-            thumbTintColor = [UIColor clearColor];
-        } else {
-            if (_onThumbTintColorAlpha == 1) {
-                thumbTintColor = [UIColor colorWithSYColor:self.onThumbTintColorType alpha:1.0];
-            } else {
-                UIColor *thumbTintColor = [UIColor colorWithSYColor:self.onThumbTintColorType alpha:self.onThumbTintColorAlpha];
-            }
-        }
-        
+
+    if ([self isOn]) {
+        [self setThumbTintColor:[UIColor mainTintColor3]];
+        self.layer.borderColor = [UIColor mainTintColor3].CGColor;
+
     } else {
-        if(self.offThumbTintColorType < SYColorTypeNone || self.offThumbTintColorType > SYColorTypeLast) {
-            thumbTintColor = [UIColor clearColor];
-        } else {
-            if (_offThumbTintColorAlpha == 1) {
-                thumbTintColor = [UIColor colorWithSYColor:_offThumbTintColorType alpha:1.0];
-            } else {
-                thumbTintColor = [UIColor colorWithSYColor:_offThumbTintColorType alpha:_offThumbTintColorAlpha];
-            }
-        }
+        [self setThumbTintColor:[UIColor grayColor1]];
+        self.layer.borderColor = [UIColor grayColor1].CGColor;
     }
-    
-    [self setThumbTintColor:thumbTintColor];
 }
 
 - (void)setOn:(BOOL)on animated:(BOOL)animated

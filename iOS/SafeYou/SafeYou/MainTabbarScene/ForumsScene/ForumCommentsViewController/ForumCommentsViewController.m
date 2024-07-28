@@ -32,6 +32,7 @@
 #import "NYTPhotoModel.h"
 #import "UserDataModel.h"
 #import "SafeYou-Swift.h"
+#import "ForumNotificationsManager.h"
 
 NSInteger __numberofItemsInPage = 5000;
 #define COMPOSER_VIEW_MIN_HEIGHT 51
@@ -49,8 +50,8 @@ NSInteger __numberofItemsInPage = 5000;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet SYDesignableView *replyingView;
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *replyingUserAvatar;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *replyingNameLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *replyingCommentLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *replyingNameLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *replyingCommentLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableButton *secondaryBackButton;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *cancelEditingGesture;
 
@@ -58,11 +59,11 @@ NSInteger __numberofItemsInPage = 5000;
 @property (weak, nonatomic) IBOutlet SYDesignableView *composerContainerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *composerViewheightConstraint;
 @property (weak, nonatomic) IBOutlet UITextView *composerTextView;
-@property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *composerViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet UIView *pickedPhotoViewContainer;
 @property (weak, nonatomic) IBOutlet UIImageView *pickedPhotoImageView;
 @property (weak, nonatomic) IBOutlet SYDesignableView *secondarynavigationView;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *sendMessageButton;
 
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender;
 - (IBAction)cancelReplyButtonAction:(UIButton *)sender;
@@ -112,12 +113,16 @@ NSInteger __numberofItemsInPage = 5000;
     
     [self.composerTextView setValue:LOC(@"type_a_comment") forKey:@"placeholder"];
     
+    self.appLanguage =  [Settings sharedInstance].selectedLanguageCode;
+    
     // Do any additional setup after loading the view.
     [self configureComposerView];
     [self configureNibsForUsing];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.replyingView.hidden = YES;
     [self.secondaryBackButton sizeToFit];
+    [self.secondaryBackButton setTitle:LOC(@"comments") forState:UIControlStateNormal];
+    self.secondaryBackButton.imageColorType = SYColorTypeOtherAccent;
     [self configureViewForLevel];
     [self.cancelEditingGesture setCancelsTouchesInView:NO];
     if (self.level == 0) {
@@ -134,6 +139,9 @@ NSInteger __numberofItemsInPage = 5000;
     [[self mainTabbarController] hideTabbar:YES];
     if (self.isForComposing || self.level > 0) {
         [self.composerTextView becomeFirstResponder];
+    }
+    if (self.level < 1 && self.roomKey) {
+        [self getMeswsagesForRoomKey:self.roomKey skip:0];
     }
 }
 
@@ -221,14 +229,17 @@ NSInteger __numberofItemsInPage = 5000;
         strongify(self);
         [self hideLoader];
         NSMutableArray *newDataSource = [[NSMutableArray alloc] initWithArray:receivedMessages];
-        [newDataSource addObjectsFromArray:self.viewDataSource];
+        if (skip > 0) {
+            [newDataSource addObjectsFromArray:self.viewDataSource];
+        }
         self.viewDataSource = newDataSource;
         [self.tableView reloadData];
         self.isNeedToLoadNewComments = receivedMessages.count > 9;
         [self scrollToBottom:receivedMessages.count];
         [self handleReceivedNotification];
     } failure:^(NSError * _Nonnull error) {
-        
+        [Settings sharedInstance].receivedRemoteNotification = nil;
+        [self mainTabbarController].isFromNotificationsView = NO;
     }];
 }
 
@@ -297,6 +308,7 @@ NSInteger __numberofItemsInPage = 5000;
 {
     self.title = LOC(@"forums_title_key");
     [self.secondaryBackButton setTitle:LOC(@"comments") forState:UIControlStateNormal];
+    self.secondaryBackButton.imageColorType = SYColorTypeOtherAccent;
     [[SocketIOManager sharedInstance].socketClient off:SOCKET_COMMAND_GET_FORUM_DETAILS];
     [self fetchForumData];
 }
@@ -393,7 +405,7 @@ NSInteger __numberofItemsInPage = 5000;
         if (self.viewDataSource.count == 0) {
             [self.tableView reloadData];
         } else {
-            NSInteger insertingSection = self.viewDataSource.count > 1 ? self.viewDataSource.count - 1 : 1;
+            NSInteger insertingSection = self.viewDataSource.count - 1;
             NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:insertingSection];
             [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             [self scrollToBottom:self.viewDataSource.count];
@@ -433,26 +445,36 @@ NSInteger __numberofItemsInPage = 5000;
 - (void)deleteCommentMessage
 {
     NSString *forumId = [NSString stringWithFormat:@"%@", self.forumItemData.forumItemId];
+    weakify(self);
     [self.socketAPIService deleteMessageInRoom:forumId messageId:self.moreOptionSelectedCell.messageData.messageId success:^(BOOL success) {
+        strongify(self);
         if(success) {
             if (self.level > 0) {
-                NSMutableArray *mDataSource = [self.currentComment.replies mutableCopy];
                 NSIndexPath *indexPath = [self.tableView indexPathForCell:self.moreOptionSelectedCell];
-                ChatMessageDataModel *sectionData = self.currentComment.replies[indexPath.row - 1];
-                [mDataSource removeObject:sectionData];
-                self.currentComment.replies = mDataSource;
-                 
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                if (indexPath.row > 0) {
+                    NSMutableArray *mDataSource = [self.currentComment.replies mutableCopy];
+                    ChatMessageDataModel *sectionData = self.currentComment.replies[indexPath.row - 1];
+                    [mDataSource removeObject:sectionData];
+                    self.currentComment.replies = mDataSource;
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                } else {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
             } else {
-                NSMutableArray *mDataSource = [self.viewDataSource mutableCopy];
                 NSIndexPath *indexPath = [self.tableView indexPathForCell:self.moreOptionSelectedCell];
-                ChatMessageDataModel *sectionData = self.viewDataSource[indexPath.section];
-                [mDataSource removeObject:sectionData];
-                self.viewDataSource = mDataSource;
-
-                NSInteger deletedSection = indexPath.section;
-                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:deletedSection];
-                [self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                if (indexPath.row > 0) {
+                    ChatMessageDataModel *sectionData = self.viewDataSource[indexPath.section];
+                    NSMutableArray *rowDataSource = [sectionData.replies mutableCopy];
+                    ChatMessageDataModel *rowData = sectionData.replies[indexPath.row - 1];
+                    [rowDataSource removeObject:rowData];
+                    sectionData.replies = rowDataSource;
+                } else {
+                    NSMutableArray *mDataSource = [self.viewDataSource mutableCopy];
+                    ChatMessageDataModel *sectionData = self.viewDataSource[indexPath.section];
+                    [mDataSource removeObject:sectionData];
+                    self.viewDataSource = mDataSource;
+                }
+                [self.tableView reloadData];
             }
         }
     } failure:^(NSError * _Nonnull error) {
@@ -497,18 +519,10 @@ NSInteger __numberofItemsInPage = 5000;
         self.replyingView.hidden = YES;
         self.composerTextView.text = @"";
         [self textViewDidChange:self.composerTextView];
-        NSMutableArray *mDataSource = [self.viewDataSource mutableCopy];
-        [mDataSource addObject:messageObject];
-        self.viewDataSource = [mDataSource copy];
-        NSInteger insertingSection = self.viewDataSource.count - 1;
-        if (self.level == 0) {
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:insertingSection];
-            [self.tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else {
-            [self.currentComment addReplyMessage:messageObject];
-            [self.tableView reloadData];
-        }
-        [self scrollToBottom:self.viewDataSource.count];
+        messageObject.messageLevel = 1;
+        [self.currentComment addReplyMessage:messageObject];
+        [self.tableView reloadData];
+        [self scrollToBottom:1];
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"Message Send Failed");
     }];
@@ -620,7 +634,7 @@ NSInteger __numberofItemsInPage = 5000;
     
     ForumCommentCell *commentCell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
     commentCell.delegate = self;
-    [commentCell configureWithMessageData:currentComment andUserAge:self.isUserMinorAndCountryArm];
+    [commentCell configureWithMessageData:currentComment language: self.appLanguage andUserAge:self.isUserMinorAndCountryArm];
     
     return commentCell;
 }
@@ -773,23 +787,12 @@ NSInteger __numberofItemsInPage = 5000;
 
 - (void)startChatWithUser:(ChatUserDataModel *)chatUserData
 {
-    [self showLoader];
-    weakify(self);
-    [self.socketAPIService joinToPrivateRoomWithUser:chatUserData success:^(RoomDataModel * roomData) {
-        strongify(self);
-        [self hideLoader];
-        [self showPrivateChatView:roomData];
-        
-    } failure:^(NSError * _Nonnull error) {
-        strongify(self);
-        [self hideLoader];
-        [self joinToRoom];
-    }];
+    [self showPrivateChatView:chatUserData];
 }
 
-- (void)showPrivateChatView:(RoomDataModel *)roomData
+- (void)showPrivateChatView:(ChatUserDataModel *)chatUserData
 {
-    [self performSegueWithIdentifier:@"showPrivateChatFromForumComments" sender:roomData];
+    [self performSegueWithIdentifier:@"showPrivateChatFromForumComments" sender:chatUserData];
 }
 
 #pragma mark - Reply functionality
@@ -849,15 +852,19 @@ NSInteger __numberofItemsInPage = 5000;
     
     NSMutableArray <MessageOptionButton *> *buttonsArray = [[NSMutableArray alloc] init];
     if(self.moreOptionSelectedCell.messageData.isOwner) {
-        MessageOptionButton *editButton = [[MessageOptionButton alloc] initWithTitle:LOC(@"edit_key") image:[UIImage imageNamed:@"edit_button"] tag:Edit];
-        MessageOptionButton *deleteButton = [[MessageOptionButton alloc] initWithTitle:LOC(@"delete_key") image:[UIImage imageNamed:@"delete_recycle_icon"] tag:Delete];
+        MessageOptionButton *editButton = [[MessageOptionButton alloc] initWithTitle:LOC(@"edit_key") image:[[UIImage imageNamed:@"edit_button"] imageWithTintColor:UIColor.mainTintColor1] tag:Edit];
+        editButton.imageView.tintColor = UIColor.mainTintColor1;
+        MessageOptionButton *deleteButton = [ [MessageOptionButton alloc] initWithTitle:LOC(@"delete_key") image:[[UIImage imageNamed:@"delete_recycle_icon"] imageWithTintColor:UIColor.mainTintColor1] tag:Delete];
+        deleteButton.imageView.tintColor = UIColor.mainTintColor1;
         [buttonsArray addObject:editButton];
         [buttonsArray addObject:deleteButton];
     } else {
-        MessageOptionButton *reportButton = [[MessageOptionButton alloc] initWithTitle:LOC(@"report") image:[UIImage imageNamed:@"report_icon"] tag:Report];
+        MessageOptionButton *reportButton = [[MessageOptionButton alloc] initWithTitle:LOC(@"report") image:[[UIImage imageNamed:@"report_icon"] imageWithTintColor:UIColor.mainTintColor1] tag:Report];
+        reportButton.imageView.tintColor = UIColor.mainTintColor1;
         [buttonsArray addObject:reportButton];
     }
-    MessageOptionButton *copyButton = [[MessageOptionButton alloc] initWithTitle:LOC(@"copy") image:[UIImage imageNamed:@"copy_icon"] tag:Copy];
+    MessageOptionButton *copyButton = [[MessageOptionButton alloc] initWithTitle:LOC(@"copy") image:[[UIImage imageNamed:@"copy_icon"] imageWithTintColor:UIColor.mainTintColor1] tag:Copy];
+    copyButton.imageView.tintColor = UIColor.mainTintColor1;
     [buttonsArray addObject:copyButton];
     self.selectedMessageOptionsView = [[MessageOptionsView alloc] initWithButtonsArray:[NSArray arrayWithArray:buttonsArray]];
     
@@ -927,7 +934,13 @@ NSInteger __numberofItemsInPage = 5000;
     NSDictionary* info = [notification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
-    self.composerViewBottomConstraint.constant = -kbSize.height;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+        CGFloat bottomPadding = window.safeAreaInsets.bottom;
+        self.composerViewBottomConstraint.constant = -kbSize.height + bottomPadding;
+    } else {
+        self.composerViewBottomConstraint.constant = -kbSize.height;
+    }
     
 //    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, kbSize.height + self.composerContainerView.frame.size.height, 0);
     weakify(self)
@@ -973,9 +986,10 @@ NSInteger __numberofItemsInPage = 5000;
         destination.isForComposing = YES;
         destination.currentComment = (ChatMessageDataModel *)sender;
         destination.level = 1;
+        destination.roomKey = self.roomKey;
     } else if ([segue.identifier isEqualToString:@"showPrivateChatFromForumComments"]) {
         PrivateChatRoomViewController *destinationVC = segue.destinationViewController;
-        destinationVC.roomData = sender;
+        destinationVC.chatData = sender;
     } else if ([segue.identifier isEqualToString:@"reportUser"]) {
         ReportViewController *destinationVC = segue.destinationViewController;
         destinationVC.comment = sender;
@@ -1012,13 +1026,13 @@ NSInteger __numberofItemsInPage = 5000;
 - (void)handleReceivedNotification
 {
     if ([Settings sharedInstance].receivedRemoteNotification) {
-        RemoteNotificationType notifyType = [[Settings sharedInstance].receivedRemoteNotification[@"notify_type"] integerValue];
+        RemoteNotificationType notifyType = [Settings sharedInstance].receivedRemoteNotification.notifyType;
         if (notifyType == NotificationTypeMessage) {
-            NSString *messageParrentIdStr = [Settings sharedInstance].receivedRemoteNotification[@"message_parent_id"];
-            NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-            formatter.numberStyle = NSNumberFormatterDecimalStyle;
-            NSNumber *messageParrentId = [formatter numberFromString:messageParrentIdStr];
-            ChatMessageDataModel *selectedComment = [self fetchSelectedCommentWithId: messageParrentId];
+            NSNumber *notifyId = [Settings sharedInstance].receivedRemoteNotification.notifyId;
+            [[ForumNotificationsManager sharedInstance] readNotification:notifyId];
+
+            NSInteger messageParrentId = [Settings sharedInstance].receivedRemoteNotification.messageParentId;
+            ChatMessageDataModel *selectedComment = [self fetchSelectedCommentWithId: [NSNumber numberWithInteger:messageParrentId]];
             if (selectedComment) {
                 [self performSegueWithIdentifier:@"showMoreRepliesSegue" sender:selectedComment];
             }

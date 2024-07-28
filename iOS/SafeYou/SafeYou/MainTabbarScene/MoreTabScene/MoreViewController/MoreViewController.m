@@ -31,6 +31,7 @@
 #import "WebContentViewController.h"
 #import "IntroductionViewController.h"
 #import "UserConsultantRequestDataModel.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface MoreViewController () <UITableViewDelegate, UITableViewDataSource, TableViewCellActionDelegate, SwitchActionTableViewCellDelegate, DialogViewDelegate, CreateDualPinViewDelegate, MoreViewTableViewCellDelegate, CountryListViewDelegate, LanguagesListViewDelegate>
 
@@ -38,12 +39,12 @@
 @property (weak, nonatomic) IBOutlet SYDesignableBarButtonItem *cancelEditingBarButtonItem;
 - (IBAction)cancelButtonPressed:(UIBarButtonItem *)sender;
 
-
-
 @property (nonatomic) NSMutableArray *dataSource;
 @property (nonatomic) SYProfileService *profileService;
 @property (nonatomic) SYAuthenticationService *userAuthService;
 @property (nonatomic) SYAuthenticationService *maritalStatusService;
+@property (nonatomic) SYProfileService *profileDataService;
+@property (nonatomic) BOOL currentNotificationState;
 
 @property (nonatomic) NSArray *maritalStatusList;
 
@@ -60,8 +61,10 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        [self notificationState];
         self.profileService = [[SYProfileService alloc] init];
         self.userAuthService = [[SYAuthenticationService alloc] init];
+        self.profileDataService = [[SYProfileService alloc] init];
         self.dataSource = [[NSMutableArray alloc] init];
         [self configureDataSource];
     }
@@ -89,12 +92,14 @@
     self.tableView.estimatedSectionFooterHeight = 20.0;
     self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
     [self enableKeyboardNotifications];
+    [self configureOpenSurveyActionDialog];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
     [self.tableView reloadData];
 }
 
@@ -156,6 +161,23 @@
     emergencyContactsField.accessoryType = FieldAccessoryTypeArrow;
     emergencyContactsField.actionString = @"showEmergencyContactsView";
     [dataSourceTemp addObject:emergencyContactsField];
+    
+    //icon-survay
+    SettingsViewFieldViewModel *openSurvaysField = [[SettingsViewFieldViewModel alloc] init];
+    openSurvaysField.mainTitle =  LOC(@"open_surveys_key");
+    openSurvaysField.iconImageName = @"icon-survay";
+    openSurvaysField.accessoryType = FieldAccessoryTypeArrow;
+    openSurvaysField.actionString = @"showOpenSurvaysView";
+    [dataSourceTemp addObject:openSurvaysField];
+    
+    //icon_notification
+    SettingsViewFieldViewModel *notificationField = [[SettingsViewFieldViewModel alloc] init];
+    notificationField.mainTitle = LOC(@"notifications_title_key");
+    notificationField.iconImageName = @"notification_icon_fill";
+    notificationField.actionString = @"notifications";
+    notificationField.accessoryType = FieldAccessoryTypeSwitch;
+    notificationField.isStateOn = _currentNotificationState;
+    [dataSourceTemp addObject:notificationField];
     
     //icon_security
     SettingsViewFieldViewModel *recordingsField = [[SettingsViewFieldViewModel alloc] init];
@@ -295,7 +317,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        HyRobotoLabelBold *titleLabel = [[HyRobotoLabelBold alloc] init];
+        SYLabelBold *titleLabel = [[SYLabelBold alloc] init];
         titleLabel.textColorType = SYColorTypeBlack;
         titleLabel.textColorAlpha = 1.0;
         titleLabel.frame = CGRectMake(20, 8, 320, 20);
@@ -348,13 +370,16 @@
 - (void)showBecomeConsultantFromMoreView
 {
     [self performSegueWithIdentifier:@"showBecomeConsultantView" sender:nil];
-    
-
 }
 
 - (void)showEmergencyContactsView
 {
     [self performSegueWithIdentifier:@"showEmergencyContactsView" sender:nil];
+}
+
+- (void)showOpenSurvaysView
+{
+    [self performSegueWithIdentifier:OPEN_SURVEY_STORYBOARD_SEGUE sender:nil];
 }
 
 - (void)showRecordingsView
@@ -387,8 +412,8 @@
 
 - (void)showTutorialFromMoreView
 {
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    IntroductionViewController *introductionVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"IntroductionViewController"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Introduction" bundle:nil];
+    IntroductionViewController *introductionVC = [storyboard instantiateViewControllerWithIdentifier:@"IntroductionViewController"];
     introductionVC.isFromMenu = YES;
     [self.navigationController pushViewController:introductionVC animated:YES];
 }
@@ -416,11 +441,16 @@
     }];
 }
 
+- (void)notifications
+{
+    
+}
+
 - (void)showRegionalOptionsDialogAndLogout
 {
     weakify(self)
     if (![self.currentSelectedCountry.apiServiceCode isEqualToString:[Settings sharedInstance].selectedCountryCode]) {
-        [self showAlertViewWithTitle:@"" withMessage:LOC(@"apply_regional_changes_text") cancelButtonTitle:LOC(@"cancel") okButtonTitle:LOC(@"apply_title_key") cancelAction:^{
+        [self showAlertViewWithTitle:@"" withMessage:LOC(@"confirm_change_country") cancelButtonTitle:LOC(@"cancel") okButtonTitle:LOC(@"apply_title_key") cancelAction:^{
             // cancel action
             self.currentSelectedCountry = nil;
             self.currentSelectedLanguage = nil;
@@ -505,6 +535,8 @@
             [self hideLoader];
             NSLog(@"Error on delete profile %@", error);
         }];
+    } else if (dialogView.actionType == DialogViewTypeSurveyAction) {
+        [self performSegueWithIdentifier:OPEN_SURVEY_STORYBOARD_SEGUE sender:nil];
     }
 }
 
@@ -513,12 +545,18 @@
 - (void)swithActionCell:(SwitchActionTableViewCell *)cell didChangeState:(BOOL)isOn
 {
     if (isOn) {
-        // show add dual pin functioanlity
-        [self showCreatePinView];
-        
+        self.currentNotificationState = YES;
+        NSString *valueToSave = @"enabled";
+        [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"notificationState"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self saveFcmToken:[Settings sharedInstance].updatedFcmToken];
+
     } else {
-        // show alert with textfield to disable using pin functionality
-        [self showPinAlertToDisablePinFunctionality];
+        self.currentNotificationState = NO;
+        NSString *valueToSave = @"disabled";
+        [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"notificationState"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self saveFcmToken:@""];
     }
 }
 
@@ -744,6 +782,51 @@
         destination.contentType = SYRemotContentTypeAboutUs;
     }
 }
+- (void)notificationState
+{
+    if([[[NSUserDefaults standardUserDefaults] stringForKey:@"notificationState"]  isEqual: @"enabled"]) {
+        self.currentNotificationState = YES;
+    } else if([[[NSUserDefaults standardUserDefaults] stringForKey:@"notificationState"]  isEqual: @"disabled"]) {
+        self.currentNotificationState = NO;
+    } else  {
+        [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+            if (settings.notificationCenterSetting == UNNotificationSettingEnabled) {
+                self.currentNotificationState = YES;
+                NSString *valueToSave = @"enabled";
+                [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"notificationState"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            } else {
+                self.currentNotificationState = NO;
+                NSString *valueToSave = @"disabled";
+                [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"notificationState"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }];
+    }
+}
 
+- (void)saveFcmToken:(NSString *)deviceToken
+{
+    NSLog(@"%@", [Settings sharedInstance].updatedFcmToken);
+    [self.profileDataService updateUserDataField:@"device_token" value:deviceToken withComplition:^(id response) {
+        [Settings sharedInstance].savedFcmToken = [Settings sharedInstance].updatedFcmToken;
+        [Settings sharedInstance].updatedFcmToken = nil;
+    } failure:^(NSError *error) {
+    }];
+}
+
+#pragma mark - Confirm Survay Action Dialog
+
+- (void)configureOpenSurveyActionDialog
+{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:IS_OPEN_SURVEY_NOTIFICATION_SHOWN] && ![Settings sharedInstance].isOpenSurveyPopupShown) {
+        [[Settings sharedInstance] setOpenSurveyPopupShown:YES];
+        DialogViewController *surveyActionDialogView = [DialogViewController instansiateDialogViewWithType:DialogViewTypeSurveyAction title:LOC(@"survey_notification_popup_title") message:LOC(@"survey_notification_popup_description")];
+        surveyActionDialogView.delegate = self;
+        surveyActionDialogView.showCancelButton = YES;
+        surveyActionDialogView.continueButtonText = LOC(@"take_survey_key");
+        [self addChildViewController:surveyActionDialogView onView:self.view];
+    }
+}
 
 @end

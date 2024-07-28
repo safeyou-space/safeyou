@@ -8,11 +8,37 @@
 
 #import "ConfigService.h"
 
+@implementation RemoteConfigData
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict
+{
+    self = [super init];
+    if (dict[@"iOS"] && dict[@"iOS"][@"version"] && dict[@"iOS"][@"version"][@"production"]) {
+        self.requiredVersion = dict[@"iOS"][@"version"][@"production"];
+    }
+    return self;
+}
+
+@end
+
 @implementation ConfigService
 
-- (void)getConfigsWithComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
+- (void)getConfigsWithComplition:(void(^)(RemoteConfigData *response))complition failure:(void(^)(NSError *error))failure
 {
-    
+
+    [[self networkManagerWithUrl:@"https://sydeveloper.com:90"] GET:@"config.json" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"Response is %@", responseObject);
+        RemoteConfigData *configData = [[RemoteConfigData alloc] initWithDictionary:responseObject];
+        if (complition) {
+            complition(configData);
+        }
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"Error is %@", error);
+        if (failure) {
+            failure(error);
+        }
+    }];
 }
 
 @end

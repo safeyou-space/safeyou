@@ -7,12 +7,13 @@
 //
 
 #import "SYViewController.h"
-#import "ForgotPasswordViewController.h"
+#import "EnterPhoneNumberViewController.h"
 #import "MBProgressHUD.h"
 #import "NotificationsViewController.h"
 #import "NotificationsIconView.h"
 #import "MainTabbarController.h"
 #import "ForumNotificationsManager.h"
+#import "SYViewController+CustomBarButtonItems.h"
 
 @interface SYViewController () <NotificationsIconViewAction>
 
@@ -26,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self configureBackBarButtonItem];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userPinHasChanged:) name:UserPinChangedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLanguageDidChange:) name:ApplicationLanguageDidChangeNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotificationsCount:) name:InAppNotificationsCountDidChangeNotificationName object:nil];
@@ -36,6 +38,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self configureNavigationBar];
     [[self mainTabbarController] hideTabbar:NO];
     [self updateLocalizations];
     [self handleNotificationsCount:nil];
@@ -53,9 +56,26 @@
     [super presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
+#pragma mark - Status bar style
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - UI Customization
 - (void)configureBackgroundColor {
-    self.view.backgroundColor = [UIColor mainTintColor8];
+    self.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)configureNavigationBar
+{
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
+
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor clearColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithSYColor:SYColorTypeOtherAccent alpha:1.0]];
 }
 
 
@@ -87,7 +107,7 @@
                 [self.notificationsBarItemView updateBadgeValue:@""];
                 self.notificationsBarButtonItem = [[SYDesignableBarButtonItem alloc] initWithCustomView:self.notificationsBarItemView];
                 
-                self.navigationItem.rightBarButtonItems = @[self.notificationsBarButtonItem];
+                self.navigationItem.rightBarButtonItem = self.notificationsBarButtonItem;
             }
         }
     }
@@ -99,6 +119,13 @@
         self.navigationItem.rightBarButtonItems = @[self.notificationsBarButtonItem];
     } else {
         self.navigationItem.rightBarButtonItems = @[];
+    }
+}
+
+- (void)setWhiteColorTypeOnNotificationIcon
+{
+    if (self.notificationsBarItemView) {
+        [self.notificationsBarItemView setWhiteColorType];
     }
 }
 
@@ -232,7 +259,8 @@
 - (void)showForgotPasswordFlow:(SYViewController *)sender
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Authentication" bundle:nil];
-    ForgotPasswordViewController *forgotPasswordVC = [storyboard instantiateViewControllerWithIdentifier:@"ForgotPasswordViewController"];
+    EnterPhoneNumberViewController *forgotPasswordVC = [storyboard instantiateViewControllerWithIdentifier:@"EnterPhoneNumberViewController"];
+    forgotPasswordVC.phoneNumberMode = PhoneNumberViewModeForgotPassword;
     if (self.navigationController) {
         [self.navigationController pushViewController:forgotPasswordVC animated:YES];
     } else {

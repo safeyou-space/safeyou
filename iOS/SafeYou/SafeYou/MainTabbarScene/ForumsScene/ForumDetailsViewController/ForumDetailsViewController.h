@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) SocketIOClient *socketClient;
 @property (nonatomic) NSString *forumItemId;
+@property (nonatomic) NSInteger initialCommentsCount;
 
 @end
 

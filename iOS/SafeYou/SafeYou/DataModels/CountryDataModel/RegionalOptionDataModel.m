@@ -104,7 +104,6 @@ NSString *const  kLanguageOptionImageData   = @"image";
         self.name = [decoder decodeObjectForKey:kRegionalOptionName];
         self.apiServiceCode = [decoder decodeObjectForKey:kRegionalOptionShortCode];
         self.localizationShortCode = [decoder decodeObjectForKey:kRegionalOptionLocalizationCode];
-        self.localizationShortCode = nil;
         self.imageData = [decoder decodeObjectForKey:kRegionalOptionImageData];
     }
     return self;
@@ -125,15 +124,6 @@ NSString *const  kLanguageOptionImageData   = @"image";
     if ([apiCode isEqualToString:@"iw"]) {
         return @"ckb";
     }
-    
-    if ([apiCode isEqualToString:@"ps"]) {
-        return @"ku";
-    }
-    
-    if ([apiCode isEqualToString:@"ka"]) {
-        return @"ka_GE";
-    }
-    
     return apiCode;
 }
 

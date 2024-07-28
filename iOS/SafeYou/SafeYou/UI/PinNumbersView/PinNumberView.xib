@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -43,149 +40,221 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="SYDesignableView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCu-sD-pPf" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vCu-sD-pPf" customClass="SYButtonBold">
                     <rect key="frame" x="55" y="32" width="75" height="75"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="height" multiplier="1:1" id="sjK-Ct-xQA"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="1"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="DD6-ky-gBu"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZF-VU-bG0" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZF-VU-bG0" customClass="SYButtonBold">
                     <rect key="frame" x="245" y="32" width="75" height="75"/>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="3"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="NI3-gp-5gn"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1o-Cc-aBb" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1o-Cc-aBb" customClass="SYButtonBold">
                     <rect key="frame" x="55" y="120" width="75" height="75"/>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="4"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="NjA-ar-4BG"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIu-sx-75P" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIu-sx-75P" customClass="SYButtonBold">
                     <rect key="frame" x="150" y="120" width="75" height="75"/>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="5"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="aq7-Aw-hH4"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbI-K9-KdB" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbI-K9-KdB" customClass="SYButtonBold">
                     <rect key="frame" x="245" y="120" width="75" height="75"/>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="6"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="PFP-zS-xvM"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jy9-7Z-hgI" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jy9-7Z-hgI" customClass="SYButtonBold">
                     <rect key="frame" x="55" y="208" width="75" height="75"/>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="7"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="ElL-Jv-Cr0"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yo3-96-PlA" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yo3-96-PlA" customClass="SYButtonBold">
                     <rect key="frame" x="150" y="208" width="75" height="75"/>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="8"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="2uI-3C-Zps"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgr-MU-dFq" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgr-MU-dFq" customClass="SYButtonBold">
                     <rect key="frame" x="245" y="208" width="75" height="75"/>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="9"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="numberButtonPressed:" destination="-1" eventType="touchUpInside" id="s4r-mG-6C3"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vs-Nq-a4c" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0vs-Nq-a4c" customClass="SYDesignableButton">
                     <rect key="frame" x="55" y="296" width="75" height="75"/>
                     <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="14"/>
                     <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
                     <state key="normal" title="Forgot Pin?"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
@@ -195,16 +264,25 @@
                         <action selector="forgotPinButtonPressed:" destination="-1" eventType="touchUpInside" id="7ro-4v-mnc"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hor-lz-keF" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hor-lz-keF" customClass="SYButtonBold">
                     <rect key="frame" x="150" y="296" width="75" height="75"/>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="0"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -216,26 +294,38 @@
                     <state key="normal" image="backspace_icon"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                            <integer key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="backspaceButtonPressed:" destination="-1" eventType="touchUpInside" id="xXS-PP-JJh"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8eZ-4g-485" customClass="SYDesignableButton">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8eZ-4g-485" customClass="SYButtonBold">
                     <rect key="frame" x="150" y="32" width="75" height="75"/>
-                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="39"/>
+                    <fontDescription key="fontDescription" name="HayRoboto-Light" family="HayRoboto" pointSize="40"/>
                     <state key="normal" title="2"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                            <integer key="value" value="9"/>
+                            <integer key="value" value="22"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                             <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="37.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -245,11 +335,11 @@
             </subviews>
             <color key="backgroundColor" red="0.59607843140000005" green="0.20392156859999999" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="vCu-sD-pPf" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="55" id="0cu-RI-rzD"/>
-                <constraint firstItem="oZF-VU-bG0" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="32" id="0lf-vl-0i2"/>
-                <constraint firstItem="Jy9-7Z-hgI" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="55" id="4Ka-0s-9wt"/>
+                <constraint firstItem="vCu-sD-pPf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="55" id="0cu-RI-rzD"/>
+                <constraint firstItem="oZF-VU-bG0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="32" id="0lf-vl-0i2"/>
+                <constraint firstItem="Jy9-7Z-hgI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="55" id="4Ka-0s-9wt"/>
                 <constraint firstItem="zIu-sx-75P" firstAttribute="height" secondItem="vCu-sD-pPf" secondAttribute="height" id="7Ch-Vy-juL"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="hor-lz-keF" secondAttribute="bottom" constant="29" id="8W9-ad-vGH"/>
+                <constraint firstAttribute="bottom" secondItem="hor-lz-keF" secondAttribute="bottom" constant="29" id="8W9-ad-vGH"/>
                 <constraint firstItem="DtM-fF-MQ9" firstAttribute="height" secondItem="vCu-sD-pPf" secondAttribute="height" id="8cl-Wa-WB2"/>
                 <constraint firstItem="gbI-K9-KdB" firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="width" id="8kL-LJ-450"/>
                 <constraint firstItem="i1o-Cc-aBb" firstAttribute="height" secondItem="vCu-sD-pPf" secondAttribute="height" id="Ayb-2h-L7p"/>
@@ -257,13 +347,13 @@
                 <constraint firstItem="Jy9-7Z-hgI" firstAttribute="height" secondItem="vCu-sD-pPf" secondAttribute="height" id="D1D-t8-EH2"/>
                 <constraint firstItem="Pgr-MU-dFq" firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="width" id="DVh-pe-gyi"/>
                 <constraint firstItem="Pgr-MU-dFq" firstAttribute="leading" secondItem="yo3-96-PlA" secondAttribute="trailing" constant="20" id="Du0-KM-Yob"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="oZF-VU-bG0" secondAttribute="trailing" constant="55" id="FGe-NB-gwC"/>
+                <constraint firstAttribute="trailing" secondItem="oZF-VU-bG0" secondAttribute="trailing" constant="55" id="FGe-NB-gwC"/>
                 <constraint firstItem="8eZ-4g-485" firstAttribute="leading" secondItem="vCu-sD-pPf" secondAttribute="trailing" constant="20" id="FQy-4Z-ZgD"/>
-                <constraint firstItem="i1o-Cc-aBb" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="55" id="HsM-Wk-Yau"/>
+                <constraint firstItem="i1o-Cc-aBb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="55" id="HsM-Wk-Yau"/>
                 <constraint firstItem="zIu-sx-75P" firstAttribute="top" secondItem="8eZ-4g-485" secondAttribute="bottom" constant="13" id="IB6-W3-40x"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="DtM-fF-MQ9" secondAttribute="bottom" constant="29" id="IID-nb-cDK"/>
-                <constraint firstItem="vCu-sD-pPf" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="32" id="K2n-o7-V2m"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Pgr-MU-dFq" secondAttribute="trailing" constant="55" id="Lpr-oC-zJZ"/>
+                <constraint firstAttribute="bottom" secondItem="DtM-fF-MQ9" secondAttribute="bottom" constant="29" id="IID-nb-cDK"/>
+                <constraint firstItem="vCu-sD-pPf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="32" id="K2n-o7-V2m"/>
+                <constraint firstAttribute="trailing" secondItem="Pgr-MU-dFq" secondAttribute="trailing" constant="55" id="Lpr-oC-zJZ"/>
                 <constraint firstItem="DtM-fF-MQ9" firstAttribute="leading" secondItem="hor-lz-keF" secondAttribute="trailing" constant="20" id="NWj-sU-JD7"/>
                 <constraint firstItem="zIu-sx-75P" firstAttribute="leading" secondItem="i1o-Cc-aBb" secondAttribute="trailing" constant="20" id="Nhw-SO-shq"/>
                 <constraint firstItem="hor-lz-keF" firstAttribute="top" secondItem="yo3-96-PlA" secondAttribute="bottom" constant="13" id="OZT-Zq-2zo"/>
@@ -272,20 +362,20 @@
                 <constraint firstItem="DtM-fF-MQ9" firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="width" id="QJc-uC-jhw"/>
                 <constraint firstItem="oZF-VU-bG0" firstAttribute="height" secondItem="vCu-sD-pPf" secondAttribute="height" id="RRP-ar-aWL"/>
                 <constraint firstItem="zIu-sx-75P" firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="width" id="Udh-Oc-T1q"/>
-                <constraint firstItem="8eZ-4g-485" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="32" id="Yyc-3h-f1L"/>
+                <constraint firstItem="8eZ-4g-485" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="32" id="Yyc-3h-f1L"/>
                 <constraint firstItem="hor-lz-keF" firstAttribute="height" secondItem="vCu-sD-pPf" secondAttribute="height" id="b6s-Fd-Nmt"/>
                 <constraint firstItem="yo3-96-PlA" firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="width" id="bHx-le-V5e"/>
                 <constraint firstItem="hor-lz-keF" firstAttribute="leading" secondItem="0vs-Nq-a4c" secondAttribute="trailing" constant="20" id="bni-5L-jVn"/>
                 <constraint firstItem="i1o-Cc-aBb" firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="width" id="cMn-bd-7gx"/>
-                <constraint firstItem="0vs-Nq-a4c" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="55" id="d9I-Bb-o4e"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="gbI-K9-KdB" secondAttribute="trailing" constant="55" id="deH-hv-b4i"/>
+                <constraint firstItem="0vs-Nq-a4c" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="55" id="d9I-Bb-o4e"/>
+                <constraint firstAttribute="trailing" secondItem="gbI-K9-KdB" secondAttribute="trailing" constant="55" id="deH-hv-b4i"/>
                 <constraint firstItem="Pgr-MU-dFq" firstAttribute="height" secondItem="vCu-sD-pPf" secondAttribute="height" id="dfJ-yB-p4F"/>
                 <constraint firstItem="0vs-Nq-a4c" firstAttribute="top" secondItem="Jy9-7Z-hgI" secondAttribute="bottom" constant="13" id="hF0-Cl-HnP"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="0vs-Nq-a4c" secondAttribute="bottom" constant="29" id="jT0-hS-Cty"/>
+                <constraint firstAttribute="bottom" secondItem="0vs-Nq-a4c" secondAttribute="bottom" constant="29" id="jT0-hS-Cty"/>
                 <constraint firstItem="0vs-Nq-a4c" firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="width" id="jta-pi-PZi"/>
                 <constraint firstItem="yo3-96-PlA" firstAttribute="height" secondItem="vCu-sD-pPf" secondAttribute="height" id="lfu-rq-KkH"/>
                 <constraint firstItem="yo3-96-PlA" firstAttribute="top" secondItem="zIu-sx-75P" secondAttribute="bottom" constant="13" id="li6-pB-NUs"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="DtM-fF-MQ9" secondAttribute="trailing" constant="55" id="mjx-ZF-z3I"/>
+                <constraint firstAttribute="trailing" secondItem="DtM-fF-MQ9" secondAttribute="trailing" constant="55" id="mjx-ZF-z3I"/>
                 <constraint firstItem="Jy9-7Z-hgI" firstAttribute="top" secondItem="i1o-Cc-aBb" secondAttribute="bottom" constant="13" id="mkd-nU-KJj"/>
                 <constraint firstItem="oZF-VU-bG0" firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="width" id="mvJ-XU-Cy9"/>
                 <constraint firstItem="8eZ-4g-485" firstAttribute="width" secondItem="vCu-sD-pPf" secondAttribute="width" id="oeo-yp-Lnv"/>
@@ -300,10 +390,56 @@
                 <constraint firstItem="DtM-fF-MQ9" firstAttribute="top" secondItem="Pgr-MU-dFq" secondAttribute="bottom" constant="13" id="yfd-4q-kAX"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                    <integer key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                    <real key="value" value="0.0"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="-150" y="-15"/>
         </view>
     </objects>
+    <designables>
+        <designable name="0vs-Nq-a4c">
+            <size key="intrinsicContentSize" width="70" height="26"/>
+        </designable>
+        <designable name="8eZ-4g-485">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+        <designable name="DtM-fF-MQ9">
+            <size key="intrinsicContentSize" width="24" height="24"/>
+        </designable>
+        <designable name="Jy9-7Z-hgI">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+        <designable name="Pgr-MU-dFq">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+        <designable name="gbI-K9-KdB">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+        <designable name="hor-lz-keF">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+        <designable name="i1o-Cc-aBb">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+        <designable name="oZF-VU-bG0">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+        <designable name="vCu-sD-pPf">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+        <designable name="yo3-96-PlA">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+        <designable name="zIu-sx-75P">
+            <size key="intrinsicContentSize" width="30" height="52"/>
+        </designable>
+    </designables>
     <resources>
-        <image name="backspace_icon" width="23" height="18"/>
+        <image name="backspace_icon" width="24" height="24"/>
     </resources>
 </document>

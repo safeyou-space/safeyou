@@ -12,7 +12,7 @@ IB_DESIGNABLE
 
 @interface ChooseOptionsTableViewCell : BaseTableViewCellWithCheckMark
 
-@property (weak, nonatomic) IBOutlet SYDesignableLabel *optionNameLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *optionNameLabel;
 @property (nonatomic) SYChooseOptionType chooseOptionType;
 @property (nonatomic) IBInspectable NSInteger labelTextColorType;
 @property (nonatomic) IBInspectable NSInteger selectedLabelTextColorType;

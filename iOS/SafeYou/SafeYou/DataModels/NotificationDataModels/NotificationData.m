@@ -5,6 +5,7 @@
 
 
 #import "NotificationData.h"
+#import "SafeYou-Swift.h"
 
 NSString *const kNotificationDataNotificationMessage = @"notify_body";
 NSString *const kNotificationDataNotificationBody = @"body";
@@ -33,19 +34,37 @@ NSString *const kNotificationDataNotifyUserId = @"notify_user_id";
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
 	self = [super init];
+    
+    if(![dictionary[kNotificationDataNotifyType] isKindOfClass:[NSNull class]]){
+        self.notifyType = [dictionary[kNotificationDataNotifyType] integerValue];
+    }
+    
     NSDictionary *messageDict = nilOrJSONObjectForKey(dictionary, kNotificationDataNotificationMessage);
     NSDictionary *bodyDict = nilOrJSONObjectForKey(dictionary, kNotificationDataNotificationBody);
+    
     if (messageDict) {
-        self.notificationMessage = [[NotificationMessage alloc] initWithDictionary:messageDict];
+        if (self.notifyType == NotificationTypeNewForum) {
+            self.forumData = [[NotificationForumData alloc] initWithDictionary:messageDict];
+        } else if (self.notifyType == NotificationTypeDashboardMessage) {
+            self.notificationDashboardMessage = [[NotificationDashboardMessage alloc] initWithDictionary:messageDict];
+        } else {
+            self.notificationMessage = [[NotificationMessage alloc] initWithDictionary:messageDict];
+        }
     } else if (bodyDict) {
-        self.notificationMessage = [[NotificationMessage alloc] initWithDictionary:bodyDict];
+        if (self.notifyType == NotificationTypeNewForum) {
+            self.forumData = [[NotificationForumData alloc] initWithDictionary:bodyDict];
+        } else if (self.notifyType == NotificationTypeDashboardMessage) {
+            self.notificationDashboardMessage = [[NotificationDashboardMessage alloc] initWithDictionary:bodyDict];
+        } else {
+            self.notificationMessage = [[NotificationMessage alloc] initWithDictionary:bodyDict];
+        }
     }
 
 	if(![dictionary[kNotificationDataNotifyCreatedAt] isKindOfClass:[NSNull class]]){
 		self.notifyCreatedAt = dictionary[kNotificationDataNotifyCreatedAt];
 	}	
 	if(![dictionary[kNotificationDataNotifyId] isKindOfClass:[NSNull class]]){
-		self.notifyId = [dictionary[kNotificationDataNotifyId] integerValue];
+		self.notifyId = dictionary[kNotificationDataNotifyId];
 	}
 
 	if(![dictionary[kNotificationDataNotifyRead] isKindOfClass:[NSNull class]]){
@@ -58,9 +77,6 @@ NSString *const kNotificationDataNotifyUserId = @"notify_user_id";
 
 	if(![dictionary[kNotificationDataNotifyTitle] isKindOfClass:[NSNull class]]){
 		self.notifyTitle = dictionary[kNotificationDataNotifyTitle];
-	}	
-	if(![dictionary[kNotificationDataNotifyType] isKindOfClass:[NSNull class]]){
-		self.notifyType = [dictionary[kNotificationDataNotifyType] integerValue];
 	}
 
 	if(![dictionary[kNotificationDataNotifyUpdatedAt] isKindOfClass:[NSNull class]]){
@@ -69,6 +85,8 @@ NSString *const kNotificationDataNotifyUserId = @"notify_user_id";
 	if(![dictionary[kNotificationDataNotifyUserId] isKindOfClass:[NSNull class]]){
 		self.notifyUserId = [dictionary[kNotificationDataNotifyUserId] integerValue];
 	}
+    
+    self.formattedCreatedDate = [Helper formatDateToShowWithInitialDateString:self.notifyCreatedAt];
 
 	return self;
 }
@@ -86,7 +104,7 @@ NSString *const kNotificationDataNotifyUserId = @"notify_user_id";
 	if(self.notifyCreatedAt != nil){
 		dictionary[kNotificationDataNotifyCreatedAt] = self.notifyCreatedAt;
 	}
-	dictionary[kNotificationDataNotifyId] = @(self.notifyId);
+	dictionary[kNotificationDataNotifyId] = self.notifyId;
 	dictionary[kNotificationDataNotifyRead] = @(self.notifyRead);
 	dictionary[kNotificationDataNotifyStatus] = @(self.notifyStatus);
 	if(self.notifyTitle != nil){
@@ -115,7 +133,7 @@ NSString *const kNotificationDataNotifyUserId = @"notify_user_id";
 	if(self.notifyCreatedAt != nil){
 		[aCoder encodeObject:self.notifyCreatedAt forKey:kNotificationDataNotifyCreatedAt];
 	}
-	[aCoder encodeObject:@(self.notifyId) forKey:kNotificationDataNotifyId];	[aCoder encodeObject:@(self.notifyRead) forKey:kNotificationDataNotifyRead];	[aCoder encodeObject:@(self.notifyStatus) forKey:kNotificationDataNotifyStatus];	if(self.notifyTitle != nil){
+	[aCoder encodeObject:self.notifyId forKey:kNotificationDataNotifyId];	[aCoder encodeObject:@(self.notifyRead) forKey:kNotificationDataNotifyRead];	[aCoder encodeObject:@(self.notifyStatus) forKey:kNotificationDataNotifyStatus];	if(self.notifyTitle != nil){
 		[aCoder encodeObject:self.notifyTitle forKey:kNotificationDataNotifyTitle];
 	}
 	[aCoder encodeObject:@(self.notifyType) forKey:kNotificationDataNotifyType];	if(self.notifyUpdatedAt != nil){
@@ -132,7 +150,7 @@ NSString *const kNotificationDataNotifyUserId = @"notify_user_id";
 	self = [super init];
 	self.notificationMessage = [aDecoder decodeObjectForKey:kNotificationDataNotificationMessage];
 	self.notifyCreatedAt = [aDecoder decodeObjectForKey:kNotificationDataNotifyCreatedAt];
-	self.notifyId = [[aDecoder decodeObjectForKey:kNotificationDataNotifyId] integerValue];
+	self.notifyId = [aDecoder decodeObjectForKey:kNotificationDataNotifyId];
 	self.notifyRead = [[aDecoder decodeObjectForKey:kNotificationDataNotifyRead] integerValue];
 	self.notifyStatus = [[aDecoder decodeObjectForKey:kNotificationDataNotifyStatus] integerValue];
 	self.notifyTitle = [aDecoder decodeObjectForKey:kNotificationDataNotifyTitle];

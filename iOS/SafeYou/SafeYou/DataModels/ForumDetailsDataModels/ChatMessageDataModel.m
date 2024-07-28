@@ -19,6 +19,7 @@
     objectOrNilForKey(self.editedBy, dict, @"message_edit_by");
     objectOrNilForKey(self.messageFiles, dict, @"message_files");
     objectOrNilForKey(self.messageId, dict, @"message_id");
+    objectOrNilForKey(self.roomKey, dict, @"message_room_key");
     boolObjectOrNilForKey(self.isOwner, dict, @"message_is_owner");
     NSDictionary *likesDict = nilOrJSONObjectForKey(dict, @"message_likes");
     self.likes = [self messageLikesFromDict:likesDict];

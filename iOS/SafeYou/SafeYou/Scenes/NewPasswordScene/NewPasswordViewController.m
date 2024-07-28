@@ -13,12 +13,12 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *titleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoRegualrTextField *passwordTextField;
-@property (weak, nonatomic) IBOutlet HyRobotoRegualrTextField *confirmPasswordTextField;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *titleLabel;
+@property (weak, nonatomic) IBOutlet SYRegualrTextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet SYRegualrTextField *confirmPasswordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *updatePasswordButton;
 
-@property (weak, nonatomic) HyRobotoRegualrTextField *activeField;
+@property (weak, nonatomic) SYRegualrTextField *activeField;
 
 @property (nonatomic) SYAuthenticationService *passwordService;
 
@@ -138,6 +138,7 @@
             } failure:^(NSError * _Nonnull error) {
                 strongify(self);
                 [self hideLoader];
+                [self handleError:error.userInfo];
             }];
         } else {
             [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:LOC(@"passwords_not_match_text_key") cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
@@ -157,6 +158,30 @@
         UIViewController *destinationVC = self.navigationController.viewControllers[destinationIdex];
         [self.navigationController popToViewController:destinationVC animated:YES];
     }
+}
+
+- (void)handleError:(NSDictionary *)errorInfo
+{
+    NSString *message = @"";
+    if (errorInfo[@"message"]) {
+        if ([errorInfo[@"message"] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *errorMessageDict = errorInfo[@"message"];
+            if ([errorMessageDict[@"message"] isKindOfClass:[NSArray class]]) {
+                message = errorMessageDict[@"message"][0];
+            } else if (errorMessageDict[@"password"]) {
+                NSArray *messages = errorMessageDict[@"password"];
+                message = messages.firstObject;
+            } else if (errorMessageDict[@"password"]) {
+                NSArray *messages = errorMessageDict[@"confirm_password"];
+                message = messages.firstObject;
+            } else {
+                message = errorMessageDict[@"message"];
+            }
+        } else {
+            message = errorInfo[@"message"];
+        }
+    }
+    [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:message cancelButtonTitle:nil okButtonTitle:LOC(@"ok") cancelAction:nil okAction:nil];
 }
 
 
@@ -206,7 +231,7 @@
 #pragma mark - UItextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    self.activeField = (HyRobotoRegualrTextField *)textField;
+    self.activeField = (SYRegualrTextField *)textField;
 }
 
 @end

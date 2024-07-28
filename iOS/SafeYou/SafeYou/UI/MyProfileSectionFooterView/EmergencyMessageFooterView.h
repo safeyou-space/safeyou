@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EmergencyMessageFooterView : UITableViewHeaderFooterView
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *footerTitleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *footerTitleLabel;
 @property (weak, nonatomic) IBOutlet UITextView *emergencyTextView;
 
 @property (weak, nonatomic) id <EmergencyMessageViewDelegate> delegate;

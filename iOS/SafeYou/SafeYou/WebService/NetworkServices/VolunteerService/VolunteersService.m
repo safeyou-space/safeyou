@@ -21,7 +21,7 @@
 
 - (void)getVolunteersWithComplition:(void(^)(UserDataModel *userData))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager GET:[self endpoint] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:[self endpoint] parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         

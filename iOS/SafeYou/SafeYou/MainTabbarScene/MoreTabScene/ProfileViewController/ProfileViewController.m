@@ -21,14 +21,24 @@
 #import "SwitchActionTableViewCell.h"
 #import "CreateDualPinViewController.h"
 #import "AvatarTableViewCell.h"
-#import "ProfileViewFieldViewModel.h"
 #import "ImageDataModel.h"
+#import "SafeYou-Swift.h"
+#import "ChooseLanguageViewController.h"
+#import "MainTabbarController.h"
+#import "DialogViewController.h"
 
-@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, TableViewCellActionDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ProfileViewController () <UITableViewDelegate, UITableViewDataSource, TableViewCellActionDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DialogViewDelegate, CompleteProfileDialogDelegate >
 
+@property (weak, nonatomic) IBOutlet UIView *completeProfileBackView;
 @property (nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet SYDesignableBarButtonItem *cancelEditingBarButtonItem;
 - (IBAction)cancelButtonPressed:(UIBarButtonItem *)sender;
+@property (weak, nonatomic) IBOutlet UIView *profileCompleteView;
+@property (weak, nonatomic) IBOutlet UIView *circleProgressView;
+@property (weak, nonatomic) IBOutlet UILabel *profileComplateLable;
+@property (weak, nonatomic) IBOutlet SYLabelBold *progressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *profileComplateTitleLable;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopDistance;
 
 @property (nonatomic) MyProfileSectionViewModel *dataSource;
 @property (nonatomic) SYProfileService *profileService;
@@ -38,8 +48,18 @@
 @property (nonatomic) UIImagePickerControllerSourceType imagePickerSourceType;
 @property (nonatomic) UIImage *selectedImage;
 @property (nonatomic) AvatarTableViewCell *avatarCell;
+@property (nonatomic) BOOL isCompleteTaped;
+@property (nonatomic) BOOL isEmptyNickname;
+@property (nonatomic) BOOL isShowCompleteProfile;
 
 @property (nonatomic) NSArray *maritalStatusList;
+@property (nonatomic) NSNumber *completePercentage;
+
+@property (nonatomic, strong) CircularProgressBarView *circularProgressBarView;
+
+@property (nonatomic) DialogViewController *childPickerDialogView;
+
+@property (nonatomic) CompleteProfileDialogViewController *completeDialogViewController;
 
 @end
 
@@ -60,8 +80,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self updateUserAvatar];
     
     [self fetchMeritalStatusData];
+    
+    UITapGestureRecognizer *profileCompleteTap =
+      [[UITapGestureRecognizer alloc] initWithTarget:self
+                                              action: @selector(completeProfileTap:)];
+    [self.profileCompleteView addGestureRecognizer:profileCompleteTap];
     
     UINib *switchCellNib = [UINib nibWithNibName:@"SwitchActionTableViewCell" bundle:nil];
     [self.tableView registerNib:switchCellNib forCellReuseIdentifier:@"SwitchActionTableViewCell"];
@@ -70,18 +96,20 @@
     [self.tableView registerNib:avatarCellNib forCellReuseIdentifier:@"AvatarTableViewCell"];
     
     [self showCancelButton:NO];
-    [self.tableView setSeparatorColor:[UIColor mainTintColor3]];
     [self.tableView registerNib:[UINib nibWithNibName:@"EmergencyMessageFooterView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"EmergencyMessageFooterView"];
     self.tableView.estimatedSectionFooterHeight = 20.0;
     self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
     [self enableKeyboardNotifications];
+    [self setUpCircularProgressBarView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.isEmptyNickname = NO;
     [self.tableView reloadData];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [[self mainTabbarController] hideTabbar:YES];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
 }
 
 #pragma mark - Override
@@ -103,6 +131,7 @@
     
     MyProfileSectionViewModel *sectionOneData = [[MyProfileSectionViewModel alloc] initWithRows:sectionOneDataSource];
     self.dataSource = sectionOneData;
+    self.isEmptyNickname = [[Settings sharedInstance].onlineUser nickname] == nil;
     [self.tableView reloadData];
 }
 
@@ -146,7 +175,6 @@
     chooseOptionController.selectedOptionName = selectedOptionName;
     chooseOptionController.selectionBlock = ^(NSInteger selectedIndex) {
          strongify(self)
-         NSLog(@"Selected index %@", @(selectedIndex));
          selectedField.fieldValue = statusNamesArray[selectedIndex];
          [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self showLoader];
@@ -166,6 +194,41 @@
         }];
     };
     [self.navigationController pushViewController:chooseOptionController animated:YES];
+}
+
+- (void)showChildPickerDialog:(NSArray<ProfileQuestionsOption *>*)optionsArray
+{
+    self.childPickerDialogView = [DialogViewController instansiateDialogViewWithType: DialogViewTypeCountPicker];
+    self.childPickerDialogView.showCancelButton = YES;
+    self.childPickerDialogView.delegate = self;
+    self.childPickerDialogView.continueButtonText = LOC(@"select_key");
+    self.childPickerDialogView.titleText = LOC(@"do_you_have_children");
+    self.childPickerDialogView.message = LOC(@"");
+    self.childPickerDialogView.pickerElementsArray = optionsArray;
+    [self addChildViewController:self.childPickerDialogView onView:self.view];
+}
+
+- (void)showChooseLocation:(NSInteger)questionId :(NSString*)pageTitle
+{
+    [self showLoader];
+    weakify(self);
+    [self.profileService getProfileQuestionWithComplition:questionId :^(NSArray <ProfileQuestionsDataModel *> *questionsData) {
+        strongify(self);
+        if(questionId == 1) {
+            
+            [self showChildPickerDialog:questionsData[0].options];
+        } else {
+            ChooseLocationViewController *chooseOptionController = [ChooseLocationViewController instantiateChooseOptionControllerWithData:questionsData pageTitle:pageTitle];
+            [self.navigationController pushViewController:chooseOptionController animated:YES];
+        }
+        
+        [self hideLoader];
+        
+    } failure:^(NSError *error) {
+        strongify(self);
+        NSLog(@"Error");
+        [self hideLoader];
+    }];
 }
 
 #pragma makr - Handle actions
@@ -206,20 +269,40 @@
     [self showLoader];
     weakify(self);
     
-    [self.profileService updateUserDataField:selectedField.fieldName value:selectedField.fieldValue withComplition:^(id response) {
-        strongify(self);
-        [self hideLoader];
-        [self doneEditing];
-        if ([selectedField.fieldName isEqualToString:@"phone"]) {
-            [self showVerifyPhoneFlow:selectedField.fieldValue];
-        } else {
-            [self refreshUserData:YES];
-        }
-    } failure:^(NSError *error) {
-        strongify(self);
-        [self hideLoader];
-        [self doneEditing];
-    }];
+    if([selectedField.fieldName isEqualToString:@"region"]) {
+        
+        [self.profileService updateUserDataField:@"Question ID" :@"Question ID" :@"Question ID" :@"Question ID" withComplition:^(id response) {
+            strongify(self);
+            [self hideLoader];
+            [self doneEditing];
+            if ([selectedField.fieldName isEqualToString:@"phone"]) {
+                [self showVerifyPhoneFlow:selectedField.fieldValue];
+            } else {
+                [self refreshUserData:YES];
+            }
+        } failure:^(NSError *error) {
+            strongify(self);
+            [self hideLoader];
+            [self doneEditing];
+        }];
+        
+    } else {
+        
+        [self.profileService updateUserDataField:selectedField.fieldName value:selectedField.fieldValue withComplition:^(id response) {
+            strongify(self);
+            [self hideLoader];
+            [self doneEditing];
+            if ([selectedField.fieldName isEqualToString:@"phone"]) {
+                [self showVerifyPhoneFlow:selectedField.fieldValue];
+            } else {
+                [self refreshUserData:YES];
+            }
+        } failure:^(NSError *error) {
+            strongify(self);
+            [self hideLoader];
+            [self doneEditing];
+        }];
+    }
 }
 
 
@@ -230,7 +313,7 @@
     VerifyPhoneNumberViewController *verifyVC = [storyboard instantiateViewControllerWithIdentifier:@"VerifyPhoneNumberViewController"];
     verifyVC.isFromEditPhoneNumber = YES;
     verifyVC.phoneNumber = newPhoneNumber;
-    [self presentViewController:verifyVC animated:YES completion:nil];
+    [[self navigationController] pushViewController:verifyVC animated:YES];
 }
 
 
@@ -244,6 +327,8 @@
     }
     [self.profileService getUserDataWithComplition:^(UserDataModel *userData) {
         strongify(self);
+        self.completePercentage = userData.filledPercent;
+        [self configureProfileComplete];
         [self configureDataSource];
         [self hideLoader];
     } failure:^(NSError *error) {
@@ -263,15 +348,31 @@
         UserDataFieldCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         ProfileViewFieldViewModel *fieldData = cell.fieldData;
         if ([fieldData.actionString isEqualToString:@"changeAppLanguage"]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+   //         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 //            ChooseLanguageVC *chooseLanguageVC = [storyboard instantiateViewControllerWithIdentifier:@"ChooseLanguageVC"];
 //            [self presentViewController:chooseLanguageVC animated:YES completion:nil];
         }
     } else {
         UserDataFieldCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         ProfileViewFieldViewModel *fieldData = cell.fieldData;
+        
         if ([fieldData.actionString isEqualToString:@"chooseMaritalStatus"]) {
             [self showSelectMaritalStatus:indexPath];
+            
+        } else if ([fieldData.actionString isEqualToString:@"chooseChildrenCount"]) {
+            NSInteger questionId = 1;
+            [self showChooseLocation:questionId :fieldData.fieldTitle];
+        } else if ([fieldData.actionString isEqualToString:@"chooseCurrentOcupation"]) {
+            NSInteger questionId = 2;
+            [self showChooseLocation:questionId :fieldData.fieldTitle];
+        } else if ([fieldData.actionString isEqualToString:@"chooseRegion"]) {
+            if ([fieldData.fieldName isEqualToString:@"city_village"]) {
+                NSInteger questionId = 4;
+                [self showChooseLocation:questionId :fieldData.fieldTitle];
+            } else {
+                NSInteger questionId = 3;
+                [self showChooseLocation:questionId :fieldData.fieldTitle];
+            }
         }
     }
 }
@@ -321,13 +422,21 @@
         cellIdentifier = @"SwitchActionTableViewCell";
     } else if (rowData.accessoryType == FieldAccessoryTypeAvatar) {
         cellIdentifier = @"AvatarTableViewCell";
+    } else if (rowData.accessoryType == FieldAccessoryTypeEditInNewPage) {
+        cellIdentifier = @"UserDataFieldQuestionCell";
     }
     
     cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
-    
     [cell configureCellWithViewModelData:rowData];
+    
+    if([rowData.fieldName isEqualToString:@"nickname"] && rowData.fieldValue == nil) {
+        [cell showReportIcon: !self.isCompleteTaped];
+    } else if (rowData.accessoryType == FieldAccessoryTypeEdit) {
+        [cell showReportIcon: YES];
+    }
+
     return cell;
 }
 
@@ -397,7 +506,7 @@
                                      }];
     [alertController addAction:newPhotoAction];
     
-    [newPhotoAction setValue:[UIColor mainTintColor1] forKey:@"titleTextColor"];
+    [newPhotoAction setValue:[UIColor purpleColor3] forKey:@"titleTextColor"];
     
     UIAlertAction *photoFromGalleryAction = [UIAlertAction
                                              actionWithTitle:LOC(@"choose_from_gallery_title_key")
@@ -409,7 +518,7 @@
                                                  NSLog(@"Photo From Gallery");
                                                  
                                              }];
-    [photoFromGalleryAction setValue:[UIColor mainTintColor1] forKey:@"titleTextColor"];
+    [photoFromGalleryAction setValue:[UIColor purpleColor3] forKey:@"titleTextColor"];
     [alertController addAction:photoFromGalleryAction];
     
     UIAlertAction *removePhotoAction = [UIAlertAction
@@ -422,7 +531,7 @@
                                             NSLog(@"Remove Photo");
                                             
                                         }];
-    [removePhotoAction setValue:[UIColor mainTintColor1] forKey:@"titleTextColor"];
+    [removePhotoAction setValue:[UIColor purpleColor3] forKey:@"titleTextColor"];
     [alertController addAction:removePhotoAction];
     
     UIAlertAction *cancelAction = [UIAlertAction
@@ -434,7 +543,7 @@
         
     }];
     [alertController addAction:cancelAction];
-    [cancelAction setValue:[UIColor mainTintColor1] forKey:@"titleTextColor"];
+    [cancelAction setValue:[UIColor purpleColor1] forKey:@"titleTextColor"];
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -460,7 +569,7 @@
         weakify(self);
         [self showLoader];
         [self.profileService uploadUserAvatar:self.selectedImage params:nil withComplition:^(id response) {
-//            [self.avatarCell updatePhotoWithLocalmage:self.selectedImage];
+            [self.avatarCell updatePhotoWithLocalmage:self.selectedImage];
             NSLog(@"Uploaded");
             strongify(self);
             [self hideLoader];
@@ -484,6 +593,110 @@
     }
 }
 
+#pragma mark - Progress View
+
+- (void)setUpCircularProgressBarView {
+    _circularProgressBarView = [[CircularProgressBarView alloc] initWithFrame:CGRectZero];
+    _circularProgressBarView.center = _progressLabel.center;
+    [self.circleProgressView addSubview:_circularProgressBarView];
+}
+
+- (void)configureProfileComplete {
+    
+    _profileComplateTitleLable.text = LOC(@"profile_completeness");
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    NSInteger integerPercentage = [self.completePercentage integerValue];
+    NSString *stringFromInteger = [NSString stringWithFormat:@"%ld", (long)integerPercentage];
+    NSString *concatenatedString = [stringFromInteger stringByAppendingString:@"%"];
+    double percentage = (double)integerPercentage / 100.0;
+    NSNumber *maxValue = @(100.00);
+    
+    [_circularProgressBarView progressAnimationWithDuration:0.25 toValue:percentage];
+    _progressLabel.text = concatenatedString;
+    
+    if([self.completePercentage doubleValue] == [maxValue doubleValue])
+    {
+        UIColor *completedColor = [UIColor colorWithRed:255.0/255.0 green:154.0/255.0 blue:192.0/255.0 alpha:1.0];
+        UIColor *completedColorBackground = [UIColor colorWithRed:255.0/255.0 green:235.0/255.0 blue:243.0/255.0 alpha:0.1];
+        [_circularProgressBarView updateProgressWithTrackColor:completedColor];
+        _progressLabel.textColor = completedColor;
+        
+        [_circularProgressBarView progressAnimationWithDuration:0.25 toValue:1.0];
+        
+        paragraphStyle.lineSpacing = 1;
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:LOC(@"profile_completed_description")];
+        [attrString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attrString.length)];
+        _profileComplateLable.attributedText = attrString;
+        
+    } else
+    {
+        self.completeDialogViewController = [[CompleteProfileDialogViewController alloc] init];
+        self.completeDialogViewController.delegate = self;
+        NSInteger integerPercentage = [self.completePercentage integerValue];
+        NSString *stringFromInteger = [NSString stringWithFormat:@"%ld", (long)integerPercentage];
+        NSString *concatenatedString = [stringFromInteger stringByAppendingString:@"%"];
+        double percentage = (double)integerPercentage / 100.0;
+        
+        self.completeDialogViewController.progressPercentageString = concatenatedString;
+        self.completeDialogViewController.progressPercentage = percentage;
+        
+        if (!([[Settings sharedInstance].selectedCountryCode isEqualToString:@"irq"]) && !self.isShowCompleteProfile) {
+            [self addChildViewController:self.completeDialogViewController onView:self.view];
+        }
+        UIColor *completedColor = [UIColor colorWithRed:255.0/255.0 green:154.0/255.0 blue:192.0/255.0 alpha:1.0];
+        UIColor *completedColorBackground = [UIColor colorWithRed:255.0/255.0 green:235.0/255.0 blue:243.0/255.0 alpha:1.0];
+        [_circularProgressBarView updateProgressWithTrackColor:completedColor];
+        _progressLabel.textColor = completedColor;
+        _profileCompleteView.userInteractionEnabled = YES;
+        
+        paragraphStyle.lineSpacing = 5;
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:LOC(@"profile_completeness_description")];
+        [attrString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attrString.length)];
+        _profileComplateLable.attributedText = attrString;
+        self.isShowCompleteProfile = YES;
+    }
+    
+    if ([[Settings sharedInstance].selectedCountryCode isEqualToString:@"irq"]) {
+        _profileCompleteView.hidden = YES;
+        _completeProfileBackView.hidden = YES;
+        [self.view removeConstraint:self.tableViewTopDistance];
+        NSLayoutConstraint *constraintNew = [NSLayoutConstraint constraintWithItem:self.tableView
+                                                                         attribute:NSLayoutAttributeTop
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem: self.view
+                                                                         attribute:NSLayoutAttributeTop
+                                                                        multiplier:1.0
+                                                                          constant:50.0];
+        [self.view addConstraint:constraintNew];
+        [self.view layoutIfNeeded];
+    }
+}
+
+#pragma mark - DialogViewDelegate
+
+- (void)dialogViewDidPressActionButton:(DialogViewController *)dialogView
+{
+    [self showLoader];
+    [self.profileService updateUserDataField:@"profile_question" :@1 :@"basic" :dialogView.pickedElement.id withComplition:^(id response) {
+        [self hideLoader];
+        [self refreshUserData:YES];
+    } failure:^(NSError *error) {
+        [self hideLoader];
+        [self configureDataSource];
+    }];
+}
+
+- (void)dialogViewDidCancel:(DialogViewController *)dialogView
+{
+   // [self.navigationController popViewControllerAnimated:NO];
+}
+
+- (void)didCompleteProfile
+{
+    [self showCompleteProfile];
+}
+
 
 #pragma mark - UIImagePickerControllerDelegate
 
@@ -504,9 +717,49 @@
     [picker dismissViewControllerAnimated:YES completion:^{}];
 }
 
+- (void)showCompleteProfile
+{
+    NSNumber *maxValue = @(100.00);
+    NSNumber *nickNameValue = @(90.00);
+    
+    if([self.completePercentage doubleValue] != [maxValue doubleValue]) {
+        if([self.completePercentage doubleValue] == [nickNameValue doubleValue] && _isEmptyNickname == YES) {
+            self.isCompleteTaped = YES;
+            [self.tableView setContentOffset:CGPointZero animated:YES];
+            [self.tableView reloadData];
+            _profileCompleteView.userInteractionEnabled = YES;
+        } else {
+            
+            [self showLoader];
+            weakify(self);
+            [self.profileService getProfileQuestionsWithComplition:^(NSArray <ProfileQuestionsDataModel *> *questionsData) {
+                strongify(self);
+                [self configureDataSource];
+                CompleteProfileViewController *chooseOptionController = [CompleteProfileViewController instantiateChooseOptionControllerWithData:questionsData];
+                
+                self.profileCompleteView.userInteractionEnabled = YES;
+                [self.navigationController pushViewController:chooseOptionController animated:YES];
+                [self hideLoader];
+                
+            } failure:^(NSError *error) {
+                strongify(self);
+                NSLog(@"Error");
+                [self hideLoader];
+            }];
+        }
+    } else {
+             _profileCompleteView.userInteractionEnabled = NO;
+    }
+}
+
 #pragma mark - Actions
 
 - (IBAction)cancelButtonPressed:(UIBarButtonItem *)sender {
     [self doneEditing];
+}
+
+- (void)completeProfileTap:(UITapGestureRecognizer *)recognizer
+{
+    [self showCompleteProfile];
 }
 @end

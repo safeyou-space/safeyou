@@ -20,12 +20,12 @@
 //@property (weak, nonatomic) IBOutlet UIButton *mailButton;
 
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *logoImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *serviceNameLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *addressLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *address2Label;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *emailLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *phoneNumberLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *infoLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *serviceNameLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *addressLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *address2Label;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *emailLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *phoneNumberLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *infoLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableButton *chatButton;
 
 @property (weak, nonatomic) IBOutlet UIView *emailContainerView;
@@ -37,8 +37,6 @@
 - (IBAction)mailButtonAction:(UIButton *)sender;
 - (IBAction)phoneButtonAction:(UIButton *)sender;
 
-
-
 @end
 
 @implementation NetworkItemTableViewCell
@@ -46,7 +44,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-//    self.infoContainerView.hidden = YES;
 }
 
 - (void)prepareForReuse
@@ -74,11 +71,9 @@
     self.emailLabel.text = serviceData.email;
     self.phoneNumberLabel.text = serviceData.phoneNumber;
     self.chatButton.hidden = self.hideChatButton;
-    
-    NSMutableAttributedString *mAttributedDescription = [[NSString attributedStringFromHTML:serviceData.infoText] mutableCopy];
-    [mAttributedDescription addAttribute:NSFontAttributeName value:[UIFont hyRobotoFontRegularOfSize:16.0] range:NSMakeRange(0, mAttributedDescription.length)];
-    self.infoLabel.attributedText = mAttributedDescription;
-    
+    self.chatButton.imageColorType = 1;
+    self.infoLabel.attributedText = serviceData.attributedInfoText;
+
 }
 
 - (void)configureWithSearchSuggestion:(NSString *)suggestion

@@ -18,18 +18,18 @@
 @interface PrivateChatTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *dateLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *dateLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableView *mainContentView;
 @property (weak, nonatomic) IBOutlet UIView *repliedMessageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *oponentNameLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *oponentMessageLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *oponentNameLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *oponentMessageLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *messageContentImageView;
 @property (weak, nonatomic) IBOutlet UIView *messageContentAudio;
 @property (weak, nonatomic) IBOutlet UIView *messageContentText;
 
 @property (weak, nonatomic) IBOutlet UIButton *audioPlayButton;
 @property (weak, nonatomic) IBOutlet UIProgressView *audioProgressView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *audioDurationLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *audioDurationLabel;
 
 @property (nonatomic) NSTimer *audioRecordTimer;
 @property (nonatomic) int audioRecordTime;
@@ -62,11 +62,13 @@
     if (messageData.messageFiles.count > 0) {
         self.messageFileDataModel = [MessageFileDataModel modelObjectWithDictionary:messageData.messageFiles[0]];
         if (self.messageFileDataModel.type == FileTypeImage) {
-            if([self.messageFileDataModel.mimetype isEqualToString:@"audio/mpeg"]) {
+            if([self.messageFileDataModel.mimetype isEqualToString:@"audio/mpeg"] || [self.messageFileDataModel.mimetype isEqualToString:@"audio/wav"]) {
                 self.messageContentAudio.hidden = NO;
+                self.messageContentText.hidden = YES;
                 self.audioDurationLabel.text = self.messageFileDataModel.audioDuration;
             } else {
                 self.messageContentImageView.hidden = NO;
+                [_messageContentAudio performSelectorOnMainThread:@selector(removeFromSuperview) withObject:nil waitUntilDone:NO];
                 UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnImageView:)];
                 [self.messageContentImageView addGestureRecognizer:tapGesture];
                 [self.messageContentImageView sd_setImageWithURL:[self.messageFileDataModel mediaPath] placeholderImage:messageData.messageImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
@@ -77,6 +79,7 @@
             }
         }
     } else {
+        [_messageContentAudio performSelectorOnMainThread:@selector(removeFromSuperview) withObject:nil waitUntilDone:NO];
         self.messageContentText.hidden = NO;
     }
 }

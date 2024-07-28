@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *firstAvatarImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *secondAvatarImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *thirdAvatarImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *titleLabel;
 
 // constraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *conmmentsCountLabelLeadingConstraint;

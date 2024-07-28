@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,28 +35,28 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="lu8-W5-inG">
                                                 <rect key="frame" x="0.0" y="0.0" width="64.5" height="32.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNg-IW-1bE" customClass="HyRobotoLabelBold">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNg-IW-1bE" customClass="SYLabelBold">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="17"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                                                <integer key="value" value="6"/>
+                                                                <integer key="value" value="23"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Role (NGO)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbz-sQ-vUO" customClass="HyRobotoLabelRegular">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Role (NGO)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbz-sQ-vUO" customClass="SYLabelRegular">
                                                         <rect key="frame" x="0.0" y="18" width="64.5" height="14.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                                                <integer key="value" value="1"/>
+                                                                <integer key="value" value="24"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
                                                                 <real key="value" value="1"/>
@@ -71,8 +71,16 @@
                                                     <constraint firstAttribute="width" constant="16" id="uMi-Yx-Jmg"/>
                                                     <constraint firstAttribute="height" constant="16" id="yF7-Te-sOu"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nov 4, 18:03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPC-MC-xli" customClass="HyRobotoLabelLight">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nov 4, 18:03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JPC-MC-xli" customClass="SYLabelLight">
                                                 <rect key="frame" x="140.5" y="4" width="60.5" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                                 <nil key="textColor"/>
@@ -103,7 +111,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cYy-hi-CoX">
                                         <rect key="frame" x="0.0" y="41.5" width="201" height="138.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="help_icon_hy" translatesAutoresizingMaskIntoConstraints="NO" id="FiI-Hg-viq">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FiI-Hg-viq">
                                                 <rect key="frame" x="0.0" y="0.0" width="82" height="62"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="FiI-Hg-viq" secondAttribute="height" multiplier="160:121" id="aHV-oM-afz"/>
@@ -141,7 +149,7 @@
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                <integer key="value" value="3"/>
+                                                <integer key="value" value="23"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
                                                 <real key="value" value="1"/>
@@ -149,12 +157,17 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWJ-q5-bEN">
-                                        <rect key="frame" x="112" y="5" width="109" height="22"/>
+                                        <rect key="frame" x="91" y="5" width="130" height="22"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jiR-ga-Get" customClass="SYDesignableButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="22"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                                 <state key="normal" image="icon_like"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="likeButtonPressed:" destination="FTh-GP-vJO" eventType="touchUpInside" id="L5z-fp-pDr"/>
                                                 </connections>
@@ -193,6 +206,11 @@
                                                 <rect key="frame" x="32" y="0.0" width="32" height="22"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                                 <state key="normal" image="icon_private_message"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="messageButtonPressed:" destination="FTh-GP-vJO" eventType="touchUpInside" id="hYJ-mg-NhX"/>
                                                 </connections>
@@ -228,16 +246,13 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wxy-Mx-BvE" customClass="SYDesignableButton">
-                                                <rect key="frame" x="66" y="0.0" width="43" height="22"/>
+                                                <rect key="frame" x="66" y="0.0" width="32" height="22"/>
                                                 <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="11"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
-                                                <state key="normal" title="Reply"/>
+                                                <state key="normal" image="icon-reply"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                                                        <integer key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
-                                                        <real key="value" value="1"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                        <integer key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -245,7 +260,7 @@
                                                 </connections>
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQm-nz-nJ6" userLabel="Reply Seperator">
-                                                <rect key="frame" x="109" y="0.0" width="2" height="22"/>
+                                                <rect key="frame" x="98" y="0.0" width="2" height="22"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKj-De-8LV" customClass="SYDesignableView">
                                                         <rect key="frame" x="0.0" y="10" width="2" height="2"/>
@@ -274,12 +289,17 @@
                                                     <constraint firstItem="aKj-De-8LV" firstAttribute="leading" secondItem="QQm-nz-nJ6" secondAttribute="leading" id="ReX-fD-ZZE"/>
                                                 </constraints>
                                             </view>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pP-RK-Co8" customClass="SYDesignableButton">
-                                                <rect key="frame" x="109" y="0.0" width="0.0" height="22"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWt-Oa-Bpz" customClass="SYDesignableButton">
+                                                <rect key="frame" x="98" y="0.0" width="32" height="22"/>
                                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                                                 <state key="normal" image="icon_more"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                        <integer key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="moreButtonPressed:" destination="FTh-GP-vJO" eventType="touchUpInside" id="3Uv-ag-nrZ"/>
+                                                    <action selector="moreButtonPressed:" destination="FTh-GP-vJO" eventType="touchUpInside" id="XkS-QC-xKB"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -326,14 +346,22 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EEq-tC-QqD" customClass="SYDesignableView">
                         <rect key="frame" x="96" y="228" width="62.5" height="24"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="icon_like_selected" translatesAutoresizingMaskIntoConstraints="NO" id="c4c-lc-hJi">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="icon_like_selected" translatesAutoresizingMaskIntoConstraints="NO" id="c4c-lc-hJi" customClass="SYDesignableImageView">
                                 <rect key="frame" x="8" y="6" width="14" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="1aF-dQ-i40"/>
                                     <constraint firstAttribute="width" constant="14" id="Sg8-7L-4s5"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkY-ha-a0n" customClass="HyRobotoLabelLight">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkY-ha-a0n" customClass="SYLabelLight">
                                 <rect key="frame" x="28" y="2" width="26.5" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="textColor"/>
@@ -368,18 +396,6 @@
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="12"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="shadowColorType">
-                                <integer key="value" value="6"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                <real key="value" value="1"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                <real key="value" value="0.10000000000000001"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                <size key="value" width="0.0" height="0.0"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -422,7 +438,7 @@
                 <outlet property="messageButton" destination="Azd-DV-Nqc" id="8R3-YU-by6"/>
                 <outlet property="messageButtonDotSeperator" destination="EBg-Dp-HLu" id="zbF-Qg-Um0"/>
                 <outlet property="messageContentImageView" destination="FiI-Hg-viq" id="s7p-Ij-2Zk"/>
-                <outlet property="moreButton" destination="7pP-RK-Co8" id="Tsy-Zu-5W2"/>
+                <outlet property="moreButton" destination="EWt-Oa-Bpz" id="TCU-04-DmD"/>
                 <outlet property="replyButton" destination="wxy-Mx-BvE" id="zrX-U6-lZn"/>
                 <outlet property="replyButtonDotSeperator" destination="QQm-nz-nJ6" id="9Db-xp-oQX"/>
                 <outlet property="userCheckIconImageView" destination="QdL-PU-TkM" id="1iR-8S-Pm3"/>
@@ -433,10 +449,10 @@
         </tableViewCell>
     </objects>
     <designables>
-        <designable name="7pP-RK-Co8">
+        <designable name="Azd-DV-Nqc">
             <size key="intrinsicContentSize" width="32" height="22"/>
         </designable>
-        <designable name="Azd-DV-Nqc">
+        <designable name="EWt-Oa-Bpz">
             <size key="intrinsicContentSize" width="32" height="22"/>
         </designable>
         <designable name="QdL-PU-TkM">
@@ -445,23 +461,26 @@
         <designable name="TYA-Ta-DnN">
             <size key="intrinsicContentSize" width="41" height="41"/>
         </designable>
+        <designable name="c4c-lc-hJi">
+            <size key="intrinsicContentSize" width="14" height="12"/>
+        </designable>
         <designable name="jiR-ga-Get">
             <size key="intrinsicContentSize" width="30" height="22"/>
         </designable>
         <designable name="wxy-Mx-BvE">
-            <size key="intrinsicContentSize" width="43" height="11"/>
+            <size key="intrinsicContentSize" width="32" height="16"/>
         </designable>
     </designables>
     <resources>
         <image name="avatar" width="41" height="41"/>
         <image name="forum_user_check_icon" width="16" height="16"/>
-        <image name="help_icon_hy" width="62" height="62"/>
+        <image name="icon-reply" width="16" height="16"/>
         <image name="icon_like" width="14" height="12"/>
         <image name="icon_like_selected" width="14" height="12"/>
         <image name="icon_more" width="16" height="16"/>
         <image name="icon_private_message" width="16" height="16"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

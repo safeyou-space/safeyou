@@ -9,23 +9,19 @@
 #ifndef UIStyles_h
 #define UIStyles_h
 
-#import "UIFont+HyRoboto.h"
+#import "UIFont+AppFont.h"
 
-#import "HyRobotoLabelRegular.h"
-#import "HyRobotoLabelNormal.h"
-#import "HyRobotoLabelMedium.h"
-#import "HyRobotoLabelMediumItalic.h"
-#import "HyRobotoLabelItalic.h"
-#import "HyRobotoLabelBold.h"
-#import "HyRobotoLabelBoldItalic.h"
-#import "HyRobotoLabelBlack.h"
-#import "HyRobotoLabelBlackItalic.h"
-#import "HyRobotoLabelLight.h"
-#import "HyRobotoLabelLightItalic.h"
-#import "HyRobotoLabelThin.h"
-#import "HyRobotoLabelThinItalic.h"
-#import "HyRobotoButton.h"
-#import "HyRobotoRegualrTextField.h"
+#import "SYLabelRegular.h"
+#import "SYLabelMedium.h"
+#import "SYLabelMediumItalic.h"
+#import "SYLabelItalic.h"
+#import "SYLabelBold.h"
+#import "SYLabelBoldItalic.h"
+#import "SYLabelLight.h"
+#import "SYLabelLightItalic.h"
+#import "SYRegularButtonButton.h"
+#import "SYRegualrTextField.h"
+#import "SYButtonBold.h"
 
 
 #endif /* UIStyles_h */

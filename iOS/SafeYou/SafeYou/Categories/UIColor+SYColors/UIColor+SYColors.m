@@ -9,12 +9,14 @@
 #import "UIColor+SYColors.h"
 
 #pragma mark - Main TintColor Purple
-static NSString * const mainTitnColorHex1 = @"#DC5D78";
-static NSString * const mainTitnColorHex2 = @"#DF6D85";
-static NSString * const mainTitnColorHex3 = @"#E37D93";
-static NSString * const mainTitnColorHex4 = @"#EA9DAE";
-static NSString * const mainTitnColorHex5 = @"#F1BEC9";
-static NSString * const mainTitnColorHex6 = @"#F8DEE4";
+static NSString * const mainTitnColorHex1 = @"#ff9ac0";
+static NSString * const mainTitnColorHex2 = @"#ffaecc";
+static NSString * const mainTitnColorHex3 = @"#ffc2d9";
+static NSString * const mainTitnColorHex4 = @"#ffd6e6";
+static NSString * const mainTitnColorHex5 = @"#ffebf3";
+static NSString * const mainTitnColorHex6 = @"#fff9fb";
+
+// not used
 static NSString * const mainTitnColorHex7 = @"#FBEFF2";
 static NSString * const mainTitnColorHex8 = @"#FEFBFC";
 
@@ -23,19 +25,34 @@ static NSString * const gradientColoeTopHex = @"#C783DC";
 
 static NSString * const gradientColorOtherGray = @"#F5F5F5";
 
-static NSString * const blackColorHex = @"#1D1D1D"; //black
-static NSString * const darkGrayColorHex = @"#818181"; // dark gray
-static NSString * const lightGrayColorHex = @"#C6C6C6"; // light gray
+static NSString * const blackColorHex = @"#000000"; //black
+static NSString * const darkGrayColorHex = @"#727991"; // dark gray
+static NSString * const lightGrayColorHex = @"#D0D2DA"; // light gray
 static NSString * const whiteColorHex =  @"#FFFFFF"; // white
 
-static NSString * const navyBlueColorHex = @"#142A3B"; // navy blue
-static NSString * const blueColorHex = @"#1F3C53"; // blue
-static NSString * const lightBlueColorHex = @"#20BAFF"; // light blue
+static NSString * const navyBlueColorHex = @"#142149"; // navy blue
+static NSString * const blueColorHex = @"#5C64F2"; // blue
+static NSString * const lightBlueColorHex = @"#7C83F4"; // light blue
 static NSString * const greenColorHex = @"#30BF05"; // green
-static NSString * const redColorHex1 = @"#FE0000"; // red1
-static NSString * const redColorHex2 = @"#F2253A"; // red2
-static NSString * const purpleColorHex1 = @"#9A3F7F"; // purple1
+static NSString * const greenColorHex2 = @"#3CB371"; // light green
+static NSString * const redColorHex1 = @"#EA5B54"; // red1
+static NSString * const redColorHex2 = @"#FF4D4F"; // red2
+static NSString * const redColorHex3 = @"#F08080"; // red3
+static NSString * const redColorHex4 = @"#DF6D85"; // red4
 
+static NSString * const purpleColorHex1 = @"#501239"; // purple1
+static NSString * const purpleColorHex2 = @"#733E5F"; // purple2
+static NSString * const purpleColorHex3 = @"#966E87"; // purple3
+static NSString * const purpleColorHex4 = @"#B99EAF"; // purple4
+static NSString * const purpleColorHex5 = @"#DCCED7"; // purple5
+
+static NSString * const grayColorHex1 = @"#A79EAA"; // gray1
+
+// Open survey colors
+static NSString * const syrveyItemColorHex1 = @"#F19FBF";
+static NSString * const syrveyItemColorHex2 = @"#5D64EA";
+static NSString * const syrveyItemColorHex3 = @"#491738";
+static NSString * const syrveyItemColorHex4 = @"#D9645A";
 
 
 @implementation UIColor (SYColors)
@@ -142,6 +159,11 @@ static NSString * const purpleColorHex1 = @"#9A3F7F"; // purple1
     return [UIColor colorFromHexString:greenColorHex];
 }
 
++ (UIColor *)greenColor2
+{
+    return [UIColor colorFromHexString:greenColorHex2];
+}
+
 + (UIColor *)redColor1
 {
     return [UIColor colorFromHexString:redColorHex1];
@@ -152,9 +174,64 @@ static NSString * const purpleColorHex1 = @"#9A3F7F"; // purple1
     return [UIColor colorFromHexString:redColorHex2];
 }
 
++ (UIColor *)redColor3
+{
+    return [UIColor colorFromHexString:redColorHex3];
+}
+
++ (UIColor *)redColor4
+{
+    return [UIColor colorFromHexString:redColorHex4];
+}
+
 + (UIColor *)purpleColor1
 {
     return [UIColor colorFromHexString:purpleColorHex1];
+}
+
++ (UIColor *)purpleColor2
+{
+    return [UIColor colorFromHexString:purpleColorHex2];
+}
+
++ (UIColor *)purpleColor3
+{
+    return [UIColor colorFromHexString:purpleColorHex3];
+}
+
++ (UIColor *)purpleColor4
+{
+    return [UIColor colorFromHexString:purpleColorHex4];
+}
+
++ (UIColor *)purpleColor5
+{
+    return [UIColor colorFromHexString:purpleColorHex5];
+}
+
++ (UIColor *)grayColor1
+{
+    return [UIColor colorFromHexString:grayColorHex1];
+}
+
++ (UIColor *)syrveyItemColor1
+{
+    return [UIColor colorFromHexString:syrveyItemColorHex1];
+}
+
++ (UIColor *)syrveyItemColor2
+{
+    return [UIColor colorFromHexString:syrveyItemColorHex2];
+}
+
++ (UIColor *)syrveyItemColor3
+{
+    return [UIColor colorFromHexString:syrveyItemColorHex3];
+}
+
++ (UIColor *)syrveyItemColor4
+{
+    return [UIColor colorFromHexString:syrveyItemColorHex4];
 }
 
 #pragma marl - Color factory for color types
@@ -234,7 +311,23 @@ static NSString * const purpleColorHex1 = @"#9A3F7F"; // purple1
         case SYColorTypeOtherAccent:
             color = [UIColor purpleColor1];
             break;
-            
+
+        case SYColorTypeOtherAccent2:
+            color = [UIColor purpleColor2];
+            break;
+
+        case SYColorTypeOtherAccent3:
+            color = [UIColor purpleColor3];
+            break;
+
+        case SYColorTypeOtherAccent4:
+            color = [UIColor purpleColor4];
+            break;
+        
+        case SYColorTypeOtherAccent5:
+            color = [UIColor purpleColor5];
+            break;
+
         default:
             color = [UIColor whiteColor];
             break;

@@ -7,6 +7,7 @@
 
 #import "UserDetail.h"
 #import "ImageDataModel.h"
+#import "ProfileQuestionsAnswersDataModel.h"
 
 
 NSString *const kUserDetailId = @"id";
@@ -28,6 +29,7 @@ NSString *const kUserDetailLastName = @"last_name";
 NSString *const kUserDetailIsAdmin = @"is_admin";
 NSString *const kUserDetailEmail = @"email";
 NSString *const kUserDetailEmergencyMessage = @"emergency_message";
+NSString *const kUserDetailProfileQuestionsAnswers = @"profile_questions_answers";
 
 
 @interface UserDetail ()
@@ -57,6 +59,7 @@ NSString *const kUserDetailEmergencyMessage = @"emergency_message";
 @synthesize isAdmin = _isAdmin;
 @synthesize email = _email;
 @synthesize emergencyMessage = _emergencyMessage;
+@synthesize profileQuestionsAnswers = _profileQuestionsAnswers;
 
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict {
@@ -69,26 +72,27 @@ NSString *const kUserDetailEmergencyMessage = @"emergency_message";
     // This check serves to make sure that a non-NSDictionary object
     // passed into the model class doesn't break the parsing.
     if (self && [dict isKindOfClass:[NSDictionary class]]) {
-            self.userDetailId = [self objectOrNilForKey:kUserDetailId fromDictionary:dict];
-            self.nickname = [self objectOrNilForKey:kUserDetailNickname fromDictionary:dict];
-            self.checkPolice = [[self objectOrNilForKey:kUserDetailCheckPolice fromDictionary:dict] doubleValue];
-            self.phone = [self objectOrNilForKey:kUserDetailPhone fromDictionary:dict];
-            self.image = [ImageDataModel modelObjectWithDictionary:[dict objectForKey:kUserDetailImage]];
-            self.status = [[self objectOrNilForKey:kUserDetailStatus fromDictionary:dict] doubleValue];
-            self.createdAt = [self objectOrNilForKey:kUserDetailCreatedAt fromDictionary:dict];
-            self.imageId = [self objectOrNilForKey:kUserDetailImageId fromDictionary:dict];
-            self.isVerifyingOtp = [[self objectOrNilForKey:kUserDetailIsVerifyingOtp fromDictionary:dict] doubleValue];
-            self.location = [self objectOrNilForKey:kUserDetailLocation fromDictionary:dict];
-            self.changePhone = [self objectOrNilForKey:kUserDetailChangePhone fromDictionary:dict];
-            self.birthday = [self objectOrNilForKey:kUserDetailBirthday fromDictionary:dict];
-            self.updatedAt = [self objectOrNilForKey:kUserDetailUpdatedAt fromDictionary:dict];
-            self.firstName = [self objectOrNilForKey:kUserDetailFirstName fromDictionary:dict];
-            self.role = [self objectOrNilForKey:kUserDetailRole fromDictionary:dict];
-            self.lastName = [self objectOrNilForKey:kUserDetailLastName fromDictionary:dict];
-            self.isAdmin = [self objectOrNilForKey:kUserDetailIsAdmin fromDictionary:dict];
-            self.email = [self objectOrNilForKey:kUserDetailEmail fromDictionary:dict];
-            self.emergencyMessage = [self objectOrNilForKey:kUserDetailEmergencyMessage fromDictionary:dict];
-
+        self.userDetailId = [self objectOrNilForKey:kUserDetailId fromDictionary:dict];
+        self.nickname = [self objectOrNilForKey:kUserDetailNickname fromDictionary:dict];
+        self.checkPolice = [[self objectOrNilForKey:kUserDetailCheckPolice fromDictionary:dict] doubleValue];
+        self.phone = [self objectOrNilForKey:kUserDetailPhone fromDictionary:dict];
+        self.image = [ImageDataModel modelObjectWithDictionary:[dict objectForKey:kUserDetailImage]];
+        self.status = [[self objectOrNilForKey:kUserDetailStatus fromDictionary:dict] doubleValue];
+        self.createdAt = [self objectOrNilForKey:kUserDetailCreatedAt fromDictionary:dict];
+        self.imageId = [self objectOrNilForKey:kUserDetailImageId fromDictionary:dict];
+        self.isVerifyingOtp = [[self objectOrNilForKey:kUserDetailIsVerifyingOtp fromDictionary:dict] doubleValue];
+        self.location = [self objectOrNilForKey:kUserDetailLocation fromDictionary:dict];
+        self.changePhone = [self objectOrNilForKey:kUserDetailChangePhone fromDictionary:dict];
+        self.birthday = [self objectOrNilForKey:kUserDetailBirthday fromDictionary:dict];
+        self.updatedAt = [self objectOrNilForKey:kUserDetailUpdatedAt fromDictionary:dict];
+        self.firstName = [self objectOrNilForKey:kUserDetailFirstName fromDictionary:dict];
+        self.role = [self objectOrNilForKey:kUserDetailRole fromDictionary:dict];
+        self.lastName = [self objectOrNilForKey:kUserDetailLastName fromDictionary:dict];
+        self.isAdmin = [self objectOrNilForKey:kUserDetailIsAdmin fromDictionary:dict];
+        self.email = [self objectOrNilForKey:kUserDetailEmail fromDictionary:dict];
+        self.emergencyMessage = [self objectOrNilForKey:kUserDetailEmergencyMessage fromDictionary:dict];
+        self.profileQuestionsAnswers = [self objectOrNilForKey:kUserDetailProfileQuestionsAnswers fromDictionary:dict];
+        
     }
     
     return self;
@@ -116,6 +120,7 @@ NSString *const kUserDetailEmergencyMessage = @"emergency_message";
     [mutableDict setValue:self.isAdmin forKey:kUserDetailIsAdmin];
     [mutableDict setValue:self.email forKey:kUserDetailEmail];
     [mutableDict setValue:self.emergencyMessage forKey:kUserDetailEmergencyMessage];
+    [mutableDict setValue:self.profileQuestionsAnswers forKey:kUserDetailProfileQuestionsAnswers];
 
     return [NSDictionary dictionaryWithDictionary:mutableDict];
 }
@@ -155,6 +160,7 @@ NSString *const kUserDetailEmergencyMessage = @"emergency_message";
     self.isAdmin = [aDecoder decodeObjectForKey:kUserDetailIsAdmin];
     self.email = [aDecoder decodeObjectForKey:kUserDetailEmail];
     self.emergencyMessage = [aDecoder decodeObjectForKey:kUserDetailEmergencyMessage];
+    self.profileQuestionsAnswers = [aDecoder decodeObjectForKey:kUserDetailProfileQuestionsAnswers];
     return self;
 }
 
@@ -180,6 +186,7 @@ NSString *const kUserDetailEmergencyMessage = @"emergency_message";
     [aCoder encodeObject:_isAdmin forKey:kUserDetailIsAdmin];
     [aCoder encodeObject:_email forKey:kUserDetailEmail];
     [aCoder encodeObject:_emergencyMessage forKey:kUserDetailEmergencyMessage];
+    [aCoder encodeObject:_profileQuestionsAnswers forKey:kUserDetailProfileQuestionsAnswers];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -208,6 +215,7 @@ NSString *const kUserDetailEmergencyMessage = @"emergency_message";
         copy.isAdmin = [self.isAdmin copyWithZone:zone];
         copy.email = [self.email copyWithZone:zone];
         copy.emergencyMessage = [self.emergencyMessage copyWithZone:zone];
+        copy.profileQuestionsAnswers = [self.profileQuestionsAnswers copyWithZone:zone];
     }
     
     return copy;

@@ -40,25 +40,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
-    [self configureNavibationBar];
-}
-
-- (void)configureNavibationBar
-{
-    [self.navigationController.navigationBar setTranslucent:NO];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor mainTintColor1]];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    UIImage *image = [self imageWithColor:[UIColor mainTintColor1] withPoint:CGSizeMake(1, 1)];
-    [self.navigationController.navigationBar setShadowImage:image];
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
-    [appearance configureWithOpaqueBackground];
-    appearance.backgroundColor = [UIColor mainTintColor1];
-    self.navigationController.navigationBar.standardAppearance = appearance;
-    self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
 }
 
 - (IBAction)agreeButtonPressed:(SYDesignableBarButtonItem *)sender {

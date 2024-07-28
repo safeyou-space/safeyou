@@ -1,20 +1,26 @@
 PODS:
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
-  - AFNetworking/NSURLSession (3.2.1):
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
   - DZNEmptyDataSet (1.8.1)
+  - FBAEMKit (12.0.2):
+    - FBSDKCoreKit_Basics (= 12.0.2)
+  - FBSDKCoreKit (12.0.2):
+    - FBAEMKit (= 12.0.2)
+    - FBSDKCoreKit_Basics (= 12.0.2)
+  - FBSDKCoreKit_Basics (12.0.2)
   - GoogleMaps (4.2.0):
     - GoogleMaps/Maps (= 4.2.0)
   - GoogleMaps/Base (4.2.0)
@@ -55,8 +61,9 @@ PODS:
   - "UITextView+Placeholder (1.4.0)"
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.0)
+  - AFNetworking (~> 4.0)
   - DZNEmptyDataSet
+  - FBSDKCoreKit
   - GoogleMaps
   - Lokalise
   - MBProgressHUD
@@ -70,6 +77,9 @@ SPEC REPOS:
   trunk:
     - AFNetworking
     - DZNEmptyDataSet
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
     - GoogleMaps
     - Lokalise
     - MBProgressHUD
@@ -84,8 +94,11 @@ SPEC REPOS:
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
-  AFNetworking: cb604b1c2bded0871f5f61f5d53653739e841d6b
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  FBAEMKit: c6b8ddf8371640fcd1a3b844d0f8884c8f334cea
+  FBSDKCoreKit: 506c0fd1c09a3075f62be8fa36bdd921c563daa9
+  FBSDKCoreKit_Basics: c0701d1634c944d60dd3c6361d66dbd0e707a456
   GoogleMaps: eb03e327edfd70b06de1e6e321653f73712df7ad
   Lokalise: 252c397887dfd9983331abffa90ab60cdb004e19
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
@@ -99,6 +112,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: 97cd983306c79c45ccd422940a40e1691e3e4185
+PODFILE CHECKSUM: 8d4c9c3f018b3a9c058c8c223a9d08c0d1483f64
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.15.2

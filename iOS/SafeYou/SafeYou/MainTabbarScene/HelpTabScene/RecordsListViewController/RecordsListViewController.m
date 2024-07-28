@@ -14,18 +14,20 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "UnderLineButtonView.h"
 #import "RecordSearchResult.h"
+#import "MainTabbarController.h"
 
-@interface RecordsListViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UnderLineButtonDelegate, UISearchBarDelegate>
+@interface RecordsListViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UISearchBarDelegate>
 
 @property (nonatomic) RecordsService *recordsService;
 @property (nonatomic) RecordsListDataModel *recordsDataSource;
 @property (nonatomic) NSArray *dataSource;
 @property (nonatomic) UISearchBar *searchBar;
 @property (nonatomic) BOOL isSearchActive;
+@property (weak, nonatomic) IBOutlet UIButton *buttonAll;
 
-@property (weak, nonatomic) IBOutlet UnderLineButtonView *buttonAll;
-@property (weak, nonatomic) IBOutlet UnderLineButtonView *buttonSaved;
-@property (weak, nonatomic) IBOutlet UnderLineButtonView *buttonSent;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSent;
+
+@property (weak, nonatomic) IBOutlet UIButton *buttonSaved;
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -47,20 +49,20 @@
 {
     [super viewDidLoad];
     
-    self.buttonAll.selected = YES;
-    self.buttonSaved.selected = NO;
-    self.buttonSent.selected = NO;
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self configureTabBar];
     [self configureSearchBar];
     self.extendedLayoutIncludesOpaqueBars = YES;
     [self enableKeyboardNotifications];
+    [self configureNavigationBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[self mainTabbarController] hideTabbar:YES];
     if (self.isSearchActive) {
         [self loadRecordsWithSearch:self.searchBar.text];
     } else {
@@ -70,9 +72,10 @@
 
 - (void)updateLocalizations
 {
-    [self.buttonAll setTitle:LOC(@"title_all")];
-    [self.buttonSaved setTitle:LOC(@"title_saved_key")];
-    [self.buttonSent setTitle:LOC(@"title_sent_key")];
+    [self.buttonAll  setTitle:LOC(@"title_all") forState:UIControlStateNormal];
+    [self.buttonSaved  setTitle:LOC(@"title_saved_key") forState:UIControlStateNormal];
+    [self.buttonSent  setTitle:LOC(@"title_sent_key") forState:UIControlStateNormal];
+
     [self.searchBar setValue:LOC(@"cancel") forKey:@"cancelButtonText"];
     self.searchBar.placeholder = LOC(@"search");
 }
@@ -81,17 +84,39 @@
 
 - (void)configureSearchBar
 {
+    UIColor *purpleColor = [UIColor purpleColor1];
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
     self.searchBar.showsCancelButton = NO;
     self.searchBar.delegate = self;
     self.searchBar.layer.cornerRadius = 15.0;
     self.searchBar.clipsToBounds = YES;
-    self.searchBar.tintColor = [UIColor whiteColor];
-    self.searchBar.searchTextField.textColor = [UIColor whiteColor];
-    self.searchBar.searchTextField.leftView.tintColor = [UIColor whiteColor];
-    self.searchBar.searchTextField.backgroundColor = [UIColor mainTintColor3];
-    [self.searchBar setImage:[UIImage imageNamed:@"close_icon"] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
+    self.searchBar.tintColor = purpleColor;
+    self.searchBar.searchTextField.textColor = purpleColor;
+    self.searchBar.searchTextField.leftView.tintColor = purpleColor;
+    self.searchBar.searchTextField.backgroundColor = [UIColor whiteColor];
+    self.searchBar.searchTextField.layer.borderColor = purpleColor.CGColor;
+    self.searchBar.searchTextField.layer.borderWidth = 1.0;
+    self.searchBar.searchTextField.layer.cornerRadius = 15.0;
+    [self.searchBar setImage:[[UIImage imageNamed:@"close_icon"] imageWithTintColor:purpleColor] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
     self.navigationItem.titleView = self.searchBar;
+}
+
+#pragma mark - TabBar
+
+- (void)configureTabBar
+{
+    self.buttonAll.selected = YES;
+    self.buttonSaved.selected = NO;
+    self.buttonSent.selected = NO;
+    [self.buttonAll setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    self.buttonAll.backgroundColor = UIColor.purpleColor1;
+    
+    self.buttonAll.layer.cornerRadius = 15;
+    self.buttonAll.clipsToBounds = YES;
+    self.buttonSaved.layer.cornerRadius = 15;
+    self.buttonSaved.clipsToBounds = YES;
+    self.buttonSent.layer.cornerRadius = 15;
+    self.buttonSent.clipsToBounds = YES;
 }
 
 #pragma mark - Data
@@ -140,37 +165,54 @@
     self.buttonAll.selected = NO;
     self.buttonSaved.selected = NO;
     self.buttonSent.selected = NO;
+    [self.buttonAll setTitleColor:UIColor.purpleColor1 forState:UIControlStateNormal];
+    self.buttonAll.backgroundColor = UIColor.mainTintColor5;
+    [self.buttonSaved setTitleColor:UIColor.purpleColor1 forState:UIControlStateNormal];
+    self.buttonSaved.backgroundColor = UIColor.mainTintColor5;
+    [self.buttonSent setTitleColor:UIColor.purpleColor1 forState:UIControlStateNormal];
+    self.buttonSent.backgroundColor = UIColor.mainTintColor5;
 }
 
-- (void)underlineButtonAction:(UnderLineButtonView *)sender
-{
+- (IBAction)allButtonAction:(id)sender {
+    if (self.isSearchActive) {
+        [self.searchBar resignFirstResponder];
+        
+    }
+    [self resetAllButtons];
+    self.buttonAll.selected = YES;
+    self.buttonAll.backgroundColor = UIColor.purpleColor1;
+    self.dataSource = self.recordsDataSource.records;
+    [self.tableView reloadData];
+    [self.buttonAll setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+}
+
+- (IBAction)savedButtonAction:(id)sender {
     if (self.isSearchActive) {
         [self.searchBar resignFirstResponder];
     }
     [self resetAllButtons];
-    sender.selected = YES;
-    [self applyFilter:sender];
+    self.buttonSaved.selected = YES;
+    self.buttonSaved.backgroundColor = UIColor.purpleColor1;
+    [self.buttonSaved setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isSent=%@",@(NO)];
+    NSArray *filteredArray = [self.recordsDataSource.records filteredArrayUsingPredicate:predicate];
+    self.dataSource = filteredArray;
+    [self.tableView reloadData];
 }
-     
 
-- (void)applyFilter:(UnderLineButtonView *)selectedButton
-{
-    if (selectedButton == self.buttonAll) {
-        self.dataSource = self.recordsDataSource.records;
+- (IBAction)sentButtonAction:(id)sender {
+    if (self.isSearchActive) {
+        [self.searchBar resignFirstResponder];
     }
+    [self resetAllButtons];
+    self.buttonSent.selected = YES;
+    self.buttonSent.backgroundColor = UIColor.purpleColor1;
+    [self.buttonSent setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
     
-    if (selectedButton == self.buttonSaved) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isSent=%@",@(NO)];
-        NSArray *filteredArray = [self.recordsDataSource.records filteredArrayUsingPredicate:predicate];
-        self.dataSource = filteredArray;
-    }
-    
-    if (selectedButton == self.buttonSent) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isSent=%@",@(YES)];
-        NSArray *filteredArray = [self.recordsDataSource.records filteredArrayUsingPredicate:predicate];
-        self.dataSource = filteredArray;
-    }
-    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isSent=%@",@(YES)];
+    NSArray *filteredArray = [self.recordsDataSource.records filteredArrayUsingPredicate:predicate];
+    self.dataSource = filteredArray;
     [self.tableView reloadData];
 }
 
@@ -218,12 +260,7 @@
 {
     
 }
-
-
-
-
-     
-     
+   
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -330,6 +367,14 @@
         destinationVC.recordsList = self.dataSource;
         destinationVC.selectedIndex = senderIndexPath.row;
     }
+}
+
+#pragma mark - UI Customization
+
+- (void)configureNavigationBar
+{
+    self.navigationController.navigationBar.standardAppearance.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.scrollEdgeAppearance.backgroundColor = [UIColor whiteColor];
 }
 
 @end

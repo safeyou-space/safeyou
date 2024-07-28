@@ -21,6 +21,8 @@
 #import "ChatUserDataModel.h"
 #import "SocketIOAPIService.h"
 #import "PrivateChatRoomViewController.h"
+#import "SafeYou-Swift.h"
+#import "MainTabbarController.h"
 
 @interface NGODetailsViewController () <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, NGOAvatarTableViewCellDelegate>
 
@@ -59,28 +61,15 @@
     UINib *networkItemCellNib = [UINib nibWithNibName:@"NGOAvatarTableViewCell" bundle:nil];
     [self.tableView registerNib:networkItemCellNib forCellReuseIdentifier:@"NGOAvatarTableViewCell"];
     self.tableView.separatorColor = [UIColor mainTintColor1];
-    [self showLoader];
-    weakify(self);
-    [self.serviceDataApi getEmergencyServicesById:self.serviceData.serviceId type:@"" complition:^(EmergencyServiceDataModel * _Nonnull serviceData) {
-        strongify(self);
-        [self hideLoader];
-        self.serviceData = serviceData;
-        [self configureDataSource];
-        [self.tableView reloadData];
-    } failure:^(NSError * _Nullable error) {
-        strongify(self);
-        [self hideLoader];
-        [self configureDataSource];
-        [self.tableView reloadData];
-    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self loadNgoData];
     [self configureViewsWithData];
     [self configurePlacesOnMap];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
 }
 
 - (void)configurePlacesOnMap
@@ -99,6 +88,26 @@
     [self.gMapView setCamera:camera];
 }
 
+#pragma mark -
+
+- (void)loadNgoData
+{
+    [self showLoader];
+    weakify(self);
+    [self.serviceDataApi getEmergencyServicesById:self.serviceData.serviceId type:@"" complition:^(EmergencyServiceDataModel * _Nonnull serviceData) {
+        strongify(self);
+        [self hideLoader];
+        self.serviceData = serviceData;
+        [self configureDataSource];
+        [self.tableView reloadData];
+    } failure:^(NSError * _Nullable error) {
+        strongify(self);
+        [self hideLoader];
+        [self configureDataSource];
+        [self.tableView reloadData];
+    }];
+}
+
 #pragma mark - ConfigureDataSource
 
 - (void)configureDataSource
@@ -109,15 +118,16 @@
         NGOAvatarCellViewModel *avatarViewModel = [[NGOAvatarCellViewModel alloc] init];
         avatarViewModel.title = self.serviceData.name;
         avatarViewModel.logoURL = [self.serviceData.image imageFullURL];
+        avatarViewModel.rating = self.serviceData.reviewData.rate;
         [tempArray addObject:avatarViewModel];
     }
     
     if (self.serviceData.infoText.length) {
         NGOContactViewModel *infoViewModel = [[NGOContactViewModel alloc] init];
         infoViewModel.textValue = self.serviceData.infoText;
-        infoViewModel.title = LOC(@"address");
+        infoViewModel.title = LOC(@"info");
         infoViewModel.iconURL = self.serviceData.serviceAddressImageURL;
-        infoViewModel.icon = [UIImage imageNamed:@"info_icon"];
+        infoViewModel.icon = [[UIImage imageNamed:@"info_icon"] imageWithTintColor:[UIColor mainTintColor1]];
         infoViewModel.actionType = NGOActionTypeNone;
         [tempArray addObject:infoViewModel];
     }
@@ -127,7 +137,7 @@
         addressViewModel.textValue = self.serviceData.serviceAddress;
         addressViewModel.title = LOC(@"address");
         addressViewModel.iconURL = self.serviceData.serviceAddressImageURL;
-        addressViewModel.icon = [UIImage imageNamed:@"location_icon"];
+        addressViewModel.icon = [[UIImage imageNamed:@"location_icon"] imageWithTintColor:[UIColor mainTintColor1]];
         addressViewModel.actionType = NGOActionTypeNone;
         [tempArray addObject:addressViewModel];
     }
@@ -137,7 +147,7 @@
         phoneViewModel.textValue = self.serviceData.phoneNumber;
         phoneViewModel.title = LOC(@"mobile_text_key");
         phoneViewModel.iconURL = self.serviceData.phoneIconURL;
-        phoneViewModel.icon = [UIImage imageNamed:@"phone_icon"];
+        phoneViewModel.icon = [[UIImage imageNamed:@"phone_icon"] imageWithTintColor:[UIColor mainTintColor1]];
         phoneViewModel.actionType = NGOActionTypeOpenPhoneURL;
         [tempArray addObject:phoneViewModel];
     }
@@ -147,7 +157,7 @@
         emailViewModel.textValue = self.serviceData.email;
         emailViewModel.title = LOC(@"email_text_key");
         emailViewModel.iconURL = self.serviceData.emailIconURL;
-        emailViewModel.icon = [UIImage imageNamed:@"email_icon"];
+        emailViewModel.icon = [[UIImage imageNamed:@"email_icon"] imageWithTintColor:[UIColor mainTintColor1]];
         emailViewModel.actionType = NGOActionTypeSendEmail;
         [tempArray addObject:emailViewModel];
     }
@@ -157,7 +167,7 @@
         webSiteViewModel.textValue = self.serviceData.webAddress;
         webSiteViewModel.title = LOC(@"web_address_text_key");
         webSiteViewModel.iconURL = self.serviceData.webAddressIconUrl;
-        webSiteViewModel.icon = [UIImage imageNamed:@"website_globe_icon"];
+        webSiteViewModel.icon = [[UIImage imageNamed:@"website_globe_icon"] imageWithTintColor:[UIColor mainTintColor1]];
         webSiteViewModel.actionType = NGOActionTypeOpenURL;
         [tempArray addObject:webSiteViewModel];
     }
@@ -399,27 +409,24 @@
 - (void)ngoAvatarCellDidPressPrivateChat
 {
     ChatUserDataModel *chatUser = [[ChatUserDataModel alloc] init];
-    chatUser.userId = @([self.serviceData.serviceId integerValue]);
+    chatUser.userId = @([self.serviceData.userId integerValue]);
+    chatUser.ngoName = self.serviceData.name;
     [self startChatWithUser:chatUser];
+}
+
+- (void)ngoAvatarCellDidPressReviewButton
+{
+    [self performSegueWithIdentifier:@"showNgoReview" sender:self.serviceData];
 }
 
 #pragma mark - Start Chat
 
 - (void)startChatWithUser:(ChatUserDataModel *)chatUserData
 {
-    [self showLoader];
-    weakify(self);
-    [self.socketAPIService joinToPrivateRoomWithUser:chatUserData success:^(RoomDataModel * roomData) {
-        strongify(self);
-        [self hideLoader];
-        [self showPrivateChatView:roomData];
-    } failure:^(NSError * _Nonnull error) {
-        strongify(self);
-        [self hideLoader];
-    }];
+    [self showPrivateChatView:chatUserData];
 }
 
-- (void)showPrivateChatView:(RoomDataModel *)roomData
+- (void)showPrivateChatView:(ChatUserDataModel *)roomData
 {
     [self performSegueWithIdentifier:@"showPrivateChatFromNetworkDetailsView" sender:roomData];
 }
@@ -430,7 +437,11 @@
 {
     if ([segue.identifier isEqualToString:@"showPrivateChatFromNetworkDetailsView"]) {
         PrivateChatRoomViewController *destinationVC = segue.destinationViewController;
-        destinationVC.roomData = sender;
+        destinationVC.chatData = sender;
+    } else if ([segue.identifier isEqualToString:@"showNgoReview"]) {
+        [[self mainTabbarController] hideTabbar:YES];
+        NGOReviewViewController *destinationVC = segue.destinationViewController;
+        [destinationVC setNgoData: sender];
     }
 }
 

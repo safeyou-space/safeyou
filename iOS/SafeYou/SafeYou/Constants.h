@@ -53,18 +53,38 @@ MODEL_PROPERTY = [nilOrJSONObjectForKey(DICT, KEY) integerValue];\
 //#define BASE_API_URL @"http://fambox.tv:15080/api/%@/%@/"
 //#define BASE_RESOURCE_URL @"http://fambox.tv:15080"
 
-// dev
+#if DEVELOP
+// debug
 
-#if DEBUG
+#define BASE_API_URL @"https://sydeveloper.com:90/api/%@/%@/"
+#define BASE_RESOURCE_URL @"https://sydeveloper.com:90"
 
-#define BASE_API_URL @"http://136.244.117.119:88/api/%@/%@/"
-#define BASE_RESOURCE_URL @"http://136.244.117.119:88"
+#define BASE_SOCKET_URL @"https://sydeveloper.com:4001"
+#define BASE_SOCKET_URL_ARM @"https://sydeveloper.com:4001"
+#define BASE_SOCKET_URL_GEO @"https://sydeveloper.com:4002"
+#define BASE_SOCKET_URL_IRQ @"https://sydeveloper.com:4003"
+
+#elif QA
+// qa
+
+#define BASE_API_URL @"https://qa.sydeveloper.com:89/api/%@/%@/"
+#define BASE_RESOURCE_URL @"https://qa.sydeveloper.com:89"
+
+#define BASE_SOCKET_URL @"https://qa.sydeveloper.com:5001"
+#define BASE_SOCKET_URL_ARM @"https://qa.sydeveloper.com:5001"
+#define BASE_SOCKET_URL_GEO @"https://qa.sydeveloper.com:5002"
+#define BASE_SOCKET_URL_IRQ @"https://qa.sydeveloper.com:5003"
 
 #else
 // prod
 
 #define BASE_API_URL @"https://dashboard.safeyou.space:88/api/%@/%@/"
-#define BASE_RESOURCE_URL @"https://dashboard.safeyou.space:88/"
+#define BASE_RESOURCE_URL @"https://dashboard.safeyou.space:88"
+
+#define BASE_SOCKET_URL @"https://dashboard.safeyou.space:1998"
+#define BASE_SOCKET_URL_ARM @"https://dashboard.safeyou.space:1998"
+#define BASE_SOCKET_URL_GEO @"https://dashboard.safeyou.space:1997"
+#define BASE_SOCKET_URL_IRQ @"https://dashboard.safeyou.space:1996"
 
 #endif
 
@@ -107,8 +127,11 @@ MODEL_PROPERTY = [nilOrJSONObjectForKey(DICT, KEY) integerValue];\
 
 #define NGO_IDS_TO_SHOW_CHAT_FOR_MINOR_USERS @[@"2", @"4"]
 
-#define LOKALISE_PROJECT_ID @""
-#define LOKALISE_TOKEN @""
+#define LOKALISE_PROJECT_ID @"47963900637dec2ad61179.93074838"
+#define LOKALISE_TOKEN @"68c3ce9d205e30d9a9f18000226536e4eae81b91"
+
+#define IS_OPEN_SURVEY_NOTIFICATION_SHOWN @"kIsOpenSurveyNotificationShown"
+#define OPEN_SURVEY_STORYBOARD_SEGUE @"showOpenSurveyViewController"
 
 typedef NS_ENUM(NSUInteger, SYRemotContentType) {
     SYRemotContentTypeUnknown,
@@ -123,6 +146,7 @@ typedef NS_ENUM(NSUInteger, SYRemotContentType) {
 typedef NS_ENUM(NSUInteger, FieldAccessoryType) {
     FieldAccessoryTypeUnknown,
     FieldAccessoryTypeEdit,
+    FieldAccessoryTypeEditInNewPage,
     FieldAccessoryTypeArrow,
     FieldAccessoryTypeSwitch,
     FieldAccessoryTypeAvatar,
@@ -163,7 +187,8 @@ typedef NS_ENUM(NSUInteger, RemoteNotificationType) {
     NotificationTypeMessage = 2,
     NotificationTypeNewReport = 3,
     NotificationTypeNewEmergency = 6,
-    NotificationTypeRemoveEmergency = 7
+    NotificationTypeRemoveEmergency = 7,
+    NotificationTypeDashboardMessage = 10
 };
 
 

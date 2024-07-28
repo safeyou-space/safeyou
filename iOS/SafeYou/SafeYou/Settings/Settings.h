@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RemoteNotification.h"
 
 @import CoreLocation;
 
@@ -54,11 +55,14 @@
 
 @property (nonatomic) NSString *baseAPIURL;
 
-@property (nonatomic) NSString *deviceToken;
-@property (nonatomic) NSString *updatedDeviceToken;
+@property (nonatomic) NSString *savedFcmToken;
+@property (nonatomic) NSString *updatedFcmToken;
 
-@property (nonatomic) NSDictionary *receivedRemoteNotification;
-@property (nonatomic) NSString *forumId;
+@property (nonatomic) RemoteNotification *receivedRemoteNotification;
+@property (nonatomic) NSMutableDictionary <NSString *, NSArray <NSNumber *> *> *unreadPrivateMessages;
+@property (nonatomic) NSURL *dynamicLinkUrl;
+
+@property (nonatomic, readonly) BOOL isOpenSurveyPopupShown;
 
 - (BOOL)isLanguageRTL;
 
@@ -68,6 +72,8 @@
 
 - (NSString *)countryPhoneCode;
 - (NSString *)countryPhoneCodeWhtoutPlusSign;
+
+- (void)setOpenSurveyPopupShown:(BOOL)isPopupShown;
 
 @end
 

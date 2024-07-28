@@ -8,6 +8,8 @@
 
 #import "EmergencyServiceDataModel.h"
 #import "ImageDataModel.h"
+#import "ReviewDataModel.h"
+#import "NSString+HTML.h"
 
 
 NSString *const  kEmergnecyServiceDescription = @"description";
@@ -52,6 +54,7 @@ NSString *const kEmergencyServiceCity = @"city";
 NSString *const kEmergencyServiceAddress = @"address";
 NSString *const kEmergencyServiceDescription = @"description";
 
+NSString *const kEmergencyServiceUserRate = @"user_rate";
 
 
 @implementation EmergencyServiceDataModel
@@ -112,25 +115,40 @@ NSString *const kEmergencyServiceDescription = @"description";
         self.localizedCategoryName = [self objectOrNilForKey:kEmergencyServiceCategoryName fromDictionary:dict];
         _userEmergencyServiceId = [self objectOrNilForKey:kEmegensyServiceUserServiceId fromDictionary:dict];
         
+        self.reviewData = [ReviewDataModel modelObjectWithDictionary:dict[kEmergencyServiceUserRate]];
+        
         NSArray *socialLinksArray = [self objectOrNilForKey:@"social_links" fromDictionary:dict];
         if (socialLinksArray) {
             NSDictionary *facebookDataDict = [self dictionaryFromArray:socialLinksArray forKeyPath:@"facebook"];
             if (facebookDataDict) {
                 self.serviceFacebookIconURL = [self objectOrNilForKey:kEmergnecyServiceFacebookIcon fromDictionary:iconsDict];
                 self.serviceFacebookPageURL = [self objectOrNilForKey:@"url" fromDictionary:facebookDataDict];
-                self.serviceFacebookPageTitle = [self objectOrNilForKey:@"title" fromDictionary:facebookDataDict];
+                self.serviceFacebookPageTitle = [self objectOrNilForKey:@"name" fromDictionary:facebookDataDict];
             }
             
             NSDictionary *instagramDataDict = [self dictionaryFromArray:socialLinksArray forKeyPath:@"instagram"];
             if (instagramDataDict) {
                 self.serviceInstagramIconURL = [self objectOrNilForKey:kEmergnecyServiceInstagramIcon fromDictionary:iconsDict];
                 self.serviceInstagramPageURL = [self objectOrNilForKey:@"url" fromDictionary:instagramDataDict];
-                self.serviceFacebookPageTitle = [self objectOrNilForKey:@"title" fromDictionary:instagramDataDict];
+                self.serviceInstagramPageTitle = [self objectOrNilForKey:@"name" fromDictionary:instagramDataDict];
             }    
         }
     }
     
     return self;
+}
+
+- (void)setInfoText:(NSString *)infoText
+{
+    _infoText = infoText;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+    NSMutableAttributedString *mAttributedDescription = [[NSString attributedStringFromHTML:self.infoText] mutableCopy];
+    NSRange allRange = NSMakeRange(0, mAttributedDescription.length);
+    [mAttributedDescription addAttribute:NSFontAttributeName value:[UIFont regularFontOfSize:16.0] range:allRange];
+    [mAttributedDescription addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:allRange];
+    self.attributedInfoText = [mAttributedDescription copy];
+
 }
 
 - (NSDictionary *)dictionaryFromArray:(NSArray *)dictsArray forKeyPath:(NSString *)keyPath

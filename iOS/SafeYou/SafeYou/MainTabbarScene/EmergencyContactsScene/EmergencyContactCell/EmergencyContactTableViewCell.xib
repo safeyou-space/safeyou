@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,74 +17,94 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z0t-td-V9X">
-                        <rect key="frame" x="56" y="13.5" width="129" height="43.5"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vMn-kL-wtp" customClass="SYDesignableView">
+                        <rect key="frame" x="4" y="4" width="312" height="62"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Emergency Contact 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpd-5a-tGX" customClass="HyRobotoLabelLight">
-                                <rect key="frame" x="0.0" y="0.0" width="129" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Lastname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9H-B7-Iuf" customClass="HyRobotoLabelRegular">
-                                <rect key="frame" x="0.0" y="24" width="129" height="19.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                        <integer key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z0t-td-V9X">
+                                <rect key="frame" x="16" y="11.5" width="120.5" height="39.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Emergency Contact 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpd-5a-tGX" customClass="SYLabelBold">
+                                        <rect key="frame" x="0.0" y="0.0" width="120.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="24"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Lastname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9H-B7-Iuf" customClass="SYLabelRegular">
+                                        <rect key="frame" x="0.0" y="22.5" width="120.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="j7Y-f7-FHU">
+                                <rect key="frame" x="249" y="20" width="47" height="22"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSm-nk-SIb" customClass="SYDesignableButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                        <state key="normal" image="icon-remove"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="clearButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="clw-jX-W2Q"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35y-ga-TgK" customClass="SYDesignableButton">
+                                        <rect key="frame" x="31" y="0.0" width="16" height="22"/>
+                                        <state key="normal" image="edit_button"/>
+                                        <connections>
+                                            <action selector="editButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="y8V-Ad-YRa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
-                    </stackView>
-                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="j7Y-f7-FHU">
-                        <rect key="frame" x="233" y="20" width="67" height="30"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSm-nk-SIb" customClass="HyRobotoButton">
-                                <rect key="frame" x="0.0" y="0.0" width="36" height="30"/>
-                                <state key="normal" title="Clear"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="clearButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="clw-jX-W2Q"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35y-ga-TgK" customClass="SYDesignableButton">
-                                <rect key="frame" x="51" y="0.0" width="16" height="30"/>
-                                <state key="normal" image="edit_button"/>
-                                <connections>
-                                    <action selector="editButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="y8V-Ad-YRa"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                    </stackView>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="j7Y-f7-FHU" firstAttribute="centerY" secondItem="vMn-kL-wtp" secondAttribute="centerY" id="9V0-Rv-6Xe"/>
+                            <constraint firstAttribute="trailing" secondItem="j7Y-f7-FHU" secondAttribute="trailing" constant="16" id="9zH-RM-VaN"/>
+                            <constraint firstItem="z0t-td-V9X" firstAttribute="centerY" secondItem="vMn-kL-wtp" secondAttribute="centerY" id="eCp-rl-x5n"/>
+                            <constraint firstItem="z0t-td-V9X" firstAttribute="leading" secondItem="vMn-kL-wtp" secondAttribute="leading" constant="16" id="q0x-RM-g9a"/>
+                            <constraint firstItem="j7Y-f7-FHU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="z0t-td-V9X" secondAttribute="trailing" constant="16" id="rf4-VZ-jlM"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                <integer key="value" value="17"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="z0t-td-V9X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="56" id="2XT-5W-m7s"/>
-                    <constraint firstItem="z0t-td-V9X" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KLa-cl-jQp"/>
-                    <constraint firstItem="j7Y-f7-FHU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="z0t-td-V9X" secondAttribute="trailing" constant="15" id="Vjm-qH-hhW"/>
-                    <constraint firstItem="j7Y-f7-FHU" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Xsc-hr-O9C"/>
-                    <constraint firstAttribute="trailing" secondItem="j7Y-f7-FHU" secondAttribute="trailing" constant="20" id="nhg-Js-FLl"/>
+                    <constraint firstItem="vMn-kL-wtp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="3pA-7k-CQn"/>
+                    <constraint firstAttribute="bottom" secondItem="vMn-kL-wtp" secondAttribute="bottom" constant="4" id="YWI-dJ-Evb"/>
+                    <constraint firstItem="vMn-kL-wtp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="a8D-sC-c6E"/>
+                    <constraint firstAttribute="trailing" secondItem="vMn-kL-wtp" secondAttribute="trailing" constant="4" id="cr4-ar-p8n"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
@@ -95,7 +115,7 @@
                 <outlet property="titleLabel" destination="Mpd-5a-tGX" id="u39-Jp-rqS"/>
                 <outlet property="valueLabel" destination="q9H-B7-Iuf" id="1wy-h9-reT"/>
             </connections>
-            <point key="canvasLocation" x="139" y="137"/>
+            <point key="canvasLocation" x="137.68115942028987" y="136.60714285714286"/>
         </tableViewCell>
     </objects>
     <designables>
@@ -103,10 +123,11 @@
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="bSm-nk-SIb">
-            <size key="intrinsicContentSize" width="36" height="30"/>
+            <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
     </designables>
     <resources>
         <image name="edit_button" width="16" height="16"/>
+        <image name="icon-remove" width="16" height="16"/>
     </resources>
 </document>

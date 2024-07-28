@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateBadgeValue:(NSString *)badgeValue;
 
+- (void)setWhiteColorType;
+
 @property (nonatomic, weak) id <NotificationsIconViewAction> delegate;
 
 

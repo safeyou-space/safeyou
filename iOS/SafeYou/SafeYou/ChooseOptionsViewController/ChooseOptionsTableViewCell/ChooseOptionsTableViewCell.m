@@ -56,7 +56,6 @@
     } else {
         self.checkDeactiveImageView.hidden = YES;
     }
-    [self configureSelectedState];
 }
 
 - (void)setIsMultiSelect:(BOOL)isMultiSelect
@@ -68,17 +67,6 @@
         self.checkDeactiveImageView.hidden = YES;
     }
     
-}
-
-- (void)configureSelectedState
-{
-    if (self.isSelect) {
-        self.optionNameLabel.textColorType = SYColorTypeMain1;
-        self.optionNameLabel.textColorAlpha = 1;
-    } else {
-        self.optionNameLabel.textColorType = SYColorTypeBlack;
-        self.optionNameLabel.textColorAlpha = 1;
-    }
 }
 
 @end

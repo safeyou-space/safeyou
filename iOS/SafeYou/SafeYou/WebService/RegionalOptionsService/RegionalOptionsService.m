@@ -13,7 +13,7 @@
 
 - (void)getCountryListWithComplition:(void(^)(NSArray <CountryDataModel *> *counrtyList))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager GET:@"countries" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:@"countries" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (NSDictionary *countryDataDict in responseObject) {
             CountryDataModel *countryData = [CountryDataModel modelObjectWithDictionary:countryDataDict];
@@ -32,7 +32,7 @@
 
 - (void)getLanguagesListWithComplition:(void(^)(NSArray <LanguageDataModel *> *languagesList))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager GET:@"languages" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:@"languages" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (NSDictionary *languageDataDict in responseObject) {
             LanguageDataModel *languageData = [LanguageDataModel modelObjectWithDictionary:languageDataDict];
@@ -56,7 +56,7 @@
 - (void)getLanguagesListForCountry:(NSString *)countryCode withComplition:(void(^)(NSArray <LanguageDataModel *> *languagesList))complition failure:(void(^)(NSError *error))failure
 {
     NSString *urlWithCountryCode = [NSString stringWithFormat:BASE_API_URL, countryCode, [Settings sharedInstance].selectedLanguageCode];
-    [[self networkManagerWithUrl:urlWithCountryCode] GET:@"languages" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [[self networkManagerWithUrl:urlWithCountryCode] GET:@"languages" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (NSDictionary *languageDataDict in responseObject) {
             LanguageDataModel *languageData = [LanguageDataModel modelObjectWithDictionary:languageDataDict];

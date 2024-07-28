@@ -18,7 +18,7 @@
 - (void)getForumCategoriesWithComplition:(void(^)(NSArray * categoriesList))complition failure:(void(^)(NSError *error))failure
 {
     NSString *endPoint = [NSString stringWithFormat:@"forum/categories?_lang=%@", [Settings sharedInstance].selectedLanguageCode];
-    [self.networkManager GET:endPoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:endPoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSArray *categoriesList = [ForumCategoryDataModel catgoriesFromDictionary:responseObject];
         if (complition) {
             complition(categoriesList);
@@ -44,7 +44,7 @@
         categoryIdsString = [categoryIdsString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         endPoint = [NSString stringWithFormat:@"forums?_lang=%@&_cat=%@", languageCode, categoryIdsString];
     }
-    [self.networkManager GET:endPoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:endPoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         ForumItemListDataModel *forumsList = [ForumItemListDataModel modelObjectWithDictionary:responseObject];
         if (complition) {
             complition(forumsList.forumItems, forumsList.lastPage);
@@ -60,7 +60,7 @@
 {
     //{{baseUrl}}/{{apiPrefix}}/{{countryCode}}/{{languageCode}}/forum/9
     NSString *endpoint = [NSString stringWithFormat:@"forum/%@", forumId];
-    [self.networkManager GET:endpoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:endpoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         ForumItemDataModel *forumItem = [ForumItemDataModel modelObjectWithDictionary:responseObject];
         if (complition) {
             complition(forumItem);
@@ -76,7 +76,7 @@
 - (void)getReportCategories:(void(^)(ReportCategoryListDataModel *categoryList))complition failure:(void(^)(NSError *error))failure
 {
     NSString *endpoint = [NSString stringWithFormat:@"report/categories"];
-    [self.networkManager GET:endpoint parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:endpoint parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         ReportCategoryListDataModel *categoryList = [[ReportCategoryListDataModel alloc] initWithDictionary:responseObject];
         if (complition) {
             complition(categoryList);
@@ -91,7 +91,7 @@
 - (void)reportUser:(NSDictionary *)params success:(void(^)(NSString *message))success failure:(void(^)(NSError *error))failure
 {
     NSString *endpoint = [NSString stringWithFormat:@"report"];
-    [self.networkManager POST:endpoint parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager POST:endpoint parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         NSString *message = [dict objectForKey:@"message"];
         if (![message isEqual:[NSNull null]]) {
@@ -99,6 +99,20 @@
         } else {
             success(message);
         }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+- (void)addReview:(NSDictionary *)params success:(void(^)(NSString *message))success failure:(void(^)(NSError *error))failure
+{
+    NSString *endpoint = [NSString stringWithFormat:@"rate/forum"];
+    [self.networkManager POST:endpoint parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSString *message = [dict objectForKey:@"message"];
+        success(message);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
             failure(error);

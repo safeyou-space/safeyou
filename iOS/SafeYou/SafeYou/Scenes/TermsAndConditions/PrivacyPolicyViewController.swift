@@ -34,7 +34,7 @@ class PrivacyPolicyViewController: SYViewController {
         })
     }
 
-    func configureNavigationBar() {
+    override func configureNavigationBar() {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithTransparentBackground()
         navBarAppearance.backgroundColor = UIColor.mainTintColor2()

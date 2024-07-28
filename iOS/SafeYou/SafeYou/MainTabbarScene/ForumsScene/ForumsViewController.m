@@ -15,17 +15,19 @@
 #import "NotificationData.h"
 #import "SocketIOManager.h"
 #import "SYForumService.h"
+#import "DialogViewController.h"
 
 
 @import SocketIO;
 
-@interface ForumsViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, ForumFiltersViewControllerDelegate>
+@interface ForumsViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, ForumFiltersViewControllerDelegate, DialogViewDelegate>
 
 //@property (nonatomic) SocketIOClient* socketClient;
 @property (nonatomic) NSMutableArray <ForumItemDataModel *>*forumItemsList;
 @property (nonatomic) SYForumService *forumsSrvice;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *filtersButtonTitleLabel;
+@property (weak, nonatomic) IBOutlet SYDesignableButton *filterButton;
+
 
 @property (nonatomic) NSString *selectedLanguage;
 @property (nonatomic) NSArray<NSString *> *selectedCategories;
@@ -59,12 +61,18 @@
     self.navigationController.delegate = self;
     self.tableView.estimatedRowHeight = 450;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    [self configureOpenSurveyActionDialog];
+    weakify(self);
+    [SocketIOManager sharedInstance].didReceiveCommentsCountForList = ^(NSInteger count, NSNumber * _Nonnull forumId) {
+        strongify(self);
+        [self handleCommentCountUpdate:count forumId:forumId];
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor];
     
     if ([self checkNotifications]) {
         [self handleReceivedNotification];
@@ -77,6 +85,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [[self mainTabbarController] hideTabbar:NO];
 }
 
 #pragma mark - Handle Remote Notification
@@ -84,20 +93,26 @@
 - (void)handleReceivedNotification
 {
     if ([Settings sharedInstance].receivedRemoteNotification) {
-        RemoteNotificationType notifyType = [[Settings sharedInstance].receivedRemoteNotification[@"notify_type"] integerValue];
+        RemoteNotificationType notifyType = [Settings sharedInstance].receivedRemoteNotification.notifyType;
         if (notifyType == NotificationTypeNewForum) {
-            [Settings sharedInstance].receivedRemoteNotification = nil;
-            [self getForumsWithAppending:NO];
+            NSString *forumId = [[Settings sharedInstance].receivedRemoteNotification.forumId stringValue];
+            [self showForumDetailsByForumId:forumId];
         } else if (notifyType == NotificationTypeMessage) {
-            NSString *forumId = [Settings sharedInstance].receivedRemoteNotification[@"message_forum_id"];
+            NSString *forumId = [[Settings sharedInstance].receivedRemoteNotification.messageForumId stringValue];
             [self showForumDetailsByForumId:forumId];
         }
     } else if ([self mainTabbarController].isFromNotificationsView) {
-        NSString *forumId = [self.mainTabbarController.selectedNotificationData.notificationMessage.messageForumId stringValue];
-        [self showForumDetailsByForumId:forumId];
-    } else if ([Settings sharedInstance].forumId) {
-        NSString *forumId = [Settings sharedInstance].forumId;
-        [Settings sharedInstance].forumId = NULL;
+        RemoteNotificationType notifyType = self.mainTabbarController.selectedNotificationData.notifyType;
+        if (notifyType == NotificationTypeNewForum) {
+            NSString *forumId = [self.mainTabbarController.selectedNotificationData.forumData.forumId stringValue];
+            [self showForumDetailsByForumId:forumId];
+        } else if (notifyType == NotificationTypeMessage) {
+            NSString *forumId = [self.mainTabbarController.selectedNotificationData.notificationMessage.messageForumId stringValue];
+            [self showForumDetailsByForumId:forumId];
+        }
+    } else if ([Settings sharedInstance].dynamicLinkUrl) {
+        NSString *forumId = [self getForumIdFromDynamicLink:[Settings sharedInstance].dynamicLinkUrl];
+        [Settings sharedInstance].dynamicLinkUrl = NULL;
         [self showForumDetailsByForumId:forumId];
     }
 }
@@ -107,9 +122,14 @@
     [self performSegueWithIdentifier:@"showForumDetails" sender:forumId];
 }
 
+- (void)showForumDetailsByForum:(ForumItemDataModel *)forum
+{
+    [self performSegueWithIdentifier:@"showForumDetails" sender:forum];
+}
+
 - (BOOL)checkNotifications
 {
-    return [Settings sharedInstance].receivedRemoteNotification || [self mainTabbarController].isFromNotificationsView || [Settings sharedInstance].forumId;
+    return [Settings sharedInstance].receivedRemoteNotification || [self mainTabbarController].isFromNotificationsView || [Settings sharedInstance].dynamicLinkUrl;
 }
 
 
@@ -150,6 +170,14 @@
         strongify(self);
         [self hideLoader];
         self.lastPage = lastPage;
+        for (ForumItemDataModel *forum in forumItems) {
+            NSMutableArray *params = [NSMutableArray array];
+            [params addObject:[NSNumber numberWithInt:SocketIOSignalCommentCount]];
+            [params addObject:@{@"forum_id": forum.forumItemId}];
+            [[SocketIOManager sharedInstance].socketClient emit:@"signal" with:params completion:^{
+                NSLog(@"Subsicribed to comments count %@", forum.forumItemId);
+            }];
+        }
         if (needAppend) {
             [self.forumItemsList addObjectsFromArray: forumItems];
         } else {
@@ -165,8 +193,14 @@
 - (void)updateLocalizations
 {
     self.title = LOC(@"forums_title_key");
-    self.filtersButtonTitleLabel.text = LOC(@"filter");
+    [self.filterButton setTitle:LOC(@"filter") forState:UIControlStateNormal];
     [self.tableView reloadData];
+}
+
+- (void)appLanguageDidChange:(NSNotification *)notification
+{
+    [super appLanguageDidChange:notification];
+    [self getForumsWithAppending:NO];
 }
 
 #pragma mark - UITableviewDelegate
@@ -176,8 +210,7 @@
     [self resetForumActivity:selectedItem];
     selectedItem.viewsCount += 1;
     ForumItemTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [cell updateComments:selectedItem.commentsCount andViewsCount:selectedItem.viewsCount];
-    [self showForumDetailsByForumId:[selectedItem.forumItemId stringValue]];
+    [self showForumDetailsByForum:selectedItem];
 }
 
 - (void)resetForumActivity:(ForumItemDataModel *)forumItem
@@ -223,7 +256,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showForumDetails"]) {
         ForumDetailsViewController *destinationVC = segue.destinationViewController;
-        destinationVC.forumItemId = (NSString *)sender;
+        if ([sender isKindOfClass:[NSString class]]) {
+            destinationVC.forumItemId = (NSString *)sender;
+        } else if ([sender isKindOfClass:[ForumItemDataModel class]]) {
+            ForumItemDataModel *forum = (ForumItemDataModel *)sender;
+            destinationVC.forumItemId = [forum.forumItemId stringValue];
+            destinationVC.initialCommentsCount = forum.commentsCount;
+        }
     } else if ([segue.identifier isEqualToString:@"ShowForumFiltersFromForumsViewSegue"]) {
         UINavigationController *navigationController = segue.destinationViewController;
         ForumFiltersViewController *destinationVC = navigationController.viewControllers[0];
@@ -254,6 +293,41 @@
         }
     }
     return NULL;
+}
+
+#pragma mark - Handle Socket Updates
+
+- (void)handleCommentCountUpdate:(NSInteger)count forumId:(NSNumber *)forumId
+{
+    for (ForumItemDataModel *forum in self.forumItemsList) {
+        if (forum.forumItemId == forumId) {
+            forum.commentsCount = count;
+        }
+    }
+    [self.tableView reloadData];
+}
+
+#pragma mark - Confirm Survay Action Dialog
+
+- (void)configureOpenSurveyActionDialog
+{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:IS_OPEN_SURVEY_NOTIFICATION_SHOWN] && ![Settings sharedInstance].isOpenSurveyPopupShown) {
+        [[Settings sharedInstance] setOpenSurveyPopupShown:YES];
+        DialogViewController *surveyActionDialogView = [DialogViewController instansiateDialogViewWithType:DialogViewTypeSurveyAction title:LOC(@"survey_notification_popup_title") message:LOC(@"survey_notification_popup_description")];
+        surveyActionDialogView.delegate = self;
+        surveyActionDialogView.showCancelButton = YES;
+        surveyActionDialogView.continueButtonText = LOC(@"take_survey_key");
+        [self addChildViewController:surveyActionDialogView onView:self.view];
+    }
+}
+
+#pragma mark - DialogViewDelegate
+
+- (void)dialogViewDidPressActionButton:(DialogViewController *)dialogView
+{
+    if (dialogView.actionType == DialogViewTypeSurveyAction) {
+        [self performSegueWithIdentifier:OPEN_SURVEY_STORYBOARD_SEGUE sender:nil];
+    }
 }
 
 @end

@@ -27,6 +27,8 @@ typedef NS_ENUM(NSUInteger, EmergencyServiceType) {
 
 - (void)getEmergencyServicesCategoriesWithComplition:(void(^_Nonnull)(NSArray <ServiceCategoryDataModel*> * _Nonnull emergencySerivcesCategoryList))complition failure:(void(^_Nonnull)(NSError * _Nullable error))failure;
 
+- (void)addReview:(NSDictionary *_Nonnull)params success:(void(^_Nullable)(NSString * _Nullable message))success failure:(void(^_Nullable)(NSError * _Nullable error))failure;
+
 @end
 
 NS_ASSUME_NONNULL_BEGIN

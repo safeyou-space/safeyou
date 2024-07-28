@@ -29,6 +29,7 @@
 #import "EmergencyMessageTableViewCell.h"
 #import "Settings.h"
 #import "DialogViewController.h"
+#import "MainTabbarController.h"
 
 NSString *const __addEmergnecyContactSelector = @"addEmergencyContact:";
 NSString *const __updateEmergnecyContactSelector = @"updateEmergencyContact:";
@@ -81,6 +82,7 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     [self.tableView setSeparatorColor:[UIColor mainTintColor3]];
     self.tableView.estimatedSectionFooterHeight = 20.0;
     self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
+    [self configureNavigationBar];
 }
 
 - (void)configureTitleView
@@ -99,6 +101,7 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[self mainTabbarController] hideTabbar:YES];
     [self configureDataSource];
 }
 
@@ -106,7 +109,6 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
 
 - (void)configureTableView
 {
-    [self.tableView registerNib:[UINib nibWithNibName:@"EmergencyMessageFooterView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"EmergencyMessageFooterView"];
     UINib *emergencyContactCellNib = [UINib nibWithNibName:@"EmergencyContactTableViewCell" bundle:nil];
     [self.tableView registerNib:emergencyContactCellNib forCellReuseIdentifier:@"EmergencyContactTableViewCell"];
     UINib *emergnecyTitleHeaderNib = [UINib nibWithNibName:@"SectionHeaderWithTitleImage" bundle:nil];
@@ -116,6 +118,9 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     
     UINib *switchCellNib = [UINib nibWithNibName:@"SwitchActionTableViewCell" bundle:nil];
     [self.tableView registerNib:switchCellNib forCellReuseIdentifier:@"SwitchActionTableViewCell"];
+    
+    UINib *emergnecyDividerLineNib = [UINib nibWithNibName:@"SectionDividerLine" bundle:nil];
+    [self.tableView registerNib:emergnecyDividerLineNib forHeaderFooterViewReuseIdentifier:@"SectionDividerLine"];
 }
 
 #pragma mark - Getter
@@ -141,18 +146,13 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     UserDataModel *onlineUser = [Settings sharedInstance].onlineUser;
     NSMutableArray *sectionOneDatasource = [[NSMutableArray alloc] init];
     
-    NSInteger contactsCellsCount;
-    if (onlineUser.emergencyContacts.count == 3) {
-        contactsCellsCount = 3;
-    } else {
-        contactsCellsCount = onlineUser.emergencyContacts.count + 1;
-    }
+    NSInteger contactsCellsCount = 3;
     
     for (int i = 0 ; i < contactsCellsCount; ++i) {
         MyProfileRowViewModel *contactViewModel;
         EmergencyContactDataModel *userContact;
         if (onlineUser.emergencyContacts.count > i) {
-             userContact= onlineUser.emergencyContacts[i];
+            userContact = onlineUser.emergencyContacts[i];
         }
         
         NSString *title;
@@ -166,7 +166,6 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
             valueText = userContact.name;
             
         } else {
-            valueText = LOC(@"name_lastname");
             showClearButton = NO;
             title = [self contactTitleForIndex:i];
         }
@@ -175,6 +174,7 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
         contactViewModel.dataModel = userContact;
         contactViewModel.actionString = actionString;
         contactViewModel.showClearButton = showClearButton;
+        contactViewModel.showEditButton = YES;
         contactViewModel.fieldValue = valueText;
         [sectionOneDatasource addObject:contactViewModel];
     }
@@ -190,18 +190,13 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     [emergencyServicesArray addObjectsFromArray:onlineUser.emergencyServices];
     
     
-    NSInteger servicesCellsCount;
-    if (onlineUser.emergencyServices.count == 3) {
-        servicesCellsCount = 3;
-    } else {
-        servicesCellsCount = onlineUser.emergencyServices.count + 1;
-    }
-        
+    NSInteger servicesCellsCount = 3;
+    
     for (int i = 0 ; i < servicesCellsCount; ++i) {
         MyProfileRowViewModel *serviceViewModel;
         EmergencyServiceDataModel *serviceContact;
         if (emergencyServicesArray.count > i) {
-             serviceContact = emergencyServicesArray[i];
+            serviceContact = emergencyServicesArray[i];
         }
         
         NSString *valueText;
@@ -212,14 +207,13 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
             actionString = __showSelectServiceSelector;
             showClearButton = YES;
             valueText = serviceContact.name;
-        } else {
-            valueText = [self serviceTitleForIndex:i];
         }
         
         serviceViewModel = [[MyProfileRowViewModel alloc] initWithTitle:title rowType:MyProfileRowTypeAction];
         serviceViewModel.dataModel = serviceContact;
         serviceViewModel.actionString = actionString;
         serviceViewModel.showClearButton = showClearButton;
+        serviceViewModel.showEditButton = YES;
         serviceViewModel.fieldValue = valueText;
         [sectionTwoDataSource addObject:serviceViewModel];
     }
@@ -230,17 +224,24 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     
     sectionTwoData.footertext = [Settings sharedInstance].onlineUser.emergencyMessage ? [Settings sharedInstance].onlineUser.emergencyMessage : @"";
     
-    MyProfileRowViewModel *emergencyMessageViewModel = [[MyProfileRowViewModel alloc] initWithTitle:LOC(@"emergency_message_title_key") rowType:MyProfileRowTypeNone];
-    MyProfileSectionViewModel *sectionThreeData = [[MyProfileSectionViewModel alloc] initWithRows:@[emergencyMessageViewModel]];
-    emergencyMessageViewModel.iconImageName = @"sos_icon";
+    MyProfileRowViewModel *emergencyMessageViewModel = [[MyProfileRowViewModel alloc] initWithTitle:@"" rowType:MyProfileRowTypeAction];
+    emergencyMessageViewModel.showClearButton = NO;
+    emergencyMessageViewModel.showEditButton = NO;
     emergencyMessageViewModel.fieldValue = [onlineUser.helpMessagData messageForLanguage:[Settings sharedInstance].selectedLanguageCode];
+    
+    MyProfileSectionViewModel *sectionThreeData = [[MyProfileSectionViewModel alloc] initWithRows:@[emergencyMessageViewModel]];
+    sectionThreeData.sectionTitle = LOC(@"emergency_message_title_key");
+    sectionThreeData.imageName = @"sos_icon";
     
     _policeViewModel = [[MyProfileRowViewModel alloc] initWithTitle:LOC(@"police_title_key") rowType:MyProfileRowTypeSwitch];
     _policeViewModel.isStateOn = onlineUser.checkPolice;
     _policeViewModel.iconImageName = @"police_icon";
     MyProfileSectionViewModel *sectionFourData = [[MyProfileSectionViewModel alloc] initWithRows:@[_policeViewModel]];
     
-    self.dataSource = @[sectionOneData, sectionTwoData, sectionThreeData,sectionFourData];
+    MyProfileSectionViewModel *sectionDevider = [[MyProfileSectionViewModel alloc] init];
+    sectionDevider.sectionTitle = @"SectionDivider";
+    
+    self.dataSource = @[sectionOneData, sectionDevider, sectionTwoData, sectionDevider, sectionThreeData, sectionDevider, sectionFourData];
     
     [self.tableView reloadData];
 }
@@ -396,10 +397,13 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     MyProfileSectionViewModel *sectionData = self.dataSource[section];
+    if ([sectionData.sectionTitle  isEqual: @"SectionDivider"]) {
+        SectionHeaderWithTitleImage *sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SectionDividerLine"];
+        return sectionHeader;
+    }
     if (sectionData.sectionTitle.length > 0) {
         SectionHeaderWithTitleImage *sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"SectionHeaderWithTitleImage"];
-        BOOL hideTopLine = section == 0;
-        [sectionHeader configureWithImage:sectionData.imageName title:sectionData.sectionTitle hideTopLine:hideTopLine];
+        [sectionHeader configureWithImage:sectionData.imageName title:sectionData.sectionTitle];
         return sectionHeader;
     }
     return nil;
@@ -425,6 +429,9 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     MyProfileSectionViewModel *sectionData = self.dataSource[section];
+    if ([sectionData.sectionTitle isEqual: @"SectionDivider"]) {
+        return 66;
+    }
     if (sectionData.sectionTitle.length > 0) {
         return 32;
     }
@@ -463,7 +470,7 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     MyProfileRowViewModel *rowData = sectionData.sectionDataSource[indexPath.row];
     NSString *cellIdentifier;
     switch (rowData.rowType) {
-            case MyProfileRowTypeNone:
+        case MyProfileRowTypeNone:
             cellIdentifier = @"EmergencyMessageTableViewCell";
             break;
         case MyProfileRowTypeAction:
@@ -566,7 +573,7 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
         }
         
     }
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         // delete emergency service
         if (onlineUser.emergencyServices.count > indexPath.row) {
             EmergencyServiceDataModel *selectedService = onlineUser.emergencyServices[indexPath.row];
@@ -608,16 +615,18 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
 
 #pragma mark - ContactPicker Delegate
 
-- (void)contactPicker:(CNContactPickerViewController *)picker didSelectContact:(CNContact *)contact
+- (void)contactPicker:(CNContactPickerViewController *)picker didSelectContactProperty:(CNContactProperty *)contactProperty
 {
+    CNContact *contact = contactProperty.contact;
+    NSString *identify = contactProperty.identifier;
     if (contact.phoneNumbers.count > 0) {
-        [self addSelectedEmergencyContact:contact];
+        [self addSelectedEmergencyContact:contact identify:identify];
     } else {
         return;
     }
 }
 
-- (void)addSelectedEmergencyContact:(CNContact *)contact
+- (void)addSelectedEmergencyContact:(CNContact *)contact identify:(NSString *)identify
 {
     NSString *contactName = contact.givenName;
     if (!contactName || contactName.length == 0) {
@@ -628,6 +637,13 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     }
     
     CNLabeledValue <CNPhoneNumber*> *phoneNumber = contact.phoneNumbers[0];
+    for (CNLabeledValue<CNPhoneNumber *> *number in contact.phoneNumbers) {
+        if ([number.identifier isEqualToString:identify]) {
+            phoneNumber = number;
+            break;
+        }
+    }
+    
     NSString *phoneNumberString = ((CNPhoneNumber *)phoneNumber.value).stringValue;
     NSString *convertedNumber = [self convertPhoneNumberToCorrectFormat:phoneNumberString];
     if (self.updatingEmergencyContactId) {
@@ -704,11 +720,6 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     }];
 }
 
-- (void)contactPicker:(CNContactPickerViewController *)picker didSelectContactProperty:(CNContactProperty *)contactProperty
-{
-    
-}
-
 #pragma mark - Error Handling
 
 - (void)handleError:(NSError *)error
@@ -779,5 +790,16 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     }];
 }
 
+#pragma mark - UI Customization
+
+- (void)configureNavigationBar
+{
+    NSDictionary *textAttributes = @{NSForegroundColorAttributeName:[UIColor purpleColor1],
+                                     NSFontAttributeName:[UIFont boldFontOfSize:16]};
+    self.navigationController.navigationBar.standardAppearance.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.scrollEdgeAppearance.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar.standardAppearance setTitleTextAttributes:textAttributes];
+    [self.navigationController.navigationBar.scrollEdgeAppearance setTitleTextAttributes:textAttributes];
+}
 
 @end

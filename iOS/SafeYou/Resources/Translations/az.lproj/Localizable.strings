@@ -1,0 +1,414 @@
+/* 
+  Localizations.strings
+  SafeYou
+
+  Created by Garnik Simonyan on 8/25/19.
+  Copyright © 2019 Garnik Simonyan. All rights reserved.
+*/
+
+
+"about_us_title_key" = "About Us";
+
+"birth_date_title_key" = "Birthday";
+
+"cancel" = "Cancel";
+
+"choose_from_gallery_title_key" = "Choose From Gallery";
+
+"choose_photo_title" = "Choose Photo";
+
+"confirm_fake_pin_text_key" = "Confirm Fake Pin";
+
+"confirm_password_text_key" = "Confirm Password";
+
+"confirm_real_pin_text_key" = "Confirm Real Pin";
+
+"done_key" = "Done";
+
+"emergency_contact_title_key" = "Emergency Contact %@";
+
+"emergency_message_title_key" = "Emergency message";
+
+"enter_fake_pin_text_key" = "Enter fake pin in 4 digits";
+
+"enter_real_pin_text_key" = "Enter real pin in 4 digits";
+
+"error_text_key" = "Error";
+
+"fill_required_fields_text_key" = "Please fill required fields";
+
+"first_name_title_key" = "First name";
+
+"log_out_title_key" = "Logout";
+
+"mobile_number_text_key" = "Mobile Number";
+
+"next_key" = "Next";
+
+"ngo_title_key" = "Name of Service %@";
+
+"nick_name_title_key" = "Nickname";
+
+"ok" = "OK";
+
+"password_text_key" = "Password";
+
+"passwords_not_match_text_key" = "Passwords do not match";
+
+"pins_do_not_match_text_key" = "Selected pins do not match";
+
+"please_enter_valid_email_message_key" = "Please enter valid email address";
+
+"please_enter_valid_number_message_key" = "Please enter valid phone number";
+
+"please_enter_valid_password_message_key" = "Password must contain at least 8 symbols";
+
+"police_title_key" = "Police";
+
+"remove_photo_title_key" = "Remove photo";
+
+"resend_otp_text_key" = "Resend 6 digit CODE?   %@s";
+
+"resend_title_key" = "Resend";
+
+"return_key" = "Return";
+
+"submit_title_key" = "Submit";
+
+"take_photo_title_key" = "Take a new photo";
+
+"verifying_otp_text_key" = "VERIFICATION CODE";
+
+"dual_pin_title_key" = "Dual Pin";
+
+"ngos_description_text_key" = "Find and contact NGOs, women rights defenders and other women empowerment organizations that exist nearby.";
+
+"forums_title_key" = "Forums";
+
+"forums_description_text_key" = "A discussion board to anonymously talk about different urgent topics and get advice from professionals.";
+
+"help_section_description_text_key" = "Press the help button and send free alert message with your geolocation to your emergency contacts to let them know you are in trouble. Pressing the Help Button enables audio recording, which you can either send to chosen service contacts, save for later use, or delete at any time.";
+
+"otp_info_text_key" = "A 6 digit CODE has been send to number %@";
+
+"network_title" = "Network";
+
+"help_title_key" = "Help";
+
+"alert_message_sent_text_key" = "Alert messages have been successfully sent!";
+
+"something_went_wrong_text_key" = "Something went wrong";
+
+"settings_title" = "Settings";
+
+"last_name_title_key" = "Last name";
+
+"other_title" = "Other";
+
+"no_records_yet_text_key" = "You do not have any records yet";
+
+"registration_error_key" = "Registration Error";
+
+"edit_key" = "Edit";
+
+"save_key" = "Save";
+
+"value_can_not_be_empty_key" = "Value can not be empty";
+
+"fill_current_password_field_text_key" = "Please fill current password field";
+
+"more_info_text_key" = "More info";
+
+"reply_text_key" = "Reply";
+
+"web_address_text_key" = "Web Address";
+
+"email_text_key" = "email";
+
+"mobile_text_key" = "Mobile";
+
+"remove_from_helpline_title_key" = "Remove";
+
+"add_to_helpline_title_key" = "Add to Contacts";
+
+"title_tutorial" = "Tutorial";
+
+"new_password_title_key" = "New password";
+
+"add_dual_pin_title_key" = "Add a New Dual PIN";
+
+"title_login" = "Login";
+
+"title_signup" = "Register";
+
+"title_forgot_password" = "Forgot Password?";
+
+"title_request_new_password" = "REQUEST NEW PASSWORD";
+
+"forgot_pin_text_key" = "Forgot PIN?";
+
+"current_password_text_key" = "Current password";
+
+"title_all" = "All";
+
+"push_hold_text_key" = "PUSH \nHOLD";
+
+"stop_recording_text_key" = "STOP\nRECORD";
+
+"update_password_title" = "Update Password";
+
+"alert_message_title" = "Alert Message!";
+
+"add_emergency_contacts_text_key" = "Add emergency contacts, who will be contacted if you are in Danger";
+
+"pin_length_text_key" = "PIN should consist of 4 digits";
+
+"real_pin_fake_pin_different" = "Real PIN should be different from the fake PIN";
+
+"check_internet_connection_text_key" = "Please check your internet connection";
+
+"marital_status_text_key" = "Marital Status";
+
+"select_marital_status_text_key" = "Choose Marital Status";
+
+"photo_library" = "Photo Gallery";
+
+"you_replied_to_text_key" = "You replied to %@";
+
+"replied_to_text_key" = "%@ replied to %@";
+
+"replying_to_text_key" = "Replying to %@";
+
+"record_was_successfully_saved_text_key" = "Record was Successfully saved!";
+
+"record_was_successfully_sent_text_key" = "Recording was successfully sent";
+
+"close_key" = "Close";
+
+"please_fill_phone_number_text_key" = "Please fill phone number field.";
+
+"password_update_success_text_key" = "Password updated successfully";
+
+"success_text_key" = "Success";
+
+"no_mail_account_registered" = "You do not have any mail account on your iPhone";
+
+"time_text_key" = "Time:";
+
+"enter_passcode_text_key" = "Enter your PIN";
+
+"title_saved_key" = "Saved";
+
+"title_sent_key" = "Sent";
+
+"delete_key" = "Delete";
+
+"recording_title_key" = "Recordings";
+
+"want_logout_text_key" = "Do you want to log out?";
+
+"wrong_url_text_key" = "Wrong URL";
+
+"clear_text_key" = "Clear";
+
+"add_dual_pin_for_security" = "Want to Hide the App from others? Then add a Dual Pin!\n The Real PIN to access the app, and the Fake Pin to access Photo gallery.\n Using the app without Dual Pin will make access quicker.";
+
+"continue_without_pin_title_key" = "Continue Without Dual PIN";
+
+"enter_pint_to_deactivate" = "Enter your SafeYOU PIN Code to deactivate PIN Code";
+
+"choose_your_country" = "Choose Your \nCountry";
+
+"which_country_to_browse_in" = "Which country do you like to browse in?";
+
+"choose_your_language" = "Choose Your App \nLanguage";
+
+"choose_the_language_to_continue" = "Please choose the language to continue";
+
+"profile_title_key" = "Profile";
+
+"change_password_key" = "Change Password";
+
+"country_title_key" = "Country";
+
+"language_title_key" = "Language";
+
+"support_title_key" = "Support";
+
+"apply_regional_changes_text" = "In case of applying selected options you will logout";
+
+"apply_title_key" = "Apply";
+
+"profile_picture_title_key" = "Profile Picture";
+
+"emergency_services_title" = "My Support Contacts";
+
+"edit_pin_code_title" = "Edit Pin Code";
+
+"enter_your_pin_code" = "Enter your Safe YOU PIN Code";
+
+"count_comments" = "%@ comments";
+
+"comment" = "comment";
+
+"count_replies" = "%@ Replies";
+
+"view_more_replies" = "View More Replies";
+
+"nickname_placeholder" = "Only nickname will be visible to others";
+
+"people_commented_text_key" = "%@ People Recently Commented on this Post";
+
+"replied_to_your_comment" = "Replied to Your Comment";
+
+"address" = "Address";
+
+"intro_view_description_text_key" = "Learn about the functions of the App by pressing on the buttons below.";
+
+"intro_support_text_key" = "In this section you can choose upto 3 personal contacts from you phone's contact list, upto 3 support contacts from our Network, as well as can enable the function of applying to the police.";
+
+"security_introduction_text_key" = "To hide the App from others you can: \n*Activate Dual PIN: \nAdd a real PIN to access the real App and add a fake PIN to access the pictures' folder of your phone.\n*Activate the Camouflage Icon: \nThis will change the app's logo and name on your phone's screen.";
+
+"title_menu" = "Menu";
+
+"title_security_and_login" = "Security & Login";
+
+"title_camouflage_icon" = "Camouflage Icon";
+
+"edit_deactivate_dual_pin" = "Edit/Deactivate Dual PIN";
+
+"continue_txt" = "Continue";
+
+"security" = "Security";
+
+"choose_your_camouflage_icon" = "Choose Your Camouflage Icon";
+
+"art_gallery" = "Art Gallery";
+
+"gallery_editor" = "Gallery Editor";
+
+"visual_editor" = "Visual Editor";
+
+"would_you_activate_dual_pin" = "Would you also like to activate Dual Pin?";
+
+"we_recommend_to_activate_dual_pin" = "We recommend you to activate the Dual Pin to hide the true functions of the App from others.";
+
+"would_you_activate_camouflage_icon" = "Would you also like to activate the Camouflage Icon Function?";
+
+"we_recommend_to_activate_camouflage_icon" = "We recommend you to activate the Camouflage Icon: this will change App's real icon and name in your phone's menu.";
+
+"name_lastname" = "Name Lastname";
+
+"become_consultant_title" = "Become a Consultant";
+
+"why_become_consultant" = "Why would you like to become a consultant at SafeYou?";
+
+"why_would_you_placeholder" = "Why would you like to become ...";
+
+"consultant_agreement_text" = "By pressing \"Continue\" and sending this request you verify that you have read and agree with our \"%@\"";
+
+"legal_consultant_terms_and_conditions" = "Terms and Conditions for Consultants";
+
+"consultant_terms_and_conditions" = "Terms and Conditions for Consultants";
+
+"add_your_experience" = "Add your field of expertise";
+
+"field_of_expertise" = "Field of Expertise";
+
+"email_address" = "Email Address";
+
+"request_status" = "Request Status";
+
+"pending_approval" = "Pending Approval.";
+
+"title_legal" = "Legal";
+
+"terms_and_conditions" = "Terms & Conditions";
+
+"privacy_policy" = "Privacy Policy";
+
+"declined_on_date" = "Declined by Admin on %@";
+
+"approved_on_date" = "Approved on %@";
+
+"submission_date" = "Submission Date";
+
+"cancel_request" = "Cancel Request";
+
+"deactivate" = "Deactivate";
+
+"new_request_inquiry" = "New Request Inquiry";
+
+"deactivate_confirm_message" = "By pressing \"Continue\" you confirm that you no longer want to be a Consultant at Safe YOU. This will change your status to a simple user.";
+
+"approved" = "Approved";
+
+"declined" = "Declined";
+
+"pending" = "Pending";
+
+"back" = "Back";
+
+"cancel_request_message" = "By pressing \"Continue\" you confirm that you want to cancel the request you have sent.";
+
+"consultant_request_success_message" = "Your request has been successfully sent";
+
+"police_warning" = "!!Warning!!";
+
+"police_warning_message" = "You are enabling the 'Contact Police' function. When Help button is pressed local Police will get your alert message with your geolocation and phone number.";
+
+"i_understand" = "I understand";
+
+"filters" = "Filters";
+
+"categories" = "Categories";
+
+"clear_categories" = "Clear Categories";
+
+"languages" = "Languages";
+
+"back_to_default_language" = "Back to Default Language";
+
+"clear_all_filters" = "Clear All Filters";
+
+"show_results" = "Show %@ Results";
+
+"count_views" = "%@ views";
+
+"messages" = "Messages";
+
+"emergency_contacts_title_key" = "Emergency Contacts";
+
+"messages_title_key" = "Private Messages";
+
+"intro_private_messages_text_key" = "You can privately message service providers and your peers in safe and anonymous chats. Please note to report any harmful interactions you may experience.";
+
+"search" = "Search";
+
+"confirm_new_password" = "Confirm new password";
+
+"copy" = "Copy";
+
+"my_recordings" = "My Recordings";
+
+"report" = "Report";
+
+"forum_comment" = "Forum Comment";
+
+"report_spinner_title" = "Category";
+
+"terms_and_conditions_agreement_text" = "I have read and agree to the terms and conditions and privacy policy";
+
+"privacy_policy_txt" = "privacy policy";
+
+"type_a_comment" = "Type your comment...";
+
+"type_a_message" = "Type your message...";
+
+"message_comment" = "Message Comment";
+
+"delete_account_title_key" = "Delete Account";
+
+"delete_account_title" = "Are you sure you would like to Delete your Account?";
+
+"delete_account_description" = "You will not be able to sign in to your current account. Your data will be deleted. If you want to rejoin our community, you need to wait 14 days to create a new account with the same phone number.";

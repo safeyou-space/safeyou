@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSURL *logoURL;
 @property (nonatomic) NSString *title;
+@property (nonatomic) NSInteger rating;
 
 @end
 

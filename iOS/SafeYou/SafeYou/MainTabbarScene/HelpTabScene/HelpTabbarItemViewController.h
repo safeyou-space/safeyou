@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HelpTabbarItemViewController : SYViewController
 
+- (void)helpTabBarButtonPressed;
+- (void)helpTabBarButtonPressedUp;
+
 @end
 
 NS_ASSUME_NONNULL_END

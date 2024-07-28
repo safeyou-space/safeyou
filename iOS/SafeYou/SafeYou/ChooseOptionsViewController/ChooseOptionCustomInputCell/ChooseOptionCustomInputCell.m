@@ -10,8 +10,8 @@
 
 @interface ChooseOptionCustomInputCell ()
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *fieldTitleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoRegualrTextField *inputTextField;
+@property (weak, nonatomic) IBOutlet SYLabelLight *fieldTitleLabel;
+@property (weak, nonatomic) IBOutlet SYRegualrTextField *inputTextField;
 
 @end
 
@@ -20,7 +20,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.inputTextField.disableFloatingLabel = YES;
     [self.inputTextField addTarget:self action:@selector(textFieldDidChangeText:) forControlEvents:UIControlEventEditingChanged];
 }
 

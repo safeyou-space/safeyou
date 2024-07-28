@@ -57,7 +57,7 @@
     [super updateLocalizations];
     self.navigationItem.title = LOC(@"dual_pin_title_key");
     [self.cancelButton setTitle:[self cancelButtonTitle] forState:UIControlStateNormal];
-    self.titleLabel.text = LOC(@"add_dual_pin_title_key");
+    self.mainTitleLabel.text = LOC(@"add_dual_pin_title_key");
     [self configureFormDataSource];
     [self reloadDataSource];
 }

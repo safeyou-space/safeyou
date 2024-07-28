@@ -7,8 +7,8 @@
 //
 
 #import "ConsultantRequestInfoViewModel.h"
-
 #import "UserConsultantRequestDataModel.h"
+#import <Lokalise/Lokalise.h>
 
 @implementation ConsultantRequestInfoViewModel
 
@@ -19,8 +19,7 @@
     statusInfoData.title = LOC(@"request_status");
     statusInfoData.statusInfoText = [statusInfoData statusDateTextFromRequestData:requestData];
     statusInfoData.iconName = [statusInfoData iconNameForStatus:requestData.requestStatus];
-    statusInfoData.requestStatus = requestData.requestStatus;
-    
+    statusInfoData.requestStatus = requestData.requestStatus;    
     
     return statusInfoData;
 }
@@ -41,11 +40,12 @@
 {
     //03/28/2021
     NSDateFormatter *oldDateFormatter = [[NSDateFormatter alloc] init];
-    oldDateFormatter.locale = [NSLocale currentLocale];
+    oldDateFormatter.locale = [[Lokalise sharedObject] localizationLocale];
     oldDateFormatter.dateFormat = @"MM/dd/yyyy";
     NSDate *date = [oldDateFormatter dateFromString:dateString];
     
     NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
+    newDateFormatter.locale = [[Lokalise sharedObject] localizationLocale];
     newDateFormatter.dateFormat = @"dd MMMM, yyyy";
     
     NSString *convertedDateString = [newDateFormatter stringFromDate:date];
@@ -58,11 +58,12 @@
 {
     //03/28/2021
     NSDateFormatter *oldDateFormatter = [[NSDateFormatter alloc] init];
-    oldDateFormatter.locale = [NSLocale currentLocale];
-    oldDateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    oldDateFormatter.locale = [[Lokalise sharedObject] localizationLocale];
+    oldDateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.ssssZ";
     NSDate *date = [oldDateFormatter dateFromString:dateString];
     
     NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
+    newDateFormatter.locale = [[Lokalise sharedObject] localizationLocale];
     newDateFormatter.dateFormat = @"dd MMMM, YYYY";
     
     NSString *convertedDateString = [newDateFormatter stringFromDate:date];

@@ -10,9 +10,8 @@
 
 @interface SectionHeaderWithTitleImage ()
 
-@property (nonatomic, weak) IBOutlet HyRobotoLabelRegular *titleLabel;
+@property (nonatomic, weak) IBOutlet SYLabelRegular *titleLabel;
 @property (nonatomic, weak) IBOutlet SYDesignableImageView *iconImageView;
-@property (nonatomic, weak) IBOutlet SYDesignableView *topLine;
 
 @end
 
@@ -26,9 +25,8 @@
 }
 */
 
-- (void)configureWithImage:(NSString *)imageName title:(NSString *)title hideTopLine:(BOOL)hideTopLine
+- (void)configureWithImage:(NSString *)imageName title:(NSString *)title
 {
-    self.topLine.hidden = hideTopLine;
     if (title.length > 0) {
         self.titleLabel.hidden = NO;
         self.titleLabel.text = title;
@@ -38,7 +36,7 @@
     
     if (imageName.length && [UIImage imageNamed:imageName]) {
         self.iconImageView.hidden = NO;
-        self.iconImageView.image = [UIImage imageNamed:imageName];
+        self.iconImageView.image = [[UIImage imageNamed:imageName] imageWithTintColor:UIColor.mainTintColor1];
     } else {
         self.iconImageView.hidden = YES;
     }

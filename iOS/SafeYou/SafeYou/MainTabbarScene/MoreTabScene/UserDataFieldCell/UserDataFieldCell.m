@@ -11,16 +11,15 @@
 
 @interface UserDataFieldCell ()
 
-@property (nonatomic, weak) IBOutlet HyRobotoLabelRegular *fieldNameLabel;
-@property (nonatomic, weak) IBOutlet HyRobotoLabelRegular *fieldValueLabel;
-@property (nonatomic, weak) IBOutlet UIButton *editButton;
+@property (nonatomic, weak) IBOutlet SYLabelRegular *fieldNameLabel;
+@property (nonatomic, weak) IBOutlet SYLabelRegular *fieldValueLabel;
+@property (nonatomic, weak) IBOutlet SYDesignableButton *editButton;
 @property (weak, nonatomic) IBOutlet UITextField *fieldValueTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *reportIconImageView;
 
 - (IBAction)editButtonPressed:(UIButton *)sender;
 
 @property (nonatomic) BOOL valueChanged;
-
-
 
 @end
 
@@ -34,6 +33,7 @@
     // Initialization code
     self.fieldValueTextField.tintColor = [UIColor mainTintColor2];
     [self.fieldValueTextField addTarget:self action:@selector(textFieldDidChnage:) forControlEvents:UIControlEventEditingChanged];
+    _reportIconImageView.hidden = YES;
 }
 
 - (void)textFieldDidChnage:(UITextField *)textField
@@ -48,14 +48,29 @@
 
 - (void)configureCellWithViewModelData:(ProfileViewFieldViewModel *)viewData
 {
-    [self.editButton setImage:[UIImage imageNamed:@"edit_button"] forState:UIControlStateNormal];
+    UIImage *editImage = [[UIImage imageNamed:@"edit_button"] imageWithTintColor:UIColor.mainTintColor1];
+    [self.editButton setImage:editImage forState:UIControlStateNormal];
     self.fieldData = viewData;
     self.fieldNameLabel.text = viewData.fieldTitle;
     if (self.fieldValueLabel) {
-        self.fieldValueLabel.text = viewData.fieldValue;
+        if(viewData.fieldValue) {
+            self.fieldValueLabel.text = viewData.fieldValue;
+            self.fieldValueLabel.textColor = UIColor.blackColor;
+        } else {
+            self.fieldValueLabel.text = LOC(@"not_specified_text_key");
+            self.fieldValueLabel.textColor = UIColor.lightGrayColor;
+        }
     }
     if (self.fieldValueTextField) {
         self.fieldValueTextField.text = viewData.fieldValue;
+    }
+    
+    if ([viewData.fieldName isEqualToString:@"userId"]) {
+        self.editButton.hidden = YES;
+        self.userInteractionEnabled = NO;
+    } else {
+        self.editButton.hidden = NO;
+        self.userInteractionEnabled = YES;
     }
 }
 
@@ -66,8 +81,8 @@
 }
 - (BOOL)becomeFirstResponder
 {
-//    [self.editButton setTitle:LOC(@"save_key") forState:UIControlStateNormal];
-    [self.editButton setImage:[UIImage imageNamed:@"checkmark"] forState:UIControlStateNormal];
+    UIImage *checkmarkImage = [[UIImage imageNamed:@"checkmark"] imageWithTintColor:UIColor.mainTintColor1];
+    [self.editButton setImage:checkmarkImage forState:UIControlStateNormal];
     [self.fieldValueTextField becomeFirstResponder];
     return [super becomeFirstResponder];
     
@@ -80,13 +95,16 @@
 
 - (BOOL)resignFirstResponder
 {
-//    [self.editButton setTitle:LOC(@"edit_key") forState:UIControlStateNormal];
-    [self.editButton setImage:[UIImage imageNamed:@"edit_button"] forState:UIControlStateNormal];
+    UIImage *editImage = [[UIImage imageNamed:@"edit_button"] imageWithTintColor:UIColor.mainTintColor1];
+    [self.editButton setImage:editImage forState:UIControlStateNormal];
     [self.fieldValueTextField resignFirstResponder];
     return [super resignFirstResponder];
 }
 
-
+- (void)showReportIcon:(BOOL) hidden
+{
+    _reportIconImageView.hidden = hidden;
+}
 
 - (IBAction)editButtonPressed:(UIButton *)sender {
     if (self.isFirstResponder) {

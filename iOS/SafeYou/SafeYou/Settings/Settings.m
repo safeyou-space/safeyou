@@ -16,6 +16,7 @@ static NSString * const kUserDefaultsIsFirstLaunch = @"isFirsLaunch";
 static NSString * const kUserDefaultsUserPin = @"userPin";
 static NSString * const kUserDefaultsUserFakePin = @"userFakePin";
 static NSString * const kUserDefaultsSelectedLanguage = @"userSelectedAppLanguage";
+static NSString * const kUserDeafultsAuthToken = @"userAuthToken";
 static NSString * const kUserDefaultsAuthRefreshToken = @"userAuthRefreshToken";
 static NSString * const kUserDefaultsLocationGranted = @"userLocationIsGrantedKey";
 static NSString * const kUserDefaultsUserLocationName = @"userLocationNameKey";
@@ -39,6 +40,8 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 @synthesize selectedLanguageCode = _selectedLanguageCode;
 @synthesize selectedCountryCode = _selectedCountryCode;
+
+@synthesize isOpenSurveyPopupShown = _isOpenSurveyPopupShown;
 
 - (instancetype)init
 {
@@ -137,7 +140,12 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 - (void)setUserAuthToken:(NSString *)userAuthToken
 {
-    _userAuthToken = @"";
+    _userAuthToken = userAuthToken;
+    if (_userAuthToken == nil) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDeafultsAuthToken];
+    } else {
+    [[NSUserDefaults standardUserDefaults] setValue:self.userAuthToken forKey:kUserDeafultsAuthToken];
+    }
 }
 
 - (void)setUserRefreshToken:(NSString *)userRefreshToken
@@ -214,11 +222,11 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
     [defaults synchronize];
 }
 
-- (void)setDeviceToken:(NSString *)savedFcmToken
+- (void)setSavedFcmToken:(NSString *)savedFcmToken
 {
-    _deviceToken = savedFcmToken;
+    _savedFcmToken = savedFcmToken;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:_deviceToken forKey:kUserDefaultsSavedFcmToken];
+    [defaults setObject:_savedFcmToken forKey:kUserDefaultsSavedFcmToken];
     [defaults synchronize];
 }
 
@@ -227,9 +235,9 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
  http://safeyou.space:3001    Hayastan
  http://safeyou.space:3002   Vrastan
 
- CHAT_HOST_ARM -> 136.244.117.119:1998
- CHAT_HOST_GEO -> 136.244.117.119:1997
- CHAT_HOST_IRQ -> 136.244.117.119:1996
+ CHAT_HOST_ARM -> https://sydeveloper.com:4001
+ CHAT_HOST_GEO -> https://sydeveloper.com:4002
+ CHAT_HOST_IRQ -> https://sydeveloper.com:4003
  */
 
 /**
@@ -241,38 +249,19 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 - (NSString *)socketIOURL
 {
-    BOOL debug = NO;
-#ifdef DEBUG
-    debug = DEBUG;
-#endif
     if ([self.selectedCountry.apiServiceCode isEqualToString:@"arm"]) {
-        if (debug) {
-            return @"http://136.244.117.119:1998";
-        } else {
-            return @"https://dashboard.safeyou.space:1998/";
-        }
+        return BASE_SOCKET_URL_ARM;
     }
     
     if ([self.selectedCountry.apiServiceCode isEqualToString:@"geo"]) {
-        if (debug) {
-            return @"http://136.244.117.119:1997";
-        } else {
-            return @"https://dashboard.safeyou.space:1997/";
-        }
+        return BASE_SOCKET_URL_GEO;
     }
     
     if ([self.selectedCountry.apiServiceCode isEqualToString:@"irq"]) {
-        if (debug) {
-            return @"http://136.244.117.119:1996";
-        } else {
-            return @"https://dashboard.safeyou.space:1996/";
-        }
+        return BASE_SOCKET_URL_IRQ;
     }
     
-    if (debug) {
-        return @"http://136.244.117.119:1998";
-    }
-    return @"https://dashboard.safeyou.space:1998/";
+    return BASE_SOCKET_URL;
 }
 
 - (NSString *)socketAPIURL
@@ -340,7 +329,7 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 - (void)retreive
 {
-    self.userAuthToken = @"";
+    self.userAuthToken = [[NSUserDefaults standardUserDefaults] valueForKey:kUserDeafultsAuthToken];
     
     self.userRefreshToken = [[NSUserDefaults standardUserDefaults] valueForKey:kUserDefaultsAuthRefreshToken];
     
@@ -383,7 +372,9 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
     LanguageDataModel *decodedLanguage = [NSKeyedUnarchiver unarchiveObjectWithData:encodedLanguageData];
     _selectedLanguage = decodedLanguage;
     
-    _deviceToken = [defaults objectForKey:kUserDefaultsSavedFcmToken];
+    _savedFcmToken = [defaults objectForKey:kUserDefaultsSavedFcmToken];
+    
+    _isOpenSurveyPopupShown = NO;
 }
 
 - (void)setIsLocationGranted:(BOOL)isLocationGranted
@@ -425,5 +416,9 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
     return @"374";
 }
 
+- (void)setOpenSurveyPopupShown:(BOOL)isPopupShown
+{
+    _isOpenSurveyPopupShown = isPopupShown;
+}
 
 @end

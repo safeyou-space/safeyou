@@ -8,8 +8,9 @@
 
 #import "BaseDataModel.h"
 #import "HelpMessageDataModel.h"
+#import "ProfileQuestionsAnswersDataModel.h"
 
-@class ImageDataModel, RecordDataModel, EmergencyContactDataModel, EmergencyServiceDataModel, UserConsultantRequestDataModel;
+@class ImageDataModel, RecordDataModel, EmergencyContactDataModel, EmergencyServiceDataModel, UserConsultantRequestDataModel, ProfileQuestionsAnswersDataModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,10 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isAdmin;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) NSString *role;
+@property (nonatomic, strong) NSString *uId;
+@property (nonatomic, strong) NSString *location;
 @property (nonatomic, strong) NSString *createdAt;
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, strong) NSString *maritalStatus;
+@property (nonatomic, strong) NSNumber *filledPercent;
+@property (nonatomic, strong) ProfileQuestionsAnswersDataModel *profileQuestionsAnswers;
 
 @property (nonatomic) HelpMessageDataModel *helpMessagData;
 

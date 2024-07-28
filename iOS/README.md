@@ -1,13 +1,14 @@
 # SafeYou-iOS
 
 * Introduction:
-	Native iOS application written in Objective C used Foundation Framework and CocoaTouch Frameworks.
+	Native iOS application written in Objective C and Swift
+    Used Foundation Framework and CocoaTouch Frameworks.
 	Also used third party libraries and frameworks which dependencies are configured with CocoaPods.
-	Application Deployment targets are iOS versions above 11.0
+	Application Deployment targets are iOS versions above 13.0
 
  * Requirements:
-	MacOS versions above 10.14
-	Xcode versions above 11.0
+	MacOS versions above 13.0
+	Xcode versions above 13.0
 	CocoaPods installed on Mac
 
  * Installation:

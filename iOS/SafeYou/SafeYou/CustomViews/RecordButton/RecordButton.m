@@ -110,6 +110,16 @@
     }
 }
 
+- (void)recordButtonDidStartPressed:(RecordButton *)sender
+{
+    [self touchDownAction:nil];
+}
+
+- (void)recordButtonDidStopPressed:(RecordButton *)sender
+{
+    [self touchUpAction:nil];
+}
+
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
@@ -191,9 +201,11 @@
     self.backgroundColor = [UIColor mainTintColor1];
     self.progressLayer.hidden = YES;
     self.progressLayer.fillColor  = [UIColor greenColor].CGColor;
-    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor navyBlueColor] forState:UIControlStateNormal];
     [self setTitle:LOC(@"push_hold_text_key") forState:UIControlStateNormal];
-    [self.titleLabel setFont:[UIFont fontWithName:@"HayRoboto-Bold" size:39]];
+    UIFont *font = [UIFont extraBoldFontOfSize:39];
+    [self.titleLabel setFont:[[[UIFontMetrics alloc] initForTextStyle:UIFontTextStyleBody] scaledFontForFont:font]];
+    self.titleLabel.adjustsFontForContentSizeCategory = YES;
     self.layer.masksToBounds = YES;
     
     self.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 5);
@@ -213,7 +225,9 @@
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     NSString *title = [NSString stringWithFormat:@"%@", @(self.timeRemaining)];
     [self setTitle:title forState:UIControlStateNormal];
-    [self.titleLabel setFont:[UIFont fontWithName:@"HayRoboto-Bold" size:60]];
+    UIFont *font = [UIFont extraBoldFontOfSize:60];
+    [self.titleLabel setFont:[[[UIFontMetrics alloc] initForTextStyle:UIFontTextStyleBody] scaledFontForFont:font]];
+    self.titleLabel.adjustsFontForContentSizeCategory = YES;
     self.titleLabel.numberOfLines = 1;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
@@ -226,7 +240,9 @@
     self.progressLayer.fillColor = [UIColor redColor].CGColor;
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self setTitle:LOC(@"stop_recording_text_key") forState:UIControlStateNormal];
-    [self.titleLabel setFont:[UIFont fontWithName:@"HayRoboto-Regular" size:39]];
+    UIFont *font = [UIFont regularFontOfSize:39];
+    [self.titleLabel setFont:[[[UIFontMetrics alloc] initForTextStyle:UIFontTextStyleBody] scaledFontForFont:font]];
+    self.titleLabel.adjustsFontForContentSizeCategory = YES;
     self.titleLabel.minimumScaleFactor = 0.5;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     

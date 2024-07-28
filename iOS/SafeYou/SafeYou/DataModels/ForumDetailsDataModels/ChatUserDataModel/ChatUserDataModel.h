@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, ChatUserRole) {
 @property (nonatomic) NSURL *avatarUrl; //"user_image" = "http://136.244.117.119:88/upload/images/users/profiles/users/default_profile.png";
 //"user_is_owner" = 1;
 @property (nonatomic) NSString *ngoName;
-@property (nonatomic) NSString *profession;
+@property (nonatomic) NSMutableDictionary *profession;
 @property (nonatomic) ChatUserRole role;
 @property (nonatomic) NSString *roleLabel;
 @property (nonatomic) NSString *roomKey;

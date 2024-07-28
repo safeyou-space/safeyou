@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SectionHeaderWithTitleImage : UITableViewHeaderFooterView
 
-- (void)configureWithImage:(NSString *)imageName title:(NSString *)title hideTopLine:(BOOL)hideTopLine;
+- (void)configureWithImage:(NSString *)imageName title:(NSString *)title;
 
 @end
 

@@ -27,6 +27,7 @@
 @property (nonatomic) NSNumber *roomId;
 @property (nonatomic) ChatUserDataModel *sender;
 @property (nonatomic) MessageType messageType;
+@property (nonatomic) NSString *roomKey;
 
 @property (nonatomic) NSNumber *parentMessageId;
 

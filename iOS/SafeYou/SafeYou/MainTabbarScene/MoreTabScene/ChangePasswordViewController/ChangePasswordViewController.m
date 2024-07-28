@@ -8,15 +8,21 @@
 
 #import "ChangePasswordViewController.h"
 #import "SYAuthenticationService.h"
+#import "PasswordTextField.h"
 
 @interface ChangePasswordViewController () <UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet SYDesignableBarButtonItem *backBarBUttonItem;
 
-@property (weak, nonatomic) IBOutlet SYTextField *currentPasswordTextField;
-@property (weak, nonatomic) IBOutlet SYTextField *passwordNewTextField;
-@property (weak, nonatomic) IBOutlet SYTextField *confirmNewPasswordTextField;
+@property (weak, nonatomic) IBOutlet SYLabelBold *currentPasswordTitleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *creatingPasswordTitleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *confirmCreatingPasswordTitleLabel;
+
+@property (weak, nonatomic) IBOutlet PasswordTextField *currentPasswordTextField;
+@property (weak, nonatomic) IBOutlet PasswordTextField *passwordNewTextField;
+@property (weak, nonatomic) IBOutlet PasswordTextField *confirmNewPasswordTextField;
 @property (weak, nonatomic) IBOutlet SYCorneredButton *savePasswordButton;
 @property (weak, nonatomic) IBOutlet SYCorneredButton *cancelChangesButton;
-@property (weak, nonatomic) IBOutlet HyRobotoButton *forgotPasswordButton;
+@property (weak, nonatomic) IBOutlet SYButtonBold *forgotPasswordButton;
 
 - (IBAction)savePasswordButtonPressed:(UIButton *)sender;
 - (IBAction)cancelChangesButtonPressed:(UIButton *)sender;
@@ -46,7 +52,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
 }
 
 #pragma mark - Customize
@@ -67,6 +73,10 @@
 - (void)updateLocalizations
 {
     self.navigationItem.title = LOC(@"change_password_key");
+    self.backBarBUttonItem.title = LOC(@"back");
+    self.currentPasswordTitleLabel.text = LOC(@"current_password_text_key");
+    self.creatingPasswordTitleLabel.text = LOC(@"new_password_title_key");;
+    self.confirmCreatingPasswordTitleLabel.text = LOC(@"confirm_new_password");
     self.currentPasswordTextField.placeholder = LOC(@"current_password_text_key");
     self.passwordNewTextField.placeholder = LOC(@"new_password_title_key");
     self.confirmNewPasswordTextField.placeholder = LOC(@"confirm_new_password");
@@ -76,6 +86,10 @@
 }
 
 #pragma mark - Actions
+
+- (IBAction)backbarButtonAction:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (IBAction)cancelEditingTapAction:(UITapGestureRecognizer *)sender {
     [self.view endEditing:YES];

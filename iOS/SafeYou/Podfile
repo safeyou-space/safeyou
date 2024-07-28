@@ -1,12 +1,10 @@
-platform :ios, '10.0'
-use_modular_headers!
-use_frameworks!
+platform :ios, '13.0'
 inhibit_all_warnings!
 
 
 target 'SafeYou' do
     
-  pod 'AFNetworking', '~> 3.0'
+  pod 'AFNetworking', '~> 4.0'
   pod 'MBProgressHUD'
   pod 'SDWebImage'    #, '~>3.8'
   pod 'DZNEmptyDataSet'
@@ -14,7 +12,17 @@ target 'SafeYou' do
   pod 'Socket.IO-Client-Swift' , '~> 15.2.0'
   pod 'TTTAttributedLabel'
   pod 'UITextView+Placeholder'
+  pod 'FBSDKCoreKit'
   pod 'NYTPhotoViewer'
   pod 'Lokalise'
 
 end
+
+
+post_install do |pi|
+    pi.pods_project.targets.each do |t|
+      t.build_configurations.each do |config|
+        config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+      end
+    end
+  end

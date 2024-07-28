@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSInteger level;
 
+@property (nonatomic) NSString *appLanguage;
 
 @end
 

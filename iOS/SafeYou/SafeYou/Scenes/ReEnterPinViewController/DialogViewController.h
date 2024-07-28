@@ -9,10 +9,13 @@
 typedef NS_ENUM(NSUInteger, DialogViewType) {
     DialogViewTypeButtonAction,
     DialogViewTypeCreatePin,
-    DialogViewTypeEditPin
+    DialogViewTypeEditPin,
+    DialogViewTypeCountPicker,
+    DialogViewTypeSurveyAction
 };
 
 #import "SYViewController.h"
+#import "ProfileQuestionsDataModel.h"
 
 @class DialogViewController;
 
@@ -41,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *titleText;
 @property (nonatomic) NSString *continueButtonText;
 @property (nonatomic) BOOL showCancelButton;
+@property (nonatomic) NSArray<ProfileQuestionsOption *> *pickerElementsArray;
+@property (nonatomic) ProfileQuestionsOption *pickedElement;
 
 @end
 

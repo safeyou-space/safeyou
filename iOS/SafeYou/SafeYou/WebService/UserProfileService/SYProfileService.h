@@ -7,6 +7,8 @@
 //
 
 #import "SYServiceAPI.h"
+#import "UserDataModel.h"
+#import "ProfileQuestionsDataModel.h"
 
 @interface SYProfileService : SYServiceAPI
 
@@ -32,6 +34,8 @@ endppoint:
  }
  */
 - (void)updateUserDataField:(NSString *)fieldName value:(NSString *)fieldValue withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure;
+
+- (void)updateUserDataField:(NSString *)fieldName :(NSNumber *)questionId :(NSString *)questionType :(NSNumber *)questionOptionId  withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure;
 
 /*POST
 Add Emergency Contact to Profile
@@ -110,5 +114,28 @@ Delete Emergency Contact by Emergency Id
  */
 - (void)deleteProfile:(void(^)(id response))complition failure:(void(^)(NSError *error))failure;
 
+/*
+GET
+Get Profile Questions
+endpoint: profile/questions
+*/
+
+- (void)getProfileQuestionsWithComplition:(void(^)(NSArray <ProfileQuestionsDataModel *> *questionsData))complition failure:(void(^)(NSError *error))failure;
+
+/*
+ GET
+ Get Profile Question With Id
+ endpoint: questions
+ */
+
+- (void)getProfileQuestionWithComplition:(NSInteger)questionId :(void(^)(NSArray <ProfileQuestionsDataModel *> *))complition failure:(void(^)(NSError *error))failure;
+
+/*
+GET
+Get Profile Find Town City
+endpoint: profile/findText
+*/
+
+- (void)findTownOrCityWithComplition:(NSString *)findLocation :(void(^)(NSArray <ProfileQuestionsOption *> *))complition failure:(void(^)(NSError *error))failure;
 
 @end

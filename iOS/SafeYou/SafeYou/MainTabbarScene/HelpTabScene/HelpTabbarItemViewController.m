@@ -23,18 +23,19 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 #import "SYViewController+StyledAlerts.h"
 #import "AppDelegate.h"
 #import <CoreLocation/CoreLocation.h>
+#import "RecordDataModel.h"
 
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define RECORD_MAX_DURATION 60
 
 @interface HelpTabbarItemViewController () <RecordButtonDelegate, AVAudioRecorderDelegate>
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *timerLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *timerLabel;
 
 @property (weak, nonatomic) IBOutlet SYDesignableView *helpButtonLargeCircle;
 @property (weak, nonatomic) IBOutlet SYDesignableView *helpButtonSmallCircle;
 @property (weak, nonatomic) IBOutlet RecordButton *recordButton;
-@property (weak, nonatomic) IBOutlet UIView *emergnecyContactsView;
+@property (weak, nonatomic) IBOutlet UIView *emergencyContactsView;
 @property (weak, nonatomic) IBOutlet UIView *recordingsView;
 
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *emergencyContactsTapGesture;
@@ -48,10 +49,10 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *policeIcon;
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *recordingsStoreIcon;
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *infoMessageLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *infoMessageLabel;
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *emergencyContactsLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *recordingsLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *emergencyContactsLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *recordingsLabel;
 
 - (IBAction)emergencyContactsTapped:(UITapGestureRecognizer *)sender;
 - (IBAction)recordingsTapped:(UITapGestureRecognizer *)sender;
@@ -94,6 +95,7 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     weakify(self);
     [self checkMicrophonePermissions:^(BOOL allowed) {
@@ -101,14 +103,26 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
         if (allowed) {
             strongify(self);
             self.isRecordPerrmissionGranted = YES;
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
         } else {
             self.isRecordPerrmissionGranted = NO;
         }
     }];
     self.recordViewState = RecordViewStateNormal;
     self.extendedLayoutIncludesOpaqueBars = YES;
+    
+    self.recordingsView.isAccessibilityElement = YES;
+    self.recordingsView.accessibilityLabel = LOC(@"my_recordings");
+    self.recordingsView.shouldGroupAccessibilityChildren = YES;
+    self.recordingsView.accessibilityTraits = UIAccessibilityTraitButton;
+    
+    self.emergencyContactsView.isAccessibilityElement = YES;
+    self.emergencyContactsView.accessibilityLabel = LOC(@"emergency_contacts_title_key");
+    self.emergencyContactsView.shouldGroupAccessibilityChildren = YES;
+    self.emergencyContactsView.accessibilityTraits = UIAccessibilityTraitButton;
+    
+    [self configureNavigationBar];
+    [self configureNavigationLeftItem];
+    [self setWhiteColorTypeOnNotificationIcon];
 }
 
 - (void)checkMicrophonePermissions:(void (^)(BOOL allowed))completion {
@@ -144,8 +158,8 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 {
     [super viewWillAppear:animated];
     [self configureEmergencyIcons];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
+    [self configureWingImages];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -183,22 +197,37 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 {
     UserDataModel *onlineUser = [Settings sharedInstance].onlineUser;
     if (onlineUser.emergencyContacts.count) {
-        self.contactsIcon.imageColorType = SYColorTypeWhite;
+        self.contactsIcon.imageColorType = SYColorTypeNavyBlue;
     } else {
-        self.contactsIcon.imageColorType = SYColorTypeLightGray;
+        self.contactsIcon.imageColorType = SYColorTypeDarkGray;
     }
     
     if (onlineUser.emergencyServices.count) {
-        self.ngosIcon.imageColorType = SYColorTypeWhite;
+        self.ngosIcon.imageColorType = SYColorTypeNavyBlue;
     } else {
-        self.ngosIcon.imageColorType = SYColorTypeLightGray;
+        self.ngosIcon.imageColorType = SYColorTypeDarkGray;
     }
     
     if (onlineUser.checkPolice) {
-        self.policeIcon.imageColorType = SYColorTypeWhite;
+        self.policeIcon.imageColorType = SYColorTypeNavyBlue;
     } else {
-        self.policeIcon.imageColorType = SYColorTypeLightGray;
+        self.policeIcon.imageColorType = SYColorTypeDarkGray;
     }
+    
+    if (onlineUser.records.recordId) {
+        self.recordingsStoreIcon.imageColorType = SYColorTypeNavyBlue;
+    } else {
+        self.recordingsStoreIcon.imageColorType = SYColorTypeDarkGray;
+    }
+}
+
+- (void)configureNavigationBar
+{
+    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+    appearance.backgroundColor = [UIColor navyBlueColor];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.standardAppearance = appearance;
+    self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
 }
 
 #pragma Getter
@@ -206,20 +235,6 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 - (AppDelegate *)appDelegate
 {
     return (AppDelegate *)[UIApplication sharedApplication].delegate;
-}
-
-#pragma mark - Handle Application State Notifications
-
-- (void)handleWillResignActive:(NSNotification *)notification
-{
-    if (self.recordViewState == RecordViewStateRecording) {
-        [self stopRecording];
-    }
-}
-
-- (void)handleDidBecomeActive:(NSNotification *)notification
-{
-    [self hideLoader];
 }
 
 #pragma mark - UI State
@@ -321,14 +336,14 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 
 - (NSString*)getTimeStr:(NSInteger)secondsElapsed {
     
-  NSInteger seconds = secondsElapsed % 60;
-  NSInteger minutes = secondsElapsed / 60;
+    NSInteger seconds = secondsElapsed % 60;
+    NSInteger minutes = secondsElapsed / 60;
     
     return [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
 }
 
 - (void)timerController {
-  self.recordSeconds++;
+    self.recordSeconds++;
     [self.timerLabel setText:[self getTimeStr:self.recordSeconds]];
 }
 
@@ -425,7 +440,6 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
 
 - (void)updateLocalizations
 {
-    self.navigationItem.title  = LOC(@"help_title_key");
     self.infoMessageLabel.text = LOC(@"help_section_description_text_key");
     self.recordingsLabel.text = LOC(@"my_recordings");
     self.emergencyContactsLabel.text = LOC(@"emergency_contacts_title_key");
@@ -578,5 +592,28 @@ typedef NS_ENUM(NSUInteger, RecordViewState) {
     return timeString;
 }
 
+- (void)helpTabBarButtonPressed {
+    [self.recordButton recordButtonDidStartPressed:self.recordButton];
+}
+
+- (void)helpTabBarButtonPressedUp {
+    [self.recordButton recordButtonDidStopPressed:self.recordButton];
+}
+
+- (void)configureNavigationLeftItem
+{
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"logo_white_state"] style:UIBarButtonItemStylePlain target:nil action:nil];
+}
+
+- (void)configureWingImages
+{
+    if ([[Settings sharedInstance] isLanguageRTL]) {
+        self.leftImageView.image = [UIImage imageNamed:@"right_wing"];
+        self.rightImageView.image = [UIImage imageNamed:@"left_wing"];
+    } else {
+        self.leftImageView.image = [UIImage imageNamed:@"left_wing"];
+        self.rightImageView.image = [UIImage imageNamed:@"right_wing"];
+    }
+}
 
 @end

@@ -7,12 +7,19 @@
 //
 
 #import "SYServiceAPI.h"
+#import "BaseDataModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface RemoteConfigData : BaseDataModel
+
+@property (nonatomic) NSString *requiredVersion;
+
+@end
+
 @interface ConfigService : SYServiceAPI
 
-- (void)getConfigsWithComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure;
+- (void)getConfigsWithComplition:(void(^)(RemoteConfigData *response))complition failure:(void(^)(NSError *error))failure;
 
 @end
 

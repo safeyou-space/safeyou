@@ -8,7 +8,7 @@
 
 #import "BaseDataModel.h"
 #import "UserDetail.h"
-@class ImageDataModel, UserDetail;
+@class ImageDataModel, UserDetail, ReviewDataModel;
 
 @interface EmergencyServiceDataModel : BaseDataModel
 
@@ -57,6 +57,11 @@
 @property (nonatomic, strong) NSString *localizedCategoryName;
 
 
+// rating
+@property (nonatomic, strong) ReviewDataModel *reviewData;
 
+// view model
+
+@property (nonatomic, strong) NSAttributedString* attributedInfoText;
 
 @end

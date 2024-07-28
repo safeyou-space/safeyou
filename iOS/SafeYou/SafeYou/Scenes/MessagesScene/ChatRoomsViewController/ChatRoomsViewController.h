@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChatRoomsViewController : SYViewController
 
+- (void)showFormErrorAlert;
+
 @end
 
 NS_ASSUME_NONNULL_END

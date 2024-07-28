@@ -12,10 +12,10 @@
 
 @interface RecordListItemTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *recordLocationlabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *recordTimelabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *recordDateLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *sentTimeLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *recordLocationlabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *recordTimelabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *recordDateLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *sentTimeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sentImageView;
 
 @end

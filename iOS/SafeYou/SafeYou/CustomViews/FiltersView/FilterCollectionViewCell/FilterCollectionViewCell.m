@@ -13,7 +13,7 @@
 @interface FilterCollectionViewCell ()
 
 @property (weak, nonatomic) IBOutlet SYDesignableView *containerView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *titleLabel;
 
 @end
 
@@ -40,11 +40,9 @@
 - (void)updateSelectionUI
 {
     if (self.viewModel.isSelected) {
-        self.titleLabel.textColor = [UIColor whiteColor];
         self.containerView.backgroundColor = [UIColor mainTintColor2];
     } else {
-        self.titleLabel.textColor = [UIColor blackColor];
-        self.containerView.backgroundColor = [UIColor mainTintColor7];
+        self.containerView.backgroundColor = [UIColor mainTintColor6];
     }
 }
 

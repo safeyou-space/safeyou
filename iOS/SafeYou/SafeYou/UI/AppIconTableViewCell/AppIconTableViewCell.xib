@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,14 +35,14 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altername Icon 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gD1-eR-PDU" customClass="HyRobotoLabelRegular">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altername Icon 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gD1-eR-PDU" customClass="SYLabelRegular">
                                         <rect key="frame" x="54" y="0.0" width="121" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                                <integer key="value" value="6"/>
+                                                <integer key="value" value="22"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
                                                 <real key="value" value="1"/>
@@ -64,7 +64,7 @@
                                 <state key="selected" image="radio_button_pink_selected"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
-                                        <integer key="value" value="1"/>
+                                        <integer key="value" value="22"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="selectedImageColorType">
                                         <integer key="value" value="1"/>
@@ -92,11 +92,19 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SDy-O9-07O">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="W1O-kh-aMs" secondAttribute="bottom" id="8hN-ba-lqm"/>
+                    <constraint firstItem="SDy-O9-07O" firstAttribute="height" secondItem="W1O-kh-aMs" secondAttribute="height" id="8mW-sZ-bkx"/>
                     <constraint firstItem="W1O-kh-aMs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="H9V-c4-bmf"/>
+                    <constraint firstItem="SDy-O9-07O" firstAttribute="centerY" secondItem="W1O-kh-aMs" secondAttribute="centerY" id="Jdn-HB-J9v"/>
+                    <constraint firstItem="SDy-O9-07O" firstAttribute="width" secondItem="W1O-kh-aMs" secondAttribute="width" id="Wm4-Oe-AnO"/>
                     <constraint firstAttribute="trailing" secondItem="W1O-kh-aMs" secondAttribute="trailing" id="hkT-OY-gdM"/>
+                    <constraint firstItem="SDy-O9-07O" firstAttribute="centerX" secondItem="W1O-kh-aMs" secondAttribute="centerX" id="lRm-WU-cSY"/>
                     <constraint firstItem="W1O-kh-aMs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tiX-Af-731"/>
                 </constraints>
             </tableViewCellContentView>
@@ -105,6 +113,7 @@
                 <outlet property="iconImageView" destination="tLL-Iy-wJl" id="HE3-aT-hcQ"/>
                 <outlet property="radioButton" destination="TxR-9D-CRM" id="6fF-5g-I3t"/>
                 <outlet property="titleLabel" destination="gD1-eR-PDU" id="rML-3O-9h8"/>
+                <outlet property="transparrentView" destination="SDy-O9-07O" id="Fj6-WI-pkF"/>
             </connections>
             <point key="canvasLocation" x="139" y="46"/>
         </tableViewCell>

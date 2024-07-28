@@ -9,6 +9,7 @@
 #import "UserDataModel+OtherViewDataSource.h"
 #import "ProfileViewFieldViewModel.h"
 #import "ImageDataModel.h"
+#import "ProfileQuestionsAnswersDataModel.h"
 
 @implementation UserDataModel (OtherViewDataSource)
 
@@ -32,6 +33,15 @@
     nickNameField.isSecureField = NO;
     nickNameField.accessoryType = FieldAccessoryTypeEdit;
     nickNameField.actionString = @"edit";
+    
+    ProfileViewFieldViewModel *userIdField = [[ProfileViewFieldViewModel alloc] init];
+    
+    userIdField.fieldName =  @"userId";
+    userIdField.fieldTitle = LOC(@"user_id");
+    userIdField.fieldValue = self.uId;
+    userIdField.isSecureField = NO;
+    userIdField.accessoryType = FieldAccessoryTypeEdit;
+    userIdField.actionString = @"edit";
     
     ProfileViewFieldViewModel *firstNameField = [[ProfileViewFieldViewModel alloc] init];
     
@@ -69,8 +79,47 @@
     mobileNumberField.accessoryType = FieldAccessoryTypeEdit;
     mobileNumberField.actionString = @"edit";
     
-    NSArray *fieldList = @[avatarField, nickNameField,firstNameField, lastNameField, maritalStatusField, mobileNumberField];
-    return fieldList;
+    NSMutableArray *fieldList = [NSMutableArray arrayWithArray:@[avatarField, nickNameField, userIdField, firstNameField, lastNameField, maritalStatusField, mobileNumberField]];
+    
+    NSDictionary<NSString *, QuestionsAnswersDataModel *> *profileAnswers = self.profileQuestionsAnswers.answers;
+
+    for(id key in profileAnswers) {
+        if(![key isEqualToString:@"specify_settlement_type"] && ![[Settings sharedInstance].selectedCountryCode isEqualToString:@"irq"]) {
+            
+            ProfileViewFieldViewModel *locationField = [[ProfileViewFieldViewModel alloc] init];
+            NSString *actionString = @"chooseChildrenCount";
+            NSInteger fieldAccessoryTypeValue = FieldAccessoryTypeEditInNewPage;
+            FieldAccessoryType fieldAccessoryType = (FieldAccessoryType)fieldAccessoryTypeValue;
+            
+            QuestionsAnswersDataModel *dataModel = profileAnswers[key];
+            NSString *answer = dataModel.answer;
+            
+            if([dataModel.questionType isEqualToString:@"basic"]) {
+                if ([key isEqualToString:@"do_you_have_children"]) {
+                    fieldAccessoryType = FieldAccessoryTypeEditInNewPage;
+                    actionString = @"chooseChildrenCount";
+                } else {
+                    fieldAccessoryType = FieldAccessoryTypeArrow;
+                    actionString = @"chooseCurrentOcupation";
+                }
+            }
+            else {
+                actionString = @"chooseRegion";
+            }
+            
+            locationField.fieldName =  key;
+            locationField.fieldTitle = LOC(key);
+            locationField.fieldValue = answer;
+            locationField.isSecureField = NO;
+            locationField.accessoryType = fieldAccessoryType;
+            locationField.actionString = actionString;
+            
+            [fieldList addObject: locationField];
+        }
+    }
+    NSArray *immutableArray = [fieldList copy];
+   
+    return immutableArray;
 }
 
 @end

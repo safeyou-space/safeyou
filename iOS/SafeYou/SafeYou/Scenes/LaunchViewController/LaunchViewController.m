@@ -12,6 +12,8 @@
 #import "Settings.h"
 
 @interface LaunchViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *launchImageView;
+
 @property (nonatomic) BOOL isBackgroundDataReady;
 
 @property (nonatomic) SYProfileService *profileDataService;
@@ -39,6 +41,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(internetConnectionDidLost:) name:InternetConnectionDidLost object:nil];
+
+    [self animateImage];
+        
     if ([Settings sharedInstance].userAuthToken.length > 0) {
         [self fetchUsertData];
     } else {
@@ -47,6 +52,14 @@
             [self.delegate startApplicationInitially];
         }
     }
+}
+
+- (void)animateImage {
+    CGFloat viewFrameWidth = self.launchImageView.frame.size.width;
+    CGFloat viewFrameHeight = self.launchImageView.frame.size.height;
+    [UIView animateWithDuration:1.0f animations:^{
+        self.launchImageView.frame = CGRectMake(-viewFrameWidth, 0, viewFrameWidth, viewFrameHeight);
+    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -103,7 +116,7 @@
         if ([self.delegate respondsToSelector:@selector(startApplicationInitially)]) {
             [self.delegate startApplicationInitially];
         }
-        if ([Settings sharedInstance].updatedDeviceToken && [Settings sharedInstance].updatedDeviceToken.length != 0) {
+        if ([Settings sharedInstance].updatedFcmToken && [Settings sharedInstance].updatedFcmToken.length != 0) {
             [self saveFcmToken];
         }
     } failure:^(NSError *error) {
@@ -123,9 +136,9 @@
 
 - (void)saveFcmToken
 {
-    [self.profileDataService updateUserDataField:@"device_token" value:[Settings sharedInstance].updatedDeviceToken withComplition:^(id response) {
-        [Settings sharedInstance].deviceToken = [Settings sharedInstance].updatedDeviceToken;
-        [Settings sharedInstance].updatedDeviceToken = nil;
+    [self.profileDataService updateUserDataField:@"device_token" value:[Settings sharedInstance].updatedFcmToken withComplition:^(id response) {
+        [Settings sharedInstance].savedFcmToken = [Settings sharedInstance].updatedFcmToken;
+        [Settings sharedInstance].updatedFcmToken = nil;
     } failure:^(NSError *error) {
         // handle Error
     }];

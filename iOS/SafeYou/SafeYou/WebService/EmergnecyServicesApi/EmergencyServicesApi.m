@@ -45,13 +45,18 @@
     return [NSString stringWithFormat:@"service/%@", serviceId];
 }
 
+- (NSString *)endpointForReview
+{
+    return @"rate/service";
+}
+
 - (void)getEmergencyServicesWithComplition:(void(^_Nonnull)(EmergencyServicesListDataModel * _Nullable emergencySerivcesList))complition failure:(void(^_Nonnull)(NSError * _Nonnull error))failure
 {
     NSDictionary *params;
     if (self.onlyForEmergency) {
         params = @{@"is_send_sms":@"true"};
     }
-    [self.networkManager GET:[self endpoint] parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:[self endpoint] parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         EmergencyServicesListDataModel *servicesList = [EmergencyServicesListDataModel modelObjectWithDictionary:responseObject];
         if (complition) {
             complition(servicesList);
@@ -66,7 +71,8 @@
 
 - (void)getEmergencyServicesById:(NSString *)serviceId type:(NSString *)type complition:(void(^)(EmergencyServiceDataModel *serviceData))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager GET:[self endpointForServiceId:serviceId] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+
+    [self.networkManager GET:[self endpointForServiceId:serviceId] parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 //        NSDictionary *receivedDataDict = ((NSArray *)responseObject).firstObject;
         EmergencyServiceDataModel *serviceData = [EmergencyServiceDataModel modelObjectWithDictionary:responseObject];
         if (complition) {
@@ -96,7 +102,7 @@
         endpoint = [self endpointByCategoryId:categoryId];
     }
     
-    [self.networkManager GET:endpoint parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:endpoint parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableArray *responseArray = [[NSMutableArray alloc] init];
         if ([responseObject isKindOfClass:[NSArray class]]) {
             for (NSDictionary *dict in responseObject) {
@@ -121,7 +127,8 @@
     if (self.onlyForEmergency) {
         params = @{@"is_send_sms":@"true"};
     }
-    [self.networkManager GET:@"service_categories" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    
+    [self.networkManager GET:@"service_categories" parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         NSArray *idsArray = [responseObject allKeys];
         for (NSString *categoryId in idsArray) {
@@ -133,6 +140,20 @@
         if (complition) {
             complition([tempArray copy]);
         }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+- (void)addReview:(NSDictionary *)params success:(void(^)(NSString *message))success failure:(void(^)(NSError *error))failure
+{
+    NSString *endpoint = [self endpointForReview];
+    [self.networkManager POST:endpoint parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSString *message = [dict objectForKey:@"message"];
+        success(message);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
             failure(error);

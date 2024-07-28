@@ -1,0 +1,17 @@
+/* 
+  Localizations.strings
+  SafeYou
+
+  Created by Garnik Simonyan on 8/25/19.
+  Copyright © 2019 Garnik Simonyan. All rights reserved.
+*/
+
+NSCameraUsageDescription = "پێدڤییە ئەم بگەهینە گەلەریێ تە داکو تو بشێی وێنەیێ پرۆفایلێ خۆ هەلبژێری";
+
+NSLocationAlwaysAndWhenInUseUsageDescription = " بەرنامەیێ Safe YOU جهێ تە بکاردئینیت داککو کاریگەرترین و هویرترین پشتەڤانی دابین بکەت د حالەتا تەنگاڤیێ دا";
+
+NSLocationWhenInUseUsageDescription = " بەرنامەیێ Safe YOU جهێ تە بکاردئینیت داککو کاریگەرترین و هویرترین پشتەڤانی دابین بکەت د حالەتا تەنگاڤیێ دا";
+
+NSMicrophoneUsageDescription = " بەرنامەیێ Safe YOU پێدڤییە بگەهیتە مایکرۆفۆنێ تە ژبۆ تۆمارکرنا دەنگی دەمی تو دکەڤییە د ئاریشەکێ دا";
+
+NSPhotoLibraryUsageDescription = "ئەم حەز دکەین بگەهینە گەلەریێ وێنەیێن تە داکو دووبارە تە ئاراستە بکەین ل وێرێ دەمێ تو  هێمایێ نەدروست داخل دکەی";

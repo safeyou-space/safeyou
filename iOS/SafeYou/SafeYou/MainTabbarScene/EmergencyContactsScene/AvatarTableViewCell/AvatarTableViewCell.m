@@ -15,7 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet SYDesignableButton *cameraButton;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *profilePictureLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *profilePictureLabel;
 - (IBAction)camerButtonAction:(SYDesignableButton *)sender;
 
 @end

@@ -26,7 +26,9 @@ typedef NS_ENUM(NSUInteger, SocketIOSignal) {
     SocketIOSignalRoomUpdateMembers = 14,
     SocketIOSignalSOS = 15,
     SocketIOSignalMessageLIKED = 16,
-    SocketIOSignalCommentCount = 17
+    SocketIOSignalCommentCount = 17,
+    SocketIOSignalNotificationRead = 18,
+    SocketIOSignalNotificationsCount = 19,
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -54,7 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^NotificationDidReceiveBlock)(id notificationData);
 typedef void(^NotificationCountUpdateBlock)(NSNumber *notificationsCount);
-typedef void(^DidReceiveUpdateBlock)(id updateData);
+typedef void(^DidReceiveCommentsCount)(NSInteger count);
+typedef void(^DidReceiveCommentsCountForList)(NSInteger count, NSNumber *forumId);
+typedef void(^PrivateMessageDidReceiveBlock)(NSString *roomKey, NSNumber *messageId);
 
 @interface SocketIOManager : NSObject
 
@@ -68,7 +72,9 @@ typedef void(^DidReceiveUpdateBlock)(id updateData);
 
 @property (nonatomic) NotificationDidReceiveBlock receiveNewNotificationBlock;
 @property (nonatomic) NotificationCountUpdateBlock notificationsCountUpdateBlock;
-@property (nonatomic) DidReceiveUpdateBlock didReceiveUpdateBlock;
+@property (nonatomic) DidReceiveCommentsCount didReceiveCommentsCount;
+@property (nonatomic) DidReceiveCommentsCountForList didReceiveCommentsCountForList;
+@property (nonatomic) PrivateMessageDidReceiveBlock receivePrivateMessageBlock;
 
 @end
 

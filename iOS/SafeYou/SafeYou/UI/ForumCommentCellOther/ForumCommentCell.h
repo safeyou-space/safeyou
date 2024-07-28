@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ForumCommentCell : UITableViewCell
 
-- (void)configureWithMessageData:(ChatMessageDataModel *)messageData andUserAge:(BOOL)isMinorUser;
+- (void)configureWithMessageData:(ChatMessageDataModel *)messageData language:(NSString *)language andUserAge:(BOOL)isMinorUser;
 
 @property (weak, nonatomic) id<ForumCommentCellDelegate> delegate;
 //@property (nonatomic, readonly) ChatMessageDataModel *messageData;

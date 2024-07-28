@@ -12,9 +12,9 @@
 
 @interface ConsultantRequestStatusCell ()
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *statusIconImage;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *statusDateLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *statusDateLabel;
 
 
 @end

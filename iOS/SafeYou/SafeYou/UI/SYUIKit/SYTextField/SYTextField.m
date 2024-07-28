@@ -8,6 +8,7 @@
 
 #import "SYTextField.h"
 #import "Validator.h"
+#import "UIColor+SyColors.h"
 
 @interface SYTextField()
 
@@ -16,6 +17,20 @@
 @end
 
 @implementation SYTextField
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, self.frame.size.height)];
+        self.leftViewMode = UITextFieldViewModeAlways;
+        self.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, self.frame.size.height)];
+        self.rightViewMode = UITextFieldViewModeAlways;
+        self.tintColor = [UIColor purpleColor1];
+    }
+
+    return self;
+}
 
 #pragma mark - Properties
 - (void)setFieldType:(SYTextFieldType)fieldtype {
@@ -70,6 +85,54 @@
         }
             break;
     }
+}
+
+#pragma mark - DEsignables
+
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    [self.layer setCornerRadius:_cornerRadius];
+}
+
+- (void)setBorderColorType:(NSInteger)borderColorType
+{
+    _borderColorType = borderColorType;
+    self.layer.borderColor = [UIColor colorWithSYColor:_borderColorType alpha:1.0].CGColor;
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth
+{
+    _borderWidth = borderWidth;
+    self.layer.borderWidth = _borderWidth;
+}
+
+- (void)setPlaceholderColorType:(NSInteger)placeholderColorType
+{
+    _placeholderColorType = placeholderColorType;
+    [self configurePlaceholder];
+}
+
+- (void)setPlaceholderColorAlpha:(CGFloat)placeholderColorAlpha
+{
+    _placeholderColorAlpha = placeholderColorAlpha;
+    [self configurePlaceholder];
+}
+
+- (void)configurePlaceholder
+{
+    UIColor *placeholderColor;
+    if(_placeholderColorType <= SYColorTypeNone || _placeholderColorType > SYColorTypeLast) {
+        placeholderColor = [UIColor whiteColor];
+    } else {
+        UIColor *placeholder_color = [UIColor colorWithSYColor:self.placeholderColorType alpha:self.placeholderColorAlpha];
+        if(_placeholderColorAlpha == 1 || _placeholderColorAlpha == -1) {
+            placeholderColor = placeholder_color;
+        } else {
+            placeholderColor = [UIColor getColor:placeholder_color withAlpha:_placeholderColorAlpha];
+        }
+    }
+//    self.placeHolderColor = placeholderColor;
 }
 
 #pragma mark - Instance Methods

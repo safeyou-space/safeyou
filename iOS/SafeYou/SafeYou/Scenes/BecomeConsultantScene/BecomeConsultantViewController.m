@@ -23,12 +23,14 @@
 #import "ConsultantRequestStatusCell.h"
 #import "DialogViewController.h"
 #import "SYProfileService.h"
+#import "MainTabbarController.h"
+#import "UserDataFieldCell.h"
+#import "ProfileViewFieldViewModel.h"
 
 @interface BecomeConsultantViewController () <UITableViewDelegate, UITableViewDataSource, FormTableViewCellDelegate, TTTAttributedLabelDelegate, UIGestureRecognizerDelegate, DialogViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet SYDesignableButton *sendRequestButton;
-@property (weak, nonatomic) IBOutlet SYDesignableButton *cancelButton;
 @property (weak, nonatomic) IBOutlet SYDesignableCheckBoxButton *agrrementCheckboxButton;
 @property (weak, nonatomic) IBOutlet SYDesignableAttributedLabel *agreementTextLabel;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *cancelEditingTapGesture;
@@ -37,7 +39,6 @@
 - (IBAction)cancelEditingAction:(UITapGestureRecognizer *)sender;
 
 - (IBAction)sendRequestButtonAction:(UIButton *)sender;
-- (IBAction)cancelButtonAction:(UIButton *)sender;
 - (IBAction)checkboxButtonAction:(SYDesignableCheckBoxButton *)sender;
 
 @property (nonatomic) SYConsultantService *consultantService;
@@ -64,6 +65,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self configureRightBarButtonitem];
+    
     if (!self.isResubmittingRequest) {
         UserDataModel *onlineUser = [Settings sharedInstance].onlineUser;
         self.isConsultant = onlineUser.isConsultant;
@@ -101,6 +104,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[self mainTabbarController] hideTabbar:YES];
     [self.agreementTextLabel sizeToFit];
 }
 
@@ -128,21 +132,21 @@
     if (self.currentConsultantRequestData) {
         if (self.currentConsultantRequestData.requestStatus == ConsultantRequestStatusPending) {
             [self.sendRequestButton setTitle:LOC(@"cancel_request") forState:UIControlStateNormal];
-            [self.cancelButton setTitle:LOC(@"back") forState:UIControlStateNormal];
         }
         
         if (self.currentConsultantRequestData.requestStatus == ConsultantRequestStatusDeclined) {
             [self.sendRequestButton setTitle:LOC(@"new_request_inquiry") forState:UIControlStateNormal];
-            [self.cancelButton setTitle:LOC(@"back") forState:UIControlStateNormal];
         }
         
         if (self.currentConsultantRequestData.requestStatus == ConsultantRequestStatusConfirmed) {
             [self.sendRequestButton setTitle:LOC(@"deactivate") forState:UIControlStateNormal];
-            [self.cancelButton setTitle:LOC(@"back") forState:UIControlStateNormal];
         }
+        self.sendRequestButton.backgroundColorType = SYColorTypeWhite;
+        self.sendRequestButton.backgroundColorAlpha = 1.0;
+        self.sendRequestButton.borderColorType = SYColorTypeOtherAccent;
+        self.sendRequestButton.borderWidth = 1.0;
     } else {
         [self.sendRequestButton setTitle:LOC(@"continue_txt") forState:UIControlStateNormal];
-        [self.cancelButton setTitle:LOC(@"cancel") forState:UIControlStateNormal];
     }
 }
 
@@ -153,9 +157,10 @@
     self.confirmActionDialogView = [DialogViewController instansiateDialogViewWithType:DialogViewTypeButtonAction];
     self.confirmActionDialogView.showCancelButton = YES;
     self.confirmActionDialogView.delegate = self;
-    self.confirmActionDialogView.titleText = LOC(@"");
     NSString *message = LOC(@"deactivate_confirm_message");
+    self.confirmActionDialogView.titleText = LOC(@"deactivate_become_consultant");
     if (self.currentConsultantRequestData.requestStatus == ConsultantRequestStatusPending) {
+        self.confirmActionDialogView.titleText = LOC(@"cancel_request");
         message = LOC(@"cancel_request_message");
     } else if (self.currentConsultantRequestData.requestStatus == ConsultantRequestStatusDeclined) {
         message = LOC(@"new_request_message");
@@ -244,11 +249,12 @@
     [configuringDataSourceArray addObject:self.experienceField];
     
     
-    FormDataModel *proposalField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeLargeText dataType:FormFieldDataTypeText title:LOC(@"why_become_consultant") placeholder:LOC(@"why_would_you_placeholder") value:@"" isRequired:NO];
+    FormDataModel *proposalField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeLargeText dataType:FormFieldDataTypeText title:LOC(@"why_become_consultant") placeholder:@"" value:@"" isRequired:NO];
     self.proposalField = proposalField;
     [configuringDataSourceArray addObject:self.proposalField];
     
-    FormDataModel *emailField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeText dataType:FormFieldDataTypeText title:LOC(@"email_address") placeholder:LOC(@"email_address") value:@"" isRequired:NO];
+    FormDataModel *emailField = [[FormDataModel alloc] initWithFieldType:FormFieldTypeLargeText dataType:FormFieldDataTypeText title:LOC(@"email_address") placeholder:@"" value:@"" isRequired:NO];
+    emailField.fieldInfoText = @"email";
     self.emailField = emailField;
     [configuringDataSourceArray addObject:self.emailField];
     
@@ -260,8 +266,8 @@
     if (self.currentConsultantRequestData) {
         self.creatingConsultantRequestData.emailAddress = self.currentConsultantRequestData.email;
         self.creatingConsultantRequestData.promotionalText = self.currentConsultantRequestData.message;
+        
         ConsultantExpertiseFieldDataModel *currentProfession = [self categoryForId:[NSString stringWithFormat:@"%@",self.currentConsultantRequestData.professionCategoryId]];
-        self.experienceField.fieldPlaceholder = @"";
         self.experienceField.fieldDisplayValue = currentProfession.categoryName;
         self.experienceField.fieldValue = currentProfession.categoryId;
         
@@ -290,10 +296,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FormDataModel *currentFormItem = self.dataSource[indexPath.row];
-    if ([currentFormItem isKindOfClass:[ConsultantRequestInfoViewModel class]]) {
-        return 70.0;
+    if (self.currentConsultantRequestData) {
+        return 90.0;
     }
     if (currentFormItem.type == FormFieldTypeLargeText) {
+        if ([currentFormItem.fieldInfoText isEqualToString:@"email"]) {
+            return 90.0;
+        }
         return 173.0;
     }
     
@@ -329,6 +338,30 @@
     }
     
     FormDataModel *currentFormItem = (FormDataModel *)currentItem;
+    
+    if (self.currentConsultantRequestData) {
+        cellIdentifier = @"UserDataFieldCell";
+        UserDataFieldCell *requestCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        ProfileViewFieldViewModel *formItem = [[ProfileViewFieldViewModel alloc] init];
+        
+        formItem.fieldName =  @"userId";
+        formItem.fieldTitle = currentFormItem.fieldTitle;
+        if (currentFormItem.type == FormFieldTypeChooseOption) {
+            if (self.currentConsultantRequestData.userSuggestedCategory) {
+                formItem.fieldValue = self.currentConsultantRequestData.userSuggestedCategory;
+            } else {
+                ConsultantExpertiseFieldDataModel *currentProfession = [self categoryForId: currentFormItem.fieldValue];
+                formItem.fieldValue = currentProfession.categoryName;
+            }
+        } else {
+            formItem.fieldValue = currentFormItem.fieldValue;
+        }
+        
+        [requestCell configureCellWithViewModelData:formItem];
+        return requestCell;
+    }
+    
+    
     if (currentFormItem.type == FormFieldTypeLargeText) {
         cellIdentifier = @"FormTableViewCellTextView";
     }
@@ -430,6 +463,10 @@
     }
 }
 
+- (IBAction)closeButtonAction:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)showNewRequestView
 {
     BecomeConsultantViewController *newRequestVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BecomeConsultantViewController"];
@@ -447,7 +484,6 @@
     NSDictionary *requestParams;
     
     if ([self isFormCompleted]) {
-        self.creatingConsultantRequestData = [[ConsultantNewRequestDataModel alloc] init];
         self.creatingConsultantRequestData.emailAddress = self.emailField.fieldValue;
         self.creatingConsultantRequestData.promotionalText = self.proposalField.fieldValue;
         self.creatingConsultantRequestData.expertiseFieldDataModel = [[ConsultantExpertiseFieldDataModel alloc] initWithId:self.experienceField.fieldValue name:self.experienceField.fieldDisplayValue];
@@ -468,6 +504,9 @@
             strongify(self);
             NSString *message = @"";
             NSDictionary *errorDict = error.userInfo[@"message"][@"email"];
+            if (!errorDict) {
+                errorDict = error.userInfo[@"message"][@"motivation"];
+            }
             if ([errorDict isKindOfClass:[NSArray class]]) {
                 message = ((NSArray *)errorDict).firstObject;
             }
@@ -601,4 +640,12 @@
         destination.contentType = SYRemotContentTypeConsultantTermsAndConditions;
     }
 }
+
+- (void)configureRightBarButtonitem
+{
+    SYDesignableBarButtonItem *rightBarButtonItem = [[SYDesignableBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonAction:)];
+    rightBarButtonItem.tintColorType = SYColorTypeOtherAccent;
+    self.navigationItem.rightBarButtonItems = @[rightBarButtonItem];
+}
+
 @end

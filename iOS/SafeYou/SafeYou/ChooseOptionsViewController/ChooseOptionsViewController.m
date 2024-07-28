@@ -26,7 +26,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+    backButton.title = [Utilities fetchTranslationForKey: @""];
+    self.navigationController.navigationBar.topItem.backBarButtonItem = backButton;
+
     self.cellFont = [UIFont systemFontOfSize:16];
     if(self.showSearchBar) {
         [self.optionsTableView setContentOffset:CGPointMake(0,44) animated:YES];
@@ -43,23 +46,10 @@
     [self updateLocalizations];
     [_optionsTableView reloadData];
     [self configureView];
-    [self configureNavigationBar];
     //[self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 #pragma mark - Customization
-- (void)configureNavigationBar
-{
-//    [self.navigationController setNavigationBarHidden:NO];
-//    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
-//    [appearance configureWithTransparentBackground];
-//    appearance.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
-//    appearance.backgroundColor = [UIColor clearColor];
-//    self.navigationController.navigationBar.standardAppearance = appearance;
-//    self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
-//    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
-//    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-}
 
 - (UIImage *)imageWithColor:(UIColor *)color withPoint:(CGSize)size
 {
@@ -162,7 +152,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 70;
+    return 0;
 }
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section

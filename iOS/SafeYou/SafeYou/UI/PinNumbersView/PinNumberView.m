@@ -89,6 +89,14 @@
     }
 }
 
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    for (SYDesignableButton *numberButton in self.numberOutletCollection) {
+        numberButton.cornerRadius = numberButton.frame.size.width/2;
+    }
+}
+
 - (IBAction)backspaceButtonPressed:(UIButton *)sender
 {
     if ([self.delegate respondsToSelector:@selector(numberViewDidSelectBackspace:)]) {

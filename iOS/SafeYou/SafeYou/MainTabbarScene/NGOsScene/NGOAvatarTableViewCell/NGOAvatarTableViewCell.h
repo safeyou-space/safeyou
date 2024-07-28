@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol NGOAvatarTableViewCellDelegate <NSObject>
 
 - (void)ngoAvatarCellDidPressPrivateChat;
+- (void)ngoAvatarCellDidPressReviewButton;
 
 @end
 

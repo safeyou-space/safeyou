@@ -16,13 +16,13 @@
 @interface ForumCommentCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *userNameLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *userRoleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *userNameLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *userRoleLabel;
 
 @property (weak, nonatomic) IBOutlet UITextView *commentContentTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *messageContentImageView;
 
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *commentDateLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *commentDateLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *userCheckIconImageView;
 
 @property (weak, nonatomic) IBOutlet SYDesignableButton *likeButton;
@@ -36,12 +36,12 @@
 @property (weak, nonatomic) IBOutlet SYDesignableView *mainContentView;
 
 @property (weak, nonatomic) IBOutlet SYDesignableView *likesCountView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *likesCountLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *likesCountLabel;
 
 
 @property (weak, nonatomic) IBOutlet SYDesignableView *replyInfoView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *replyInfoHeightConstraint;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelItalic *replyInfoLabel;
+@property (weak, nonatomic) IBOutlet SYLabelItalic *replyInfoLabel;
 
 @end
 
@@ -62,7 +62,7 @@
     // Configure the view for the selected state
 }
 
-- (void)configureWithMessageData:(ChatMessageDataModel *)messageData andUserAge:(BOOL)isMinorUser
+- (void)configureWithMessageData:(ChatMessageDataModel *)messageData language:(NSString *)language andUserAge:(BOOL)isMinorUser
 {
     self.messageData = messageData;
     [self.avatarImageView sd_setImageWithURL:self.messageData.sender.avatarUrl];
@@ -103,22 +103,15 @@
     self.userRoleLabel.textColorType = SYColorTypeMain1;
     
     if (self.messageData.sender.role != ChatUserRoleUser) {
-        self.userRoleLabel.text = self.messageData.sender.roleLabel.uppercaseString;
+        NSString *appLanguage = [self.messageData.sender.profession objectForKey:language];
+        self.userRoleLabel.text = appLanguage;
     } else {
         self.userRoleLabel.text = @"";
     }
-    [self.replyButton setTitle:LOC(@"reply_text_key") forState:UIControlStateNormal];
     if (self.replyInfoLabel && messageData.isReply) {
         self.replyInfoLabel.text = messageData.replyInfo;
     }
     
-//    if (self.messageData.likes.count) {
-//        self.likesCountView.hidden = NO;
-//        NSString *likesCountText = [NSString stringWithFormat:@"%@", @(self.messageData.likes.count)];
-//        self.likesCountLabel.text = likesCountText;
-//    } else {
-//        self.likesCountView.hidden = YES;
-//    }
     [self configureLikeButton];
     
     if (messageData.isMine) {
@@ -137,18 +130,27 @@
         self.replyInfoView.hidden = YES;
         self.replyInfoHeightConstraint.constant = 0;
     }
+    
+    self.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.layer.shadowOpacity = 0.3;
+    self.layer.shadowOffset = CGSizeMake(0, 3);
 }
 
 - (void)configureLikeButton
 {
-    if (self.messageData.isLiked) {
-        [self.likeButton setImage:[UIImage imageNamed:@"icon_like_selected"] forState:UIControlStateNormal];
+    if (self.messageData.likesCount > 0) {
+        self.likesCountView.hidden = NO;
+        NSString *likesCountText = [NSString stringWithFormat:@"%@", @(self.messageData.likesCount)];
+        self.likesCountLabel.text = likesCountText;
     } else {
-        [self.likeButton setImage:[UIImage imageNamed:@"icon_like"] forState:UIControlStateNormal];
+        self.likesCountView.hidden = YES;
     }
-    self.likesCountView.hidden = YES;
-    NSString *likesCountText = [NSString stringWithFormat:@"%@", @(self.messageData.likesCount)];
-    self.likesCountLabel.text = likesCountText;
+    
+    if (self.messageData.isLiked) {
+        [self.likeButton setImage:[[UIImage imageNamed:@"icon_like_selected"] imageWithTintColor:UIColor.mainTintColor1] forState:UIControlStateNormal];
+    } else {
+        [self.likeButton setImage:[[UIImage imageNamed:@"icon_like"] imageWithTintColor:UIColor.mainTintColor1] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - IBActions

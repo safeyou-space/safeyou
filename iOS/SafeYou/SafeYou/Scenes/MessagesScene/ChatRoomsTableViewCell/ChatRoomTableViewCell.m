@@ -14,9 +14,10 @@
 @interface ChatRoomTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *nameLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *roleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *dateLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *nameLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *roleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *dateLabel;
+@property (weak, nonatomic) IBOutlet SYDesignableLabel *unreadMessagesCountLabel;
 
 
 @end
@@ -45,6 +46,15 @@
         self.roleLabel.text = userData.roleLabel;
     }
     self.dateLabel.text = roomData.formattedUpdatedDate;
+    NSArray *unreadMessages = [Settings sharedInstance].unreadPrivateMessages[roomData.roomKey];
+    if (unreadMessages.count > 0) {
+        self.unreadMessagesCountLabel.layer.cornerRadius = 10;
+        self.unreadMessagesCountLabel.layer.masksToBounds = YES;
+        [self.unreadMessagesCountLabel setHidden:NO];
+        self.unreadMessagesCountLabel.text = [NSString stringWithFormat:@"%li", unreadMessages.count];
+    } else {
+        [self.unreadMessagesCountLabel setHidden:YES];
+    }
 }
 
 @end

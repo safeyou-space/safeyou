@@ -11,11 +11,13 @@
 #import "RegionalOptionDataModel.h"
 #import "ChooseRegionalOptionViewModel.h"
 #import "RegionalOptionsService.h"
+#import "MainTabbarController.h"
 
 @interface LanguagesListViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet SYCorneredButton *saveButton;
+@property (nonatomic) SYDesignableBarButtonItem *backBarButtonitem;
 - (IBAction)saveButtonAction:(SYCorneredButton *)sender;
 
 @property (nonatomic) LanguageDataModel *selectedRegionalOption;
@@ -33,14 +35,21 @@
 
     UINib *optionCellNib = [UINib nibWithNibName:@"RegionalOptiontableViewCell" bundle:nil];
     [self.tableView registerNib:optionCellNib forCellReuseIdentifier:@"RegionalOptiontableViewCell"];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
     [self fetchOptions];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[self mainTabbarController] hideTabbar:YES];
 }
 
 #pragma mark - Localizations
 
 - (void)updateLocalizations
 {
+    self.backBarButtonitem.title = LOC(@"back");
     self.navigationItem.title = LOC(@"language_title_key");
     [self.saveButton setTitle:LOC(@"save_key") forState:UIControlStateNormal];
 }
@@ -98,7 +107,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    return 60;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -21,10 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MyProfileTableViewCell : UITableViewCell <MyProfileCellInterface>
 
-@property (nonatomic, weak) IBOutlet HyRobotoLabelRegular *myProfileTitleLabel;
+@property (nonatomic, weak) IBOutlet SYLabelRegular *myProfileTitleLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *arrowImageView;
 @property (nonatomic, weak) IBOutlet UIImageView *iconImageView;
-@property (nonatomic, weak) IBOutlet HyRobotoButton *clearButton;
+@property (nonatomic, weak) IBOutlet SYRegularButtonButton *clearButton;
 
 @end
 

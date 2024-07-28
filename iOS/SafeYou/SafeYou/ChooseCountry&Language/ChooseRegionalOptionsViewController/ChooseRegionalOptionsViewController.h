@@ -18,13 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL showFlags;
 @property (nonatomic) NSArray <ChooseRegionalOptionViewModel *>*dataSource;
 @property (nonatomic, readonly) RegionalOptionsService *optionsService;
-@property (nonatomic) RegionalOptionDataModel *selectedRegionalOption;
+@property (nonatomic) RegionalOptionDataModel * _Nullable selectedRegionalOption;
 
 @property (nonatomic, readonly) SYDesignableBarButtonItem *rightBarButtonItem;
 
 // Interface
 - (void)fetchOptions;
 - (void)showNextView;
+- (void)enableNextButton:(BOOL)enable;
 
 // Texts
 

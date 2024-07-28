@@ -7,6 +7,7 @@
 //
 
 #import "CustomPickerView.h"
+#import "UIColor+SYColors.h"
 
 @interface CustomPickerView()
 {
@@ -181,10 +182,13 @@
     }
     
     UIToolbar* numberToolbar = [[UIToolbar alloc] init];
+    numberToolbar.backgroundColor = [UIColor grayColor1];
     numberToolbar.barStyle = UIBarStyleDefault;
+    UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc]initWithTitle:_returnKeyTitle style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonPrressed)];
+    doneButtonItem.tintColor = [UIColor purpleColor1];
     numberToolbar.items = [NSArray arrayWithObjects:
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                           [[UIBarButtonItem alloc]initWithTitle:_returnKeyTitle style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonPrressed)],
+                           doneButtonItem,
                            nil];
     UIColor *tintColor;
     UIColor *barTintColor;

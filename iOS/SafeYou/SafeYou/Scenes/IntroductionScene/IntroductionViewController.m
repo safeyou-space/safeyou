@@ -9,27 +9,29 @@
 #import "IntroductionViewController.h"
 #import "UIColor+SyColors.h"
 #import "RoundButtonView.h"
-#import "IntorductionDialogViewController.h"
 #import "SYDesignableView.h"
 #import "Utilities.h"
 #import "UIButton+ArrangeImage.h"
+#import "MainTabbarController.h"
+#import "IntroductionItemView.h"
+#import "IntroContentViewController.h"
+#import "IntroductionContentManager.h"
 
 #define BUTTON_IMAGE_INSET 13
 
-@interface IntroductionViewController ()
+@interface IntroductionViewController () <IntroductionItemViewDelegate>
 
 @property (weak, nonatomic) IBOutlet SYDesignableView *contentView;
-@property (weak, nonatomic) IBOutlet SYDesignableButton *securityButton;
-@property (weak, nonatomic) IBOutlet SYDesignableButton *emergencyContactsButton;
-@property (weak, nonatomic) IBOutlet SYDesignableButton *forumsButton;
-@property (weak, nonatomic) IBOutlet SYDesignableButton *ngosButton;
-@property (weak, nonatomic) IBOutlet UIButton *helpButton;
-@property (weak, nonatomic) IBOutlet SYDesignableButton *messsagesButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextBarButtonItem;
-@property (weak, nonatomic) IBOutlet SYDesignableButton *nextButton;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *descriptionLabel;
-
-- (IBAction)nextButtonAction:(SYDesignableButton *)sender;
+@property (weak, nonatomic) IBOutlet IntroductionItemView *dualPinItem;
+@property (weak, nonatomic) IBOutlet IntroductionItemView *emergencyContactsItem;
+@property (weak, nonatomic) IBOutlet IntroductionItemView *privateMessagesItem;
+@property (weak, nonatomic) IBOutlet IntroductionItemView *forumsItem;
+@property (weak, nonatomic) IBOutlet IntroductionItemView *emergencyHelpItem;
+@property (weak, nonatomic) IBOutlet IntroductionItemView *ngosItem;
+@property (weak, nonatomic) IBOutlet SYCorneredButton *skipButton;
+@property (weak, nonatomic) IBOutlet SYLabelBold *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *descriptionLabel;
+@property (weak, nonatomic) IBOutlet SYDesignableBarButtonItem *backBarButtonItem;
 
 @end
 
@@ -38,11 +40,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.nextButton arrangeImageToTheRight];
     if (self.isFromMenu) {
-        self.nextButton.hidden = YES;
+        self.backBarButtonItem.title = LOC(@"back");
+        self.backBarButtonItem.enabled = YES;
+    } else {
+        self.backBarButtonItem.title = @"";
+        self.backBarButtonItem.enabled = NO;
     }
-    [self setupButtonsTwoLinesTitle:@[self.emergencyContactsButton, self.messsagesButton]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -50,8 +54,7 @@
     [super viewWillAppear:animated];
     
     [self configureNavigationBar];
-    [self configureGradientBackground];
-    [self configureButtonsImageInsets];
+    [[self mainTabbarController] hideTabbar:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -63,144 +66,108 @@
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-//    self.helpButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+}
+
+#pragma mark - NavigationBar
+
+#pragma mark - NavigationBar
+
+- (void)configureNavigationBar
+{
+    [super configureNavigationBar];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor purpleColor1]];
 }
 
 
 #pragma mark - Translations
 - (void)updateLocalizations
 {
-    self.nextBarButtonItem.title = LOC(@"next_key");
-    [self.nextButton setTitle:LOC(@"next_key") forState:UIControlStateNormal];
-    self.title = LOC(@"title_tutorial");
-    [self.ngosButton setTitle:LOC(@"network_title").uppercaseString forState:UIControlStateNormal];
-    [self.securityButton setTitle:LOC(@"security").uppercaseString forState:UIControlStateNormal];
-    [self.forumsButton setTitle:LOC(@"forums_title_key").uppercaseString forState:UIControlStateNormal];
-    [self.emergencyContactsButton setTitle:LOC(@"emergency_contacts_title_key").uppercaseString forState:UIControlStateNormal];
-    [self.messsagesButton setTitle:LOC(@"messages_title_key").uppercaseString forState:UIControlStateNormal];
+    if (self.isFromMenu) {
+        self.backBarButtonItem.title = LOC(@"back");
+        self.backBarButtonItem.enabled = YES;
+    } else {
+        self.backBarButtonItem.title = @"";
+        self.backBarButtonItem.enabled = NO;
+    }
+    self.titleLabel.text = LOC(@"how_it_works_text");
+    [self.skipButton setTitle:LOC(@"skip") forState:UIControlStateNormal];
     self.descriptionLabel.text = LOC(@"intro_view_description_text_key");
-    
-    NSString *imageName = [NSString stringWithFormat:@"help_icon_intro_%@", [Settings sharedInstance].selectedLanguageCode];
-    UIImage *localizedImage = [UIImage imageNamed:imageName];
-    [self.helpButton setImage:localizedImage forState:UIControlStateNormal];
-    [self.helpButton setTitle:LOC(@"help_title_key").uppercaseString forState:UIControlStateNormal];
+
+    [self configureViewItems];
 }
 
-
-#pragma mark - Customization
-
-- (void)configureButtonsImageInsets
+- (void)configureViewItems
 {
-    UIEdgeInsets buttonImageInsets = UIEdgeInsetsMake(0, 0, 0, BUTTON_IMAGE_INSET);
-    if ([[Settings sharedInstance] isLanguageRTL]) {
-        buttonImageInsets = UIEdgeInsetsMake(0, BUTTON_IMAGE_INSET, 0, 0);
-        self.nextButton.imageEdgeInsets = buttonImageInsets;
-    }
-    
-    self.ngosButton.imageEdgeInsets = buttonImageInsets;
-    self.securityButton.imageEdgeInsets = buttonImageInsets;
-    self.emergencyContactsButton.imageEdgeInsets = buttonImageInsets;
-    self.messsagesButton.imageEdgeInsets = buttonImageInsets;
-    self.forumsButton.imageEdgeInsets = buttonImageInsets;
-    self.helpButton.imageEdgeInsets = buttonImageInsets;
+    IntroductionItemViewModel *dualPinViewModel = [[IntroductionItemViewModel alloc] initWithLocalizationKey:@"dual_pin_code_title_key" imageName:@"intro_icon_dual_pin"];
+    IntroductionItemViewModel *emergencyContactsViewModel = [[IntroductionItemViewModel alloc] initWithLocalizationKey:@"emergency_contacts_title_key" imageName:@"intro_icon_emergency_contact"];
+    IntroductionItemViewModel *privateMessagesViewModel = [[IntroductionItemViewModel alloc] initWithLocalizationKey:@"messages_title_key" imageName:@"intro_icon_private_message"];
+    IntroductionItemViewModel *forumsViewModel = [[IntroductionItemViewModel alloc] initWithLocalizationKey:@"forums_title_key" imageName:@"intro_icon_forum"];
+    IntroductionItemViewModel *emergencyHelpButtonViewModel = [[IntroductionItemViewModel alloc] initWithLocalizationKey:@"help_button_title_key" imageName:@"intro_icon_help"];
+    IntroductionItemViewModel *ngosViewModel = [[IntroductionItemViewModel alloc] initWithLocalizationKey:@"network_title" imageName:@"intro_icon_network"];
+
+    [self.dualPinItem configureWithViewModel:dualPinViewModel];
+    [self.emergencyContactsItem configureWithViewModel:emergencyContactsViewModel];
+    [self.privateMessagesItem configureWithViewModel:privateMessagesViewModel];
+    [self.forumsItem configureWithViewModel:forumsViewModel];
+    [self.emergencyHelpItem configureWithViewModel:emergencyHelpButtonViewModel];
+    [self.ngosItem configureWithViewModel:ngosViewModel];
 }
 
-- (void)configureNavigationBar
-{
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
-                                                                      NSFontAttributeName:[UIFont fontWithName:@"HayRoboto-regular" size:18]}];
+#pragma mark - Actions
 
-}
-
-// @FIXME: Dublicate code need refactor
-- (void)configureGradientBackground
-{
-    self.view.backgroundColor = [UIColor mainTintColor2];
-}
-
-
-#pragma mark - Helper
-
-- (void)setupButtonsTwoLinesTitle:(NSArray *)buttons
-{
-    for (UIButton *button in buttons) {
-        button.titleLabel.textAlignment = NSTextAlignmentLeft;
-        button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping | NSLineBreakByTruncatingTail;
-        button.titleLabel.numberOfLines = 2;
+- (IBAction)skipButtonAction:(SYDesignableButton *)sender {
+    if (self.navigationController.presentingViewController) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
-- (UIImage *)imageFromColor:(UIColor *)color
+- (IBAction)backBarButtonItemAction:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - IntroductionViewItemDelegate
+
+- (void)itemViewDidSelect:(IntroductionItemView *)itemView
 {
-    UIGraphicsBeginImageContext(CGSizeMake(1, 64));
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    [color setFill];
-    CGContextFillRect(ctx, CGRectMake(0, 0, 1, 64));
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
+    [self performSegueWithIdentifier:@"showIntroductionDetailView" sender:itemView];
 }
 
-#pragma mark - RoundButtonAction
+#pragma mark - Navigation
 
-- (IBAction)nextButtonPressed:(id)sender {
-    [self performSegueWithIdentifier:@"showWelcomeView" sender:nil];
-}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showIntroductionDetailView"]) {
+        IntroductionItemView *itemView = (IntroductionItemView *)sender;
+        IntroContentViewController *destinationVC = (IntroContentViewController *)segue.destinationViewController;
+        IntroductionContentManager *contentManager = [[IntroductionContentManager alloc] init];
+        IntroductionContentViewModel *itemViewModel;
+        if (itemView == self.dualPinItem) {
+            itemViewModel = [contentManager viewModelForType:IntroductionContentTypeDualPin];
+        }
 
-- (IBAction)helpButtonPressed:(UIButton *)sender {
-    if (sender == self.helpButton) {
-        NSString *messageTitle = LOC(@"help_title_key");
-        NSString *messageText = LOC(@"help_section_description_text_key");
-        [self showIntroDialogWithTitle:messageTitle message:messageText];
+        if (itemView == self.emergencyContactsItem) {
+            itemViewModel = [contentManager viewModelForType:IntroductionContentTypeEmergencyContacts];
+        }
+
+        if (itemView == self.privateMessagesItem) {
+            itemViewModel = [contentManager viewModelForType:IntroductionContentTypePrivateMessages];
+        }
+
+        if (itemView == self.forumsItem) {
+            itemViewModel = [contentManager viewModelForType:IntroductionContentTypeForums];
+        }
+
+        if (itemView == self.emergencyHelpItem) {
+            itemViewModel = [contentManager viewModelForType:IntroductionContentTypeHelpButton];
+        }
+
+        if (itemView == self.ngosItem) {
+            itemViewModel = [contentManager viewModelForType:IntroductionContentTypeNetwork];
+        }
+        destinationVC.viewModel = itemViewModel;
     }
-}
-
-- (IBAction)nextButtonAction:(SYDesignableButton *)sender {
-    [self nextButtonPressed:sender];
-}
-
-- (IBAction)securityButtonAction:(id)sender
-{
-    [self showIntroDialogWithTitle:LOC(@"security") message:LOC(@"security_introduction_text_key")];
-}
-
-- (IBAction)emergencyContactsButtonAction:(id)sender
-{
-    [self showIntroDialogWithTitle:LOC(@"emergency_contacts_title_key") message:LOC(@"intro_support_text_key")];
-}
-
-- (IBAction)forumsButtonAction:(id)sender
-{
-    [self showIntroDialogWithTitle:LOC(@"forums_title_key") message:LOC(@"forums_description_text_key")];
-}
-
-- (IBAction)ngosButtonAction:(id)sender
-{
-    [self showIntroDialogWithTitle:LOC(@"network_title") message:LOC(@"ngos_description_text_key")];
-}
-
-- (IBAction)messagesButtonAction:(id)sender
-{
-    [self showIntroDialogWithTitle:LOC(@"messages_title_key") message:LOC(@"intro_private_messages_text_key")];
-}
-
-- (void)showIntroDialogWithTitle:(NSString *)title message:(NSString *)message
-{
-    IntorductionDialogViewController *dialogViewController = [[IntorductionDialogViewController alloc] initWithTitle:title message:message];
-    [self addChildViewController:dialogViewController];
-}
-
-- (void)addChildViewController:(UIViewController *)childController
-{
-    childController.view.frame = self.contentView.bounds;
-    [self.contentView addSubview:childController.view];
-    [super addChildViewController:childController];
-    [childController didMoveToParentViewController:self];
 }
 
 @end

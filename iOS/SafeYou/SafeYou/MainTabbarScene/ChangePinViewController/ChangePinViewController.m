@@ -10,11 +10,11 @@
 
 @interface ChangePinViewController () <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet HyRobotoRegualrTextField *realiPinField;
-@property (weak, nonatomic) IBOutlet HyRobotoRegualrTextField *realPinConfirmField;
-@property (weak, nonatomic) IBOutlet HyRobotoRegualrTextField *fakePinField;
-@property (weak, nonatomic) IBOutlet HyRobotoRegualrTextField *fakePinConfirmField;
-@property (strong, nonatomic) IBOutletCollection(HyRobotoRegualrTextField) NSArray *allTextFieldsCollection;
+@property (weak, nonatomic) IBOutlet SYRegualrTextField *realiPinField;
+@property (weak, nonatomic) IBOutlet SYRegualrTextField *realPinConfirmField;
+@property (weak, nonatomic) IBOutlet SYRegualrTextField *fakePinField;
+@property (weak, nonatomic) IBOutlet SYRegualrTextField *fakePinConfirmField;
+@property (strong, nonatomic) IBOutletCollection(SYRegualrTextField) NSArray *allTextFieldsCollection;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIStackView *fieldsStackView;
 
@@ -47,7 +47,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
 }
 
 #pragma mark - Localizations

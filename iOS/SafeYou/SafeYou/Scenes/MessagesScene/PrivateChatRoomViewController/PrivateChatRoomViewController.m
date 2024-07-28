@@ -23,6 +23,7 @@
 #import "SendMessageFileDataModel.h"
 #import "MessageFileDataModel.h"
 #import "ReportViewController.h"
+#import "UserDataModel.h"
 
 #import <NYTPhotoViewer/NYTPhotosViewController.h>
 #import <NYTPhotoViewer/NYTPhotoViewerArrayDataSource.h>
@@ -30,6 +31,8 @@
 
 #define CHAT_LEFT_CELL_IDENTIFIER @"ChatLeftTableViewCell"
 #define CHAT_RIGHT_CELL_IDENTIFIER @"ChatRightTableViewCell"
+#define CHAT_LEFT_AUDIO_CELL_IDENTIFIER @"ChatLeftTableViewAudioCell"
+#define CHAT_RIGHT_AUDIO_CELL_IDENTIFIER @"ChatRightTableViewAudioCell"
 #define TABLE_VIEW_TOP_CONTENT_INSET 6
 #define TABLE_VIEW_BOTTOM_CONTENT_INSET 8
 #define COMPOSER_VIEW_MIN_HEIGHT 51
@@ -43,8 +46,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet SYDesignableView *replyingView;
 @property (weak, nonatomic) IBOutlet SYDesignableImageView *replyingUserAvatar;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelBold *replyingNameLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *replyingCommentLabel;
+@property (weak, nonatomic) IBOutlet SYLabelBold *replyingNameLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *replyingCommentLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableButton *secondaryBackButton;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *cancelEditingGesture;
 
@@ -59,7 +62,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *pickedPhotoImageView;
 @property (weak, nonatomic) IBOutlet SYDesignableView *secondarynavigationView;
 @property (weak, nonatomic) IBOutlet SYDesignableView *sendAudioVoiceView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *audioTimerLabel;
+@property (weak, nonatomic) IBOutlet SYLabelLight *audioTimerLabel;
 
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender;
 - (IBAction)cancelReplyButtonAction:(UIButton *)sender;
@@ -71,6 +74,7 @@
 @property (nonatomic) ChatMessageDataModel *selectedMessage;
 
 @property (nonatomic) NSArray *viewDataSource;
+@property (nonatomic) NSIndexPath *indexPath;
 
 @property (nonatomic) SocketIOAPIService *socketAPIService;
 
@@ -88,6 +92,7 @@
 @property (nonatomic) int commentsCountToSkip;
 @property (nonatomic) BOOL isNeedToLoadNewComments;
 @property (nonatomic) BOOL requestingForNewComments;
+@property (nonatomic) BOOL isRoomExist;
 
 // For Shoing
 
@@ -107,7 +112,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSNumber *userId = [Settings sharedInstance].onlineUser.userId;
+    if (self.chatData != nil) {
+        if ([self.chatData.ngoName isKindOfClass:NSString.class]) {
+            self.title = self.chatData.ngoName;
+        } else {
+            self.title = self.chatData.userName;
+        }
+        self.roomKey = [
+            [NSString alloc]
+            initWithFormat:@"PRIVATE_CHAT_%@_%@",
+            userId, self.chatData.userId
+        ];
+    } else {
+        self.title = self.roomData.roomName;
+        self.roomKey = self.roomData.roomKey;
+    }
     self.commentsCountToSkip = 0;
     self.isNeedToLoadNewComments = NO;
     self.requestingForNewComments = YES;
@@ -126,6 +146,7 @@
     [self.secondaryBackButton sizeToFit];
     [self.cancelEditingGesture setCancelsTouchesInView:NO];
     [self joinToRoom];
+    [self readAllMessages];
     [SocketIOManager sharedInstance].delegate = self;
     
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
@@ -238,23 +259,30 @@
 
 - (void)joinToRoom
 {
+    self.isRoomExist = YES;
     weakify(self);
-    NSString *roomKey = [NSString stringWithFormat:@"%@", self.roomData.roomKey];
+    NSString *roomKey = [NSString stringWithFormat:@"%@", self.roomKey];
     [self.socketAPIService joinToRoom:roomKey success:^(RoomDataModel  * _Nonnull  roomData) {
         strongify(self);
-        [self getMeswsagesForRoomKey:self.roomData.roomKey skip:0];
+        if (self.roomData.roomName != nil) {
+            self.title = self.roomData.roomName;
+        }
+        [self getMeswsagesForRoomKey:self.roomKey skip:0];
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"Join Room Error %@", error);
         strongify(self);
         if (error.code == 400) {
-            [self getMeswsagesForRoomKey:self.roomData.roomKey skip:0];
+            [self getMeswsagesForRoomKey:self.roomKey skip:0];
+        }
+        if (error.code == 404) {
+            self.isRoomExist = NO;
         }
     }];
 }
 
 - (void)leaveRoom
 {
-    NSString *roomKey = [NSString stringWithFormat:@"%@", self.roomData.roomKey];
+    NSString *roomKey = [NSString stringWithFormat:@"%@", self.roomKey];
     [self.socketAPIService leaveRoom:roomKey success:^(id  _Nonnull response) {
         
     } failure:^(NSError * _Nonnull error) {
@@ -319,13 +347,18 @@
     
     UINib *rightCellNib = [UINib nibWithNibName:@"ChatRightTableViewCell" bundle:nil];
     [self.tableView registerNib:rightCellNib forCellReuseIdentifier:CHAT_RIGHT_CELL_IDENTIFIER];
+    
+    UINib *leftAudioCellNib = [UINib nibWithNibName:@"ChatLeftTableViewCell" bundle:nil];
+    [self.tableView registerNib:leftCellNib forCellReuseIdentifier:CHAT_LEFT_AUDIO_CELL_IDENTIFIER];
+    
+    UINib *rightAudioCellNib = [UINib nibWithNibName:@"ChatRightTableViewCell" bundle:nil];
+    [self.tableView registerNib:rightCellNib forCellReuseIdentifier:CHAT_RIGHT_AUDIO_CELL_IDENTIFIER];
 }
 
 
 #pragma mark - Translations
 - (void)updateLocalizations
 {
-    self.title = self.roomData.roomName;
     [[SocketIOManager sharedInstance].socketClient off:SOCKET_COMMAND_GET_FORUM_DETAILS];
 }
 
@@ -440,7 +473,7 @@
                                                                                                  commentId:nil];
     [self clearCommentData];
     weakify(self);
-    NSString *roomKey = [NSString stringWithFormat:@"%@", self.roomData.roomKey];
+    NSString *roomKey = [NSString stringWithFormat:@"%@", self.roomKey];
     [self.socketAPIService sendMessageToRoom:roomKey sendMessageFile:sendMessageFileDataModel success:^(ChatMessageDataModel * _Nonnull messageObject) {
         strongify(self);
         [self textViewDidChange:self.composerTextView];
@@ -454,7 +487,6 @@
         // handle if needed
     }];
 }
-
 
 // TODO: Dublicate code no time
 - (void)addReplyComment
@@ -484,7 +516,7 @@
          message_deleted_files[1]:2
      */
     weakify(self);
-    NSString *roomKey = [NSString stringWithFormat:@"%@", self.roomData.roomKey];
+    NSString *roomKey = [NSString stringWithFormat:@"%@", self.roomKey];
     SendMessageFileDataModel *sendMessageFileDataModel = [[SendMessageFileDataModel alloc] initWithMessage:self.composerTextView.text
                                                                                                      image:self.pickedPhotoImageView.image
                                                                                         audioFileDirectory:nil
@@ -539,12 +571,28 @@
     return _viewDataSource;
 }
 
+- (BOOL)getAudioChatCell:(NSUInteger )index
+{
+    ChatMessageDataModel *currentMessage = self.viewDataSource[index];
+    BOOL type = false;
+    
+    if (currentMessage.messageType == MessageTypeMedia) {
+        
+        MessageFileDataModel *messageFileDataModel  = [MessageFileDataModel modelObjectWithDictionary:currentMessage.messageFiles[0]];
+
+            if([messageFileDataModel.mimetype isEqualToString:@"audio/mpeg"] || [messageFileDataModel.mimetype isEqualToString:@"audio/wav"]) {
+               
+                type = YES;
+        }
+    }
+    return  type;
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
-    return self.viewDataSource.count; // @TODO: Review
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -554,14 +602,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.requestingForNewComments && self.isNeedToLoadNewComments && indexPath.row == self.viewDataSource.count - 1) {
+    NSData *data = [self.viewDataSource objectAtIndex:indexPath.row];
+    BOOL lastItemReached = [data isEqual:[self.viewDataSource lastObject]];
+    self.indexPath = indexPath;
+    NSLog(@"index  %ld", (long)indexPath.row);
+    if (!self.requestingForNewComments && self.isNeedToLoadNewComments && !lastItemReached && indexPath.row == 0) {
         self.requestingForNewComments = YES;
         self.commentsCountToSkip += 10;
-        [self getMeswsagesForRoomKey:self.roomData.roomKey skip:self.commentsCountToSkip];
+        [self getMeswsagesForRoomKey:self.roomKey skip:self.commentsCountToSkip];
     }
     
     PrivateChatTableViewCell *cell;
     ChatMessageDataModel *currentMessage = self.viewDataSource[indexPath.row];
+
+    if ([self getAudioChatCell:indexPath.row]) {
+        
+    }
     
     if (currentMessage.isMine) {
         cell = [tableView dequeueReusableCellWithIdentifier:CHAT_RIGHT_CELL_IDENTIFIER forIndexPath:indexPath];
@@ -633,7 +689,18 @@
     if (self.replyingComment) {
         [self addReplyComment];
     } else {
-        [self addComment];
+        if (_isRoomExist) {
+            [self addComment];
+        } else {
+            [self.socketAPIService createRoomWithUser:_chatData success:^(RoomDataModel  * _Nonnull  roomData) {
+                [self joinToRoom];
+                [self addComment];
+                
+            } failure:^(NSError * _Nonnull error) {
+              //  NSLog(@"Join Room Error %@", error);
+            }];
+        }
+        
     }
 }
 
@@ -708,7 +775,7 @@
 //    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:replyingString];
 //    NSRange range = [replyingString rangeOfString:self.replyingComment.name];
 //    NSRange startRange = NSMakeRange(0, range.location - 1);
-//    [attrString addAttributes:@{NSFontAttributeName:[UIFont hyRobotoFontRegularOfSize:12.0]} range:startRange];
+//    [attrString addAttributes:@{NSFontAttributeName:[UIFont regularFontOfSize:12.0]} range:startRange];
 //    [attrString addAttributes:@{NSFontAttributeName:[UIFont hyRobotoFontBoldOfSize:16.0]} range:range];
 //     */
 //
@@ -729,6 +796,8 @@
 - (void)socketIOManager:(SocketIOManager *)manager didInsertMessage:(ChatMessageDataModel *)messageData
 {
     if (![messageData.sender.userId isEqual:[SocketIOManager sharedInstance].chatOnlineUser.userId]) {
+        [self readPrivateMessage:messageData.messageId roomId:messageData.roomId];
+        
         NSMutableArray *tempDataSource = [self.viewDataSource mutableCopy];
         [tempDataSource addObject:messageData];
         self.viewDataSource = [tempDataSource copy];
@@ -745,7 +814,13 @@
     NSDictionary* info = [notification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
-    self.composerViewBottomConstraint.constant = -kbSize.height;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+        CGFloat bottomPadding = window.safeAreaInsets.bottom;
+        self.composerViewBottomConstraint.constant = -kbSize.height + bottomPadding;
+    } else {
+        self.composerViewBottomConstraint.constant = -kbSize.height;
+    }
     
 //    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, kbSize.height + self.composerContainerView.frame.size.height, 0);
     weakify(self)
@@ -812,7 +887,7 @@
     if ([segue.identifier isEqualToString:@"reportUser"]) {
         ReportViewController *destinationVC = segue.destinationViewController;
         destinationVC.comment = sender;
-        destinationVC.roomKey = self.roomData.roomKey;
+        destinationVC.roomKey = self.roomKey;
         destinationVC.isForumReport = NO;
     }
 }
@@ -844,6 +919,32 @@
     if (self.notificationButton != nil) {
         self.navigationItem.rightBarButtonItem = self.notificationButton;
     }
+}
+
+-(void)readAllMessages
+{
+    NSArray *unreadMessages = [Settings sharedInstance].unreadPrivateMessages[self.roomKey];
+    if (unreadMessages.count > 0) {
+        for (NSNumber *messageId in unreadMessages) {
+            [self readPrivateMessage:messageId roomId:self.roomData.roomId];
+        }
+        [[Settings sharedInstance].unreadPrivateMessages removeObjectForKey:self.roomKey];
+        if ([Settings sharedInstance].unreadPrivateMessages.count < 1) {
+            [[self.tabBarController.tabBar.items objectAtIndex:3] setBadgeValue:nil];
+        }
+    }
+}
+
+-(void)readPrivateMessage:(NSNumber *)messageId roomId:(NSNumber *)roomId
+{
+    NSMutableArray *params = [NSMutableArray array];
+    [params addObject:[NSNumber numberWithInt:SocketIOSignalMessageRECEIVED]];
+    [params addObject:@{@"received_room_id": roomId,
+                        @"received_message_id": messageId,
+                        @"received_type": @2}];
+    [[SocketIOManager sharedInstance].socketClient emit:@"signal" with:params completion:^{
+        NSLog(@"Did send read notification for private message %@", messageId);
+    }];
 }
 
 @end

@@ -64,6 +64,16 @@ Report User
 
 - (void)reportUser:(NSDictionary *)params success:(void(^)(NSString *message))success failure:(void(^)(NSError *error))failure;
 
+/*
+ POST
+User Rate
+
+ endpoint: rate/forum
+
+ */
+
+- (void)addReview:(NSDictionary *)params success:(void(^)(NSString *message))success failure:(void(^)(NSError *error))failure;
+
 @end
 
 NS_ASSUME_NONNULL_END

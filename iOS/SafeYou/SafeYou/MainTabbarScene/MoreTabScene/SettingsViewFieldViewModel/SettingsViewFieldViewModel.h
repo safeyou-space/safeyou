@@ -1,5 +1,5 @@
 //
-//  ProfileViewFieldViewModel.h
+//  SettingsViewFieldViewModel.h
 //  SafeYou
 //
 //  Created by Garnik Simonyan on 9/16/19.

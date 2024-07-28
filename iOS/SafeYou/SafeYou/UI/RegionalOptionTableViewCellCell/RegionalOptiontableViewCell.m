@@ -15,7 +15,7 @@
 @interface RegionalOptiontableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *titleLabel;
 @property (weak, nonatomic) IBOutlet SYRadioButton *radioButton;
 
 @end
@@ -31,7 +31,7 @@
     [super setSelected:selected animated:animated];
 
     if (selected || self.viewData.isSelected) {
-        self.titleLabel.textColorType = SYColorTypeMain1;
+        self.titleLabel.textColorType = SYColorTypeOtherAccent;
         [self.radioButton setImage:[UIImage imageNamed:@"radio_button_pink_selected"] forState:UIControlStateNormal];
     } else {
         self.titleLabel.textColorType = SYColorTypeBlack;
@@ -43,11 +43,11 @@
 - (void)configureWithViewData:(ChooseRegionalOptionViewModel *)viewData
 {
     _viewData = viewData;
-    
-//    self.selected = _viewData.isSelected;
     [self setSelected:_viewData.isSelected];
     
+    self.radioButton.imageColorType = SYColorTypeOtherAccent;
     BOOL imageAvailable = viewData.optionImageUrl;
+    self.iconImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.iconImageView.hidden = !imageAvailable;
     if (imageAvailable) {
         [self.iconImageView sd_setImageWithURL:viewData.optionImageUrl];

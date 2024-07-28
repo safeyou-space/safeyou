@@ -15,8 +15,8 @@
 @interface ChooseRegionalOptionsViewController () 
 
 @property (weak, nonatomic) IBOutlet UIStackView *optionsStackView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *mainTitleLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *secondaryTitleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *mainTitleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *secondaryTitleLabel;
 @property (weak, nonatomic) IBOutlet SYCorneredButton *nextButton;
 
 - (IBAction)nextButtonPressed:(UIButton *)sender;
@@ -37,6 +37,7 @@
     // Do any additional setup after loading the view.
     _optionsService = [[RegionalOptionsService alloc] init];
     [self fetchOptions];
+    [self configureRightBarButtonitem];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -46,7 +47,6 @@
     [self configureGradientBackground];
     [self configureOptionsView];
     [self.nextButton arrangeImageToTheRight];
-    [self configureRightBarButtonitem];
 }
 
 #pragma mark - Interface Methods
@@ -61,12 +61,22 @@
     NSAssert(NO, @"Override method in child classes");
 }
 
+- (void)enableNextButton:(BOOL)enable
+{
+    self.nextButton.enabled = enable;
+    if (enable) {
+        self.navigationItem.rightBarButtonItems = @[_rightBarButtonItem];
+    } else {
+        self.navigationItem.rightBarButtonItems = @[];
+    }
+}
+
 #pragma mark - Bar Button Items
 
 - (void)configureRightBarButtonitem
 {
     _rightBarButtonItem = [[SYDesignableBarButtonItem alloc] initWithTitle:LOC(@"next_key") style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonPressed:)];
-    _rightBarButtonItem.tintColorType = 9;
+    _rightBarButtonItem.tintColorType = SYColorTypeWhite;
     [_rightBarButtonItem setTitle:LOC(@"next_key")];
     self.navigationItem.rightBarButtonItems = @[_rightBarButtonItem];
 }
@@ -114,10 +124,6 @@
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     for (ChooseRegionalOptionViewModel *viewData in self.dataSource) {
         ChooseItemView *itemView = [[ChooseItemView alloc] initWithViewData:viewData];
-        if ([self.dataSource indexOfObject:viewData] == 0) {
-            itemView.selected = YES;
-            self.selectedRegionalOption = itemView.viewData.regionalOptionData;
-        }
         itemView.delegate = self;
         [self.optionsStackView addArrangedSubview:itemView];
         [itemView.heightAnchor constraintEqualToConstant:50].active = true;

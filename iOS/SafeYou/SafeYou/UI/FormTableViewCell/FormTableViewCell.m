@@ -10,15 +10,17 @@
 #import "Constants.h"
 #import "SelectDateField.h"
 #import "UIColor+SYColors.h"
+#import <UITextView+Placeholder/UITextView+Placeholder.h>
+
 
 @interface FormTableViewCell () <UITextFieldDelegate, DateFieldDelegate, UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet HyRobotoRegualrTextField *formTextField;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelLight *textViewTitleLabel;
+@property (weak, nonatomic) IBOutlet SYRegualrTextField *formTextField;
+@property (weak, nonatomic) IBOutlet SYLabelBold *fieldTitleLabel;
 @property (weak, nonatomic) IBOutlet UITextView *inputTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *arrowImageView;
 
-- (IBAction)textFieldDidChange:(HyRobotoRegualrTextField *)sender;
+- (IBAction)textFieldDidChange:(SYRegualrTextField *)sender;
 
 @property (nonatomic) NSString *regex;
 
@@ -33,11 +35,13 @@
     self.formTextField.delegate = self;
     self.arrowImageView.hidden = YES;
     
+    self.inputTextView.layer.borderColor = UIColor.purpleColor4.CGColor;
+    self.inputTextView.layer.borderWidth = 1.0;
+    self.inputTextView.layer.cornerRadius = 8.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
 }
 
 - (void)prepareForReuse
@@ -48,15 +52,24 @@
     self.formTextField.enabled = YES;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    NSLog(@"frame is %@", NSStringFromCGRect(self.contentView.frame));
+}
+
 - (void)configureWithFieldType:(FormFieldType)fieldType dataType:(FormFieldDataType)fieldDataType title:(NSString *)title placeholder:(NSString *)placeholder value:(NSString *)value isRequired:(BOOL)isRequired
 {
     self.formTextField.placeholder = placeholder;
-    
-    if (![title isEqualToString:placeholder]) {
-//        self.formTextField.tit
-    }
+    self.formTextField.placeholderColorType = SYColorTypeDarkGray;
+    self.formTextField.placeholderColorAlpha = 1.0;
+    self.formTextField.accessibilityLabel = title;
+    self.fieldTitleLabel.text = title;
     if (fieldType == FormFieldTypeText) {
         self.formTextField.enabled = YES;
+        self.formTextField.layer.borderColor = UIColor.purpleColor4.CGColor;
+        self.formTextField.layer.borderWidth = 1.0;
+        self.formTextField.layer.cornerRadius = 8.0;
         if (fieldDataType == FormFieldDataTypeNumber) {
             [self createNumberTextFieldInputAccessoryView];
         }
@@ -67,9 +80,13 @@
         self.formTextField.secureTextEntry = YES;
         [self configureRightViewButtonForPasswordField];
     } else {
+        self.formTextField.placeholderColorType = SYColorTypeOtherAccent3;
         self.formTextField.secureTextEntry = NO;
         self.formTextField.rightView = nil;
         self.formTextField.rightViewMode = UITextFieldViewModeNever;
+        if (fieldType == FormFieldTypePhoneNumber) {
+            self.formTextField.tag = 6;
+        }
     }
     
     if (value) {
@@ -79,11 +96,16 @@
 
 - (void)configureRightViewButtonForPasswordField
 {
-    UIButton *rightViewButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.formTextField.frame.size.height, self.formTextField.frame.size.height)];
-    
+    SYDesignableButton *rightViewButton = [[SYDesignableButton alloc] initWithFrame:CGRectMake(-20, 0, self.formTextField.frame.size.height, self.formTextField.frame.size.height)];
 
-    UIImage *closeEyeImage = [[UIImage imageNamed:@"eye_close"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIImage *openEyeImage = [[UIImage imageNamed:@"eye_open"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+
+    UIImage *closeEyeImage = [UIImage systemImageNamed:@"eye.fill"];
+    closeEyeImage.accessibilityLabel = @"Show password";
+    UIImage *openEyeImage = [UIImage systemImageNamed:@"eye.slash.fill"];
+    openEyeImage.accessibilityLabel = @"Hide password";
+    rightViewButton.contentEdgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+
+    rightViewButton.imageColorType = SYColorTypeOtherAccent;
     [rightViewButton setImage:closeEyeImage forState:UIControlStateNormal];
     [rightViewButton setImage:openEyeImage forState:UIControlStateSelected];
     if (self.eyeIconTintColorType) {
@@ -111,8 +133,9 @@
         placeholder = [NSString stringWithFormat:@"%@ *", placeholder];
     }
     if (fieldType == FormFieldTypeLargeText) {
-        self.textViewTitleLabel.text = title;
+        self.fieldTitleLabel.text = title;
         self.inputTextView.text = value;
+        self.inputTextView.placeholder = placeholder;
         self.inputTextView.delegate = self;
     } else {
         [self configureWithFieldType:fieldType dataType:fieldDataType title:title placeholder:placeholder value:value isRequired:isRequired];
@@ -123,7 +146,6 @@
         } else if (fieldDataType == FormFieldDataTypePhoneNumber){
             [self createPhoneNumberTextFieldInputAccessoryView];
         } else if (fieldDataType == FormFieldDataTypeChooseOption) {
-            self.formTextField.selectedPlaceholderColorAlpha = 0;
             self.arrowImageView.hidden = NO;
             self.formTextField.enabled = NO;
         } else {
@@ -137,7 +159,6 @@
 - (void)resetCell
 {
     self.formTextField.text = @"";
-    self.formTextField.rightViewImage = nil;
     self.formTextField.enabled = YES;
 }
 
@@ -151,6 +172,7 @@
     } else if(self.formTextField.returnKeyType == UIReturnKeyDone) {
         returnKeyString = LOC(@"done_key");
     }
+    [self.formTextField becomeFirstResponder];
     
     UIToolbar* numberToolbar = [[UIToolbar alloc] init];
     numberToolbar.barStyle = UIBarStyleDefault;
@@ -217,6 +239,16 @@
     dateField.datePickerMode = UIDatePickerModeDate;
     
     dateField.dateFormat = @"dd/MM/YYYY";
+
+    NSString *returnKeyString;
+    if(self.formTextField.returnKeyType == UIReturnKeyDefault) {
+        returnKeyString = LOC(@"return_key");
+    } else if(self.formTextField.returnKeyType == UIReturnKeyNext) {
+        returnKeyString = LOC(@"next_key");
+    } else if(self.formTextField.returnKeyType == UIReturnKeyDone) {
+        returnKeyString = LOC(@"done_key");
+    }
+    dateField.returnButtonTitle = returnKeyString;
     [dateField setupPickerView];
 }
 
@@ -261,8 +293,20 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 
 {
+    if (_formTextField.tag == 6) {
+        NSString *countryCode = [[Settings sharedInstance] selectedCountryCode];
+        NSString *currentString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (([countryCode isEqualToString:@"arm"] || [countryCode isEqualToString:@"zwe"]) && currentString.length > 14 ) {
+            return  NO;
+        } else if (currentString.length > 16) {
+            return NO;
+        }
+    }
+    
     if (self.inputLength !=-1 && self.inputLength > 0) {
-        if (textField.text.length >= self.inputLength) {
+        NSString *currentString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        
+        if (currentString.length > self.inputLength) {
             return NO;
         }
     }
@@ -286,7 +330,7 @@
     }
     
     if (textField.keyboardType == UIKeyboardTypeNumberPad || textField.keyboardType == UIKeyboardTypeDecimalPad) {
-                
+        
         NSString *numberRegex = @"^[0-9]+$";
         NSPredicate *validationPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", numberRegex];
         

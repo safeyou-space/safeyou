@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,8 +33,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Women's Recourse Center" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YnY-C5-LB6" customClass="HyRobotoLabelBold">
-                                <rect key="frame" x="112" y="42" width="128.5" height="33.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Women's Recourse Center" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YnY-C5-LB6" customClass="SYLabelBold">
+                                <rect key="frame" x="112" y="46" width="128.5" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -60,12 +60,37 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedImageColorType">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="chatButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OPj-mR-8t2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4U5-6V-ujT" customClass="SYDesignableButton">
+                                <rect key="frame" x="120" y="79" width="52" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Wbc-qu-bn0"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="reviewButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9xI-1g-uGm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -74,14 +99,16 @@
                             <constraint firstItem="asR-bx-AbE" firstAttribute="top" secondItem="ivs-fP-1Pc" secondAttribute="top" constant="18.5" id="2AI-GE-Wsj"/>
                             <constraint firstAttribute="trailing" secondItem="PCu-cq-pcp" secondAttribute="trailing" constant="15" id="2NZ-YJ-YYh"/>
                             <constraint firstItem="asR-bx-AbE" firstAttribute="centerY" secondItem="ivs-fP-1Pc" secondAttribute="centerY" id="35F-k1-qmO"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YnY-C5-LB6" secondAttribute="bottom" constant="10" id="Awd-PZ-ylc"/>
                             <constraint firstItem="PCu-cq-pcp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YnY-C5-LB6" secondAttribute="trailing" constant="10" id="Cir-D6-19g"/>
                             <constraint firstItem="PCu-cq-pcp" firstAttribute="centerY" secondItem="ivs-fP-1Pc" secondAttribute="centerY" id="IjH-yv-Uof"/>
+                            <constraint firstItem="4U5-6V-ujT" firstAttribute="top" secondItem="YnY-C5-LB6" secondAttribute="bottom" constant="8" id="LBd-Wa-KVW"/>
                             <constraint firstItem="asR-bx-AbE" firstAttribute="leading" secondItem="ivs-fP-1Pc" secondAttribute="leading" constant="16" id="TJ4-zU-y0k"/>
                             <constraint firstItem="YnY-C5-LB6" firstAttribute="centerY" secondItem="ivs-fP-1Pc" secondAttribute="centerY" id="UuQ-qY-fIE"/>
                             <constraint firstAttribute="bottom" secondItem="asR-bx-AbE" secondAttribute="bottom" constant="18.5" id="Z97-kd-nFG"/>
-                            <constraint firstItem="YnY-C5-LB6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ivs-fP-1Pc" secondAttribute="top" constant="10" id="fEL-vI-R3S"/>
+                            <constraint firstItem="YnY-C5-LB6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ivs-fP-1Pc" secondAttribute="top" constant="8" id="fEL-vI-R3S"/>
+                            <constraint firstItem="4U5-6V-ujT" firstAttribute="leading" secondItem="asR-bx-AbE" secondAttribute="trailing" constant="24" id="qdD-Yh-9OO"/>
                             <constraint firstItem="YnY-C5-LB6" firstAttribute="leading" secondItem="asR-bx-AbE" secondAttribute="trailing" constant="16" id="tw4-Tc-Egn"/>
+                            <constraint firstAttribute="bottom" secondItem="4U5-6V-ujT" secondAttribute="bottom" constant="8" id="xWa-RP-Q5S"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
@@ -110,12 +137,16 @@
             <connections>
                 <outlet property="chatButton" destination="PCu-cq-pcp" id="08D-02-TNH"/>
                 <outlet property="logoImageView" destination="asR-bx-AbE" id="teD-AK-3ii"/>
+                <outlet property="reviewButton" destination="4U5-6V-ujT" id="NXj-DT-WrE"/>
                 <outlet property="titleLabel" destination="YnY-C5-LB6" id="uaK-bT-BCf"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="137.61160714285714"/>
         </tableViewCell>
     </objects>
     <designables>
+        <designable name="4U5-6V-ujT">
+            <size key="intrinsicContentSize" width="52" height="34"/>
+        </designable>
         <designable name="PCu-cq-pcp">
             <size key="intrinsicContentSize" width="40" height="30"/>
         </designable>
@@ -126,6 +157,7 @@
     <resources>
         <image name="icon_private_message" width="16" height="16"/>
         <image name="ngo_logo" width="82" height="82"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -46,7 +46,7 @@
 
 - (void)getContent:(SYRemotContentType)contentType complition:(void(^)(NSString *htmlContent))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager GET:[self endpointForContentType:contentType] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:[self endpointForContentType:contentType] parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"Content received");
         NSString *htmlContent = responseObject[@"content"];
         if (complition) {

@@ -21,10 +21,16 @@
 
 @synthesize selectedRegionalOption = _selectedRegionalOption;
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationItem.hidesBackButton = NO;
+    self.selectedRegionalOption = nil;
+    [self enableNextButton:self.selectedRegionalOption != nil];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
@@ -69,9 +75,18 @@
 - (void)showNextView
 {
     // regional options are selected show rest staff
+    [self presentIntroductionView];
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *introductionVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"IntroductionViewController"];
-    [self.navigationController pushViewController:introductionVC animated:YES];
+    UIViewController *welcomeVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"WelcomeViewController"];
+    [self.navigationController pushViewController:welcomeVC animated:YES];
+}
+
+- (void)presentIntroductionView
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Introduction" bundle:nil];
+    UINavigationController *introductionNVC = [storyboard instantiateViewControllerWithIdentifier:@"IntroductionNavigationController"];
+    introductionNVC.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self.navigationController presentViewController:introductionNVC animated:YES completion:nil];
 }
 
 #pragma mark - Setter
@@ -80,6 +95,7 @@
 {
     _selectedRegionalOption = selectedRegionalOption;
     [[Settings sharedInstance]  setSelectedLanguage:selectedRegionalOption];
+    [self enableNextButton:self.selectedRegionalOption != nil];
 }
 
 @end

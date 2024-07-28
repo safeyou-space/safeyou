@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *phoneNumber;
 @property (nonatomic) NSString *password;
 
+@property (nonatomic) BOOL isSignInFlow;
+
 @end
 
 NS_ASSUME_NONNULL_END

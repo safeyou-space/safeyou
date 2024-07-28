@@ -289,7 +289,7 @@ This will change the app's logo and name on your phone's screen.";
 "error_message_emergency_contact" = "The phone number is incorrect. \
 (ex. +374XXXXXXXX)\
 You can not add another country phone number.";
-"min_rate_characters" = "Minimum %li characters";
+"min_rate_characters" = "Minimum %@ characters";
 "review" = "Write a Review";
 "my_review" = "My Review";
 "review_required" = "Write a Review *";
@@ -357,3 +357,4 @@ You won't be able to see their comments.";
 "pause_icon_description" = "Pause";
 "block_icon_description" = "Block user";
 "unblock_user_descryption" = "Unblock user";
+"forum_reviews_count" = "Reviews";

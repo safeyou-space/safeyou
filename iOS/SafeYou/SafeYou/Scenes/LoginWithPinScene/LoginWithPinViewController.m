@@ -14,7 +14,7 @@
 @interface LoginWithPinViewController () <PinNumberViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *inputViewContainer;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *titleLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *numberContainerView;
 
 @property (weak, nonatomic) IBOutlet SYDesignableView *input1;
@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet SYDesignableView *input4;
 
 @property (strong, nonatomic) IBOutletCollection(SYDesignableView) NSArray *inputsCollection;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @property (nonatomic) NSMutableString *inputPinString;
 @property (nonatomic) PinNumberView *numbersView;
@@ -48,8 +49,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self configureGradientBackground];
     [self configureNumbersView];
+    self.view.backgroundColor = [UIColor redColor];
+    self.backgroundImageView.backgroundColor = [UIColor yellowColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -70,16 +72,14 @@
 
 - (void)configureNavigationBar
 {
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-}
-
-// @FIXME: Dublicate code need refactor
-- (void)configureGradientBackground
-{
-    self.view.backgroundColor = [UIColor mainTintColor2];
+    if (self.isFromSignInFlow) {
+        [self.navigationController setNavigationBarHidden:NO];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
+        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    } else {
+        [self.navigationController setNavigationBarHidden:YES];
+    }
 }
 
 #pragma mark - Configure Views

@@ -18,6 +18,18 @@
 
 @synthesize selectedRegionalOption = _selectedRegionalOption;
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.selectedRegionalOption = nil;
+    [self enableNextButton:self.selectedRegionalOption != nil];
+}
+
 
 - (void)fetchOptions
 {
@@ -48,6 +60,7 @@
 {
     _selectedRegionalOption = selectedRegionalOption;
     [[Settings sharedInstance] setSelectedCountry:_selectedRegionalOption];
+    [self enableNextButton:self.selectedRegionalOption != nil];
 }
 
 #pragma mark - Navigation

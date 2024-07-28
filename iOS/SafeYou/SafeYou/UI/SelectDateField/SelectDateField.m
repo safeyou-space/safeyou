@@ -31,6 +31,10 @@
 {
     [super awakeFromNib];
     self.delegate = self;
+    CGFloat pointSize = self.font.pointSize;
+    UIFont *font = [UIFont fontWithName:@"HayRoboto-Regular" size:pointSize];
+    [self setFont:[[[UIFontMetrics alloc] initForTextStyle:UIFontTextStyleBody] scaledFontForFont:font]];
+    self.adjustsFontForContentSizeCategory = YES;
 }
 
 - (void)setSelectedDate:(NSDate *)selectedDate
@@ -91,6 +95,27 @@
 
 #pragma mark - customize views
 
+- (void)setupDatePickerView
+{
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    datePicker.backgroundColor = [UIColor whiteColor];
+    [datePicker setValue:[UIColor blackColor] forKey:@"textColor"];
+
+    datePicker.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    datePicker.datePickerMode = UIDatePickerModeDate;
+
+    [datePicker addTarget:self action:@selector(dueDateChanged:) forControlEvents:UIControlEventValueChanged];
+    datePicker.frame = CGRectMake(0.0, [UIScreen mainScreen].bounds.size.height - 300, [UIScreen mainScreen].bounds.size.width, 300);
+    self.inputView = datePicker;
+    self.inputAccessoryView = datePicker.inputAccessoryView;
+
+        UIToolbar *toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 300, [UIScreen mainScreen].bounds.size.width, 50)];
+        toolbar.barStyle = UIBarStyleBlackTranslucent;
+        toolbar.items = @[[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onDoneButtonClick)]];
+        [toolbar sizeToFit];
+//        [self.view addSubview:toolbar];
+}
+
 - (void)setupPickerView
 {
     //@TODO: make with custom and color with IBInspactable proporties
@@ -102,7 +127,7 @@
                    withReturnKey:_returnButtonTitle
                    withWidth: [UIScreen mainScreen].bounds.size.width
                    withCustomColor:YES
-                   customColor: [UIColor darkGrayColor]];
+                   customColor: [UIColor lightGrayColor]];
     _pickerView.clipsToBounds = NO;
     _pickerView.delegate = self;
     self.inputView = _pickerView;
@@ -110,6 +135,11 @@
     UITextInputAssistantItem *item = [self inputAssistantItem];
     item.leadingBarButtonGroups = @[];
     item.trailingBarButtonGroups = @[];
+}
+
+- (void)dueDateChanged:(UIDatePicker *)picker
+{
+
 }
 
 #pragma mark - CustomPickerViewDelegates

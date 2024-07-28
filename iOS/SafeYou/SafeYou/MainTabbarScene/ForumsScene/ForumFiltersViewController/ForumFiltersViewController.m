@@ -43,7 +43,7 @@
 @property (nonatomic) BOOL isCountriesExpanded;
 
 @property (weak, nonatomic) IBOutlet SYDesignableButton *clearAllButton;
-@property (weak, nonatomic) IBOutlet SYDesignableButton *showResultsButton;
+@property (weak, nonatomic) IBOutlet SYCorneredButton *showResultsButton;
 
 @property (nonatomic) NSArray *categoriesDataSource;
 @property (nonatomic) NSArray *languagesDataSource;
@@ -134,7 +134,7 @@
     [self.clearCategoriesButton setTitle:LOC(@"clear_categories") forState:UIControlStateNormal];
     self.languagesTitleLabel.text = LOC(@"languages");
     [self.resetDefaultLanguagesButton setTitle:LOC(@"back_to_default_language") forState:UIControlStateNormal];
-    
+
     [self.clearAllButton setTitle:LOC(@"clear_all_filters") forState:UIControlStateNormal];
     [self.showResultsButton setTitle:LOC(@"show_results") forState:UIControlStateNormal];
 }

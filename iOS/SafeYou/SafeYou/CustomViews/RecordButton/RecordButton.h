@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)reset;
 - (void)updateLocalizations;
+- (void)recordButtonDidStartPressed:(RecordButton *)recordButton;
+- (void)recordButtonDidStopPressed:(RecordButton *)recordButton;
 
 @end
 

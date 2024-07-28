@@ -14,8 +14,8 @@
 @interface NGODetailsContactCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *contactImageView;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *contactNameLabel;
-@property (weak, nonatomic) IBOutlet HyRobotoLabelRegular *contactValueLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *contactNameLabel;
+@property (weak, nonatomic) IBOutlet SYLabelRegular *contactValueLabel;
 
 
 @end
@@ -40,7 +40,7 @@
 - (void)configureValueLabel:(NGOContactViewModel *)viewData
 {
     NSMutableAttributedString *mAttributedDescription = [[NSString attributedStringFromHTML:viewData.textValue] mutableCopy];
-    [mAttributedDescription addAttribute:NSFontAttributeName value:[UIFont hyRobotoFontRegularOfSize:16.0] range:NSMakeRange(0, mAttributedDescription.length)];
+    [mAttributedDescription addAttribute:NSFontAttributeName value:[UIFont regularFontOfSize:16.0] range:NSMakeRange(0, mAttributedDescription.length)];
     self.contactValueLabel.attributedText = mAttributedDescription;
 }
 

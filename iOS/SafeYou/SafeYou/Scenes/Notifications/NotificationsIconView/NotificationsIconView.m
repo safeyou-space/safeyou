@@ -12,7 +12,7 @@
 @interface NotificationsIconView ()
 
 @property (weak, nonatomic) IBOutlet UIButton *badgeButton;
-@property (weak, nonatomic) IBOutlet UIImageView *notificationImageView;
+@property (weak, nonatomic) IBOutlet SYDesignableImageView *notificationImageView;
 @property (weak, nonatomic) IBOutlet UIButton *actionButton;
 
 - (IBAction)notificationViewAction:(UIButton *)sender;
@@ -41,12 +41,14 @@
 
 - (void)loadCustomViewFromNib
 {
-    UIView *customView = [[[NSBundle mainBundle] loadNibNamed:@"NotificationsIconView" owner:self options:nil] objectAtIndex:0];
-    customView.backgroundColor = [UIColor clearColor];
-    self.frame = customView.frame;
-    [self addSubviewWithZeroMargin:customView];
-    self.badgeButton.hidden = YES;
-    
+    if (self.subviews.count == 0) {
+        UIView *customView = [[[NSBundle mainBundle] loadNibNamed:@"NotificationsIconView" owner:self options:nil] objectAtIndex:0];
+        customView.backgroundColor = [UIColor clearColor];
+        self.frame = customView.frame;
+        [self addSubviewWithZeroMargin:customView];
+        self.badgeButton.hidden = YES;
+        self.actionButton.accessibilityLabel = @"Note";
+    }
 }
 
 - (void)updateBadgeValue:(NSString *)badgeValue
@@ -64,4 +66,10 @@
         [self.delegate notificationBarItemAction:self];
     }
 }
+
+- (void)setWhiteColorType
+{
+    self.notificationImageView.imageColorType = SYColorTypeWhite;
+}
+
 @end

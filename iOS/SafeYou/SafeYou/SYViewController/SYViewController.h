@@ -22,6 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)appLanguageDidChange:(NSNotification *)notification;
 
+- (void)configureNavigationBar;
+
+- (void)setWhiteColorTypeOnNotificationIcon;
+
 
 // Interface need to move category
 

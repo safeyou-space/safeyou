@@ -42,7 +42,7 @@
     
     UINib *moreTableViewSwitchCellNib = [UINib nibWithNibName:@"MoreViewTableViewSwitchCell" bundle:nil];
     [self.tableView registerNib:moreTableViewSwitchCellNib forCellReuseIdentifier:@"MoreViewTableViewSwitchCell"];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
     self.isSwitchEnabled = [Settings sharedInstance].isCamouflageIconEnabled;
     
     [self configureIconsDataSource];
@@ -66,18 +66,25 @@
     enableCamouflageIconField.iconImageName = @"dual_pin_icon";
     enableCamouflageIconField.accessoryType = FieldAccessoryTypeSwitch;
     enableCamouflageIconField.isStateOn = self.isSwitchEnabled;
+    BOOL selectedItem = NO;
     
     ChooseIconCellViewModel *icon1 = [[ChooseIconCellViewModel alloc] initWithTitle:LOC(@"art_gallery") imageName:@"AppIconAlternate1"];
     if ([[Settings sharedInstance].camouflageIconName isEqualToString:icon1.iconImageName]) {
         self.selectedIconData = icon1;
+        selectedItem = YES;
     }
     ChooseIconCellViewModel *icon2 = [[ChooseIconCellViewModel alloc] initWithTitle:LOC(@"gallery_editor") imageName:@"AppIconAlternate2"];
     if ([[Settings sharedInstance].camouflageIconName isEqualToString:icon2.iconImageName]) {
         self.selectedIconData = icon2;
+        selectedItem = YES;
     }
     ChooseIconCellViewModel *icon3 = [[ChooseIconCellViewModel alloc] initWithTitle:LOC(@"visual_editor") imageName:@"AppIconAlternate3"];
     if ([[Settings sharedInstance].camouflageIconName isEqualToString:icon3.iconImageName]) {
         self.selectedIconData = icon3;
+        selectedItem = YES;
+    }
+    if (selectedItem == NO) {
+        self.selectedIconData = icon1;
     }
     self.dataSource = @[enableCamouflageIconField, icon1, icon2, icon3];
     
@@ -169,6 +176,11 @@
     if (dialogView == self.activatePinDialogView) {
         UIStoryboard *authStoryboard = [UIStoryboard storyboardWithName:@"Authentication" bundle:nil];
         CreateDualPinViewController *pinVC = [authStoryboard instantiateViewControllerWithIdentifier:@"CreateDualPinViewController"];
+        if ([Settings sharedInstance].isDualPinEnabled) {
+            pinVC.pinSwitchTitle = LOC(@"edit_deactivate_dual_pin");
+        } else {
+            pinVC.pinSwitchTitle = LOC(@"add_dual_pin_title_key");
+        }
         [self.navigationController pushViewController:pinVC animated:YES];
     }
 }
@@ -194,8 +206,14 @@
                             UIViewController *destination = self.navigationController.viewControllers[1];
                             [self.navigationController popToViewController:destination animated:YES];
                         }
+                    } else {
+                        [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:LOC(@"error_dont_change_app_icon") cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
+                        return;
                     }
                 }];
+            } else {
+                [self showAlertViewWithTitle:LOC(@"error_text_key") withMessage:LOC(@"error_dont_change_app_icon") cancelButtonTitle:LOC(@"ok") okButtonTitle:nil cancelAction:nil okAction:nil];
+                return;
             }
         }
     } else {

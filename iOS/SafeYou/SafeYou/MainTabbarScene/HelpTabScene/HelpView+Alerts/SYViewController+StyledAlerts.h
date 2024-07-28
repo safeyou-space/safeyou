@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SYViewController (StyledAlerts)
 
 - (void)showInfoAlert;
+- (void)showUpdateApplicationAlert;
 - (void)showMessageSentAlert;
 - (void)showReocrdSavedAlert;
 - (void)showReocrdSentAlert:(NSString *)recordName recordDate:(NSString *)recordDate;

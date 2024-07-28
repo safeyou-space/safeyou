@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ChooseOptionNavigationController" id="h37-jd-hx1" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="i7O-oR-d6G">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -41,32 +41,40 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="46" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="LRL-Z6-JNI">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                        <rect key="frame" x="16" y="72" width="343" height="595"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionsTableViewCell" rowHeight="46" id="PMl-zi-DYH" customClass="ChooseOptionsTableViewCell">
-                                                <rect key="frame" x="0.0" y="44.5" width="375" height="46"/>
+                                                <rect key="frame" x="0.0" y="50" width="343" height="46"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PMl-zi-DYH" id="wkv-dM-FBN">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="46"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5h-9u-mxF" customClass="SYDesignableView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                                            <rect key="frame" x="0.0" y="2" width="343" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                                    <integer key="value" value="17"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wbw-jm-VOx" customClass="SYDesignableLabel">
-                                                            <rect key="frame" x="28" y="10" width="93" height="26"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wbw-jm-VOx" customClass="SYLabelRegular">
+                                                            <rect key="frame" x="28" y="10" width="83" height="26"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" red="0.76078431369999999" green="0.7725490196" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                                                    <integer key="value" value="9"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                                    <integer key="value" value="0"/>
+                                                                    <integer key="value" value="6"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
                                                                     <real key="value" value="1"/>
@@ -74,14 +82,14 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="32c-vs-877" customClass="SYDesignableImageView">
-                                                            <rect key="frame" x="346" y="18" width="13" height="10"/>
+                                                            <rect key="frame" x="314" y="18" width="13" height="10"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="10" id="s3y-S1-xXl"/>
                                                                 <constraint firstAttribute="width" constant="13" id="vjj-kO-yhl"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
-                                                                    <integer key="value" value="9"/>
+                                                                    <integer key="value" value="1"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
                                                                     <real key="value" value="1"/>
@@ -89,10 +97,9 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="m5h-9u-mxF" secondAttribute="bottom" id="Cdz-SE-FwG"/>
-                                                        <constraint firstItem="m5h-9u-mxF" firstAttribute="top" secondItem="wkv-dM-FBN" secondAttribute="top" id="IvX-J0-l6t"/>
+                                                        <constraint firstAttribute="bottom" secondItem="m5h-9u-mxF" secondAttribute="bottom" constant="2" id="Cdz-SE-FwG"/>
+                                                        <constraint firstItem="m5h-9u-mxF" firstAttribute="top" secondItem="wkv-dM-FBN" secondAttribute="top" constant="2" id="IvX-J0-l6t"/>
                                                         <constraint firstAttribute="bottom" secondItem="Wbw-jm-VOx" secondAttribute="bottom" constant="10" id="ZHJ-Jk-peg"/>
                                                         <constraint firstItem="32c-vs-877" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Wbw-jm-VOx" secondAttribute="trailing" constant="20" id="gYK-EU-Qqs"/>
                                                         <constraint firstAttribute="trailing" secondItem="m5h-9u-mxF" secondAttribute="trailing" id="gtp-Ti-rO7"/>
@@ -110,27 +117,35 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionsRadioTableViewCell" rowHeight="46" id="miN-BD-LcN" customClass="ChooseOptionsTableViewCell">
-                                                <rect key="frame" x="0.0" y="90.5" width="375" height="46"/>
+                                                <rect key="frame" x="0.0" y="96" width="343" height="46"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="miN-BD-LcN" id="GAG-AL-W98">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="46"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQQ-ZA-ug0" customClass="SYDesignableView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
+                                                            <rect key="frame" x="0.0" y="2" width="343" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                                    <integer key="value" value="17"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nni-s9-dyT" customClass="SYDesignableLabel">
-                                                            <rect key="frame" x="28" y="10" width="93" height="26"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nni-s9-dyT" customClass="SYLabelRegular">
+                                                            <rect key="frame" x="28" y="10" width="83" height="26"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" red="0.76078431369999999" green="0.7725490196" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                                                    <integer key="value" value="17"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                                    <integer key="value" value="0"/>
+                                                                    <integer key="value" value="6"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
                                                                     <real key="value" value="1"/>
@@ -138,7 +153,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_pink_empty" translatesAutoresizingMaskIntoConstraints="NO" id="3Gw-Ha-BHP" customClass="SYDesignableImageView">
-                                                            <rect key="frame" x="339" y="13" width="20" height="20"/>
+                                                            <rect key="frame" x="307" y="13" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="Dwp-Dq-VEY"/>
                                                                 <constraint firstAttribute="height" constant="20" id="Nyk-xP-yX3"/>
@@ -153,7 +168,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_pink_selected" translatesAutoresizingMaskIntoConstraints="NO" id="Wts-92-uLz" customClass="SYDesignableImageView">
-                                                            <rect key="frame" x="339" y="13" width="20" height="20"/>
+                                                            <rect key="frame" x="307" y="13" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="Vbt-I9-Kxt"/>
                                                                 <constraint firstAttribute="height" constant="20" id="ZbZ-fG-jFc"/>
@@ -168,18 +183,17 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="Nni-s9-dyT" firstAttribute="leading" secondItem="GAG-AL-W98" secondAttribute="leadingMargin" constant="12" id="1aw-ge-Mmt"/>
                                                         <constraint firstItem="3Gw-Ha-BHP" firstAttribute="centerY" secondItem="GAG-AL-W98" secondAttribute="centerY" id="3ip-9O-sF6"/>
                                                         <constraint firstAttribute="bottom" secondItem="Nni-s9-dyT" secondAttribute="bottom" constant="10" id="IU7-8Q-6Y5"/>
-                                                        <constraint firstAttribute="bottom" secondItem="DQQ-ZA-ug0" secondAttribute="bottom" id="J5D-nG-qSm"/>
+                                                        <constraint firstAttribute="bottom" secondItem="DQQ-ZA-ug0" secondAttribute="bottom" constant="2" id="J5D-nG-qSm"/>
                                                         <constraint firstAttribute="trailing" secondItem="DQQ-ZA-ug0" secondAttribute="trailing" id="Kco-NF-mpc"/>
                                                         <constraint firstItem="3Gw-Ha-BHP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Nni-s9-dyT" secondAttribute="trailing" constant="20" id="OpS-3Q-Thz"/>
                                                         <constraint firstAttribute="trailing" secondItem="3Gw-Ha-BHP" secondAttribute="trailing" constant="16" id="brM-QC-EEk"/>
                                                         <constraint firstItem="Wts-92-uLz" firstAttribute="centerY" secondItem="GAG-AL-W98" secondAttribute="centerY" id="cOi-uT-QfA"/>
                                                         <constraint firstItem="Nni-s9-dyT" firstAttribute="top" secondItem="GAG-AL-W98" secondAttribute="top" constant="10" id="tvq-2w-NaG"/>
-                                                        <constraint firstItem="DQQ-ZA-ug0" firstAttribute="top" secondItem="GAG-AL-W98" secondAttribute="top" id="uYE-y4-3Jb"/>
+                                                        <constraint firstItem="DQQ-ZA-ug0" firstAttribute="top" secondItem="GAG-AL-W98" secondAttribute="top" constant="2" id="uYE-y4-3Jb"/>
                                                         <constraint firstItem="DQQ-ZA-ug0" firstAttribute="leading" secondItem="GAG-AL-W98" secondAttribute="leading" id="wgj-qv-688"/>
                                                         <constraint firstAttribute="trailing" secondItem="Wts-92-uLz" secondAttribute="trailing" constant="16" id="xhp-9i-qCh"/>
                                                     </constraints>
@@ -201,14 +215,14 @@
                                 <viewLayoutGuide key="safeArea" id="oOs-bY-j64"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="oOs-bY-j64" firstAttribute="trailing" secondItem="LRL-Z6-JNI" secondAttribute="trailing" id="AzD-n6-vCy"/>
-                                    <constraint firstAttribute="bottom" secondItem="LRL-Z6-JNI" secondAttribute="bottom" id="Bx4-si-wNW"/>
-                                    <constraint firstItem="LRL-Z6-JNI" firstAttribute="top" secondItem="oOs-bY-j64" secondAttribute="top" id="epQ-Je-2r4"/>
-                                    <constraint firstItem="LRL-Z6-JNI" firstAttribute="leading" secondItem="oOs-bY-j64" secondAttribute="leading" id="niV-01-d73"/>
+                                    <constraint firstItem="oOs-bY-j64" firstAttribute="bottom" secondItem="LRL-Z6-JNI" secondAttribute="bottom" id="A3l-gr-DXS"/>
+                                    <constraint firstItem="oOs-bY-j64" firstAttribute="trailing" secondItem="LRL-Z6-JNI" secondAttribute="trailing" constant="16" id="AzD-n6-vCy"/>
+                                    <constraint firstItem="LRL-Z6-JNI" firstAttribute="top" secondItem="oOs-bY-j64" secondAttribute="top" constant="8" id="epQ-Je-2r4"/>
+                                    <constraint firstItem="LRL-Z6-JNI" firstAttribute="leading" secondItem="oOs-bY-j64" secondAttribute="leading" constant="16" id="niV-01-d73"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                        <integer key="value" value="20"/>
+                                        <integer key="value" value="9"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
                                         <real key="value" value="1"/>
@@ -244,7 +258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a6u-uD-ZPy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2356" y="1279"/>
+            <point key="canvasLocation" x="2356" y="1278.7106446776613"/>
         </scene>
         <!--Choose Options View Controller With Confirm-->
         <scene sceneID="GZf-Ul-goJ">
@@ -258,39 +272,39 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="doV-P9-XFa">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="493"/>
+                                        <rect key="frame" x="16" y="72" width="343" height="465"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionsTableViewCell" rowHeight="70" id="PGY-bS-n6g" customClass="ChooseOptionsTableViewCell">
-                                                <rect key="frame" x="0.0" y="44.5" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="50" width="343" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PGY-bS-n6g" id="8vB-qH-WPw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="70"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AMo-YA-DhK" customClass="SYDesignableView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                            <rect key="frame" x="0.0" y="2" width="343" height="66"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                                    <integer key="value" value="9"/>
+                                                                    <integer key="value" value="17"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
                                                                     <real key="value" value="1"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8"/>
+                                                                </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BU6-6O-JTN" customClass="SYDesignableLabel">
-                                                            <rect key="frame" x="28" y="10" width="93" height="50"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BU6-6O-JTN" customClass="SYLabelRegular">
+                                                            <rect key="frame" x="28" y="10" width="83" height="50"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" red="0.76078431369999999" green="0.7725490196" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
                                                                     <integer key="value" value="6"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                                    <integer key="value" value="0"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
                                                                     <real key="value" value="1"/>
@@ -298,7 +312,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="Vdk-uB-abP" customClass="SYDesignableImageView">
-                                                            <rect key="frame" x="346" y="30" width="13" height="10"/>
+                                                            <rect key="frame" x="314" y="30" width="13" height="10"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="13" id="ral-Rx-89r"/>
                                                                 <constraint firstAttribute="height" constant="10" id="tOv-Ad-eCv"/>
@@ -313,14 +327,13 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="BU6-6O-JTN" firstAttribute="leading" secondItem="8vB-qH-WPw" secondAttribute="leadingMargin" constant="12" id="3KT-Oq-G9N"/>
-                                                        <constraint firstAttribute="bottom" secondItem="AMo-YA-DhK" secondAttribute="bottom" id="9z3-gt-dtN"/>
+                                                        <constraint firstAttribute="bottom" secondItem="AMo-YA-DhK" secondAttribute="bottom" constant="2" id="9z3-gt-dtN"/>
                                                         <constraint firstItem="Vdk-uB-abP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BU6-6O-JTN" secondAttribute="trailing" constant="20" id="GQy-gs-PY9"/>
                                                         <constraint firstItem="Vdk-uB-abP" firstAttribute="centerY" secondItem="8vB-qH-WPw" secondAttribute="centerY" id="Gbh-5H-dAP"/>
                                                         <constraint firstAttribute="bottom" secondItem="BU6-6O-JTN" secondAttribute="bottom" constant="10" id="Kmg-iw-MDZ"/>
-                                                        <constraint firstItem="AMo-YA-DhK" firstAttribute="top" secondItem="8vB-qH-WPw" secondAttribute="top" id="cwh-Pz-eJJ"/>
+                                                        <constraint firstItem="AMo-YA-DhK" firstAttribute="top" secondItem="8vB-qH-WPw" secondAttribute="top" constant="2" id="cwh-Pz-eJJ"/>
                                                         <constraint firstItem="AMo-YA-DhK" firstAttribute="leading" secondItem="8vB-qH-WPw" secondAttribute="leading" id="d22-mT-Yv2"/>
                                                         <constraint firstAttribute="trailing" secondItem="Vdk-uB-abP" secondAttribute="trailing" constant="16" id="gae-jr-INH"/>
                                                         <constraint firstItem="BU6-6O-JTN" firstAttribute="top" secondItem="8vB-qH-WPw" secondAttribute="top" constant="10" id="hZu-af-9jR"/>
@@ -334,19 +347,30 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionsRadioTableViewCellConfirm" rowHeight="70" id="Pts-8N-4GP" customClass="ChooseOptionsTableViewCell">
-                                                <rect key="frame" x="0.0" y="114.5" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="120" width="343" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pts-8N-4GP" id="kEu-28-A1O">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="70"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oXd-wP-eJv" customClass="SYDesignableView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                            <rect key="frame" x="0.0" y="2" width="343" height="66"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                                    <integer key="value" value="17"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bB6-zU-ahJ" customClass="SYDesignableLabel">
-                                                            <rect key="frame" x="28" y="10" width="93" height="50"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bB6-zU-ahJ" customClass="SYLabelRegular">
+                                                            <rect key="frame" x="28" y="10" width="83" height="50"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
@@ -359,7 +383,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_pink_empty" translatesAutoresizingMaskIntoConstraints="NO" id="GjB-aC-oxD" customClass="SYDesignableImageView">
-                                                            <rect key="frame" x="339" y="25" width="20" height="20"/>
+                                                            <rect key="frame" x="307" y="25" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="9AL-BP-Wsp"/>
                                                                 <constraint firstAttribute="width" constant="20" id="auR-P8-RwI"/>
@@ -374,7 +398,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_pink_selected" translatesAutoresizingMaskIntoConstraints="NO" id="k2q-cP-1lh" customClass="SYDesignableImageView">
-                                                            <rect key="frame" x="339" y="25" width="20" height="20"/>
+                                                            <rect key="frame" x="307" y="25" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="Nv1-dA-8Xa"/>
                                                                 <constraint firstAttribute="width" constant="20" id="fSS-Gm-ybd"/>
@@ -389,12 +413,11 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="oXd-wP-eJv" secondAttribute="bottom" id="29a-8j-PBH"/>
+                                                        <constraint firstAttribute="bottom" secondItem="oXd-wP-eJv" secondAttribute="bottom" constant="2" id="29a-8j-PBH"/>
                                                         <constraint firstAttribute="trailing" secondItem="k2q-cP-1lh" secondAttribute="trailing" constant="16" id="4xa-Jw-A1g"/>
                                                         <constraint firstItem="GjB-aC-oxD" firstAttribute="centerY" secondItem="kEu-28-A1O" secondAttribute="centerY" id="5i3-nQ-hK6"/>
-                                                        <constraint firstItem="oXd-wP-eJv" firstAttribute="top" secondItem="kEu-28-A1O" secondAttribute="top" id="7Wl-hX-xmW"/>
+                                                        <constraint firstItem="oXd-wP-eJv" firstAttribute="top" secondItem="kEu-28-A1O" secondAttribute="top" constant="2" id="7Wl-hX-xmW"/>
                                                         <constraint firstItem="GjB-aC-oxD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bB6-zU-ahJ" secondAttribute="trailing" constant="20" id="9U0-Sj-CtI"/>
                                                         <constraint firstAttribute="bottom" secondItem="bB6-zU-ahJ" secondAttribute="bottom" constant="10" id="Cms-Lx-wtb"/>
                                                         <constraint firstItem="bB6-zU-ahJ" firstAttribute="leading" secondItem="kEu-28-A1O" secondAttribute="leadingMargin" constant="12" id="O7d-10-SWK"/>
@@ -413,26 +436,29 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseOptionCustomInputCell" rowHeight="70" id="WU1-Dh-n48" customClass="ChooseOptionCustomInputCell">
-                                                <rect key="frame" x="0.0" y="184.5" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="190" width="343" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WU1-Dh-n48" id="jIa-rK-yXC">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="70"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxo-CP-ThS" customClass="SYDesignableView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                            <rect key="frame" x="0.0" y="2" width="343" height="66"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                                    <integer key="value" value="9"/>
+                                                                    <integer key="value" value="17"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
                                                                     <real key="value" value="1"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8"/>
+                                                                </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_pink_empty" translatesAutoresizingMaskIntoConstraints="NO" id="cJ1-8y-3iN" customClass="SYDesignableImageView">
-                                                            <rect key="frame" x="339" y="25" width="20" height="20"/>
+                                                            <rect key="frame" x="307" y="25" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="KYY-dx-Oz9"/>
                                                                 <constraint firstAttribute="width" constant="20" id="Liv-3H-ZF9"/>
@@ -447,7 +473,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_pink_selected" translatesAutoresizingMaskIntoConstraints="NO" id="8Fv-NO-Tss" customClass="SYDesignableImageView">
-                                                            <rect key="frame" x="339" y="25" width="20" height="20"/>
+                                                            <rect key="frame" x="307" y="25" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="ZMx-od-a2O"/>
                                                                 <constraint firstAttribute="width" constant="20" id="hMn-83-bgg"/>
@@ -461,8 +487,8 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AWx-Hg-Amf" customClass="HyRobotoRegualrTextField">
-                                                            <rect key="frame" x="16" y="40" width="303" height="22"/>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AWx-Hg-Amf" customClass="SYRegualrTextField">
+                                                            <rect key="frame" x="16" y="41" width="271" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <userDefinedRuntimeAttributes>
@@ -486,14 +512,14 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </textField>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiy-91-rya" customClass="HyRobotoLabelLight">
-                                                            <rect key="frame" x="20" y="16" width="33" height="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiy-91-rya" customClass="SYLabelRegular">
+                                                            <rect key="frame" x="20" y="16" width="35.5" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
-                                                                    <integer key="value" value="8"/>
+                                                                    <integer key="value" value="6"/>
                                                                 </userDefinedRuntimeAttribute>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
                                                                     <real key="value" value="1"/>
@@ -501,9 +527,8 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="jxo-CP-ThS" firstAttribute="top" secondItem="jIa-rK-yXC" secondAttribute="top" id="FjY-YK-wCS"/>
+                                                        <constraint firstItem="jxo-CP-ThS" firstAttribute="top" secondItem="jIa-rK-yXC" secondAttribute="top" constant="2" id="FjY-YK-wCS"/>
                                                         <constraint firstAttribute="bottom" secondItem="AWx-Hg-Amf" secondAttribute="bottom" constant="8" id="KX9-cP-STj"/>
                                                         <constraint firstItem="8Fv-NO-Tss" firstAttribute="centerY" secondItem="jIa-rK-yXC" secondAttribute="centerY" id="Kns-o5-6on"/>
                                                         <constraint firstItem="AWx-Hg-Amf" firstAttribute="top" secondItem="fiy-91-rya" secondAttribute="bottom" constant="8" id="VZy-x5-75a"/>
@@ -516,7 +541,7 @@
                                                         <constraint firstItem="fiy-91-rya" firstAttribute="leading" secondItem="jIa-rK-yXC" secondAttribute="leading" constant="20" id="fB1-ER-XiU"/>
                                                         <constraint firstAttribute="trailing" secondItem="8Fv-NO-Tss" secondAttribute="trailing" constant="16" id="o4L-bJ-dxt"/>
                                                         <constraint firstItem="fiy-91-rya" firstAttribute="top" secondItem="jIa-rK-yXC" secondAttribute="top" constant="16" id="ruz-Tk-k1G"/>
-                                                        <constraint firstAttribute="bottom" secondItem="jxo-CP-ThS" secondAttribute="bottom" id="yAs-Cg-ngx"/>
+                                                        <constraint firstAttribute="bottom" secondItem="jxo-CP-ThS" secondAttribute="bottom" constant="2" id="yAs-Cg-ngx"/>
                                                         <constraint firstItem="cJ1-8y-3iN" firstAttribute="leading" secondItem="AWx-Hg-Amf" secondAttribute="trailing" constant="20" id="zpO-Wg-gb7"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
@@ -534,7 +559,7 @@
                                             <outlet property="delegate" destination="hEI-qe-Mb4" id="eft-SI-zZF"/>
                                         </connections>
                                     </tableView>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8QO-BX-Lb7" customClass="SYDesignableButton">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8QO-BX-Lb7" customClass="SYCorneredButton">
                                         <rect key="frame" x="119" y="547" width="137" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="pyX-zz-KWv"/>
@@ -549,23 +574,11 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
-                                                <integer key="value" value="9"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
+                                                <integer key="value" value="22"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -581,23 +594,11 @@
                                         <inset key="contentEdgeInsets" minX="50" minY="0.0" maxX="50" maxY="0.0"/>
                                         <state key="normal" title="Cancel"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="25"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
                                                 <integer key="value" value="6"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
-                                                <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -608,18 +609,18 @@
                                 <viewLayoutGuide key="safeArea" id="u5E-ro-j8D"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="u5E-ro-j8D" firstAttribute="trailing" secondItem="doV-P9-XFa" secondAttribute="trailing" id="7nC-00-cRJ"/>
+                                    <constraint firstItem="u5E-ro-j8D" firstAttribute="trailing" secondItem="doV-P9-XFa" secondAttribute="trailing" constant="16" id="7nC-00-cRJ"/>
                                     <constraint firstItem="CIB-13-l1M" firstAttribute="top" secondItem="8QO-BX-Lb7" secondAttribute="bottom" constant="20" id="8k6-ZM-jRI"/>
                                     <constraint firstItem="u5E-ro-j8D" firstAttribute="bottom" secondItem="CIB-13-l1M" secondAttribute="bottom" constant="20" id="IKs-Xk-gCS"/>
-                                    <constraint firstItem="doV-P9-XFa" firstAttribute="leading" secondItem="u5E-ro-j8D" secondAttribute="leading" id="Tev-Ge-Q2K"/>
-                                    <constraint firstItem="doV-P9-XFa" firstAttribute="top" secondItem="u5E-ro-j8D" secondAttribute="top" id="icb-9Y-GYB"/>
+                                    <constraint firstItem="doV-P9-XFa" firstAttribute="leading" secondItem="u5E-ro-j8D" secondAttribute="leading" constant="16" id="Tev-Ge-Q2K"/>
+                                    <constraint firstItem="doV-P9-XFa" firstAttribute="top" secondItem="u5E-ro-j8D" secondAttribute="top" constant="8" id="icb-9Y-GYB"/>
                                     <constraint firstItem="8QO-BX-Lb7" firstAttribute="centerX" secondItem="cru-hB-vIY" secondAttribute="centerX" id="ivF-c0-4CO"/>
                                     <constraint firstItem="8QO-BX-Lb7" firstAttribute="top" secondItem="doV-P9-XFa" secondAttribute="bottom" constant="10" id="mZE-LE-UHw"/>
                                     <constraint firstItem="CIB-13-l1M" firstAttribute="centerX" secondItem="cru-hB-vIY" secondAttribute="centerX" id="sEp-jH-TyT"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
-                                        <integer key="value" value="20"/>
+                                        <integer key="value" value="9"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
                                         <real key="value" value="1"/>
@@ -662,7 +663,7 @@
     </scenes>
     <designables>
         <designable name="32c-vs-877">
-            <size key="intrinsicContentSize" width="23" height="22.5"/>
+            <size key="intrinsicContentSize" width="26.5" height="26.5"/>
         </designable>
         <designable name="3Gw-Ha-BHP">
             <size key="intrinsicContentSize" width="16" height="16"/>
@@ -683,7 +684,7 @@
             <size key="intrinsicContentSize" width="16" height="16"/>
         </designable>
         <designable name="Vdk-uB-abP">
-            <size key="intrinsicContentSize" width="23" height="22.5"/>
+            <size key="intrinsicContentSize" width="26.5" height="26.5"/>
         </designable>
         <designable name="Wts-92-uLz">
             <size key="intrinsicContentSize" width="16" height="16"/>
@@ -696,7 +697,7 @@
         </designable>
     </designables>
     <resources>
-        <image name="checkmark" width="23" height="22.5"/>
+        <image name="checkmark" width="26.5" height="26.5"/>
         <image name="radio_button_pink_selected" width="16" height="16"/>
         <image name="radion_button_pink_empty" width="16" height="16"/>
     </resources>

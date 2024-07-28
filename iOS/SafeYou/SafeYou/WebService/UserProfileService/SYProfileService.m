@@ -9,8 +9,7 @@
 #import "SYProfileService.h"
 #import "SYHTTPSessionManager.h"
 #import "UserDataModel.h"
-
-
+#import "ProfileQuestionsDataModel.h"
 
 static NSString *const kthenByConfigurationsValue = @"[]";
 
@@ -50,6 +49,24 @@ static NSString *const kthenByConfigurationsValue = @"[]";
     return [NSString stringWithFormat:@"%@/%@", [self endpointForEmergencyServiceContact], serviceId];
 }
 
+- (NSString *)endpointForQuestions
+{
+    return @"profile/questions";
+}
+
+- (NSString *)endpointForFindLocation
+{
+    return  @"profile/find_town_city";
+}
+
+- (NSString *)endpointForQuestionId:(NSString *)questionId
+{
+    
+    NSString *string1 = @"profile/";
+    NSString *string2 = questionId;
+    NSString *result = [string1 stringByAppendingString:string2];
+    return result;
+}
 
 
 /*
@@ -60,7 +77,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 
 - (void)getUserDataWithComplition:(void(^)(UserDataModel *userData))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager GET:[self endpoint] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:[self endpoint] parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         UserDataModel *userData = [[UserDataModel alloc] initWithDictionary:responseObject];
         [Settings sharedInstance].onlineUser = userData;
         if (complition) {
@@ -82,7 +99,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 
 - (void)getUserDataField:(NSString *)fieldPath withComplition:(void(^)(NSDictionary *response))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager GET:[self endpointForField:fieldPath] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager GET:[self endpointForField:fieldPath] parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -103,7 +120,25 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 {
     NSString *value = [NSString stringWithFormat:@"%@", fieldValue];
     NSDictionary *params = @{@"field_name":fieldName, @"field_value":value};
-    [self.networkManager PUT:[self endpoint] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager PUT:[self endpoint] parameters:params headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self getUserDataWithComplition:nil failure:^(NSError *error) {
+            NSLog(@"Error %@", error);
+        }];
+        if (complition) {
+            complition(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+- (void)updateUserDataField:(NSString *)fieldName :(NSNumber *)questionId :(NSString *)questionType :(NSNumber *)questionOptionId  withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
+{
+    NSDictionary *params = @{@"field_name":fieldName, @"question_id":questionId,
+                             @"question_type":questionType, @"question_option_id":questionOptionId};
+    [self.networkManager PUT:[self endpoint] parameters:params headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self getUserDataWithComplition:nil failure:^(NSError *error) {
             NSLog(@"Error %@", error);
         }];
@@ -128,7 +163,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 - (void)addEmergencyContact:(NSString *)contactName phoneNumber:(NSString *)phoneNumber withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
     NSDictionary *params = @{@"name":contactName, @"phone":phoneNumber};
-    [self.networkManager POST:[self endpointForEmergencyContact] parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager POST:[self endpointForEmergencyContact] parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -149,7 +184,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 - (void)updateEmergencyContact:(NSString *)contactId withContactName:(NSString *)contactName phoneNumaber:(NSString *)phoneNumber withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
     NSDictionary *params = @{@"name": contactName, @"phone":phoneNumber};
-    [self.networkManager PUT:[self endpointForEmergencyContactWithId:contactId] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager PUT:[self endpointForEmergencyContactWithId:contactId] parameters:params headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -168,7 +203,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 
 - (void)deleteEmergencyContact:(NSString *)contactId withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager DELETE:[self endpointForEmergencyContactWithId:contactId] parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager DELETE:[self endpointForEmergencyContactWithId:contactId] parameters:nil headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -190,7 +225,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 - (void)addEmergencyService:(NSString *)serviceId withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure;
 {
     NSDictionary *params = @{@"emergency_service_id":serviceId};
-    [self.networkManager POST:[self endpointForEmergencyServiceContact] parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager POST:[self endpointForEmergencyServiceContact] parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -211,7 +246,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 - (void)updateEmergencyServiceContact:(NSString *)contactId withServiceId:(NSString *)serviceId withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
     NSDictionary *params = @{@"emergency_service_id":serviceId};
-    [self.networkManager PUT:[self endpointForEmergencyServiceContactWithId:contactId] parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager PUT:[self endpointForEmergencyServiceContactWithId:contactId] parameters:params headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -231,7 +266,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 
 - (void)deleteEmergencyServiceContact:(NSString *)contactId withComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager DELETE:[self endpointForEmergencyServiceContactWithId:contactId] parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager DELETE:[self endpointForEmergencyServiceContactWithId:contactId] parameters:nil headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -252,8 +287,8 @@ static NSString *const kthenByConfigurationsValue = @"[]";
     
     params = @{@"field_name":@"image",
                @"_method":@"PUT"};
-    [self.networkManager POST:[self endpoint] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        
+    [self.networkManager POST:[self endpoint] parameters:nil headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+
         for (NSString *key in params.allKeys) {
             NSData* data = [params[key] dataUsingEncoding:NSUTF8StringEncoding];
             [formData appendPartWithFormData:data name:key];
@@ -297,7 +332,7 @@ static NSString *const kthenByConfigurationsValue = @"[]";
 
 - (void)removeUserAvatarComplition:(void(^)(id response))complition failure:(void(^)(NSError *error))failure
 {
-    [self.networkManager DELETE:@"profile/remove_image" parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager DELETE:@"profile/remove_image" parameters:nil headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
         }
@@ -315,9 +350,78 @@ static NSString *const kthenByConfigurationsValue = @"[]";
  */
 - (void)deleteProfile:(void (^)(id))complition failure:(void (^)(NSError *))failure
 {
-    [self.networkManager DELETE:@"profile/delete" parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.networkManager DELETE:@"profile/delete" parameters:nil headers:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (complition) {
             complition(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+/*
+ GET
+ Get Profile Questions
+ endpoint: questions
+ */
+
+- (void)getProfileQuestionsWithComplition:(void(^)(NSArray <ProfileQuestionsDataModel *> *))complition failure:(void(^)(NSError *error))failure
+{
+    
+    [self.networkManager GET:[self endpointForQuestions] parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+
+        NSArray *questionsData = [ProfileQuestionsDataModel createWithData: responseObject];
+        
+        if (complition) {
+            complition(questionsData);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+/*
+ GET
+ Get Profile Question With Id
+ endpoint: questions
+ */
+
+- (void)getProfileQuestionWithComplition:(NSInteger)questionId :(void(^)(NSArray <ProfileQuestionsDataModel *> *))complition failure:(void(^)(NSError *error))failure
+{
+    NSDictionary *params = @{@"question_id":@(questionId)};
+    [self.networkManager GET:[self endpointForQuestions] parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSArray *questionsData = [ProfileQuestionsDataModel createWithData: responseObject];
+        
+        if (complition) {
+            complition(questionsData);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+/*
+GET
+Get Profile Find Town City
+endpoint: profile/findText
+*/
+
+- (void)findTownOrCityWithComplition:(NSString *)findLocation :(void(^)(NSArray <ProfileQuestionsOption *> *))complition failure:(void(^)(NSError *error))failure
+{
+    NSDictionary *params = @{@"keyword":findLocation};
+    [self.networkManager GET:[self endpointForFindLocation] parameters:params headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSArray *questionsData = [ProfileQuestionsOption createWithOptionsData: responseObject];
+        
+        if (complition) {
+            complition(questionsData);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {

@@ -11,6 +11,7 @@
 #import "SettingsViewFieldViewModel.h"
 #import "MoreViewTableViewCell.h"
 #import "WebContentViewController.h"
+#import "MainTabbarController.h"
 #import "UserDataModel.h"
 #import "SafeYou-Swift.h"
 
@@ -46,7 +47,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor purpleColor1];
+    [[self mainTabbarController] hideTabbar:YES];
     [self.tableView reloadData];
 }
 
@@ -119,7 +121,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        HyRobotoLabelBold *titleLabel = [[HyRobotoLabelBold alloc] init];
+        SYLabelBold *titleLabel = [[SYLabelBold alloc] init];
         titleLabel.textColorType = SYColorTypeBlack;
         titleLabel.textColorAlpha = 1.0;
         titleLabel.frame = CGRectMake(20, 8, 320, 20);

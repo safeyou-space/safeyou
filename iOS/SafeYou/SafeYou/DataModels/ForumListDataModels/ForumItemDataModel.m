@@ -10,6 +10,8 @@
 #import "ForumCommentedUserDataModel.h"
 #import "ImageDataModel.h"
 #import "SafeYou-Swift.h"
+#import "ReviewDataModel.h"
+#import "NSString+HTML.h"
 
 
 NSString *const kForumItemImagePath = @"image_path";
@@ -27,6 +29,9 @@ NSString *const kForumItemViewCount = @"views_count";
 NSString *const kForumItemNewMessagesCount = @"NEW_MESSAGES_COUNT";
 NSString *const kForumItemImage = @"image";
 NSString *const kForumItemAuthor = @"author";
+NSString *const kForumItemRatesCount = @"rates_count";
+NSString *const kForumItemRate = @"rate";
+NSString *const kForumItemUserRate = @"user_rate";
 
 
 @interface ForumItemDataModel ()
@@ -71,6 +76,9 @@ NSString *const kForumItemAuthor = @"author";
         self.commentsCount = [[self objectOrNilForKey:kForumItemCommentsCount fromDictionary:dict] integerValue];
         self.viewsCount = [[self objectOrNilForKey:kForumItemViewCount fromDictionary:dict] integerValue];
         self.imageData = [ImageDataModel modelObjectWithDictionary:dict[kForumItemImage]];
+        self.ratesCount = [[self objectOrNilForKey:kForumItemRatesCount fromDictionary:dict] integerValue];
+        self.rate = [[self objectOrNilForKey:kForumItemRate fromDictionary:dict] doubleValue];
+        self.reviewData = [ReviewDataModel modelObjectWithDictionary:dict[kForumItemUserRate]];
         NSObject *receivedTopCommentedUsers = [dict objectForKey:kForumItemTopCommentedUsers];
         NSMutableArray *parsedTopCommentedUsers = [NSMutableArray array];
         
@@ -96,6 +104,14 @@ NSString *const kForumItemAuthor = @"author";
     
     return self;
     
+}
+
+- (void)setShortDescription:(NSString *)shortDescription
+{
+    _shortDescription = shortDescription;
+    NSMutableAttributedString *mAttrString = [[NSString attributedStringFromHTML:self.shortDescription] mutableCopy];
+    [mAttrString addAttribute:NSFontAttributeName value:[UIFont regularFontOfSize:18] range:NSMakeRange(0, mAttrString.length)];
+    self.descriptionAttributedText = [mAttrString copy];
 }
 
 - (NSDictionary *)dictionaryRepresentation {
