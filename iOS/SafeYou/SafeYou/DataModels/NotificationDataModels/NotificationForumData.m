@@ -28,7 +28,7 @@ NSString *const kNotificationForumCreatedAt = @"created_at";
     NSDictionary *imageDict = nilOrJSONObjectForKey(dictionary, kNotificationForumImage);
     
     if(![imageDict[kNotificationForumImageUrl] isKindOfClass:[NSNull class]]){
-        self.imageUrl =  [NSString stringWithFormat:@"%@/%@", BASE_RESOURCE_URL, imageDict[kNotificationForumImageUrl]];
+        self.imageUrl =  [NSString stringWithFormat:@"%@/%@", [Settings sharedInstance].baseResourceURL, imageDict[kNotificationForumImageUrl]];
     }
     if(![dictionary[kNotificationForumTitle] isKindOfClass:[NSNull class]]){
         self.title = dictionary[kNotificationForumTitle];

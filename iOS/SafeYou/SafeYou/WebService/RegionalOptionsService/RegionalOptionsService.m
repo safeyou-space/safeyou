@@ -55,7 +55,8 @@
 
 - (void)getLanguagesListForCountry:(NSString *)countryCode withComplition:(void(^)(NSArray <LanguageDataModel *> *languagesList))complition failure:(void(^)(NSError *error))failure
 {
-    NSString *urlWithCountryCode = [NSString stringWithFormat:BASE_API_URL, countryCode, [Settings sharedInstance].selectedLanguageCode];
+    NSString *baseUrl = [[Settings sharedInstance] baseApiUrlByCountryCode:countryCode];
+    NSString *urlWithCountryCode = [NSString stringWithFormat:baseUrl, countryCode, [Settings sharedInstance].selectedLanguageCode];
     [[self networkManagerWithUrl:urlWithCountryCode] GET:@"languages" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         for (NSDictionary *languageDataDict in responseObject) {

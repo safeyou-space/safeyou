@@ -28,7 +28,7 @@
         self.contactImageView.image = viewData.icon;
     } else {
         if (viewData.iconURL) {
-            NSString *iconURLString = [NSString stringWithFormat:@"%@%@", BASE_RESOURCE_URL, viewData.iconURL];
+            NSString *iconURLString = [NSString stringWithFormat:@"%@%@", [Settings sharedInstance].baseResourceURL, viewData.iconURL];
             NSURL *iconURL = [NSURL URLWithString:iconURLString];
             [self.contactImageView sd_setImageWithURL:iconURL];
         }

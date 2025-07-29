@@ -18,7 +18,7 @@ NSString *const kImageImageId = @"id";
 
 - (NSURL *)imageFullURL
 {
-    NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", BASE_RESOURCE_URL, self.url];
+    NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", [Settings sharedInstance].baseResourceURL, self.url];
     return [NSURL URLWithString:imageUrlString];
 }
 

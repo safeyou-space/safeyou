@@ -124,8 +124,9 @@
         self.recordNameLabel.text = self.currentRecord.location;
         NSString *timeString = LOC(@"time_text_key");
         self.recordTimerLabel.text = [NSString stringWithFormat:@"%@ %@",timeString, self.currentRecord.time];
-        
-        NSString *urlString = [NSString stringWithFormat:@"%@%@", BASE_RESOURCE_URL, self.currentRecord.url];
+                
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", [Settings sharedInstance].baseResourceURL, self.currentRecord.url];
+
         
         NSURL *audioUrl = [NSURL URLWithString:urlString];
         

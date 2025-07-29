@@ -75,7 +75,7 @@
     self.phoneNumberTextField.delegate = self;
     [self.navigationController setNavigationBarHidden:NO];
     self.countryCodeLabel.text = [Settings sharedInstance].countryPhoneCode;
-    NSString *iconImageStr = [NSString stringWithFormat:@"%@/%@", BASE_RESOURCE_URL, [Settings sharedInstance].selectedCountry.imageData.url];
+    NSString *iconImageStr = [NSString stringWithFormat:@"%@/%@", [Settings sharedInstance].baseResourceURL, [Settings sharedInstance].selectedCountry.imageData.url];
     NSURL *iconImageURL = [NSURL URLWithString:iconImageStr];
     [self.flagImageView sd_setImageWithURL:iconImageURL];
     [self showErrorView:NO];

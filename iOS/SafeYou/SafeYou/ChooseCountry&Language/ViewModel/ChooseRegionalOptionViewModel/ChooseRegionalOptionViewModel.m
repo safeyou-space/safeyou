@@ -23,7 +23,7 @@
     if (self) {
         _regionalOptionData = regionalOptionData;
         _optionTitle = regionalOptionData.name;
-        NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", BASE_RESOURCE_URL, regionalOptionData.imageData.url];
+        NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", [Settings sharedInstance].baseResourceURL, regionalOptionData.imageData.url];
         _optionImageUrl = [NSURL URLWithString:imageUrlString];
         _isSelected = NO;
     }

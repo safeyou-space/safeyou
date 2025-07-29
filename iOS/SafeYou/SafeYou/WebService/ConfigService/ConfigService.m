@@ -25,8 +25,7 @@
 
 - (void)getConfigsWithComplition:(void(^)(RemoteConfigData *response))complition failure:(void(^)(NSError *error))failure
 {
-
-    [[self networkManagerWithUrl:@"https://sydeveloper.com:90"] GET:@"config.json" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [[self networkManagerWithUrl:[Settings sharedInstance].baseResourceURL] GET:@"config.json" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"Response is %@", responseObject);
         RemoteConfigData *configData = [[RemoteConfigData alloc] initWithDictionary:responseObject];
         if (complition) {

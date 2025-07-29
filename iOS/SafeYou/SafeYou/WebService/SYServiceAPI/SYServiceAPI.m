@@ -39,10 +39,10 @@
        headerParams = @{@"Authorization" : [NSString stringWithFormat:@"Bearer %@", token]};
     }
     
-    NSString *baseURL = [NSString stringWithFormat:BASE_API_URL, settings.selectedCountryCode, settings.selectedLanguageCode];
+    NSString *baseURL = [NSString stringWithFormat:[Settings sharedInstance].baseAPIURL, settings.selectedCountryCode, settings.selectedLanguageCode];
     
     if (settings.selectedCountryCode.length > 0 && settings.selectedLanguageCode.length > 0) {
-        baseURL = [NSString stringWithFormat:BASE_API_URL, settings.selectedCountryCode, settings.selectedLanguageCode];
+        baseURL = [NSString stringWithFormat:[Settings sharedInstance].baseAPIURL, settings.selectedCountryCode, settings.selectedLanguageCode];
     }
     
     SYHTTPSessionManager *manager = [SYHTTPSessionManager sessionManagerWithBaseURL:baseURL headerParams:headerParams configuration:nil];

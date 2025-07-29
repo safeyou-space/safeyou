@@ -91,7 +91,7 @@ NSString *const __showSelectServiceSelector = @"showSelectEmergencyService:";
     
     titleView.title = self.onlineUser.nickname;
     ImageDataModel *userImageMode = self.onlineUser.image;
-    NSString *imageUrlString = [NSString stringWithFormat:@"%@%@", BASE_RESOURCE_URL, userImageMode.url];
+    NSString *imageUrlString = [NSString stringWithFormat:@"%@%@", [Settings sharedInstance].baseResourceURL, userImageMode.url];
     
     titleView.imageUrl = [NSURL URLWithString:imageUrlString];
     

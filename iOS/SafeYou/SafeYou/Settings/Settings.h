@@ -75,5 +75,9 @@
 
 - (void)setOpenSurveyPopupShown:(BOOL)isPopupShown;
 
+- (NSString *)baseResourceURL;
+
+- (NSString *)baseApiUrlByCountryCode:(NSString *)code;
+
 @end
 

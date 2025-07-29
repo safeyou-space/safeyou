@@ -10,6 +10,55 @@
 #import "RegionalOptionDataModel.h"
 #import <Lokalise/Lokalise.h>
 
+#if DEVELOP
+// debug
+
+#define BASE_API_URL @"https://sydeveloper.com/api/%@/%@/"
+#define BASE_RESOURCE_URL @"https://sydeveloper.com"
+
+#define BASE_SOCKET_URL @"https://sydeveloper.com"
+
+#define BASE_WEB_SOCKET_URL @"wss://sydeveloper.com/ws-help"
+
+#elif QA
+// qa
+
+#define BASE_API_URL @"https://qa.sydeveloper.com/api/%@/%@/"
+#define BASE_RESOURCE_URL @"https://qa.sydeveloper.com"
+
+#define BASE_SOCKET_URL @"https://qa.sydeveloper.com"
+
+#define BASE_WEB_SOCKET_URL @"wss://qa.sydeveloper.com/ws-help"
+
+#else
+// prod
+
+// arm,  geo, irq
+#define BASE_API_URL @"https://dashboard.safeyou.space/api/%@/%@/"
+#define BASE_RESOURCE_URL @"https://dashboard.safeyou.space"
+
+#define BASE_SOCKET_URL @"https://dashboard.safeyou.space"
+
+#define BASE_WEB_SOCKET_URL @"wss://dashboard.safeyou.space/ws-help"
+
+// rom, pol
+#define BASE_API_URL_ROM @"https://romania.safeyou.space/api/%@/%@/"
+#define BASE_RESOURCE_URL_ROM @"https://romania.safeyou.space"
+
+#define BASE_SOCKET_URL_ROM @"https://romania.safeyou.space"
+
+#define BASE_WEB_SOCKET_URL_ROM @"wss://romania.safeyou.space/ws-help"
+
+// usa
+#define BASE_API_URL_USA @"https://usa.safeyou.space/api/%@/%@/"
+#define BASE_RESOURCE_URL_USA @"https://usa.safeyou.space"
+
+#define BASE_SOCKET_URL_USA @"https://usa.safeyou.space"
+
+#define BASE_WEB_SOCKET_URL_USA @"wss://usa.safeyou.space/ws-help"
+
+#endif
+
 static NSString * const kUserDefaultsIsFirstLogin = @"isFirsLogin";
 static NSString * const kUserDefaultsIsFirstLaunch = @"isFirsLaunch";
 static NSString * const kUserDefaultsUserPin = @"userPin";
@@ -231,20 +280,50 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 
 - (NSString *)socketIOURL
 {
-    if ([self.selectedCountry.apiServiceCode isEqualToString:@"arm"]) {
-        return BASE_SOCKET_URL_ARM;
+#if PROD
+    if ([self.selectedCountry.apiServiceCode isEqualToString:COUNTRY_CODE_ROM] ||
+        [self.selectedCountry.apiServiceCode isEqualToString:COUNTRY_CODE_POL]) {
+        return BASE_SOCKET_URL_ROM;
     }
-    
-    if ([self.selectedCountry.apiServiceCode isEqualToString:@"geo"]) {
-        return BASE_SOCKET_URL_GEO;
+
+    if ([self.selectedCountry.apiServiceCode isEqualToString:COUNTRY_CODE_USA]) {
+        return BASE_SOCKET_URL_USA;
     }
-    
-    if ([self.selectedCountry.apiServiceCode isEqualToString:@"irq"]) {
-        return BASE_SOCKET_URL_IRQ;
-    }
-    
+#endif
+
     return BASE_SOCKET_URL;
 }
+
+- (NSString *)baseResourceURL {
+#if PROD
+    if ([self.selectedCountry.apiServiceCode isEqualToString:COUNTRY_CODE_ROM] ||
+        [self.selectedCountry.apiServiceCode isEqualToString:COUNTRY_CODE_POL]) {
+        return BASE_RESOURCE_URL_ROM;
+    }
+
+    if ([self.selectedCountry.apiServiceCode isEqualToString:COUNTRY_CODE_USA]) {
+        return BASE_RESOURCE_URL_USA;
+    }
+#endif
+
+    return BASE_RESOURCE_URL;
+}
+
+- (NSString *)baseApiUrlByCountryCode:(NSString *)code
+{
+#if PROD
+    if ([code isEqualToString:COUNTRY_CODE_ROM] || [code isEqualToString:COUNTRY_CODE_POL]) {
+        return BASE_API_URL_ROM;
+    }
+
+    if ([code isEqualToString:COUNTRY_CODE_USA]) {
+        return BASE_API_URL_USA;
+    }
+#endif
+
+    return BASE_API_URL;
+}
+
 
 - (NSString *)socketAPIURL
 {

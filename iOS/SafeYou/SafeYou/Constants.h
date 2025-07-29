@@ -53,40 +53,6 @@ MODEL_PROPERTY = [nilOrJSONObjectForKey(DICT, KEY) integerValue];\
 //#define BASE_API_URL @"http://fambox.tv:15080/api/%@/%@/"
 //#define BASE_RESOURCE_URL @"http://fambox.tv:15080"
 
-#if DEVELOP
-// debug
-
-#define BASE_API_URL @"https://sydeveloper.com:90/api/%@/%@/"
-#define BASE_RESOURCE_URL @"https://sydeveloper.com:90"
-
-#define BASE_SOCKET_URL @"https://sydeveloper.com:4001"
-#define BASE_SOCKET_URL_ARM @"https://sydeveloper.com:4001"
-#define BASE_SOCKET_URL_GEO @"https://sydeveloper.com:4002"
-#define BASE_SOCKET_URL_IRQ @"https://sydeveloper.com:4003"
-
-#elif QA
-// qa
-
-#define BASE_API_URL @"https://qa.sydeveloper.com:89/api/%@/%@/"
-#define BASE_RESOURCE_URL @"https://qa.sydeveloper.com:89"
-
-#define BASE_SOCKET_URL @"https://qa.sydeveloper.com:5001"
-#define BASE_SOCKET_URL_ARM @"https://qa.sydeveloper.com:5001"
-#define BASE_SOCKET_URL_GEO @"https://qa.sydeveloper.com:5002"
-#define BASE_SOCKET_URL_IRQ @"https://qa.sydeveloper.com:5003"
-
-#else
-// prod
-
-#define BASE_API_URL @"https://dashboard.safeyou.space:88/api/%@/%@/"
-#define BASE_RESOURCE_URL @"https://dashboard.safeyou.space:88"
-
-#define BASE_SOCKET_URL @"https://dashboard.safeyou.space:1998"
-#define BASE_SOCKET_URL_ARM @"https://dashboard.safeyou.space:1998"
-#define BASE_SOCKET_URL_GEO @"https://dashboard.safeyou.space:1997"
-#define BASE_SOCKET_URL_IRQ @"https://dashboard.safeyou.space:1996"
-
-#endif
 
 #define SOCKET_COMMAND_GET_PROFILE  @"SafeYOU_V4##PROFILE_INFO#RESULT"
 #define SOCKET_COMMAND_REQUEST_FORUMS @"SafeYOU_V4##GET_ALL_FORUMS"

@@ -81,7 +81,7 @@
 
 - (NSURL *)imageUrlForPath:(NSString *)imagePath
 {
-    NSString *imageURLString = [NSString stringWithFormat:@"%@%@", BASE_RESOURCE_URL, imagePath];
+    NSString *imageURLString = [NSString stringWithFormat:@"%@%@", [Settings sharedInstance].baseResourceURL, imagePath];
     
     return [NSURL URLWithString:imageURLString];
 }

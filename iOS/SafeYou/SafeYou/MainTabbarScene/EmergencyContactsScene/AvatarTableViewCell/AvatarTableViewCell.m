@@ -60,13 +60,17 @@
 
 - (void)showUserAvatar:(NSString *)avatarUrl
 {
-    NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", BASE_RESOURCE_URL, avatarUrl];
-    NSURL *imageURL = [NSURL URLWithString:imageUrlString];
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.avatarImageView animated:YES];
-    hud.backgroundColor = [UIColor clearColor];
-    [self.avatarImageView sd_setImageWithURL:imageURL completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        [hud hideAnimated:YES];
-    }];
+    if (avatarUrl) {
+        NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", [Settings sharedInstance].baseResourceURL, avatarUrl];
+        NSURL *imageURL = [NSURL URLWithString:imageUrlString];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.avatarImageView animated:YES];
+        hud.backgroundColor = [UIColor clearColor];
+        [self.avatarImageView sd_setImageWithURL:imageURL completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            [hud hideAnimated:YES];
+        }];
+    } else {
+        self.avatarImageView.image = [UIImage imageNamed:@"default_profile"];
+    }
 }
 
 - (IBAction)camerButtonAction:(SYDesignableButton *)sender {

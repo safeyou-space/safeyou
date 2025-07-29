@@ -199,7 +199,7 @@
     countryField.secondaryTitle = LOC(@"country_title_key");
     countryField.mainTitle = [Settings sharedInstance].selectedCountry.name;
     countryField.isIconImageFromURL = YES;
-    countryField.iconImageUrl = [NSString stringWithFormat:@"%@/%@", BASE_RESOURCE_URL, [Settings sharedInstance].selectedCountry.imageData.url];
+    countryField.iconImageUrl = [NSString stringWithFormat:@"%@/%@", [Settings sharedInstance].baseResourceURL, [Settings sharedInstance].selectedCountry.imageData.url];
     countryField.actionString = @"showChooseCountryFromMoreView";
     countryField.accessoryType = FieldAccessoryTypeArrow;
     [dataSourceTemp addObject:countryField];
