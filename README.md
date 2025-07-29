@@ -48,14 +48,14 @@ git clone
 ```
 # Build Config
 ```bash
-compileSdkVersion 33
-    buildToolsVersion '30.0.3'
+compileSdkVersion 35
+    buildToolsVersion '34.0.0'
     defaultConfig {
         applicationId "fambox.pro"
         minSdkVersion 21
-        targetSdkVersion 33
-        versionCode 49
-        versionName "2.6.0"
+        targetSdkVersion 35
+        versionCode 67       
+        versionName "2.9.12"
     }...
 ```
 # Java Version
@@ -68,7 +68,7 @@ compileOptions {
 # Kotlin Version
 ```bash
 buildscript {
-    ext.kotlin_version = '1.8.0'
+    ext.kotlin_version = '1.9.24'
     repositories {
       ........
     }

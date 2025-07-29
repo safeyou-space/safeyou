@@ -6,14 +6,14 @@ plugins {
 
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion '30.0.3'
+    compileSdkVersion 35
+    buildToolsVersion '34.0.0'
     defaultConfig {
         applicationId "fambox.pro"
         minSdkVersion 21
-        targetSdkVersion 33
-        versionCode 49       //  version code changed 31.08.2023
-        versionName "2.6.0"  //  version name changed 31.08.2023
+        targetSdkVersion 35
+        versionCode 67
+        versionName "2.9.12"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -35,9 +35,10 @@ android {
         abortOnError false
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+    kotlinOptions { jvmTarget = '17' }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/']
         res {
             srcDirs 'src\\main\\res', 'src\\main\\res\\layout-ar'
@@ -45,6 +46,7 @@ android {
     } }
 
     buildFeatures {
+        buildConfig true
         viewBinding true
     }
     bundle {
@@ -62,27 +64,39 @@ android {
     productFlavors {
         prod {
             dimension = "environment"
-            buildConfigField "String", "BASE_URL", "\"https://dashboard.safeyou.space:88\""
-            buildConfigField "String", "BASE_SOCKET_URL", "\"https://dashboard.safeyou.space:1998\""
-            buildConfigField "String", "BASE_SOCKET_URL_GEO", "\"https://dashboard.safeyou.space:1997\""
-            buildConfigField "String", "BASE_SOCKET_URL_IRQ", "\"https://dashboard.safeyou.space:1996\""
-            buildConfigField "String", "BASE_SOCKET_URL_ZWE", "\"https://dashboard.safeyou.space:1995\""
+            buildConfigField "String", "BASE_URL", "\"https://dashboard.safeyou.space\""
+            buildConfigField "String", "BASE_SOCKET_URL", "\"https://dashboard.safeyou.space\""
+            buildConfigField "String", "BASE_SOCKET_URL_GEO", "\"https://dashboard.safeyou.space\""
+            buildConfigField "String", "BASE_SOCKET_URL_IRQ", "\"https://dashboard.safeyou.space\""
+            buildConfigField "String", "BASE_SOCKET_URL_ZWE", "\"https://dashboard.safeyou.space\""
+            buildConfigField "String", "BASE_SOCKET_URL_ROM", "\"https://romania.safeyou.space\""
+            buildConfigField "String", "BASE_SOCKET_URL_USA", "\"https://usa.safeyou.space\""
+            buildConfigField "String", "BASE_SOCKET_URL_POL", "\"https://romania.safeyou.space\""
+
         }
         qa {
             dimension = "environment"
-            buildConfigField "String", "BASE_URL", "\"https://qa.sydeveloper.com:89\""
-            buildConfigField "String", "BASE_SOCKET_URL", "\"https://qa.sydeveloper.com:5001\""
-            buildConfigField "String", "BASE_SOCKET_URL_GEO", "\"https://qa.sydeveloper.com:5002\""
-            buildConfigField "String", "BASE_SOCKET_URL_IRQ", "\"https://qa.sydeveloper.com:5003\""
-            buildConfigField "String", "BASE_SOCKET_URL_ZWE", "\"https://qa.sydeveloper.com:5004\""
+            buildConfigField "String", "BASE_URL", "\"https://qa.sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL", "\"https://qa.sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_GEO", "\"https://qa.sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_IRQ", "\"https://qa.sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_ZWE", "\"https://qa.sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_ROM", "\"https://qa.sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_USA", "\"https://qa.sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_POL", "\"https://qa.sydeveloper.com\""
+
         }
         dev {
             dimension = "environment"
-            buildConfigField "String", "BASE_URL", "\"https://sydeveloper.com:90\""
-            buildConfigField "String", "BASE_SOCKET_URL", "\"https://sydeveloper.com:4001\""
-            buildConfigField "String", "BASE_SOCKET_URL_GEO", "\"https://sydeveloper.com:4002\""
-            buildConfigField "String", "BASE_SOCKET_URL_IRQ", "\"https://sydeveloper.com:4003\""
-            buildConfigField "String", "BASE_SOCKET_URL_ZWE", "\"https://sydeveloper.com:4004\""
+            buildConfigField "String", "BASE_URL", "\"https://sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL", "\"https://sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_GEO", "\"https://sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_IRQ", "\"https://sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_ZWE", "\"https://sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_ROM", "\"https://sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_USA", "\"https://sydeveloper.com\""
+            buildConfigField "String", "BASE_SOCKET_URL_POL", "\"https://sydeveloper.com\""
+
         }
     }
 }
