@@ -1,26 +1,21 @@
 package fambox.pro.presenter.fragment;
 
 import static fambox.pro.Constants.Key.KEY_LOG_IN_FIRST_TIME_FOR_POPUP;
-import static io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider.REQUEST_CHECK_SETTINGS;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.IntentSender;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ProgressBar;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -34,6 +29,8 @@ import java.util.Locale;
 import fambox.pro.LocaleHelper;
 import fambox.pro.R;
 import fambox.pro.SafeYouApp;
+import fambox.pro.location.AndroidLocationProvider;
+import fambox.pro.location.LocationProvider;
 import fambox.pro.enums.Types;
 import fambox.pro.model.fragment.FragmentHelpModel;
 import fambox.pro.network.NetworkCallback;
@@ -44,7 +41,6 @@ import fambox.pro.presenter.basepresenter.BasePresenter;
 import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.view.fragment.FragmentHelpContract;
-import io.nlopez.smartlocation.SmartLocation;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
@@ -60,6 +56,7 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
     private CountDownTimer mCountDownTimer;
     private Context mContext;
     private FragmentActivity mActivityContext;
+    private LocationProvider mLocationProvider;
 
     @Override
     public void viewIsReady() {
@@ -68,6 +65,9 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
         }
         if (getView().getActivityContext() != null) {
             mActivityContext = getView().getActivityContext();
+        }
+        if (mContext != null) {
+            mLocationProvider = new AndroidLocationProvider(mContext);
         }
         mFragmentHelpModel = new FragmentHelpModel();
         getView().setUpPushButton();
@@ -84,43 +84,15 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
 
     @Override
     public void setupGPS() {
-        LocationRequest locationRequest = LocationRequest.create();
-
-        //Setting priority of Location request to high
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        locationRequest.setInterval(10000);
-
-        //5 sec Time interval for location update
-        locationRequest.setFastestInterval(5000);
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
-        builder.addLocationRequest(locationRequest);
-        builder.setNeedBle(true);
-        builder.setAlwaysShow(true);
-
-        Task<LocationSettingsResponse> task = LocationServices.getSettingsClient(mContext)
-                .checkLocationSettings(builder.build());
-
-        task.addOnSuccessListener(locationSettingsResponse -> {
+        // Standard Android location settings, available without Play Services.
+        if (mContext != null && AndroidLocationProvider.isLocationEnabled(mContext)) {
             if (getView() != null) {
                 getView().onLocationSuccessEnable();
             }
-        });
-
-        task.addOnFailureListener(e -> {
-            if (e instanceof ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
-                try {
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    ResolvableApiException resolvable = (ResolvableApiException) e;
-                    resolvable.startResolutionForResult(mActivityContext,
-                            REQUEST_CHECK_SETTINGS);
-                } catch (IntentSender.SendIntentException sendEx) {
-                    // Ignore the error.
-                }
-            }
-        });
+        } else if (mActivityContext != null) {
+            // The user must return to Safe YOU and hold the SOS button again.
+            mActivityContext.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        }
     }
 
     @Override
@@ -263,59 +235,75 @@ public class FragmentHelpPresenter extends BasePresenter<FragmentHelpContract.Vi
 
     @Override
     public void sendHelpMessage(Context context, String countryCode, String locale) {
-        if (!Connectivity.isConnected(getView().getContext())) {
-            getView().showErrorMessage(getView().getContext()
-                    .getResources().getString(R.string.check_internet_connection_text_key));
+        if (getView() == null || context == null) return;
+        if (!Connectivity.isConnected(context)) {
+            getView().showErrorMessage(context.getString(R.string.check_internet_connection_text_key));
             return;
         }
-        SmartLocation.with(context).location().start(location -> {
-            String address = "Location not found";
-            if (context != null) {
-                Geocoder gcd = new Geocoder(context, Locale.getDefault());
+        if (mLocationProvider == null) {
+            getView().showErrorMessage("Location unavailable. Please try again.");
+            return;
+        }
+        mLocationProvider.getCurrentLocation(new LocationProvider.Callback() {
+            @Override
+            public void onLocationAvailable(Location location) {
+                if (getView() == null) return;
+                String address = "Location not found";
+                Geocoder geocoder = new Geocoder(context, Locale.getDefault());
                 try {
-                    List<Address> addresses =
-                            gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                    if (addresses.size() > 0) {
+                    List<Address> addresses = geocoder.getFromLocation(
+                            location.getLatitude(), location.getLongitude(), 1);
+                    if (addresses != null && !addresses.isEmpty()) {
                         address = addresses.get(0).getAddressLine(0);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
+                    // Send the available coordinates even if reverse geocoding fails.
+                }
+                address = Normalizer.normalize(address, Normalizer.Form.NFKD)
+                        .replaceAll("\\p{M}", "");
+                mFragmentHelpModel.sendSms(context, countryCode, LocaleHelper.getLanguage(context),
+                        String.valueOf(location.getLongitude()),
+                        String.valueOf(location.getLatitude()),
+                        address,
+                        new NetworkCallback<Response<Message>>() {
+                            @Override
+                            public void onSuccess(Response<Message> response) {
+                                if (getView() == null) return;
+                                if (response.isSuccessful()) {
+                                    if (response.code() == HttpURLConnection.HTTP_OK) {
+                                        getView().onSmsSend();
+                                    }
+                                } else {
+                                    getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable error) {
+                                if (getView() != null) {
+                                    getView().showErrorMessage(error.getMessage());
+                                }
+                            }
+                        });
+            }
+
+            @Override
+            public void onLocationUnavailable() {
+                if (getView() != null) {
+                    getView().showErrorMessage("Location unavailable. Please enable location and try again.");
                 }
             }
-            address = Normalizer.normalize(address, Normalizer.Form.NFKD);
-            address = address.replaceAll("\\p{M}", "");
-            mFragmentHelpModel.sendSms(getView().getContext(), countryCode, LocaleHelper.getLanguage(getView().getContext()),
-                    String.valueOf(location.getLongitude()),
-                    String.valueOf(location.getLatitude()),
-                    address,
-                    new NetworkCallback<Response<Message>>() {
-                        @Override
-                        public void onSuccess(Response<Message> response) {
-                            SmartLocation.with(context).location().stop();
-                            if (response.isSuccessful()) {
-                                if (response.code() == HttpURLConnection.HTTP_OK) {
-                                    getView().onSmsSend();
-                                }
-                            } else {
-                                getView().showErrorMessage(RetrofitUtil.getErrorMessage(response.errorBody()));
-                            }
-                        }
-
-                        @Override
-                        public void onError(Throwable error) {
-                            SmartLocation.with(context).location().stop();
-                            getView().showErrorMessage(error.getMessage());
-                        }
-                    });
         });
     }
 
     @Override
     public void destroy() {
+        if (mLocationProvider != null) {
+            mLocationProvider.cancel();
+        }
         super.destroy();
         if (mFragmentHelpModel != null) {
             mFragmentHelpModel.onDestroy();
         }
-        SmartLocation.with(getView().getContext()).activity().stop();
     }
 }

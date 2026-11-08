@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 
 android {
+    namespace "pro.fambox.materialsearchview"
     compileSdkVersion 33
-    buildToolsVersion "30.0.3"
 
 
     defaultConfig {

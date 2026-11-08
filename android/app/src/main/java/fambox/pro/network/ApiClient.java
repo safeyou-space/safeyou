@@ -24,7 +24,6 @@ import fambox.pro.SafeYouApp;
 import fambox.pro.view.LoginWithBackActivity;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -41,12 +40,6 @@ public class ApiClient {
         if (retrofit == null) {
 
             final OkHttpClient.Builder httpClient = getUnsafeOkHttpClient();
-
-//             add logger interceptor for logging HEADERS and BODY.
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            httpClient.addNetworkInterceptor(interceptor);
 
             httpClient.addInterceptor(chain -> {
                 Request request = chain.request();
@@ -109,11 +102,6 @@ public class ApiClient {
     // TODO: for test
     public static APIService getChatAdapter(Context context, String socketId, String countryCode) {
         final OkHttpClient.Builder httpClient = getUnsafeOkHttpClient();
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.addNetworkInterceptor(interceptor);
-
         httpClient.addInterceptor(chain -> {
             Request request = chain.request();
             Request.Builder builder = request.newBuilder();
@@ -155,15 +143,9 @@ public class ApiClient {
         void openDialog(int errorCode, String text);
     }
 
+    /** Kept for source compatibility; uses standard TLS certificate and hostname checks. */
     public static OkHttpClient.Builder getUnsafeOkHttpClient() {
-        try {
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            builder.hostnameVerifier((hostname, session) -> true);
-
-            return builder;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return new OkHttpClient.Builder();
     }
 
     private static String parseErrors(String body) {

@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -105,6 +106,7 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
         public void onStartLongClick(View view) {
 
             String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.RECORD_AUDIO};
             Permissions.check(mContext, permissions, null, null,
                     new PermissionHandler() {
@@ -117,6 +119,7 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
 
                         @Override
                         public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                            startWithApproximateLocationIfAllowed(context);
                         }
                     });
         }
@@ -354,6 +357,7 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
 
     public void onStartRecordWithMainActivity() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.RECORD_AUDIO};
         Permissions.check(mContext, permissions, null, null,
                 new PermissionHandler() {
@@ -366,8 +370,20 @@ public class FragmentHelp extends Fragment implements FragmentHelpContract.View,
 
                     @Override
                     public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                        startWithApproximateLocationIfAllowed(context);
                     }
                 });
+    }
+
+    /** Android 12+ may grant approximate location while denying precise location. */
+    private void startWithApproximateLocationIfAllowed(Context context) {
+        if (context != null && mFragmentHelpPresenter != null
+                && ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO)
+                == PackageManager.PERMISSION_GRANTED) {
+            mFragmentHelpPresenter.setupGPS();
+        }
     }
 
     public void onStopRecordWithMainActivity() {

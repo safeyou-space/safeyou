@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.media.MediaRecorder;
 import android.os.Binder;
 import android.os.CountDownTimer;
@@ -32,7 +33,8 @@ import fambox.pro.network.model.RecordResponse;
 import fambox.pro.utils.Connectivity;
 import fambox.pro.utils.RetrofitUtil;
 import fambox.pro.utils.TimeUtil;
-import io.nlopez.smartlocation.SmartLocation;
+import fambox.pro.location.AndroidLocationProvider;
+import fambox.pro.location.LocationProvider;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -56,6 +58,7 @@ public class AudioRecordService extends Service {
     private File instanceRecord;
     private long mRecordDuration;
     private long recordStartTime;
+    private LocationProvider locationProvider;
     String countryCode;
 
     // Registered callback
@@ -82,12 +85,17 @@ public class AudioRecordService extends Service {
     public void onCreate() {
         super.onCreate();
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        locationProvider = new AndroidLocationProvider(this);
     }
 
     @Override
     public void onDestroy() {
+        if (locationProvider != null) {
+            locationProvider.cancel();
+        }
+        countDownTimer.cancel();
+        mCompositeDisposable.clear();
         super.onDestroy();
-        SmartLocation.with(this).activity().stop();
         stopForeground(true);
     }
 
@@ -179,26 +187,34 @@ public class AudioRecordService extends Service {
             recorder.stop();
             recorder.release();
             recorder = null;
-            SmartLocation.with(this).location().start(location -> {
-                String address = "Location not found";
-                Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
-                try {
-                    List<Address> addresses =
-                            gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                    if (addresses.size() > 0) {
-                        address = addresses.get(0).getAddressLine(0);
+            locationProvider.getCurrentLocation(new LocationProvider.Callback() {
+                @Override
+                public void onLocationAvailable(Location location) {
+                    String address = "Location not found";
+                    Geocoder geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
+                    try {
+                        List<Address> addresses = geocoder.getFromLocation(
+                                location.getLatitude(), location.getLongitude(), 1);
+                        if (addresses != null && !addresses.isEmpty()) {
+                            address = addresses.get(0).getAddressLine(0);
+                        }
+                    } catch (Exception ignored) {
+                        // Continue to upload with coordinates when address lookup fails.
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    stopService();
+                    if (!Connectivity.isConnected(AudioRecordService.this)) {
+                        stopService();
+                        return;
+                    }
+                    addAudionInServer(instanceRecord, address, location.getLongitude(),
+                            location.getLatitude(), isSendFromClick);
                 }
 
-                if (!Connectivity.isConnected(this)) {
+                @Override
+                public void onLocationUnavailable() {
+                    // Do not upload a potentially misleading 0,0 location.
+                    Log.w(TAG, "Location unavailable for audio upload");
                     stopService();
-                    return;
                 }
-
-                addAudionInServer(instanceRecord, address, location.getLongitude(), location.getLatitude(), isSendFromClick);
             });
         }
     }
@@ -298,8 +314,9 @@ public class AudioRecordService extends Service {
     }
 
     private void stopService() {
-        Log.i(TAG, "stopService: ");
-        SmartLocation.with(this).location().stop();
+        if (locationProvider != null) {
+            locationProvider.cancel();
+        }
         stopForeground(true);
         stopSelf();
     }

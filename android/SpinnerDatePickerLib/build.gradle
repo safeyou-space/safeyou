@@ -4,6 +4,7 @@ group = 'com.github.drawers'
 version = '1.0.6'
 
 android {
+    namespace "com.tsongkha.spinnerdatepicker"
     compileSdkVersion 33
 
     defaultConfig {

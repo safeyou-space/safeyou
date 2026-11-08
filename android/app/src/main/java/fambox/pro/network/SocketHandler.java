@@ -10,7 +10,6 @@ import android.util.Log;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-import javax.net.ssl.HostnameVerifier;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -38,10 +37,8 @@ public class SocketHandler {
     private SocketHandler(String accessToken, String countryCode) {
         IO.Options options = new IO.Options();
 
-        HostnameVerifier myHostnameVerifier = (hostname, session) -> true;
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .hostnameVerifier(myHostnameVerifier)
-                .build();
+        // Enforce normal TLS certificate and hostname validation.
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
 
         // default settings for all sockets
         IO.setDefaultOkHttpWebSocketFactory(okHttpClient);

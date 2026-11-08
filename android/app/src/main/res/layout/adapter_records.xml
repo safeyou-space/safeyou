@@ -62,7 +62,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_15sdp"
-        android:contentDescription="@string/com_facebook_share_button_text"
         android:padding="@dimen/_2sdp"
         android:src="@drawable/rec_share_icon"
         android:visibility="gone"

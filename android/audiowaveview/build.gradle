@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
+    namespace "fambox.pro.audiowaveview"
     compileSdkVersion 33
-    buildToolsVersion "30.0.3"
 
 
     defaultConfig {
@@ -26,6 +26,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    // Keep KAPT/Kotlin bytecode aligned with this module's Java 8 target.
+    kotlinOptions { jvmTarget = "1.8" }
 
 }
 
