@@ -680,7 +680,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJ4-hc-jSi">
                                 <rect key="frame" x="0.0" y="92" width="375" height="436.5"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ae-0X-Ki6" customClass="GMSMapView">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ae-0X-Ki6">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="436.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
@@ -980,7 +980,7 @@
                         <outlet property="currentProgress" destination="pme-9z-iSN" id="ez1-6b-ju1"/>
                         <outlet property="deleteButton" destination="aX7-fp-fWB" id="Wf7-ea-Bge"/>
                         <outlet property="durationLabel" destination="JYL-zS-o08" id="lgj-Af-Ise"/>
-                        <outlet property="gMapView" destination="8Ae-0X-Ki6" id="A3g-Sl-00f"/>
+                        <outlet property="mapHostView" destination="8Ae-0X-Ki6" id="A3g-Sl-00f"/>
                         <outlet property="nextButton" destination="IeS-E2-hC8" id="RZs-JV-IQX"/>
                         <outlet property="playButton" destination="Ssh-R1-Qyx" id="B2I-W8-CvA"/>
                         <outlet property="previousButton" destination="CtI-lj-ZAo" id="tMQ-7S-GYG"/>

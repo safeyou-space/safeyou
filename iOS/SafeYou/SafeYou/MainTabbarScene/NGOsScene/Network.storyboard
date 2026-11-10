@@ -74,7 +74,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="203"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1g-bd-HbU" customClass="GMSMapView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1g-bd-HbU">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="203"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
@@ -151,7 +151,7 @@
                     <connections>
                         <outlet property="categoriesStackView" destination="8AZ-zL-SzJ" id="Toj-aZ-S7U"/>
                         <outlet property="mapContainerView" destination="Qh9-iQ-Qkr" id="gBt-PR-xNn"/>
-                        <outlet property="mkMapView" destination="f1g-bd-HbU" id="a6v-SM-HwC"/>
+                        <outlet property="mapHostView" destination="f1g-bd-HbU" id="a6v-SM-HwC"/>
                         <outlet property="tableView" destination="SmW-5a-7pV" id="ADm-BX-wEK"/>
                         <segue destination="ri9-MC-MFd" kind="show" identifier="showServiceDetails" id="JM1-4H-7Tb"/>
                         <segue destination="CJe-hq-4UP" kind="show" identifier="showPrivateChatFromNetworkListView" id="aCL-0J-uGO"/>
@@ -186,7 +186,7 @@
                                     <rect key="frame" x="0.0" y="158" width="414" height="374"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gqc-VK-Xsb" customClass="GMSMapView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gqc-VK-Xsb">
                                             <rect key="frame" x="0.0" y="20" width="414" height="354"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
@@ -380,7 +380,7 @@
                     <navigationItem key="navigationItem" id="Pvt-bB-29R"/>
                     <connections>
                         <outlet property="addToHelpLineButton" destination="Al8-Bw-1xU" id="Pl5-qD-xqj"/>
-                        <outlet property="gMapView" destination="Gqc-VK-Xsb" id="lE3-LY-VIv"/>
+                        <outlet property="mapHostView" destination="Gqc-VK-Xsb" id="lE3-LY-VIv"/>
                         <outlet property="serviceNameContainerView" destination="aDw-TC-K7Z" id="LBu-2A-z4v"/>
                         <outlet property="tableView" destination="OBi-4k-7O5" id="FAp-hY-tco"/>
                         <segue destination="CJe-hq-4UP" kind="show" identifier="showPrivateChatFromNetworkDetailsView" id="XRN-Zx-mgb"/>

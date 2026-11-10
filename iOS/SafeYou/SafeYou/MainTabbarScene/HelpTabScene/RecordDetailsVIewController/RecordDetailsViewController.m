@@ -10,7 +10,7 @@
 #import "RecordListItemDataModel.h"
 #import "RecordsService.h"
 #import <AVKit/AVKit.h>
-#import <MapKit/MapKit.h>
+#import "SYMapViewProvider.h"
 #import "CCAudioPlayer.h"
 #import "SYViewController+StyledAlerts.h"
 #import "MainTabbarController.h"
@@ -20,7 +20,8 @@
 @interface RecordDetailsViewController () <AVAudioPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
-@property (weak, nonatomic) IBOutlet MKMapView *mkMapView;
+@property (weak, nonatomic) IBOutlet UIView *mapHostView;
+@property (nonatomic) id<SYMapViewProvider> mapProvider;
 @property (weak, nonatomic) IBOutlet SYDesignableLabel *recordNameLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableLabel *recordTimerLabel;
 @property (weak, nonatomic) IBOutlet SYDesignableLabel *recordDateLabel;
@@ -63,6 +64,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mapProvider = SYDefaultMapViewProvider();
+    [self.mapProvider attachToContainer:self.mapHostView];
     self.progressBar.progress = 0.0;
     self.extendedLayoutIncludesOpaqueBars = YES;
     [self _resetStreamer];
@@ -95,9 +98,8 @@
     CGFloat latitude = [self.currentRecord.latitude floatValue];
     CGFloat longitude = [self.currentRecord.longitude floatValue];
 
-    MKPointAnnotation *marker = [[MKPointAnnotation alloc] init];
-    marker.coordinate = CLLocationCoordinate2DMake(latitude,longitude);
-    [self.mkMapView showAnnotations:@[marker] animated:YES];
+    SYMapPin *pin = [[SYMapPin alloc] initWithCoordinate:CLLocationCoordinate2DMake(latitude, longitude) title:nil];
+    [self.mapProvider showPins:@[pin] animated:YES];
 }
 
 #pragma mark - Player

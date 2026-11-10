@@ -8,6 +8,7 @@
 
 #import <AFNetworking.h>
 #import "Utilities.h"
+#import "SYLocalizationService.h"
 #import "RegionalOptionDataModel.h"
 
 
@@ -15,7 +16,7 @@
 
 + (NSString *)fetchTranslationForKey:(NSString *)locKey
 {
-    return NSLocalizedString(locKey, locKey);
+    return [SYLocalization.sharedService localizedStringForKey:locKey];
 }
 
 + (BOOL)isNetworkAvailable

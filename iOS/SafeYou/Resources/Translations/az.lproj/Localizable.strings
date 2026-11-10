@@ -1,4 +1,4 @@
-/* 
+/*
   Localizations.strings
   SafeYou
 
@@ -7,408 +7,639 @@
 */
 
 
-"about_us_title_key" = "About Us";
-
-"birth_date_title_key" = "Birthday";
-
-"cancel" = "Cancel";
-
-"choose_from_gallery_title_key" = "Choose From Gallery";
-
-"choose_photo_title" = "Choose Photo";
-
-"confirm_fake_pin_text_key" = "Confirm Fake Pin";
-
-"confirm_password_text_key" = "Confirm Password";
-
-"confirm_real_pin_text_key" = "Confirm Real Pin";
-
-"done_key" = "Done";
-
-"emergency_contact_title_key" = "Emergency Contact %@";
-
-"emergency_message_title_key" = "Emergency message";
-
-"enter_fake_pin_text_key" = "Enter fake pin in 4 digits";
-
-"enter_real_pin_text_key" = "Enter real pin in 4 digits";
-
-"error_text_key" = "Error";
-
-"fill_required_fields_text_key" = "Please fill required fields";
-
-"first_name_title_key" = "First name";
-
-"log_out_title_key" = "Logout";
-
-"mobile_number_text_key" = "Mobile Number";
-
-"next_key" = "Next";
-
-"ngo_title_key" = "Name of Service %@";
-
-"nick_name_title_key" = "Nickname";
-
-"ok" = "OK";
-
-"password_text_key" = "Password";
-
-"passwords_not_match_text_key" = "Passwords do not match";
-
-"pins_do_not_match_text_key" = "Selected pins do not match";
-
-"please_enter_valid_email_message_key" = "Please enter valid email address";
-
-"please_enter_valid_number_message_key" = "Please enter valid phone number";
-
-"please_enter_valid_password_message_key" = "Password must contain at least 8 symbols";
-
-"police_title_key" = "Police";
-
-"remove_photo_title_key" = "Remove photo";
-
-"resend_otp_text_key" = "Resend 6 digit CODE?   %@s";
-
-"resend_title_key" = "Resend";
-
-"return_key" = "Return";
-
-"submit_title_key" = "Submit";
-
-"take_photo_title_key" = "Take a new photo";
-
-"verifying_otp_text_key" = "VERIFICATION CODE";
-
-"dual_pin_title_key" = "Dual Pin";
-
-"ngos_description_text_key" = "Find and contact NGOs, women rights defenders and other women empowerment organizations that exist nearby.";
-
-"forums_title_key" = "Forums";
-
-"forums_description_text_key" = "A discussion board to anonymously talk about different urgent topics and get advice from professionals.";
-
-"help_section_description_text_key" = "Press the help button and send free alert message with your geolocation to your emergency contacts to let them know you are in trouble. Pressing the Help Button enables audio recording, which you can either send to chosen service contacts, save for later use, or delete at any time.";
-
-"otp_info_text_key" = "A 6 digit CODE has been send to number %@";
-
-"network_title" = "Network";
-
-"help_title_key" = "Help";
-
-"alert_message_sent_text_key" = "Alert messages have been successfully sent!";
-
-"something_went_wrong_text_key" = "Something went wrong";
-
-"settings_title" = "Settings";
-
-"last_name_title_key" = "Last name";
-
-"other_title" = "Other";
-
-"no_records_yet_text_key" = "You do not have any records yet";
-
-"registration_error_key" = "Registration Error";
-
-"edit_key" = "Edit";
-
-"save_key" = "Save";
-
-"value_can_not_be_empty_key" = "Value can not be empty";
-
-"fill_current_password_field_text_key" = "Please fill current password field";
-
-"more_info_text_key" = "More info";
-
-"reply_text_key" = "Reply";
-
-"web_address_text_key" = "Web Address";
-
-"email_text_key" = "email";
-
-"mobile_text_key" = "Mobile";
-
-"remove_from_helpline_title_key" = "Remove";
-
-"add_to_helpline_title_key" = "Add to Contacts";
-
-"title_tutorial" = "Tutorial";
-
-"new_password_title_key" = "New password";
-
-"add_dual_pin_title_key" = "Add a New Dual PIN";
-
-"title_login" = "Login";
-
-"title_signup" = "Register";
-
-"title_forgot_password" = "Forgot Password?";
-
-"title_request_new_password" = "REQUEST NEW PASSWORD";
-
-"forgot_pin_text_key" = "Forgot PIN?";
-
-"current_password_text_key" = "Current password";
-
-"title_all" = "All";
-
-"push_hold_text_key" = "PUSH \nHOLD";
-
-"stop_recording_text_key" = "STOP\nRECORD";
-
-"update_password_title" = "Update Password";
-
-"alert_message_title" = "Alert Message!";
-
-"add_emergency_contacts_text_key" = "Add emergency contacts, who will be contacted if you are in Danger";
-
-"pin_length_text_key" = "PIN should consist of 4 digits";
-
-"real_pin_fake_pin_different" = "Real PIN should be different from the fake PIN";
-
-"check_internet_connection_text_key" = "Please check your internet connection";
-
-"marital_status_text_key" = "Marital Status";
-
-"select_marital_status_text_key" = "Choose Marital Status";
-
-"photo_library" = "Photo Gallery";
-
-"you_replied_to_text_key" = "You replied to %@";
-
-"replied_to_text_key" = "%@ replied to %@";
-
-"replying_to_text_key" = "Replying to %@";
-
-"record_was_successfully_saved_text_key" = "Record was Successfully saved!";
-
-"record_was_successfully_sent_text_key" = "Recording was successfully sent";
-
-"close_key" = "Close";
-
-"please_fill_phone_number_text_key" = "Please fill phone number field.";
-
-"password_update_success_text_key" = "Password updated successfully";
-
-"success_text_key" = "Success";
-
-"no_mail_account_registered" = "You do not have any mail account on your iPhone";
-
-"time_text_key" = "Time:";
-
-"enter_passcode_text_key" = "Enter your PIN";
-
-"title_saved_key" = "Saved";
-
-"title_sent_key" = "Sent";
-
-"delete_key" = "Delete";
-
-"recording_title_key" = "Recordings";
-
-"want_logout_text_key" = "Do you want to log out?";
-
-"wrong_url_text_key" = "Wrong URL";
-
-"clear_text_key" = "Clear";
-
-"add_dual_pin_for_security" = "Want to Hide the App from others? Then add a Dual Pin!\n The Real PIN to access the app, and the Fake Pin to access Photo gallery.\n Using the app without Dual Pin will make access quicker.";
-
-"continue_without_pin_title_key" = "Continue Without Dual PIN";
-
-"enter_pint_to_deactivate" = "Enter your SafeYOU PIN Code to deactivate PIN Code";
-
-"choose_your_country" = "Choose Your \nCountry";
-
-"which_country_to_browse_in" = "Which country do you like to browse in?";
-
-"choose_your_language" = "Choose Your App \nLanguage";
-
-"choose_the_language_to_continue" = "Please choose the language to continue";
-
-"profile_title_key" = "Profile";
-
-"change_password_key" = "Change Password";
-
-"country_title_key" = "Country";
-
-"language_title_key" = "Language";
-
-"support_title_key" = "Support";
-
-"apply_regional_changes_text" = "In case of applying selected options you will logout";
-
-"apply_title_key" = "Apply";
-
-"profile_picture_title_key" = "Profile Picture";
-
-"emergency_services_title" = "My Support Contacts";
-
-"edit_pin_code_title" = "Edit Pin Code";
-
-"enter_your_pin_code" = "Enter your Safe YOU PIN Code";
-
-"count_comments" = "%@ comments";
-
-"comment" = "comment";
-
-"count_replies" = "%@ Replies";
-
-"view_more_replies" = "View More Replies";
-
-"nickname_placeholder" = "Only nickname will be visible to others";
-
-"people_commented_text_key" = "%@ People Recently Commented on this Post";
-
-"replied_to_your_comment" = "Replied to Your Comment";
-
-"address" = "Address";
-
-"intro_view_description_text_key" = "Learn about the functions of the App by pressing on the buttons below.";
-
-"intro_support_text_key" = "In this section you can choose upto 3 personal contacts from you phone's contact list, upto 3 support contacts from our Network, as well as can enable the function of applying to the police.";
-
-"security_introduction_text_key" = "To hide the App from others you can: \n*Activate Dual PIN: \nAdd a real PIN to access the real App and add a fake PIN to access the pictures' folder of your phone.\n*Activate the Camouflage Icon: \nThis will change the app's logo and name on your phone's screen.";
-
-"title_menu" = "Menu";
-
-"title_security_and_login" = "Security & Login";
-
-"title_camouflage_icon" = "Camouflage Icon";
-
-"edit_deactivate_dual_pin" = "Edit/Deactivate Dual PIN";
-
-"continue_txt" = "Continue";
-
-"security" = "Security";
-
-"choose_your_camouflage_icon" = "Choose Your Camouflage Icon";
-
-"art_gallery" = "Art Gallery";
-
-"gallery_editor" = "Gallery Editor";
-
-"visual_editor" = "Visual Editor";
-
-"would_you_activate_dual_pin" = "Would you also like to activate Dual Pin?";
-
-"we_recommend_to_activate_dual_pin" = "We recommend you to activate the Dual Pin to hide the true functions of the App from others.";
-
-"would_you_activate_camouflage_icon" = "Would you also like to activate the Camouflage Icon Function?";
-
-"we_recommend_to_activate_camouflage_icon" = "We recommend you to activate the Camouflage Icon: this will change App's real icon and name in your phone's menu.";
-
-"name_lastname" = "Name Lastname";
-
-"become_consultant_title" = "Become a Consultant";
-
-"why_become_consultant" = "Why would you like to become a consultant at SafeYou?";
-
-"why_would_you_placeholder" = "Why would you like to become ...";
-
-"consultant_agreement_text" = "By pressing \"Continue\" and sending this request you verify that you have read and agree with our \"%@\"";
-
-"legal_consultant_terms_and_conditions" = "Terms and Conditions for Consultants";
-
-"consultant_terms_and_conditions" = "Terms and Conditions for Consultants";
-
-"add_your_experience" = "Add your field of expertise";
-
-"field_of_expertise" = "Field of Expertise";
-
-"email_address" = "Email Address";
-
-"request_status" = "Request Status";
-
-"pending_approval" = "Pending Approval.";
-
-"title_legal" = "Legal";
-
-"terms_and_conditions" = "Terms & Conditions";
-
-"privacy_policy" = "Privacy Policy";
-
-"declined_on_date" = "Declined by Admin on %@";
-
-"approved_on_date" = "Approved on %@";
-
-"submission_date" = "Submission Date";
-
-"cancel_request" = "Cancel Request";
-
-"deactivate" = "Deactivate";
-
-"new_request_inquiry" = "New Request Inquiry";
-
-"deactivate_confirm_message" = "By pressing \"Continue\" you confirm that you no longer want to be a Consultant at Safe YOU. This will change your status to a simple user.";
-
-"approved" = "Approved";
-
-"declined" = "Declined";
-
-"pending" = "Pending";
-
-"back" = "Back";
-
-"cancel_request_message" = "By pressing \"Continue\" you confirm that you want to cancel the request you have sent.";
-
-"consultant_request_success_message" = "Your request has been successfully sent";
-
-"police_warning" = "!!Warning!!";
-
-"police_warning_message" = "You are enabling the 'Contact Police' function. When Help button is pressed local Police will get your alert message with your geolocation and phone number.";
-
-"i_understand" = "I understand";
-
-"filters" = "Filters";
-
-"categories" = "Categories";
-
-"clear_categories" = "Clear Categories";
-
-"languages" = "Languages";
-
-"back_to_default_language" = "Back to Default Language";
-
-"clear_all_filters" = "Clear All Filters";
-
-"show_results" = "Show %@ Results";
-
-"count_views" = "%@ views";
-
-"messages" = "Messages";
-
-"emergency_contacts_title_key" = "Emergency Contacts";
-
-"messages_title_key" = "Private Messages";
-
-"intro_private_messages_text_key" = "You can privately message service providers and your peers in safe and anonymous chats. Please note to report any harmful interactions you may experience.";
-
-"search" = "Search";
-
-"confirm_new_password" = "Confirm new password";
-
-"copy" = "Copy";
-
-"my_recordings" = "My Recordings";
-
-"report" = "Report";
-
-"forum_comment" = "Forum Comment";
-
-"report_spinner_title" = "Category";
-
-"terms_and_conditions_agreement_text" = "I have read and agree to the terms and conditions and privacy policy";
-
-"privacy_policy_txt" = "privacy policy";
-
-"type_a_comment" = "Type your comment...";
-
-"type_a_message" = "Type your message...";
-
-"message_comment" = "Message Comment";
-
-"delete_account_title_key" = "Delete Account";
-
-"delete_account_title" = "Are you sure you would like to Delete your Account?";
-
-"delete_account_description" = "You will not be able to sign in to your current account. Your data will be deleted. If you want to rejoin our community, you need to wait 14 days to create a new account with the same phone number.";
+"failed" = "Daxil etdiyiniz etimadnamələr yanlışdır";
+"server_error" = "Server xətası";
+"inactive_user" = "İstifadəçi deaktiv edilib.";
+"credentials_incorrect" = "Daxil etdiyiniz etimadnamələr yanlışdır.";
+"content_not_found" = "Məzmun Tapılmadı.";
+"verify_phone" = "6 rəqəmli doğrulama kodunu yaz və \"Doğrula\" düyməsinə toxun";
+"invalid_code" = "Doğrulama kodu yanlışdır.";
+"is_not_verify_phone" = "Telefon nömrəsi təsdiqlənməyib.";
+"incorrect_old_password" = "Köhnə Parol səhvdir.";
+"verify_success" = "Uğurlu doğrulama";
+"verify_timeout" = "Doğrulama müddəti qutardı";
+"invalid_phone_number" = "Yalnış telefon nömrəsi";
+"invalid_request" = "Yalnış Sorğu.";
+"registration_success" = "Siz uğurla qeydiyyatdan keçmisiniz.";
+"registration_error" = "Uğursuz qeydiyyat lütfən sonra cəhd edin.";
+"something_error" = "Xəta baş verdi, xahiş edirik, sonra cəhd edin.";
+"created_password_success" = "Siz uğurla yeni parol yaratdınız.";
+"change_password_success" = "Siz parolunuzu uğurla dəyişdiniz.";
+"created_password_error_time_out" = "Parolun sıfırlanması vaxtı başa çatıb.";
+"successful_logout" = "Siz uğurla çıxış etdiniz.";
+"successful_changed_field" = "Dəyişikliklər yadda saxlanıldı.";
+"email_already_taken" = "Bu E-poçt Ünvanı artıq istifadə olunub.";
+"nickname_already_taken" = "Bu ləqəb artıq istifadə edilib.";
+"phone_already_taken" = "Bu Telefon Nömrəsi artıq istifadə olunub.";
+"already_added" = "Rekord artıq mövcuddur.";
+"successfully_updated" = "Uğurla yeniləndi.";
+"successfully_added" = "Uğurla əlavə edildi.";
+"successfully_deleted" = "Uğurla silindi.";
+"successfully_sent" = "Uğurla göndərildi.";
+"limited_emergence_service_contacts" = "Siz 3-ə qədər Xidmət Kontaktı əlavə edə bilərsiniz.";
+"limited_emergence_contacts" = "Siz 3-ə qədər təcili yardım kontaktı əlavə edə bilərsiniz.";
+"not_found_joined_service_contact" = "Zəhmət olmasa Şəbəkəmizdən Xidmət kontaktlarını əlavə edin.";
+"consultant_request_created" = "Məsləhətçi sorğunuz yaradıldı, xahiş edirik, onu nəzərdən keçirənə qədər gözləyin.";
+"consultant_request_deactivated" = "Məsləhətçi statusunuz deaktiv edilib?";
+"consultant_request_canceled" = "Məsləhətçi sorğunuz ləğv edildi.";
+"marital_status_-1" = "Deməməyi üstün tutmaq";
+"marital_status_0" = "Evli";
+"marital_status_1" = "Subay";
+"have_report_dont_new" = "Siz artıq bu şərhə dair hesabat təqdim etmisiniz. Biz onu nəzərdən keçiririk.";
+"successfully_rate_created" = "Uğurla qiymətləndirildi!";
+"invalid_email_address" = "Yanlış e-poçt ünvanı.";
+"invalid_link" = "Yanlış link";
+"send_sms_service_error" = "Üzr istəyirik, hazırda “Yardım” funksiyası sistem yeniləməsi ilə əlaqədar işlərə görə mövcud deyil. Problem 24 saat ərzində həll olunacaq. Əgər fövqəladə vəziyyətdəsinizsə, lütfən, təcili yardım xidmətinə və ya polisə zəng edin.";
+"about_us_title_key" = "Bizim Haqqımızda";
+"birth_date_title_key" = "Doğum Tarixi";
+"cancel" = "Ləğv etmək";
+"choose_from_gallery_title_key" = "Şəkil seç";
+"choose_photo_title" = "Şəklini dəyiş";
+"confirm_fake_pin_text_key" = "Saxta PİN-i təsdiq edin";
+"confirm_password_text_key" = "Parolu təstiqlə";
+"confirm_real_pin_text_key" = "Həqiqi PİN-i təsdiqləyin";
+"done_key" = "Tamamlandı";
+"emergency_contact_title_key" = "Etibarlı şəxs %@";
+"emergency_message_title_key" = "Həyəcan siqnallı";
+"enter_fake_pin_text_key" = "4 rəqəmli saxta PİN kodu daxil edin";
+"enter_real_pin_text_key" = "Etibarlı 4 rəqəmli PIN kodu daxil edin";
+"error_text_key" = "Xəta qeydə alındı";
+"fill_required_fields_text_key" = "Məcburi sahəni doldurun";
+"first_name_title_key" = "Ad";
+"log_out_title_key" = "Çıxış et";
+"mobile_number_text_key" = "Telefon nömrəsi";
+"next_key" = "Növbəti";
+"ngo_title_key" = "Təşkilatın adı %@";
+"nick_name_title_key" = "Ləqəb";
+"ok" = "Yaxşı";
+"password_text_key" = "Parol";
+"passwords_not_match_text_key" = "Parol səhvdir";
+"pins_do_not_match_text_key" = "PIN uyğun gəlmir";
+"please_enter_valid_email_message_key" = "Etibarlı e-poçt ünvanı daxil edin";
+"please_enter_valid_number_message_key" = "Həqiqi telefon nömrəsini daxil edin";
+"please_enter_valid_password_message_key" = "Həqiqi parol daxil edin";
+"police_title_key" = "Polis";
+"remove_photo_title_key" = "Şəkli sil";
+"resend_otp_text_key" = "Yenidən göndərdi %@s";
+"resend_title_key" = "Yenidən göndərmək";
+"return_key" = "Qayıt";
+"submit_title_key" = "Göndər";
+"take_photo_title_key" = "Şəkilini çək";
+"verifying_otp_text_key" = "Təstiqedici kod";
+"dual_pin_title_key" = "İkili pin";
+"ngos_description_text_key" = "Sizə yaxın olan qeyri-hökumət təşkilatlarını, hüquq müdafiəçilərini və ya qadınların səlahiyyətlərinin artırılması ilə məşğul olan digər təşkilatları tapın və onlarla əlaqə saxlayın.";
+"forums_title_key" = "Forum";
+"forums_description_text_key" = "Müxtəlif məsələləri anonim şəkildə müzakirə etmək və peşəkarlardan məsləhət almaq üçün məkan";
+"help_section_description_text_key" = "Etibarlı kontaktlarınızı çətinliyiniz və məkanınız barədə xəbərdar etmək üçün SOS düyməsini basın. Daha sonra paylaşmaq, saxlamaq və ya silmək üçün audio mesaj da yazılır.";
+"otp_info_text_key" = "6 rəqəmli kod göndərildi %@";
+"network_title" = "şəbəkə";
+"help_title_key" = "SOS";
+"alert_message_sent_text_key" = "Xəbərdarlıq mesajları uğurla göndərildi!";
+"something_went_wrong_text_key" = "Texniki xəta";
+"settings_title" = "Parametrlər";
+"last_name_title_key" = "Soyad";
+"other_title" = "Digər";
+"other_county_title_jor" = "";
+"no_records_yet_text_key" = "Heç bir səs yazısı yoxdur";
+"registration_error_key" = "Qeydiyyatda xəta var";
+"edit_key" = "Əlavə et";
+"save_key" = "Yadda Saxla";
+"value_can_not_be_empty_key" = "Boş buraxıla bilməz";
+"fill_current_password_field_text_key" = "Etibarlı parol daxil edin";
+"more_info_text_key" = "Əlavə məlumat";
+"reply_text_key" = "Cavab";
+"web_address_text_key" = "Veb-sayt";
+"email_text_key" = "El-poçt";
+"mobile_text_key" = "Mobil nömrəsi";
+"remove_from_helpline_title_key" = "Sil";
+"add_to_helpline_title_key" = "Əlavə et";
+"title_tutorial" = "Təlimat";
+"new_password_title_key" = "Yeni parol";
+"add_dual_pin_title_key" = "Yeni ikili pin əlavə et";
+"title_login" = "Giriş";
+"title_signup" = "Qeydiyyat";
+"title_forgot_password" = "Parolun bərpa edilməsi";
+"title_request_new_password" = "Yeni parol istəmək";
+"forgot_pin_text_key" = "Pinin bərpa edilməsi";
+"current_password_text_key" = "Cari paril";
+"title_all" = "Hamısı";
+"push_hold_text_key" = "Basın \
+Basılı saxlayın";
+"stop_recording_text_key" = "Yazmağı dayandırın";
+"update_password_title" = "Parolu təzələ";
+"alert_message_title" = "Həyəcan mesajı";
+"add_emergency_contacts_text_key" = "Təhlükə halında əlaqə saxlamaq üçün etibarlı insanların kontaktlarını əlavə edin.";
+"pin_length_text_key" = "Pinin uzunluğu";
+"real_pin_fake_pin_different" = "Real PIN Saxta PİN";
+"check_internet_connection_text_key" = "İnternet bağlantınızı yoxlayın";
+"marital_status_text_key" = "Ailə vəziyyəti";
+"select_marital_status_text_key" = "Ailə vəziyyəti seçin";
+"photo_library" = "Şəkil qalereyası";
+"you_replied_to_text_key" = "Sən %@-ə cavab verdin";
+"replied_to_text_key" = "%@ %@-ya cavab verdi";
+"replying_to_text_key" = "%@-ya cavab verdi";
+"record_was_successfully_saved_text_key" = "Qeyd uğurla yadda saxlanıldı-";
+"record_was_successfully_sent_text_key" = "Qeyd uğurla göndərildi";
+"close_key" = "Bağlayın";
+"please_fill_phone_number_text_key" = "Telefon nömrəsini daxil edin";
+"password_update_success_text_key" = "Parol uğurla bərpa edildi";
+"success_text_key" = "Uğurludur!";
+"no_mail_account_registered" = "El-poçt qeydiyyata alınmayıb";
+"time_text_key" = "Zaman";
+"enter_passcode_text_key" = "Parol daxil et";
+"title_saved_key" = "Yadda saxlanıldı";
+"title_sent_key" = "Göndərildi";
+"delete_key" = "Sil";
+"recording_title_key" = "Səs yazısı";
+"want_logout_text_key" = "çıxış et";
+"wrong_url_text_key" = "düzgün deyil";
+"clear_text_key" = "Sil";
+"add_dual_pin_for_security" = "Tətbiqə daxil olmaq üçün real PIN təyin edin.  \
+Proqramı başqalarından gizlətmək üçün sizi foto qalereyasına aparacaq saxta pin təyin edin.";
+"continue_without_pin_title_key" = "İkili pinkod olmadan davam et";
+"enter_pint_to_deactivate" = "PIN kodunuzu deaktiv etmək üçün Safe You PIN kodunuzu daxil edin";
+"choose_your_country" = "Ölkə seç";
+"which_country_to_browse_in" = "Hansı ölki nəzərdən keçirmək istərdiniz?";
+"choose_your_language" = "Dil seç";
+"choose_the_language_to_continue" = "Dil seç";
+"profile_title_key" = "Profil";
+"change_password_key" = "Parolunu dəyiş";
+"country_title_key" = "Ölkə";
+"language_title_key" = "Dil";
+"support_title_key" = "Əlaqə";
+"apply_regional_changes_text" = "Regional dəyişiklikləri göstər";
+"apply_title_key" = "İstifadə et";
+"profile_picture_title_key" = "Profil Şəkli";
+"emergency_services_title" = "Seçdiyim təşkilatlar";
+"edit_pin_code_title" = "PİN-I dəyiş";
+"enter_your_pin_code" = "Öz PİN-ini daxil et";
+"count_comments" = "%@ Şərhlər";
+"comment" = "Şərh";
+"count_replies" = "%@ Cavablar";
+"view_more_replies" = "Daha çox cavab gör";
+"nickname_placeholder" = "Başqaları sadəcə ləqəbini görəcəklər";
+"people_commented_text_key" = "%@ şəxs şərh yazdı";
+"replied_to_your_comment" = "sənin şərhinə cavab verdi";
+"address" = "Ünvan";
+"intro_view_description_text_key" = "Tətbiqetmənin xüsusiyyətləri haqqında daha çox öyrənmək üçün bu düyməni basın";
+"intro_support_text_key" = "Burada mobil kontaktlarınızdan 3 etibarlı insanı, şəbəkənizdən 3 dəstək təşkilatını seçə və həmçinin polisi işarələyə bilərsiniz.";
+"security_introduction_text_key" = "Proqramı başqalarından gizlətmək üçün siz aşağıdakıları edə bilərsiniz: *İkili PİN-i aktivləşdirin: proqrama daxil olmaq üçün real PIN əlavə edin və foto qalereyaya getmək üçün saxta PIN əlavə edin. *Gizləmə funksiyasını aktivləşdirin: telefonunuzda proqram loqosunu və adını dəyişdirin.";
+"title_menu" = "Menyu";
+"title_security_and_login" = "Təhlükəsizlik və Giriş";
+"title_camouflage_icon" = "Kamuflyaj simvolu";
+"edit_deactivate_dual_pin" = "İkili PİN-i Dəyişdirin/Geri qaytarın";
+"continue_txt" = "davam etmək";
+"security" = "Təhlükəzlik";
+"choose_your_camouflage_icon" = "Kamuflyaj ikonanızı seçin";
+"art_gallery" = "İncəsənət qalereyası";
+"gallery_editor" = "Qalereyaya daxil ol";
+"visual_editor" = "Fotonu dəyiş";
+"would_you_activate_dual_pin" = "İkili PİN-i aktivləşdirmək istəyirsiniz?";
+"we_recommend_to_activate_dual_pin" = "Bu proqramı mobil telefonunuzda başqalarından gizlətmək istəyirsinizsə, o zaman ikili pin-i aktivləşdirməyi tövsiyə edirik.";
+"would_you_activate_camouflage_icon" = "Kamuflyaj  funksiyasından istifadə etmək istəyirsiniz?";
+"we_recommend_to_activate_camouflage_icon" = "Kamuflyajdan istifadə etməyi tövsiyə edirik: tətbiqetmənizin adı və ikonanız telefonunuzda dəyişəcək.";
+"name_lastname" = "ad soyad";
+"become_consultant_title" = "Məsləhətçi ol";
+"why_become_consultant" = "Niyə Safe You-da məsləhətçisi olmaq istəyirsən?";
+"why_would_you_placeholder" = "Niyə …. olmaq istəyirsən";
+"consultant_agreement_text" = "\"Davam et\" düyməsinə toxunmaqla, \"%@\" ilə tanış olduğunuzu və razılaşdığınızı təsdiq edirsiniz.";
+"legal_consultant_terms_and_conditions" = "Məsləhətçinin qaydaları və şərtləri";
+"consultant_terms_and_conditions" = "Məsləhətçiliyin qaydaları və şərtləri.";
+"add_your_experience" = "İş sahənizi seçin";
+"field_of_expertise" = "Bilik sahənizi seçin";
+"email_address" = "El.poçt";
+"request_status" = "Təlabat mövqeyi";
+"pending_approval" = "Cari";
+"title_legal" = "Tətbiqetmədən İstifadə Şərtləri";
+"terms_and_conditions" = "Qaydalar və şərtlər";
+"privacy_policy" = "Məxfilik";
+"declined_on_date" = "%@ rədd edildi";
+"approved_on_date" = "%@ Təstiqlənmə tarixi";
+"submission_date" = "İstək tarixi";
+"cancel_request" = "İstəyi ləğv et";
+"deactivate" = "Söndür";
+"new_request_inquiry" = "Yeni istək göndər";
+"deactivate_confirm_message" = "\"Davam et\" düyməsinə toxunmaqla və təhlükəsiz məsləhətçi olmaq istəmədiyinizi təsdiqləməklə siz sadə istifadəçi kateqoriyasına keçəcəksiniz.";
+"approved" = "Təstiqləndi";
+"declined" = "Rədd edildi";
+"pending" = "Cari";
+"back" = "Geri";
+"cancel_request_message" = "\"Davam et\" düyməsinə toxunmaqla və təhlükəsiz məsləhətçi olmaq istəmədiyinizi təsdiqləməklə siz sadə istifadəçi kateqoriyasına keçəcəksiniz.";
+"consultant_request_success_message" = "İstəyiniz uğurla göndərildi";
+"police_warning" = "Xəbərdarlıq";
+"police_warning_message" = "“Polis” düyməsini aktivləşdirdikdən sonra SOS düyməsini istifadə etdikdən dərhal sonra polis sizin həyəcan mesajınızı və telefon nömrənizlə birlikdə cari yerləşdiyiniz yer haqqında məlumat alacaq.";
+"i_understand" = "Aydındır";
+"filters" = "filtr";
+"categories" = "Kateqoriyalar";
+"clear_categories" = "Kateqoriyalar təmizlə";
+"languages" = "Dillər";
+"back_to_default_language" = "Əsas dilə qayıt";
+"clear_all_filters" = "Bütün Filtləri təmizlə";
+"show_results" = "Nəticələr gör";
+"count_views" = "%@ mənzərə";
+"messages" = "Mesajlar";
+"emergency_contacts_title_key" = "Etibarlı şəxslər";
+"messages_title_key" = "Şəxsi mesaj";
+"intro_private_messages_text_key" = "Siz təhlükəsiz və anonim söhbətdə xidmət təminatçılarına və məsləhətçilərə şəxsi mesajlar göndərə bilərsiniz. Zəhmət olmasa, hər hansı bir mənfi təcrübə barədə bizə məlumat verin.";
+"search" = "axtarış";
+"confirm_new_password" = "yeni parolun təstiqi";
+"copy" = "Nüsxə";
+"my_recordings" = "Mənim səs yazmalarım";
+"filter" = "Filtr";
+"report" = "Mesaj";
+"forum_comment" = "Forumun şərhi";
+"report_spinner_title" = "Kateqoriya";
+"terms_and_conditions_agreement_text" = "Mən qaydaları, şərtləri və məxfilik siyasətini oxudum və razıyam";
+"privacy_policy_txt" = "məxfilik siyasətini";
+"type_a_comment" = "Şərh yazın";
+"type_a_message" = "Mesaj yazın...";
+"message_comment" = "Mesaj şərhi";
+"delete_account_title_key" = "Hesabı silin";
+"delete_account_title" = "Hesabınızı silmək istədiyinizə əminsiniz?";
+"delete_account_description" = "Cari hesabınıza daxil ola bilməyəcəksiniz. Məlumatlarınız silinəcək. Yenidən bizə qoşulmaq istəyirsinizsə, eyni telefon nömrəsi ilə yenidən yeni hesab yaratmaq üçün 14 gün gözləməlisiniz.";
+"first_name_required_title_key" = "Ad *";
+"last_name_required_text_key" = "Soyad *";
+"enter_pin_code" = "PİN kodunu yenidən daxil edin";
+"notifications_title_key" = "Mesajlar";
+"dual_pin" = "Təhlükəsizlik";
+"title_alert_message" = "Həyəcan mesajı";
+"create_password" = "Parol yaratmaq";
+"create_new_password" = "Parol yaratmaq";
+"enter_otp" = "Kod daxil etmək";
+"add_dual_pin" = "ikili pin əlavə etmək";
+"all_recordings" = "bütün səs yazmaları";
+"emergency_message" = "Həyəcan mesajı";
+"mobile_phone_number" = "Mobil nömrəniz";
+"location" = "olduğunuz məkan";
+"re_type_new_password" = "yenidən yeni parol yaz";
+"send" = "Göndərildi";
+"change_photo_title" = "Şəkli dəyişin";
+"please_wait" = "Gözləyin";
+"the_connections_seems_to_be_slow" = "Bağlantı yavaşdır";
+"empty_field" = "Qrafik boşdur";
+"phone_min_length" = "Telefon nömrəsi minimum uzunluq 12 rəqəm (məs. +374******** və ya +995**********)";
+"min_length_2" = "Ləqəb ən azı 2 simvoldan ibarət olmalıdır";
+"invalid_pin" = "Yanlış PIN, yenidən cəhd edin";
+"yes" = "BƏLİ";
+"no" = "Yox";
+"map_not_ready" = "xəritə hazırdır";
+"detail_not_ready" = "Detallar hazırdır";
+"map_detail_not_ready" = "Detaylı xəritə hazırdır";
+"phone_is_empty" = "Telefon nömrəsi qeyd olunmayıb";
+"email_is_empty" = "EL.poçt qeyd olunmayıb";
+"your_map_not_ready" = "Sizin xəritəniz hazır deyil";
+"ngo" = "%1$li QHT";
+"delete_record" = "səs yazmasını sil";
+"do_you_wont_delete_record" = "Səs yazmasını silmək istəyirsiniz?";
+"send_mail" = "el.poçt göndər";
+"verify" = "təstiq et";
+"change_phone_number" = "Mobil nömrəni dəyiş";
+"real_pin_and_conform_real_not_match" = "Real PİN və doğrulama uyğun gəlmir";
+"fake_and_fake_confirm_not_match" = "Saxta Saxta PİN və doğrulama uyğun gəlmir";
+"select_marital" = "Ailə vəziyyətinizi seçin";
+"not_selected" = "Deməməyi üstün tutmaq";
+"verify_phone_number" = "Mobil nömrənizi təsdiqləyin";
+"exit" = "çıxış et";
+"write_your_location" = "Olduğun məkanı yaz";
+"support_contact" = "%1$li Təşkilat";
+"confirm_change_country" = "Ölkənin dəyişdirilməsi halında, seçilmiş ölkənin təşkilatları ilə əlaqə saxlanılacaq.";
+"not_attached_services" = "Əlavə edilmiş kontaktlarınız yoxdur";
+"comments" = "Şərhlər";
+"edit_pin_dialog_description" = "PIN kodunuzu dəyişdirmək üçün Safe You PIN kodunuzu daxil edin";
+"please_select_language" = "Dil seç";
+"this_is_inform_the_police" = "Polisə xəbərdarlıq et";
+"consultant_request" = "Məsləhət istəyi";
+"your_field_of_expertise" = "Bilik sahəniz";
+"edit_deactivate_pin_code" = "İkili PİN-in dəyişirilməsi ləğv edilməsi";
+"edit_deactivate_camouflage_icon" = "Gizləmə simvolunu ləğv edin/dəyişdirin -";
+"new_request" = "Yeni istəyin göndərilməsi";
+"input" = "Daxil etmək";
+"deactivate_become_consultant" = "Məsləhətçinin ləğv edilməsi";
+"user_id" = "İstifadəçinin ID-si";
+"info" = "Məlumat";
+"read_more" = "Daha ətraflı oxu";
+"title_report" = "Mesaj";
+"text_btn_on_report" = "Mesaj";
+"please_select_category" = "Zəhmət olmasa kateqoriya seçin";
+"new_comment" = "Yeni şərh";
+"error_message_emergency_contact" = "Başqa ölkədən telefon nömrəsi əlavə edə bilməzsiniz.";
+"min_rate_characters" = "Minimum %li simvol";
+"review" = "Tətbiqetməni qiymətləndir";
+"my_review" = "Mənim qiymətləndiməm";
+"review_required" = "Tətbiqetməni qiymətləndir*";
+"what_rate_forum" = "Bu məqaləni necə qiymətləndirərdiniz?";
+"what_rate_ngo" = "Bu təşkilatla əməkdaşlıq təcrübəniz necə olub?";
+"rate_placeholder" = "Zəhmət olmasa rəy bildirin";
+"review_visible_text" = "Qiymətləndirməniz ictimai deyil";
+"newest_to_oldest" = "Ən yenidən ən köhnəyə";
+"oldest_to_newest" = "Ən köhnədən ən yeniyə";
+"relevancy" = "Son dəfə aktiv";
+"sort_by" = "Tənzimləmə";
+"forum_was_created" = "Yeni forum nəşr olundu";
+"last_month_activity" = "Ötən ay ərzində%1$li fəaliyyətləri";
+"dark_mode_title_key" = "Qaranlıq rejim";
+"want_block_user_text_key" = "Siz bu istifadəçini bloklamaq üzrəsiniz. \
+ Siz onların şərhlərini görə bilməyəcəksiniz";
+"title_black_list" = "Qara siyahı";
+"confirm" = "Təstiqləyin";
+"successfully_blocked" = "%@ qara siyahıya əlavə edildi";
+"block_user" = "Bloklamaq";
+"access_safe_you_forum" = "Safe YOU Forumlara əl çatanlıq";
+"share" = "Paylaş";
+"back_icon_description" = "Geri";
+"next_key_description" = "Sonrakı";
+"close_dialog_description" = "Dialoqu bağlayın";
+"show_password_description" = "Parol göstərin";
+"show_real_pin_description" = "Həqiqi pin göstərin";
+"show_fake_pin_description" = "Saxta pin göstərin";
+"show_confirm_real_pin_description" = "Saxta PİN-i təsdiq edin";
+"show_confirm_fake_pin_description" = "Saxta PİN-i təsdiq edin";
+"show_confirm_password_description" = "Təsdiq parolunu göstərin";
+"verification_code_description" = "Yoxlama kodu";
+"success_icon_description" = "Uğur ikonu";
+"search_iconDescription" = "Axtarış nişanı";
+"recording_description" = "Qeyd edilir %li";
+"edit_nickname_description" = "Ləqəbi redaktə edin";
+"edit_last_name_description" = "Soyadı redaktə edin";
+"edit_first_name_description" = "Adını redaktə edin";
+"edit_marital_description" = "Ailə vəziyyətini redaktə edin";
+"edit_phone_number_description" = "Telefon nömrəsini redaktə edin";
+"edit_location_description" = "Məkanı redaktə edin";
+"emergency_contacts_icon_description" = "Fövqəladə əlaqə ikonu";
+"support_contacts_icon_description" = "Mənim dəstək əlaqələrim ikonu";
+"policy_icon_description" = "Siyasət nişanı";
+"my_recordings_icon_description" = "Mənim qeydlərim ikona";
+"comments_count_icon_description" = "Şərhlər sayılır";
+"rate_icon_description" = "Qiymətləndirmə %li";
+"not_rated_icon_description" = "Qiymətləndirilməyib";
+"rated_icon_description" = "Qiymətləndirilmiş %li";
+"rated_count_icon_description" = "Qiymətləndirmə";
+"forum_image_description" = "%@ forumu";
+"ngo_image_description" = "%@ QHT";
+"like_icon_description" = "Kimi";
+"private_message_icon_description" = "Şəxsi mesaj";
+"average_rate_icon_description" = "Orta nisbət %li nəfərdən %li -dir, şərh yazan %li nəfərdir";
+"average_rate_double_icon_description" = "Orta hesabat %.1f dərəcədədir %li, şərh edib %li insan";
+"view_count_icon_description" = "Baxış sayı";
+"record_audio_icon_description" = "Audio yazın";
+"take_photo_icon_description" = "Şəkil çəkmək";
+"attachment_icon_description" = "Şəkili əlavə et";
+"send_message_icon_description" = "Mesaj göndər";
+"audio_wave_description" = "Səs dalgası";
+"preview_icon_description" = "Baxış";
+"play_icon_description" = "Oyna";
+"pause_icon_description" = "Fasilə";
+"block_icon_description" = "İstifadəçini blokla";
+"unblock_user_descryption" = "İstifadəçini blokdan çıxarın";
+"add_emergency_to_contact" = "Siz istifadəçinin təcili əlaqə siyahısına əlavə olundunuz";
+"add_emergency_to_contact_title" = "Bildiriş";
+"delete_emergency_from_contact" = "Siz istifadəçinin təcili əlaqə siyahısından silindiniz.";
+"delete_emergency_from_contact_title" = "Bildiriş";
+"invalid_birthday" = "Minimal yaş tələbi 12-dir";
+"years_ago" = "{0} il";
+"year_ago" = "təxminən bir il";
+"suffix_from_now" = "indidən";
+"seconds_ago" = "dəqiqədən azdır";
+"months_ago" = "{0} ay";
+"month_ago" = "təxminən bir ay";
+"minutes_ago" = "{0} dəqiqə";
+"minute_ago" = "təxminən bir dəqiqə";
+"hours_ago" = "{0} saat";
+"hour_ago" = "təxminən bir saat";
+"days_ago" = "{0} gün";
+"day_ago" = "gün";
+"time_ago" = "əvvəl";
+"required" = ":attribute sahəsi tələb olunur.";
+"min.string" = ":attribute :min simvol olmalıdır.";
+"same" = ":atribut və :digər uyğun olmalıdır.";
+"phone" = "Bu telefon nömrəsi yanlışdır. (məs. :phone_locale)";
+"phone.max" = "Telefon :max simvoldan çox ola bilməz.";
+"phone.min" = ":attribute :min simvol olmalıdır.";
+"invalid_json" = "Verilən məlumat etibarsız idi.";
+"forgot_password_email_title" = "Şifrənizi unutdunuzmu ?";
+"forgot_password_email_text" = "Bu problem deyil, baş verir! Şifrənizi yenidən təyin etmək üçün aşağıdakı düyməni basın.";
+"forgot_password_reset_btn" = "ŞİFRƏNİZİ YENİDƏN QURUN";
+"email_copyright_txt" = "IMPACT İNOVASYONLAR İNSTİTUTU";
+"do_you_have_children_title_key" = "Uşaqlarınız var?";
+"do_you_have_children_title2_key" = "Lorem ipsum";
+"current_occupation_title_key" = "İndiki məşğuliyyətiniz nədir?";
+"current_occupation_title2_key" = "Lorem ipsum";
+"region_title_key" = "Bölgənizi seçin";
+"region_title2_key" = "Lorem Ipsum";
+"city_village_title_key" = "Şəhərinizi və ya kəndinizi seçin";
+"city_village_title2_key" = "Lorem Ipsum";
+"in_school_key" = "Məktəbdə";
+"un_employed_key" = "İşsiz";
+"employed_key" = "İşlədi";
+"maternity_leave_key" = "Analıq məzuniyyəti";
+"more_than_2_key" = "2-dən çox";
+"prefer_not_say_key" = "Deməməyi üstün tutmaq";
+"do_you_have_children" = "Uşaqlar";
+"city_village" = "Şəhər/Kənd";
+"current_occupation" = "Cari məşğuliyyət";
+"region" = "Region";
+"not_specified_text_key" = "Qeyd edilməmişdir";
+"profile_completeness" = "Profilin tamlığı";
+"profile_completeness_description" = "Sizə daha yaxşı xidmət göstərmək üçün profilinizi tamamlayın";
+"skip_key" = "Keç";
+"complete_profile_title" = "Profilinizi tamamladığınız üçün təşəkkür edirik!";
+"back_to_profile_key" = "Profilə qayıt";
+"select_key" = "seçin";
+"specify_settlement_type_title_key" = "Məskunlaşma növünü göstər";
+"specify_settlement_type_title2_key" = "Məskunlaşma növünü göstər";
+"city" = "Şəhər";
+"village" = "Kənd";
+"complete_key" = "Tamamlayın";
+"previous_key" = "Əvvəlki";
+"profile_completed_description" = "Profilinizi tamamladığınız üçün təşəkkür edirik. Bu məlumat bizə sizə daha effektiv kömək etmək imkanı verəcək.";
+"marital_status_2" = "Münasibətdə";
+"marital_status_3" = "Boşanmış";
+"marital_status_4" = "Ayrılmış";
+"remind_me_later" = "Sonra yadıma sal";
+"wrong_languages_code" = "Yanlış dil kodu";
+"empty_question_option" = "Sizin tələb etdiyiniz sual üçün ən azı bir seçim tələb olunur";
+"quiz_need_correct_answer" = "Düzgün bir cavab əlavə edin";
+"error_dont_change_app_icon" = "Bu funksiya sizin telefonunuzu dəstəkləmir";
+"profile_complete_key" = "Profili tamamlayın";
+"survey_question_not_exist_key" = "Sual mövcud deyil və ya sorğuya aid deyil";
+"survey_question_option_not_exist_key" = "Sorğu sualının seçimi mövcud deyil və ya suala məxsus deyil.";
+"required_question_need_to_answer_key" = "Tələb olunan suallara cavab verilməlidir";
+"answered_survey_not_allowed_to_edit_key" = "Cavablanmış sorğuların redaktə edilməsinə icazə verilmir";
+"open_surveys_key" = "Açıq Sorğular";
+"survey_completed_description" = "Sorğumuzda iştirak etdiyiniz üçün təşəkkür edirik.";
+"back_to_surveys_key" = "Sorğulara qayıt";
+"long_text_answer_hint" = "Uzun mətn cavabı";
+"short_text_answer_hint" = "Qısa mətn cavab";
+"close_survey_title_key" = "Sorğunu bitirmək istədiyinizə əminsiniz";
+"close_survey_description_key" = "İndi dayandırmağı seçsəniz, cavablarınız həmişəlik itiriləcək. Sorğunu başa çatdırmaq və daxiletmənizi qorumaq üçün \"Ləğv et\" seçin.";
+"take_survey_key" = "Sorğuda iştirak edin";
+"take_quiz_key" = "Viktorinadan keçin";
+"see_result_key" = "Nəticəyə baxın";
+"thanks_for_quiz_text" = "Bizim testi cavablandırdığınız üçün təşəkkür edirik";
+"empty_surveys_key" = "Hələ heç bir sorğu yoxdur";
+"quiz_need_answer_key" = "Viktoriya cavab açarı tələb edir";
+"survey_question_option_max_length_error" = "Bir və ya daha çox parametr maksimum icazə verilən 255 simvol həddini aşdı.";
+"survey_notification_popup_title" = "Yeni Sorğu Alətimizi Arayın";
+"survey_notification_popup_description" = "Bizim yeni sorğu alətimizi sınayın ki, sizin ehtiyaclarınızı daha yaxşı anlamaq və ödəmək üçün kömək edək. Sizin fikriniz önəmlidir!";
+"virtual" = "virtual";
+"safe_space" = "Təhlükəsiz məkan";
+"for_text" = "üçün";
+"women" = "qadınlar";
+"forum_reviews_count" = "Rəylər";
+"registration_step_string_format" = "4-dən %d addım";
+"create_your_account_text" = "Hesabınızı yaradın";
+"create_your_password_text" = "Şifrənizi yaradın";
+"account_details_text" = "Hesab məlumatları";
+"already_have_account_text" = "Artıq hesabınız var?";
+"log_in_text" = "Daxil ol";
+"enter_phone_number_text" = "Telefon nömrəsini daxil edin";
+"provide_valid_phone_number_text" = "Zəhmət olmasa, düzgün bir telefon nömrəsi verin";
+"provide_your_information_text" = "Zəhmət olmasa, məlumatlarınızı təqdim edin";
+"create_password_description_text" = "Şifrəniz ən azı 8 simvol olmalıdır.";
+"phone_number_already_used_text" = "Bu telefon nömrəsi artıq istifadə olunur. Zəhmət olmasa, başqa birini sınayın.";
+"receive_code_text" = "Kod almadınız?";
+"login_to_your_account_text" = "Hesabınıza daxil olun";
+"new_user_text" = "Yeni İstifadəçi?";
+"create_account_text" = "Hesab yarat";
+"not_registered_text" = "Bu telefon nömrəsi bu tətbiqdə qeydiyyatdan keçməmişdir. Zəhmət olmasa, başqa birini sınayın.";
+"forgot_password_step1" = "1. Aşağıya qeydiyyatdan keçmiş telefon nömrənizi daxil edin.";
+"forgot_password_step2" = "2. \"Kod Göndər\" düyməsinə basın.";
+"forgot_password_step3" = "3. Biz sizin telefonunuza təsdiqləmə kodu göndərəcəyik.";
+"forgot_password_step4" = "4. Yeni bir şifrə yaratmaq üçün növbəti ekranda kodu daxil edin.";
+"send_code_text" = "Kodu göndər";
+"having_trouble_text" = "Problem yaşayırsınız? Dəstəklə əlaqə saxlayın!";
+"support_mail" = "";
+"complete_text" = "Tamamla";
+"how_it_works_text" = "Necə işləyir";
+"dual_pin_code_title_key" = "Təhlükəsizlik";
+"help_button_title_key" = "Kömək düyməsi";
+"skip" = "Ötür";
+"forum_tutorial_title_description" = "Kəşf et, Əlaqə qur, Güc ver";
+"forum_tutorial_title1" = "Sizin Təhlükəsiz Məkanınıza Xoş Gəlmisiniz!";
+"forum_tutorial_description1" = "Tətbiqimizin ürəyində Forumlar bölməsi yerləşir - cəsarət və mərhəmətin bir araya gəldiyi canlı bir cəmiyyət. Burada, kəşf, əlaqə və güclənmə səfərinə başlayırsınız. Forumlarımız yalnız müzakirələrdən ibarət deyil; onlar ümidin işığı və güc mənbəyidir.";
+"forum_tutorial_title2" = "Mühim Mövzuları Araşdırın";
+"forum_tutorial_description2" = "Qanunvericilik yenilikləri, hüquqi resurslar, özünə qayğı məslələri və daha çox biliklərə dalın. Hər bir mövzu yeni bir şey öyrənmək, cavablar tapmaq və yalnız olmadığınızı anlamaq üçün bir imkandır.";
+"forum_tutorial_description2_bold" = "sən tək deyilsən.";
+"forum_tutorial_description1_bold" = "canlı bir cəmiyyət, burada cəsarət mərhəmətlə qarşılaşır.";
+"forgot_password_step1_bold" = "1. Qeydiyyatdan keçmiş telefon nömrənizi daxil edin.";
+"forgot_password_step2_bold" = "\"Kodu göndər\"";
+"forgot_password_step4_bold" = "4. Kodu daxil edin.";
+"help_tutorial_description1_bold" = "";
+"help_tutorial_description1" = "Yardım düyməsini basın və təcili əlaqələrinizə yerləşdirmənizlə pulsuz xəbərdarlıq mesajı göndərin ki, onlar belə biləsinlər ki, siz çətinlikdəsiniz. Yardım Düyməsinə basmaq audio qeydini aktivləşdirir, onu seçilmiş xidmət əlaqələrinə göndərə, sonra istifadə etmək üçün saxlaya və ya hər zaman silə bilərsiniz.";
+"help_tutorial_title1" = "Təcili vəziyyətlərdə dəstək sistemlərinizə dərhal giriş!";
+"help_tutorial_title_descripton" = "Bir basma ilə kömək istəyin";
+"network_tutorial_description1" = "Yaxınlıqdakı QHT-ləri, qadın hüquqları müdafiəçilərini və digər qadınların gücləndirilməsi təşkilatlarını tapın və onlarla əlaqə saxlayın.";
+"network_tutorial_title1" = "Dəstək xidmətlərimizin şəbəkəsinə göz atın!";
+"network_tutorial_title_description" = "Bütün resurslara bir yerə asanlıqla daxil olun.";
+"security_tutorial_description1" = "Real App-a giriş üçün real PIN əlavə edin və telefonunuzun şəkillər qovluğuna giriş üçün sahtə PIN əlavə edin.";
+"security_tutorial_title1" = "İkiqat PIN-i aktivləşdirin";
+"security_tutorial_title_description" = "Tətbiqi digərlərdən gizlət";
+"emergency_tutorial_description1" = "Bu bölmədə telefonunuzun əlaqə siyahısından 3-ə qədər şəxsi əlaqəni, Şəbəkəmizdən 3-ə qədər dəstək əlaqəsini seçə bilərsiniz, həmçinin polisə müraciət funksiyasını aktivləşdirə bilərsiniz.";
+"emergency_tutorial_title1" = "Ən çox kime etibar etdiyinizi seçin!";
+"emergency_tutorial_title_description" = "Təcili Əlaqə Nömrələrinizi Təyin Edin";
+"private_message_tutorial_description1" = "Siz xidmət təminatçılarına və məsləhətçilərə təhlükəsiz və anonim söhbətlərdə şəxsi mesaj göndərə, onlara səsli mesajlar və digər media göndərə bilərsiniz. Zəhmət olmasa, yaşadığınız hər hansı bir zərərli interaksiyanı bildirməyi unutmayın.";
+"private_message_tutorial_title1" = "Peşəkarlarla şəxsi söhbətlərə daxil olun!";
+"private_message_tutorial_title_description" = "Şəxsi olaraq qoşulun";
+"security_tutorial_description2" = "Mövcud Kamuflyaj ikonlarından birini seçin və telefonunuzun ekranındaki tətbiqin ikonunu və adını dəyişdirin.";
+"security_tutorial_title2" = "Kamuflyaj İkonunu Aktivləşdir";
+"enter_your_password_text" = "Şifrənizi daxil edin";
+"provided_phone_already_exists" = "Bu telefon nömrəsi artıq istifadə olunur. Lütfən, başqasını sınayın.";
+"provided_nickname_already_exists" = "Ləqəb artıq mövcuddur";
+"virtual_safe_space_for_women" = "Qadınlar üçün virtual \n təhlükəsiz məkan";
+"ngo_inactive_message" = "Bu QHT müvəqqəti olaraq şəxsi mesajları qəbul etmir";
+"nationality_title_key" = "";
+"county_title_key" = "";
+"county" = "";
+"rom_tutorial_title" = "";
+"rom_tutorial_description" = "";
+"choose_your_language_desc" = "Please note that our services are currently limited to the State of New Mexico. While you can access the forums, the Help button and Contact Police are only available in New Mexico with limited resources.\
+If you are in immediate danger, please call 911.";
+"search_nationality_title_key" = "";
+"search_nationality_placeholder" = "";
+"region_title_usa_key" = "";
+"state_key" = "";
+"help_message_first_part_key" = "Safe YOU istifadəçisindən kömək mesajı:";
+"profile_image_size_error" = "Sizin profil şəkliniz 5 MB-dan az olmalıdır.";
+"profile_image_type_error" = "Yalnız şəkil növü yükləməyə icazə verilir";
+"error_send_sms_code" = "SMS göndərilməsində xəta baş verdi";
+"unavailable_survey_link" = "Bu sorğu sizin ölkənizdə mövcud deyil.";
+"already_answered_survey" = "Bu sorğu artıq cavablandırılıb.";
+"survey_question_type_changed" = "Cavablanmış sorğu sualının növünü redaktə etməyə icazə verilmir.";
+"survey_question_count_changed" = "Cavablanmış sorğu sualının sayını dəyişmək icazə verilmir.";
+"survey_question_options_count_changed" = "Sorğu sualının cavab variantlarının sayını dəyişmək icazə verilmir.";
+"survey_need_to_answer_at_least_one_question_key" = "Ən azı bir suala cavab verilməlidir";
+"survey_need_to_be_published_to_answer_key" = "Bu sorğu nəşr olunmayıb";
+"deleted_survey_not_allowed_to_answer_key" = "Bu sorğu silinmişdir";
+"already_added_contact" = "Bu əlaqə artıq əlavə edilib";
+"dialog_1.title" = "Xəbərdarlıq!";
+"dialog_1.message" = "Salam, Safe YOU-ya güvəndiyiniz üçün təşəkkür edirik.\n Yardım düyməsini test üçün basdınız?";
+"dialog_1.positive_action_label" = "Bəli, bu bir sınaq idi";
+"dialog_1.negative_action_label" = "Xeyr, bu TEST DEYİLDİ";
+"dialog_2.title" = "Məlumat";
+"dialog_2.message" = "Biz sizin təhlükəsiz olduğunuz üçün xoşbəxtik.\n Həmişə \"Şəbəkə\" Bölməmizdə mövcud dəstək xidmətlərinin siyahısını tapa bilərsiniz.";
+"dialog_2.close_action_label" = "OK";
+"dialog_3.title" = "Xəbərdarlıq!";
+"dialog_3.message" = "İndi telefonda danışa bilirsinizmi?";
+"dialog_5.title" = "Diqqət!";
+"dialog_3.positive_action_label" = "Bəli";
+"dialog_5.message" = "Görürük ki, siz polisə məlumat verməmisiniz. Həyatınıza və ya sağlamlığınıza birbaşa təhlükə yaranarsa, polisə məlumat verəcəyik.";
+"dialog_3.negative_action_label" = "Xeyr, indi danışa bilmirəm.";
+"dialog_5.positive_action_label" = "Bəli, xahiş edirəm Polisi məlumatlandırın";
+"dialog_4.title" = "Məlumat";
+"dialog_5.negative_action_label" = "Mən yaxşıyam, Polisə məlumat vermək İSTƏMİRƏM.";
+"dialog_4.message" = "Dəstək əlaqələrinizə sizə zəng edə biləcəklərini bildirəcəyik.";
+"dialog_4.close_action_label" = "OK";
+"voice_message_reply" = "Səs Mesajı";
+"motivation_min_error_key" = "Motivasiya məktubu ən azı 5 simvoldan ibarət olmalıdır";
+"unactive_survey_not_allowed_to_answer_key" = "Bu sorğu artıq cavab qəbul etmir";
+"police_rom_title_key" = "";
+"police_rom_added_contact_desc" = "";
+"police_rom_not_added_contact_desc" = "";
+"police_rom_warning_title" = "";
+"police_rom_deleting_assigned_contact_desc" = "";
+"police_rom_disabling_desc" = "";
+"police_rom_delete_anyway" = "";
+"new_password_confirmed" = "Yeni şifrə təsdiqləndi";
+"help_message_check_police" = "Bir Safe YOU istifadəçisi təhlükədədir və sizi onların adından polisə zəng etmək üçün təcili əlaqə olaraq siyahıya alıb. Ətraflı məlumat aşağıda:";
+"pol_tutorial_title" = "";
+"region_title_pol_key" = "";
+"county_title_pol_key" = "";
+"city_village_title_pol_key" = "";
+"voivodeship_pol" = "";
+"powiat_pol" = "";
+"gmina_pol" = "";
+"dialog_6.title" = "Məlumat";
+"dialog_6.message" = "Xəbərdarlığınız seçilmiş əlaqələrə göndərildi.";
+"dialog_6.close_action_label" = "OK";
+"dialog_7.title" = "Məlumat";
+"dialog_7.message" = "Xəbərdarlığınız seçilmiş əlaqələrə göndərildi.";
+"dialog_7.close_action_label" = "OK";
+"dialog_8.title" = "Məlumat";
+"dialog_8.message" = "Xəbərdarlığınız seçilmiş əlaqələrə göndərildi.";
+"dialog_8.close_action_label" = "OK";
+"test_help_sms" = "Safe YOU istifadəçisi [FULL NAME] bizə bildirdi ki, xəbərdarlıq test olaraq göndərilib.";
+"wrong_otp_code" = "Yanlış OTP Kodu";
+"change_location" = "Yeri Dəyiş";
+"change_location_text" = "Fərqli bir bölgəyə baxmaq istəyirsiniz?";
+"start_chat" = "Yeni mesaj";
+"search_bar_placeholder" = "Axtarış";
+"Consultant" = "Məsləhətçi";
+"Emergency" = "Dəstək Xidməti";
+"region_title_est_key" = "";
+"city_village_title_est_key" = "";
+"municipality_est" = "";
+"report_message" = "Şəxsi Ismarış";
+"report_input_text" = "Bizə nəyin səhv olduğunu deyin";
+"emergency_tutorial_description1_jor" = "";
+"help_tutorial_description1_jor" = "";
+"private_message_tutorial_description1_jor" = "";
+"forum_tutorial_description1_jor" = "";
+"active_service_providers" = "";
+"general_services" = "";
+"clear_active_service_providers" = "";
+"clear_general_services" = "";
+"no_new_notifications_yet_text_key" = "";
+"empty_ngo_list_jor" = "";
+"message" = "";
+"request_a_service" = "";
+"forum_not_available_text_key" = "";

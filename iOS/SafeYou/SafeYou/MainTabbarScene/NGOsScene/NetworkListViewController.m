@@ -12,7 +12,7 @@
 #import "EmergencyServicesListDataModel.h"
 #import "NetworkItemTableViewCell.h"
 #import "NGODetailsViewController.h"
-#import <MapKit/MapKit.h>
+#import "SYMapViewProvider.h"
 #import "ServiceSearchResult.h"
 #import <MessageUI/MessageUI.h>
 #import "UserDataModels.h"
@@ -35,7 +35,8 @@ typedef NS_ENUM(NSUInteger, FilterType) {
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIStackView *categoriesStackView;
 @property (weak, nonatomic) IBOutlet UIView *mapContainerView;
-@property (weak, nonatomic) IBOutlet MKMapView *mkMapView;
+@property (weak, nonatomic) IBOutlet UIView *mapHostView;
+@property (nonatomic) id<SYMapViewProvider> mapProvider;
 
 @property (nonatomic) BOOL isSearchActive;
 @property (nonatomic) UISearchBar *searchBar;
@@ -76,6 +77,8 @@ typedef NS_ENUM(NSUInteger, FilterType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mapProvider = SYDefaultMapViewProvider();
+    [self.mapProvider attachToContainer:self.mapHostView];
     self.emergnenscyServicesApi = [[EmergencyServicesApi alloc] initWithEmergency:self.isFromMyProfil];
     // Do any additional setup after loading the view.
 
@@ -225,18 +228,14 @@ typedef NS_ENUM(NSUInteger, FilterType) {
 
 - (void)configureServicePlaces
 {
-    NSMutableArray *markers = [[NSMutableArray alloc] init];
+    NSMutableArray<SYMapPin *> *pins = [[NSMutableArray alloc] init];
     for (EmergencyServiceDataModel *serviceData in self.dataSource) {
         CGFloat latitude = [serviceData.latitude floatValue];
         CGFloat longitude = [serviceData.longitude floatValue];
-        MKPointAnnotation *marker = [[MKPointAnnotation alloc] init];
-        marker.title = serviceData.serviceType;
-        marker.coordinate = CLLocationCoordinate2DMake(latitude,longitude);
-        [markers addObject:marker];
+        SYMapPin *pin = [[SYMapPin alloc] initWithCoordinate:CLLocationCoordinate2DMake(latitude, longitude) title:serviceData.serviceType];
+        [pins addObject:pin];
     }
-    [self.mkMapView addAnnotations:markers];
-
-    [self.mkMapView showAnnotations:markers animated:YES];
+    [self.mapProvider showPins:pins animated:YES];
 }
 
 #pragma mark - Fetch Data From API

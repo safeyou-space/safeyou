@@ -19,9 +19,10 @@
 
  * Configuration:
 	Setup developer and/or distribution Certificates from Apple Developer Account
+	Optional: to enable Lokalise over-the-air translations, copy SafeYou/Config/Secrets.example.xcconfig to SafeYou/Config/Secrets.xcconfig and set your own values. Without it, the app uses the strings bundled in Resources/Translations
 
  * Troubleshooting:
-	Make sure that API URLs (defined in Constants.h file) and SocketIO URLs (Defined in Settings.m depending user selected Country) are available
+	Make sure that API URLs and SocketIO URLs (defined in Settings.m depending on the build configuration and user selected Country) are available
 
  * Maintainers:
 	Garnik Simonyan

@@ -9,7 +9,7 @@
 #import "NGODetailsViewController.h"
 #import "EmergencyServiceDataModel.h"
 #import "UserDataModel.h"
-#import <MapKit/MapKit.h>
+#import "SYMapViewProvider.h"
 #import "NGODetailsContactCell.h"
 #import "EmergencyServicesApi.h"
 #import "NGOContactViewModel.h"
@@ -29,7 +29,8 @@
 @property (weak, nonatomic) IBOutlet UIView *serviceNameContainerView;
 @property (weak, nonatomic) IBOutlet SYCorneredButton *addToHelpLineButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet MKMapView *mkMapView;
+@property (weak, nonatomic) IBOutlet UIView *mapHostView;
+@property (nonatomic) id<SYMapViewProvider> mapProvider;
 
 - (IBAction)addToHelpLineButtonPressed:(UIButton *)sender;
 
@@ -56,6 +57,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mapProvider = SYDefaultMapViewProvider();
+    [self.mapProvider attachToContainer:self.mapHostView];
     // Do any additional setup after loading the view.
     self.extendedLayoutIncludesOpaqueBars = YES;
     UINib *networkItemCellNib = [UINib nibWithNibName:@"NGOAvatarTableViewCell" bundle:nil];
@@ -76,12 +79,8 @@
 {
     CGFloat latitude = [self.serviceData.latitude floatValue];
     CGFloat longitude = [self.serviceData.longitude floatValue];
-    MKPointAnnotation *marker = [[MKPointAnnotation alloc] init];
-    marker.title = self.serviceData.serviceType;
-    marker.coordinate = CLLocationCoordinate2DMake(latitude,longitude);
-    [self.mkMapView addAnnotation:marker];
-    
-    [self.mkMapView showAnnotations:@[marker] animated:YES];
+    SYMapPin *pin = [[SYMapPin alloc] initWithCoordinate:CLLocationCoordinate2DMake(latitude, longitude) title:self.serviceData.serviceType];
+    [self.mapProvider showPins:@[pin] animated:YES];
 }
 
 #pragma mark -

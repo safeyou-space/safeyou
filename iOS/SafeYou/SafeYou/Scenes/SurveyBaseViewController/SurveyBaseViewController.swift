@@ -146,7 +146,7 @@ class SurveyBaseViewController: SYViewController {
         showAlertView(
             withTitle: errorTextKey,
             withMessage: errorString,
-            cancelButtonTitle: NSLocalizedString("ok", comment: ""),
+            cancelButtonTitle: Utilities.fetchTranslation(forKey: "ok"),
             okButtonTitle: nil,
             cancelAction: nil,
             okAction: nil

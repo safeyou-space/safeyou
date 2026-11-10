@@ -8,7 +8,7 @@
 
 #import "Settings.h"
 #import "RegionalOptionDataModel.h"
-#import <Lokalise/Lokalise.h>
+#import "SYLocalizationService.h"
 
 #if DEVELOP
 // debug
@@ -231,10 +231,7 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
     [defaults setObject:encodedObject forKey:kUserDefaultsSelectedLanguageData];
     [defaults synchronize];
     
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:languageCode];
-    [[Lokalise sharedObject] setLocalizationLocale:locale makeDefault:false completion:^(NSError * _Nullable error) {
-        NSLog(@"Lokalise setLocalizationLocale with error %@", error);
-    }];
+    [SYLocalization.sharedService setLanguageCode:languageCode];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationLanguageDidChangeNotificationName object:nil];
 }
@@ -292,6 +289,21 @@ static NSString * const kUserDefaultsSavedFcmToken = @"appSettingsSavedFcmToken"
 #endif
 
     return BASE_SOCKET_URL;
+}
+
+- (NSString *)baseAPIURL {
+#if PROD
+    if ([self.selectedCountry.apiServiceCode isEqualToString:COUNTRY_CODE_ROM] ||
+        [self.selectedCountry.apiServiceCode isEqualToString:COUNTRY_CODE_POL]) {
+        return BASE_API_URL_ROM;
+    }
+
+    if ([self.selectedCountry.apiServiceCode isEqualToString:COUNTRY_CODE_USA]) {
+        return BASE_API_URL_USA;
+    }
+#endif
+
+    return BASE_API_URL;
 }
 
 - (NSString *)baseResourceURL {

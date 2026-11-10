@@ -16,15 +16,9 @@
 #import <AFNetworking.h>
 #import "PhotoGalleryViewController.h"
 #import "SocketIOManager.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "UIColor+UIImage.h"
-#import "FBSDKCoreKit/FBSDKSettings.h"
-#import <Lokalise/Lokalise.h>
+#import "SYLocalizationService.h"
 #import <UserNotifications/UserNotifications.h>
-
-@import FBSDKCoreKit;
-
-
 
 @interface AppDelegate () <CLLocationManagerDelegate, UNUserNotificationCenterDelegate>
 
@@ -39,10 +33,9 @@
     // Override point for customization after application launch.
     
     [Settings sharedInstance];
+    [SYLocalization.sharedService start];
     [self accessUserLocation];
-    FBSDKSettings.sharedSettings.advertiserTrackingEnabled = YES;
-    
-    
+
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInternetConnectionAlert) name:NoInternetConnectionNotificationName object:nil];
 
@@ -54,26 +47,11 @@
     
     [self authorizeForRemoteNotifications];
     
-    [self configureFirebase];
-    
     [self clearBadgeIconCount];
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]) {
         NSDictionary *notUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         [Settings sharedInstance].receivedRemoteNotification = [[RemoteNotification alloc] initWithDictionary:notUserInfo];
     }
-    
-    [[FBSDKSettings sharedSettings] setAdvertiserTrackingEnabled:YES];
-
-    [[FBSDKApplicationDelegate sharedInstance] application:application
-                             didFinishLaunchingWithOptions:launchOptions];
-
-    
-    [[Lokalise sharedObject] setProjectID:LOKALISE_PROJECT_ID token:LOKALISE_TOKEN];
-    [[Lokalise sharedObject] swizzleMainBundle];
-#if DEBUG
-    [Lokalise sharedObject].localizationType = LokaliseLocalizationPrerelease;
-#endif
-    
     return YES;
 }
 
@@ -84,15 +62,6 @@
             options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
     return YES;
-}
-
-- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts
-API_AVAILABLE(ios(13.0)) API_AVAILABLE(ios(13.0)){
-  UIOpenURLContext *context = URLContexts.allObjects.firstObject;
-  [FBSDKApplicationDelegate.sharedInstance application:UIApplication.sharedApplication
-                                               openURL:context.URL
-                                     sourceApplication:context.options.sourceApplication
-                                            annotation:context.options.annotation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -126,12 +95,7 @@ API_AVAILABLE(ios(13.0)) API_AVAILABLE(ios(13.0)){
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [[Lokalise sharedObject] checkForUpdatesWithCompletion:^(BOOL updated, NSError * _Nullable error) {
-            NSLog(@"Lokalise Updated %d\nError: %@", updated, error);
-        if (updated) {
-            NSLog(@"checkForUpdatesWithCompletion push_hold_text_key %@", LOC(@"push_hold_text_key"));
-        }
-    }];
+    [SYLocalization.sharedService checkForUpdates];
 }
 
 
@@ -304,50 +268,14 @@ didFailWithError:(NSError *)error
     
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    NSLog(@"sfsdf");
-}
-
-- (void)configureFirebase
-{
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    
-}
-
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     NSLog(@"Failed Device token");
-}
-
-- (void)firebaseApplication:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-
-    NSLog(@"%@", userInfo);
-
-    completionHandler(UIBackgroundFetchResultNewData);
-
-    // handle remote notifications
-    if (application.applicationState != UIApplicationStateActive) {
-
-    } else {
-        [self handlePushNotification:userInfo];
-    }
 }
 
 - (void)clearBadgeIconCount
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
-
-#pragma mark - HandlePushNotification
-
-- (void)handlePushNotification:(NSDictionary *)userInfo
-{
-    
-}
-
 
 @end

@@ -101,9 +101,9 @@ class TextSurveyViewController: SurveyBaseViewController, DialogViewDelegate {
         let activateCamouflageIconDialogView = DialogViewController.instansiateDialogView(with: .buttonAction)
         activateCamouflageIconDialogView.showCancelButton = true
         activateCamouflageIconDialogView.delegate = self
-        activateCamouflageIconDialogView.continueButtonText = NSLocalizedString("close_key", comment: "")
-        activateCamouflageIconDialogView.titleText = NSLocalizedString("close_survey_title_key", comment: "")
-        activateCamouflageIconDialogView.message = NSLocalizedString("close_survey_description_key", comment: "")
+        activateCamouflageIconDialogView.continueButtonText = Utilities.fetchTranslation(forKey: "close_key")
+        activateCamouflageIconDialogView.titleText = Utilities.fetchTranslation(forKey: "close_survey_title_key")
+        activateCamouflageIconDialogView.message = Utilities.fetchTranslation(forKey: "close_survey_description_key")
         addChild(activateCamouflageIconDialogView)
         self.view.addSubview(activateCamouflageIconDialogView.view)
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A42E2D906E2D36E8680906F /* SYLocalizationService.m in Sources */ = {isa = PBXBuildFile; fileRef = DB086549E6A0BDE7478752EA /* SYLocalizationService.m */; };
 		5009BD042610D95500BCCCA1 /* ConsultantNewRequestDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5009BD032610D95400BCCCA1 /* ConsultantNewRequestDataModel.m */; };
 		5009BD0826111E5000BCCCA1 /* ConsultantRequestStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5009BD0726111E5000BCCCA1 /* ConsultantRequestStatusCell.m */; };
 		500E23B72572F2E60077270B /* SecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 500E23B42572F2E50077270B /* SecurityViewController.m */; };
@@ -321,7 +322,6 @@
 		50E3A0AA246810CC00783B0A /* ChangePinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E3A0A8246810CC00783B0A /* ChangePinViewController.m */; };
 		50E3A0AB246810CC00783B0A /* ChangePinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50E3A0A9246810CC00783B0A /* ChangePinViewController.xib */; };
 		50E9F646273B0D4200BA4F0B /* UIColor+UIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E9F645273B0D4200BA4F0B /* UIColor+UIImage.m */; };
-		50EBCCD525C32C3500172E3B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50EBCCD325C32C3500172E3B /* GoogleService-Info.plist */; };
 		50EC3D0A2311F7A000E657C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50EC3D0C2311F7A000E657C0 /* Localizable.strings */; };
 		50EC3D132312825C00E657C0 /* SYDesignableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC3D122312825C00E657C0 /* SYDesignableTextField.m */; };
 		50EC3D17231288B300E657C0 /* ACFloatingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EC3D15231288B300E657C0 /* ACFloatingTextField.m */; };
@@ -357,6 +357,7 @@
 		529058FE2736A8E7003885E3 /* FiltersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 529058FD2736A8E7003885E3 /* FiltersView.m */; };
 		52E44BC22733533A00047547 /* FiltersCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E44BC12733533A00047547 /* FiltersCollectionViewFlowLayout.m */; };
 		52F3B5EA2731A95400B158FC /* FilterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F3B5E92731A95400B158FC /* FilterViewModel.m */; };
+		55164459C2AB4D6C4193D17C /* SYMapKitViewProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F78D8851AEC3094535C427D4 /* SYMapKitViewProvider.m */; };
 		57338C9BB1998A5E10A33283 /* libPods-SafeYou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73AAA3BF028F427E9C1760A7 /* libPods-SafeYou.a */; };
 		6D0106072A448406009ACB74 /* AudioMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0106062A448406009ACB74 /* AudioMessageCell.swift */; };
 		6D01060A2A448468009ACB74 /* AudioMessageLeftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0106092A448468009ACB74 /* AudioMessageLeftCell.xib */; };
@@ -408,6 +409,7 @@
 		6DF5F9512A7A8816000806DE /* ProfileQuestionsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5F9502A7A8816000806DE /* ProfileQuestionsDataModel.m */; };
 		6DF5F9552A7CFAA3000806DE /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5F9542A7CFAA3000806DE /* iOSDevCenters+GIF.swift */; };
 		6DFA9B1D2832F67D00A8CF1E /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFA9B1C2832F67D00A8CF1E /* PrivacyPolicyViewController.swift */; };
+		A0AF1FAF8E322475DAEE09ED /* SYMapViewProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A972725AC7348275ED1F2A /* SYMapViewProvider.m */; };
 		C553806127F24BA200E9556E /* MessageOptionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C553806027F24BA200E9556E /* MessageOptionButton.m */; };
 		C5B9CD2227EFA2AA00415EC4 /* SendMessageFileDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B9CD2127EFA2AA00415EC4 /* SendMessageFileDataModel.m */; };
 		C5B9CD2627F0583E00415EC4 /* MessageOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B9CD2527F0583E00415EC4 /* MessageOptionsView.m */; };
@@ -418,6 +420,8 @@
 		C5F202EE2815CBF9009B6F42 /* ReportCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F202ED2815CBF9009B6F42 /* ReportCategoryTableViewCell.m */; };
 		C5F202F02815CC15009B6F42 /* ReportCategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5F202EF2815CC15009B6F42 /* ReportCategoryTableViewCell.xib */; };
 		C5F48EC327EA58DA00A63B21 /* MessageFileDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F48EC227EA58DA00A63B21 /* MessageFileDataModel.m */; };
+		CD447B804CBA8D9D9EEF6712 /* SYLokaliseLocalizationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FFACEC2D3C6458B29F2CCE /* SYLokaliseLocalizationService.m */; };
+		D20D511A0CC2FDE4328F0454 /* SYBundleLocalizationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3154977E8B5F9A0A3028FF0A /* SYBundleLocalizationService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -450,6 +454,11 @@
 		20BA68D3D9A1663F7BF8578A /* Pods-SafeYou.qadebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SafeYou.qadebug.xcconfig"; path = "Pods/Target Support Files/Pods-SafeYou/Pods-SafeYou.qadebug.xcconfig"; sourceTree = "<group>"; };
 		24215C4F56E11E1EF4DE55FD /* Pods-SafeYou.qarelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SafeYou.qarelease.xcconfig"; path = "Pods/Target Support Files/Pods-SafeYou/Pods-SafeYou.qarelease.xcconfig"; sourceTree = "<group>"; };
 		28DF3AC98B46F12E2E3AFC0D /* Pods-SafeYou.prodrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SafeYou.prodrelease.xcconfig"; path = "Pods/Target Support Files/Pods-SafeYou/Pods-SafeYou.prodrelease.xcconfig"; sourceTree = "<group>"; };
+		2DF781297DE526CB8481078C /* SYMapKitViewProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SYMapKitViewProvider.h; sourceTree = "<group>"; };
+		3154977E8B5F9A0A3028FF0A /* SYBundleLocalizationService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SYBundleLocalizationService.m; sourceTree = "<group>"; };
+		32A972725AC7348275ED1F2A /* SYMapViewProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SYMapViewProvider.m; sourceTree = "<group>"; };
+		41852FF49EAAF6D81904D589 /* SYBundleLocalizationService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SYBundleLocalizationService.h; sourceTree = "<group>"; };
+		4696932CB3159E6C319DA8A1 /* SYLocalizationService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SYLocalizationService.h; sourceTree = "<group>"; };
 		5009BD022610D95400BCCCA1 /* ConsultantNewRequestDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsultantNewRequestDataModel.h; sourceTree = "<group>"; };
 		5009BD032610D95400BCCCA1 /* ConsultantNewRequestDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConsultantNewRequestDataModel.m; sourceTree = "<group>"; };
 		5009BD0626111E5000BCCCA1 /* ConsultantRequestStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsultantRequestStatusCell.h; sourceTree = "<group>"; };
@@ -1003,7 +1012,6 @@
 		50E3A0A9246810CC00783B0A /* ChangePinViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePinViewController.xib; sourceTree = "<group>"; };
 		50E9F644273B0D4200BA4F0B /* UIColor+UIImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+UIImage.h"; sourceTree = "<group>"; };
 		50E9F645273B0D4200BA4F0B /* UIColor+UIImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+UIImage.m"; sourceTree = "<group>"; };
-		50EBCCD325C32C3500172E3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		50EBCD0725C344DF00172E3B /* SafeYou.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SafeYou.entitlements; sourceTree = "<group>"; };
 		50EC3D0B2311F7A000E657C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		50EC3D0D2311F7A500E657C0 /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1073,8 +1081,10 @@
 		52E44BC12733533A00047547 /* FiltersCollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FiltersCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		52F3B5E82731A95400B158FC /* FilterViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterViewModel.h; sourceTree = "<group>"; };
 		52F3B5E92731A95400B158FC /* FilterViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterViewModel.m; sourceTree = "<group>"; };
+		5BE200F096BD04DE71879B74 /* az */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = az; path = az.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5F266459FC57B6EF3D586C0F /* Pods-SafeYou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SafeYou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SafeYou/Pods-SafeYou.debug.xcconfig"; sourceTree = "<group>"; };
 		650CC64276509F81D9EA9F7B /* Pods-SafeYou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SafeYou.release.xcconfig"; path = "Pods/Target Support Files/Pods-SafeYou/Pods-SafeYou.release.xcconfig"; sourceTree = "<group>"; };
+		66CEE6E2CB1E4B8D6658286A /* SYLokaliseLocalizationService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SYLokaliseLocalizationService.h; sourceTree = "<group>"; };
 		6D0106062A448406009ACB74 /* AudioMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessageCell.swift; sourceTree = "<group>"; };
 		6D0106092A448468009ACB74 /* AudioMessageLeftCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageLeftCell.xib; sourceTree = "<group>"; };
 		6D01060B2A44DD15009ACB74 /* AudioMessageRightCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioMessageRightCell.xib; sourceTree = "<group>"; };
@@ -1149,7 +1159,10 @@
 		6DF653A72899CFE3005CBD83 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6DF653A82899CFE3005CBD83 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6DFA9B1C2832F67D00A8CF1E /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		729AF6E41CD646CF52B9C71F /* Base.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		73AAA3BF028F427E9C1760A7 /* libPods-SafeYou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SafeYou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84FFACEC2D3C6458B29F2CCE /* SYLokaliseLocalizationService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SYLokaliseLocalizationService.m; sourceTree = "<group>"; };
+		9B13A6392ADF1F8885E45419 /* Secrets.example.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Secrets.example.xcconfig; sourceTree = "<group>"; };
 		B46D2D61344C97EDA34129B7 /* Pods-SafeYou.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SafeYou.qa.xcconfig"; path = "Pods/Target Support Files/Pods-SafeYou/Pods-SafeYou.qa.xcconfig"; sourceTree = "<group>"; };
 		C553805F27F24BA200E9556E /* MessageOptionButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageOptionButton.h; sourceTree = "<group>"; };
 		C553806027F24BA200E9556E /* MessageOptionButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageOptionButton.m; sourceTree = "<group>"; };
@@ -1169,6 +1182,9 @@
 		C5F202EF2815CC15009B6F42 /* ReportCategoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportCategoryTableViewCell.xib; sourceTree = "<group>"; };
 		C5F48EC127EA58DA00A63B21 /* MessageFileDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageFileDataModel.h; sourceTree = "<group>"; };
 		C5F48EC227EA58DA00A63B21 /* MessageFileDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageFileDataModel.m; sourceTree = "<group>"; };
+		C89AF62452CA18B3E56CAC94 /* SYMapViewProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SYMapViewProvider.h; sourceTree = "<group>"; };
+		DB086549E6A0BDE7478752EA /* SYLocalizationService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SYLocalizationService.m; sourceTree = "<group>"; };
+		F78D8851AEC3094535C427D4 /* SYMapKitViewProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SYMapKitViewProvider.m; sourceTree = "<group>"; };
 		FCD7E2F3879ED1361773CB94 /* Pods-SafeYou.developdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SafeYou.developdebug.xcconfig"; path = "Pods/Target Support Files/Pods-SafeYou/Pods-SafeYou.developdebug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -3305,7 +3321,6 @@
 			children = (
 				50F0A7A2234149870084B6B4 /* SampleSwiftFile.swift */,
 				505A717B23266B62000119DC /* SafeYou-Prefix.pch */,
-				50EBCCD325C32C3500172E3B /* GoogleService-Info.plist */,
 				503F3DA42366349B00AF2F07 /* FakeView */,
 				50D633462301EEB000ADE02C /* SafeYou */,
 				505DC60F2310A3FD00D67BD5 /* Resources */,
@@ -3315,6 +3330,7 @@
 				919442C69D48F9F5B09BF42E /* Pods */,
 				968E188E49BE0908103AA271 /* Frameworks */,
 				50F0A79F234149030084B6B4 /* SafeYou-Bridging-Header.h */,
+				A25881F56ADDEDE739E4E56A /* Config */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3366,6 +3382,7 @@
 				505DC5C7230D057E00D67BD5 /* UI */,
 				505BFF172314742F00190C48 /* Utilities */,
 				5023A0742325A0A8003362FE /* WebService */,
+				B5111EC8F4DB5430E6625D28 /* Services */,
 			);
 			path = SafeYou;
 			sourceTree = "<group>";
@@ -3766,6 +3783,32 @@
 			path = FilterViewModel;
 			sourceTree = "<group>";
 		};
+		58F2EE18F9A1010B3A12C144 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				C89AF62452CA18B3E56CAC94 /* SYMapViewProvider.h */,
+				32A972725AC7348275ED1F2A /* SYMapViewProvider.m */,
+				2DF781297DE526CB8481078C /* SYMapKitViewProvider.h */,
+				F78D8851AEC3094535C427D4 /* SYMapKitViewProvider.m */,
+			);
+			name = Map;
+			path = Map;
+			sourceTree = "<group>";
+		};
+		595D1A056DCCB371A335DF3E /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				4696932CB3159E6C319DA8A1 /* SYLocalizationService.h */,
+				DB086549E6A0BDE7478752EA /* SYLocalizationService.m */,
+				41852FF49EAAF6D81904D589 /* SYBundleLocalizationService.h */,
+				3154977E8B5F9A0A3028FF0A /* SYBundleLocalizationService.m */,
+				66CEE6E2CB1E4B8D6658286A /* SYLokaliseLocalizationService.h */,
+				84FFACEC2D3C6458B29F2CCE /* SYLokaliseLocalizationService.m */,
+			);
+			name = Localization;
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		6D02DCE22A79037200A64DFE /* ProfileQuestionsAnswersDataModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3973,6 +4016,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A25881F56ADDEDE739E4E56A /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				729AF6E41CD646CF52B9C71F /* Base.xcconfig */,
+				9B13A6392ADF1F8885E45419 /* Secrets.example.xcconfig */,
+			);
+			name = Config;
+			path = Config;
+			sourceTree = "<group>";
+		};
+		B5111EC8F4DB5430E6625D28 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				595D1A056DCCB371A335DF3E /* Localization */,
+				58F2EE18F9A1010B3A12C144 /* Map */,
+			);
+			name = Services;
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C553805D27F24B9000E9556E /* MessageOptionButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -4060,7 +4123,6 @@
 				50D633412301EEB000ADE02C /* Frameworks */,
 				50D633422301EEB000ADE02C /* Resources */,
 				CD62C09ECD80617A840F9B14 /* [CP] Copy Pods Resources */,
-				6D32022A29884D9C0066A15D /* ShellScript */,
 				551332611E83E238DBFD120D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -4275,7 +4337,6 @@
 				5050105C245FDAD000FCBB25 /* MoreViewTableViewSwitchCell.xib in Resources */,
 				504F79B52BACBCC0003EE0E1 /* Introduction.storyboard in Resources */,
 				505DC6442310A57A00D67BD5 /* HayRoboto-MediumItalic.ttf in Resources */,
-				50EBCCD525C32C3500172E3B /* GoogleService-Info.plist in Resources */,
 				505BFF2223148A7000190C48 /* MainTabbar.storyboard in Resources */,
 				505DC6422310A57A00D67BD5 /* HayRoboto-Italic.ttf in Resources */,
 				5020D79E2582C2C8006F0D6C /* AppIconAlternate1@2x.png in Resources */,
@@ -4340,37 +4401,14 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SafeYou/Pods-SafeYou-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SafeYou/Pods-SafeYou-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SafeYou/Pods-SafeYou-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		6D32022A29884D9C0066A15D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		CD62C09ECD80617A840F9B14 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4380,13 +4418,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SafeYou/Pods-SafeYou-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SafeYou/Pods-SafeYou-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4692,6 +4726,11 @@
 				5023A052232542EF003362FE /* MyProfileNavigationTableViewCell.m in Sources */,
 				505DC5CF230D54B800D67BD5 /* SYDesignableButton.m in Sources */,
 				503EDA24231AC1CA005BA7F8 /* VerifyPhoneNumberViewController.m in Sources */,
+				3A42E2D906E2D36E8680906F /* SYLocalizationService.m in Sources */,
+				D20D511A0CC2FDE4328F0454 /* SYBundleLocalizationService.m in Sources */,
+				CD447B804CBA8D9D9EEF6712 /* SYLokaliseLocalizationService.m in Sources */,
+				A0AF1FAF8E322475DAEE09ED /* SYMapViewProvider.m in Sources */,
+				55164459C2AB4D6C4193D17C /* SYMapKitViewProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4782,6 +4821,7 @@
 				6D9B71982874CC710030A6A4 /* uk */,
 				6DF653A82899CFE3005CBD83 /* ru */,
 				6DDE8B8B2A8112D5004D7EC0 /* ka */,
+				5BE200F096BD04DE71879B74 /* az */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4791,6 +4831,7 @@
 /* Begin XCBuildConfiguration section */
 		50C85EA52BCF197B00FE3D77 /* QADebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 729AF6E41CD646CF52B9C71F /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_ICON_NAME_SUFFIX = QA;
@@ -4950,6 +4991,7 @@
 		};
 		50C85EA92BCF198500FE3D77 /* QARelease */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 729AF6E41CD646CF52B9C71F /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_ICON_NAME_SUFFIX = QA;
@@ -5102,6 +5144,7 @@
 		};
 		50C85EAD2BCF199A00FE3D77 /* DevelopDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 729AF6E41CD646CF52B9C71F /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_ICON_NAME_SUFFIX = Dev;
@@ -5261,6 +5304,7 @@
 		};
 		50C85EB12BCF19A500FE3D77 /* DevelopRelease */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 729AF6E41CD646CF52B9C71F /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_ICON_NAME_SUFFIX = Dev;
@@ -5413,6 +5457,7 @@
 		};
 		50C85EB52BCF19B500FE3D77 /* ProdDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 729AF6E41CD646CF52B9C71F /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_ICON_NAME_SUFFIX = "";
@@ -5572,6 +5617,7 @@
 		};
 		50C85EB92BCF19CF00FE3D77 /* ProdRelease */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 729AF6E41CD646CF52B9C71F /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_ICON_NAME_SUFFIX = "";
@@ -5724,6 +5770,7 @@
 		};
 		50D6336E2301EEB100ADE02C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 729AF6E41CD646CF52B9C71F /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_ICON_NAME_SUFFIX = Dev;
@@ -5787,6 +5834,7 @@
 		};
 		50D6336F2301EEB100ADE02C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 729AF6E41CD646CF52B9C71F /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_ICON_NAME_SUFFIX = "";

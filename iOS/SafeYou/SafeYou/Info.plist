@@ -73,14 +73,10 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>FacebookAdvertiserIDCollectionEnabled</key>
-	<true/>
-	<key>FacebookAppID</key>
-	<string>840840443516158</string>
-	<key>FacebookAutoLogAppEventsEnabled</key>
-	<true/>
-	<key>FacebookDisplayName</key>
-	<string>Safe YOU</string>
+	<key>LokaliseProjectID</key>
+	<string>$(LOKALISE_PROJECT_ID)</string>
+	<key>LokaliseToken</key>
+	<string>$(LOKALISE_TOKEN)</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>

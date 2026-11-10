@@ -93,11 +93,12 @@ MODEL_PROPERTY = [nilOrJSONObjectForKey(DICT, KEY) integerValue];\
 
 #define NGO_IDS_TO_SHOW_CHAT_FOR_MINOR_USERS @[@"2", @"4"]
 
-#define LOKALISE_PROJECT_ID @"47963900637dec2ad61179.93074838"
-#define LOKALISE_TOKEN @"68c3ce9d205e30d9a9f18000226536e4eae81b91"
-
 #define IS_OPEN_SURVEY_NOTIFICATION_SHOWN @"kIsOpenSurveyNotificationShown"
 #define OPEN_SURVEY_STORYBOARD_SEGUE @"showOpenSurveyViewController"
+
+#define COUNTRY_CODE_ROM @"rom"
+#define COUNTRY_CODE_USA @"usa"
+#define COUNTRY_CODE_POL @"pol"
 
 typedef NS_ENUM(NSUInteger, SYRemotContentType) {
     SYRemotContentTypeUnknown,
