@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuForum"
+        android:checked="true"
+        android:icon="@drawable/icon_forum_gray"
+        android:title="@string/forums_title_key" />
+
+    <item
+        android:id="@+id/menuNetwork"
+        android:icon="@drawable/icon_network_gray"
+        android:title="@string/network_title" />
+
+    <item
+        android:id="@+id/menuHelp"
+        android:title="@null" />
+
+    <item
+        android:id="@+id/menuProfile"
+        android:icon="@drawable/icon_messages_gray"
+        android:title="@string/messages" />
+
+    <item
+        android:id="@+id/menuOther"
+        android:icon="@drawable/icon_menu_gray"
+        android:title="@string/title_menu" />
+</menu>

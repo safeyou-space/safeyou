@@ -1,0 +1,96 @@
+PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
+  - DZNEmptyDataSet (1.8.1)
+  - Lokalise (0.10.2)
+  - MBProgressHUD (1.2.0)
+  - NYTPhotoViewer (5.0.5):
+    - NYTPhotoViewer/AnimatedGifSupport (= 5.0.5)
+    - NYTPhotoViewer/Core (= 5.0.5)
+  - NYTPhotoViewer/AnimatedGifSupport (5.0.5):
+    - NYTPhotoViewer/Core
+    - PINRemoteImage/iOS (~> 3.0.1)
+    - PINRemoteImage/PINCache
+  - NYTPhotoViewer/Core (5.0.5)
+  - PINCache (3.0.3):
+    - PINCache/Arc-exception-safe (= 3.0.3)
+    - PINCache/Core (= 3.0.3)
+  - PINCache/Arc-exception-safe (3.0.3):
+    - PINCache/Core
+  - PINCache/Core (3.0.3):
+    - PINOperation (~> 1.2.1)
+  - PINOperation (1.2.1)
+  - PINRemoteImage/Core (3.0.3):
+    - PINOperation
+  - PINRemoteImage/iOS (3.0.3):
+    - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.3):
+    - PINCache (~> 3.0.3)
+    - PINRemoteImage/Core
+  - SDWebImage (5.12.1):
+    - SDWebImage/Core (= 5.12.1)
+  - SDWebImage/Core (5.12.1)
+  - Socket.IO-Client-Swift (15.2.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.1)
+  - TTTAttributedLabel (2.0.0)
+  - "UITextView+Placeholder (1.4.0)"
+
+DEPENDENCIES:
+  - AFNetworking (~> 4.0)
+  - DZNEmptyDataSet
+  - Lokalise
+  - MBProgressHUD
+  - NYTPhotoViewer
+  - SDWebImage
+  - Socket.IO-Client-Swift (~> 15.2.0)
+  - TTTAttributedLabel
+  - "UITextView+Placeholder"
+
+SPEC REPOS:
+  trunk:
+    - AFNetworking
+    - DZNEmptyDataSet
+    - Lokalise
+    - MBProgressHUD
+    - NYTPhotoViewer
+    - PINCache
+    - PINOperation
+    - PINRemoteImage
+    - SDWebImage
+    - Socket.IO-Client-Swift
+    - Starscream
+    - TTTAttributedLabel
+    - "UITextView+Placeholder"
+
+SPEC CHECKSUMS:
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Lokalise: 252c397887dfd9983331abffa90ab60cdb004e19
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  NYTPhotoViewer: 6f50ea92f265d54a350b39a7ab7a1b91ca487ff6
+  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
+  PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
+  PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
+  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
+  Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
+  "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
+
+PODFILE CHECKSUM: 8e690bfffb6650ec7950b4379224243694049f22
+
+COCOAPODS: 1.15.2

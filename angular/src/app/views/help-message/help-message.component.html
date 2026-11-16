@@ -1,0 +1,163 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <span class="pt-1 pb-1">Help Message</span>
+        <button class="btn btn-primary float-right pt-1 pb-1" (click)="showModal('add')">Add</button>
+      </div>
+      <div class="card-body">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+          <div class="row">
+            <div class="col-sm-12">
+
+              <no-result *ngIf="tableData && tableData['message']"></no-result>
+
+              <table *ngIf="tableData && !tableData['message']" class="table table-bordered table-striped table-sm indexTable" style="border-collapse: collapse !important">
+                <thead>
+                <tr role="row">
+                  <th>Message</th>
+                  <th style="width: 65px">Status</th>
+                  <th style="width: 90px">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" class="odd" *ngFor="let data of tableData, let i = index">
+                  <td> {{data?.message}}</td>
+                  <td>
+                    <span *ngIf="data?.status == 1" class="badge badge-success">Active</span>
+                    <span *ngIf="data?.status == 0" class="badge badge-secondary">In active</span>
+                  </td>
+
+
+                  <td class="actions">
+                    <a (click)="showModal('view' , data.id)">
+                      <i class="fa fa-eye cursor-pointer"></i>
+                    </a>
+                    <a (click)="showModal('edit', data.id)">
+                      <i class="fa fa-pencil cursor-pointer"></i>
+                    </a>
+                    <a (click)="showModal('delete', data.id)">
+                      <i class="fa fa-close cursor-pointer"></i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <pagination
+                *ngIf="requestService.paginationConfig.totalItems > requestService.paginationConfig.perPage"
+                [totalItems]="requestService.paginationConfig.totalItems"
+                [maxSize]="requestService.paginationConfig.paginationMaxSize"
+                [itemsPerPage]="requestService.paginationConfig.perPage"
+                (pageChanged)="pageChanged($event)">
+              </pagination>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" [config]="{ ignoreBackdropClick: true }" (onHidden)="onHidden()" class="modal fade"
+     tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog" [ngClass]="requestType === 'delete' ? 'gray modal-sm' : requestType === 'view'  ? 'gray modal-lg' : 'gray modal-lg'">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="requestType != 'delete'">
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'add'">Create Help Message</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'view'">View Help Message</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'edit'">Edit Help Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="requestType == 'view'">
+        <div class="column-size" *ngIf="viewData">
+          <p><b>Message:</b> {{viewData?.message}}</p>
+          <p *ngFor="let i of viewData.translations">
+            <b>{{i?.language?.code}}:</b>  {{i?.translation}}
+          </p>
+          <p><b>Status:</b> {{viewData?.status ? 'Active': 'Inactive'}}</p>
+        </div>
+        <button type="button" class="btn btn-secondary float-right mr-2" (click)="hideChildModal()">Close</button>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'add' || requestType == 'edit'">
+        <form [formGroup]="modalForm">
+
+          <div class="row">
+
+            <div class="col-12">
+              <div class="form-group mb-4">
+                <label for="Message">Message <strong class="text-danger">*</strong></label>
+
+                <textarea [formControlName]="'message'" id="Message" placeholder="Message"
+                          class="form-control">
+
+                </textarea>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('message').hasError('required') && (modalForm.get('message').dirty || modalForm.get('message').touched)">
+                  Please enter your message
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('message').hasError('minlength') && (modalForm.get('message').dirty || modalForm.get('message').touched)">
+                  The message minimum 1 symbol.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row" formGroupName="translations">
+            <div class="col-6" *ngFor="let item of translationsForm.controls, let i = index" [formGroupName]="i">
+              <div class="form-group mb-4">
+                <label for="phone">
+                  <img style="max-width: 35px;" src="{{languageTranslations[i].image.url}}" alt="">
+                  {{languageTranslations[i].code}} / {{languageTranslations[i].title}}
+                  <strong class="text-danger">*</strong>
+                </label>
+                <textarea [formControlName]="objectKeys(item.value)[0]" type="text"
+                          class="form-control" id="phone"
+                          placeholder="{{languageTranslations[i].code}} / {{languageTranslations[i].title}}">
+                  </textarea>
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('translations')['controls'][i].get(objectKeys(item.value)[0]).hasError('required') &&
+                  (modalForm.get('translations')['controls'][i].get(objectKeys(item.value)[0]).dirty ||
+                  modalForm.get('translations')['controls'][i].get(objectKeys(item.value)[0]).touched)">
+                  Please enter your {{languageTranslations[i].title}}.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <p class="mb-2">Status</p>
+            <label class="switch switch-label switch-outline-primary-alt">
+              <input formControlName="status" class="switch-input" type="checkbox" checked="">
+              <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+            </label>
+          </div>
+
+          <button class="btn btn-success float-right" [disabled]="modalForm.invalid"
+                  (click)="formSubmit(modalForm.value)">Save
+          </button>
+          <button type="button" class="btn btn-secondary float-right mr-2" (click)="hideChildModal()">Close</button>
+
+        </form>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'delete'">
+        <p class="deletetext">Are you sure to delete this item?</p>
+        <div class="deletebutton">
+          <button class="btn btn-danger mr-1" (click)="delete()">Yes</button>
+          <button class="btn btn-primary ml-1" (click)="childModal.hide()">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

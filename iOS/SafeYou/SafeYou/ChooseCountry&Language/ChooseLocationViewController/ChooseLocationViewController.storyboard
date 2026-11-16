@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Choose Location View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="ChooseLocationViewController" id="Y6W-OH-hqX" customClass="ChooseLocationViewController" customModule="SafeYou" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B02-BR-KBs">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wky-1L-q48" customClass="SYCorneredButton">
+                                <rect key="frame" x="30" y="731" width="333" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="cft-es-WZc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Save"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="continueButtonTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="g7h-gR-OCB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6X-hQ-weS">
+                                <rect key="frame" x="30" y="796" width="333" height="37"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="dZ7-od-E13"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Af0-y7-wVo">
+                                <rect key="frame" x="15" y="74" width="363" height="637"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="cGn-UJ-sOi">
+                                        <rect key="frame" x="0.0" y="0.0" width="363" height="63.333333333333336"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="barTintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="cxP-sj-UU5"/>
+                                        </connections>
+                                    </searchBar>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="yGE-k6-vJz">
+                                        <rect key="frame" x="0.0" y="63.333333333333314" width="363" height="573.66666666666674"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="ChooseRegionTableViewCell" id="8qp-vm-z60" customClass="ChooseRegionTableViewCell" customModule="SafeYou" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="50" width="363" height="60.333332061767578"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8qp-vm-z60" id="zPN-Uo-YSt">
+                                                    <rect key="frame" x="0.0" y="0.0" width="363" height="60.333332061767578"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6SX-Dd-dch" customClass="SYDesignableView">
+                                                            <rect key="frame" x="0.0" y="2" width="363" height="56.333333333333336"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                                                    <integer key="value" value="17"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="8"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vRc-0C-Gv4" customClass="SYLabelRegular">
+                                                            <rect key="frame" x="32" y="22" width="86" height="19.333333333333329"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="14"/>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                                    <integer key="value" value="6"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radion_button_pink_empty" translatesAutoresizingMaskIntoConstraints="NO" id="lpV-iE-2BI" customClass="SYDesignableImageView">
+                                                            <rect key="frame" x="307" y="20.333333333333332" width="20" height="19.999999999999996"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="20" id="6Ah-bk-1yp"/>
+                                                                <constraint firstAttribute="height" constant="20" id="XcS-ON-8HM"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                                    <integer key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="radio_button_pink_selected" translatesAutoresizingMaskIntoConstraints="NO" id="qfK-X2-raf" customClass="SYDesignableImageView">
+                                                            <rect key="frame" x="307" y="20.333333333333332" width="20" height="19.999999999999996"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="20" id="8sN-u1-KTw"/>
+                                                                <constraint firstAttribute="height" constant="20" id="oMY-gT-xyX"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                                                    <integer key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="qfK-X2-raf" secondAttribute="trailing" constant="16" id="CAL-57-lDS"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="lpV-iE-2BI" secondAttribute="trailing" constant="16" id="HAF-fj-iEQ"/>
+                                                        <constraint firstItem="6SX-Dd-dch" firstAttribute="top" secondItem="zPN-Uo-YSt" secondAttribute="top" constant="2" id="L3G-f3-NKw"/>
+                                                        <constraint firstItem="vRc-0C-Gv4" firstAttribute="leading" secondItem="zPN-Uo-YSt" secondAttribute="leadingMargin" constant="12" id="Wa1-QH-glD"/>
+                                                        <constraint firstItem="6SX-Dd-dch" firstAttribute="leading" secondItem="zPN-Uo-YSt" secondAttribute="leading" id="mBB-51-idM"/>
+                                                        <constraint firstItem="qfK-X2-raf" firstAttribute="centerY" secondItem="zPN-Uo-YSt" secondAttribute="centerY" id="oCX-B5-fZz"/>
+                                                        <constraint firstItem="vRc-0C-Gv4" firstAttribute="top" secondItem="zPN-Uo-YSt" secondAttribute="topMargin" constant="10" id="psC-iZ-9go"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="vRc-0C-Gv4" secondAttribute="bottom" constant="7" id="snc-09-Mox"/>
+                                                        <constraint firstAttribute="bottom" secondItem="6SX-Dd-dch" secondAttribute="bottom" constant="2" id="vmF-JT-E5A"/>
+                                                        <constraint firstItem="lpV-iE-2BI" firstAttribute="centerY" secondItem="zPN-Uo-YSt" secondAttribute="centerY" id="ylO-wq-TC3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="6SX-Dd-dch" secondAttribute="trailing" id="yvh-ek-RM1"/>
+                                                        <constraint firstItem="lpV-iE-2BI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vRc-0C-Gv4" secondAttribute="trailing" constant="20" id="zE3-eV-Uwz"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="deselectImageView" destination="lpV-iE-2BI" id="nSB-NN-536"/>
+                                                    <outlet property="designableview" destination="6SX-Dd-dch" id="Qqu-Me-j6c"/>
+                                                    <outlet property="nameLabel" destination="vRc-0C-Gv4" id="39N-aS-C6f"/>
+                                                    <outlet property="selectImageview" destination="qfK-X2-raf" id="Vp5-c2-Ask"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Y6W-OH-hqX" id="506-19-sUb"/>
+                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="8CH-u1-Yew"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eja-0s-5S1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Wky-1L-q48" firstAttribute="top" secondItem="Af0-y7-wVo" secondAttribute="bottom" constant="20" id="76P-hX-xQ3"/>
+                            <constraint firstItem="eja-0s-5S1" firstAttribute="trailing" secondItem="Wky-1L-q48" secondAttribute="trailing" constant="30" id="Ud0-CJ-aQ0"/>
+                            <constraint firstItem="f6X-hQ-weS" firstAttribute="top" secondItem="Wky-1L-q48" secondAttribute="bottom" constant="15" id="UuK-2r-Unr"/>
+                            <constraint firstItem="f6X-hQ-weS" firstAttribute="centerX" secondItem="eja-0s-5S1" secondAttribute="centerX" id="X1I-Eq-dAb"/>
+                            <constraint firstItem="Wky-1L-q48" firstAttribute="leading" secondItem="eja-0s-5S1" secondAttribute="leading" constant="30" id="XKq-57-GQb"/>
+                            <constraint firstItem="Af0-y7-wVo" firstAttribute="leading" secondItem="eja-0s-5S1" secondAttribute="leading" constant="15" id="bb2-Yl-xcK"/>
+                            <constraint firstItem="eja-0s-5S1" firstAttribute="trailing" secondItem="Af0-y7-wVo" secondAttribute="trailing" constant="15" id="cwU-2S-5ds"/>
+                            <constraint firstItem="f6X-hQ-weS" firstAttribute="width" secondItem="Wky-1L-q48" secondAttribute="width" id="fVY-ej-cOa"/>
+                            <constraint firstItem="Wky-1L-q48" firstAttribute="centerX" secondItem="eja-0s-5S1" secondAttribute="centerX" id="oeX-Cs-P38"/>
+                            <constraint firstItem="Af0-y7-wVo" firstAttribute="top" secondItem="eja-0s-5S1" secondAttribute="top" constant="15" id="vSt-4i-iWV"/>
+                            <constraint firstItem="f6X-hQ-weS" firstAttribute="bottom" secondItem="eja-0s-5S1" secondAttribute="bottom" constant="15" id="wJ8-Mf-yz7"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="f6X-hQ-weS" id="nXp-S5-o3l"/>
+                        <outlet property="continueButton" destination="Wky-1L-q48" id="dX3-QK-32C"/>
+                        <outlet property="searchBar" destination="cGn-UJ-sOi" id="ggc-AY-aJR"/>
+                        <outlet property="stackView" destination="Af0-y7-wVo" id="PZ2-98-NOY"/>
+                        <outlet property="tableView" destination="yGE-k6-vJz" id="F1m-mu-E3b"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="111" y="4"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="Wky-1L-q48">
+            <size key="intrinsicContentSize" width="35" height="32"/>
+        </designable>
+        <designable name="lpV-iE-2BI">
+            <size key="intrinsicContentSize" width="16" height="16"/>
+        </designable>
+        <designable name="qfK-X2-raf">
+            <size key="intrinsicContentSize" width="16" height="16"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="radio_button_pink_selected" width="16" height="16"/>
+        <image name="radion_button_pink_empty" width="16" height="16"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

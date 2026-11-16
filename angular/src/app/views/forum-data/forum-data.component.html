@@ -1,0 +1,106 @@
+<div class="" style="background-color: #FDFAFE;"  #scrollMe  *ngIf="this.forumData">
+
+  <div class="header">
+    <div class="header-image"
+         [ngStyle]="{backgroundImage: 'url(' + this.forumData.image_path + ')'}"
+    >
+    </div>
+    <div class="container" style="padding-top: 10px;">
+      <h1 class="header-title">{{this.forumData.title}}</h1>
+      <p class="header-description">{{this.forumData.sub_title}}</p>
+    </div>
+  </div>
+  <div class="content">
+    <div class="container" style="width: 100%">
+      <div>
+        <div *ngFor="let item of this.forumData.comments">
+          <div *ngIf="item.my == false">
+            <div class="chat-block Id{{item.id}}">
+              <i *ngIf="access.indexOf('delete') != -1"
+                 (click)="deleteComment(item.id, item.group_id)"  class="fa fa-times float-right cursor-pointer c-red" aria-hidden="true"></i>
+              <div class="chat-info">
+                <div class="chat-image">
+                  <img src="{{item.image_path}}" alt="image">
+                </div>
+                <div class="chat-info-block">
+                  <h5 class="user-name">{{item.name}}
+                    <i *ngIf="item.consultant_id !== null" class="fa fa-check consultant_check" aria-hidden="true"></i>
+                  </h5>
+                  <span *ngIf="item.user_type !== 'VISITOR'" class="user-detail">{{item.user_type}}</span>
+                  <p class="user-block-text">{{item.message}}</p>
+                </div>
+              </div>
+            </div>
+            <a *ngIf="access.indexOf('reply') != -1" (click)="replyComment(item)"
+               class="cursor-pointer reply_button">Reply</a>
+            <div class="chat-setting">
+              <span class="chat-date">{{item.created_at | date: 'MMM d, y h:mm:ss a'}}</span>
+            </div>
+          </div>
+          <div *ngIf="item.my == true">
+            <div  class="chat-block my_comment Id{{item.id}}" >
+              <i *ngIf="access.indexOf('delete') != -1"
+                 (click)="deleteComment(item.id, item.group_id)" class="fa fa-times float-right cursor-pointer c-red" aria-hidden="true"></i>
+              <div class="chat-response-info">
+                <div class="chat-image">
+                  <img src="{{item.image_path}}" alt="image">
+                </div>
+                <div class="chat-info-block">
+                  <h5 class="user-name">{{item.name}}
+                    <i *ngIf="item.consultant_id !== null" class="fa fa-check consultant_check" aria-hidden="true"></i>
+                  </h5>
+                  <span *ngIf="item.user_type !== 'VISITOR'" class="user-detail">{{item.user_type}}</span>
+                  <p class="user-block-text">{{item.message}}</p>
+                </div>
+              </div>
+            </div>
+            <a *ngIf="access.indexOf('reply') != -1" (click)="replyComment(item)"
+               class="cursor-pointer reply_button">Reply</a>
+            <div class="chat-setting">
+              <span class="chat-date">{{item.created_at | date: 'MMM d, y h:mm:ss a'}}</span>
+            </div>
+          </div>
+          <div *ngFor="let key of item.reply, let i = index">
+            <div class="chat-response Id{{item.id}}" [ngClass]="key.my == true ? 'my_comment' : ''"  *ngIf="i < 2 || isShowReply">
+              <i *ngIf="access.indexOf('delete') != -1"
+                 (click)="deleteComment(key.id, key.group_id)" class="fa fa-times float-right cursor-pointer c-red" aria-hidden="true"></i>
+              <div class="chat-response-info">
+                <div class="chat-image">
+                  <img src="{{key.image_path}}" alt="image">
+                </div>
+                <div class="chat-info-block">
+                  <h5 class="user-name">{{key.name}}
+                    <i *ngIf="key.consultant_id !== null" class="fa fa-check consultant_check" aria-hidden="true"></i>
+                  </h5>
+                  <span *ngIf="key.user_type !== 'VISITOR'" class="user-detail">{{key.user_type}}</span>
+                  <p class="user-block-text">{{key.message}}</p>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="i < 2 || isShowReply" class="more_data">
+              <a *ngIf="access.indexOf('reply') != -1" (click)="replyComment(key)"
+                 class="cursor-pointer reply_button">Reply</a>
+              <div class="chat-setting">
+                <span class="chat-date">{{key.created_at | date: 'MMM d, y h:mm:ss a'}}</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="item.reply && item.reply.length > 2" class="more_data">
+            <a style="color: #9834B7" class="cursor-pointer" (click)="commentPage(item.group_id)">{{item.reply.length}} Replies | View More Replies</a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <div *ngIf="access.indexOf('create') != -1" class="send-message">
+          <form [formGroup]="messageForm">
+            <textarea formControlName="message" id="note" placeholder="Type a comment ..." class="input-message"></textarea>
+            <button [disabled]="messageForm.invalid" type="submit"
+                    (click)="sendMessage(messageForm.value)" class="send-button"  style="border: 0; background: transparent">
+              <img src="/upload/images/InputArrow.png" alt="send">
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="loading" *ngIf="this.loading">
+  <div>
+    <div class="c1"></div>
+    <div class="c2"></div>
+    <div class="c3"></div>
+    <div class="c4"></div>
+  </div>
+  <span>Loading . . .</span>
+</div>
+<app-header
+  [navbarBrandRouterLink]="['/administrator/' + requestService.activeCountryCode +'/dashboard']"
+  [fixed]="true"
+  [navbarBrandFull]="{src: '/dist/assets/img/logo-1.png', alt: 'Safe You'}"
+  [navbarBrandMinimized]="{src: '/favicon.png', width: 30, height: 30, alt: 'Safe You'}"
+  [sidebarToggler]="'lg'"
+  [asideMenuToggler]="'lg'">
+  <ul class="nav navbar-nav ml-auto">
+    <li *ngIf="requestService.userInfo.isSuperAdmin == 'true'" class="nav-item" (click)="dropdown.toggle(true)">
+
+      <a class="nav-link cursor-pointer" style="color:#e3ecf5; margin-right: 15px;">
+        <i class="icon-envelope-letter"></i><span style="left: 19px;" class="badge badge-pill badge-info">{{requestService.notificationList.length}}</span>
+      </a>
+
+    </li>
+
+    <li class="border-none"
+         dropdown #dropdown="bs-dropdown" [autoClose]="true" >
+      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right pt-0 rg-7 border-none dropdown-notification"
+          role="menu" aria-labelledby="button-triggers-manual">
+        <li class="dropdown-header bg-light border-none">
+          <strong>
+            You have {{requestService.notificationList.length}} notifications
+          </strong>
+        </li>
+        <li role="menuitem" [ngClass]="requestService.notificationList.length > 4 ? 'notification_heigth' : ''">
+          <a *ngFor="let item of requestService.notificationList"
+             (click)="removeNotification(item.id); dropdown.toggle(true)"
+             [routerLink]="['/administrator/' + requestService.activeCountryCode +'/contact-us-reply', item.id]"
+             class="dropdown-item dropdown-notification-item border-none" style="min-width: 310px;">
+            <div class="message" style="width: 100%">
+              <div class="py-3 mfe-3 float-left">
+                <div class="c-avatar">
+                  <img class="c-avatar-img" src="/dist/assets/img/avatars/4.jpg" alt="user@email.com">
+                </div>
+              </div>
+              <div>
+                <small class="text-muted">{{item.name}}</small>
+                <small class="text-muted float-right mt-1">{{item.created_at}}</small>
+              </div>
+              <div class="text-truncate font-weight-bold">
+                <span class="text-danger">!</span> {{item.email}}</div>
+              <div class="small text-muted text-truncate">
+                {{item.message | slice:0:100}}
+              </div>
+            </div>
+          </a>
+        </li>
+        <a class="dropdown-item text-center border-top bg-info view_all_messages" (click)="dropdown.toggle(true)"
+           routerLink="/administrator/{{requestService.activeCountryCode}}/contact-us">
+          <strong >View all messages</strong>
+        </a>
+      </ul>
+    </li>
+
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+         dropdownToggle (click)="false">
+        <span class="user_name">{{requestService.userInfo.first_name | slice:0:70}}</span>
+        <img src="{{requestService.userInfo.image}}" class="img-avatar" style="width: 35px;" alt="avatar"/>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right cursor-pointer" *dropdownMenu aria-labelledby="simple-dropdown">
+        <a class="dropdown-item" (click)="logOut()"><i class="fa fa-lock"></i> Logout</a>
+        <a *ngIf="requestService.userInfo.isSuperAdmin == 'true'" class="dropdown-item"
+           routerLink="/administrator/{{requestService.activeCountryCode}}/change-country">
+          <i class="fa fa-globe"></i> Change Country
+        </a>
+        <a *ngIf="requestService.userInfo.isSuperAdmin != 'true'" class="dropdown-item"
+           routerLink="/administrator/{{requestService.activeCountryCode}}/password/email">
+          <i class="fa fa-cog"></i> Profile settings
+        </a>
+      </div>
+    </li>
+  </ul>
+</app-header>
+<div class="app-body">
+  <app-sidebar [fixed]="true" [display]="'lg'">
+    <app-sidebar-nav [navItems]="requestService.menuItems" [perfectScrollbar]
+                     [disabled]="sidebarMinimized"></app-sidebar-nav>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+  </app-sidebar>
+  <!-- Main content -->
+  <main class="main">
+    <cui-breadcrumb>
+    </cui-breadcrumb>
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div><!-- /.container-fluid -->
+  </main>
+</div>
+<app-footer>
+  <span style="margin-left: 16px;"><a>©{{ dateObj | date:'yyyy' }}    Safe You.</a> All rights reserved.</span>
+  <span class="ml-auto">Powered by <a target="_blank" href="http://fambox.pro">Fambox</a></span>
+</app-footer>
+<ngx-alerts></ngx-alerts>

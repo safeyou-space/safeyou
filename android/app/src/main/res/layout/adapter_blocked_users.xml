@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:paddingTop="11dp"
+    android:paddingBottom="11dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp"
+    android:background="@color/otherContainerElementsColor"
+    android:layout_marginBottom="1dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/blockedUserImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:id="@+id/blockedUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/blockedUserImage"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:layout_toEndOf="@id/blockedUserImage"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:layout_toStartOf="@+id/deleteBlockedUser"
+        android:text="User Name"
+        android:layout_centerVertical="true"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/blockedRepliedTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hay_roboto_light"
+        android:textColor="@color/colorSeparatorMaritalStatus"
+        android:layout_toEndOf="@id/blockedUserImage"
+        android:layout_below="@id/blockedUserName"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/deleteBlockedUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:minHeight="48dp"
+        android:minWidth="48dp"
+        android:padding="15dp"
+        android:layout_below="@id/blockedUserName"
+        android:src="@drawable/icon_delete_comment"
+        android:contentDescription="@string/unblock_user_descryption"
+        android:layout_alignTop="@id/blockedUserImage"
+        android:layout_alignParentEnd="true"
+        app:tint="@color/new_main_icon_tint_color" />
+
+</RelativeLayout>

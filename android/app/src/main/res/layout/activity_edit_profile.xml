@@ -1,0 +1,557 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragmentsBackgroundColors"
+    android:orientation="vertical"
+    tools:context=".view.EditProfileActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileCompleteProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/otherContainerElementsColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profileCompleteProgressContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/profile_progress_bg"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/progressTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/hay_roboto_bold"
+                android:gravity="center"
+                android:text="60%"
+                android:textColor="@color/textPurpleColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/profileProgress"
+                app:layout_constraintEnd_toEndOf="@id/profileProgress"
+                app:layout_constraintStart_toStartOf="@id/profileProgress"
+                app:layout_constraintTop_toTopOf="@id/profileProgress" />
+
+            <ProgressBar
+                android:id="@+id/profileProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/_75sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="40"
+                android:progressDrawable="@drawable/profile_progress_style"
+                android:secondaryProgress="100"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profileProgress"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/profileCompletenessTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/hay_roboto_medium"
+                    android:text='@string/profile_completeness'
+                    android:textColor="@color/sort_by_textColor"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/profileCompletenessDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="7dp"
+                    android:fontFamily="@font/hay_roboto_medium"
+                    android:text='@string/profile_completeness_description'
+                    android:textColor="@color/fewBlack"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileCompleteProgress">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/otherContainerElementsColor"
+                android:minHeight="@dimen/_100sdp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgUserForChange"
+                    android:layout_width="@dimen/_75sdp"
+                    android:layout_height="@dimen/_75sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:contentDescription="@string/profile_picture_title_key"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnChangeImage"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="15dp"
+                    android:src="@drawable/change_photo_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/imgUserForChange"
+                    app:layout_constraintEnd_toEndOf="@id/imgUserForChange" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:text="@string/profile_picture_title_key"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgUserForChange"
+                    app:layout_constraintStart_toEndOf="@id/imgUserForChange"
+                    app:layout_constraintTop_toTopOf="@id/imgUserForChange" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@color/otherContainerElementsColor"
+                android:minHeight="@dimen/_55sdp">
+
+                <TextView
+                    android:id="@+id/txtNickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="start"
+                    android:text="@string/nick_name_title_key"
+                    android:textColor="@color/settings_gray_color"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/edtChangeNickName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtChangeNickName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:background="@color/transparent"
+                    android:ems="15"
+                    android:enabled="false"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:hint="@string/nickname_placeholder"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/nickNameErrorIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtNickname" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/nickNameErrorIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/icon_report"
+                    android:backgroundTint="@color/red"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/edtChangeNickName"
+                    app:layout_constraintEnd_toStartOf="@+id/btnChangeNickName"
+                    app:layout_constraintTop_toTopOf="@+id/edtChangeNickName" />
+
+                <ToggleButton
+                    android:id="@+id/btnChangeNickName"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:button="@drawable/toggle_selector"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/statusBarColorPurpleDark"
+                    android:textOff=""
+                    android:textOn=""
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edtChangeNickName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edtChangeNickName" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@color/otherContainerElementsColor"
+                android:minHeight="@dimen/_55sdp">
+
+                <TextView
+                    android:id="@+id/txtUserId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="start"
+                    android:text="@string/user_id"
+                    android:textColor="@color/settings_gray_color"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/txtUserIdStatus"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtUserIdStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:background="@color/transparent"
+                    android:ems="15"
+                    android:enabled="false"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtUserId"
+                    tools:ignore="TextViewEdits" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--            /************************-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@color/otherContainerElementsColor"
+                android:minHeight="@dimen/_55sdp">
+
+                <TextView
+                    android:id="@+id/txtFirstName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="start"
+                    android:text="@string/first_name_title_key"
+                    android:textColor="@color/settings_gray_color"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/edtFirstName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtFirstName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:background="@color/transparent"
+                    android:ems="15"
+                    android:enabled="false"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtFirstName" />
+
+                <ToggleButton
+                    android:id="@+id/btnEditFirstName"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/_1sdp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:button="@drawable/toggle_selector"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/statusBarColorPurpleDark"
+                    android:textOff=""
+                    android:textOn=""
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edtFirstName" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@color/otherContainerElementsColor"
+                android:minHeight="@dimen/_55sdp">
+
+                <TextView
+                    android:id="@+id/txtLastName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="start"
+                    android:text="@string/last_name_title_key"
+                    android:textColor="@color/settings_gray_color"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/edtLastName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtLastName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:background="@color/transparent"
+                    android:ems="15"
+                    android:enabled="false"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtLastName" />
+
+                <ToggleButton
+                    android:id="@+id/btnEditSurname"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/_1sdp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:button="@drawable/toggle_selector"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/statusBarColorPurpleDark"
+                    android:textOff=""
+                    android:textOn=""
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edtLastName" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerEditMaritalStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@color/otherContainerElementsColor"
+                android:minHeight="@dimen/_55sdp">
+
+                <TextView
+                    android:id="@+id/txtMaritalStatusTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="start"
+                    android:text="@string/marital_status_text_key"
+                    android:textColor="@color/settings_gray_color"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/txtMaritalStatus"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/txtMaritalStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:background="@color/transparent"
+                    android:ems="15"
+                    android:enabled="false"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtMaritalStatusTitle"
+                    tools:ignore="TextViewEdits" />
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/_17sdp"
+                    android:padding="15dp"
+                    android:src="@drawable/new_arrow_icon_purple"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/new_main_icon_tint_color" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:background="@color/otherContainerElementsColor"
+                android:minHeight="@dimen/_55sdp">
+
+                <TextView
+                    android:id="@+id/txtPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="start"
+                    android:text="@string/mobile_phone_number"
+                    android:textColor="@color/settings_gray_color"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/edtPhoneNumber"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/edtPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:background="@color/transparent"
+                    android:fontFamily="@font/hay_roboto_regular"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtPhoneNumber" />
+
+                <Button
+                    android:id="@+id/btnEditPhoneNumber"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/_1sdp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:drawableStart="@drawable/edit_icon_purple"
+                    android:fontFamily="@font/hay_roboto_light"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/statusBarColorPurpleDark"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profileQuestionAnswersRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/loading_view" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="379dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="717dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

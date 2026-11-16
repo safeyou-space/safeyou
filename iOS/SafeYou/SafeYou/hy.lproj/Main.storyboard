@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ya1-cs-g0S">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HayRoboto-Regular.ttf">
+            <string>HayRoboto-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="UUH-0S-yGh">
+            <objects>
+                <navigationController storyboardIdentifier="MainNavigationBar" id="ya1-cs-g0S" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="N1h-8B-wBq">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="7lF-va-lMO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tyP-2F-efb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-152" y="-40"/>
+        </scene>
+        <!--Choose LanguageVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="ChooseLanguageVC" id="BYZ-38-t0r" customClass="ChooseLanguageVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="language_bg" translatesAutoresizingMaskIntoConstraints="NO" id="NeS-ma-BKP">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gl6-gW-6r6">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dy3-M2-Iis" customClass="SYCorneredButton">
+                                        <rect key="frame" x="145.5" y="499" width="123" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="hl2-Jb-5Xj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="16"/>
+                                        <inset key="contentEdgeInsets" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
+                                        <state key="normal" title="Հայերեն">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="armenianLanguageButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QwY-Wz-gT6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OmN-Ix-cly" customClass="SYCorneredButton">
+                                        <rect key="frame" x="145.5" y="564" width="123" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="e6M-RO-NNB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HayRoboto-Regular" family="HayRoboto" pointSize="16"/>
+                                        <inset key="contentEdgeInsets" minX="30" minY="0.0" maxX="30" maxY="0.0"/>
+                                        <state key="normal" title="English">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="englishLanguageButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ian-Qw-fGT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OmN-Ix-cly" secondAttribute="trailing" constant="20" id="3s2-XP-lf4"/>
+                                    <constraint firstItem="OmN-Ix-cly" firstAttribute="centerX" secondItem="gl6-gW-6r6" secondAttribute="centerX" id="Ehu-WY-yiO"/>
+                                    <constraint firstItem="dy3-M2-Iis" firstAttribute="centerX" secondItem="gl6-gW-6r6" secondAttribute="centerX" id="S05-rK-YE3"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dy3-M2-Iis" secondAttribute="trailing" constant="20" id="VTj-nt-cjJ"/>
+                                    <constraint firstItem="OmN-Ix-cly" firstAttribute="top" secondItem="dy3-M2-Iis" secondAttribute="bottom" constant="15" id="XhW-Vh-9sO"/>
+                                    <constraint firstItem="OmN-Ix-cly" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gl6-gW-6r6" secondAttribute="leading" constant="20" id="c1T-6A-ssy"/>
+                                    <constraint firstItem="dy3-M2-Iis" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gl6-gW-6r6" secondAttribute="leading" constant="20" id="hPs-Ba-MHB"/>
+                                    <constraint firstItem="dy3-M2-Iis" firstAttribute="width" secondItem="OmN-Ix-cly" secondAttribute="width" id="tft-Sl-DpV"/>
+                                    <constraint firstAttribute="bottom" secondItem="OmN-Ix-cly" secondAttribute="bottom" constant="160" id="vwF-Ii-TKx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gl6-gW-6r6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8ig-o5-cw1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gl6-gW-6r6" secondAttribute="trailing" id="9hF-qG-XAp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gl6-gW-6r6" secondAttribute="bottom" id="MjU-Qd-Ap3"/>
+                            <constraint firstItem="gl6-gW-6r6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="a1t-Nj-FCa"/>
+                            <constraint firstItem="NeS-ma-BKP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dpe-Ic-b4m"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NeS-ma-BKP" secondAttribute="trailing" id="l60-of-orO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NeS-ma-BKP" secondAttribute="bottom" id="zXY-XH-MT9"/>
+                            <constraint firstItem="NeS-ma-BKP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zfE-YG-lpt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cxV-Dy-izi"/>
+                    <connections>
+                        <outlet property="armenianLanguageButton" destination="dy3-M2-Iis" id="hjV-c5-8b4"/>
+                        <outlet property="englishLanguageButton" destination="OmN-Ix-cly" id="cqK-Dw-dzw"/>
+                        <segue destination="1WV-AR-guN" kind="show" identifier="showMainTabbar" id="dA0-5w-sGS"/>
+                        <segue destination="gHO-K6-cdb" kind="show" identifier="showIntroductionView" id="Lkx-Ef-ohm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-152" y="719"/>
+        </scene>
+        <!--Round Button Action-->
+        <scene sceneID="y4u-92-30k">
+            <objects>
+                <viewController storyboardIdentifier="IntroductionViewController" id="gHO-K6-cdb" customClass="IntroductionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uaP-yL-ZbM" customClass="SYDesignableView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="introduction_bg_image" translatesAutoresizingMaskIntoConstraints="NO" id="dZ5-xd-Pfi">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLi-3J-JWE" customClass="SYDesignableView">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86Y-Ab-tGQ" customClass="RoundButtonView">
+                                        <rect key="frame" x="74.5" y="147.5" width="90" height="90"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="86Y-Ab-tGQ" secondAttribute="height" multiplier="1:1" id="9P5-KR-oWf"/>
+                                            <constraint firstAttribute="width" constant="90" id="A1a-fO-3Py"/>
+                                            <constraint firstAttribute="height" constant="90" id="hFZ-el-uBe"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="image" value="dual_pin_help_icon"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Dual Pin"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="roundButtonAction" destination="gHO-K6-cdb" id="E2W-Ye-hV3"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQt-Ed-8y9" customClass="RoundButtonView">
+                                        <rect key="frame" x="74.5" y="425" width="90" height="90"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="GPm-nT-IqD"/>
+                                            <constraint firstAttribute="width" constant="90" id="zDM-M2-Bza"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="image" value="forum_icon"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Forums"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="roundButtonAction" destination="gHO-K6-cdb" id="o8E-rm-d85"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gvJ-hZ-vWU" customClass="RoundButtonView">
+                                        <rect key="frame" x="255" y="425" width="90" height="90"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="pQw-hC-KHO"/>
+                                            <constraint firstAttribute="height" constant="90" id="qF4-gp-hoO"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="image" value="network_icon"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="NGOs"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="roundButtonAction" destination="gHO-K6-cdb" id="etq-hX-Y9O"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7h-Vs-K0y" customClass="RoundButtonView">
+                                        <rect key="frame" x="268" y="120.5" width="90" height="90"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="L1K-UM-1rw"/>
+                                            <constraint firstAttribute="width" constant="90" id="MF1-Ud-PoX"/>
+                                            <constraint firstAttribute="width" secondItem="z7h-Vs-K0y" secondAttribute="height" multiplier="1:1" id="l3v-05-3hD"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="image" value="info_icon"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="roundButtonAction" destination="gHO-K6-cdb" id="Ufq-My-YCn"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="z7h-Vs-K0y" firstAttribute="centerX" secondItem="lLi-3J-JWE" secondAttribute="centerX" constant="106" id="2w8-hO-2co"/>
+                                    <constraint firstItem="gvJ-hZ-vWU" firstAttribute="centerX" secondItem="lLi-3J-JWE" secondAttribute="centerX" constant="93" id="7B2-uv-HkN"/>
+                                    <constraint firstItem="gvJ-hZ-vWU" firstAttribute="centerY" secondItem="lLi-3J-JWE" secondAttribute="centerY" constant="83" id="8c6-pU-gWg"/>
+                                    <constraint firstItem="qQt-Ed-8y9" firstAttribute="centerY" secondItem="lLi-3J-JWE" secondAttribute="centerY" constant="83" id="FeA-qx-YeS"/>
+                                    <constraint firstItem="z7h-Vs-K0y" firstAttribute="centerY" secondItem="lLi-3J-JWE" secondAttribute="centerY" constant="-221.5" id="NRY-Sy-fZO"/>
+                                    <constraint firstItem="qQt-Ed-8y9" firstAttribute="centerX" secondItem="lLi-3J-JWE" secondAttribute="centerX" constant="-87.5" id="Nnm-wH-xdo"/>
+                                    <constraint firstItem="86Y-Ab-tGQ" firstAttribute="centerX" secondItem="lLi-3J-JWE" secondAttribute="centerX" constant="-87.5" id="P7A-r7-Pmf"/>
+                                    <constraint firstItem="86Y-Ab-tGQ" firstAttribute="centerY" secondItem="lLi-3J-JWE" secondAttribute="centerY" constant="-194.5" id="yhb-FN-hvA"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="88e-wO-KnL" firstAttribute="bottom" secondItem="lLi-3J-JWE" secondAttribute="bottom" id="9YO-AQ-3Y5"/>
+                            <constraint firstItem="dZ5-xd-Pfi" firstAttribute="leading" secondItem="88e-wO-KnL" secondAttribute="leading" id="Hea-lc-PSn"/>
+                            <constraint firstItem="88e-wO-KnL" firstAttribute="trailing" secondItem="lLi-3J-JWE" secondAttribute="trailing" id="K45-op-dg1"/>
+                            <constraint firstItem="lLi-3J-JWE" firstAttribute="top" secondItem="88e-wO-KnL" secondAttribute="top" id="Tvy-UJ-Wea"/>
+                            <constraint firstItem="88e-wO-KnL" firstAttribute="bottom" secondItem="dZ5-xd-Pfi" secondAttribute="bottom" id="fCa-q2-3tE"/>
+                            <constraint firstItem="lLi-3J-JWE" firstAttribute="leading" secondItem="88e-wO-KnL" secondAttribute="leading" id="p8Y-o2-yhh"/>
+                            <constraint firstItem="88e-wO-KnL" firstAttribute="trailing" secondItem="dZ5-xd-Pfi" secondAttribute="trailing" id="rSg-yu-tuU"/>
+                            <constraint firstItem="dZ5-xd-Pfi" firstAttribute="top" secondItem="88e-wO-KnL" secondAttribute="top" id="uoA-PU-4Jt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="88e-wO-KnL"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="contentView" destination="lLi-3J-JWE" id="BVE-dN-Tkb"/>
+                        <outlet property="dualPinButton" destination="86Y-Ab-tGQ" id="1dO-0y-e67"/>
+                        <outlet property="forumsButton" destination="qQt-Ed-8y9" id="YTz-YG-SjA"/>
+                        <outlet property="infoButton" destination="z7h-Vs-K0y" id="9T1-r9-Efc"/>
+                        <outlet property="ngosButton" destination="gvJ-hZ-vWU" id="c7q-oe-TSR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ktV-NU-iEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1379" y="741"/>
+        </scene>
+        <!--Forums-->
+        <scene sceneID="83j-MT-SgC">
+            <objects>
+                <viewController id="cqZ-Ni-Gj1" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a6i-84-hNd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="iIr-Xg-uVG"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Forums" image="forum_icon" id="5sI-wG-Ro5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xo2-LD-d4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3009" y="-1132"/>
+        </scene>
+        <!--Help-->
+        <scene sceneID="k97-yq-u03">
+            <objects>
+                <viewController id="Ycr-lN-i1p" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iD5-rh-O63">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ziE-1M-mPS"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Help" id="mpA-lY-5vp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Ch-VL-kZ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3009" y="-465"/>
+        </scene>
+        <!--Network-->
+        <scene sceneID="Nyh-8I-JoW">
+            <objects>
+                <viewController id="DOp-7K-gyD" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="i3t-rS-baS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="opH-fU-f6B"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Network" image="network_icon" id="jR3-n8-KHC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cZ7-4c-EeY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3035" y="242"/>
+        </scene>
+        <!--Other-->
+        <scene sceneID="hzy-vK-7UX">
+            <objects>
+                <viewController id="wSK-fC-gEc" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="j9E-Kv-PYZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="V8d-lR-V2z"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Other" image="settings_icon" id="9Ft-Vr-Ai6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B7h-3I-RDB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3062" y="903"/>
+        </scene>
+        <!--My Profile-->
+        <scene sceneID="Wgk-fN-m8H">
+            <objects>
+                <viewController id="ucS-k5-Nz3" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Me9-Fh-zKy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="PcJ-g2-mi1"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="My Profile" image="profile_icon" id="Y9t-JR-JaQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GaJ-kj-yce" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3009" y="-1813"/>
+        </scene>
+        <!--Main Tabbar Controller-->
+        <scene sceneID="qyr-yk-jX6">
+            <objects>
+                <tabBarController id="1WV-AR-guN" customClass="MainTabbarController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="p7c-sS-HrH"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SuA-JN-KHs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.59607843137254901" green="0.20392156862745098" blue="0.71764705882352942" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ucS-k5-Nz3" kind="relationship" relationship="viewControllers" id="pBt-JJ-ngd"/>
+                        <segue destination="cqZ-Ni-Gj1" kind="relationship" relationship="viewControllers" id="T2N-5H-2v3"/>
+                        <segue destination="Ycr-lN-i1p" kind="relationship" relationship="viewControllers" id="4yK-Ny-1MO"/>
+                        <segue destination="DOp-7K-gyD" kind="relationship" relationship="viewControllers" id="KSd-A8-H61"/>
+                        <segue destination="wSK-fC-gEc" kind="relationship" relationship="viewControllers" id="xqZ-Dh-o8T"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B1O-XG-gVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1391" y="20"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="dual_pin_help_icon" width="35" height="35"/>
+        <image name="forum_icon" width="22" height="22"/>
+        <image name="info_icon" width="3" height="21"/>
+        <image name="introduction_bg_image" width="375" height="667"/>
+        <image name="language_bg" width="375" height="667"/>
+        <image name="network_icon" width="22" height="22"/>
+        <image name="profile_icon" width="22" height="22"/>
+        <image name="settings_icon" width="22" height="22"/>
+    </resources>
+</document>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rate_bar_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="4dp"
+    android:gravity="center"
+    android:minHeight="48dp"
+    android:orientation="horizontal"
+    android:paddingVertical="5dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/rate_bar_layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/toggle_map_filter_background"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/rateIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:src="@drawable/icon_licke_coment_full"
+            app:tint="@color/check_icon_color" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_3sdp"
+            android:fontFamily="@font/hay_roboto_bold"
+            android:text="4/5"
+            android:textColor="@color/new_main_icon_tint_color"
+            android:textSize="14sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/rateCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:fontFamily="@font/hay_roboto_light"
+            android:text="(521)"
+            android:textColor="@color/rate_count_color"
+            android:textSize="12sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

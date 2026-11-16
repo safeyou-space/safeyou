@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Bold.ttf">
+            <string>OpenSans-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Complete Finish View Controller-->
+        <scene sceneID="lcC-Dx-1Ed">
+            <objects>
+                <viewController storyboardIdentifier="CompleteFinishViewController" hidesBottomBarWhenPushed="YES" id="lWL-da-HFT" customClass="CompleteFinishViewController" customModule="SafeYou" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CBL-jo-5zs">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ckw-GD-4ZY">
+                                <rect key="frame" x="46.666666666666657" y="141.66666666666669" width="300" height="189.66666666666669"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ckw-GD-4ZY" secondAttribute="height" multiplier="201:127" id="Bdi-6w-gc9"/>
+                                    <constraint firstAttribute="width" constant="300" id="yiW-sR-C5D"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for completing your profile!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69f-GE-Zjz" customClass="SYLabelBold">
+                                <rect key="frame" x="66.666666666666686" y="381.33333333333331" width="260" height="114.66666666666669"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="P6Y-WN-mMP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="avJ-ek-xBs" customClass="SYCorneredButton">
+                                <rect key="frame" x="99" y="616" width="195" height="42"/>
+                                <color key="backgroundColor" red="0.86274509803921573" green="0.36470588235294116" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="ott-fV-Gg8"/>
+                                    <constraint firstAttribute="width" constant="195" id="w3d-sh-eE3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="16"/>
+                                <color key="tintColor" name="Color"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Back to Profile"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="backProfileButtonTap:" destination="lWL-da-HFT" eventType="touchUpInside" id="VMk-5h-n3r"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1lE-TL-pEZ"/>
+                        <color key="backgroundColor" red="0.99607843139999996" green="0.98431372549999996" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="69f-GE-Zjz" firstAttribute="centerY" secondItem="1lE-TL-pEZ" secondAttribute="centerY" id="HHk-Lq-ReN"/>
+                            <constraint firstItem="69f-GE-Zjz" firstAttribute="centerX" secondItem="1lE-TL-pEZ" secondAttribute="centerX" id="RA8-7h-TYj"/>
+                            <constraint firstItem="avJ-ek-xBs" firstAttribute="top" secondItem="69f-GE-Zjz" secondAttribute="bottom" constant="120" id="Wt8-CV-4G2"/>
+                            <constraint firstItem="avJ-ek-xBs" firstAttribute="centerX" secondItem="1lE-TL-pEZ" secondAttribute="centerX" id="YLi-50-fmS"/>
+                            <constraint firstItem="ckw-GD-4ZY" firstAttribute="centerX" secondItem="1lE-TL-pEZ" secondAttribute="centerX" id="qRi-If-1w0"/>
+                            <constraint firstItem="69f-GE-Zjz" firstAttribute="top" secondItem="ckw-GD-4ZY" secondAttribute="bottom" constant="50" id="zwu-by-ufZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backProfileButton" destination="avJ-ek-xBs" id="1g5-N9-AY7"/>
+                        <outlet property="logoImageView" destination="ckw-GD-4ZY" id="djH-un-7y7"/>
+                        <outlet property="thanksLabel" destination="69f-GE-Zjz" id="MW3-MY-VeY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NO8-77-D4w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-488" y="-35"/>
+        </scene>
+        <!--Survey Finish View Controller-->
+        <scene sceneID="q92-dl-gbW">
+            <objects>
+                <viewController storyboardIdentifier="SurveyFinishViewController" id="4aS-Va-iD5" customClass="SurveyFinishViewController" customModule="SafeYou" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jzd-OF-enY">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MIZ-Yl-dQf">
+                                <rect key="frame" x="46.666666666666657" y="160.66666666666669" width="300" height="189.66666666666669"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="N5S-5F-lix"/>
+                                    <constraint firstAttribute="width" secondItem="MIZ-Yl-dQf" secondAttribute="height" multiplier="201:127" id="gLK-fh-vAV"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for taking our survey." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3u-cH-pd1" customClass="SYLabelBold">
+                                <rect key="frame" x="66.666666666666686" y="400.33333333333331" width="260" height="76.333333333333314"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="sgQ-IK-HRh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="0ut-Du-WcY" customClass="SYCorneredButton">
+                                <rect key="frame" x="99" y="596.66666666666663" width="195" height="42"/>
+                                <color key="backgroundColor" red="0.86274509799999999" green="0.36470588240000001" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="JGa-qs-7FP"/>
+                                    <constraint firstAttribute="width" constant="195" id="ZeZ-ai-Jec"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="16"/>
+                                <color key="tintColor" name="Color"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Back to Survey"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="backButtonTap:" destination="4aS-Va-iD5" eventType="touchUpInside" id="vcd-YH-P3h"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KsT-gm-nCw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0ut-Du-WcY" firstAttribute="centerX" secondItem="KsT-gm-nCw" secondAttribute="centerX" id="1s1-Xy-fnY"/>
+                            <constraint firstItem="M3u-cH-pd1" firstAttribute="centerY" secondItem="KsT-gm-nCw" secondAttribute="centerY" id="354-Fv-rRp"/>
+                            <constraint firstItem="0ut-Du-WcY" firstAttribute="top" secondItem="M3u-cH-pd1" secondAttribute="bottom" constant="120" id="TxQ-Oy-F6s"/>
+                            <constraint firstItem="M3u-cH-pd1" firstAttribute="centerX" secondItem="KsT-gm-nCw" secondAttribute="centerX" id="dR7-hY-mmO"/>
+                            <constraint firstItem="MIZ-Yl-dQf" firstAttribute="centerX" secondItem="KsT-gm-nCw" secondAttribute="centerX" id="rlf-QH-fnC"/>
+                            <constraint firstItem="M3u-cH-pd1" firstAttribute="top" secondItem="MIZ-Yl-dQf" secondAttribute="bottom" constant="50" id="x61-xN-wur"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="animationImageView" destination="MIZ-Yl-dQf" id="G8Q-xS-pqu"/>
+                        <outlet property="backButton" destination="0ut-Du-WcY" id="zCr-1G-t0O"/>
+                        <outlet property="descriptionLabel" destination="M3u-cH-pd1" id="uPs-RQ-7v6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N4l-kZ-9Yu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="542" y="-30"/>
+        </scene>
+        <!--Quiz Percentage View Controller-->
+        <scene sceneID="9Ry-uH-cYJ">
+            <objects>
+                <viewController storyboardIdentifier="QuizPercentageViewController" id="cls-w1-b8G" customClass="QuizPercentageViewController" customModule="SafeYou" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qze-RZ-89p">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2eZ-aU-cJh">
+                                <rect key="frame" x="106.66666666666669" y="158" width="180" height="180"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="60%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62r-nQ-4yu" customClass="SYLabelBold">
+                                        <rect key="frame" x="70.333333333333329" y="79.666666666666657" width="39.666666666666671" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" red="0.86274509799999999" green="0.36470588240000001" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="Fgt-8U-bJL"/>
+                                    <constraint firstAttribute="height" constant="180" id="npS-mf-sZ6"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for taking our survey." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88x-r7-4Dd" customClass="SYLabelBold">
+                                <rect key="frame" x="66.666666666666686" y="388" width="260" height="76.333333333333314"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="ZM6-JN-h2F"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="28"/>
+                                <color key="textColor" red="0.60392156860000001" green="0.2470588235" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="O1j-ye-tw7" customClass="SYCorneredButton">
+                                <rect key="frame" x="99" y="584.33333333333337" width="195" height="42"/>
+                                <color key="backgroundColor" red="0.86274509799999999" green="0.36470588240000001" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="7u6-fm-Y1s"/>
+                                    <constraint firstAttribute="width" constant="195" id="Pid-9E-eY7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="16"/>
+                                <color key="tintColor" name="Color"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Back to Survey"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                        <integer key="value" value="22"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="backButtonTap:" destination="cls-w1-b8G" eventType="touchUpInside" id="kAO-Lw-qxn"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="aWr-dI-2nf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="88x-r7-4Dd" firstAttribute="top" secondItem="2eZ-aU-cJh" secondAttribute="bottom" constant="50" id="4zM-Ec-fY0"/>
+                            <constraint firstItem="88x-r7-4Dd" firstAttribute="centerY" secondItem="qze-RZ-89p" secondAttribute="centerY" id="5uT-xS-MNJ"/>
+                            <constraint firstItem="88x-r7-4Dd" firstAttribute="centerX" secondItem="qze-RZ-89p" secondAttribute="centerX" id="CVA-KG-1qk"/>
+                            <constraint firstItem="2eZ-aU-cJh" firstAttribute="centerX" secondItem="qze-RZ-89p" secondAttribute="centerX" id="NGK-AQ-h2u"/>
+                            <constraint firstItem="O1j-ye-tw7" firstAttribute="top" secondItem="88x-r7-4Dd" secondAttribute="bottom" constant="120" id="e8K-a6-Mee"/>
+                            <constraint firstItem="O1j-ye-tw7" firstAttribute="centerX" secondItem="qze-RZ-89p" secondAttribute="centerX" id="ewW-t8-hu6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="O1j-ye-tw7" id="U5p-bh-yAn"/>
+                        <outlet property="descriptionLabel" destination="88x-r7-4Dd" id="FXg-so-Ygk"/>
+                        <outlet property="percentageAnimationView" destination="2eZ-aU-cJh" id="zBb-rP-6uz"/>
+                        <outlet property="progressLabel" destination="62r-nQ-4yu" id="Y3z-xg-ogk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9fF-X1-QMO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1284.7328244274809" y="-25.35211267605634"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="0ut-Du-WcY">
+            <size key="intrinsicContentSize" width="118" height="34"/>
+        </designable>
+        <designable name="O1j-ye-tw7">
+            <size key="intrinsicContentSize" width="118" height="34"/>
+        </designable>
+        <designable name="avJ-ek-xBs">
+            <size key="intrinsicContentSize" width="117" height="34"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

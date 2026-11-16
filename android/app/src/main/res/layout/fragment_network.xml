@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.fragment.FragmentNetwork">
+
+    <include
+        android:id="@+id/networkLoading"
+        layout="@layout/loading_view" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="@dimen/_5sdp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNetworkCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/forum_card_background"
+                    android:nestedScrollingEnabled="true" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <org.osmdroid.views.MapView
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                tools:context=".view.fragment.FragmentNetwork" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recViewMap"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/adapter_map_ngos"
+                tools:itemCount="2"
+                android:background="@color/forum_card_background"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="true" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

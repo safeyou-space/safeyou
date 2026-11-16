@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ya1-cs-g0S">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="UUH-0S-yGh">
+            <objects>
+                <navigationController storyboardIdentifier="MainNavigationBar" id="ya1-cs-g0S" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="N1h-8B-wBq">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="7lF-va-lMO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tyP-2F-efb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-152" y="-40"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Gwh-gJ-424">
+            <objects>
+                <navigationController storyboardIdentifier="WelcomeNavigationController" id="Qsc-bc-tIO" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9o6-XW-hjv">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OM2-vo-eoW" kind="relationship" relationship="rootViewController" id="slo-MZ-Wdx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="41b-1k-HlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1222" y="-327"/>
+        </scene>
+        <!--Welcome View Controller-->
+        <scene sceneID="Jam-rX-1hR">
+            <objects>
+                <viewController storyboardIdentifier="WelcomeViewController" id="OM2-vo-eoW" customClass="WelcomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cw8-v3-A84">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baclground-image-welcome-screen" translatesAutoresizingMaskIntoConstraints="NO" id="dAJ-UJ-285">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" placeholderIntrinsicWidth="252" placeholderIntrinsicHeight="312" image="logo_safe_you_white" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-II-OXv">
+                                <rect key="frame" x="70.666666666666686" y="183" width="252" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="pvn-Qf-xfx"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5H-Br-yUb" customClass="SYCorneredButton">
+                                <rect key="frame" x="16" y="666" width="361" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="3kZ-9f-QRA"/>
+                                </constraints>
+                                <state key="normal" title="REGISTER"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                        <integer key="value" value="9"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="signUpButtonAction:" destination="OM2-vo-eoW" eventType="touchUpInside" id="ayZ-Wi-Z3S"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2r-03-KE8" customClass="SYDesignableButton">
+                                <rect key="frame" x="16" y="730" width="361" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="WdO-qS-IxH"/>
+                                </constraints>
+                                <state key="normal" title="LOGIN"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorType">
+                                        <integer key="value" value="9"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="titleColorTypeAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderColorType">
+                                        <integer key="value" value="9"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginButtonAction:" destination="OM2-vo-eoW" eventType="touchUpInside" id="33e-A9-7FO"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIRTUAL SAFE SPACE FOR WOMEN" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UhG-es-uIf" customClass="SYLabelBold">
+                                <rect key="frame" x="16" y="460" width="361" height="172"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pRH-w7-LkM"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="M2r-03-KE8" firstAttribute="top" secondItem="w5H-Br-yUb" secondAttribute="bottom" constant="16" id="0Uy-Tf-37Z"/>
+                            <constraint firstItem="dAJ-UJ-285" firstAttribute="leading" secondItem="pRH-w7-LkM" secondAttribute="leading" id="2c3-iG-J00"/>
+                            <constraint firstItem="dAJ-UJ-285" firstAttribute="bottom" secondItem="cw8-v3-A84" secondAttribute="bottom" id="69t-Iv-R6a"/>
+                            <constraint firstItem="pRH-w7-LkM" firstAttribute="trailing" secondItem="UhG-es-uIf" secondAttribute="trailing" constant="16" id="DI2-ll-pWg"/>
+                            <constraint firstItem="w5H-Br-yUb" firstAttribute="leading" secondItem="pRH-w7-LkM" secondAttribute="leading" constant="16" id="LPE-Km-gX5"/>
+                            <constraint firstItem="pRH-w7-LkM" firstAttribute="bottom" secondItem="M2r-03-KE8" secondAttribute="bottom" constant="40" id="LUk-ex-t3N"/>
+                            <constraint firstItem="pRH-w7-LkM" firstAttribute="trailing" secondItem="w5H-Br-yUb" secondAttribute="trailing" constant="16" id="P4V-hQ-xhl"/>
+                            <constraint firstItem="w5H-Br-yUb" firstAttribute="top" secondItem="UhG-es-uIf" secondAttribute="bottom" constant="34" id="PCY-Rf-wsO"/>
+                            <constraint firstItem="dAJ-UJ-285" firstAttribute="top" secondItem="cw8-v3-A84" secondAttribute="top" id="Vxg-hY-wdX"/>
+                            <constraint firstItem="pRH-w7-LkM" firstAttribute="trailing" secondItem="M2r-03-KE8" secondAttribute="trailing" constant="16" id="XYL-Ch-Bcz"/>
+                            <constraint firstItem="UhG-es-uIf" firstAttribute="leading" secondItem="pRH-w7-LkM" secondAttribute="leading" constant="16" id="Yz3-lO-R59"/>
+                            <constraint firstItem="BdP-II-OXv" firstAttribute="top" secondItem="pRH-w7-LkM" secondAttribute="top" constant="80" id="cus-eG-daA"/>
+                            <constraint firstItem="BdP-II-OXv" firstAttribute="centerX" secondItem="cw8-v3-A84" secondAttribute="centerX" id="kIO-Kt-V4x"/>
+                            <constraint firstItem="dAJ-UJ-285" firstAttribute="trailing" secondItem="cw8-v3-A84" secondAttribute="trailing" id="riz-Hn-SxV"/>
+                            <constraint firstItem="M2r-03-KE8" firstAttribute="leading" secondItem="pRH-w7-LkM" secondAttribute="leading" constant="16" id="xJ5-ff-qsY"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="y13-R2-2Ug"/>
+                    <connections>
+                        <outlet property="loginButton" destination="M2r-03-KE8" id="xKS-bU-gbM"/>
+                        <outlet property="signUpButton" destination="w5H-Br-yUb" id="ebe-5z-4VY"/>
+                        <outlet property="welcomeLabel" destination="UhG-es-uIf" id="0bN-w1-IOg"/>
+                        <segue destination="OUQ-ma-DPw" kind="show" identifier="showSigninViewFromWelcomeView" id="h7o-Un-AQx"/>
+                        <segue destination="Hro-Zc-7zp" kind="show" identifier="showRegiastrationViewFromWelcomeView" id="MG8-qO-3lk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P30-HU-8ne" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2924" y="23.838080959520241"/>
+        </scene>
+        <!--EnterPhoneNumberViewController-->
+        <scene sceneID="sV9-18-nti">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Authentication" referencedIdentifier="EnterPhoneNumberViewController" id="OUQ-ma-DPw" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Ley-7N-eFA"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4PX-va-Odf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4234" y="-263"/>
+        </scene>
+        <!--EnterPhoneNumberViewController-->
+        <scene sceneID="oaS-8N-rJz">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Authentication" referencedIdentifier="EnterPhoneNumberViewController" id="Hro-Zc-7zp" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="37C-Sn-vTF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vw5-b8-3t1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4234" y="50"/>
+        </scene>
+        <!-- -->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="ChooseLanguageVC" title=" " id="BYZ-38-t0r" customClass="ChooseLanguageVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="749"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cxV-Dy-izi"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <segue destination="p40-30-Vgg" kind="show" identifier="showSignInView" id="deq-rp-5Fr"/>
+                        <segue destination="OM2-vo-eoW" kind="show" identifier="showWelcomeView" id="ecg-JB-t1i"/>
+                        <segue destination="2Sv-2x-Buu" kind="show" identifier="showIntroductionView" id="A9I-Bm-7dH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-152" y="719"/>
+        </scene>
+        <!--Introduction-->
+        <scene sceneID="OW7-W3-vdx">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Introduction" id="2Sv-2x-Buu" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="OH8-E5-Ebu"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Yw-hI-TTd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1259" y="762"/>
+        </scene>
+        <!--SignInPasswordViewController-->
+        <scene sceneID="C5T-a1-KGf">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Authentication" referencedIdentifier="SignInPasswordViewController" id="p40-30-Vgg" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="onj-Rk-xbG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1501" y="1555"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="M2r-03-KE8">
+            <size key="intrinsicContentSize" width="53" height="34"/>
+        </designable>
+        <designable name="w5H-Br-yUb">
+            <size key="intrinsicContentSize" width="83" height="34"/>
+        </designable>
+    </designables>
+    <inferredMetricsTieBreakers>
+        <segue reference="slo-MZ-Wdx"/>
+    </inferredMetricsTieBreakers>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+    <resources>
+        <image name="baclground-image-welcome-screen" width="480" height="812"/>
+        <image name="logo_safe_you_white" width="160" height="46"/>
+    </resources>
+</document>

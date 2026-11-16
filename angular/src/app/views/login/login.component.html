@@ -1,0 +1,57 @@
+<div class="login" *ngIf="!token">
+  <div class="limiter">
+    <div class="container-login100" style="background-image: url('/dist/assets/images/login.jpg');">
+      <div class="wrap-login100">
+        <form class="login100-form validate-form" #form="ngForm" (ngSubmit)="onLogin(form.value)">
+					<span class="login100-form-logo">
+						<img src="/dist/assets/favicon.png" alt="icon">
+					</span>
+
+          <span class="login100-form-title p-b-34 p-t-27">
+						Safe You
+					</span>
+
+          <div class="wrap-input100 validate-input" data-validate = "Enter username">
+            <input class="input100" type="text" #username="ngModel" name="username" [ngModel]="username.value" id="login_username" placeholder="Email or phone" required>
+            <span class="focus-input100" data-placeholder="&#xf207;"></span>
+
+            <div *ngIf="(username.touched || username.dirty )&& !username.valid">
+              <div class="invalid-feedback">
+                <div *ngIf="username?.errors.required">
+                  Email or phone required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wrap-input100 validate-input" data-validate="Enter password">
+            <input class="input100" type="password" #password="ngModel" name="password" [ngModel]="password.value" id="login_password" placeholder="Password" required>
+            <span class="focus-input100" data-placeholder="&#xf191;"></span>
+            <div *ngIf="(password.touched || password.dirty )&& !password.valid">
+              <div class="invalid-feedback">
+                <div *ngIf="password?.errors.required">
+                  Password is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" [disabled]="form.invalid || this.loading == true" type="submit">
+              Login
+              <i *ngIf="this.loading == true" class="fa fa-spinner faa-spin animated" aria-hidden="true" style="position: inherit;"></i>
+            </button>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger mb-0 mt-2">
+            <strong>{{error}}</strong>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="dropDownSelect1"></div>
+</div>
+

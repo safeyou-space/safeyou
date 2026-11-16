@@ -1,0 +1,114 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "0g2-0T-GcS.title" : {
+      "comment" : "Class = \"UIBarButtonItem\"; title = \"Next\"; ObjectID = \"0g2-0T-GcS\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "bdA-kQ-npI.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ante odio.\"; ObjectID = \"bdA-kQ-npI\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ante odio."
+          }
+        }
+      }
+    },
+    "dds-DR-fNw.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"HELP\"; ObjectID = \"dds-DR-fNw\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "HELP"
+          }
+        }
+      }
+    },
+    "Jmu-Ft-LKq.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"NETWORK\"; ObjectID = \"Jmu-Ft-LKq\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "NETWORK"
+          }
+        }
+      }
+    },
+    "n5S-5o-P98.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"EMERGENCY CONTACTS\"; ObjectID = \"n5S-5o-P98\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "EMERGENCY CONTACTS"
+          }
+        }
+      }
+    },
+    "neb-3Q-UQv.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"PRIVATE MESSAGES\"; ObjectID = \"neb-3Q-UQv\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "PRIVATE MESSAGES"
+          }
+        }
+      }
+    },
+    "PxD-9N-1vH.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Next\"; ObjectID = \"PxD-9N-1vH\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "THD-oM-eiq.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"SECURITY\"; ObjectID = \"THD-oM-eiq\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "SECURITY"
+          }
+        }
+      }
+    },
+    "yBV-Wp-EJd.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"FORUMS\"; ObjectID = \"yBV-Wp-EJd\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FORUMS"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

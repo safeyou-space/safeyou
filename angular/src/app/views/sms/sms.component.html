@@ -1,0 +1,274 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <span class="pt-1 pb-1">Sms</span>
+      </div>
+      <div class="card-body">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+          <div class="row">
+            <div class="col-sm-12">
+
+              <no-result *ngIf="tableData && tableData['message']"></no-result>
+
+              <table *ngIf="tableData && !tableData['message']" class="table table-bordered table-striped table-sm indexTable" style="border-collapse: collapse !important">
+                <thead>
+                <tr role="row">
+                  <th>Full Name</th>
+                  <th>Message</th>
+                  <th>Verify Code</th>
+                  <th>Phone</th>
+                  <th style="width: 65px">Check</th>
+                  <th style="width: 90px">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" class="odd" *ngFor="let data of tableData, let i = index">
+                  <td>{{data?.user?.first_name}} {{data?.user?.last_name}}</td>
+                  <td> <span [innerHTML]="data?.message"></span></td>
+                  <td style="width: 87px;"> {{data?.verifying_otp_code}}</td>
+                  <td style="width: 134px;"> {{data?.phone}}</td>
+                  <td>
+                    <span *ngIf="data?.checked == 1" class="badge badge-success">Yes</span>
+                    <span *ngIf="data?.checked == 0" class="badge badge-danger">No</span>
+                  </td>
+
+
+                  <td class="actions">
+                    <a (click)="showModal('view' , data.id)">
+                      <i class="fa fa-eye cursor-pointer"></i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <pagination
+                *ngIf="requestService.paginationConfig.totalItems > requestService.paginationConfig.perPage"
+                [totalItems]="requestService.paginationConfig.totalItems"
+                [maxSize]="requestService.paginationConfig.paginationMaxSize"
+                [itemsPerPage]="requestService.paginationConfig.perPage"
+                (pageChanged)="pageChanged($event)">
+              </pagination>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui-theme-settings" id="div">
+  <button type="button" id="TooltipDemo" class="btn-open-options btn"
+          [ngClass]="searchMessage ? 'search_green' : ''" (click)="openLayout()">
+    <i class="fa fa-w-16 search_icon" [ngClass]="searchMessage ? 'fa-check-square-o' : 'fa-search'"></i>
+  </button>
+  <div class="theme-settings__inner">
+    <div class="scrollbar-container">
+      <div class="theme-settings__options-wrapper" style="padding: 11px;">
+        <h5 style="color: #73818f">Search</h5>
+        <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="phone_search">Phone</label>
+                <input formControlName="phone" class="form-control search_form" id="phone_search" type="text"
+                       placeholder="Enter Phone">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('phone').hasError('maxlength') && (searchForm.get('phone').dirty || searchForm.get('phone').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input formControlName="first_name" class="form-control search_form" id="first_name" type="text"
+                       placeholder="Enter First Name">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('first_name').hasError('maxlength') && (searchForm.get('first_name').dirty || searchForm.get('first_name').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input formControlName="last_name" class="form-control search_form" id="last_name" type="text"
+                       placeholder="Enter Last Name">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('last_name').hasError('maxlength') && (searchForm.get('last_name').dirty || searchForm.get('last_name').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="verifying_otp_code">Verification Code</label>
+                <input formControlName="verifying_otp_code" class="form-control search_form" id="verifying_otp_code" type="text"
+                       placeholder="Enter Verification Code">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('verifying_otp_code').hasError('maxlength') && (searchForm.get('verifying_otp_code').dirty || searchForm.get('verifying_otp_code').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="service_sms_id">Sms service id</label>
+                <input formControlName="service_sms_id" class="form-control search_form" id="service_sms_id" type="text"
+                       placeholder="Enter Sms service id">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('service_sms_id').hasError('maxlength') && (searchForm.get('service_sms_id').dirty || searchForm.get('service_sms_id').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="message_search">Message</label>
+                <textarea formControlName="message" class="form-control search_form" id="message_search" type="text"
+                          placeholder="Enter Message"></textarea>
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('message').hasError('maxlength') && (searchForm.get('message').dirty || searchForm.get('message').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <p style="font-weight: 400; margin-bottom: 4px;">Check</p>
+                <div style="display: flex">
+                  <label class="container_checkbox info_checkbox">No
+                    <input type="checkbox" formControlName="check"
+                           value="'0'"
+                           [checked]="currentlyCheckedStatus === check_box_typeStatus.No"
+                           (click)="selectCheckBox(check_box_typeStatus.No)">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="container_checkbox success_checkbox">Yes
+                    <input type="checkbox" formControlName="check"
+                           value="'1'"
+                           [checked]="currentlyCheckedStatus === check_box_typeStatus.Yes"
+                           (click)="selectCheckBox(check_box_typeStatus.Yes)">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-info text-white" [disabled]="searchForm.invalid" type="submit">Search</button>
+            <button class="btn btn-danger" *ngIf="clickSearch != undefined" [disabled]="searchForm.invalid"
+                    type="button" style="margin-left: 11px"
+                    (click)="searchReset()">Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #childModal="bs-modal" [config]="{ ignoreBackdropClick: true }" (onHidden)="onHidden()" class="modal fade"
+     tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog" [ngClass]="requestType === 'delete' ? 'gray modal-sm' : requestType === 'view'  ? 'gray modal-lg' : 'gray modal-lg'">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="requestType != 'delete'">
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'add'">Create Sms</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'view'">View Sms</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'edit'">Edit Sms</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="requestType == 'view'">
+        <h3 *ngIf="viewData && viewData['from_user']">To user</h3>
+        <div class="column-size" *ngIf="viewData">
+          <p *ngIf="viewData?.user?.first_name"><b>First Name:</b> {{viewData?.user?.first_name}}</p>
+          <p *ngIf="viewData?.user?.last_name"><b>Last Name:</b> {{viewData?.user?.last_name}}</p>
+          <p *ngIf="viewData?.user?.nickname"><b>Nickname:</b> {{viewData?.user?.nickname}}</p>
+          <p *ngIf="viewData?.location"><b>Location:</b> {{viewData?.user?.location}}</p>
+          <p *ngIf="viewData?.user?.phone"><b>Phone:</b> {{viewData?.phone}}</p>
+          <p *ngIf="viewData?.user?.marital_status"><b>Marital status:</b> {{viewData?.user?.marital_status}}</p>
+          <p *ngIf="viewData?.verifying_otp_code"><b>Verify code:</b> {{viewData?.verifying_otp_code}}</p>
+          <p *ngIf="viewData?.verifying_otp_valid_datetime"><b>Verifying datetime:</b> {{viewData?.verifying_otp_valid_datetime | date:'yyyy-MM-dd hh:mm:ss'}}</p>
+          <p *ngIf="viewData?.created_at"><b>Created Date:</b> {{viewData?.created_at}}</p>
+          <p><b>Check:</b> {{viewData?.checked ? 'Yes': 'No'}}</p>
+          <p *ngIf="viewData?.user?.first_name"><b>Message:</b> <span [innerHTML]="viewData?.message"></span></p>
+        </div>
+        <h3 *ngIf="viewData && viewData['from_user']">From user</h3>
+        <div class="column-size mt-1" *ngIf="viewData && viewData['from_user']">
+          <p><b>First Name:</b> {{viewData?.from_user?.first_name}}</p>
+          <p><b>Last Name:</b> {{viewData?.from_user?.last_name}}</p>
+          <p><b>Phone:</b> {{viewData?.from_user?.phone}}</p>
+          <p><b>Location:</b> {{viewData?.from_user?.location}}</p>
+          <p><b>Created Date:</b> {{viewData?.from_user?.created_at}}</p>
+        </div>
+        <button type="button" class="btn btn-secondary float-right mr-2" (click)="hideChildModal()">Close</button>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'add' || requestType == 'edit'">
+        <form [formGroup]="modalForm">
+
+          <div class="row" formGroupName="translations">
+            <div class="col-6" *ngFor="let item of translationsForm.controls, let i = index" [formGroupName]="i">
+              <div class="form-group mb-4">
+                <label for="phone">{{objectKeys(item.value)[0]}} <strong class="text-danger">*</strong></label>
+                <input [formControlName]="objectKeys(item.value)[0]" type="text" class="form-control" id="phone" placeholder="{{objectKeys(item.value)[0]}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-12">
+              <div class="form-group mb-4">
+                <label for="Message">Message <strong class="text-danger">*</strong></label>
+
+                <textarea [formControlName]="'message'" id="Message" placeholder="Message"
+                          class="form-control">
+
+                </textarea>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('message').hasError('required') && (modalForm.get('message').dirty || modalForm.get('message').touched)">
+                  Please enter your message
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('message').hasError('minlength') && (modalForm.get('message').dirty || modalForm.get('message').touched)">
+                  The message minimum 1 symbol.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <p class="mb-2">Status</p>
+            <label class="switch switch-label switch-outline-primary-alt">
+              <input formControlName="status" class="switch-input" type="checkbox" checked="">
+              <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+            </label>
+          </div>
+
+          <button class="btn btn-success float-right" [disabled]="modalForm.invalid"
+                  (click)="formSubmit(modalForm.value)">Save
+          </button>
+          <button type="button" class="btn btn-secondary float-right mr-2" (click)="hideChildModal()">Close</button>
+
+        </form>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'delete'">
+        <p class="deletetext">Are you sure to delete this item?</p>
+        <div class="deletebutton">
+          <button class="btn btn-danger mr-1" (click)="delete()">Yes</button>
+          <button class="btn btn-primary ml-1" (click)="childModal.hide()">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

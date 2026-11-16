@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_page_background"
+    tools:context=".view.ReportActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarBase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:minHeight="?actionBarSize"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/toolbar_background"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance">
+
+
+            <Button
+                android:id="@+id/actionBarBack"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/icon_back_white"
+                android:drawablePadding="17dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/hay_roboto_bold"
+                android:maxLines="1"
+                android:text="@string/title_report"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidlineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="8dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidlineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="8dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerReportableUser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/report_frame_white"
+        android:elevation="5dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="@id/guidlineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidlineStart"
+        app:layout_constraintTop_toBottomOf="@id/appBarBase">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/reportableUserImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/siruk"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/reportableUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/hay_roboto_bold"
+            android:includeFontPadding="false"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/reportableUserProfession"
+            app:layout_constraintStart_toEndOf="@id/reportableUserImage"
+            app:layout_constraintTop_toTopOf="@id/reportableUserImage"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/reportableUserProfession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hay_roboto_regular"
+            android:text="@string/app_name"
+            android:textColor="@color/new_main_color"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/reportableUserImage"
+            app:layout_constraintStart_toStartOf="@id/reportableUserName"
+            app:layout_constraintTop_toBottomOf="@id/reportableUserName" />
+
+        <View
+            android:id="@+id/dividerView"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/report_divider_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/reportableUserImage" />
+
+        <TextView
+            android:id="@+id/reportableDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/hay_roboto_light"
+            android:text="Nov 4, 20.21"
+            android:textColor="@color/color_outcoming_reply_message_time"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/reportableUserImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/reportableUserImage" />
+
+        <TextView
+            android:id="@+id/reportableForumComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/hay_roboto_light"
+            android:includeFontPadding="false"
+            android:text="@string/forum_comment"
+            android:textColor="@color/color_outcoming_reply_message_time"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@id/reportableUserImage"
+            app:layout_constraintTop_toBottomOf="@id/dividerView" />
+
+        <TextView
+            android:id="@+id/reportableForumContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/hay_roboto_normal"
+            android:includeFontPadding="false"
+            android:text="@string/help_section_description_text_key"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/reportableForumComment" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/categorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/transparent"
+        android:gravity="start|center_vertical"
+        android:padding="10dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="4dp"
+        android:text="@string/report_spinner_title"
+        android:textColor="@color/share_button_gray"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/containerReportableUser"
+        app:spinner_arrow_animate="true"
+        app:spinner_arrow_animate_duration="200"
+        app:spinner_arrow_drawable="@drawable/icon_arrow_spinner"
+        app:spinner_arrow_gravity="end"
+        app:spinner_arrow_show="true"
+        app:spinner_arrow_tint="@color/new_main_icon_tint_color"
+        app:spinner_divider_color="@color/new_main_icon_tint_color"
+        app:spinner_divider_show="true"
+        app:spinner_divider_size="0.2dp"
+        app:spinner_popup_animation="normal"
+        app:spinner_popup_background="@color/login_page_background"
+        app:spinner_popup_elevation="14dp" />
+
+    <TextView
+        android:id="@+id/reportableEditTextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/hay_roboto_light"
+        android:includeFontPadding="false"
+        android:text="@string/forum_comment"
+        android:textColor="@color/color_outcoming_reply_message_time"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@id/containerReportableUser"
+        app:layout_constraintTop_toBottomOf="@id/categorySpinner" />
+
+    <EditText
+        android:id="@+id/editTextReport"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:gravity="top"
+        android:hint="@string/input"
+        android:imeActionLabel="Done"
+        android:imeOptions="actionDone"
+        android:minHeight="168dp"
+        android:paddingStart="0dp"
+        android:paddingTop="0dp"
+        android:paddingEnd="0dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/input_hint_color"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/containerReportableUser"
+        app:layout_constraintStart_toStartOf="@id/reportableEditTextTitle"
+        app:layout_constraintTop_toBottomOf="@id/reportableEditTextTitle" />
+
+    <Button
+        android:id="@+id/btnReport"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="152dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_border_fill"
+        android:backgroundTint="@color/new_main_color"
+        android:enabled="true"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:text="@string/text_btn_on_report"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/btnCancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:layout_marginTop="@dimen/_50sdp"
+        app:layout_constraintTop_toBottomOf="@id/editTextReport"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

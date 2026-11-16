@@ -1,0 +1,10 @@
+// Project-wide build settings.
+//
+// Lokalise over-the-air translations are optional. To enable them, copy
+// Secrets.example.xcconfig to Secrets.xcconfig and fill in your own values.
+// Without them, the app uses only the strings bundled in Resources/Translations.
+
+LOKALISE_PROJECT_ID =
+LOKALISE_TOKEN =
+
+#include? "Secrets.xcconfig"

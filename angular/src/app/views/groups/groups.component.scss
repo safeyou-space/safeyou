@@ -1,0 +1,14 @@
+.chat-block {
+  min-height: 300px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+.message-block {
+  margin-top: 3px;
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #bdcbd8;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border-top-left-radius: 0px;
+}

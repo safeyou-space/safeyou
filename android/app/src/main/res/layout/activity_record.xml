@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragmentsBackgroundColors"
+    android:orientation="vertical"
+    tools:context=".view.RecordActivity">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarRecording"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:minHeight="?actionBarSize"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarRecordings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/toolbar_background"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="14dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance">
+
+            <ImageView
+                android:id="@+id/notificationView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:contentDescription="@string/notifications_title_key"
+                android:padding="15dp"
+                android:src="@drawable/tollbar_notification_icon"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/searchIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:contentDescription="@string/search_iconDescription"
+                android:padding="15dp"
+                android:src="@drawable/search"
+                android:visibility="visible"
+                app:tint="@color/white" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <pro.fambox.materialsearchview.MaterialSearchView
+        android:id="@+id/searchView"
+        style="@style/MaterialSearchViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="44dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/txtAllContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="48dp"
+            android:minHeight="48dp">
+
+            <TextView
+                android:id="@+id/txtAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="26dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/recording_filter_pressed_background"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/title_all"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/txtSavedContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="48dp"
+            android:minHeight="48dp">
+
+            <TextView
+                android:id="@+id/txtSaved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="26dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/forum_filter_chip_background"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/title_saved_key"
+                android:textAllCaps="false"
+                android:textColor="@color/new_main_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/txtSendContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="48dp"
+            android:minHeight="48dp">
+
+            <TextView
+                android:id="@+id/txtSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="26dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/forum_filter_chip_background"
+                android:fontFamily="@font/hay_roboto_regular"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/send"
+                android:textAllCaps="false"
+                android:textColor="@color/new_main_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/dividerColor" />
+
+    <fambox.pro.utils.SwipeDisabledViewPager
+        android:id="@+id/recordViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuReport"
+        android:icon="@drawable/icon_report"
+        android:title="@string/report" />
+
+    <item
+        android:id="@+id/menuEdit"
+        android:icon="@drawable/icon_edit_comment"
+        android:title="@string/edit_key" />
+
+    <item
+        android:id="@+id/menuDelete"
+        android:icon="@drawable/icon_delete_comment"
+        android:title="@string/delete_key" />
+
+    <item
+        android:id="@+id/menuCopy"
+        android:icon="@drawable/icon_copy_comment"
+        android:title="@string/copy" />
+    <item
+        android:id="@+id/menuBlockUser"
+        android:icon="@drawable/block_icon"
+        android:title="@string/block_user" />
+</menu>

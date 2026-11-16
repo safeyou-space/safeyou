@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/action_reply"
+        android:title="reply"
+        app:showAsAction="always"
+        android:icon="@drawable/icon_toolbar_reply"
+        tools:ignore="AlwaysShowAction" />
+
+    <item
+        android:id="@+id/action_copy"
+        android:title="copy"
+        android:icon="@drawable/icon_toolbar_copy"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_info"
+        android:title="info"
+        android:icon="@drawable/icon_toolbar_info"
+        app:showAsAction="always" />
+</menu>

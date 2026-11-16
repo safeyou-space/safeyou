@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <form [formGroup]="searchGroupForm" class="d-inline-block" style="width: 300px">
+          <div class="form-group mb-3 d-inline">
+            <input formControlName="search" class="form-control" id="searchGroupForm" type="text" placeholder="Search">
+          </div>
+        </form>
+        <button class="btn btn-primary float-right pt-1 pb-1" (click)="openModal('add')">Add</button>
+      </div>
+      <div class="card-body">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+          <div class="row">
+            <div class="col-sm-12">
+
+              <no-result *ngIf="usersData && usersData['message']"></no-result>
+
+              <table *ngIf="usersData && !usersData['message']" class="table table-bordered table-striped table-sm indexTable" style="border-collapse: collapse !important">
+                <thead>
+                <tr role="row">
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th style="width: 150px">Created Date</th>
+                  <th style="width: 90px;">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" class="odd" *ngFor="let data of usersData, let i = index">
+                  <td>{{data?.title}}</td>
+                  <td>{{data?.description}}</td>
+                  <td>{{data?.created_at}}</td>
+                  <td class="actions">
+                    <a (click)="openModalWithClass('view', data.id)">
+                      <i class="fa fa-eye cursor-pointer"></i>
+                    </a>
+                    <a (click)="openModal('delete', data.id)">
+                      <i class="fa fa-close cursor-pointer"></i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <pagination
+                *ngIf="requestService.paginationConfig.totalItems > requestService.paginationConfig.perPage"
+                [totalItems]="requestService.paginationConfig.totalItems"
+                [maxSize]="requestService.paginationConfig.paginationMaxSize"
+                [itemsPerPage]="requestService.paginationConfig.perPage"
+                (pageChanged)="pageChanged($event)">
+              </pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isModalShown" [config]="{show: true, ignoreBackdropClick: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog" [ngClass]="requestType === 'delete' ? 'gray modal-sm' : requestType === 'view'  ? 'gray modal-lg' : 'gray modal-lg'">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="requestType != 'delete'">
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'view'">View Groups</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'add'">Add Groups</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="autoShownModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'add'">
+        <form [formGroup]="modalForm">
+
+          <div class="form-group mb-3">
+            <label for="title">Title <strong class="text-danger">*</strong></label>
+            <input formControlName="title" class="form-control" id="title" type="text" placeholder="Enter your title">
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="OrganizationDescription">Description <strong class="text-danger">*</strong></label>
+            <textarea formControlName="description" class="form-control" id="OrganizationDescription"  placeholder="Enter your description"></textarea>
+          </div>
+
+          <button class="btn btn-success float-right" [disabled]="modalForm.invalid" type="submit" (click)="formSubmit(modalForm.value)">Save</button>
+          <button type="button" class="btn btn-secondary float-right mr-2" (click)="autoShownModal.hide()">Close</button>
+        </form>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'view'">
+        <form [formGroup]="searchMessageForm">
+          <div class="form-group mb-3">
+            <label for="searchMessageForm">Search <strong class="text-danger">*</strong></label>
+            <input formControlName="search" class="form-control" id="searchMessageForm" type="text" placeholder="Search message">
+          </div>
+        </form>
+        <div class="chat-block">
+          <p *ngFor="let item of viewUsersData, let i = index">
+            <span class="d-block w-100 chat-message">
+              <img style="width: 36px; height: 36px; border-radius: 50%; display: inline-block; float: left; margin-right: 7px" src="{{item.user[0].image}}" alt="no image"/>
+              <span class="float-left" style="font-size: 11px; color: #707979;">{{item.user[0].nickname}}</span>
+              <br>
+              <span class="message-block">{{item.message}}</span>
+              <span><i title="Remove Message" class="fa fa-trash-o cursor-pointer align-top" (click)="smModal.show();modalBackdrop(item.id)" aria-hidden="true" style="margin-top: 3px;margin-left: 4px;"></i></span>
+              <span class="w-100 d-inline-block">
+                <span class="d-inline-block float-left" style="width: calc(50% - 100px); border-bottom: 1px solid;margin-top: 12px; border-color: #707979"></span>
+                <span class="d-inline-block float-left text-center" style="width: 200px;font-size: 12px; color: #707979;">{{item.created_at | date:'fullDate'}}</span>
+                <span class="d-inline-block float-left" style="width: calc(50% - 100px); border-bottom: 1px solid;margin-top: 12px; border-color: #707979"></span>
+              </span>
+            </span>
+          </p>
+        </div>
+        <div class="w-100">
+          <pagination
+            *ngIf="paginationConfig.totalItems > paginationConfig.perPage"
+            [totalItems]="paginationConfig.totalItems"
+            [maxSize]="paginationConfig.paginationMaxSize"
+            [itemsPerPage]="paginationConfig.perPage"
+            (pageChanged)="pageChanged($event, 'messageForm')">
+          </pagination>
+        </div>
+        <button type="button" class="btn btn-secondary float-right mr-2" (click)="autoShownModal.hide()">Close</button>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'delete'">
+        <p class="deletetext">Are you sure to delete this item?</p>
+        <div class="text-center">
+          <button class="btn btn-success mr-1" (click)="delete()">Yes</button>
+          <button class="btn btn-danger ml-1" (click)="autoShownModal.hide()">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div bsModal style="z-index: 1051!important;" #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name2">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="deletetext">Are you sure to delete this item?</p>
+        <div class="text-center">
+          <button class="btn btn-success mr-1" (click)="deleteMessage()">Yes</button>
+          <button class="btn btn-danger ml-1" (click)="showDeleteModal.hide()">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

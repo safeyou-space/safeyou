@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp">
+
+    <com.fambox.chatkit.utils.ShapeImageView
+        android:id="@id/messageUserAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@id/messageTime"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@id/bubble"
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:flexWrap="wrap"
+        app:justifyContent="flex_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="@dimen/message_outcoming_bubble_margin_left"
+        android:layout_marginRight="@dimen/message_outcoming_bubble_margin_left"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@id/messageUserAvatar"
+        android:layout_toRightOf="@id/messageUserAvatar"
+        android:elevation="5dp"
+        android:orientation="vertical">
+
+        <com.fambox.chatkit.utils.RoundedImageView
+            android:id="@id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true" />
+
+        <View
+            android:id="@id/imageOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/image"
+            android:layout_alignLeft="@id/image"
+            android:layout_alignTop="@id/image"
+            android:layout_alignEnd="@id/image"
+            android:layout_alignRight="@id/image"
+            android:layout_alignBottom="@id/image" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <TextView
+        android:id="@id/messageTime"
+        android:elevation="6dp"
+        android:fontFamily="@font/hay_roboto_light"
+        android:padding="10dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/image_time_background"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/bubble"
+        android:layout_alignEnd="@id/bubble"
+        android:layout_alignRight="@id/bubble" />
+
+</RelativeLayout>

@@ -1,0 +1,111 @@
+/*        
+ AllLocalizable.strings        
+ Custom Proj        
+
+ Created by Davit Shahnazaryan on --/--/-- .        
+ Copyright © 2018 BetConstruct. All rights reserved.        
+ */
+
+"LOC(@"about_us_title_key")" = "LOC(@"about_us_title_key")";
+
+"LOC(@"birth_date_title_key")" = "LOC(@"birth_date_title_key")";
+
+"LOC(@"cancel")" = "LOC(@"cancel")";
+
+"LOC(@"choose_from_gallery_title_key")" = "LOC(@"choose_from_gallery_title_key")";
+
+"LOC(@"choose_photo_title")" = "LOC(@"choose_photo_title")";
+
+"LOC(@"confirm_fake_pin_text_key")" = "LOC(@"confirm_fake_pin_text_key")";
+
+"LOC(@"confirm_password_text_key")" = "LOC(@"confirm_password_text_key")";
+
+"LOC(@"confirm_real_pin_text_key")" = "LOC(@"confirm_real_pin_text_key")";
+
+"LOC(@"done_key")" = "LOC(@"done_key")";
+
+"LOC(@"done")" = "LOC(@"done")";
+
+"LOC(@"emergency_contact_one_title_key")" = "LOC(@"emergency_contact_one_title_key")";
+
+"LOC(@"emergency_contact_three_title_key")" = "LOC(@"emergency_contact_three_title_key")";
+
+"LOC(@"emergency_contact_two_title_key")" = "LOC(@"emergency_contact_two_title_key")";
+
+"LOC(@"emergency_message_title_key")" = "LOC(@"emergency_message_title_key")";
+
+"LOC(@"enter_fake_pin_text_key")" = "LOC(@"enter_fake_pin_text_key")";
+
+"LOC(@"enter_real_pin_text_key")" = "LOC(@"enter_real_pin_text_key")";
+
+"LOC(@"error_text_key")" = "LOC(@"error_text_key")";
+
+"LOC(@"error")" = "LOC(@"error")";
+
+"LOC(@"fill_required_field_text_key")" = "LOC(@"fill_required_field_text_key")";
+
+"LOC(@"fill_required_fields_text_key")" = "LOC(@"fill_required_fields_text_key")";
+
+"LOC(@"first_name_title_key")" = "LOC(@"first_name_title_key")";
+
+"LOC(@"last_name_text_key")" = "LOC(@"last_name_text_key")";
+
+"LOC(@"log_out_title_key")" = "LOC(@"log_out_title_key")";
+
+"LOC(@"mobile_number_text_key")" = "LOC(@"mobile_number_text_key")";
+
+"LOC(@"my_profile_title")" = "LOC(@"my_profile_title")";
+
+"LOC(@"next_key")" = "LOC(@"next_key")";
+
+"LOC(@"next")" = "LOC(@"next")";
+
+"LOC(@"ngo_one_title_key")" = "LOC(@"ngo_one_title_key")";
+
+"LOC(@"ngo_three_title_key")" = "LOC(@"ngo_three_title_key")";
+
+"LOC(@"ngo_two_title_key")" = "LOC(@"ngo_two_title_key")";
+
+"LOC(@"nick_name_title_key")" = "LOC(@"nick_name_title_key")";
+
+"LOC(@"nickname")" = "LOC(@"nickname")";
+
+"LOC(@"ok")" = "LOC(@"ok")";
+
+"LOC(@"otp_info_text_key")" = "LOC(@"otp_info_text_key")";
+
+"LOC(@"password_text_key")" = "LOC(@"password_text_key")";
+
+"LOC(@"passwords_not_match_text_key")" = "LOC(@"passwords_not_match_text_key")";
+
+"LOC(@"pin_code_credentials_info_key")" = "LOC(@"pin_code_credentials_info_key")";
+
+"LOC(@"pin_code_only_digits_message_key")" = "LOC(@"pin_code_only_digits_message_key")";
+
+"LOC(@"pins_do_not_match_text_key")" = "LOC(@"pins_do_not_match_text_key")";
+
+"LOC(@"please_enter_valid_email_message_key")" = "LOC(@"please_enter_valid_email_message_key")";
+
+"LOC(@"please_enter_valid_number_message_key")" = "LOC(@"please_enter_valid_number_message_key")";
+
+"LOC(@"please_enter_valid_password_message_key")" = "LOC(@"please_enter_valid_password_message_key")";
+
+"LOC(@"police_title_key")" = "LOC(@"police_title_key")";
+
+"LOC(@"registration_title_key")" = "LOC(@"registration_title_key")";
+
+"LOC(@"remove_photo_title_key")" = "LOC(@"remove_photo_title_key")";
+
+"LOC(@"resend_otp_text_key")" = "LOC(@"resend_otp_text_key")";
+
+"LOC(@"resend")" = "LOC(@"resend")";
+
+"LOC(@"return_key")" = "LOC(@"return_key")";
+
+"LOC(@"submit_title_key")" = "LOC(@"submit_title_key")";
+
+"LOC(@"take_photo_title_key")" = "LOC(@"take_photo_title_key")";
+
+"LOC(@"verifying_otp_text_key")" = "LOC(@"verifying_otp_text_key")";
+
+"LOC(@"wrong_credentials_text_key")" = "LOC(@"wrong_credentials_text_key")";

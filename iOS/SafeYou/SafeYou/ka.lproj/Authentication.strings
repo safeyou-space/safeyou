@@ -1,0 +1,102 @@
+
+/* Class = "UILabel"; text = "FORGOT PASSWORD"; ObjectID = "2MN-gC-7kF"; */
+"2MN-gC-7kF.text" = "FORGOT PASSWORD";
+
+/* Class = "UILabel"; text = "Log In"; ObjectID = "3gI-1c-zzB"; */
+"3gI-1c-zzB.text" = "Log In";
+
+/* Class = "UITextField"; placeholder = "New Password"; ObjectID = "5Kj-Ds-w5F"; */
+"5Kj-Ds-w5F.placeholder" = "New Password";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "6m7-Cs-YbC"; */
+"6m7-Cs-YbC.normalTitle" = "Next";
+
+/* Class = "UILabel"; text = "Want to Hide the App from others? Then add a Dual Pin!\\n The Real PIN to access the app, and the Fake Pin to access Photo gallery.\\n Using the app without Dual Pin will make access quicker."; ObjectID = "7mT-D2-saL"; */
+"7mT-D2-saL.text" = "Want to Hide the App from others? Then add a Dual Pin!\\n The Real PIN to access the app, and the Fake Pin to access Photo gallery.\\n Using the app without Dual Pin will make access quicker.";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "8AT-FZ-Hte"; */
+"8AT-FZ-Hte.normalTitle" = "NEXT";
+
+/* Class = "UIButton"; normalTitle = "RESEND"; ObjectID = "BcR-j2-4JO"; */
+"BcR-j2-4JO.normalTitle" = "RESEND";
+
+/* Class = "UIButton"; normalTitle = "Forgot Password?"; ObjectID = "DO3-VH-1NT"; */
+"DO3-VH-1NT.normalTitle" = "Forgot Password?";
+
+/* Class = "UIButton"; normalTitle = "REQUEST NEW PASSWORD"; ObjectID = "GdL-dL-iRt"; */
+"GdL-dL-iRt.normalTitle" = "REQUEST NEW PASSWORD";
+
+/* Class = "UIButton"; normalTitle = "UPDATE PASSWORD"; ObjectID = "HQg-nb-TGh"; */
+"HQg-nb-TGh.normalTitle" = "UPDATE PASSWORD";
+
+/* Class = "UILabel"; text = "Enter Your Passcode"; ObjectID = "Hma-Ce-Ruc"; */
+"Hma-Ce-Ruc.text" = "Enter Your Passcode";
+
+/* Class = "UILabel"; text = "Verifying OTP"; ObjectID = "Imr-mR-dLo"; */
+"Imr-mR-dLo.text" = "Verifying OTP";
+
+/* Class = "UILabel"; text = "A 6 digit OTP has been send to number\n(055)-000000"; ObjectID = "KBO-zI-LxQ"; */
+"KBO-zI-LxQ.text" = "A 6 digit OTP has been send to number\n(055)-000000";
+
+/* Class = "UITextField"; placeholder = "Number of family members"; ObjectID = "KEq-te-0gA"; */
+"KEq-te-0gA.placeholder" = "Number of family members";
+
+/* Class = "UITextField"; placeholder = "Phone number"; ObjectID = "NBw-a9-TV0"; */
+"NBw-a9-TV0.placeholder" = "Phone number";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "NlH-Ye-FGB"; */
+"NlH-Ye-FGB.normalTitle" = "Cancel";
+
+/* Class = "UITextField"; placeholder = "Number of family members"; ObjectID = "OVc-Ia-efc"; */
+"OVc-Ia-efc.placeholder" = "Number of family members";
+
+/* Class = "UILabel"; text = "Monthly email statements skljhf slkdfh slkfhs lkfh slkdfh sklhf slkjfh  sfsblfjks lkfs lkjhf slkjhf slkjhf slkjh lkh "; ObjectID = "Q8s-sZ-Yvc"; */
+"Q8s-sZ-Yvc.text" = "Monthly email statements skljhf slkdfh slkfhs lkfh slkdfh sklhf slkjfh  sfsblfjks lkfs lkjhf slkjhf slkjhf slkjh lkh ";
+
+/* Class = "UILabel"; text = "I have read and agree to the terms and conditions and privacy policy"; ObjectID = "QBt-aI-Nfv"; */
+"QBt-aI-Nfv.text" = "I have read and agree to the terms and conditions and privacy policy";
+
+/* Class = "UITextField"; placeholder = "Confirm New Password"; ObjectID = "RIQ-6m-yTN"; */
+"RIQ-6m-yTN.placeholder" = "Confirm New Password";
+
+/* Class = "UILabel"; text = "Add Dual Pin"; ObjectID = "Rau-FL-3T3"; */
+"Rau-FL-3T3.text" = "Add Dual Pin";
+
+/* Class = "UILabel"; text = "New Password"; ObjectID = "UXh-6M-31w"; */
+"UXh-6M-31w.text" = "New Password";
+
+/* Class = "UILabel"; text = "Resend 6 digit OTP?   25s"; ObjectID = "VNo-Yl-z6A"; */
+"VNo-Yl-z6A.text" = "Resend 6 digit OTP?   25s";
+
+/* Class = "UITextField"; placeholder = "Number of family members"; ObjectID = "dlj-ch-g9y"; */
+"dlj-ch-g9y.placeholder" = "Number of family members";
+
+/* Class = "UIButton"; normalTitle = "CONTINUE WITHOUT DUAL PIN"; ObjectID = "eiQ-Od-Dbx"; */
+"eiQ-Od-Dbx.normalTitle" = "CONTINUE WITHOUT DUAL PIN";
+
+/* Class = "UILabel"; text = "Sign Up"; ObjectID = "gpn-VI-89o"; */
+"gpn-VI-89o.text" = "Sign Up";
+
+/* Class = "UIButton"; normalTitle = "REGISTER"; ObjectID = "kIq-8Y-fXe"; */
+"kIq-8Y-fXe.normalTitle" = "REGISTER";
+
+/* Class = "UIButton"; normalTitle = "LOGIN"; ObjectID = "njc-D3-IaI"; */
+"njc-D3-IaI.normalTitle" = "LOGIN";
+
+/* Class = "UILabel"; text = "ENTER OTP"; ObjectID = "o9f-De-4Eo"; */
+"o9f-De-4Eo.text" = "ENTER OTP";
+
+/* Class = "UIButton"; normalTitle = "SIGN UP"; ObjectID = "pSl-1g-5bo"; */
+"pSl-1g-5bo.normalTitle" = "SIGN UP";
+
+/* Class = "UITextField"; placeholder = "Phone number"; ObjectID = "tQb-pN-J6q"; */
+"tQb-pN-J6q.placeholder" = "Phone number";
+
+/* Class = "UIButton"; normalTitle = "ADD DUAL PIN"; ObjectID = "vt8-3d-7rk"; */
+"vt8-3d-7rk.normalTitle" = "ADD DUAL PIN";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "x7p-o6-sph"; */
+"x7p-o6-sph.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "zil-us-bd0"; */
+"zil-us-bd0.normalTitle" = "Save";

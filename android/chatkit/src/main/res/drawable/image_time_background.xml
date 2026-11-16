@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <item>
+        <shape android:shape="rectangle">
+            <corners
+                android:bottomLeftRadius="@dimen/image_bubble_corners_radius"
+                android:bottomRightRadius="@dimen/image_bubble_corners_radius"
+                android:topLeftRadius="@dimen/image_bubble_corners_radius"
+                android:topRightRadius="@dimen/image_bubble_corners_radius" />
+            <gradient
+                android:angle="135"
+                android:endColor="#00FFFFFF"
+                android:startColor="#66000000"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

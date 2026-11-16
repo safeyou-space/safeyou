@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "logo_safe_you_white.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

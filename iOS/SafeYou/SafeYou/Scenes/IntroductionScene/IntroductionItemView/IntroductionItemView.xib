@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IntroductionItemView">
+            <connections>
+                <outlet property="clickActionGesture" destination="Hc0-4n-BCz" id="5Cu-LM-XjP"/>
+                <outlet property="contentView" destination="a0d-yJ-z5d" id="nhe-hn-m6T"/>
+                <outlet property="iconImageView" destination="ZCM-nX-YzN" id="Jka-Ei-ZjB"/>
+                <outlet property="titleLabel" destination="pRv-lt-wLK" id="Ist-uG-mLA"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="104" height="145"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0d-yJ-z5d" userLabel="ContentView" customClass="SYDesignableView">
+                    <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="intro_icon_dual_pin" translatesAutoresizingMaskIntoConstraints="NO" id="ZCM-nX-YzN" customClass="SYDesignableImageView">
+                            <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="ZCM-nX-YzN" secondAttribute="height" multiplier="1:1" id="K5C-60-h2D"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imageColorType">
+                                    <integer key="value" value="18"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imageColorAlpha">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="ZCM-nX-YzN" firstAttribute="top" secondItem="a0d-yJ-z5d" secondAttribute="top" id="ANc-91-865"/>
+                        <constraint firstAttribute="bottom" secondItem="ZCM-nX-YzN" secondAttribute="bottom" id="bSb-fd-cal"/>
+                        <constraint firstItem="ZCM-nX-YzN" firstAttribute="leading" secondItem="a0d-yJ-z5d" secondAttribute="leading" id="cJC-zO-uu7"/>
+                        <constraint firstAttribute="trailing" secondItem="ZCM-nX-YzN" secondAttribute="trailing" id="yI9-gL-y3g"/>
+                        <constraint firstAttribute="width" secondItem="a0d-yJ-z5d" secondAttribute="height" multiplier="1:1" id="ylk-3F-idI"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorType">
+                            <integer key="value" value="9"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowColorType">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                            <real key="value" value="0.10000000000000001"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="52"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                            <size key="value" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dual PIN code and security" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRv-lt-wLK" customClass="SYLabelBold">
+                    <rect key="frame" x="4" y="112" width="96" height="33"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="textColorType">
+                            <integer key="value" value="22"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="textColorAlpha">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="a0d-yJ-z5d" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8fk-HM-vKR"/>
+                <constraint firstItem="a0d-yJ-z5d" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="PNv-f8-C8C"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="a0d-yJ-z5d" secondAttribute="trailing" id="WWM-9a-lM5"/>
+                <constraint firstAttribute="bottom" secondItem="pRv-lt-wLK" secondAttribute="bottom" id="ZCE-H3-pf3"/>
+                <constraint firstAttribute="trailing" secondItem="pRv-lt-wLK" secondAttribute="trailing" constant="4" id="cPA-sD-z9a"/>
+                <constraint firstItem="pRv-lt-wLK" firstAttribute="top" secondItem="a0d-yJ-z5d" secondAttribute="bottom" constant="8" id="gcJ-gT-lSf"/>
+                <constraint firstItem="pRv-lt-wLK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="k1F-ob-CfE"/>
+                <constraint firstItem="a0d-yJ-z5d" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="104:145" id="rXX-Xc-uPn"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="Hc0-4n-BCz" appends="YES" id="fmg-kn-MnS"/>
+            </connections>
+            <point key="canvasLocation" x="91.603053435114504" y="20.774647887323944"/>
+        </view>
+        <tapGestureRecognizer id="Hc0-4n-BCz">
+            <connections>
+                <action selector="itemClickedAction:" destination="-1" id="Ljg-Oe-feZ"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <designables>
+        <designable name="ZCM-nX-YzN">
+            <size key="intrinsicContentSize" width="41" height="41"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="intro_icon_dual_pin" width="41" height="41"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

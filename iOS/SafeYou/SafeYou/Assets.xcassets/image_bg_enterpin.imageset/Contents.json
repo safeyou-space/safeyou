@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "image_bg_enterpin.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

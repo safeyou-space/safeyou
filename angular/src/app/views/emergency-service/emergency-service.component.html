@@ -1,0 +1,617 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <span class="pt-1 pb-1">Emergency service</span>
+        <span *ngIf="searchMessage">/ {{searchMessage}}</span>
+        <button class="btn btn-danger pt-1 pb-1" *ngIf="clickSearch != undefined && searchMessage" [disabled]="searchForm.invalid"
+                type="button" style="margin-left: 11px"
+                (click)="searchReset()">Reset
+        </button>
+        <button class="btn btn-primary float-right pt-1 pb-1" (click)="showModal('add')">Add</button>
+      </div>
+      <div class="card-body">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+          <div class="row">
+            <div class="col-sm-12">
+
+              <no-result *ngIf="tableData && tableData['message']"></no-result>
+
+              <table *ngIf="tableData && !tableData['message']" class="table table-bordered table-striped table-sm indexTable" style="border-collapse: collapse !important">
+                <thead>
+                <tr role="row">
+                  <th style="width: 246px;">Title</th>
+                  <th style="width: 160px;">Email</th>
+                  <th style="width: 160px;">Phone</th>
+                  <th style="width: 160px;">Category</th>
+                  <th style="width: 65px">Image</th>
+                  <th style="width: 65px">Is send sms</th>
+                  <th style="width: 65px">Status</th>
+                  <th style="width: 60px">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" class="odd" *ngFor="let data of tableData, let i = index">
+                  <td> {{data?.title}}</td>
+                  <td> {{data?.user_detail?.email}}</td>
+                  <td> {{data?.user_detail?.phone}}</td>
+                  <td> {{data?.category_translation}}</td>
+                  <td><img style="width: 35px; max-height: 50px" src="{{data?.user_detail?.image?.url}}"/></td>
+                  <td>
+                    <label class="switch switch-label switch-outline-primary-alt">
+                      <input (change)="isSendSms(data.id, data.is_send_sms)" class="switch-input" type="checkbox" [checked]="data.is_send_sms == 1">
+                      <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+                    </label>
+                  </td>
+                  <td>
+                    <span *ngIf="data?.status == 1" class="badge badge-success">Active</span>
+                    <span *ngIf="data?.status == 0" class="badge badge-secondary">In active</span>
+                  </td>
+
+                  <td class="actions">
+                    <a (click)="showModal('view' , data.id)">
+                      <i class="fa fa-eye cursor-pointer"></i>
+                    </a>
+                    <a (click)="showModal('edit', data.id)">
+                      <i class="fa fa-pencil cursor-pointer"></i>
+                    </a>
+                    <a (click)="showModal('delete', data.id)">
+                      <i class="fa fa-close cursor-pointer"></i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <pagination
+                *ngIf="requestService.paginationConfig.totalItems > requestService.paginationConfig.perPage"
+                [totalItems]="requestService.paginationConfig.totalItems"
+                [maxSize]="requestService.paginationConfig.paginationMaxSize"
+                [itemsPerPage]="requestService.paginationConfig.perPage"
+                (pageChanged)="pageChanged($event)">
+              </pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ui-theme-settings" id="div" >
+  <button type="button" id="TooltipDemo" class="btn-open-options btn"
+          [ngClass]="searchMessage ? 'search_green' : ''" (click)="openLayout()">
+    <i class="fa fa-w-16 search_icon" [ngClass]="searchMessage ? 'fa-check-square-o' : 'fa-search'"></i>
+  </button>
+  <div class="theme-settings__inner">
+    <div class="scrollbar-container">
+      <div class="theme-settings__options-wrapper" style="padding: 11px;">
+        <h5 style="color: #73818f">Search</h5>
+        <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="emergency_service_category_id">Emergency service category</label>
+                <select [formControlName]="'emergency_service_category_id'" type="text" class="form-control search_form" id="emergency_service_category_id">
+                  <option value="null" selected hidden>Select category</option>
+                  <option value="">Please choose one</option>
+                  <option *ngFor="let item of emergencyCategoryList" value="{{item.id}}">{{item.value}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="phone_search">Phone</label>
+                <input formControlName="phone" class="form-control search_form" id="phone_search" type="text" placeholder="Enter phone">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('phone').hasError('maxlength') && (searchForm.get('phone').dirty || searchForm.get('phone').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="email_search">Email</label>
+                <input formControlName="email" class="form-control search_form" id="email_search" type="text" placeholder="Enter email">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('email').hasError('maxlength') && (searchForm.get('email').dirty || searchForm.get('email').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="title_search">Title</label>
+                <input formControlName="title" class="form-control search_form" id="title_search" type="text" placeholder="Enter title">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('title').hasError('maxlength') && (searchForm.get('title').dirty || searchForm.get('title').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="description_search">Description</label>
+                <input formControlName="description" class="form-control search_form" id="description_search" type="text" placeholder="Enter description">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('description').hasError('maxlength') && (searchForm.get('description').dirty || searchForm.get('description').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="address_search">Address</label>
+                <input formControlName="address" class="form-control search_form" id="address_search" type="text" placeholder="Enter address">
+                <div class="invalid-message"
+                     *ngIf="searchForm.get('address').hasError('maxlength') && (searchForm.get('address').dirty || searchForm.get('address').touched)">
+                  Invalid character count
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <p style="font-weight: 400; margin-bottom: 4px;">Status</p>
+                <div style="display: flex">
+                  <label class="container_checkbox info_checkbox">Inactive
+                    <input type="checkbox" formControlName="status"
+                           value="'0'"
+                           [checked]="currentlyCheckedStatus === check_box_typeStatus.Inactive"
+                           (click)="selectCheckBox(check_box_typeStatus.Inactive)">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="container_checkbox success_checkbox">Active
+                    <input type="checkbox" formControlName="status"
+                           value="'1'"
+                           [checked]="currentlyCheckedStatus === check_box_typeStatus.Active"
+                           (click)="selectCheckBox(check_box_typeStatus.Active)">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="container_checkbox danger_checkbox">Blocked
+                    <input type="checkbox" formControlName="status"
+                           value="'2'"
+                           [checked]="currentlyCheckedStatus === check_box_typeStatus.Blocked"
+                           (click)="selectCheckBox(check_box_typeStatus.Blocked)">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+
+              </div>
+              <div class="form-group is_verify">
+                <p style="font-weight: 400; margin-bottom: 4px;">Is send sms</p>
+                <div style="display: flex">
+                  <label class="container_checkbox danger_checkbox">No
+                    <input type="checkbox" formControlName="status"
+                           value="'0'"
+                           [checked]="currentlyCheckedSms === check_box_typeSms.No"
+                           (click)="selectCheckBoxSms(check_box_typeSms.No)">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="container_checkbox success_checkbox">Yes
+                    <input type="checkbox" formControlName="status"
+                           value="'1'"
+                           [checked]="currentlyCheckedSms === check_box_typeSms.Yes"
+                           (click)="selectCheckBoxSms(check_box_typeSms.Yes)">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="search_div">
+            <button class="btn btn-info text-white" [disabled]="searchForm.invalid" type="submit">Search</button>
+            <button class="btn btn-danger" *ngIf="clickSearch != undefined" [disabled]="searchForm.invalid"
+                    type="button" style="margin-left: 11px"
+                    (click)="searchReset()">Reset
+            </button>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" [config]="{ ignoreBackdropClick: true }" (onHidden)="onHidden()" class="modal fade"
+     tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog"
+       [ngClass]="requestType === 'delete' ? 'gray modal-sm' : requestType === 'view'  ? 'gray modal-lg' : 'gray modal-lg'">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="requestType != 'delete'">
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'edit'">Edit Emergency service</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'add'">Add Emergency service</h4>
+        <h4 class="modal-title pull-left" *ngIf="requestType == 'view'">View Emergency service</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'view'">
+        <div class="column-size" *ngIf="viewData">
+          <p><b>Title:</b> {{viewData?.title}}</p>
+          <p><b>Description:</b> {{viewData?.description}}</p>
+          <p><b>Email:</b> {{viewData?.user_detail?.email}}</p>
+          <p><b>Phone:</b> {{viewData?.user_detail?.phone}}</p>
+          <p><b>Location:</b> {{viewData?.user_detail?.location}}</p>
+          <p><b>Latitude:</b> {{viewData?.latitude}}</p>
+          <p><b>Longitude:</b> {{viewData?.longitude}}</p>
+          <p><b>Web address:</b> {{viewData?.web_address}}</p>
+          <p><b>Address:</b> {{viewData?.address}}</p>
+          <p><b>Emergency service category:</b> {{viewData?.category?.title}}</p>
+          <p><b>Status:</b> {{viewData?.status ? 'Active': 'Inactive'}}</p>
+        </div>
+        <div class="mt-3" *ngIf="viewData['social_links']">
+          <h4>Social Links</h4>
+          <p class="w-50 d-inline-block" *ngFor="let item of viewData['social_links']">
+            <span><b>Title: </b> {{item.title}} </span><br>
+            <span><b>Url :</b> {{item.url}} </span><br>
+            <span><b>Icon: </b> <img style="max-width: 35px" src="{{viewData?.icons[item.icon]}}" alt="{{item.name}}"> </span><br>
+            <span><b>Name: </b> {{item.name}} </span><br>
+          </p>
+        </div>
+        <button type="button" class="btn btn-secondary float-right mr-2" (click)="hideChildModal()">Close</button>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'add' || requestType == 'edit'">
+        <form [formGroup]="modalForm">
+          <div class="row">
+
+            <div class="col-12">
+              <div class="form-group mb-4">
+                <label for="first_name">Title <strong class="text-danger">*</strong></label>
+
+                <textarea [formControlName]="'title'" id="first_name" placeholder="Title"
+                          class="form-control"></textarea>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('title').hasError('required') && (modalForm.get('title').dirty || modalForm.get('title').touched)">
+                  Please enter your Title
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('title').hasError('minlength') && (modalForm.get('title').dirty || modalForm.get('title').touched)">
+                  The Title minimum 3 symbol.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group mb-4">
+                <label for="description">Description <strong class="text-danger">*</strong></label>
+                <textarea [formControlName]="'description'" id="description" placeholder="Description"
+                          class="form-control"></textarea>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('description').hasError('required') && (modalForm.get('description').dirty || modalForm.get('description').touched)">
+                  Please enter your Description.
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('description').hasError('minlength') && (modalForm.get('description').dirty || modalForm.get('description').touched)">
+                  The Description minimum 3 symbol.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="form-group mb-4">
+                <label for="phone">Phone <strong class="text-danger">*</strong></label>
+                <input [formControlName]="'phone'" type="text" class="form-control" id="phone" placeholder="Phone">
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('phone').hasError('required') && (modalForm.get('phone').dirty || modalForm.get('phone').touched)">
+                  Please enter your Phone.
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('phone').hasError('minlength') && (modalForm.get('phone').dirty || modalForm.get('phone').touched)">
+                  The Phone number minimum 9 symbol.
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('phone').hasError('pattern') && (modalForm.get('phone').dirty || modalForm.get('phone').touched)">
+                  The Phone number is invalid.
+                </div>
+              </div>
+
+                <div class="form-group mb-4">
+                  <label for="web_address">Web address</label>
+                  <input [formControlName]="'web_address'" type="text" class="form-control" id="web_address"
+                         placeholder="Web address">
+
+                  <div class="invalid-message"
+                       *ngIf="modalForm.get('web_address').hasError('required') && (modalForm.get('web_address').dirty || modalForm.get('web_address').touched)">
+                    Please enter your Web address.
+                  </div>
+
+                  <div class="invalid-message"
+                       *ngIf="modalForm.get('web_address').hasError('minlength') && (modalForm.get('web_address').dirty || modalForm.get('web_address').touched)">
+                    The Web address minimum 6 symbol.
+                  </div>
+                  <div class="invalid-message"
+                       *ngIf="modalForm.get('web_address').hasError('pattern') && (modalForm.get('web_address').dirty || modalForm.get('web_address').touched)">
+                    The Web address is invalid.
+                  </div>
+                </div>
+
+              <div class="form-group mb-4">
+                <label for="emergency_service_category">Network category <strong class="text-danger">*</strong></label>
+                <select [formControlName]="'emergency_service_category'" type="text" class="form-control" id="emergency_service_category">
+                  <option selected disabled hidden value="null">Network category</option>
+                  <option *ngFor="let item of emergencyCategoryList" value="{{item.id}}">{{item.value}}</option>
+                </select>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('emergency_service_category').hasError('required') && (modalForm.get('emergency_service_category').dirty || modalForm.get('emergency_service_category').touched)">
+                  Please enter your network category.
+                </div>
+              </div>
+
+            </div>
+            <div class="col-6">
+
+              <div class="form-group mb-4">
+                <label for="email">Email <strong class="text-danger">*</strong></label>
+                <input [formControlName]="'email'" type="email" class="form-control" id="email" placeholder="Email">
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('email').hasError('required') && (modalForm.get('email').dirty || modalForm.get('email').touched)">
+                  Please enter your Email.
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('email').hasError('pattern') && (modalForm.get('email').dirty || modalForm.get('email').touched)">
+                  Invalid email
+                </div>
+              </div>
+
+              <div class="form-group mb-4">
+                <label for="location">Location <strong class="text-danger">*</strong></label>
+                <input [formControlName]="'location'" type="text" class="form-control" id="location"
+                       placeholder="Location">
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('location').hasError('required') && (modalForm.get('location').dirty || modalForm.get('location').touched)">
+                  Please enter your Location.
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('location').hasError('minlength') && (modalForm.get('location').dirty || modalForm.get('location').touched)">
+                  The Location minimum 3 symbol.
+                </div>
+              </div>
+
+
+              <div class="form-group mb-4">
+                <label for="latitude">Latitude and Longitude <strong class="text-danger">*</strong></label>
+                <input [formControlName]="'latitudeAndLongitude'" type="text" class="form-control" id="latitude"
+                       placeholder="Latitude, Longitude">
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('latitudeAndLongitude').hasError('required') && (modalForm.get('latitudeAndLongitude').dirty || modalForm.get('latitudeAndLongitude').touched)">
+                  Please enter your Latitude and Longitude (Latitude(6), Longitude(6)).
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('latitudeAndLongitude').hasError('pattern') && (modalForm.get('latitudeAndLongitude').dirty || modalForm.get('latitudeAndLongitude').touched)">
+                  Invalid Latitude and Longitude
+                </div>
+              </div>
+
+
+
+            </div>
+
+            <div class="col-12">
+              <div class="form-group mb-4">
+                <label for="address">Address </label>
+                <input [formControlName]="'address'" type="text" class="form-control" id="address"
+                       placeholder="Address">
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('address').hasError('required') && (modalForm.get('address').dirty || modalForm.get('address').touched)">
+                  Please enter your address.
+                </div>
+
+                <div class="invalid-message"
+                     *ngIf="modalForm.get('address').hasError('minlength') && (modalForm.get('address').dirty || modalForm.get('address').touched)">
+                  The address minimum 6 symbol.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12" *ngIf="this.isSuperAdmin == 'true' || this.requestType == 'add'" [formGroup]="passwordsGroup">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="password">Password <strong *ngIf="requestType === 'add'"
+                                                           class="text-danger">*</strong></label>
+                    <input formControlName="password" class="form-control" id="password"
+                           type="password" placeholder="Enter your password">
+
+                    <div class="invalid-message"
+                         *ngIf="passwordsGroup.get('password').hasError('required') && (passwordsGroup.get('password').dirty || passwordsGroup.get('password').touched)">
+                      Password is required
+                    </div>
+
+                    <div class="invalid-message"
+                         *ngIf="passwordsGroup.get('password').hasError('minlength') && (passwordsGroup.get('password').dirty || passwordsGroup.get('password').touched)">
+                      Password Minimum 8 symbol
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="confirm_password">Confirm Password <strong *ngIf="requestType === 'add'"
+                                                                           class="text-danger">*</strong></label>
+                    <input formControlName="confirm_password" class="form-control" id="confirm_password"
+                           type="password" placeholder="Enter your confirm password">
+
+                    <div class="invalid-message"
+                         *ngIf="passwordsGroup.get('confirm_password').hasError('required') && (passwordsGroup.get('confirm_password').dirty || passwordsGroup.get('confirm_password').touched)">
+                      Conform Password is required
+                    </div>
+
+                    <div class="invalid-message"
+                         *ngIf="passwordsGroup.get('confirm_password').hasError('minlength') && (passwordsGroup.get('confirm_password').dirty || passwordsGroup.get('confirm_password').touched)">
+                      Conform Password Minimum 8 symbol
+                    </div>
+                    <div style="display: inline-block">
+                      <div class="invalid-message" *ngIf="passwordsGroup.hasError('notSame')">
+                        Conform Passwords don't Match
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12" style="max-height: 225px; overflow-x: auto;">
+              <div class="mb-2">
+                <img style="max-width: 35px; margin-right: 10px; padding: 4px"
+                     *ngFor="let data of objectKeys(socialImagespath)"
+                     [ngClass]="this.selectedSocialIcons.indexOf(data) != -1 ? 'selected-border' : ''"
+                     src="{{socialImagespath[data]}}" alt="{{data}}">
+                <h4 style="color: #9834b7; font-weight: 600; font-size: 18px; vertical-align: text-top"
+                      (click)="selectedList()"
+                      class="cursor-pointer mb-0 d-inline-block">
+                 Social Links <span style="font-size: 16px" class="text-secondary">Create / Edit</span>
+                  <span *ngIf="this.selectedSocialIcons.length">
+                    (<span *ngFor="let item of this.selectedSocialIcons">{{item}}, </span>)
+                  </span>
+                </h4>
+              </div>
+            </div>
+
+            <div class="col-12 mt-1">
+              <div class="form-group p-0">
+                <div class="upload-image">
+                  <label for="chooseFile2" class="chooseFile2">
+                    <img *ngIf="!imageValue && !editImagePath"  style="height: 100px; min-width: 110px;" src="{{imagePath}}" alt="Image">
+                    <img *ngIf="imageValue || editImagePath" height="100px" style="max-width: 100%; min-width: 110px;" src="{{imageValue ? imageValue : editImagePath}}" alt="Image">
+                    <p class="text-center mt-1 mb-0">Upload image</p>
+                  </label>
+
+                  <input style="display: none" type="file" formControlName="image" accept="image/x-png,image/gif,image/jpeg"
+                         (change)="fileUpload($event)" name="chooseFile" id="chooseFile2">
+
+                  <div class="invalid-message"
+                       *ngIf="modalForm.get('image').hasError('required') && (modalForm.get('image').dirty || modalForm.get('image').touched)">
+                    Please upload image
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex">
+            <div class="form-group">
+              <p class="mb-2">Status</p>
+              <label class="switch switch-label switch-outline-primary-alt">
+                <input formControlName="status" class="switch-input" type="checkbox" checked="">
+                <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+              </label>
+            </div>
+
+            <div class="form-group" style="margin-left: 50px">
+              <p class="mb-2">Is Send Sms</p>
+              <label class="switch switch-label switch-outline-primary-alt">
+                <input formControlName="is_send_sms" class="switch-input" type="checkbox" checked="">
+                <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
+              </label>
+            </div>
+          </div>
+
+
+          <button class="btn btn-success float-right" [disabled]="modalForm.invalid"
+                  (click)="formSubmit(modalForm.value)">Save
+          </button>
+          <button type="button" class="btn btn-secondary float-right mr-2" (click)="hideChildModal()">Close</button>
+
+        </form>
+      </div>
+
+      <div class="modal-body" *ngIf="requestType == 'delete'">
+        <p class="deletetext">Are you sure to delete this item?</p>
+        <div class="deletebutton">
+          <button class="btn btn-danger mr-1" (click)="delete()">Yes</button>
+          <button class="btn btn-primary ml-1" (click)="childModal.hide()">No</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div bsModal style="z-index: 1051!important;" [config]="{ ignoreBackdropClick: true }" #secondModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog" style="max-width: 620px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="secondModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="socialForm">
+          <div class="row">
+            <div class="col-12 mb-2">
+
+              <tabset #staticTabs>
+                <tab *ngFor="let item of socialImages, let i = index">
+                  <ng-template tabHeading><img [ngClass]="this.selectedSocialIcons.indexOf(item.name) != -1 ? 'selected-border' : ''" src="{{item.path}}" style="max-width: 35px; margin-right: 7px; padding: 4px;" alt="{{item.name}}"> <span style="font-size: 16px">{{item.name}}</span></ng-template>
+
+                  <div class="row" formGroupName="{{i}}">
+                    <div class="col-12">
+                      <div class="form-group mb-4">
+                        <label for="title">Title</label>
+                        <input [formControlName]="'title'" [required]="socialForm.get(i.toString()).get('url').value != '' && socialForm.get(i.toString()).get('url').value != null" type="text" class="form-control" id="title"
+                               placeholder="Title">
+                        <div class="invalid-message"
+                             *ngIf="socialForm.get(i.toString()).get('title').hasError('required') && (socialForm.get(i.toString()).get('title').dirty || socialForm.get(i.toString()).get('title').touched)">
+                          Please enter your Title.
+                        </div>
+
+                        <div class="invalid-message"
+                             *ngIf="socialForm.get(i.toString()).get('title').hasError('minlength') && (socialForm.get(i.toString()).get('title').dirty || socialForm.get(i.toString()).get('title').touched)">
+                          The Title minimum 1 symbol.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group mb-4">
+                        <label for="url">Url</label>
+                        <input [formControlName]="'url'" [required]="socialForm.get(i.toString()).get('title').value != '' && socialForm.get(i.toString()).get('title').value != null" type="text" class="form-control" id="url"
+                               placeholder="Url">
+
+                        <div class="invalid-message"
+                             *ngIf="socialForm.get(i.toString()).get('url').hasError('required') && (socialForm.get(i.toString()).get('url').dirty || socialForm.get(i.toString()).get('url').touched)">
+                          Please enter your Url.
+                        </div>
+
+                        <div class="invalid-message"
+                             *ngIf="socialForm.get(i.toString()).get('url').hasError('pattern') && (socialForm.get(i.toString()).get('url').dirty || socialForm.get(i.toString()).get('url').touched)">
+                          The Url is invalid.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button *ngIf="this.selectedSocialIcons.indexOf(item.name) != -1" class="btn btn-danger float-right" (click)="socialForm.get(i.toString()).reset()">
+                        Reset
+                      </button>
+                    </div>
+                  </div>
+                </tab>
+              </tabset>
+            </div>
+          </div>
+          <button class="btn btn-secondary float-right" [disabled]="socialForm.invalid"
+                  (click)="addSocialLinks(socialForm.value)">Close
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

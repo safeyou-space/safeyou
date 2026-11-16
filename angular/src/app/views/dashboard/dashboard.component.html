@@ -1,0 +1,235 @@
+<div class="animated fadeIn">
+  <span
+    *ngIf="isLoaded && (this.requestService.userInfo.isSuperAdmin == 'true' || this.requestService.userInfo.isAdmin == 'true')">
+    <div class="row">
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-white bg-info cursor-pointer chart-div m-b-0"
+             routerLink="/administrator/{{requestService.activeCountryCode}}/users">
+          <div class="card-body pb-0">
+            <button type="button" class="btn btn-transparent p-0 float-right">
+              <!--<i class="icon-location-pin"></i>-->
+              <i class="font-2xl nav-icon icon-user-female text-white"></i>
+            </button>
+            <div class="text-value">{{dashboardData?.users?.active + dashboardData?.users?.inactive + dashboardData?.users?.blocked}}</div>
+            <div>
+              Users
+            </div>
+          </div>
+          <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+            <canvas baseChart class="chart"
+                    [datasets]="lineChart2Data"
+                    [labels]="lineChart2Labels"
+                    [options]="lineChart2Options"
+                    [colors]="lineChart2Colours"
+                    [legend]="lineChart2Legend"
+                    [chartType]="lineChart2Type"></canvas>
+          </div>
+        </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-lg-3">
+      <div class="brand-card">
+      <div class="brand-card-header bg-google-plus">
+      <i class="font-2xl nav-icon icon-earphones-alt text-white"></i>
+        <a routerLink="/administrator/{{requestService.activeCountryCode}}/consultants"
+           class="font-weight-bold text-white ml-2 z-i-1">Consultants
+        </a>
+      <div class="chart-wrapper">
+      </div>
+      </div>
+      <div class="brand-card-body" style="height: 65px">
+      <div>
+      <div class="text-value">{{dashboardData?.consultants?.active}}</div>
+      <div class="text-uppercase active_color small">Active</div>
+      </div>
+      <div>
+      <div class="text-value">{{dashboardData?.consultants?.inactive}}</div>
+      <div class="text-uppercase inactive_color small">Inactive</div>
+      </div>
+      </div>
+      </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-lg-3">
+      <div class="brand-card">
+      <div class="brand-card-header bg-linkedin">
+      <i class="font-2xl nav-icon icon-globe-alt text-white"></i>
+        <a routerLink="/administrator/{{requestService.activeCountryCode}}/emergency-service"
+           class="font-weight-bold text-white ml-2 z-i-1">Emergencies
+        </a>
+      <div class="chart-wrapper">
+      </div>
+      </div>
+      <div class="brand-card-body" style="height: 65px">
+      <div>
+      <div class="text-value">{{dashboardData?.emergencies?.active}}</div>
+      <div class="text-uppercase active_color small">Active</div>
+      </div>
+      <div>
+      <div class="text-value">{{dashboardData?.emergencies?.inactive}}</div>
+      <div class="text-uppercase inactive_color small">Inactive</div>
+      </div>
+      </div>
+      </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-white bg-forum cursor-pointer chart-div m-b-0"
+             routerLink="/administrator/{{requestService.activeCountryCode}}/forum">
+          <div class="card-body pb-0">
+            <div class="btn-group float-right">
+              <button type="button" class="btn btn-transparent p-0">
+                <i class="fa fa-comments text-white font-2xl" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="text-value">{{dashboardData?.forums?.active + dashboardData?.forums?.inactive}}</div>
+            <div>
+              Forums
+            </div>
+          </div>
+          <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+            <canvas baseChart class="chart"
+                    [datasets]="barChart1Data"
+                    [labels]="barChart1Labels"
+                    [options]="barChart1Options"
+                    [colors]="barChart1Colours"
+                    [legend]="barChart1Legend"
+                    [chartType]="barChart1Type"></canvas>
+          </div>
+        </div>
+      </div>
+    </div><!--/.row-->
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-5">
+            <h4 class="card-title mb-0">Registered users within one year ({{this.activeUsersAndMessages['users']}})</h4>
+          </div><!--/.col-->
+          <div class="col-sm-7 d-none d-md-block">
+            <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+            </div>
+          </div><!--/.col-->
+        </div><!--/.row-->
+        <div class="chart-wrapper" style="height:300px;margin-top:40px;">
+          <canvas baseChart class="chart"
+                  [datasets]="mainChartData"
+                  [labels]="mainChartLabels"
+                  [options]="mainChartOptions"
+                  [colors]="mainChartColours"
+                  [legend]="mainChartLegend"
+                  [chartType]="mainChartType"></canvas>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row text-center">
+          <p style="margin: 0;float: left;color: #9834B7;font-weight: 700 !important; padding-left: 15px;">Years</p>
+          <div class="col-sm-12 col-md mb-sm-2 mb-0" *ngFor="let item of dateCount">
+            <div [ngClass]="this.activeUsersAndMessages['users'] == item.current ? 'font-weight-bold' : ''"
+                 class="text-muted cursor-pointer years" (click)="getYearChartData(item.current, 'users')">{{item.current}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-lg-3">
+        <div class="brand-card">
+          <div class="brand-card-header bg-facebook">
+              <i class="font-2xl nav-icon icon-layers text-white"></i>
+              <a routerLink="/administrator/{{requestService.activeCountryCode}}/category-consultants"
+                 class="font-weight-bold text-white ml-2" style="z-index: 1;">Consultant Categories</a>
+            <div class="chart-wrapper">
+            </div>
+          </div>
+          <div class="brand-card-body">
+            <div>
+              <div class="text-value">{{dashboardData?.consultants?.active}}</div>
+              <div class="text-uppercase active_color small">Active</div>
+            </div>
+            <div>
+              <div class="text-value">{{dashboardData?.consultants?.inactive}}</div>
+              <div class="text-uppercase inactive_color small">Inactive</div>
+            </div>
+          </div>
+        </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-lg-3">
+        <div class="brand-card">
+          <div class="brand-card-header bg-twitter">
+
+              <i class="font-2xl nav-icon icon-layers text-white"></i>
+              <a routerLink="/administrator/{{requestService.activeCountryCode}}/network-category"
+                 class="font-weight-bold text-white ml-2 z-i-1">Network Categories</a>
+
+            <div class="chart-wrapper">
+            </div>
+          </div>
+          <div class="brand-card-body">
+            <div>
+              <div class="text-value">{{dashboardData?.network_categories?.active}}</div>
+              <div class="text-uppercase active_color small">Active</div>
+            </div>
+            <div>
+              <div class="text-value">{{dashboardData?.network_categories?.inactive}}</div>
+              <div class="text-uppercase inactive_color small">Inactive</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <div class="col-sm-6 col-lg-3">
+        <div class="brand-card">
+          <div class="brand-card-header bg-sms">
+
+              <i class="font-2xl nav-icon icon-screen-smartphone text-white"></i>
+              <a routerLink="/administrator/{{requestService.activeCountryCode}}/sms"
+                 class="font-weight-bold text-white ml-2 z-i-1">Sms</a>
+
+            <div class="chart-wrapper">
+            </div>
+          </div>
+          <div class="brand-card-body">
+            <div>
+              <div class="text-value">{{dashboardData?.sms?.verifies}}</div>
+              <div class="text-uppercase inactive_color small">Verify</div>
+            </div>
+            <div>
+              <div class="text-value">{{dashboardData?.sms?.help}}</div>
+              <div class="text-uppercase help-color small">Help</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.row-->
+        <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-5">
+            <h4 class="card-title mb-0">Help Messages within one year ({{this.activeUsersAndMessages['messages']}})</h4>
+          </div><!--/.col-->
+          <div class="col-sm-7 d-none d-md-block">
+            <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons"></div>
+          </div><!--/.col-->
+        </div><!--/.row-->
+        <div class="chart-wrapper" style="height:300px;margin-top:40px;">
+          <canvas baseChart class="chart"
+                  [datasets]="mainChartData5"
+                  [labels]="mainChartLabels5"
+                  [options]="mainChartOptions5"
+                  [colors]="mainChartColours5"
+                  [legend]="mainChartLegend5"
+                  [chartType]="mainChartType5"></canvas>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row text-center">
+          <p style="margin: 0;float: left;color: #9834B7;font-weight: 700 !important; padding-left: 15px;">Years</p>
+          <div class="col-sm-12 col-md mb-sm-2 mb-0" *ngFor="let item of dateCount">
+            <div [ngClass]="this.activeUsersAndMessages['messages'] == item.current ? 'font-weight-bold' : ''"
+                 class="text-muted cursor-pointer years" (click)="getYearChartData(item.current, 'help')">
+              {{item.current}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </span>
+</div>

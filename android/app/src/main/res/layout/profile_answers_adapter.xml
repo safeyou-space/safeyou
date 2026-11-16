@@ -1,0 +1,60 @@
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/otherContainerElementsColor"
+    android:minHeight="69dp"
+    android:paddingVertical="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="0dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/answerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/hay_roboto_light"
+        android:gravity="start"
+        android:text='first Answer'
+        android:textColor="@color/settings_gray_color"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edtAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@color/transparent"
+        android:ems="15"
+        android:layout_marginTop="8dp"
+        android:gravity="top"
+        android:enabled="false"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:hint='first answer placeholder'
+        android:textColorHint="@color/input_hint_color"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/answerTitle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnAnswerDetails"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/toggle_selector"
+        android:padding="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/hay_roboto_light"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/statusBarColorPurpleDark"
+        android:tint="@color/new_main_icon_tint_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

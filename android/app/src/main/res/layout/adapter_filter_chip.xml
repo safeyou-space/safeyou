@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="24dp"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+    android:layout_marginStart="8dp"
+    android:background="@drawable/forum_filter_chip_background">
+
+    <TextView
+        android:id="@+id/chipName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/hay_roboto_regular"
+        android:maxEms="25"
+        android:maxLines="1"
+        android:textColor="@color/chip_text_black"
+        android:textSize="11sp"/>
+
+    <ImageButton
+        android:id="@+id/btnChipsClose"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/icon_close_forum_chip_filter"
+        android:contentDescription="@string/close_key" />
+
+</LinearLayout>

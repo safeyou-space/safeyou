@@ -1,0 +1,281 @@
+//
+//  AppDelegate.m
+//  SafeYou
+//
+//  Created by Garnik Simonyan on 8/12/19.
+//  Copyright © 2019 Garnik Simonyan. All rights reserved.
+//
+
+#import "AppDelegate.h"
+#import "UIColor+SyColors.h"
+#import "Settings/Settings.h"
+#import "MainTabbarController.h"
+#import <ContactsUI/ContactsUI.h>
+#import "ApplicationLaunchCoordinator.h"
+#import <CoreLocation/CoreLocation.h>
+#import <AFNetworking.h>
+#import "PhotoGalleryViewController.h"
+#import "SocketIOManager.h"
+#import "UIColor+UIImage.h"
+#import "SYLocalizationService.h"
+#import <UserNotifications/UserNotifications.h>
+
+@interface AppDelegate () <CLLocationManagerDelegate, UNUserNotificationCenterDelegate>
+
+@end
+
+@implementation AppDelegate
+
+@synthesize coordinator = _coordinator;
+
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
+    
+    [Settings sharedInstance];
+    [SYLocalization.sharedService start];
+    [self accessUserLocation];
+
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showInternetConnectionAlert) name:NoInternetConnectionNotificationName object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommonNetworkError:) name:CommonNetworkErrorNotificationName object:nil];
+    [self handleReachability];
+    
+    _coordinator = [[ApplicationLaunchCoordinator alloc] initWithRouter:self rootVC:(LaunchViewController *)self.window.rootViewController];
+    [self.coordinator start];
+    
+    [self authorizeForRemoteNotifications];
+    
+    [self clearBadgeIconCount];
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]) {
+        NSDictionary *notUserInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        [Settings sharedInstance].receivedRemoteNotification = [[RemoteNotification alloc] initWithDictionary:notUserInfo];
+    }
+    return YES;
+}
+
+
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+    return YES;
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+}
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    if ([Settings sharedInstance].isDualPinEnabled) {
+        id rootViewController = self.window.rootViewController;
+        if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
+            rootViewController = ((UINavigationController *)self.window.rootViewController).viewControllers.firstObject;
+        }
+        
+        if ([rootViewController isKindOfClass:[MainTabbarController class]] ||
+            [rootViewController isKindOfClass:[PhotoGalleryViewController class]]) {
+            [self.coordinator showLoginWithPin];
+        }
+    }
+}
+
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+}
+
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [SYLocalization.sharedService checkForUpdates];
+}
+
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+#pragma mark - Appearence
+
+- (void)configureNavibationBar
+{
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+    [appearance configureWithOpaqueBackground];
+    appearance.backgroundColor = [UIColor whiteColor];
+    [appearance setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor purpleColor1],
+       NSFontAttributeName:[UIFont boldFontOfSize:16]}];
+    [UINavigationBar appearance].standardAppearance = appearance;
+    [UINavigationBar appearance].scrollEdgeAppearance = [UINavigationBar appearance].standardAppearance;
+}
+
+- (void)configureNavibationBarAfterLogout
+{
+    [[UINavigationBar appearance] setTranslucent:YES];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor clearColor]];
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+}
+
+#pragma mark - Application main coordinator
+
+- (void)openApplication:(BOOL)isFromSignInFlow
+{
+    [[SocketIOManager sharedInstance] connect];
+    [self configureNavibationBar];
+    UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"MainTabbar" bundle:nil];
+    MainTabbarController *mainController = [mainStoryBoard instantiateViewControllerWithIdentifier:@"MainTabbarController"];
+    mainController.isFromSignInFlow = isFromSignInFlow;
+    [self setupAnimationWithDuration:0.3 transitionType:kCATransitionReveal andSubType:kCATransitionFade];
+    self.window.rootViewController = nil;
+    [self.window setRootViewController:mainController];
+}
+
+- (void)openFakeApplication
+{
+    [self configureNavibationBar];
+    UIStoryboard *fakeStoryboard = [UIStoryboard storyboardWithName:@"FakeApplication" bundle:nil];
+    UIViewController *initialVC = [fakeStoryboard instantiateViewControllerWithIdentifier:@"FakeViewNavigationController"];
+    
+    [self.window setRootViewController:initialVC];
+}
+
+
+#pragma mark - Internet Connection
+- (void)handleReachability
+{
+   [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+       switch (status) {
+           case AFNetworkReachabilityStatusNotReachable:
+               [[NSNotificationCenter defaultCenter] postNotificationName:InternetConnectionDidLost object:nil];
+               [self showInternetConnectionAlert];
+
+               break;
+               
+           case AFNetworkReachabilityStatusReachableViaWWAN:
+           case AFNetworkReachabilityStatusReachableViaWiFi:
+               [[NSNotificationCenter defaultCenter] postNotificationName:InternetConnectionDidConnected object:nil];
+               break;
+           case AFNetworkReachabilityStatusUnknown:
+               break;
+           default:
+               break;
+       }
+   }];
+
+   [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+}
+
+- (void)showInternetConnectionAlert
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:LOC(@"error_text_key") message:LOC(@"check_internet_connection_text_key") preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:LOC(@"ok") style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)showCommonNetworkError:(NSNotification *)notification
+{
+    NSString *errorMessage = (NSString *)notification.object;
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:LOC(@"error_text_key") message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:LOC(@"ok") style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - User Location
+
+- (void)accessUserLocation
+{
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    
+    self.locationManager.delegate = self;
+    [self.locationManager requestWhenInUseAuthorization];
+    [self.locationManager startUpdatingLocation];
+}
+
+
+#pragma mark - Window Transition Animation
+
+- (void)setupAnimationWithDuration:(CFTimeInterval)duration transitionType:(NSString*)transitionType andSubType:(NSString*)transitionSubType
+{
+    CATransition* transition = [CATransition animation];
+    transition.duration = duration;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+    transition.type = transitionType;
+    transition.subtype = transitionSubType;
+    transition.startProgress = 0;
+    transition.endProgress = 1;
+    [self.window.layer addAnimation:transition forKey:kCATransition];
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations API_AVAILABLE(ios(6.0), macos(10.9));
+{
+    CLLocation *firstLoaction = locations.firstObject;
+    if (![Settings sharedInstance].isLocationGranted) {
+        [Settings sharedInstance].isLocationGranted = YES;
+    }
+    [Settings sharedInstance].userLocation = firstLoaction;
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager
+didFailWithError:(NSError *)error
+{
+    [Settings sharedInstance].isLocationGranted = NO;
+}
+
+- (void)authorizeForRemoteNotifications
+{
+    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+    UNAuthorizationOptions authOptions = UNAuthorizationOptionAlert |
+    UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
+    [[UNUserNotificationCenter currentNotificationCenter]
+     requestAuthorizationWithOptions:authOptions
+     completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            });
+        }
+    }];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
+{
+    NSLog(@"Will present");
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
+{
+    NSDictionary *notUserInfo =  response.notification.request.content.userInfo;
+    [Settings sharedInstance].receivedRemoteNotification = [[RemoteNotification alloc] initWithDictionary:notUserInfo];
+    
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"Failed Device token");
+}
+
+- (void)clearBadgeIconCount
+{
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+}
+
+@end

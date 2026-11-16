@@ -1,0 +1,21 @@
+//
+//  SafeYou-Prefix.pch
+//  SafeYou
+//
+//  Created by Garnik Simonyan on 9/9/19.
+//  Copyright © 2019 Garnik Simonyan. All rights reserved.
+//
+
+#ifndef SafeYou_Prefix_pch
+#define SafeYou_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "Constants.h"
+#import "Utilities.h"
+#import "SYUIKit.h"
+#import "Settings.h"
+
+
+#endif /* SafeYou_Prefix_pch */
