@@ -5,6 +5,14 @@
 Impact Innovations Institute LLC
 # Website
 ## [Safeyou official website](https://safeyou.space/)
+# Policies and conduct
++ [Code of Conduct](CODE_OF_CONDUCT.md)
++ [Terms and Conditions](docs/policies/terms-and-conditions.md)
++ [Privacy Policy](docs/policies/privacy-policy.md)
++ [General Terms and Conditions on Content Development, Provision of Consulting and Online Moderation](docs/policies/content-consulting-and-moderation-terms.md)
+
+The Terms and Conditions cover the hosted Safe YOU service. The source code in this repository is covered by its license, the [GNU Affero General Public License v3.0](LICENSE).
+
 # Safe YOU mobile App description
 Safe YOU is a multifunctional safety app for mobile device users and a web platform for different stakeholders (NGOs, Governmental organizations, individual specialists), who provide support services to women to prevent and protect them in case violence. Available currently in Armenia and Georgia the App permits the users to send free alert SMS with their geolocation to up-to 7 prechosen contacts, including the Police.
 
